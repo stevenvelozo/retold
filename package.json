@@ -1,0 +1,37 @@
+{
+  "name": "retold",
+  "version": "0.0.0",
+  "description": "Common Application Services",
+  "main": "source/Retold.js",
+  "scripts": {
+    "start": "node source/Retold.js",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -u tdd -R spec",
+    "test": "./node_modules/mocha/bin/_mocha -u tdd -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stevenvelozo/retold.git"
+  },
+  "keywords": [
+    "logging"
+  ],
+  "author": "Steven Velozo <steven@velozo.com> (http://velozo.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stevenvelozo/retold/issues"
+  },
+  "homepage": "https://github.com/stevenvelozo/retold",
+  "devDependencies": {
+    "async": "0.9.0",
+    "chai": "2.0.0",
+    "codeclimate-test-reporter": "0.0.4",
+    "coveralls": "2.11.2",
+    "istanbul": "0.3.5",
+    "mocha": "2.1.0"
+  },
+  "dependencies": {
+    "fable": "^0.1.6",
+    "meadow": "^0.1.12",
+    "meadow-endpoints": "^0.1.12"
+  }
+}
