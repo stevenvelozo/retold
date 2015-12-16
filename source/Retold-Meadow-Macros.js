@@ -53,7 +53,7 @@ var MeadowMacros = function()
 		 * @method getMeadowEndpoints
 		 * @param {Object} pDAL A Meadow DAL (or a string for a DAL to load)
 		 */
-		var getMeadowEndpoints = function(pDAL)
+		var getMeadowEndpoints = function(pDAL, pOrator)
 		{
 			var tmpDAL = pDAL;
 			if (typeof(tmpDAL) === 'string')
@@ -70,7 +70,15 @@ var MeadowMacros = function()
 
 			try
 			{
-				return libMeadowEndpoints.new(tmpDAL);
+				var tmpEndPoints = libMeadowEndpoints.new(tmpDAL);
+
+				if ((typeof(pOrator) === 'object') && pOrator.hasOwnProperty('webServer'))
+				{
+					// Automatically connect the routes, since orator was passed in
+					tmpEndPoints.connectRoutes(pOrator.webServer);
+				}
+
+				return tmpEndPoints;
 			}
 			catch(pError)
 			{
