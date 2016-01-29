@@ -1,6 +1,6 @@
 {
   "name": "retold",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Common Application Services",
   "main": "source/Retold.js",
   "scripts": {
