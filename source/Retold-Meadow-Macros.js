@@ -21,10 +21,13 @@ var MeadowMacros = function()
 
 		var _Fable = pFable;
 
+
 		var libMeadow = require('meadow').new(pFable);
 		var libMeadowEndpoints = require('meadow-endpoints');
 
-		// TODO: Create a DAL cache object
+		// The DAL cache object
+		var _DALCache = {};
+		var _MeadowEndpointCache = false;
 
 		/**
 		 * Get a DAL for a particular schema.
@@ -35,15 +38,22 @@ var MeadowMacros = function()
 		var getDAL = function(pSchemaName)
 		{
 			var tmpSchemaJSONPath = _Fable.settings.MeadowSchemaFilePrefix+pSchemaName+'.json';
-			try
+			if (_DALCache.hasOwnProperty(pSchemaName))
 			{
-				// TODO: These need to be cached so we aren't loading them every request.  Maybe?
-				return libMeadow.loadFromPackage(tmpSchemaJSONPath);
+				return _DALCache[pSchemaName];
 			}
-			catch(pError)
+			else
 			{
-				_Fable.log.error('Schema Load Error: '+pError, {Schema:pSchemaName});
-				return false;
+				try
+				{
+					// TODO: These need to be cached so we aren't loading them every request.  Maybe?
+					return libMeadow.loadFromPackage(tmpSchemaJSONPath);
+				}
+				catch(pError)
+				{
+					_Fable.log.error('Schema Load Error: '+pError, {Schema:pSchemaName});
+					return false;
+				}
 			}
 		};
 
@@ -138,7 +148,15 @@ var MeadowMacros = function()
 			if (0 === pBundle.Begin % (!isNaN(parseFloat(pBundle.Begin)) && 0 <= ~~pBundle.Begin))
 				tmpQuery.setBegin(pBundle.Begin);
 
-			// TODO: Write a FilterString deserializer/serializer
+			var tmpFilterString = (typeof(pBundle.Filter) === 'string') ? pBundle.Filter : null;
+			if (tmpFilterString !== null)
+			{
+				// Lazily create an endpoint object with an empty DAL to use for parseFilter
+				if (!_MeadowEndpointCache)
+					_MeadowEndpointCache = libMeadowEndpoints(libMeadow);
+				// Parse the filter
+				_MeadowEndpointCache.parseFilter(tmpFilterString, tmpQuery);
+			}
 
 			tmpDAL.doReads(tmpQuery, fCallBack);
 		};
