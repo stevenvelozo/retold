@@ -153,7 +153,9 @@ var MeadowMacros = function()
 			{
 				// Lazily create an endpoint object with an empty DAL to use for parseFilter
 				if (!_MeadowEndpointCache)
-					_MeadowEndpointCache = libMeadowEndpoints(libMeadow);
+				{
+					_MeadowEndpointCache = libMeadowEndpoints.new(libMeadow);
+				}
 				// Parse the filter
 				_MeadowEndpointCache.parseFilter(tmpFilterString, tmpQuery);
 			}
@@ -209,7 +211,18 @@ var MeadowMacros = function()
 			var tmpDAL = getDAL(pBundle.SchemaName);
 
 			var tmpQuery = tmpDAL.query;
-			// TODO: Write a FilterString deserializer/serializer
+
+			var tmpFilterString = (typeof(pBundle.Filter) === 'string') ? pBundle.Filter : null;
+			if (tmpFilterString !== null)
+			{
+				// Lazily create an endpoint object with an empty DAL to use for parseFilter
+				if (!_MeadowEndpointCache)
+				{
+					_MeadowEndpointCache = libMeadowEndpoints.new(libMeadow);
+				}
+				// Parse the filter
+				_MeadowEndpointCache.parseFilter(tmpFilterString, tmpQuery);
+			}
 
 			tmpDAL.doCount(tmpQuery, fCallBack);
 		};
