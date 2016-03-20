@@ -125,7 +125,26 @@ var MeadowMacros = function()
 			// TODO: Validate pBundle
 			var tmpDAL = getDAL(pBundle.SchemaName);
 
-			tmpDAL.doRead(tmpDAL.query.addFilter(tmpDAL.defaultIdentifier, pBundle.IDRecord), fCallBack);
+			var tmpQuery = tmpDAL.query;
+
+			var tmpFilterString = (typeof(pBundle.Filter) === 'string') ? pBundle.Filter : null;
+			if (tmpFilterString !== null)
+			{
+				// Lazily create an endpoint object with an empty DAL to use for parseFilter
+				if (!_MeadowEndpointCache)
+				{
+					_MeadowEndpointCache = libMeadowEndpoints.new(libMeadow);
+				}
+				// Parse the filter
+				_MeadowEndpointCache.parseFilter(tmpFilterString, tmpQuery);
+			}
+			else
+			{
+				// Expect an IDRecord otherwise.
+				tmpQuery.addFilter(tmpDAL.defaultIdentifier, pBundle.IDRecord);
+			}
+
+			tmpDAL.doRead(tmpQuery, fCallBack);
 		};
 
 		/**
@@ -194,7 +213,7 @@ var MeadowMacros = function()
 			// TODO: Validate pBundle
 			var tmpDAL = getDAL(pBundle.SchemaName)
 							.setIDUser(pBundle.IDUser);
-			var tmpQuery = tmpDAL.query.addFilter(tmpDAL.defaultIdentifier, pBundle.IDRecord).setLogLevel(5);
+			var tmpQuery = tmpDAL.query.addFilter(tmpDAL.defaultIdentifier, pBundle.IDRecord);
 			tmpDAL.doDelete(tmpQuery, fCallBack);
 		};
 
