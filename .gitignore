@@ -1,3 +1,31 @@
+modules/fable/fable
+modules/fable/fable-log
+modules/fable/fable-settings
+modules/fable/fable-uuid
+modules/meadow/foxhound
+modules/meadow/meadow
+modules/meadow/meadow-endpoints
+modules/meadow/retold-data-service
+modules/meadow/stricture
+modules/orator/orator
+modules/orator/orator-serviceserver-restify
+modules/orator/tidings
+modules/pict/cryptbrau
+modules/pict/informary
+modules/pict/pict
+modules/utility/cachetrax
+modules/utility/choreographic
+modules/utility/cumulation
+modules/utility/elucidator
+modules/utility/manyfest
+modules/utility/merquerial
+modules/utility/precedent
+modules/utility/quantifier
+
+
+# Agh macintosh...
+.DS_Store
+
 # Logs
 logs
 *.log
