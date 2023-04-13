@@ -21,7 +21,7 @@ modules/utility/manyfest
 modules/utility/merquerial
 modules/utility/precedent
 modules/utility/quantifier
-
+modules/utility/data-arithmatic
 
 # Agh macintosh...
 .DS_Store

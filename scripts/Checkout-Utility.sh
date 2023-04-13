@@ -12,5 +12,6 @@ check_out_repository "utility" "cachetrax"
 check_out_repository "utility" "cumulation"
 check_out_repository "utility" "merquerial"
 check_out_repository "utility" "quantifier"
+check_out_repository "utility" "data-arithmatic"
 
 echo "--> Utility module Checkout complete..."

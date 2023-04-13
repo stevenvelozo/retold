@@ -12,5 +12,6 @@ status_repository "utility" "cachetrax"
 status_repository "utility" "cumulation"
 status_repository "utility" "merquerial"
 status_repository "utility" "quantifier"
+status_repository "utility" "data-arithmatic"
 
 echo "--> Utility module Status Check complete..."

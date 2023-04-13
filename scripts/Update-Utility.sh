@@ -12,5 +12,6 @@ update_repository "utility" "cachetrax"
 update_repository "utility" "cumulation"
 update_repository "utility" "merquerial"
 update_repository "utility" "quantifier"
+update_repository "utility" "data-arithmatic"
 
 echo "--> Utility module Update complete..."
