@@ -2,6 +2,7 @@ modules/fable/fable
 modules/fable/fable-log
 modules/fable/fable-settings
 modules/fable/fable-uuid
+modules/fable/fable-serviceproviderbase
 modules/meadow/foxhound
 modules/meadow/meadow
 modules/meadow/meadow-endpoints
