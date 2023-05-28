@@ -6,6 +6,7 @@ modules/fable/fable-serviceproviderbase
 modules/meadow/foxhound
 modules/meadow/meadow
 modules/meadow/meadow-endpoints
+modules/meadow/meadow-connection-mysql
 modules/meadow/retold-data-service
 modules/meadow/stricture
 modules/orator/orator
@@ -14,6 +15,7 @@ modules/orator/tidings
 modules/pict/cryptbrau
 modules/pict/informary
 modules/pict/pict
+modules/pict/pict-chance
 modules/utility/cachetrax
 modules/utility/choreographic
 modules/utility/cumulation
@@ -22,6 +24,7 @@ modules/utility/manyfest
 modules/utility/merquerial
 modules/utility/precedent
 modules/utility/quantifier
+modules/utility/quackage
 modules/utility/data-arithmatic
 
 # Agh macintosh...
