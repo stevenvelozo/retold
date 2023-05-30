@@ -8,7 +8,7 @@ repositoriesMeadow=("stricture" "foxhound" "meadow" "meadow-endpoints" "retold-d
 
 repositoriesOrator=("orator" "orator-serviceserver-restify" "tidings")
 
-repositoriesPict=("pict" "cryptbrau" "informary" "pict-chance")
+repositoriesPict=("pict" "cryptbrau" "informary" "pict-chance" "pict-section-tuigrid")
 
 repositoriesUtility=("precedent" "manyfest" "choreographic" "elucidator" "cachetrax" "cumulation" "merquerial" "quantifier" "quackage")
 
