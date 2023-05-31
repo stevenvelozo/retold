@@ -1,3 +1,11 @@
+modules/meadow/retold-harness
+modules/pict/pict-application
+modules/pict/pict-section-tuigrid-inline
+modules/pict/pict-view
+modules/pict/pict-section-content
+modules/pict/pict-section-form
+modules/pict/pict-control-mousetrap
+modules/pict/pict-control-ldloader
 modules/pict/pict-section-tuigrid
 modules/fable/fable
 modules/fable/fable-log
