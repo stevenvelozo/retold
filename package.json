@@ -1,37 +1,48 @@
 {
-  "name": "retold",
-  "version": "1.0.5",
-  "description": "Common Application Services",
-  "main": "source/Retold.js",
-  "scripts": {
-    "start": "node source/Retold.js",
-    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -u tdd -R spec",
-    "test": "./node_modules/mocha/bin/_mocha -u tdd -R spec"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/stevenvelozo/retold.git"
-  },
-  "keywords": [
-    "logging"
-  ],
-  "author": "Steven Velozo <steven@velozo.com> (http://velozo.com/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/stevenvelozo/retold/issues"
-  },
-  "homepage": "https://github.com/stevenvelozo/retold",
-  "devDependencies": {
-    "async": "0.9.0",
-    "chai": "2.0.0",
-    "codeclimate-test-reporter": "0.0.4",
-    "coveralls": "2.11.2",
-    "istanbul": "0.3.5",
-    "mocha": "2.1.0"
-  },
-  "dependencies": {
-    "fable": "~1.0.1",
-    "meadow": "~1.0.1",
-    "meadow-endpoints": "~1.0.1"
-  }
+    "name": "retold",
+    "version": "3.0.0",
+    "description": "Common Application Services",
+    "main": "source/Retold.js",
+    "scripts": {
+        "start": "node source/Retold.js",
+        "coverage": "./node_modules/.bin/nyc --reporter=lcov --reporter=text-lcov ./node_modules/mocha/bin/_mocha -- -u tdd -R spec",
+        "test": "./node_modules/.bin/mocha -u tdd -R spec",
+        "build": "npx quack build",
+        "docker-dev-build": "docker build ./ -f Dockerfile_LUXURYCode -t retold-image:local",
+        "docker-dev-run": "docker run -it -d --name retold-dev -p 30001:8080 -p 38086:8086 -v \"$PWD/.config:/home/coder/.config\"  -v \"$PWD:/home/coder/retold\" -u \"$(id -u):$(id -g)\" -e \"DOCKER_USER=$USER\" retold-image:local",
+        "docker-dev-shell": "docker exec -it retold-dev /bin/bash"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/stevenvelozo/retold.git"
+    },
+    "keywords": [],
+    "author": "Steven Velozo <steven@velozo.com> (http://velozo.com/)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/stevenvelozo/retold/issues"
+    },
+    "homepage": "https://github.com/stevenvelozo/retold",
+    "devDependencies": {
+        "quackage": "^1.0.13"
+    },
+    "dependencies": {},
+    "mocha": {
+        "diff": true,
+        "extension": [
+            "js"
+        ],
+        "package": "./package.json",
+        "reporter": "spec",
+        "slow": "75",
+        "timeout": "5000",
+        "ui": "tdd",
+        "watch-files": [
+            "source/**/*.js",
+            "test/**/*.js"
+        ],
+        "watch-ignore": [
+            "lib/vendor"
+        ]
+    }
 }

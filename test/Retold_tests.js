@@ -1,54 +1,36 @@
 /**
 * Unit tests for Retold
-*
-* @license     MIT
-*
-* @author      Steven Velozo <steven@velozo.com>
+* @author Steven Velozo <steven@velozo.com>
 */
 
-var Chai = require("chai");
-var Expect = Chai.expect;
-var Assert = Chai.assert;
+const Chai = require("chai");
+const Expect = Chai.expect;
 
-
-var _MockSettings = (
-{
-	Product: 'MockRetold',
-	ProductVersion: '0.0.0'
-});
+const libRetold = require('../source/Retold.js');
 
 suite
-(
-	'Retold',
-	function()
-	{
-		var _Fable;
-
-		setup
-		(
-			function()
-			{
-				_Fable = require('fable').new(_MockSettings);
-			}
-		);
+	(
+		'Retold',
+		() =>
+		{
+			setup(() => { });
 
 
-		suite
-		(
-			'Object Sanity',
-			function()
-			{
-				test
+			suite
 				(
-					'The class should initialize itself into a happy little object.',
-					function()
+					'Object Sanity',
+					() =>
 					{
-						testFable = require('../source/Retold.js').new();
-						// Instantiate the logger
-						Expect(testFable).to.be.an('object', 'Retold should initialize as an object directly from the require statement.');
+						test
+							(
+								'The class should initialize itself into a happy little object.',
+								function ()
+								{
+									testRetold = new libRetold();
+									Expect(testRetold).to.be.an('object', 'Go class go.');
+								}
+							);
 					}
 				);
-			}
-		);
-	}
-);
+		}
+	);
