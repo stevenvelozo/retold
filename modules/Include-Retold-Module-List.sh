@@ -8,7 +8,7 @@ repositoriesMeadow=("stricture" "foxhound" "meadow" "meadow-endpoints" "meadow-c
 
 repositoriesOrator=("orator" "orator-serviceserver-restify" "tidings")
 
-repositoriesPict=("pict" "pict-view" "pict-application" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-chance" "pict-section-content" "pict-section-form" "pict-section-tuigrid" "pict-section-tuigrid-inline" "pict-control-ldloader" "pict-control-ldloader-inline" "pict-control-mousetrap" "pict-control-mousetrap-inline" "pict-control-materialdesignlite" "pict-control-materialdesignlite-inline" "pict-control-micromodal" "pict-control-micromodal-inline")
+repositoriesPict=("pict" "pict-view" "pict-application" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-chance" "pict-section-content" "pict-section-form" "pict-section-tuigrid" "pict-control-ldloader" "pict-control-mousetrap" "pict-control-materialdesignlite" "pict-control-micromodal" "pict-router")
 
 repositoriesUtility=("precedent" "manyfest" "choreographic" "elucidator" "cachetrax" "cumulation" "merquerial" "quantifier" "quackage")
 
