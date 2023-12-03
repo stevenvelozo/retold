@@ -22,6 +22,7 @@ modules/utility/precedent
 modules/utility/quantifier
 modules/utility/quackage
 modules/utility/data-arithmatic
+modules/utility/pict-*
 
 # Agh macintosh...
 .DS_Store
