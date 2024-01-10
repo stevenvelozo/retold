@@ -1,4 +1,4 @@
-Retold-Module-List.sh
+#!/bin/bash
 
 echo "### Building list sof modules..."
 
@@ -8,7 +8,7 @@ repositoriesMeadow=("stricture" "foxhound" "meadow" "meadow-endpoints" "meadow-c
 
 repositoriesOrator=("orator" "orator-serviceserver-restify" "tidings")
 
-repositoriesPict=("pict" "pict-view" "pict-application" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-chance" "pict-section-content" "pict-section-form" "pict-section-tuigrid" "pict-control-ldloader" "pict-control-mousetrap" "pict-control-materialdesignlite" "pict-control-micromodal" "pict-router")
+repositoriesPict=("pict" "pict-view" "pict-application" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-chance" "pict-section-content" "pict-section-form" "pict-section-tuigrid" "pict-router")
 
 repositoriesUtility=("precedent" "manyfest" "choreographic" "elucidator" "cachetrax" "cumulation" "merquerial" "quantifier" "quackage" "pict-cruisecontrol")
 
