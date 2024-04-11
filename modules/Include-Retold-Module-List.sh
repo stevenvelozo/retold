@@ -4,7 +4,7 @@ echo "### Building list sof modules..."
 
 repositoriesFable=("fable" "fable-log" "fable-settings" "fable-uuid" "fable-serviceproviderbase" "fable-log-logger-bunyan")
 
-repositoriesMeadow=("stricture" "foxhound" "meadow" "meadow-endpoints" "meadow-connection-mysql" "meadow-connection-mssql" "retold-data-service" "retold-harness" "meadow-service-sync")
+repositoriesMeadow=("stricture" "foxhound" "meadow" "meadow-endpoints" "meadow-connection-mysql" "meadow-connection-mssql" "retold-data-service" "retold-harness" "meadow-integration")
 
 repositoriesOrator=("orator" "orator-serviceserver-restify" "tidings")
 
