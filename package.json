@@ -43,5 +43,8 @@
         "watch-ignore": [
             "lib/vendor"
         ]
+    },
+    "dependencies": {
+        "readline": "^1.3.0"
     }
 }
