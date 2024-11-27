@@ -7,7 +7,7 @@ echo "### Checking out Retold modules into: [$(pwd)/..."
 # This function attempts to checkout a repository from github relative to the current script folder
 check_out_repository()
 {
-	echo "###--> attempting to check out the repository for $2 in $1"
+#	echo "###--> attempting to check out the repository for $2 in $1"
 	CWD=$(pwd)
 	if [ -d "$CWD/$1/$2" ] 
 	then

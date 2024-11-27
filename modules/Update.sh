@@ -7,19 +7,19 @@ echo "Checking out Retold modules into: [$(pwd)/..."
 # This function attempts to update a repository from github relative to the current script folder
 update_repository()
 {
-	echo "###--> attempting to update the repository for $2 in $1"
+#	echo "    ###--> attempting to update the repository for $2 in $1"
 	CWD=$(pwd)
 	if [ -d "$CWD/$1/$2" ]
 	then
-		echo "     # A $2 source directory exists in $1 -- updating with rebase...."
+#		echo "       # A $2 source directory exists in $1 -- updating with rebase...."
 		cd "$CWD/$1/$2"
 		git pull --rebase
-		echo "       ..."
+#		echo "       ..."
 		cd "../.."
 	else
-		echo "     # The $2 source directory does not exist in $1 -- maybe you need to run the Checkout script?"
+		echo "       # The $2 source directory does not exist in $1 -- maybe you need to run the Checkout script?"
 	fi
-	echo "###<-- completing update attempt for repository $2 in $1"
+	echo "      <-- update attempt complete for repository $2 in $1"
 }
 
 process_repository_set()
@@ -33,7 +33,7 @@ process_repository_set()
 	# Enumerate all repository addresses and check them out
 	for repositoryAddress in ${repositorySetRepositories[@]}; do
 		echo ""
-		echo "#####[ $repositorySetName -> $repositoryAddress ]#####"
+		echo "[ U ] --> #####[ $repositorySetName -> $repositoryAddress ]#####"
 		update_repository $repositorySetName $repositoryAddress
 	done
 }
