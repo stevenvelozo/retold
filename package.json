@@ -24,7 +24,7 @@
     },
     "homepage": "https://github.com/stevenvelozo/retold",
     "devDependencies": {
-        "quackage": "^1.0.27"
+        "quackage": "^1.0.38"
     },
     "mocha": {
         "diff": true,
