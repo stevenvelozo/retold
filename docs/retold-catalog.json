@@ -1,12 +1,12 @@
 {
-	"Generated": "2026-02-06T12:42:27.684Z",
+	"Generated": "2026-02-06T15:33:31.306Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
 		{
 			"Name": "Fable",
 			"Key": "fable",
-			"Description": "Core ecosystem: DI, config, logging, UUID, expressions",
+			"Description": "Core framework: DI, config, logging, UUID, expressions",
 			"Modules": [
 				{
 					"Name": "fable",
@@ -1521,7 +1521,7 @@
 		{
 			"Name": "Pict",
 			"Key": "pict",
-			"Description": "MVC tools: views, templates, providers, forms, TUI",
+			"Description": "MVC framework: views, templates, providers, forms, TUI",
 			"Modules": [
 				{
 					"Name": "cryptbrau",

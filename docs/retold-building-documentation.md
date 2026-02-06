@@ -14,6 +14,7 @@ documentation:
 
 ```shell
 cd modules/utility/indoctrinate
+npm install
 npx indoctrinate generate_catalog -d /path/to/retold/modules -o /path/to/retold/docs/retold-catalog.json
 npx indoctrinate generate_keyword_index -d /path/to/retold/modules -o /path/to/retold/docs/retold-keyword-index.json
 ```
