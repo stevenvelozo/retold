@@ -8,7 +8,7 @@ repositoriesMeadow=("stricture" "foxhound" "bibliograph" "meadow" "parime" "mead
 
 repositoriesOrator=("orator" "orator-serviceserver-restify" "orator-static-server" "orator-http-proxy" "tidings" "orator-endpoint")
 
-repositoriesPict=("pict" "pict-template" "pict-view" "pict-provider" "pict-application" "pict-panel" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-section-recordset" "pict-section-content" "pict-section-form" "pict-section-tuigrid" "pict-router")
+repositoriesPict=("pict" "pict-template" "pict-view" "pict-provider" "pict-application" "pict-panel" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-section-recordset" "pict-section-content" "pict-section-form" "pict-section-tuigrid" "pict-router" "pict-serviceproviderbase")
 
 repositoriesUtility=("indoctrinate" "manyfest" "choreographic" "quackage" "ultravisor")
 
