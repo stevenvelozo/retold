@@ -18,7 +18,7 @@ All modules are hosted at `github.com/stevenvelozo/<module-name>`.
 
 | Group | Folder | Count | Purpose |
 |-------|--------|-------|---------|
-| Fable | `fable/` | 6 | Core framework, DI, config, logging |
+| Fable | `fable/` | 6 | Core ecosystem, DI, config, logging |
 | Meadow | `meadow/` | 13 | Data access, ORM, query DSL, schema |
 | Orator | `orator/` | 6 | API server, Restify, proxy, WebSocket |
 | Pict | `pict/` | 15 | MVC, views, templates, forms, TUI |

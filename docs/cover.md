@@ -2,7 +2,14 @@
 
 > A story-obsessed application suite
 
-A comprehensive collection of JavaScript/Node.js modules for building web applications and APIs. Five module groups covering everything from dependency injection to full MVC frameworks.
+~50 JavaScript/Node.js modules for building web applications and APIs. Service provider pattern from foundation to full-stack.
 
-[Get Started](#retold)
+- **Fable** — Core ecosystem, DI, config, logging
+- **Meadow** — Data access, ORM, query DSL, schema
+- **Orator** — API server, HTTP, proxy, static files
+- **Pict** — MVC tools, views, templates, forms
+
+[Get Started](getting-started.md)
+[Architecture](architecture.md)
+[All Modules](modules.md)
 [GitHub](https://github.com/stevenvelozo/retold)

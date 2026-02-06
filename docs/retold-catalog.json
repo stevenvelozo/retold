@@ -6,7 +6,7 @@
 		{
 			"Name": "Fable",
 			"Key": "fable",
-			"Description": "Core framework: DI, config, logging, UUID, expressions",
+			"Description": "Core ecosystem: DI, config, logging, UUID, expressions",
 			"Modules": [
 				{
 					"Name": "fable",
@@ -1521,7 +1521,7 @@
 		{
 			"Name": "Pict",
 			"Key": "pict",
-			"Description": "MVC framework: views, templates, providers, forms, TUI",
+			"Description": "MVC tools: views, templates, providers, forms, TUI",
 			"Modules": [
 				{
 					"Name": "cryptbrau",

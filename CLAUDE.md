@@ -6,10 +6,10 @@ A suite of ~50 JavaScript/Node.js modules for building web applications and APIs
 
 Five module groups, each in `modules/<group>/`:
 
-- **Fable** — Core framework: dependency injection (service provider pattern), configuration, logging, UUID generation, expression parser, REST client, template engine
+- **Fable** — Core ecosystem: dependency injection (service provider pattern), configuration, logging, UUID generation, expression parser, REST client, template engine
 - **Meadow** — Data access layer: ORM, query DSL (FoxHound), schema definitions (Stricture), DB connectors (MySQL, MSSQL, SQLite), RESTful endpoint generation
 - **Orator** — API server: Restify wrapper, static file serving, HTTP proxy, WebSocket support (Tidings)
-- **Pict** — MVC framework: views, templates, providers, application framework, form builders, TUI grid, CLI utilities
+- **Pict** — MVC tools: views, templates, providers, application lifecycle, form builders, TUI grid, CLI utilities
 - **Utility** — Build tools (Quackage), manifest management (Manyfest), documentation (Indoctrinate), process supervision (Ultravisor)
 
 ## Repository Structure
