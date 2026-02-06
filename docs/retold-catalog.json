@@ -1,0 +1,2616 @@
+{
+	"Generated": "2026-02-06T12:42:27.684Z",
+	"GitHubOrg": "stevenvelozo",
+	"DefaultBranch": "master",
+	"Groups": [
+		{
+			"Name": "Fable",
+			"Key": "fable",
+			"Description": "Core framework: DI, config, logging, UUID, expressions",
+			"Modules": [
+				{
+					"Name": "fable",
+					"Repo": "fable",
+					"Group": "fable",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Services",
+							"Children": [
+								{
+									"Title": "Services Overview",
+									"Path": "services/README.md"
+								},
+								{
+									"Title": "Logging",
+									"Path": "services/logging.md"
+								},
+								{
+									"Title": "Settings Manager",
+									"Path": "services/settings-manager.md"
+								},
+								{
+									"Title": "UUID",
+									"Path": "services/uuid.md"
+								}
+							]
+						},
+						{
+							"Title": "Data Services",
+							"Children": [
+								{
+									"Title": "Dates",
+									"Path": "services/dates.md"
+								},
+								{
+									"Title": "Data Format",
+									"Path": "services/data-format.md"
+								},
+								{
+									"Title": "Data Generation",
+									"Path": "services/data-generation.md"
+								},
+								{
+									"Title": "Math",
+									"Path": "services/math.md"
+								},
+								{
+									"Title": "Logic",
+									"Path": "services/logic.md"
+								},
+								{
+									"Title": "Utility",
+									"Path": "services/utility.md"
+								}
+							]
+						},
+						{
+							"Title": "Templating",
+							"Children": [
+								{
+									"Title": "Template",
+									"Path": "services/template.md"
+								},
+								{
+									"Title": "Meta-Template",
+									"Path": "services/meta-template.md"
+								}
+							]
+						},
+						{
+							"Title": "Advanced Services",
+							"Children": [
+								{
+									"Title": "Anticipate",
+									"Path": "services/anticipate.md"
+								},
+								{
+									"Title": "Operation",
+									"Path": "services/operation.md"
+								},
+								{
+									"Title": "REST Client",
+									"Path": "services/rest-client.md"
+								},
+								{
+									"Title": "Expression Parser",
+									"Path": "services/expression-parser.md"
+								},
+								{
+									"Title": "CSV Parser",
+									"Path": "services/csv-parser.md"
+								},
+								{
+									"Title": "File Persistence",
+									"Path": "services/file-persistence.md"
+								}
+							]
+						},
+						{
+							"Title": "Utilities",
+							"Children": [
+								{
+									"Title": "Manifest",
+									"Path": "services/manifest.md"
+								},
+								{
+									"Title": "Object Cache",
+									"Path": "services/object-cache.md"
+								},
+								{
+									"Title": "Environment Data",
+									"Path": "services/environment-data.md"
+								},
+								{
+									"Title": "Progress Time",
+									"Path": "services/progress-time.md"
+								},
+								{
+									"Title": "Progress Tracker Set",
+									"Path": "services/progress-tracker-set.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"architecture.md",
+						"cover.md",
+						"index.html",
+						"services/README.md",
+						"services/anticipate.md",
+						"services/csv-parser.md",
+						"services/data-format.md",
+						"services/data-generation.md",
+						"services/dates.md",
+						"services/environment-data.md",
+						"services/expression-parser-functions/README.md",
+						"services/expression-parser-functions/abs.md",
+						"services/expression-parser-functions/aggregationhistogram.md",
+						"services/expression-parser-functions/aggregationhistogrambyobject.md",
+						"services/expression-parser-functions/arrayconcat.md",
+						"services/expression-parser-functions/avg.md",
+						"services/expression-parser-functions/bucketset.md",
+						"services/expression-parser-functions/ceil.md",
+						"services/expression-parser-functions/cleanvaluearray.md",
+						"services/expression-parser-functions/cleanvalueobject.md",
+						"services/expression-parser-functions/compare.md",
+						"services/expression-parser-functions/concat.md",
+						"services/expression-parser-functions/concatraw.md",
+						"services/expression-parser-functions/cos.md",
+						"services/expression-parser-functions/count.md",
+						"services/expression-parser-functions/countset.md",
+						"services/expression-parser-functions/countsetelements.md",
+						"services/expression-parser-functions/createarrayfromabsolutevalues.md",
+						"services/expression-parser-functions/createvalueobjectbyhashes.md",
+						"services/expression-parser-functions/cumulativesummation.md",
+						"services/expression-parser-functions/dateadddays.md",
+						"services/expression-parser-functions/dateaddhours.md",
+						"services/expression-parser-functions/dateaddmilliseconds.md",
+						"services/expression-parser-functions/dateaddminutes.md",
+						"services/expression-parser-functions/dateaddmonths.md",
+						"services/expression-parser-functions/dateaddseconds.md",
+						"services/expression-parser-functions/dateaddweeks.md",
+						"services/expression-parser-functions/dateaddyears.md",
+						"services/expression-parser-functions/datedaydifference.md",
+						"services/expression-parser-functions/datefromparts.md",
+						"services/expression-parser-functions/datehourdifference.md",
+						"services/expression-parser-functions/datemathadd.md",
+						"services/expression-parser-functions/datemilliseconddifference.md",
+						"services/expression-parser-functions/dateminutedifference.md",
+						"services/expression-parser-functions/datemonthdifference.md",
+						"services/expression-parser-functions/dateseconddifference.md",
+						"services/expression-parser-functions/dateweekdifference.md",
+						"services/expression-parser-functions/dateyeardifference.md",
+						"services/expression-parser-functions/distributionhistogram.md",
+						"services/expression-parser-functions/distributionhistogrambyobject.md",
+						"services/expression-parser-functions/entryinset.md",
+						"services/expression-parser-functions/euler.md",
+						"services/expression-parser-functions/exp.md",
+						"services/expression-parser-functions/findfirstvaluebyexactmatch.md",
+						"services/expression-parser-functions/findfirstvaluebystringincludes.md",
+						"services/expression-parser-functions/flatten.md",
+						"services/expression-parser-functions/floor.md",
+						"services/expression-parser-functions/gaussianelimination.md",
+						"services/expression-parser-functions/generatearrayofobjectsfromsets.md",
+						"services/expression-parser-functions/getvalue.md",
+						"services/expression-parser-functions/getvaluearray.md",
+						"services/expression-parser-functions/getvalueobject.md",
+						"services/expression-parser-functions/if.md",
+						"services/expression-parser-functions/iterativeseries.md",
+						"services/expression-parser-functions/join.md",
+						"services/expression-parser-functions/joinraw.md",
+						"services/expression-parser-functions/largestinset.md",
+						"services/expression-parser-functions/leastsquares.md",
+						"services/expression-parser-functions/linest.md",
+						"services/expression-parser-functions/log.md",
+						"services/expression-parser-functions/match.md",
+						"services/expression-parser-functions/matrixinverse.md",
+						"services/expression-parser-functions/matrixmultiply.md",
+						"services/expression-parser-functions/matrixtranspose.md",
+						"services/expression-parser-functions/matrixvectormultiply.md",
+						"services/expression-parser-functions/max.md",
+						"services/expression-parser-functions/mean.md",
+						"services/expression-parser-functions/median.md",
+						"services/expression-parser-functions/min.md",
+						"services/expression-parser-functions/mode.md",
+						"services/expression-parser-functions/objectkeystoarray.md",
+						"services/expression-parser-functions/objectvaluessortbyexternalobjectarray.md",
+						"services/expression-parser-functions/objectvaluestoarray.md",
+						"services/expression-parser-functions/percent.md",
+						"services/expression-parser-functions/pi.md",
+						"services/expression-parser-functions/polynomialregression.md",
+						"services/expression-parser-functions/predict.md",
+						"services/expression-parser-functions/rad.md",
+						"services/expression-parser-functions/randomfloat.md",
+						"services/expression-parser-functions/randomfloatbetween.md",
+						"services/expression-parser-functions/randomfloatupto.md",
+						"services/expression-parser-functions/randominteger.md",
+						"services/expression-parser-functions/randomintegerbetween.md",
+						"services/expression-parser-functions/randomintegerupto.md",
+						"services/expression-parser-functions/resolvehtmlentities.md",
+						"services/expression-parser-functions/round.md",
+						"services/expression-parser-functions/setconcatenate.md",
+						"services/expression-parser-functions/sin.md",
+						"services/expression-parser-functions/slice.md",
+						"services/expression-parser-functions/smallestinset.md",
+						"services/expression-parser-functions/sorthistogram.md",
+						"services/expression-parser-functions/sorthistogrambykeys.md",
+						"services/expression-parser-functions/sortset.md",
+						"services/expression-parser-functions/sqrt.md",
+						"services/expression-parser-functions/stdev.md",
+						"services/expression-parser-functions/stdeva.md",
+						"services/expression-parser-functions/stdevp.md",
+						"services/expression-parser-functions/stringcountsegments.md",
+						"services/expression-parser-functions/stringgetsegments.md",
+						"services/expression-parser-functions/subtractingsummation.md",
+						"services/expression-parser-functions/sum.md",
+						"services/expression-parser-functions/tan.md",
+						"services/expression-parser-functions/tofixed.md",
+						"services/expression-parser-functions/var.md",
+						"services/expression-parser-functions/vara.md",
+						"services/expression-parser-functions/varp.md",
+						"services/expression-parser-functions/when.md",
+						"services/expression-parser.md",
+						"services/file-persistence.md",
+						"services/logging.md",
+						"services/logic.md",
+						"services/manifest.md",
+						"services/math.md",
+						"services/meta-template.md",
+						"services/object-cache.md",
+						"services/operation.md",
+						"services/progress-time.md",
+						"services/progress-tracker-set.md",
+						"services/rest-client.md",
+						"services/settings-manager.md",
+						"services/template.md",
+						"services/utility.md",
+						"services/uuid.md"
+					]
+				},
+				{
+					"Name": "fable-log",
+					"Repo": "fable-log",
+					"Group": "fable",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "getting-started.md"
+								}
+							]
+						},
+						{
+							"Title": "Configuration",
+							"Children": [
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Log Providers",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "providers.md"
+								},
+								{
+									"Title": "Custom Providers",
+									"Path": "custom-providers.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								}
+							]
+						},
+						{
+							"Title": "Advanced Usage",
+							"Children": [
+								{
+									"Title": "Browser Usage",
+									"Path": "browser-usage.md"
+								},
+								{
+									"Title": "Advanced Usage",
+									"Path": "advanced-usage.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"advanced-usage.md",
+						"api-reference.md",
+						"browser-usage.md",
+						"configuration.md",
+						"cover.md",
+						"custom-providers.md",
+						"getting-started.md",
+						"index.html",
+						"providers.md"
+					]
+				},
+				{
+					"Name": "fable-log-logger-bunyan",
+					"Repo": "fable-log-logger-bunyan",
+					"Group": "fable",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "fable-operationstep",
+					"Repo": "fable-operationstep",
+					"Group": "fable",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "fable-serviceproviderbase",
+					"Repo": "fable-serviceproviderbase",
+					"Group": "fable",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "fable-settings",
+					"Repo": "fable-settings",
+					"Group": "fable",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "fable-uuid",
+					"Repo": "fable-uuid",
+					"Group": "fable",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								},
+								{
+									"Title": "Browser Support",
+									"Path": "browser-support.md"
+								}
+							]
+						},
+						{
+							"Title": "Project",
+							"Children": [
+								{
+									"Title": "Resources",
+									"Path": "resources.md"
+								},
+								{
+									"Title": "Contributing",
+									"Path": "contributing.md"
+								},
+								{
+									"Title": "Changelog",
+									"Path": "changelog.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"api.md",
+						"browser-support.md",
+						"changelog.md",
+						"configuration.md",
+						"contributing.md",
+						"cover.md",
+						"index.html",
+						"resources.md"
+					]
+				}
+			]
+		},
+		{
+			"Name": "Meadow",
+			"Key": "meadow",
+			"Description": "Data access layer: ORM, query DSL, schema, DB connectors",
+			"Modules": [
+				{
+					"Name": "bibliograph",
+					"Repo": "bibliograph",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "bibliograph-storage-leveldb",
+					"Repo": "bibliograph-storage-leveldb",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "bibliograph-storage-lmdb",
+					"Repo": "bibliograph-storage-lmdb",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "bibliograph-storage-rocksdb",
+					"Repo": "bibliograph-storage-rocksdb",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "foxhound",
+					"Repo": "foxhound",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Query Building",
+							"Children": [
+								{
+									"Title": "Query Overview",
+									"Path": "query/README.md"
+								},
+								{
+									"Title": "Create",
+									"Path": "query/create.md"
+								},
+								{
+									"Title": "Read",
+									"Path": "query/read.md"
+								},
+								{
+									"Title": "Update",
+									"Path": "query/update.md"
+								},
+								{
+									"Title": "Delete",
+									"Path": "query/delete.md"
+								},
+								{
+									"Title": "Count",
+									"Path": "query/count.md"
+								}
+							]
+						},
+						{
+							"Title": "Filtering & Sorting",
+							"Children": [
+								{
+									"Title": "Filters",
+									"Path": "filters.md"
+								},
+								{
+									"Title": "Sorting",
+									"Path": "sorting.md"
+								},
+								{
+									"Title": "Joins",
+									"Path": "joins.md"
+								},
+								{
+									"Title": "Pagination",
+									"Path": "pagination.md"
+								}
+							]
+						},
+						{
+							"Title": "Dialects",
+							"Children": [
+								{
+									"Title": "Dialects Overview",
+									"Path": "dialects/README.md"
+								},
+								{
+									"Title": "MySQL",
+									"Path": "dialects/mysql.md"
+								},
+								{
+									"Title": "MSSQL",
+									"Path": "dialects/mssql.md"
+								},
+								{
+									"Title": "SQLite",
+									"Path": "dialects/sqlite.md"
+								},
+								{
+									"Title": "ALASQL",
+									"Path": "dialects/alasql.md"
+								}
+							]
+						},
+						{
+							"Title": "Advanced",
+							"Children": [
+								{
+									"Title": "Schema Integration",
+									"Path": "schema.md"
+								},
+								{
+									"Title": "Query Overrides",
+									"Path": "query-overrides.md"
+								},
+								{
+									"Title": "Configuration Reference",
+									"Path": "configuration.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"architecture.md",
+						"configuration.md",
+						"cover.md",
+						"dialects/README.md",
+						"dialects/alasql.md",
+						"dialects/mssql.md",
+						"dialects/mysql.md",
+						"dialects/sqlite.md",
+						"filters.md",
+						"index.html",
+						"joins.md",
+						"pagination.md",
+						"query/README.md",
+						"query/count.md",
+						"query/create.md",
+						"query/delete.md",
+						"query/read.md",
+						"query/update.md",
+						"query-overrides.md",
+						"schema.md",
+						"sorting.md"
+					]
+				},
+				{
+					"Name": "meadow",
+					"Repo": "meadow",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "Schema",
+									"Path": "schema/README.md"
+								},
+								{
+									"Title": "CRUD Operations",
+									"Path": "crud-operations.md"
+								},
+								{
+									"Title": "Query DSL",
+									"Path": "query-dsl.md"
+								},
+								{
+									"Title": "Raw Queries",
+									"Path": "raw-queries.md"
+								}
+							]
+						},
+						{
+							"Title": "Schema",
+							"Children": [
+								{
+									"Title": "Schema Overview",
+									"Path": "schema/README.md"
+								}
+							]
+						},
+						{
+							"Title": "Query Operations",
+							"Children": [
+								{
+									"Title": "Query Overview",
+									"Path": "query/README.md"
+								},
+								{
+									"Title": "Create",
+									"Path": "query/create.md"
+								},
+								{
+									"Title": "Read",
+									"Path": "query/read.md"
+								},
+								{
+									"Title": "Update",
+									"Path": "query/update.md"
+								},
+								{
+									"Title": "Delete",
+									"Path": "query/delete.md"
+								},
+								{
+									"Title": "Count",
+									"Path": "query/count.md"
+								}
+							]
+						},
+						{
+							"Title": "Providers",
+							"Children": [
+								{
+									"Title": "Providers Overview",
+									"Path": "providers/README.md"
+								},
+								{
+									"Title": "MySQL",
+									"Path": "providers/mysql.md"
+								},
+								{
+									"Title": "MSSQL",
+									"Path": "providers/mssql.md"
+								},
+								{
+									"Title": "SQLite",
+									"Path": "providers/sqlite.md"
+								},
+								{
+									"Title": "ALASQL",
+									"Path": "providers/alasql.md"
+								}
+							]
+						},
+						{
+							"Title": "Advanced",
+							"Children": [
+								{
+									"Title": "Audit Tracking",
+									"Path": "audit-tracking.md"
+								},
+								{
+									"Title": "Soft Deletes",
+									"Path": "soft-deletes.md"
+								},
+								{
+									"Title": "Configuration Reference",
+									"Path": "configuration.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"providers/README.md",
+						"providers/alasql.md",
+						"providers/mssql.md",
+						"providers/mysql.md",
+						"providers/sqlite.md",
+						"query/README.md",
+						"query/count.md",
+						"query/create.md",
+						"query/delete.md",
+						"query/read.md",
+						"query/update.md",
+						"schema/README.md"
+					]
+				},
+				{
+					"Name": "meadow-connection-mssql",
+					"Repo": "meadow-connection-mssql",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "meadow-connection-mysql",
+					"Repo": "meadow-connection-mysql",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "meadow-connection-sqlite",
+					"Repo": "meadow-connection-sqlite",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "meadow-endpoints",
+					"Repo": "meadow-endpoints",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Getting Started",
+									"Path": "getting-started.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "Generated Routes",
+									"Path": "generated-routes.md"
+								},
+								{
+									"Title": "Behavior Injection",
+									"Path": "behavior-injection.md"
+								},
+								{
+									"Title": "Dynamic Filtering",
+									"Path": "dynamic-filtering.md"
+								},
+								{
+									"Title": "Session Management",
+									"Path": "session-management.md"
+								}
+							]
+						},
+						{
+							"Title": "Endpoints",
+							"Children": [
+								{
+									"Title": "Create Endpoints",
+									"Path": "endpoints/create.md"
+								},
+								{
+									"Title": "Read Endpoints",
+									"Path": "endpoints/read.md"
+								},
+								{
+									"Title": "Update Endpoints",
+									"Path": "endpoints/update.md"
+								},
+								{
+									"Title": "Delete Endpoints",
+									"Path": "endpoints/delete.md"
+								},
+								{
+									"Title": "Count Endpoints",
+									"Path": "endpoints/count.md"
+								},
+								{
+									"Title": "Schema Endpoints",
+									"Path": "endpoints/schema.md"
+								}
+							]
+						},
+						{
+							"Title": "CRUD Deep Dive",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "crud/README.md"
+								},
+								{
+									"Title": "Create",
+									"Path": "crud/create.md"
+								},
+								{
+									"Title": "Read",
+									"Path": "crud/read.md"
+								},
+								{
+									"Title": "Update",
+									"Path": "crud/update.md"
+								},
+								{
+									"Title": "Delete",
+									"Path": "crud/delete.md"
+								},
+								{
+									"Title": "Count",
+									"Path": "crud/count.md"
+								},
+								{
+									"Title": "Schema, New & Validate",
+									"Path": "crud/schema.md"
+								}
+							]
+						},
+						{
+							"Title": "Advanced",
+							"Children": [
+								{
+									"Title": "Custom Controllers",
+									"Path": "custom-controllers.md"
+								},
+								{
+									"Title": "Error Handling",
+									"Path": "error-handling.md"
+								},
+								{
+									"Title": "Configuration Reference",
+									"Path": "configuration.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"crud/README.md",
+						"crud/count.md",
+						"crud/create.md",
+						"crud/delete.md",
+						"crud/read.md",
+						"crud/schema.md",
+						"crud/update.md"
+					]
+				},
+				{
+					"Name": "meadow-graph-client",
+					"Repo": "meadow-graph-client",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "meadow-integration",
+					"Repo": "meadow-integration",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"examples/bookstore/.gitignore",
+						"examples/bookstore/BookData.md",
+						"examples/bookstore/Generate_Bookstore_Comprehension.sh",
+						"examples/bookstore/mapping_books_Author.json",
+						"examples/bookstore/mapping_books_Book.json",
+						"examples/bookstore/mapping_books_BookAuthorJoin.json",
+						"examples/data/books.csv",
+						"examples/data/seattle_neighborhoods/Seattle_Data_Information.md",
+						"examples/data/seattle_neighborhoods/housing_characteristics_Neighborhoods.csv",
+						"examples/data/seattle_neighborhoods/housing_costs_Neighborhoods.csv",
+						"examples/data/seattle_neighborhoods/race_ethnicity_Neighborhoods.csv",
+						"examples/multi_set_integration/multi_set_step_by_step.md",
+						"examples/multi_set_integration/multi_set_step_by_step_overview_diagram.excalidraw.svg",
+						"examples/multi_set_integration/part_1_getting_data.md",
+						"index.html",
+						"vocabulary/Column.md",
+						"vocabulary/Comprehension.md",
+						"vocabulary/Confidence.md",
+						"vocabulary/Data Capture Date.md",
+						"vocabulary/Data Entry Date.md",
+						"vocabulary/Entity.md",
+						"vocabulary/Format.md",
+						"vocabulary/GUID.md",
+						"vocabulary/Join.md",
+						"vocabulary/Record.md",
+						"vocabulary/Schema.md",
+						"vocabulary/Set.md",
+						"vocabulary/Snapshot.md",
+						"vocabulary/Source.md",
+						"vocabulary/Version.md"
+					]
+				},
+				{
+					"Name": "parime",
+					"Repo": "parime",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "retold-data-service",
+					"Repo": "retold-data-service",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Usage",
+							"Children": [
+								{
+									"Title": "Initialization",
+									"Path": "initialization.md"
+								},
+								{
+									"Title": "Endpoints",
+									"Path": "endpoints.md"
+								},
+								{
+									"Title": "DAL Access",
+									"Path": "dal-access.md"
+								},
+								{
+									"Title": "Behavior Injection",
+									"Path": "behavior-injection.md"
+								}
+							]
+						},
+						{
+							"Title": "Advanced",
+							"Children": [
+								{
+									"Title": "Lifecycle Hooks",
+									"Path": "lifecycle-hooks.md"
+								},
+								{
+									"Title": "Storage Providers",
+									"Path": "storage-providers.md"
+								},
+								{
+									"Title": "Schema Definition",
+									"Path": "schema-definition.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"architecture.md",
+						"behavior-injection.md",
+						"configuration.md",
+						"cover.md",
+						"dal-access.md",
+						"endpoints.md",
+						"index.html",
+						"initialization.md",
+						"lifecycle-hooks.md",
+						"schema-definition.md",
+						"storage-providers.md"
+					]
+				},
+				{
+					"Name": "retold-harness",
+					"Repo": "retold-harness",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Docker Setup",
+									"Path": "docker.md"
+								}
+							]
+						},
+						{
+							"Title": "Data Model",
+							"Children": [
+								{
+									"Title": "Schema Overview",
+									"Path": "schema.md"
+								},
+								{
+									"Title": "Entity Reference",
+									"Path": "entities.md"
+								}
+							]
+						},
+						{
+							"Title": "API",
+							"Children": [
+								{
+									"Title": "REST Endpoints",
+									"Path": "endpoints.md"
+								},
+								{
+									"Title": "Filtering & Pagination",
+									"Path": "filtering.md"
+								}
+							]
+						},
+						{
+							"Title": "Customization",
+							"Children": [
+								{
+									"Title": "Behavior Injection",
+									"Path": "behavior-injection.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Development",
+							"Children": [
+								{
+									"Title": "Testing",
+									"Path": "testing.md"
+								},
+								{
+									"Title": "Luxury Code IDE",
+									"Path": "luxury-code.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_coverpage.md",
+						"_sidebar.md",
+						"behavior-injection.md",
+						"configuration.md",
+						"docker.md",
+						"endpoints.md",
+						"entities.md",
+						"filtering.md",
+						"index.html",
+						"luxury-code.md",
+						"quickstart.md",
+						"schema.md",
+						"testing.md"
+					]
+				},
+				{
+					"Name": "stricture",
+					"Repo": "stricture",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				}
+			]
+		},
+		{
+			"Name": "Orator",
+			"Key": "orator",
+			"Description": "API server: Restify, static files, HTTP proxy, WebSocket",
+			"Modules": [
+				{
+					"Name": "orator",
+					"Repo": "orator",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Getting Started",
+									"Path": "getting-started.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "Service Servers",
+									"Path": "service-servers.md"
+								},
+								{
+									"Title": "Lifecycle Hooks",
+									"Path": "lifecycle-hooks.md"
+								},
+								{
+									"Title": "Static File Serving",
+									"Path": "static-files.md"
+								}
+							]
+						},
+						{
+							"Title": "Service Server Implementations",
+							"Children": [
+								{
+									"Title": "IPC Server",
+									"Path": "ipc-server.md"
+								},
+								{
+									"Title": "Restify Server",
+									"Path": "restify-server.md"
+								}
+							]
+						},
+						{
+							"Title": "Advanced",
+							"Children": [
+								{
+									"Title": "HTTP Proxy",
+									"Path": "http-proxy.md"
+								},
+								{
+									"Title": "Configuration Reference",
+									"Path": "configuration.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"architecture.md",
+						"configuration.md",
+						"cover.md",
+						"getting-started.md",
+						"http-proxy.md",
+						"index.html",
+						"ipc-server.md",
+						"lifecycle-hooks.md",
+						"restify-server.md",
+						"service-servers.md",
+						"static-files.md"
+					]
+				},
+				{
+					"Name": "orator-endpoint",
+					"Repo": "orator-endpoint",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "orator-http-proxy",
+					"Repo": "orator-http-proxy",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Getting Started",
+									"Path": "getting-started.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"configuration.md",
+						"cover.md",
+						"getting-started.md",
+						"index.html"
+					]
+				},
+				{
+					"Name": "orator-serviceserver-base",
+					"Repo": "orator-serviceserver-base",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Creating a Custom Server",
+									"Path": "custom-server.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								},
+								{
+									"Title": "Template Method Pattern",
+									"Path": "template-method.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"api-reference.md",
+						"cover.md",
+						"custom-server.md",
+						"index.html",
+						"template-method.md"
+					]
+				},
+				{
+					"Name": "orator-serviceserver-restify",
+					"Repo": "orator-serviceserver-restify",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Getting Started",
+									"Path": "getting-started.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								},
+								{
+									"Title": "Middleware",
+									"Path": "middleware.md"
+								},
+								{
+									"Title": "Body Parsing",
+									"Path": "body-parsing.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"body-parsing.md",
+						"configuration.md",
+						"cover.md",
+						"getting-started.md",
+						"index.html",
+						"middleware.md"
+					]
+				},
+				{
+					"Name": "orator-static-server",
+					"Repo": "orator-static-server",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Getting Started",
+									"Path": "getting-started.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								},
+								{
+									"Title": "Subdomain Routing",
+									"Path": "subdomain-routing.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"api-reference.md",
+						"cover.md",
+						"getting-started.md",
+						"index.html",
+						"subdomain-routing.md"
+					]
+				},
+				{
+					"Name": "tidings",
+					"Repo": "tidings",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				}
+			]
+		},
+		{
+			"Name": "Pict",
+			"Key": "pict",
+			"Description": "MVC framework: views, templates, providers, forms, TUI",
+			"Modules": [
+				{
+					"Name": "cryptbrau",
+					"Repo": "cryptbrau",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "informary",
+					"Repo": "informary",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict",
+					"Repo": "pict",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "pict_quickstart.md"
+								},
+								{
+									"Title": "Key Concepts",
+									"Path": "pict_keyconcepts.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "State Management",
+									"Path": "state_management/README.md"
+								},
+								{
+									"Title": "Views",
+									"Path": "views/README.md"
+								},
+								{
+									"Title": "Providers",
+									"Path": "providers/README.md"
+								},
+								{
+									"Title": "Applications",
+									"Path": "applications/README.md"
+								},
+								{
+									"Title": "Solvers",
+									"Path": "solvers/README.md"
+								}
+							]
+						},
+						{
+							"Title": "Templating",
+							"Children": [
+								{
+									"Title": "Metatemplate Manager",
+									"Path": "templating/pict_metatemplate_manager.md"
+								},
+								{
+									"Title": "Template Expressions",
+									"Path": "templating/pict_template_expressions.md"
+								}
+							]
+						},
+						{
+							"Title": "Application Lifecycle",
+							"Children": [
+								{
+									"Title": "Lifecycle Overview",
+									"Path": "application_lifecycle/README.md"
+								}
+							]
+						},
+						{
+							"Title": "Design Philosophy",
+							"Children": [
+								{
+									"Title": "Overall Philosophy",
+									"Path": "design_philosophy/overall_design_philosophy.md"
+								},
+								{
+									"Title": "Lifecycle Events",
+									"Path": "design_philosophy/applications_providers_views_and_solvers.md"
+								},
+								{
+									"Title": "MVC Pattern",
+									"Path": "design_philosophy/model_view_controller_ohmy.md"
+								},
+								{
+									"Title": "State & Lifecycle Coupling",
+									"Path": "design_philosophy/state_management_and_lifecycle_coupling.md"
+								}
+							]
+						},
+						{
+							"Title": "Development",
+							"Children": [
+								{
+									"Title": "Building Pict",
+									"Path": "development/building_pict.md"
+								},
+								{
+									"Title": "Automated Testing",
+									"Path": "development/testing_pict.md"
+								},
+								{
+									"Title": "Luxury Code",
+									"Path": "development/pict_luxury_code.md"
+								},
+								{
+									"Title": "Virtual Environments",
+									"Path": "development/pict_virtual_environments.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Hello World",
+									"Path": "examples/hello_world/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"application_lifecycle/README.md",
+						"applications/README.md",
+						"cover.md",
+						"dependencies/docsify-4.js",
+						"dependencies/pict.min.js",
+						"dependencies/vue.css",
+						"design_philosophy/applications_providers_views_and_solvers.md",
+						"design_philosophy/config.json",
+						"design_philosophy/model_view_controller_ohmy.md",
+						"design_philosophy/overall_design_philosophy.md",
+						"design_philosophy/state_management_and_lifecycle_coupling.md",
+						"design_philosophy/traditional_application_shape.excalidraw.svg",
+						"development/building_pict.md",
+						"development/pict_luxury_code.md",
+						"development/pict_virtual_environments.md",
+						"development/testing_pict.md",
+						"examples/complex_example_seattle_data/data/Seattle_Data_Information.md",
+						"examples/complex_example_seattle_data/data/housing_characteristics_Neighborhoods_4965628210524256870.csv",
+						"examples/complex_example_seattle_data/data/housing_costs_Neighborhoods_-8848403750169343217.csv",
+						"examples/complex_example_seattle_data/data/race_ethnicity_Neighborhoods_-7085838689260358328.csv",
+						"examples/hello_world/.babelrc",
+						"examples/hello_world/.browserslistrc",
+						"examples/hello_world/.browserslistrc-BACKUP",
+						"examples/hello_world/.gulpfile-quackage-config.json",
+						"examples/hello_world/.gulpfile-quackage.js",
+						"examples/hello_world/.quackage.json",
+						"examples/hello_world/README.md",
+						"examples/hello_world/dist/.gitignore",
+						"examples/hello_world/dist/hello_world.js",
+						"examples/hello_world/dist/hello_world.js.map",
+						"examples/hello_world/dist/hello_world.min.js",
+						"examples/hello_world/dist/hello_world.min.js.map",
+						"examples/hello_world/dist/index.html",
+						"examples/hello_world/index.js",
+						"examples/hello_world/package-lock.json",
+						"examples/hello_world/package.json",
+						"examples/quickstart.js",
+						"index.html",
+						"pict_keyconcepts.md",
+						"pict_quickstart.md",
+						"providers/README.md",
+						"solvers/README.md",
+						"state_management/README.md",
+						"templating/pict_metatemplate_manager.md",
+						"templating/pict_template_expressions.md",
+						"views/README.md"
+					]
+				},
+				{
+					"Name": "pict-application",
+					"Repo": "pict-application",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Getting Started",
+									"Path": "GETTING_STARTED.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Configuration",
+									"Path": "CONFIGURATION.md"
+								},
+								{
+									"Title": "Examples",
+									"Path": "EXAMPLES.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"CONFIGURATION.md",
+						"EXAMPLES.md",
+						"GETTING_STARTED.md",
+						"README.md",
+						"_sidebar.md",
+						"cover.md",
+						"index.html"
+					]
+				},
+				{
+					"Name": "pict-chance",
+					"Repo": "pict-chance",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-nonlinearconfig",
+					"Repo": "pict-nonlinearconfig",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-panel",
+					"Repo": "pict-panel",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-provider",
+					"Repo": "pict-provider",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-router",
+					"Repo": "pict-router",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-section-entitymanagement",
+					"Repo": "pict-section-entitymanagement",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-section-flow",
+					"Repo": "pict-section-flow",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-section-form",
+					"Repo": "pict-section-form",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Getting Started",
+									"Path": "Getting_Started.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "Pict_Section_Form_Architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Configuration",
+							"Children": [
+								{
+									"Title": "Configuration",
+									"Path": "Configuration.md"
+								},
+								{
+									"Title": "Input Types",
+									"Path": "Input_Types.md"
+								},
+								{
+									"Title": "Templates",
+									"Path": "Templates.md"
+								},
+								{
+									"Title": "Layouts",
+									"Path": "Layouts.md"
+								}
+							]
+						},
+						{
+							"Title": "Advanced",
+							"Children": [
+								{
+									"Title": "Solvers",
+									"Path": "Solvers.md"
+								},
+								{
+									"Title": "Providers",
+									"Path": "Providers.md"
+								}
+							]
+						},
+						{
+							"Title": "Input Providers",
+							"Children": [
+								{
+									"Title": "Select",
+									"Path": "input_providers/001-select.md"
+								},
+								{
+									"Title": "DateTime",
+									"Path": "input_providers/002-datetime.md"
+								},
+								{
+									"Title": "Markdown",
+									"Path": "input_providers/003-markdown.md"
+								},
+								{
+									"Title": "HTML",
+									"Path": "input_providers/004-html.md"
+								},
+								{
+									"Title": "PreciseNumber",
+									"Path": "input_providers/005-precise-number.md"
+								},
+								{
+									"Title": "Link",
+									"Path": "input_providers/006-link.md"
+								},
+								{
+									"Title": "Templated",
+									"Path": "input_providers/007-templated.md"
+								},
+								{
+									"Title": "TemplatedEntityLookup",
+									"Path": "input_providers/008-templated-entity-lookup.md"
+								},
+								{
+									"Title": "Chart",
+									"Path": "input_providers/009-chart.md"
+								},
+								{
+									"Title": "EntityBundleRequest",
+									"Path": "input_providers/010-entity-bundle-request.md"
+								},
+								{
+									"Title": "AutofillTriggerGroup",
+									"Path": "input_providers/011-autofill-trigger-group.md"
+								},
+								{
+									"Title": "TabGroupSelector",
+									"Path": "input_providers/012-tab-group-selector.md"
+								},
+								{
+									"Title": "TabSectionSelector",
+									"Path": "input_providers/013-tab-section-selector.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Simple Form",
+									"Path": "examples/simple_form/README.md"
+								},
+								{
+									"Title": "Simple Table",
+									"Path": "examples/simple_table/README.md"
+								},
+								{
+									"Title": "Simple Distill",
+									"Path": "examples/simple_distill/README.md"
+								},
+								{
+									"Title": "Gradebook",
+									"Path": "examples/gradebook/README.md"
+								},
+								{
+									"Title": "Postcard Example",
+									"Path": "examples/postcard_example/README.md"
+								},
+								{
+									"Title": "Complex Table",
+									"Path": "examples/complex_table/README.md"
+								},
+								{
+									"Title": "Complex TuiGrid",
+									"Path": "examples/complex_tuigrid/README.md"
+								},
+								{
+									"Title": "Manyfest Editor",
+									"Path": "examples/manyfest_editor/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"Configuration.md",
+						"Getting_Started.md",
+						"Input_Types.md",
+						"Layouts.md",
+						"Pict_Section_Form_Architecture.md",
+						"Providers.md",
+						"README.md",
+						"Solvers.md",
+						"Templates.md",
+						"_sidebar.md",
+						"cover.md",
+						"examples/README.md",
+						"examples/complex_table/README.md",
+						"examples/complex_tuigrid/README.md",
+						"examples/gradebook/README.md",
+						"examples/manyfest_editor/README.md",
+						"examples/postcard_example/README.md",
+						"examples/simple_distill/README.md",
+						"examples/simple_form/README.md",
+						"examples/simple_table/README.md",
+						"index.html",
+						"input_providers/001-select.md",
+						"input_providers/002-datetime.md",
+						"input_providers/003-markdown.md",
+						"input_providers/004-html.md",
+						"input_providers/005-precise-number.md",
+						"input_providers/006-link.md",
+						"input_providers/007-templated.md",
+						"input_providers/008-templated-entity-lookup.md",
+						"input_providers/009-chart.md",
+						"input_providers/010-entity-bundle-request.md",
+						"input_providers/011-autofill-trigger-group.md",
+						"input_providers/012-tab-group-selector.md",
+						"input_providers/013-tab-section-selector.md",
+						"input_providers/README.md"
+					]
+				},
+				{
+					"Name": "pict-section-recordset",
+					"Repo": "pict-section-recordset",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Record Providers",
+									"Path": "record-providers.md"
+								}
+							]
+						},
+						{
+							"Title": "Views",
+							"Children": [
+								{
+									"Title": "Create View",
+									"Path": "views/create/README.md"
+								},
+								{
+									"Title": "Read View",
+									"Path": "views/read/README.md"
+								},
+								{
+									"Title": "List View",
+									"Path": "views/list/README.md"
+								},
+								{
+									"Title": "Dashboard View",
+									"Path": "views/dashboard/README.md"
+								}
+							]
+						},
+						{
+							"Title": "Configuration",
+							"Children": [
+								{
+									"Title": "Filters",
+									"Path": "filters.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"api-reference.md",
+						"cover.md",
+						"filters.md",
+						"index.html",
+						"record-providers.md",
+						"views/create/README.md",
+						"views/dashboard/README.md",
+						"views/list/README.md",
+						"views/read/README.md"
+					]
+				},
+				{
+					"Name": "pict-section-tuigrid",
+					"Repo": "pict-section-tuigrid",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-service-commandlineutility",
+					"Repo": "pict-service-commandlineutility",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Creating Commands",
+									"Path": "creating-commands.md"
+								}
+							]
+						},
+						{
+							"Title": "Configuration",
+							"Children": [
+								{
+									"Title": "Program Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"api-reference.md",
+						"configuration.md",
+						"cover.md",
+						"creating-commands.md",
+						"index.html"
+					]
+				},
+				{
+					"Name": "pict-serviceproviderbase",
+					"Repo": "pict-serviceproviderbase",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Creating Services",
+									"Path": "creating-services.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"api-reference.md",
+						"cover.md",
+						"creating-services.md",
+						"index.html"
+					]
+				},
+				{
+					"Name": "pict-template",
+					"Repo": "pict-template",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-view",
+					"Repo": "pict-view",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Pict Views",
+									"Path": "Pict-Views.md"
+								},
+								{
+									"Title": "Renderables",
+									"Path": "Pict%20View%20Renderables.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Historical Events App",
+									"Path": "Historical%20Events%20Example%20App.md"
+								}
+							]
+						},
+						{
+							"Title": "Customization",
+							"Children": [
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								},
+								{
+									"Title": "Themes & Styling",
+									"Path": "themes.md"
+								},
+								{
+									"Title": "Custom Navbar",
+									"Path": "custom-navbar.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Resources",
+									"Path": "resources.md"
+								},
+								{
+									"Title": "Contributing",
+									"Path": "contributing.md"
+								},
+								{
+									"Title": "Changelog",
+									"Path": "changelog.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"Historical Events Example App.md",
+						"Pict View Renderables.md",
+						"Pict-Views.md",
+						"README.md",
+						"_sidebar.md",
+						"changelog.md",
+						"configuration.md",
+						"contributing.md",
+						"cover.md",
+						"custom-navbar.md",
+						"index.html",
+						"resources.md",
+						"themes.md"
+					]
+				}
+			]
+		},
+		{
+			"Name": "Utility",
+			"Key": "utility",
+			"Description": "Build tools, manifests, documentation, process supervision",
+			"Modules": [
+				{
+					"Name": "cachetrax",
+					"Repo": "cachetrax",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "choreographic",
+					"Repo": "choreographic",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "cumulation",
+					"Repo": "cumulation",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "elucidator",
+					"Repo": "elucidator",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "indoctrinate",
+					"Repo": "indoctrinate",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "Schema",
+									"Path": "api/schema.md"
+								},
+								{
+									"Title": "CRUD Operations",
+									"Path": "api/crud.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"architecture.md",
+						"commands/README.md",
+						"commands/compile.md",
+						"commands/extended-process.md",
+						"commands/generate-catalog.md",
+						"commands/generate-keyword-index.md",
+						"compiler/040_generate/Dot.md",
+						"compiler/040_generate/KaTeX.md",
+						"compiler/040_generate/LaTeX.md",
+						"compiler/040_generate/Mermaid.md",
+						"compiler/040_generate/NodePackageDescription.md",
+						"compiler/040_generate/Shiki.md",
+						"concepts/catalog-filtering.md",
+						"concepts/content-descriptions.md",
+						"concepts/labels.md",
+						"configuration/README.md",
+						"configuration/special-files.md",
+						"configuration/structures-targets.md",
+						"cover.md",
+						"design/labels.md",
+						"design/overview.md",
+						"examples/README.md",
+						"examples/book/README.md",
+						"examples/book/Vocabulary.md",
+						"examples/book/chapters/01/000-Fish.md",
+						"examples/book/chapters/02/000-FreshwaterFish.md",
+						"examples/book/chapters/02/Salmon.md",
+						"examples/book/chapters/03/000-SaltwaterFish.md",
+						"examples/book/chapters/04/000-FishThatWorkInBoth.md",
+						"examples/book/chapters/05/000-FishAsFood.md",
+						"examples/book/chapters/06/000-FishAsFriends.md",
+						"examples/book/frontmatter/Fish-Clipart.png",
+						"examples/book/frontmatter/Foreward.md",
+						"examples/book/indoctrinate-structure.json",
+						"examples/data_model/Platform.md",
+						"examples/data_model/indoctrinate.json",
+						"examples/data_model/model/MeadowModel-Extended.json",
+						"examples/data_model/model/entity/animals/Author.md",
+						"examples/data_model/model/entity/animals/Cat.md",
+						"examples/data_model/model/entity/clinics/Book.md",
+						"examples/data_model/model/entity/clinics/Vet.md",
+						"examples/data_model/model/entity_abstractions/animals.md",
+						"examples/document/Body.md",
+						"examples/document/Introduction.md",
+						"examples/document/indoctrinate.json",
+						"examples/monorepo/indoctrinate-extrafolders.json",
+						"index.html",
+						"license.md",
+						"pipeline/README.md",
+						"pipeline/input.md",
+						"pipeline/output.md",
+						"pipeline/processing.md",
+						"quickstart.md",
+						"retold/README.md",
+						"retold/catalog-generation.md",
+						"retold/keyword-index.md",
+						"vocabulary.md",
+						"README.md",
+						"_sidebar.md",
+						"configuration.md",
+						"cover.md",
+						"getting-started.md",
+						"README.md",
+						"_sidebar.md",
+						"api/crud.md",
+						"api/schema.md",
+						"architecture.md"
+					]
+				},
+				{
+					"Name": "js-editor-extension",
+					"Repo": "js-editor-extension",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "manyfest",
+					"Repo": "manyfest",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Working with Objects",
+							"Children": [
+								{
+									"Title": "Reading Values",
+									"Path": "reading.md"
+								},
+								{
+									"Title": "Writing Values",
+									"Path": "writing.md"
+								},
+								{
+									"Title": "Validating Objects",
+									"Path": "validating.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Schema Definition",
+									"Path": "schema.md"
+								},
+								{
+									"Title": "Address Notation",
+									"Path": "address-notation.md"
+								},
+								{
+									"Title": "Hash Translation",
+									"Path": "hash-translation.md"
+								},
+								{
+									"Title": "Schema Manipulation",
+									"Path": "schema-manipulation.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"address-notation.md",
+						"cover.md",
+						"hash-translation.md",
+						"index.html",
+						"quickstart.md",
+						"reading.md",
+						"schema-manipulation.md",
+						"schema.md",
+						"validating.md",
+						"writing.md"
+					]
+				},
+				{
+					"Name": "merquerial",
+					"Repo": "merquerial",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-cruisecontrol",
+					"Repo": "pict-cruisecontrol",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "precedent",
+					"Repo": "precedent",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "quackage",
+					"Repo": "quackage",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "ultravisor",
+					"Repo": "ultravisor",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				}
+			]
+		},
+		{
+			"Name": "Dist",
+			"Key": "dist",
+			"Description": "",
+			"Modules": [
+				{
+					"Name": "indoctrinate_content_staging",
+					"Repo": "indoctrinate_content_staging",
+					"Group": "dist",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Retold Documentation</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="description" content="Retold - A suite of JavaScript/Node.js modules for building web applications and APIs" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<meta name="keywords" content="retold, fable, meadow, orator, pict, javascript, nodejs, framework" />
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
+	<style>
+		:root {
+			--theme-color: #42b983;
+		}
+
+		/* Cross-module search styles */
+		.retold-search-container {
+			padding: 10px 15px;
+			border-bottom: 1px solid #eee;
+		}
+
+		.retold-search-input {
+			width: 100%;
+			padding: 8px 12px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			font-size: 14px;
+			outline: none;
+			box-sizing: border-box;
+		}
+
+		.retold-search-input:focus {
+			border-color: var(--theme-color);
+		}
+
+		.retold-search-results-container {
+			max-height: 400px;
+			overflow-y: auto;
+			margin-top: 8px;
+		}
+
+		.retold-search-result {
+			padding: 8px 4px;
+			border-bottom: 1px solid #f0f0f0;
+		}
+
+		.retold-search-result a {
+			display: block;
+			color: var(--theme-color);
+			text-decoration: none;
+			font-weight: 500;
+		}
+
+		.retold-search-result a:hover {
+			text-decoration: underline;
+		}
+
+		.retold-search-module {
+			display: block;
+			font-size: 12px;
+			color: #999;
+			margin-top: 2px;
+		}
+
+		.retold-no-results {
+			color: #999;
+			font-style: italic;
+			padding: 8px 4px;
+		}
+	</style>
+</head>
+<body>
+	<div id="app"></div>
+	<script>
+		window.$docsify = {
+			name: 'Retold',
+			repo: 'https://github.com/stevenvelozo/retold',
+			loadSidebar: '_sidebar.md',
+			subMaxLevel: 3,
+			auto2top: true,
+			coverpage: 'cover.md',
+			onlyCover: false,
+			search: {
+				placeholder: 'Search',
+				noData: 'No results found',
+				depth: 3
+			},
+			copyCode: {
+				buttonText: 'Copy',
+				successText: 'Copied'
+			},
+			alias: {}
+		};
+	</script>
+	<!-- Retold cross-repo documentation plugin (must load before Docsify) -->
+	<script src="retold-docs-plugin.js"></script>
+	<!-- Docsify core -->
+	<script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+	<!-- Syntax highlighting -->
+	<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
+	<!-- Docsify plugins -->
+	<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+	<!-- Lunr for cross-module search -->
+	<script src="//cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
+</body>
+</html>

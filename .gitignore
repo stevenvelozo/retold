@@ -7,6 +7,7 @@ modules/meadow/foxhound
 modules/meadow/meadow
 modules/meadow/meadow-*
 modules/meadow/retold-*
+modules/meadow/bibliograph*
 modules/orator/orator
 modules/orator/orator-*
 modules/orator/tidings
@@ -23,6 +24,8 @@ modules/utility/quantifier
 modules/utility/quackage
 modules/utility/data-arithmatic
 modules/utility/pict-*
+
+dist
 
 # Agh macintosh...
 .DS_Store
