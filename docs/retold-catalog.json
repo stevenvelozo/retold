@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-06T16:59:34.932Z",
+	"Generated": "2026-02-11T00:57:06.281Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -1313,6 +1313,78 @@
 					]
 				},
 				{
+					"Name": "orator-conversion",
+					"Repo": "orator-conversion",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Getting Started",
+									"Path": "getting-started.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								},
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								}
+							]
+						},
+						{
+							"Title": "Endpoints",
+							"Children": [
+								{
+									"Title": "JPG to PNG",
+									"Path": "endpoints/001-jpg-to-png.md"
+								},
+								{
+									"Title": "PNG to JPG",
+									"Path": "endpoints/002-png-to-jpg.md"
+								},
+								{
+									"Title": "PDF to Page PNG",
+									"Path": "endpoints/003-pdf-to-page-png.md"
+								},
+								{
+									"Title": "PDF to Page JPG",
+									"Path": "endpoints/004-pdf-to-page-jpg.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"api-reference.md",
+						"configuration.md",
+						"cover.md",
+						"endpoints/001-jpg-to-png.md",
+						"endpoints/002-png-to-jpg.md",
+						"endpoints/003-pdf-to-page-png.md",
+						"endpoints/004-pdf-to-page-jpg.md",
+						"endpoints/README.md",
+						"getting-started.md",
+						"index.html"
+					]
+				},
+				{
 					"Name": "orator-endpoint",
 					"Repo": "orator-endpoint",
 					"Group": "orator",
@@ -1776,6 +1848,139 @@
 					"DocFiles": []
 				},
 				{
+					"Name": "pict-docuserve",
+					"Repo": "pict-docuserve",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Quick Start",
+									"Path": "quick-start.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "Tasks",
+									"Path": "tasks.md"
+								},
+								{
+									"Title": "Lists",
+									"Path": "lists.md"
+								},
+								{
+									"Title": "Tags & Filters",
+									"Path": "tags.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Path": "api.md"
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"architecture.md",
+						"configuration.md",
+						"content-authoring.md",
+						"cover.md",
+						"css/docuserve.css",
+						"deployment.md",
+						"diagrams.md",
+						"example_applications/contacts-app/README.md",
+						"example_applications/contacts-app/_sidebar.md",
+						"example_applications/contacts-app/_topbar.md",
+						"example_applications/contacts-app/api.md",
+						"example_applications/contacts-app/configuration.md",
+						"example_applications/contacts-app/cover.md",
+						"example_applications/contacts-app/data-model.md",
+						"example_applications/contacts-app/errorpage.md",
+						"example_applications/contacts-app/quick-start.md",
+						"example_applications/contacts-app/relationships.md",
+						"example_applications/sports-stats-api/README.md",
+						"example_applications/sports-stats-api/_sidebar.md",
+						"example_applications/sports-stats-api/_topbar.md",
+						"example_applications/sports-stats-api/api.md",
+						"example_applications/sports-stats-api/authentication.md",
+						"example_applications/sports-stats-api/cover.md",
+						"example_applications/sports-stats-api/errorpage.md",
+						"example_applications/sports-stats-api/games.md",
+						"example_applications/sports-stats-api/leagues-teams.md",
+						"example_applications/sports-stats-api/players.md",
+						"example_applications/sports-stats-api/quick-start.md",
+						"example_applications/sports-stats-api/standings.md",
+						"example_applications/sports-stats-api/websocket.md",
+						"example_applications/todo-app/README.md",
+						"example_applications/todo-app/_sidebar.md",
+						"example_applications/todo-app/_topbar.md",
+						"example_applications/todo-app/api.md",
+						"example_applications/todo-app/configuration.md",
+						"example_applications/todo-app/cover.md",
+						"example_applications/todo-app/errorpage.md",
+						"example_applications/todo-app/lists.md",
+						"example_applications/todo-app/quick-start.md",
+						"example_applications/todo-app/tags.md",
+						"example_applications/todo-app/tasks.md",
+						"index.html",
+						"js/pict.min.js",
+						"js/pict.min.js.map",
+						"latex.md",
+						"pict-docuserve.min.js",
+						"pict-docuserve.min.js.map",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"configuration.md",
+						"cover.md",
+						"data-model.md",
+						"errorpage.md",
+						"quick-start.md",
+						"relationships.md",
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"authentication.md",
+						"cover.md",
+						"errorpage.md",
+						"games.md",
+						"leagues-teams.md",
+						"players.md",
+						"quick-start.md",
+						"standings.md",
+						"websocket.md",
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"configuration.md",
+						"cover.md",
+						"errorpage.md",
+						"lists.md",
+						"quick-start.md",
+						"tags.md",
+						"tasks.md"
+					]
+				},
+				{
 					"Name": "pict-nonlinearconfig",
 					"Repo": "pict-nonlinearconfig",
 					"Group": "pict",
@@ -2181,6 +2386,10 @@
 									"Path": "README.md"
 								},
 								{
+									"Title": "Fable Relationship",
+									"Path": "fable-relationship.md"
+								},
+								{
 									"Title": "Creating Services",
 									"Path": "creating-services.md"
 								}
@@ -2203,6 +2412,7 @@
 						"api-reference.md",
 						"cover.md",
 						"creating-services.md",
+						"fable-relationship.md",
 						"index.html"
 					]
 				},

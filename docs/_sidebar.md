@@ -1,5 +1,3 @@
-- [Home](/)
-
 - Getting Started
 
   - [Architecture](architecture.md)
