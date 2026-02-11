@@ -7,7 +7,6 @@
         "start": "node source/Retold.cjs",
         "coverage": "./node_modules/.bin/nyc --reporter=lcov --reporter=text-lcov ./node_modules/mocha/bin/_mocha -- -u tdd -R spec",
         "test": "./node_modules/.bin/mocha -u tdd -R spec",
-        "build": "npx quack build",
 		"build-docs": "npx quack prepare-docs ./docs -d ./modules",
 		"serve-docs": "npx pict-docuserve serve ./docs",
         "docker-dev-build": "docker build ./ -f Dockerfile_LUXURYCode -t retold-image:local",
@@ -27,7 +26,7 @@
     "homepage": "https://github.com/stevenvelozo/retold",
     "devDependencies": {
         "indoctrinate": "^1.0.4",
-        "pict-docuserve": "^0.0.6",
+        "pict-docuserve": "^0.0.7",
         "quackage": "^1.0.47"
     }
 }

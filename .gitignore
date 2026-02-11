@@ -27,6 +27,13 @@ modules/utility/pict-*
 
 dist
 
+.babelrc
+.browserslistrc
+.browserslistrc-BACKUP
+.gulpfile-quackage-config.json
+.gulpfile-quackage.js
+
+
 # Agh macintosh...
 .DS_Store
 
