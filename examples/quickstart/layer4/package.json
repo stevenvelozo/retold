@@ -1,0 +1,38 @@
+{
+	"name": "retold-quickstart-layer4-pict",
+	"version": "1.0.0",
+	"description": "Retold Quickstart: Layer 4 - Pict (Browser MVC with Views and Router)",
+	"main": "source/BookStore-Application.js",
+	"scripts": {
+		"postinstall": "node generate-build-config.js",
+		"build": "npx quack build && npx quack copy",
+		"start": "node server.js",
+		"demo": "npm run build && npm start"
+	},
+	"dependencies": {
+		"pict": "^1.0.343",
+		"pict-application": "^1.0.28",
+		"pict-router": "^1.0.4",
+		"pict-view": "^1.0.64",
+		"pict-provider": "^1.0.3",
+		"orator": "^5.0.2",
+		"orator-serviceserver-restify": "^2.0.5",
+		"fable": "^3.1.51"
+	},
+	"devDependencies": {
+		"quackage": "^1.0.41"
+	},
+	"copyFilesSettings": {
+		"whenFileExists": "overwrite"
+	},
+	"copyFiles": [
+		{
+			"from": "./html/*",
+			"to": "./dist/"
+		},
+		{
+			"from": "./node_modules/pict/dist/*",
+			"to": "./dist/js/"
+		}
+	]
+}

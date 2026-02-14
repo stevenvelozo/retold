@@ -1,0 +1,17 @@
+{
+	"name": "retold-quickstart-layer2-meadow",
+	"version": "1.0.0",
+	"description": "Retold Quickstart: Layer 2 - Meadow (Data Access with MySQL)",
+	"main": "index.js",
+	"scripts": {
+		"setup": "node setup-database.js",
+		"start": "node index.js",
+		"demo": "npm run setup && npm start"
+	},
+	"dependencies": {
+		"fable": "^3.1.51",
+		"meadow": "^2.0.18",
+		"meadow-connection-mysql": "^1.0.6",
+		"mysql2": "^3.6.3"
+	}
+}

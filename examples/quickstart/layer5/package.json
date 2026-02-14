@@ -1,0 +1,13 @@
+{
+	"name": "retold-quickstart-layer5-utility",
+	"version": "1.0.0",
+	"description": "Retold Quickstart: Layer 5 - Utility (Manyfest Object Navigation)",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"dependencies": {
+		"fable": "^3.1.51",
+		"manyfest": "^1.0.44"
+	}
+}

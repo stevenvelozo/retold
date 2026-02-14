@@ -1,8 +1,16 @@
 # Getting Started
 
-This guide walks through building a Retold application step by step, adding one layer at a time.
+This guide walks through building a Retold application step by step, adding one layer at a time. See the [Architecture](architecture.md) page for a full description of the layer model.
+
+> **Working examples:** Each step below has a corresponding runnable example in
+> [`examples/quickstart/`](../examples/quickstart/). Clone the repo and follow
+> along with real code.
 
 ## Step 1: Fable — The Foundation
+
+> **Layer 1 — Fable (Core Ecosystem):** DI, configuration, logging, UUID, expressions
+>
+> Working example: [`examples/quickstart/layer1/`](../examples/quickstart/layer1/)
 
 Every Retold application starts with a Fable instance. Fable gives you dependency injection, configuration, and logging.
 
@@ -40,6 +48,10 @@ Configuration can come from the constructor, a `.fable.config.json` file, or a c
 ```
 
 ## Step 2: Meadow — Define Your Data
+
+> **Layer 2 — Meadow + FoxHound + Stricture:** Data broker, SQL generation, schema definitions
+>
+> Working example: [`examples/quickstart/layer2/`](../examples/quickstart/layer2/)
 
 Add Meadow to define data entities and connect to a database.
 
@@ -94,6 +106,8 @@ _BookMeadow.doCreate({ Title: 'The Hobbit', Author: 'Tolkien', YearPublished: 19
 
 ## Step 3: Meadow-Endpoints — Auto-Generate Your API
 
+> **Layer 3 — Meadow-Endpoints:** Auto-generated CRUD routes, behavior hooks
+
 Add Meadow-Endpoints to automatically create RESTful routes from your entity.
 
 ```bash
@@ -125,6 +139,10 @@ _BookEndpoints.BehaviorModifications.setBehavior('Create-Authorize',
 This generates endpoints for: `GET /Books`, `GET /Book/:id`, `POST /Book`, `PUT /Book`, `DEL /Book/:id`, `GET /Books/Count`, `GET /Book/Schema`, and `DEL /Book/:id/Undelete`.
 
 ## Step 4: Orator — Serve Your API
+
+> **Layer 4 — Orator (API Server):** HTTP lifecycle, middleware, static files, proxy
+>
+> Working example: [`examples/quickstart/layer3/`](../examples/quickstart/layer3/)
 
 Add Orator to host everything over HTTP.
 
@@ -180,6 +198,10 @@ curl http://localhost:8086/Books/Count
 
 ## Step 5: Pict — Add a Browser UI (Optional)
 
+> **Pict (MVC Tools):** Views, templates, providers, application lifecycle — sits alongside the server stack
+>
+> Working example: [`examples/quickstart/layer4/`](../examples/quickstart/layer4/)
+
 If your application has a browser interface, add Pict for MVC.
 
 ```bash
@@ -213,7 +235,7 @@ fetch('/Books')
 
 ## The Shortcut: Retold-Data-Service
 
-For the common case of "schema → full REST API", **retold-data-service** wraps Steps 2-3 into a single call:
+For the common case of "schema → full REST API", **retold-data-service** wraps Layers 2–3 (Meadow + Meadow-Endpoints) into a single call:
 
 ```bash
 npm install retold-data-service
@@ -231,6 +253,14 @@ let _BookService = _Fable.instantiateServiceProvider('RetoldDataService',
 // Full CRUD endpoints ready — wire to Orator and go
 _BookService.connectRoutes(_Orator);
 ```
+
+## Utility Modules
+
+> **Utility Layer:** Build tools, manifest management, documentation, process supervision
+>
+> Working example: [`examples/quickstart/layer5/`](../examples/quickstart/layer5/) (Manyfest)
+
+Supporting the application stack are utility modules like **Manyfest** (schema-driven object navigation), **Quackage** (browser bundling), **Indoctrinate** (documentation generation), and **Ultravisor** (process supervision). These are used throughout the stack but don't live in the numbered layer model.
 
 ## Next Steps
 

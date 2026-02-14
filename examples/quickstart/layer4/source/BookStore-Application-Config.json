@@ -1,0 +1,15 @@
+{
+	"Name": "BookStore Pict Application",
+	"Hash": "BookStore",
+
+	"MainViewportViewIdentifier": "BookStore-Layout",
+
+	"AutoSolveAfterInitialize": true,
+	"AutoRenderMainViewportViewAfterInitialize": false,
+	"AutoRenderViewsAfterInitialize": false,
+
+	"pict_configuration":
+		{
+			"Product": "BookStore-Pict"
+		}
+}

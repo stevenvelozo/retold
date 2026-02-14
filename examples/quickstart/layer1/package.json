@@ -1,0 +1,12 @@
+{
+	"name": "retold-quickstart-layer1-fable",
+	"version": "1.0.0",
+	"description": "Retold Quickstart: Layer 1 - Fable (Core DI, Configuration, Logging)",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"dependencies": {
+		"fable": "^3.1.51"
+	}
+}

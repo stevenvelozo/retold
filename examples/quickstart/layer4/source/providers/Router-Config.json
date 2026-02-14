@@ -1,0 +1,18 @@
+{
+	"ProviderIdentifier": "Pict-Router",
+
+	"AutoInitialize": true,
+	"AutoInitializeOrdinal": 0,
+
+	"Routes":
+	[
+		{
+			"path": "/Home",
+			"template": "{~LV:Pict.PictApplication.showView(`BookStore-Home`)~}"
+		},
+		{
+			"path": "/About",
+			"template": "{~LV:Pict.PictApplication.showView(`BookStore-About`)~}"
+		}
+	]
+}
