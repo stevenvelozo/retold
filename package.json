@@ -26,7 +26,7 @@
     "homepage": "https://github.com/stevenvelozo/retold",
     "devDependencies": {
         "indoctrinate": "^1.0.4",
-        "pict-docuserve": "^0.0.7",
-        "quackage": "^1.0.47"
+        "pict-docuserve": "^0.0.10",
+        "quackage": "^1.0.48"
     }
 }

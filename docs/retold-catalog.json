@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-15T00:11:37.582Z",
+	"Generated": "2026-02-15T20:21:39.728Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -372,10 +372,51 @@
 					"Repo": "fable-log-logger-bunyan",
 					"Group": "fable",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Fable-Log",
+									"Path": "fable/fable-log/README.md"
+								},
+								{
+									"Title": "Fable-ServiceProviderBase",
+									"Path": "fable/fable-serviceproviderbase/README.md"
+								},
+								{
+									"Title": "Fable-Settings",
+									"Path": "fable/fable-settings/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md"
+					]
 				},
 				{
 					"Name": "fable-operationstep",
@@ -392,20 +433,122 @@
 					"Repo": "fable-serviceproviderbase",
 					"Group": "fable",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Initialization Patterns",
+									"Path": "initialization-patterns.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Fable-Settings",
+									"Path": "fable/fable-settings/README.md"
+								},
+								{
+									"Title": "Fable-Log",
+									"Path": "fable/fable-log/README.md"
+								},
+								{
+									"Title": "Fable-UUID",
+									"Path": "fable/fable-uuid/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md",
+						"initialization-patterns.md"
+					]
 				},
 				{
 					"Name": "fable-settings",
 					"Repo": "fable-settings",
 					"Group": "fable",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Environment Variables",
+									"Path": "environment-variables.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Fable-ServiceProviderBase",
+									"Path": "fable/fable-serviceproviderbase/README.md"
+								},
+								{
+									"Title": "Fable-Log",
+									"Path": "fable/fable-log/README.md"
+								},
+								{
+									"Title": "Fable-UUID",
+									"Path": "fable/fable-uuid/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md",
+						"environment-variables.md"
+					]
 				},
 				{
 					"Name": "fable-uuid",
@@ -908,30 +1051,204 @@
 					"Repo": "meadow-connection-mssql",
 					"Group": "meadow",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Schema & Table Creation",
+									"Path": "schema.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "meadow/meadow/README.md"
+								},
+								{
+									"Title": "FoxHound",
+									"Path": "meadow/foxhound/README.md"
+								},
+								{
+									"Title": "Stricture",
+									"Path": "meadow/stricture/README.md"
+								},
+								{
+									"Title": "Meadow Endpoints",
+									"Path": "meadow/meadow-endpoints/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md",
+						"schema.md"
+					]
 				},
 				{
 					"Name": "meadow-connection-mysql",
 					"Repo": "meadow-connection-mysql",
 					"Group": "meadow",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Schema & Table Creation",
+									"Path": "schema.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "meadow/meadow/README.md"
+								},
+								{
+									"Title": "FoxHound",
+									"Path": "meadow/foxhound/README.md"
+								},
+								{
+									"Title": "Stricture",
+									"Path": "meadow/stricture/README.md"
+								},
+								{
+									"Title": "Meadow Endpoints",
+									"Path": "meadow/meadow-endpoints/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md",
+						"schema.md"
+					]
 				},
 				{
 					"Name": "meadow-connection-sqlite",
 					"Repo": "meadow-connection-sqlite",
 					"Group": "meadow",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Full Pipeline",
+									"Path": "examples-pipeline.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "meadow/meadow/README.md"
+								},
+								{
+									"Title": "FoxHound",
+									"Path": "meadow/foxhound/README.md"
+								},
+								{
+									"Title": "MySQL Connector",
+									"Path": "meadow/meadow-connection-mysql/README.md"
+								},
+								{
+									"Title": "MSSQL Connector",
+									"Path": "meadow/meadow-connection-mssql/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md",
+						"examples-pipeline.md"
+					]
 				},
 				{
 					"Name": "meadow-endpoints",
@@ -1088,11 +1405,134 @@
 					"Group": "meadow",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": false,
-					"Sidebar": [],
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "README.md"
+								}
+							]
+						},
+						{
+							"Title": "Concepts",
+							"Children": [
+								{
+									"Title": "Comprehensions",
+									"Path": "comprehensions.md"
+								},
+								{
+									"Title": "Mapping Files",
+									"Path": "mapping-files.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "CLI Reference",
+									"Path": "cli-reference.md"
+								},
+								{
+									"Title": "Programmatic API",
+									"Path": "programmatic-api.md"
+								},
+								{
+									"Title": "Integration Adapter",
+									"Path": "integration-adapter.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Examples Walkthrough",
+									"Path": "examples-walkthrough.md"
+								},
+								{
+									"Title": "Bookstore Example",
+									"Path": "examples/bookstore/BookData.md"
+								},
+								{
+									"Title": "Seattle Multi-Set",
+									"Path": "examples/multi_set_integration/multi_set_step_by_step.md"
+								}
+							]
+						},
+						{
+							"Title": "Vocabulary",
+							"Children": [
+								{
+									"Title": "Comprehension",
+									"Path": "vocabulary/Comprehension.md"
+								},
+								{
+									"Title": "Entity",
+									"Path": "vocabulary/Entity.md"
+								},
+								{
+									"Title": "GUID",
+									"Path": "vocabulary/GUID.md"
+								},
+								{
+									"Title": "Schema",
+									"Path": "vocabulary/Schema.md"
+								},
+								{
+									"Title": "Set",
+									"Path": "vocabulary/Set.md"
+								},
+								{
+									"Title": "Source",
+									"Path": "vocabulary/Source.md"
+								},
+								{
+									"Title": "Column",
+									"Path": "vocabulary/Column.md"
+								},
+								{
+									"Title": "Record",
+									"Path": "vocabulary/Record.md"
+								},
+								{
+									"Title": "Format",
+									"Path": "vocabulary/Format.md"
+								},
+								{
+									"Title": "Join",
+									"Path": "vocabulary/Join.md"
+								},
+								{
+									"Title": "Snapshot",
+									"Path": "vocabulary/Snapshot.md"
+								},
+								{
+									"Title": "Version",
+									"Path": "vocabulary/Version.md"
+								},
+								{
+									"Title": "Confidence",
+									"Path": "vocabulary/Confidence.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"cli-reference.md",
+						"comprehensions.md",
+						"cover.md",
 						"examples/bookstore/.gitignore",
 						"examples/bookstore/BookData.md",
 						"examples/bookstore/Generate_Bookstore_Comprehension.sh",
@@ -1107,7 +1547,11 @@
 						"examples/multi_set_integration/multi_set_step_by_step.md",
 						"examples/multi_set_integration/multi_set_step_by_step_overview_diagram.excalidraw.svg",
 						"examples/multi_set_integration/part_1_getting_data.md",
+						"examples-walkthrough.md",
 						"index.html",
+						"integration-adapter.md",
+						"mapping-files.md",
+						"programmatic-api.md",
 						"vocabulary/Column.md",
 						"vocabulary/Comprehension.md",
 						"vocabulary/Confidence.md",
@@ -1686,10 +2130,70 @@
 					"Repo": "tidings",
 					"Group": "orator",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Rendering Pipeline",
+									"Path": "rendering-pipeline.md"
+								},
+								{
+									"Title": "Rasterizers",
+									"Path": "rasterizers.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Orator",
+									"Path": "orator/orator/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "FoxHound",
+									"Path": "meadow/foxhound/README.md"
+								},
+								{
+									"Title": "Meadow",
+									"Path": "meadow/meadow/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md",
+						"rasterizers.md",
+						"rendering-pipeline.md"
+					]
 				}
 			]
 		},
@@ -1703,10 +2207,56 @@
 					"Repo": "cryptbrau",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md"
+					]
 				},
 				{
 					"Name": "informary",
@@ -2100,20 +2650,133 @@
 					"Repo": "pict-provider",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Lifecycle",
+									"Path": "lifecycle.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "pict/pict-view/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Fable Service Base",
+									"Path": "fable/fable-serviceproviderbase/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md",
+						"lifecycle.md"
+					]
 				},
 				{
 					"Name": "pict-router",
 					"Repo": "pict-router",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "pict/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Provider",
+									"Path": "pict/pict-provider/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md"
+					]
 				},
 				{
 					"Name": "pict-section-entitymanagement",
@@ -2409,10 +3072,69 @@
 					"Repo": "pict-section-tuigrid",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "pict/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Provider",
+									"Path": "pict/pict-provider/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"configuration.md",
+						"cover.md"
+					]
 				},
 				{
 					"Name": "pict-service-commandlineutility",
@@ -2516,10 +3238,84 @@
 					"Repo": "pict-template",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Data & Lists",
+									"Path": "examples-data-and-lists.md"
+								},
+								{
+									"Title": "Conditionals & Logic",
+									"Path": "examples-conditionals-and-logic.md"
+								},
+								{
+									"Title": "Custom Expressions",
+									"Path": "examples-custom-expressions.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "pict/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Provider",
+									"Path": "pict/pict-provider/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md",
+						"examples-conditionals-and-logic.md",
+						"examples-custom-expressions.md",
+						"examples-data-and-lists.md"
+					]
 				},
 				{
 					"Name": "pict-terminalui",
@@ -2794,28 +3590,8 @@
 					"DocFiles": []
 				},
 				{
-					"Name": "choreographic",
-					"Repo": "choreographic",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "cumulation",
 					"Repo": "cumulation",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
-					"Name": "elucidator",
-					"Repo": "elucidator",
 					"Group": "utility",
 					"Branch": "master",
 					"HasDocs": false,
@@ -2932,16 +3708,6 @@
 					]
 				},
 				{
-					"Name": "js-editor-extension",
-					"Repo": "js-editor-extension",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "manyfest",
 					"Repo": "manyfest",
 					"Group": "utility",
@@ -3018,16 +3784,6 @@
 					]
 				},
 				{
-					"Name": "merquerial",
-					"Repo": "merquerial",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "pict-cruisecontrol",
 					"Repo": "pict-cruisecontrol",
 					"Group": "utility",
@@ -3042,10 +3798,75 @@
 					"Repo": "precedent",
 					"Group": "utility",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Usage Patterns",
+									"Path": "examples.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Template",
+									"Path": "pict/pict-template/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Fable Settings",
+									"Path": "fable/fable-settings/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md",
+						"css/docuserve.css",
+						"examples.md",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "quackage",
