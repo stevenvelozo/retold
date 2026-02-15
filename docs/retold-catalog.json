@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-11T01:22:53.073Z",
+	"Generated": "2026-02-15T00:11:37.582Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -485,10 +485,111 @@
 					"Repo": "bibliograph",
 					"Group": "meadow",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quick-start.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Storage Providers",
+									"Path": "storage-providers.md"
+								}
+							]
+						},
+						{
+							"Title": "Data Operations",
+							"Children": [
+								{
+									"Title": "Write",
+									"Path": "operations/write.md"
+								},
+								{
+									"Title": "Read",
+									"Path": "operations/read.md"
+								},
+								{
+									"Title": "Delete",
+									"Path": "operations/delete.md"
+								},
+								{
+									"Title": "Check Existence",
+									"Path": "operations/exists.md"
+								},
+								{
+									"Title": "Sources",
+									"Path": "operations/sources.md"
+								},
+								{
+									"Title": "Record Keys",
+									"Path": "operations/record-keys.md"
+								},
+								{
+									"Title": "Metadata",
+									"Path": "operations/metadata.md"
+								},
+								{
+									"Title": "Diff and Deltas",
+									"Path": "operations/diff-and-deltas.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API",
+									"Path": "api.md"
+								},
+								{
+									"Title": "CLI",
+									"Path": "cli.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"architecture.md",
+						"cli.md",
+						"configuration.md",
+						"cover.md",
+						"index.html",
+						"operations/delete.md",
+						"operations/diff-and-deltas.md",
+						"operations/exists.md",
+						"operations/metadata.md",
+						"operations/read.md",
+						"operations/record-keys.md",
+						"operations/sources.md",
+						"operations/write.md",
+						"quick-start.md",
+						"storage-providers.md"
+					]
 				},
 				{
 					"Name": "bibliograph-storage-leveldb",
@@ -787,6 +888,7 @@
 					"DocFiles": [
 						"README.md",
 						"_sidebar.md",
+						"index.html",
 						"providers/README.md",
 						"providers/alasql.md",
 						"providers/mssql.md",
@@ -966,7 +1068,8 @@
 						"crud/delete.md",
 						"crud/read.md",
 						"crud/schema.md",
-						"crud/update.md"
+						"crud/update.md",
+						"index.html"
 					]
 				},
 				{
@@ -1746,9 +1849,6 @@
 						"application_lifecycle/README.md",
 						"applications/README.md",
 						"cover.md",
-						"dependencies/docsify-4.js",
-						"dependencies/pict.min.js",
-						"dependencies/vue.css",
 						"design_philosophy/applications_providers_views_and_solvers.md",
 						"design_philosophy/config.json",
 						"design_philosophy/model_view_controller_ohmy.md",
@@ -1899,7 +1999,6 @@
 						"configuration.md",
 						"content-authoring.md",
 						"cover.md",
-						"css/docuserve.css",
 						"deployment.md",
 						"diagrams.md",
 						"example_applications/contacts-app/README.md",
@@ -1937,11 +2036,7 @@
 						"example_applications/todo-app/tags.md",
 						"example_applications/todo-app/tasks.md",
 						"index.html",
-						"js/pict.min.js",
-						"js/pict.min.js.map",
 						"latex.md",
-						"pict-docuserve.min.js",
-						"pict-docuserve.min.js.map",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
 						"README.md",
@@ -2427,6 +2522,175 @@
 					"DocFiles": []
 				},
 				{
+					"Name": "pict-terminalui",
+					"Repo": "pict-terminalui",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Quick Start",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Building an App",
+									"Path": "building-an-app.md"
+								}
+							]
+						},
+						{
+							"Title": "Containers",
+							"Children": [
+								{
+									"Title": "Box",
+									"Path": "widgets/box.md"
+								},
+								{
+									"Title": "Form",
+									"Path": "widgets/form.md"
+								},
+								{
+									"Title": "Scrollable Box",
+									"Path": "widgets/scrollablebox.md"
+								}
+							]
+						},
+						{
+							"Title": "Text Display",
+							"Children": [
+								{
+									"Title": "Text",
+									"Path": "widgets/text.md"
+								},
+								{
+									"Title": "Log",
+									"Path": "widgets/log.md"
+								},
+								{
+									"Title": "Table",
+									"Path": "widgets/table.md"
+								},
+								{
+									"Title": "List Table",
+									"Path": "widgets/listtable.md"
+								}
+							]
+						},
+						{
+							"Title": "Text Input",
+							"Children": [
+								{
+									"Title": "Textbox",
+									"Path": "widgets/textbox.md"
+								},
+								{
+									"Title": "Textarea",
+									"Path": "widgets/textarea.md"
+								}
+							]
+						},
+						{
+							"Title": "Selection",
+							"Children": [
+								{
+									"Title": "List",
+									"Path": "widgets/list.md"
+								},
+								{
+									"Title": "List Bar",
+									"Path": "widgets/listbar.md"
+								},
+								{
+									"Title": "Checkbox",
+									"Path": "widgets/checkbox.md"
+								},
+								{
+									"Title": "Radio Button",
+									"Path": "widgets/radiobutton.md"
+								}
+							]
+						},
+						{
+							"Title": "Actions",
+							"Children": [
+								{
+									"Title": "Button",
+									"Path": "widgets/button.md"
+								},
+								{
+									"Title": "Progress Bar",
+									"Path": "widgets/progressbar.md"
+								}
+							]
+						},
+						{
+							"Title": "Dialogs",
+							"Children": [
+								{
+									"Title": "Prompt",
+									"Path": "widgets/prompt.md"
+								},
+								{
+									"Title": "Question",
+									"Path": "widgets/question.md"
+								},
+								{
+									"Title": "Message",
+									"Path": "widgets/message.md"
+								},
+								{
+									"Title": "Loading",
+									"Path": "widgets/loading.md"
+								}
+							]
+						},
+						{
+							"Title": "File System",
+							"Children": [
+								{
+									"Title": "File Manager",
+									"Path": "widgets/filemanager.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"building-an-app.md",
+						"cover.md",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"widgets/box.md",
+						"widgets/button.md",
+						"widgets/checkbox.md",
+						"widgets/filemanager.md",
+						"widgets/form.md",
+						"widgets/list.md",
+						"widgets/listbar.md",
+						"widgets/listtable.md",
+						"widgets/loading.md",
+						"widgets/log.md",
+						"widgets/message.md",
+						"widgets/progressbar.md",
+						"widgets/prompt.md",
+						"widgets/question.md",
+						"widgets/radiobutton.md",
+						"widgets/scrollablebox.md",
+						"widgets/table.md",
+						"widgets/text.md",
+						"widgets/textarea.md",
+						"widgets/textbox.md"
+					]
+				},
+				{
 					"Name": "pict-view",
 					"Repo": "pict-view",
 					"Group": "pict",
@@ -2788,20 +3052,254 @@
 					"Repo": "quackage",
 					"Group": "utility",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Quackage",
+							"Path": "README.md"
+						},
+						{
+							"Title": "Package Management",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "commands/package-management/README.md"
+								},
+								{
+									"Title": "updatepackage",
+									"Path": "commands/package-management/updatepackage.md"
+								},
+								{
+									"Title": "luxuryupdatepackage",
+									"Path": "commands/package-management/luxuryupdatepackage.md"
+								},
+								{
+									"Title": "lint",
+									"Path": "commands/package-management/lint.md"
+								}
+							]
+						},
+						{
+							"Title": "Boilerplate",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "commands/boilerplate/README.md"
+								},
+								{
+									"Title": "boilerplate",
+									"Path": "commands/boilerplate/boilerplate.md"
+								},
+								{
+									"Title": "listtemplates",
+									"Path": "commands/boilerplate/listtemplates.md"
+								},
+								{
+									"Title": "buildtemplates",
+									"Path": "commands/boilerplate/buildtemplates.md"
+								}
+							]
+						},
+						{
+							"Title": "Compiling",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "commands/compiling/README.md"
+								},
+								{
+									"Title": "stricture-compile",
+									"Path": "commands/compiling/stricture-compile.md"
+								},
+								{
+									"Title": "stricture-legaacy",
+									"Path": "commands/compiling/stricture-legaacy.md"
+								},
+								{
+									"Title": "assemble_json_views",
+									"Path": "commands/compiling/assemble_json_views.md"
+								}
+							]
+						},
+						{
+							"Title": "Building",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "commands/building/README.md"
+								},
+								{
+									"Title": "build",
+									"Path": "commands/building/build.md"
+								},
+								{
+									"Title": "copy-files-from-to",
+									"Path": "commands/building/copy-files-from-to.md"
+								},
+								{
+									"Title": "run-mocha-tests",
+									"Path": "commands/building/run-mocha-tests.md"
+								}
+							]
+						},
+						{
+							"Title": "Documentation",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "commands/documentation/README.md"
+								},
+								{
+									"Title": "generate-documentation",
+									"Path": "commands/documentation/generate-documentation.md"
+								},
+								{
+									"Title": "indoctrinate",
+									"Path": "commands/documentation/indoctrinate.md"
+								},
+								{
+									"Title": "indoctrinate-index",
+									"Path": "commands/documentation/indoctrinate-index.md"
+								},
+								{
+									"Title": "docuserve-inject",
+									"Path": "commands/documentation/docuserve-inject.md"
+								},
+								{
+									"Title": "prepare-docs",
+									"Path": "commands/documentation/prepare-docs.md"
+								},
+								{
+									"Title": "prepare-local",
+									"Path": "commands/documentation/prepare-local.md"
+								},
+								{
+									"Title": "docs-serve",
+									"Path": "commands/documentation/docs-serve.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"commands/boilerplate/README.md",
+						"commands/boilerplate/boilerplate.md",
+						"commands/boilerplate/buildtemplates.md",
+						"commands/boilerplate/listtemplates.md",
+						"commands/building/README.md",
+						"commands/building/build.md",
+						"commands/building/copy-files-from-to.md",
+						"commands/building/run-mocha-tests.md",
+						"commands/compiling/README.md",
+						"commands/compiling/assemble_json_views.md",
+						"commands/compiling/stricture-compile.md",
+						"commands/compiling/stricture-legaacy.md",
+						"commands/documentation/README.md",
+						"commands/documentation/docs-serve.md",
+						"commands/documentation/docuserve-inject.md",
+						"commands/documentation/generate-documentation.md",
+						"commands/documentation/indoctrinate-index.md",
+						"commands/documentation/indoctrinate.md",
+						"commands/documentation/prepare-docs.md",
+						"commands/documentation/prepare-local.md",
+						"commands/package-management/README.md",
+						"commands/package-management/lint.md",
+						"commands/package-management/luxuryupdatepackage.md",
+						"commands/package-management/updatepackage.md",
+						"cover.md",
+						"errorpage.md",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "ultravisor",
 					"Repo": "ultravisor",
 					"Group": "utility",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "overview.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Features",
+							"Children": [
+								{
+									"Title": "Tasks",
+									"Path": "features/tasks.md"
+								},
+								{
+									"Title": "Operations",
+									"Path": "features/operations.md"
+								},
+								{
+									"Title": "Scheduling",
+									"Path": "features/scheduling.md"
+								},
+								{
+									"Title": "Manifests",
+									"Path": "features/manifests.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Server",
+									"Path": "features/api.md"
+								},
+								{
+									"Title": "CLI Commands",
+									"Path": "features/cli.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "features/configuration.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"_sidebar.md",
+						"_topbar.md",
+						"architecture.md",
+						"cover.md",
+						"features/api.md",
+						"features/cli.md",
+						"features/configuration.md",
+						"features/manifests.md",
+						"features/operations.md",
+						"features/scheduling.md",
+						"features/tasks.md",
+						"index.html",
+						"overview.md",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				}
 			]
 		},

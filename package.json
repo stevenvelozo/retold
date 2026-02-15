@@ -7,8 +7,8 @@
         "start": "node source/Retold.cjs",
         "coverage": "./node_modules/.bin/nyc --reporter=lcov --reporter=text-lcov ./node_modules/mocha/bin/_mocha -- -u tdd -R spec",
         "test": "./node_modules/.bin/mocha -u tdd -R spec",
-		"build-docs": "npx quack prepare-docs ./docs -d ./modules",
-		"serve-docs": "npx pict-docuserve serve ./docs",
+	"build-docs": "npx quack prepare-docs ./docs -d ./modules",
+	"serve-docs": "npx pict-docuserve serve ./docs",
         "docker-dev-build": "docker build ./ -f Dockerfile_LUXURYCode -t retold-image:local",
         "docker-dev-run": "docker run -it -d --name retold-dev -p 30001:8080 -p 38086:8086 -v \"$PWD/.config:/home/coder/.config\"  -v \"$PWD:/home/coder/retold\" -u \"$(id -u):$(id -g)\" -e \"DOCKER_USER=$USER\" retold-image:local",
         "docker-dev-shell": "docker exec -it retold-dev /bin/bash"
