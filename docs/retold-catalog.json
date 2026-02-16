@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-16T20:23:11.431Z",
+	"Generated": "2026-02-16T20:41:20.921Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -78,8 +78,7 @@
 					"HasCover": false,
 					"Sidebar": [],
 					"DocFiles": [
-						"js/pict-docuserve.min.js",
-						"js/pict-docuserve.min.js.map"
+						"js/pict-docuserve.min.js"
 					]
 				},
 				{
