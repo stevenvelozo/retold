@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-15T20:21:39.728Z",
+	"Generated": "2026-02-16T05:12:54.432Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -411,11 +411,16 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md"
+						"cover.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -542,12 +547,17 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"cover.md",
-						"environment-variables.md"
+						"css/docuserve.css",
+						"environment-variables.md",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -1103,11 +1113,16 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"cover.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"schema.md"
 					]
 				},
@@ -1168,11 +1183,16 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"cover.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"schema.md"
 					]
 				},
@@ -1242,12 +1262,17 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"cover.md",
-						"examples-pipeline.md"
+						"css/docuserve.css",
+						"examples-pipeline.md",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -1441,6 +1466,10 @@
 									"Path": "cli-reference.md"
 								},
 								{
+									"Title": "REST API Reference",
+									"Path": "rest-api-reference.md"
+								},
+								{
 									"Title": "Programmatic API",
 									"Path": "programmatic-api.md"
 								},
@@ -1552,6 +1581,7 @@
 						"integration-adapter.md",
 						"mapping-files.md",
 						"programmatic-api.md",
+						"rest-api-reference.md",
 						"vocabulary/Column.md",
 						"vocabulary/Comprehension.md",
 						"vocabulary/Confidence.md",
@@ -1574,10 +1604,74 @@
 					"Repo": "parime",
 					"Group": "meadow",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quick-start.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Lake Types",
+							"Children": [
+								{
+									"Title": "Record Lakes",
+									"Path": "record-lakes.md"
+								},
+								{
+									"Title": "Binary Lakes",
+									"Path": "binary-lakes.md"
+								},
+								{
+									"Title": "Combined Lakes",
+									"Path": "combined-lakes.md"
+								}
+							]
+						},
+						{
+							"Title": "Advanced",
+							"Children": [
+								{
+									"Title": "WebSocket Protocol",
+									"Path": "websocket.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"architecture.md",
+						"binary-lakes.md",
+						"combined-lakes.md",
+						"configuration.md",
+						"cover.md",
+						"css/docuserve.css",
+						"index.html",
+						"quick-start.md",
+						"record-lakes.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"websocket.md"
+					]
 				},
 				{
 					"Name": "retold-data-service",
@@ -2251,11 +2345,16 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md"
+						"cover.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -2263,10 +2362,42 @@
 					"Repo": "informary",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Home",
+							"Path": "README.md"
+						},
+						{
+							"Title": "Documentation",
+							"Children": [
+								{
+									"Title": "Getting Started",
+									"Path": "README.md"
+								},
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								},
+								{
+									"Title": "Usage Lifecycle",
+									"Path": "lifecycle.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"cover.md",
+						"css/docuserve.css",
+						"index.html",
+						"lifecycle.md"
+					]
 				},
 				{
 					"Name": "pict",
@@ -2706,12 +2837,17 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"cover.md",
-						"lifecycle.md"
+						"css/docuserve.css",
+						"index.html",
+						"lifecycle.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -2771,11 +2907,16 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md"
+						"cover.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -3128,12 +3269,17 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"configuration.md",
-						"cover.md"
+						"cover.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
