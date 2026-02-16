@@ -1,6 +1,6 @@
 # Todo List: Console Client
 
-> Part of the [Todo List Application](todo-list.md) example.
+> Part of the [Todo List Application](examples/todolist/todo-list.md) example.
 >
 > **Source:** [`examples/todo-list/console-client/`](../examples/todo-list/console-client/)
 
@@ -25,7 +25,7 @@ node server/server.cjs &
 node console-client/console-client.cjs
 ```
 
-See the [main quickstart](todo-list.md#running-with-docker) for details.
+See the [main quickstart](examples/todolist/todo-list.md) for details.
 
 ## Keyboard Controls
 

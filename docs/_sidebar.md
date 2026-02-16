@@ -3,7 +3,7 @@
   - [Getting Started](getting-started.md)
   - [Architecture](architecture/architecture.md)
   - [Ecosystem Architecture](architecture/module-architecture.md)
-  - [All Modules](modules/modules.md)
+  - [All Modules](architecture/modules.md)
 
 - [Examples](examples/examples.md)
 

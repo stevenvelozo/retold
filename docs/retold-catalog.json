@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-16T19:44:06.322Z",
+	"Generated": "2026-02-16T20:23:11.431Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -35,7 +35,8 @@
 					"Sidebar": [],
 					"DocFiles": [
 						"architecture/architecture.md",
-						"architecture/module-architecture.md"
+						"architecture/module-architecture.md",
+						"architecture/modules.md"
 					]
 				},
 				{
@@ -69,6 +70,19 @@
 					]
 				},
 				{
+					"Name": "js",
+					"Repo": "js",
+					"Group": "docs",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": [
+						"js/pict-docuserve.min.js",
+						"js/pict-docuserve.min.js.map"
+					]
+				},
+				{
 					"Name": "modules",
 					"Repo": "modules",
 					"Group": "docs",
@@ -79,7 +93,6 @@
 					"DocFiles": [
 						"modules/fable.md",
 						"modules/meadow.md",
-						"modules/modules.md",
 						"modules/orator.md",
 						"modules/pict.md",
 						"modules/utility.md"

@@ -1,6 +1,6 @@
 # Todo List: API Server
 
-> Part of the [Todo List Application](todo-list.md) example.
+> Part of the [Todo List Application](examples/todolist/todo-list.md) example.
 >
 > **Source:** [`examples/todo-list/server/`](../examples/todo-list/server/)
 
@@ -18,7 +18,7 @@ The server starts on **http://localhost:8086** and serves both the REST API and 
 
 ### Running with Docker
 
-From the `examples/todo-list/` directory, run `./docker-run.sh` to build the Docker image and start the server. The web client is pre-built inside the image, so you can open **http://localhost:8086** immediately. See the [main quickstart](todo-list.md#running-with-docker) for details on the interactive shell.
+From the `examples/todo-list/` directory, run `./docker-run.sh` to build the Docker image and start the server. The web client is pre-built inside the image, so you can open **http://localhost:8086** immediately. See the [main quickstart](examples/todolist/todo-list.md) for details on the interactive shell.
 
 ## How It Works
 

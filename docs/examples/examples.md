@@ -41,12 +41,12 @@ graph LR
 
 **Detailed documentation:**
 
-- **[Todo List Application](todolist/todo-list.md)** -- Architecture overview and quickstart
-- **[Data Model](todolist/todo-list-model.md)** -- Stricture MicroDDL, Meadow schema, seed data
-- **[API Server](todolist/todo-list-server.md)** -- Orator + Meadow + SQLite wiring
-- **[Web Client](todolist/todo-list-web-client.md)** -- Pict Application with views, providers, and routing
-- **[Console Client](todolist/todo-list-console-client.md)** -- blessed TUI with pict-terminalui
-- **[CLI Client](todolist/todo-list-cli-client.md)** -- Non-interactive command-line tool
+- **[Todo List Application](examples/todolist/todo-list.md)** -- Architecture overview and quickstart
+- **[Data Model](examples/todolist/todo-list-model.md)** -- Stricture MicroDDL, Meadow schema, seed data
+- **[API Server](examples/todolist/todo-list-server.md)** -- Orator + Meadow + SQLite wiring
+- **[Web Client](examples/todolist/todo-list-web-client.md)** -- Pict Application with views, providers, and routing
+- **[Console Client](examples/todolist/todo-list-console-client.md)** -- blessed TUI with pict-terminalui
+- **[CLI Client](examples/todolist/todo-list-cli-client.md)** -- Non-interactive command-line tool
 
 ### Retold Patterns Demonstrated
 

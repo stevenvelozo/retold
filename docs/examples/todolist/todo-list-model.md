@@ -1,6 +1,6 @@
 # Todo List: System Model
 
-> Part of the [Todo List Application](todo-list.md) example.
+> Part of the [Todo List Application](examples/todolist/todo-list.md) example.
 >
 > **Source:** [`examples/todo-list/model/`](../examples/todo-list/model/)
 

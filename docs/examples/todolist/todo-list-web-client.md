@@ -1,6 +1,6 @@
 # Todo List: Web Client
 
-> Part of the [Todo List Application](todo-list.md) example.
+> Part of the [Todo List Application](examples/todolist/todo-list.md) example.
 >
 > **Source:** [`examples/todo-list/web-client/`](../examples/todo-list/web-client/)
 
@@ -20,7 +20,7 @@ The build step uses Quackage to browserify the application source into `dist/`, 
 
 ### Running with Docker
 
-From the `examples/todo-list/` directory, run `./docker-run.sh` to build the Docker image and start the server. The web client is already built inside the image -- just open **http://localhost:8086** in a browser. See the [main quickstart](todo-list.md#running-with-docker) for more options.
+From the `examples/todo-list/` directory, run `./docker-run.sh` to build the Docker image and start the server. The web client is already built inside the image -- just open **http://localhost:8086** in a browser. See the [main quickstart](examples/todolist/todo-list.md) for more options.
 
 ## Application Structure
 

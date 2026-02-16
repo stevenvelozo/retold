@@ -54,7 +54,7 @@ graph TB
     cliapp -- "http.request()" --> orator
 ```
 
-All four components share a single [Task data model](todo-list-model.md) defined in Stricture MicroDDL. The server creates the SQLite table from the compiled DDL, seeds it with sample data through the Meadow DAL, and auto-generates REST endpoints with Meadow Endpoints. Each client speaks to the server over HTTP using the same query DSL for sorting, filtering, and pagination.
+All four components share a single [Task data model](examples/todolist/todo-list-model.md) defined in Stricture MicroDDL. The server creates the SQLite table from the compiled DDL, seeds it with sample data through the Meadow DAL, and auto-generates REST endpoints with Meadow Endpoints. Each client speaks to the server over HTTP using the same query DSL for sorting, filtering, and pagination.
 
 ## Quickstart
 
@@ -72,7 +72,7 @@ npm start
 
 The server starts on **http://localhost:8086**. On first run it creates a SQLite database, builds the Task table from compiled Stricture DDL, and seeds 1,000 sample tasks from a CSV file. Every seed record passes through the Meadow DAL, so GUIDs, audit timestamps, and default values are applied automatically.
 
-See [API Server](todo-list-server.md) for details.
+See [API Server](examples/todolist/todo-list-server.md) for details.
 
 ### 2. Build and Open the Web Client
 
@@ -84,7 +84,7 @@ npm run build
 
 Open **http://localhost:8086** in a browser. The server serves the built client as static files. The web client includes a sortable task list with search and pagination, an add/edit form, and week/month/year calendar views.
 
-See [Web Client](todo-list-web-client.md) for details.
+See [Web Client](examples/todolist/todo-list-web-client.md) for details.
 
 ### 3. Run the Console Client
 
@@ -96,7 +96,7 @@ npm start
 
 A full-screen terminal UI. Use arrow keys to navigate, Enter to view a task, E to edit, S to pick a sort order, / to search, Q to quit.
 
-See [Console Client](todo-list-console-client.md) for details.
+See [Console Client](examples/todolist/todo-list-console-client.md) for details.
 
 ### 4. Use the CLI Client
 
@@ -109,7 +109,7 @@ npx todo complete 42
 npx todo remove 42
 ```
 
-See [CLI Client](todo-list-cli-client.md) for details.
+See [CLI Client](examples/todolist/todo-list-cli-client.md) for details.
 
 ### Running with Docker
 
@@ -141,11 +141,11 @@ node /app/console-client/console-client.cjs
 
 | Component | Retold Modules | Description |
 |-----------|---------------|-------------|
-| [Data Model](todo-list-model.md) | Stricture, Meadow | Task entity defined once, shared by all components |
-| [API Server](todo-list-server.md) | Fable, Orator, Meadow, Meadow Endpoints, meadow-connection-sqlite | REST API with auto-generated CRUD and static file serving |
-| [Web Client](todo-list-web-client.md) | Pict, pict-application, pict-view, pict-provider, pict-router, Quackage | Browser SPA with views, providers, hash routing, and calendar views |
-| [Console Client](todo-list-console-client.md) | Pict, pict-application, pict-view, pict-terminalui, blessed | Full-screen terminal UI with modal dialogs |
-| [CLI Client](todo-list-cli-client.md) | pict-service-commandlineutility, fable-serviceproviderbase | Non-interactive commands for list, add, remove, complete |
+| [Data Model](examples/todolist/todo-list-model.md) | Stricture, Meadow | Task entity defined once, shared by all components |
+| [API Server](examples/todolist/todo-list-server.md) | Fable, Orator, Meadow, Meadow Endpoints, meadow-connection-sqlite | REST API with auto-generated CRUD and static file serving |
+| [Web Client](examples/todolist/todo-list-web-client.md) | Pict, pict-application, pict-view, pict-provider, pict-router, Quackage | Browser SPA with views, providers, hash routing, and calendar views |
+| [Console Client](examples/todolist/todo-list-console-client.md) | Pict, pict-application, pict-view, pict-terminalui, blessed | Full-screen terminal UI with modal dialogs |
+| [CLI Client](examples/todolist/todo-list-cli-client.md) | pict-service-commandlineutility, fable-serviceproviderbase | Non-interactive commands for list, add, remove, complete |
 
 ## How the Pieces Connect
 

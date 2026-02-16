@@ -1,6 +1,6 @@
 # Todo List: CLI Client
 
-> Part of the [Todo List Application](todo-list.md) example.
+> Part of the [Todo List Application](examples/todolist/todo-list.md) example.
 >
 > **Source:** [`examples/todo-list/cli-client/`](../examples/todo-list/cli-client/)
 
@@ -25,7 +25,7 @@ node server/server.cjs &
 cd /app/cli-client && npx todo list
 ```
 
-See the [main quickstart](todo-list.md#running-with-docker) for details.
+See the [main quickstart](examples/todolist/todo-list.md) for details.
 
 ## Commands
 

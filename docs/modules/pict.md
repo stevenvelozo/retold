@@ -6,6 +6,8 @@ Pict provides a non-opinionated set of Model-View-Controller tools for building 
 
 Pict does not impose opinions about what MVC means. It provides discrete tools — Views, Templates, Providers, and an Application class — that you can use individually or compose together.
 
+*Pict is a subclass of Fable*, so does everything fable does.
+
 - **Views** manage lifecycle (initialize, render, marshal data) and render templates into target containers
 - **Templates** are text with expressions that resolve against application state
 - **Providers** fetch and manage data for views
