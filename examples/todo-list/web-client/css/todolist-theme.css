@@ -1,0 +1,235 @@
+/*
+ * Todo List — Sagebrush Theme
+ *
+ * Common base styles shared across all views.
+ * Loaded via <link> in index.html so views only need
+ * view-specific CSS in their configuration objects.
+ *
+ * Palette:
+ *   Dark brown   #3D3229   (headers, labels)
+ *   Warm cream   #E8E0D4   (header text)
+ *   Body bg      #F5F0E8   (light cream)
+ *   Body text    #423D37   (dark warm brown)
+ *   Teal         #2E7D74   (primary, success, focus)
+ *   Rust         #9E6B47   (danger, open/pending)
+ *   Warm gray    #8A7F72   (default, muted)
+ *   Taupe border #DDD6CA   (borders, dividers)
+ *   Hover bg     #EAE3D8   (pale tan)
+ *   Today bg     #E0EDEB   (light teal)
+ */
+
+/* ── Reset & Base ─────────────────────────────────────── */
+
+* { box-sizing: border-box; }
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	background: #F5F0E8;
+	color: #423D37;
+}
+
+#TodoList-Content {
+	max-width: 900px;
+	margin: 2em auto;
+	padding: 0 1em;
+}
+
+/* ── Typography ───────────────────────────────────────── */
+
+.tl-heading {
+	margin: 0 0 1em 0;
+	font-size: 1.5em;
+	font-weight: 600;
+}
+
+.tl-empty {
+	text-align: center;
+	padding: 3em 1em;
+	color: #8A7F72;
+}
+
+/* ── Buttons ──────────────────────────────────────────── */
+
+.tl-btn {
+	display: inline-block;
+	padding: 0.45em 1em;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9em;
+	font-family: inherit;
+	transition: opacity 0.15s;
+}
+.tl-btn:hover { opacity: 0.85; }
+.tl-btn-primary { background: #2E7D74; color: #fff; }
+.tl-btn-danger  { background: #9E6B47; color: #fff; }
+.tl-btn-success { background: #2E7D74; color: #fff; }
+.tl-btn-default { background: #8A7F72; color: #fff; }
+
+/* ── Data Table ───────────────────────────────────────── */
+
+.tl-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #fff;
+	border-radius: 6px;
+	overflow: hidden;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.tl-table th {
+	background: #3D3229;
+	color: #E8E0D4;
+	text-align: left;
+	padding: 0.75em 1em;
+	font-weight: 600;
+	font-size: 0.9em;
+}
+.tl-table td {
+	padding: 0.65em 1em;
+	border-bottom: 1px solid #DDD6CA;
+	font-size: 0.95em;
+}
+.tl-table tr:last-child td { border-bottom: none; }
+.tl-table tr:hover td { background: #EAE3D8; }
+
+/* ── Status Badges ────────────────────────────────────── */
+
+.tl-status {
+	display: inline-block;
+	padding: 0.2em 0.6em;
+	border-radius: 12px;
+	font-size: 0.8em;
+	font-weight: 600;
+}
+.tl-status-pending    { background: #F0ECE4; color: #9E6B47; }
+.tl-status-inprogress { background: #D6EAE7; color: #2E7D74; }
+.tl-status-complete   { background: #E0EDEB; color: #2E7D74; }
+
+/* ── Toolbar (Search / Sort / Record Count) ───────────── */
+
+.tl-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1em;
+	padding: 0.75em 1em;
+	background: #fff;
+	border-radius: 6px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.tl-toolbar-group { display: flex; align-items: center; gap: 0.5em; }
+.tl-toolbar-label { font-size: 0.85em; font-weight: 600; color: #8A7F72; }
+.tl-toolbar select {
+	padding: 0.35em 0.6em;
+	border: 1px solid #DDD6CA;
+	border-radius: 4px;
+	font-size: 0.85em;
+	font-family: inherit;
+	background: #fff;
+	cursor: pointer;
+}
+.tl-toolbar select:focus { outline: none; border-color: #2E7D74; }
+.tl-toolbar input[type="text"] {
+	padding: 0.35em 0.6em;
+	border: 1px solid #DDD6CA;
+	border-radius: 4px;
+	font-size: 0.85em;
+	font-family: inherit;
+	width: 14em;
+}
+.tl-toolbar input[type="text"]:focus { outline: none; border-color: #2E7D74; }
+.tl-record-count { font-size: 0.85em; color: #8A7F72; }
+
+/* ── Forms ────────────────────────────────────────────── */
+
+.tl-form {
+	background: #fff;
+	padding: 1.5em;
+	border-radius: 6px;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.tl-form-group { margin-bottom: 1.25em; }
+.tl-form-group label {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 0.35em;
+	font-size: 0.9em;
+	color: #3D3229;
+}
+.tl-form-group input,
+.tl-form-group textarea,
+.tl-form-group select {
+	width: 100%;
+	padding: 0.5em 0.75em;
+	border: 1px solid #DDD6CA;
+	border-radius: 4px;
+	font-size: 0.95em;
+	font-family: inherit;
+}
+.tl-form-group textarea { resize: vertical; }
+.tl-form-group input:focus,
+.tl-form-group textarea:focus,
+.tl-form-group select:focus {
+	outline: none;
+	border-color: #2E7D74;
+	box-shadow: 0 0 0 2px rgba(46,125,116,0.15);
+}
+.tl-form-actions { display: flex; gap: 0.75em; margin-top: 1.5em; }
+
+/* ── Calendar Shared ──────────────────────────────────── */
+
+.tl-cal-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1em;
+}
+.tl-cal-header h2 { margin: 0; font-size: 1.5em; font-weight: 600; }
+.tl-cal-nav { display: flex; align-items: center; gap: 0.5em; }
+.tl-cal-nav .tl-btn { font-size: 0.85em; padding: 0.35em 0.75em; }
+.tl-cal-label {
+	font-size: 1.1em;
+	font-weight: 600;
+	min-width: 14em;
+	text-align: center;
+}
+
+.tl-cal-table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #fff;
+	border-radius: 6px;
+	overflow: hidden;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.tl-cal-table th {
+	background: #3D3229;
+	color: #E8E0D4;
+	text-align: left;
+	padding: 0.75em 1em;
+	font-weight: 600;
+	font-size: 0.9em;
+}
+.tl-cal-table td {
+	padding: 0.65em 1em;
+	border-bottom: 1px solid #DDD6CA;
+	font-size: 0.95em;
+}
+.tl-cal-table tr:last-child td { border-bottom: none; }
+.tl-cal-table tr:hover td { background: #EAE3D8; }
+.tl-cal-today td { background: #E0EDEB; }
+
+.tl-cal-badge {
+	display: inline-block;
+	min-width: 1.6em;
+	text-align: center;
+	padding: 0.15em 0.45em;
+	border-radius: 12px;
+	font-size: 0.85em;
+	font-weight: 600;
+}
+.tl-cal-badge-complete { background: #E0EDEB; color: #2E7D74; }
+.tl-cal-badge-open     { background: #F0ECE4; color: #9E6B47; }
+.tl-cal-badge-zero     { background: #EAE3D8; color: #8A7F72; }
+.tl-cal-total { font-weight: 600; background: #EAE3D8; }

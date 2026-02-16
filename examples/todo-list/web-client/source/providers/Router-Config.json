@@ -1,0 +1,32 @@
+{
+	"ProviderIdentifier": "Pict-Router",
+	"AutoInitialize": true,
+	"AutoInitializeOrdinal": 0,
+	"Routes":
+	[
+		{
+			"path": "/TaskList",
+			"template": "{~LV:Pict.PictApplication.showView(`TodoList-TaskList`)~}"
+		},
+		{
+			"path": "/TaskForm",
+			"template": "{~LV:Pict.PictApplication.addTask()~}"
+		},
+		{
+			"path": "/TaskForm/:id",
+			"template": "{~LV:Pict.PictApplication.editTask(`{~D:RouteData.id~}`)~}"
+		},
+		{
+			"path": "/WeekView",
+			"template": "{~LV:Pict.PictApplication.showCalendarView(`TodoList-WeekView`)~}"
+		},
+		{
+			"path": "/MonthView",
+			"template": "{~LV:Pict.PictApplication.showCalendarView(`TodoList-MonthView`)~}"
+		},
+		{
+			"path": "/YearView",
+			"template": "{~LV:Pict.PictApplication.showCalendarView(`TodoList-YearView`)~}"
+		}
+	]
+}

@@ -1,0 +1,15 @@
+!Task
+@IDTask
+%GUIDTask
+$Name 200
+*Description
+&DueDate
+.LengthInHours 10,2
+$Status 32
+&CreateDate
+#CreatingIDUser -> IDUser
+&UpdateDate
+#UpdatingIDUser -> IDUser
+^Deleted
+&DeleteDate
+#DeletingIDUser -> IDUser

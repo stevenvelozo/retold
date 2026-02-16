@@ -1,0 +1,152 @@
+{
+	"Scope": "Task",
+	"DefaultIdentifier": "IDTask",
+	"Domain": "Default",
+	"Schema":
+	[
+		{
+			"Column": "IDTask",
+			"Type": "AutoIdentity"
+		},
+		{
+			"Column": "GUIDTask",
+			"Type": "AutoGUID"
+		},
+		{
+			"Column": "CreateDate",
+			"Type": "CreateDate"
+		},
+		{
+			"Column": "CreatingIDUser",
+			"Type": "CreateIDUser"
+		},
+		{
+			"Column": "UpdateDate",
+			"Type": "UpdateDate"
+		},
+		{
+			"Column": "UpdatingIDUser",
+			"Type": "UpdateIDUser"
+		},
+		{
+			"Column": "Deleted",
+			"Type": "Deleted"
+		},
+		{
+			"Column": "DeleteDate",
+			"Type": "DeleteDate"
+		},
+		{
+			"Column": "DeletingIDUser",
+			"Type": "DeleteIDUser"
+		},
+		{
+			"Column": "Name",
+			"Type": "String",
+			"Size": "200"
+		},
+		{
+			"Column": "Description",
+			"Type": "Text"
+		},
+		{
+			"Column": "DueDate",
+			"Type": "DateTime"
+		},
+		{
+			"Column": "LengthInHours",
+			"Type": "Decimal",
+			"Size": "10,2"
+		},
+		{
+			"Column": "Status",
+			"Type": "String",
+			"Size": "32"
+		}
+	],
+	"DefaultObject":
+	{
+		"IDTask": 0,
+		"GUIDTask": "00000000-0000-0000-0000-000000000000",
+		"CreateDate": null,
+		"CreatingIDUser": 0,
+		"UpdateDate": null,
+		"UpdatingIDUser": 0,
+		"Deleted": 0,
+		"DeleteDate": null,
+		"DeletingIDUser": 0,
+		"Name": "",
+		"Description": "",
+		"DueDate": null,
+		"LengthInHours": 0,
+		"Status": "Pending"
+	},
+	"JsonSchema":
+	{
+		"title": "Task",
+		"type": "object",
+		"properties":
+		{
+			"IDTask":
+			{
+				"type": "integer"
+			},
+			"GUIDTask":
+			{
+				"type": "string"
+			},
+			"CreateDate":
+			{
+				"type": "string"
+			},
+			"CreatingIDUser":
+			{
+				"type": "integer"
+			},
+			"UpdateDate":
+			{
+				"type": "string"
+			},
+			"UpdatingIDUser":
+			{
+				"type": "integer"
+			},
+			"Deleted":
+			{
+				"type": "boolean"
+			},
+			"DeleteDate":
+			{
+				"type": "string"
+			},
+			"DeletingIDUser":
+			{
+				"type": "integer"
+			},
+			"Name":
+			{
+				"type": "string"
+			},
+			"Description":
+			{
+				"type": "string"
+			},
+			"DueDate":
+			{
+				"type": "string"
+			},
+			"LengthInHours":
+			{
+				"type": "number"
+			},
+			"Status":
+			{
+				"type": "string"
+			}
+		},
+		"required":
+		[
+			"IDTask"
+		]
+	}
+}

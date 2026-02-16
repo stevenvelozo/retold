@@ -1,0 +1,12 @@
+{
+	"Name": "TodoList Pict Application",
+	"Hash": "TodoList",
+	"MainViewportViewIdentifier": "TodoList-Layout",
+	"AutoSolveAfterInitialize": true,
+	"AutoRenderMainViewportViewAfterInitialize": false,
+	"AutoRenderViewsAfterInitialize": false,
+	"pict_configuration":
+	{
+		"Product": "TodoList-Pict"
+	}
+}

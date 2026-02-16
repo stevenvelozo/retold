@@ -1,0 +1,25 @@
+{
+	"Tables":
+	[
+		{
+			"TableName": "Task",
+			"Columns":
+			[
+				{ "Column": "IDTask", "DataType": "ID" },
+				{ "Column": "GUIDTask", "DataType": "GUID" },
+				{ "Column": "Name", "DataType": "String", "Size": "200" },
+				{ "Column": "Description", "DataType": "Text" },
+				{ "Column": "DueDate", "DataType": "DateTime" },
+				{ "Column": "LengthInHours", "DataType": "Decimal", "Size": "10,2" },
+				{ "Column": "Status", "DataType": "String", "Size": "32" },
+				{ "Column": "CreateDate", "DataType": "DateTime" },
+				{ "Column": "CreatingIDUser", "DataType": "ForeignKey" },
+				{ "Column": "UpdateDate", "DataType": "DateTime" },
+				{ "Column": "UpdatingIDUser", "DataType": "ForeignKey" },
+				{ "Column": "Deleted", "DataType": "Boolean" },
+				{ "Column": "DeleteDate", "DataType": "DateTime" },
+				{ "Column": "DeletingIDUser", "DataType": "ForeignKey" }
+			]
+		}
+	]
+}

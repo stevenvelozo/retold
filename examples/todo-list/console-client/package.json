@@ -1,0 +1,19 @@
+{
+	"name": "retold-example-todo-console-client",
+	"version": "1.0.0",
+	"description": "Retold Example: Todo List Console Client (blessed TUI)",
+	"main": "console-client.cjs",
+	"scripts":
+	{
+		"start": "node console-client.cjs"
+	},
+	"dependencies":
+	{
+		"blessed": "^0.1.81",
+		"fable": "^3.0.232",
+		"pict": "^1.0.343",
+		"pict-application": "^1.0.28",
+		"pict-view": "^1.0.64",
+		"pict-terminalui": "^0.0.1"
+	}
+}

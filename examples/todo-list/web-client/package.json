@@ -1,0 +1,43 @@
+{
+	"name": "retold-example-todo-web-client",
+	"version": "1.0.0",
+	"description": "Retold Example: Todo List Web Client (Pict Application)",
+	"main": "source/TodoList-Application.cjs",
+	"scripts":
+	{
+		"postinstall": "node generate-build-config.cjs",
+		"build": "npx quack build && npx quack copy",
+		"start": "echo 'Build with: npm run build   Then start the server in ../server/'"
+	},
+	"dependencies":
+	{
+		"pict": "^1.0.343",
+		"pict-application": "^1.0.28",
+		"pict-router": "^1.0.4",
+		"pict-view": "^1.0.64",
+		"pict-provider": "^1.0.3"
+	},
+	"devDependencies":
+	{
+		"quackage": "^1.0.41"
+	},
+	"copyFilesSettings":
+	{
+		"whenFileExists": "overwrite"
+	},
+	"copyFiles":
+	[
+		{
+			"from": "./html/*",
+			"to": "./dist/"
+		},
+		{
+			"from": "./css/*",
+			"to": "./dist/css/"
+		},
+		{
+			"from": "./node_modules/pict/dist/*",
+			"to": "./dist/js/"
+		}
+	]
+}

@@ -1,0 +1,19 @@
+{
+	"name": "retold-example-todo-cli",
+	"version": "1.0.0",
+	"description": "Retold Example: Todo List CLI (pict-service-commandlineutility)",
+	"main": "source/TodoCLI-CLIProgram.js",
+	"scripts":
+	{
+		"start": "node source/TodoCLI-Run.js",
+		"test": "echo \"No tests yet.\""
+	},
+	"bin":
+	{
+		"todo": "./source/TodoCLI-Run.js"
+	},
+	"dependencies":
+	{
+		"pict-service-commandlineutility": "^1.0.18"
+	}
+}

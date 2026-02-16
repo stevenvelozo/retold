@@ -1,0 +1,1001 @@
+Name,Description,DueDate,LengthInHours,Status
+Gather tax documents,"Collect all W-2s, 1099s, mortgage interest statements, and charitable donation receipts for the year.",2022-01-08,3,Complete
+Review investment portfolio,"Sit down and review investment allocations. Consider rebalancing after the recent market changes.",2022-01-14,2,Complete
+Sister's birthday,"Rachel's birthday. She mentioned wanting that new Kindle Paperwhite.",2022-01-28,1.5,Complete
+Pay mortgage,"Monthly mortgage payment due on the 1st. Verify the escrow amount is correct.",2022-02-01,0.25,Complete
+Weekly team standup,"Monday morning standup with the dev team. Prep status update on current sprint items.",2022-02-07,0.5,Complete
+Valentine's Day reservation,"Make dinner reservation at Luciano's and order flowers for delivery. Don't forget the card.",2022-02-10,1,Complete
+Oil change for the Honda,"Honda is due for an oil change. Schedule at Jiffy Lube on Saturday morning.",2022-02-14,1,Complete
+Car registration renewal,"Renew vehicle registration before it expires. Need emissions test first.",2022-02-18,1,Complete
+Grocery run for the week,"Weekly grocery trip. Don't forget milk, eggs, bread, and the ingredients for Tuesday's stir fry.",2022-02-22,1.5,Complete
+1-on-1 with manager,"Bi-weekly check-in with Janet. Discuss the current sprint blockers and Q1 goals.",2022-02-25,1,Complete
+Pay electric bill,"Electric bill is due. Set up autopay so this stops being a monthly task.",2022-02-28,0.25,Complete
+Spring cleaning weekend,"Deep clean the whole house. Focus on windows, baseboards, and reorganizing closets.",2022-03-05,8,Complete
+Book club meeting,"Discuss this month's pick. Need to finish the last three chapters before going.",2022-03-08,2,Complete
+Mom's birthday,"Pick up flowers and her favorite carrot cake from Delilah's Bakery.",2022-03-14,2,Complete
+Update household budget,"Review last month's spending and adjust the budget categories for the coming month.",2022-03-16,1,Complete
+Annual physical exam,"Annual checkup with Dr. Morrison at Lakeside Medical. Fasting blood work required.",2022-03-18,2,Complete
+Replace windshield wipers,"Wipers are streaking badly. Pick up Bosch Icons from AutoZone.",2022-03-22,0.25,Complete
+Sprint retrospective,"End-of-sprint retro with the team. Prepare notes on what went well and what to improve.",2022-03-25,1,Complete
+Call the plumber about kitchen sink,"Kitchen sink is draining slowly again. Get a quote for fixing it properly this time.",2022-03-28,0.25,Complete
+Submit expense report,"Submit expenses for the Q1 team offsite. Attach all receipts and the hotel folio.",2022-03-31,1,Complete
+Pay credit card bill,"Credit card statement closing soon. Pay in full to avoid interest charges.",2022-04-01,0.25,Complete
+Easter brunch prep,"Prepare Easter brunch menu. Need to buy ham and ingredients for deviled eggs.",2022-04-10,3,Complete
+File taxes,"Complete and file federal and state tax returns. Double-check deductions before submitting.",2022-04-12,4,Complete
+Dentist cleaning,"Six-month dental cleaning at Bright Smile Dental. Ask about that sensitivity on the upper left.",2022-04-15,1.5,Complete
+Spring garden planting,"Plant tomatoes, peppers, basil, and zucchini in the raised beds. Amend soil first.",2022-04-17,4,Complete
+Allergy meds refill,"Spring allergies are starting. Call in the refill for Zyrtec and nasal spray.",2022-04-19,0.25,Complete
+Tire rotation,"Tires are due for rotation. Check the tread depth while they're at it.",2022-04-22,1,Complete
+Q3 planning meeting,"Quarterly planning session with the department. Bring the draft roadmap and metrics.",2022-04-25,2,Complete
+Yoga class registration,"Register for the Tuesday/Thursday yoga class at the community center.",2022-04-27,0.25,Complete
+Batch cook meals for the week,"Prep chicken, rice, and roasted vegetables for easy weeknight dinners.",2022-04-30,3,Complete
+AC maintenance and filter change,"Schedule AC tune-up before summer hits. Replace all HVAC filters.",2022-05-04,1,Complete
+Call Mom for Mother's Day,"Don't forget to call Mom on Mother's Day. The kids made her a card.",2022-05-08,0.5,Complete
+Emma's birthday party,"Emma's birthday party at the house. Need to pick up balloons and the unicorn cake.",2022-05-07,4,Complete
+Attend PTA meeting,"PTA meeting at the elementary school. Agenda includes the spring fundraiser planning.",2022-05-10,1.5,Complete
+Date night at Olive Garden,"Date night dinner. Reservation at 7pm. Get the babysitter confirmed.",2022-05-14,2.5,Complete
+Vet appointment for Max,"Annual checkup and vaccinations for Max. He also needs his nails trimmed.",2022-05-17,1.5,Complete
+Pay mortgage,"Monthly mortgage payment due. Transfer from savings to checking if needed.",2022-05-01,0.25,Complete
+Weekly team standup,"Monday morning standup. Status update on the feature branch work.",2022-05-23,0.5,Complete
+Set up kids' bikes for spring,"Pump up the tires, adjust the seats, and oil the chains on both kids' bikes.",2022-05-25,1,Complete
+Write API documentation,"Document the new REST endpoints for the partner integration. Include example requests.",2022-05-27,4,Complete
+Pressure test sprinkler system,"Turn on the sprinkler system for spring. Check all zones for leaks and broken heads.",2022-05-30,1.5,Complete
+Wedding anniversary dinner,"Anniversary dinner reservation at the new French restaurant on Main Street.",2022-06-12,3,Complete
+Renew car insurance,"Car insurance renewal is due. Shop around for better rates before auto-renewing.",2022-06-15,1,Complete
+Pool opening and chemical balance,"Open the pool for the season. Clean the cover, test the water, and add chemicals.",2022-06-04,3,Complete
+Father's Day gift shopping,"Get something for Dad for Father's Day. He could use a new cordless drill.",2022-06-14,1,Complete
+Kids camp registration,"Register the kids for summer camp at Camp Pinewood. Early bird discount ends next week.",2022-06-01,0.5,Complete
+Game night at Dave's house,"Bring Catan and a six-pack. Dave is making his famous chili.",2022-06-18,3,Complete
+Pay electric bill,"June electric bill is higher with the AC running. Pay before the 25th.",2022-06-22,0.25,Complete
+Grocery run for the week,"Big grocery trip. Stocking up for the 4th of July BBQ prep.",2022-06-28,1.5,Complete
+File quarterly estimated taxes,"Calculate and pay Q2 quarterly estimated tax payment. Use last quarter's worksheet.",2022-06-30,1,Complete
+4th of July BBQ shopping,"Buy burgers, hot dogs, buns, corn on the cob, and fireworks for the backyard BBQ.",2022-07-02,2,Complete
+Research summer vacation options,"Look into Outer Banks, Gatlinburg, and the Gulf Coast for the family summer trip.",2022-07-06,1,Complete
+Book flights to Denver,"Find and book flights for the Denver trip. Check Southwest and United for best prices.",2022-07-08,1,Complete
+Deploy to staging environment,"Push the release candidate to staging and run the smoke tests. Notify QA when ready.",2022-07-11,2,Complete
+Best friend Mike's birthday dinner,"Dinner at the steakhouse downtown for Mike's birthday. Split the reservation with Dave.",2022-07-19,2,Complete
+Sushi dinner downtown,"Try that new sushi place on 5th Street that everyone keeps talking about.",2022-07-22,2,Complete
+Reserve hotel for beach trip,"Book the hotel in Myrtle Beach for the family vacation. Need at least a two-bedroom suite.",2022-07-25,0.5,Complete
+Weekly team standup,"Monday standup. Discuss the deployment timeline for the new release.",2022-07-25,0.5,Complete
+Pack for camping weekend,"Pack the tent, sleeping bags, cooler, and firewood. Don't forget the bug spray this time.",2022-07-29,1.5,Complete
+Pay mortgage,"August mortgage payment. The escrow went up slightly this year.",2022-08-01,0.25,Complete
+Finalize quarterly budget report,"Finish the Q2 budget variance analysis and submit to finance before end of week.",2022-08-03,3,Complete
+Back to school supplies shopping,"Get everything on the school supply lists for both kids. Hit Target early to avoid the rush.",2022-08-08,2,Complete
+1-on-1 with manager,"Bi-weekly check-in with Janet. Discuss the promotion timeline and Q4 goals.",2022-08-10,1,Complete
+Dog grooming appointment,"Max needs a bath and haircut. Drop off at PetSmart grooming at 10am.",2022-08-12,0.5,Complete
+Dad's birthday dinner,"Reservation at Rosario's Italian Kitchen for Dad's birthday. He wants the seafood linguine.",2022-08-22,2.5,Complete
+Code review sprint,"Clear the backlog of pending pull requests. Focus on the auth module refactor.",2022-08-24,3,Complete
+Update LinkedIn profile,"Update LinkedIn with the new role title and recent project accomplishments.",2022-08-26,0.5,Complete
+Wash and detail the car,"The car is filthy inside and out. Take it to the detailer on Elm Street.",2022-08-28,0.5,Complete
+Buy pet food in bulk,"Stock up on Max's kibble and treats. Check Chewy for the auto-ship discount.",2022-08-30,0.5,Complete
+Replace furnace filter,"Swap out the furnace filter before heating season starts. Buy the 20x25x1 size.",2022-09-02,0.5,Complete
+Eye exam appointment,"Annual eye exam at VisionWorks. Prescription might need updating since getting headaches.",2022-09-08,1,Complete
+Sign up for the Harvest 5K,"Registration for the fall 5K closes soon. Sign up and start training.",2022-09-10,0.25,Complete
+Schedule family photos,"Book the fall family photo session with the photographer before slots fill up.",2022-09-14,0.5,Complete
+Neighborhood block party,"Bring a side dish and lawn chairs. The Hendersons are organizing the bounce house.",2022-09-17,4,Complete
+Sprint retrospective,"Sprint retro with the team. Bring data on the velocity changes from this sprint.",2022-09-19,1,Complete
+Deep clean the kitchen,"Degrease the stove hood, clean inside the oven, and organize the pantry.",2022-09-22,3,Complete
+Pick up prescription refills,"Blood pressure meds and Rachel's allergy prescription are ready at Walgreens.",2022-09-24,0.5,Complete
+Prepare quarterly OKRs,"Draft the objectives and key results for Q4. Align with department goals.",2022-09-28,2,Complete
+Pay credit card bill,"September credit card statement. The back-to-school spending was high.",2022-09-30,0.25,Complete
+Flu shot appointment,"Get flu shots for the whole family at CVS pharmacy. Check if they have the kids' version.",2022-10-03,0.5,Complete
+Fall dentist cleaning,"Second dental cleaning of the year. Need to schedule kids' appointments too.",2022-10-06,1.5,Complete
+Winterize the garden,"Pull up dead plants, mulch the perennials, and cover the raised beds for winter.",2022-10-10,3,Complete
+Halloween costume shopping,"Take the kids to the costume store. Emma wants to be a witch and Jake wants to be a dinosaur.",2022-10-15,2,Complete
+Oil change for the Honda,"Routine oil change. Also ask about the brake pad inspection.",2022-10-18,1,Complete
+Wine tasting event at Cedar Creek,"Wine tasting afternoon at Cedar Creek Vineyard. Bring a designated driver.",2022-10-22,3,Complete
+Backup computer files,"Run a full backup to the external drive. Check that cloud sync is current.",2022-10-25,1,Complete
+Attend neighborhood HOA meeting,"HOA meeting at the clubhouse. Agenda includes the new parking rules and landscaping budget.",2022-10-28,1.5,Complete
+Jake's birthday,"Jake's birthday celebration. He wants to go to the trampoline park this year.",2022-11-03,3,Complete
+Leaf cleanup and yard waste bags,"Rake all the leaves and bag them for yard waste pickup on Thursday.",2022-11-06,3,Complete
+Order firewood for winter,"Order a cord of seasoned oak from Brennan's Firewood. They deliver on Saturdays.",2022-11-08,0.25,Complete
+Clean gutters before winter,"Clean out all gutters and downspouts. Check for any damage that needs repair.",2022-11-11,3,Complete
+Snow tire swap,"Take the car in to swap to snow tires for the winter. Appointment at Discount Tire.",2022-11-14,1.5,Complete
+IT security training,"Complete the mandatory annual cybersecurity awareness training module.",2022-11-16,1,Complete
+Thanksgiving dinner prep,"Start brining the turkey. Prep the sweet potato casserole and green bean casserole.",2022-11-22,6,Complete
+Pay electric bill,"November electric bill. Heating costs are starting to ramp up.",2022-11-25,0.25,Complete
+Donate old clothes to Goodwill,"Box up the clothes in the guest room closet that nobody wears anymore.",2022-11-28,1,Complete
+Pay mortgage,"December mortgage payment.",2022-12-01,0.25,Complete
+Finalize quarterly budget report,"Finish the Q4 budget variance analysis and submit to finance.",2022-12-05,3,Complete
+Contract renewal review,"Review the vendor contract terms before the auto-renewal date. Flag any pricing concerns.",2022-12-08,2,Complete
+Schedule chimney inspection,"Chimney hasn't been inspected in two years. Call Acme Chimney Service.",2022-12-10,0.25,Complete
+Help Jake with science fair project,"Jake's science fair project is due next week. He wants to do the volcano experiment.",2022-12-12,3,Complete
+Christmas shopping deadline,"Finish all remaining Christmas shopping. Check the list twice and wrap everything.",2022-12-20,4,Complete
+Holiday card mailing,"Address and stamp all the holiday cards. The family photo cards arrived from Shutterfly.",2022-12-21,2,Complete
+Plan holiday dinner menu,"Finalize the Christmas dinner menu and create the shopping list.",2022-12-23,1,Complete
+Year-end inventory count,"Participate in the annual physical inventory count. Bring a clipboard and comfortable shoes.",2022-12-28,8,Complete
+New Year's Eve plans,"Finalize New Year's Eve plans. Confirm headcount and buy champagne and appetizers.",2022-12-30,2,Complete
+Gather tax documents,"Collect all W-2s, 1099s, and mortgage interest statements for 2022 tax filing.",2023-01-06,3,Complete
+Review investment portfolio,"Annual review of investment allocations. Market was volatile so check the rebalancing needs.",2023-01-11,2,Complete
+Update household budget,"New year, new budget. Review last year's actuals and set targets for each category.",2023-01-15,1,Complete
+Gym membership renewal,"Gym membership is up for renewal. Decide whether to keep the same plan or upgrade.",2023-01-18,0.5,Complete
+Sister's birthday,"Rachel's birthday. She's been hinting about the new Bose noise-canceling headphones.",2023-01-28,1.5,Complete
+Pay mortgage,"January mortgage payment due on the 1st.",2023-01-01,0.25,Complete
+Cancel unused subscriptions,"Audit all subscriptions and cancel anything we haven't used in the past month.",2023-01-22,0.5,Complete
+Weekly team standup,"First standup of the new year. Set priorities for Q1.",2023-01-09,0.5,Complete
+Car registration renewal,"Renew vehicle registration. Emissions test passed last week.",2023-02-04,1,Complete
+Valentine's Day reservation,"Make dinner reservation and order a dozen roses for delivery.",2023-02-10,1,Complete
+Pay electric bill,"February electric bill. Heating costs still high.",2023-02-15,0.25,Complete
+Dinner with the Hendersons,"The Hendersons invited us over for dinner Saturday. Bring a bottle of red and dessert.",2023-02-18,3,Complete
+Coffee catch-up with Lisa,"Meet Lisa at Blue Bottle Coffee to catch up. Haven't seen her since New Year's.",2023-02-21,1.5,Complete
+Submit expense report,"Submit expenses from the January sales conference. Receipts are in the folder on the desk.",2023-02-24,1,Complete
+Board meeting prep,"Compile the executive summary and financial overview for the quarterly board meeting.",2023-02-28,4,Complete
+Spring cleaning weekend,"Deep clean the house. This year focus on the garage and attic.",2023-03-04,8,Complete
+Book club meeting,"March book club. This month's pick is a historical fiction about the 1920s.",2023-03-07,2,Complete
+Mom's birthday,"Pick up flowers and carrot cake from Delilah's Bakery for Mom's birthday.",2023-03-14,2,Complete
+Annual physical exam,"Annual checkup with Dr. Morrison. Remember to fast the night before.",2023-03-20,2,Complete
+Haircut appointment,"Haircut at Tony's Barber Shop. Long overdue.",2023-03-23,0.5,Complete
+Replace smoke detector batteries,"All smoke detectors are chirping. Buy 9V batteries and replace them all.",2023-03-26,0.5,Complete
+Pay credit card bill,"March credit card bill. Keep an eye on the spending trend.",2023-03-31,0.25,Complete
+Easter brunch prep,"Prepare Easter brunch. Need to buy ham, deviled egg ingredients, and the asparagus.",2023-04-06,3,Complete
+Dentist cleaning,"Spring dental cleaning at Bright Smile. Ask about whitening options.",2023-04-11,1.5,Complete
+File taxes,"Complete and file 2022 federal and state tax returns before the deadline.",2023-04-13,4,Complete
+Spring garden planting,"Plant the garden. This year adding strawberries and green beans to the mix.",2023-04-16,4,Complete
+Kids' soccer game,"Emma's first soccer game of the season at Riverside Park.",2023-04-22,2,Complete
+Allergy meds refill,"Spring allergies hitting hard. Refill Zyrtec and pick up more tissues.",2023-04-24,0.25,Complete
+Client presentation prep,"Prepare slides for the Meridian Corp client presentation. Focus on the ROI metrics.",2023-04-26,3,Complete
+Client presentation to Meridian Corp,"Present the Q1 results and strategy update to Meridian Corp stakeholders.",2023-04-28,1.5,Complete
+Pay mortgage,"May mortgage payment.",2023-05-01,0.25,Complete
+AC maintenance and filter change,"Schedule AC tune-up. Last summer it was struggling on the hottest days.",2023-05-03,1,Complete
+Emma's birthday party,"Emma turns 6! Party at the house with a princess theme.",2023-05-07,4,Complete
+Call Mom for Mother's Day,"Mother's Day call. Emma and Jake made cards and a coupon book.",2023-05-14,0.5,Complete
+Vet appointment for Max,"Annual vet visit for Max. He's due for rabies booster and heartworm test.",2023-05-16,1.5,Complete
+Meal prep Sunday,"Prep lunches for the work week. Turkey wraps, overnight oats, and cut fruit.",2023-05-21,2,Complete
+Date night movie and dinner,"See the new thriller at AMC and grab dinner after. Babysitter confirmed.",2023-05-26,4,Complete
+Pressure test sprinkler system,"Turn on sprinklers for the season. Zone 3 had issues last year.",2023-05-29,1.5,Complete
+Pool opening and chemical balance,"Open the pool. Clean the cover, check the pump, test the water.",2023-06-03,3,Complete
+Kids camp registration,"Register Emma and Jake for Camp Pinewood summer sessions.",2023-06-05,0.5,Complete
+File quarterly estimated taxes,"Q2 estimated tax payment due. Calculate based on current year income.",2023-06-15,1,Complete
+Wedding anniversary dinner,"Eighth anniversary. Reservations at Maison Laurent, the French place downtown.",2023-06-12,3,Complete
+Renew car insurance,"Shop around for car insurance quotes before the renewal auto-processes.",2023-06-18,1,Complete
+Weekly team standup,"Monday standup. Discuss the mid-year roadmap adjustments.",2023-06-19,0.5,Complete
+Pay electric bill,"June electric bill. AC is running a lot already.",2023-06-23,0.25,Complete
+Game night at Dave's house,"Board game night. Dave got the new Wingspan expansion.",2023-06-24,3,Complete
+Tire rotation,"Tire rotation at Discount Tire. Check alignment while they're at it.",2023-06-28,1,Complete
+4th of July BBQ shopping,"Stock up for the annual BBQ. Extra guests this year so get more burgers.",2023-07-01,2,Complete
+Volunteer at food bank,"Saturday morning food bank shift. Meet at First Baptist Church at 9am.",2023-07-08,3,Complete
+Deploy to staging environment,"Push the v2.5 release candidate to staging. Coordinate with QA.",2023-07-10,2,Complete
+Sushi dinner downtown,"Finally trying Saka Sushi on 5th Street. Reservation at 7:30.",2023-07-14,2,Complete
+Best friend Mike's birthday dinner,"Mike's birthday dinner at Smith & Wollensky. Reservation for 8.",2023-07-19,2,Complete
+Write unit tests for auth module,"Increase test coverage on the auth module to 90% branch coverage.",2023-07-21,3,Complete
+Research new phone plans,"Phone plan comparison: Mint Mobile, Visible, and T-Mobile. Our bill is too high.",2023-07-24,1,Complete
+Reserve hotel for beach trip,"Book the Myrtle Beach suite for the August family vacation.",2023-07-26,0.5,Complete
+Pack for camping weekend,"Pack everything for Shenandoah camping trip. Bear canister is in the garage.",2023-07-28,1.5,Complete
+Pay mortgage,"August mortgage payment.",2023-08-01,0.25,Complete
+Finalize quarterly budget report,"Q2 budget report. Revenue was up but so were expenses.",2023-08-04,3,Complete
+Back to school supplies shopping,"School supply lists are longer than ever. Hit Target and Staples.",2023-08-07,2,Complete
+Coach Jake's basketball practice,"Run drills at the community center gym. Focus on dribbling and passing.",2023-08-10,1.5,Complete
+Order new running shoes,"Current Brooks have 500 miles on them. Order the Ghost 15.",2023-08-13,0.5,Complete
+Dog grooming appointment,"Max is getting shaggy. PetSmart grooming at 10am on Saturday.",2023-08-16,0.5,Complete
+Dad's birthday dinner,"Dad's birthday at Rosario's. He wants the seafood linguine again.",2023-08-22,2.5,Complete
+Complete annual review self-assessment,"Fill out the self-assessment for the performance review cycle.",2023-08-25,2,Complete
+Performance review meeting,"Annual review with Janet. Bring the self-assessment and accomplishments list.",2023-08-28,1,Complete
+Wash and detail the car,"Post-beach-trip car detail. Sand everywhere.",2023-08-30,0.5,Complete
+Pay credit card bill,"August statement. Vacation spending was significant.",2023-08-31,0.25,Complete
+Replace furnace filter,"Swap the furnace filter before fall. Buy the 20x25x1 size from Lowe's.",2023-09-02,0.5,Complete
+Eye exam appointment,"Annual eye exam at VisionWorks. The reading glasses prescription might need updating.",2023-09-07,1,Complete
+Sign up for the Harvest 5K,"Harvest 5K registration. Try to beat last year's time of 27 minutes.",2023-09-11,0.25,Complete
+Neighborhood block party,"Annual block party. We're signed up to bring the fruit salad this year.",2023-09-16,4,Complete
+Take kids to the science museum,"The dinosaur exhibit closes in October. Take the kids this weekend.",2023-09-23,4,Complete
+Update project roadmap,"Revise the product roadmap based on the strategy meeting outcomes.",2023-09-25,2,Complete
+Prepare quarterly OKRs,"Draft Q4 OKRs. Focus on the platform migration and customer retention.",2023-09-28,2,Complete
+Flu shot appointment,"Family flu shots at CVS. Bring the insurance cards.",2023-10-02,0.5,Complete
+Winterize the garden,"Pull up dead plants and mulch perennials for winter protection.",2023-10-07,3,Complete
+Fall dentist cleaning,"Dental cleaning. The kids need their appointments scheduled too.",2023-10-10,1.5,Complete
+Halloween costume shopping,"Jake wants to be a robot this year. Emma is going as a cat.",2023-10-14,2,Complete
+Wine tasting event at Cedar Creek,"Autumn wine tasting at Cedar Creek. Beautiful foliage this time of year.",2023-10-21,3,Complete
+Recycle old electronics,"Drop off the old laptop and tablet at Best Buy e-waste recycling.",2023-10-24,1,Complete
+Photo album project,"Sort through 2022-2023 photos and order prints for the family album.",2023-10-27,3,Complete
+Pay electric bill,"October electric bill. Heating starting to kick in.",2023-10-30,0.25,Complete
+Jake's birthday,"Jake turns 7! Trampoline park party again per his request.",2023-11-03,3,Complete
+Leaf cleanup and yard waste bags,"Big leaf cleanup day. Bag everything for Thursday yard waste pickup.",2023-11-05,3,Complete
+Order firewood for winter,"Order two cords of seasoned oak this year. The fireplace insert uses more.",2023-11-07,0.25,Complete
+Clean gutters before winter,"Gutter cleaning day. The back gutters are always the worst.",2023-11-11,3,Complete
+Snow tire swap,"Swap to snow tires at Discount Tire. Winter storm forecast for next week.",2023-11-13,1.5,Complete
+New hire onboarding session,"Walk the new junior developer through the codebase and CI/CD pipeline.",2023-11-15,3,Complete
+Thanksgiving dinner prep,"Turkey brine day. Also prep the sides for tomorrow's feast.",2023-11-22,6,Complete
+Return Amazon packages,"Return the shoes that didn't fit and the duplicate kitchen gadget.",2023-11-27,0.5,Complete
+Donate old clothes to Goodwill,"Pre-holiday closet purge. Box up everything for Goodwill.",2023-11-29,1,Complete
+Pay mortgage,"December mortgage payment.",2023-12-01,0.25,Complete
+Finalize quarterly budget report,"Q3 budget wrap-up. Underspent on travel, overspent on software licenses.",2023-12-04,3,Complete
+Contract renewal review,"Annual vendor contract review. Three contracts are up for renewal this month.",2023-12-07,2,Complete
+Schedule chimney inspection,"Time for the chimney inspection. Last one was December 2022.",2023-12-09,0.25,Complete
+Assemble kids' new bookshelf,"The IKEA BILLY bookshelf for the playroom. Should take an hour or two.",2023-12-11,2,Complete
+IT security training,"Annual cybersecurity training. New module on phishing awareness.",2023-12-13,1,Complete
+Install doorbell camera,"Install the Ring doorbell camera. Want it up before the holiday package deliveries.",2023-12-15,1,Complete
+Christmas shopping deadline,"Final shopping push. Still need gifts for Dad, Rachel, and the kids' teachers.",2023-12-19,4,Complete
+Holiday card mailing,"Address and mail all 50 holiday cards. Use the stamp roll from the post office.",2023-12-20,2,Complete
+Plan holiday dinner menu,"Christmas dinner menu: prime rib, mashed potatoes, roasted Brussels sprouts, pie.",2023-12-22,1,Complete
+Year-end inventory count,"Annual inventory count at the office. Long day but mandatory.",2023-12-28,8,Complete
+New Year's Eve plans,"New Year's at the Hendersons' house. Bringing champagne and shrimp cocktail.",2023-12-30,2,Complete
+Gather tax documents,"Collect all 2023 W-2s, 1099s, and deduction records.",2024-01-05,3,Complete
+Review investment portfolio,"Investment review. 2023 market recovery means some rebalancing needed.",2024-01-10,2,Complete
+Pay mortgage,"January mortgage. New escrow amount this year.",2024-01-01,0.25,Complete
+Weekly team standup,"First standup of 2024. Set the tone for Q1 priorities.",2024-01-08,0.5,Complete
+Gym membership renewal,"Decide on gym renewal. Consider adding the family plan option.",2024-01-15,0.5,Complete
+Schedule kids' dental cleanings,"Both kids due for cleanings. Try to get back-to-back morning appointments.",2024-01-17,0.25,Complete
+Renew passport,"Passport expires in May. Fill out the renewal form and get photos at CVS.",2024-01-20,1.5,Complete
+Pizza night with kids,"Homemade pizza Friday. Let the kids pick their own toppings.",2024-01-26,2,Complete
+Sister's birthday,"Rachel's birthday. Got her the spa gift certificate she wanted.",2024-01-28,1.5,Complete
+Batch cook meals for the week,"Sunday meal prep. Making chili, roasted chicken, and grain bowls.",2024-01-29,3,Complete
+Car registration renewal,"Registration renewal. Emissions test appointment first on Thursday.",2024-02-02,1,Complete
+Pay electric bill,"February electric bill. Slightly lower than January.",2024-02-05,0.25,Complete
+Valentine's Day reservation,"Valentine's dinner at Maison Laurent. 7:30 reservation, babysitter at 6.",2024-02-10,1,Complete
+Coffee catch-up with Lisa,"Catch up with Lisa at Blue Bottle. She just got back from her Europe trip.",2024-02-13,1.5,Complete
+Dinner with the Hendersons,"Saturday dinner at the Hendersons'. They're trying a new Thai recipe.",2024-02-17,3,Complete
+1-on-1 with manager,"Check-in with Janet. Discuss the Q1 objectives and team expansion.",2024-02-20,1,Complete
+Grocery run for the week,"Weekly grocery trip. We're trying to eat more vegetables this month.",2024-02-24,1.5,Complete
+Submit expense report,"February expense report. Conference registration and team lunch receipts.",2024-02-27,1,Complete
+Board meeting prep,"Q1 board meeting prep. The investor deck needs updating.",2024-02-29,4,Complete
+Spring cleaning weekend,"Spring cleaning. Focus on the basement this year, it's gotten bad.",2024-03-02,8,Complete
+Book club meeting,"March book club. Reading a mystery novel this month.",2024-03-06,2,Complete
+Return library books,"Library books are two weeks overdue. Return them and pay the fine.",2024-03-08,0.5,Pending
+Mom's birthday,"Mom's birthday. Picking up her favorite carrot cake and a bouquet of tulips.",2024-03-14,2,Complete
+Annual physical exam,"Annual physical with Dr. Morrison. Fasting blood work at 8am.",2024-03-19,2,Complete
+Replace windshield wipers,"Wipers are terrible in the rain. Get new Bosch Icons from AutoZone.",2024-03-22,0.25,Complete
+Baby shower for Sarah,"Sarah's baby shower at the community center. Got the stroller from her registry.",2024-03-24,3,Complete
+Fix leaky faucet in bathroom,"The master bath faucet has been dripping. Probably needs a new cartridge.",2024-03-27,1,Complete
+Attend PTA meeting,"PTA meeting about the new playground equipment fundraiser.",2024-03-28,1.5,Complete
+Pay credit card bill,"March statement. Need to review the auto-renewal charges.",2024-03-31,0.25,Complete
+Dentist cleaning,"Spring dental cleaning. No issues expected, just routine.",2024-04-04,1.5,Complete
+Easter brunch prep,"Easter brunch for 12 people. Ham, scalloped potatoes, deviled eggs, and carrot cake.",2024-04-01,3,Complete
+File taxes,"File 2023 taxes. Have all documents ready. Using TurboTax again.",2024-04-12,4,Complete
+Spring garden planting,"Garden planting day. Adding sunflowers this year for the kids to watch grow.",2024-04-14,4,Complete
+Allergy meds refill,"Allergies are brutal this spring. Refill all the meds.",2024-04-17,0.25,Complete
+Q3 planning meeting,"Q2 planning session. Bring the competitive analysis and feature requests list.",2024-04-22,2,Complete
+Yoga class registration,"Sign up for the spring yoga session at the community center.",2024-04-24,0.25,Complete
+Flea and tick treatment for Max,"Apply the monthly flea treatment. Reorder the next supply from Chewy.",2024-04-26,0.25,Complete
+Tire rotation,"Tire rotation day. Also need the alignment checked after hitting that pothole.",2024-04-29,1,Complete
+Pay mortgage,"May mortgage payment.",2024-05-01,0.25,Complete
+AC maintenance and filter change,"Pre-summer AC tune-up. Replace all filters throughout the house.",2024-05-06,1,Complete
+Emma's birthday party,"Emma turns 7! Pool party theme since the pool is open.",2024-05-07,4,Complete
+Call Mom for Mother's Day,"Mother's Day call and delivery of the flower arrangement.",2024-05-12,0.5,Complete
+Vet appointment for Max,"Max's annual checkup. Needs boosters and a dental cleaning this time.",2024-05-15,1.5,Complete
+Sprint retrospective,"Sprint retro. Velocity was good this sprint, capture what worked.",2024-05-17,1,Complete
+Get quotes for deck staining,"The deck desperately needs staining. Get three quotes this week.",2024-05-20,0.5,Complete
+Date night at Olive Garden,"Olive Garden date night. Use the gift card from Christmas.",2024-05-24,2.5,Complete
+Marathon training run - 10 miles,"10-mile long run along the river trail. Bring water and energy gels.",2024-05-26,2,Complete
+Pressure test sprinkler system,"Sprinkler startup. Check each zone and replace the broken heads.",2024-05-28,1.5,Complete
+Pool opening and chemical balance,"Open the pool early this year. The pump seal needs checking.",2024-06-01,3,Complete
+Kids camp registration,"Camp Pinewood registration for both kids. Jake wants the wilderness track.",2024-06-03,0.5,Complete
+Wedding anniversary dinner,"Ninth anniversary dinner. That new Italian place in the historic district.",2024-06-12,3,Complete
+Father's Day gift shopping,"Dad wants a Traeger grill this year. Split the cost with Rachel.",2024-06-13,1,Complete
+Renew car insurance,"Insurance shopping. Got a quote from Geico that's $200 less per year.",2024-06-17,1,Complete
+File quarterly estimated taxes,"Q2 estimated tax payment. Freelance income was higher this quarter.",2024-06-17,1,Complete
+Pay electric bill,"June electric bill. Consider raising the thermostat one degree.",2024-06-22,0.25,Complete
+Game night at Dave's house,"Game night at Dave's. He just bought Gloomhaven. Bring snacks.",2024-06-29,3,Complete
+4th of July BBQ shopping,"Annual BBQ supplies. Plus new patio string lights.",2024-07-02,2,Complete
+Book flights to Denver,"Book Denver flights for the August trip. Nonstop on Southwest is cheapest.",2024-07-05,1,Complete
+Write API documentation,"Document the v3 API endpoints. The partner team needs this by end of month.",2024-07-08,4,Complete
+Volunteer at food bank,"Saturday food bank shift. Bring extra hands, Jake wants to volunteer too.",2024-07-13,3,Complete
+Best friend Mike's birthday dinner,"Mike's birthday dinner. He picked the Brazilian steakhouse this year.",2024-07-19,2,Complete
+Code review sprint,"Clear the PR backlog before the team goes on vacation rotations.",2024-07-22,3,Complete
+Sushi dinner downtown,"Sushi dinner at Saka. They added new omakase options.",2024-07-24,2,Complete
+Research summer vacation options,"Look into Lake Tahoe or Pacific Coast Highway for next summer.",2024-07-28,1,Complete
+Pay mortgage,"August mortgage payment.",2024-08-01,0.25,Complete
+Finalize quarterly budget report,"Q2 budget report. Travel expenses were over budget due to the conference.",2024-08-05,3,Complete
+Back to school supplies shopping,"School supply shopping for both kids. Third grade and first grade lists.",2024-08-10,2,Complete
+1-on-1 with manager,"Check-in with Janet about the team lead role opening.",2024-08-13,1,Complete
+Dog grooming appointment,"Max is overdue for a grooming. Book the full spa treatment.",2024-08-15,0.5,Complete
+Coach Jake's basketball practice,"Jake's basketball practice. Working on shooting form this week.",2024-08-19,1.5,Complete
+Dad's birthday dinner,"Dad's 64th birthday dinner at Rosario's. Surprise cake after dinner.",2024-08-22,2.5,Complete
+Complete annual review self-assessment,"Self-assessment time again. Document the API platform project wins.",2024-08-26,2,Complete
+Update LinkedIn profile,"Update LinkedIn with the new certifications and the team lead responsibilities.",2024-08-28,0.5,Complete
+Buy pet food in bulk,"Big Chewy order for Max. Add some new dental chews to the cart.",2024-08-30,0.5,Complete
+Replace furnace filter,"End of summer furnace filter swap. Buy two so we have a spare.",2024-09-03,0.5,Complete
+Eye exam appointment,"Eye exam. The headaches are back, definitely need a new prescription.",2024-09-09,1,Complete
+Schedule family photos,"Book the October family photo session. The park has great fall colors.",2024-09-12,0.5,Complete
+Sign up for the Harvest 5K,"Harvest 5K registration. Aiming for under 25 minutes this year.",2024-09-15,0.25,Complete
+Neighborhood block party,"Block party! We're on grill duty this year.",2024-09-21,4,Complete
+Migrate database to new server,"Coordinate the production DB migration. Maintenance window is Saturday night.",2024-09-23,4,Complete
+Update project roadmap,"Revise the roadmap for the investor meeting next month.",2024-09-26,2,Complete
+Prepare quarterly OKRs,"Q4 OKRs. The big push is the platform launch in November.",2024-09-29,2,Complete
+Pay credit card bill,"September statement. Back-to-school spending was controlled this year.",2024-09-30,0.25,Complete
+Flu shot appointment,"Family flu shots. Jake is old enough to not cry this year hopefully.",2024-10-01,0.5,Complete
+Winterize the garden,"Winterize the garden. The tomato plants produced well this year.",2024-10-05,3,Complete
+Fall dentist cleaning,"Fall cleaning. Ask about Jake's loose tooth situation.",2024-10-08,1.5,Complete
+Dermatology checkup,"Annual skin check with Dr. Lee. That mole on the shoulder hasn't changed.",2024-10-11,1,Complete
+Halloween costume shopping,"Emma wants to be an astronaut. Jake is going as a Minecraft character.",2024-10-16,2,Complete
+Oil change for the Honda,"Oil change at the dealership. Also need the recall item addressed.",2024-10-19,1,Complete
+Wine tasting event at Cedar Creek,"Cedar Creek fall wine tasting. Going with the Hendersons this time.",2024-10-25,3,Complete
+Attend neighborhood HOA meeting,"HOA meeting. Snow removal contract is on the agenda.",2024-10-28,1.5,Complete
+Caulk around windows,"Recaulk the living room windows before it gets cold. Buy the clear sealant.",2024-10-30,1.5,Complete
+Jake's birthday,"Jake turns 8! Laser tag party at FunZone.",2024-11-03,3,Complete
+Leaf cleanup and yard waste bags,"Massive leaf cleanup. Three maples' worth of leaves.",2024-11-09,3,Complete
+Order firewood for winter,"Order firewood from Brennan's. Two cords of seasoned oak.",2024-11-11,0.25,Complete
+Clean gutters before winter,"Gutter cleaning. Use the new gutter scoop this year.",2024-11-14,3,Complete
+Snow tire swap,"Snow tire appointment at Discount Tire. First snow is forecast next week.",2024-11-16,1.5,Complete
+Team lunch outing,"Team lunch at Panera celebrating the platform launch. Company is buying.",2024-11-18,1.5,Complete
+Submit grant proposal,"Research grant proposal final review and submission. Hard deadline Friday.",2024-11-20,6,Complete
+Thanksgiving dinner prep,"Turkey brine and all the sides. The in-laws are coming this year too.",2024-11-27,6,Complete
+Return Amazon packages,"Holiday season returns. Wrong sizes and duplicate orders.",2024-11-29,0.5,Complete
+Pay electric bill,"November electric bill. First full month of heating.",2024-11-30,0.25,Complete
+Pay mortgage,"December mortgage payment.",2024-12-01,0.25,Complete
+Finalize quarterly budget report,"Q3 budget wrap-up. Under budget on most categories this quarter.",2024-12-03,3,Complete
+Install new light fixtures in hallway,"Install the pendant lights in the hallway. The wiring is already there.",2024-12-06,2,Complete
+Water heater inspection,"Water heater is 9 years old. Get it inspected and flush sediment.",2024-12-09,1,Complete
+Contract renewal review,"Year-end vendor contract review. Three contracts expiring this month.",2024-12-11,2,Complete
+Buy new winter coat,"Old coat zipper finally broke. Check REI and the North Face outlet.",2024-12-13,1.5,Complete
+Help Jake with science fair project,"Jake's science fair project. He wants to test which paper airplane design flies farthest.",2024-12-15,3,Complete
+IT security training,"Annual cybersecurity training completion. New social engineering module.",2024-12-16,1,Complete
+Christmas shopping deadline,"Final Christmas shopping. Still need Mom's gift and stocking stuffers.",2024-12-19,4,Complete
+Holiday card mailing,"Mail all 55 holiday cards. Added the new neighbors to the list.",2024-12-20,2,Complete
+Plan holiday dinner menu,"Christmas dinner: beef tenderloin this year instead of prime rib.",2024-12-23,1,Complete
+Deep clean the kitchen,"Pre-holiday deep clean of the kitchen. Oven is a mess.",2024-12-24,3,Complete
+Year-end inventory count,"Annual inventory count. Hopefully faster this year with the new system.",2024-12-28,8,Complete
+New Year's Eve plans,"New Year's at home this year. Fondue night and board games with the kids.",2024-12-31,2,Complete
+Pay mortgage,"January mortgage. New year, same payment.",2025-01-01,0.25,Complete
+Gather tax documents,"Start collecting 2024 tax documents. Set up the tax folder.",2025-01-06,3,Complete
+Weekly team standup,"First standup of 2025. Big Q1 ahead with the platform expansion.",2025-01-06,0.5,Complete
+Review investment portfolio,"Annual investment review. The market had a great year, time to rebalance.",2025-01-09,2,Complete
+Update household budget,"2025 budget planning. Increase the savings category by 5%.",2025-01-12,1,Complete
+Cancel unused subscriptions,"Subscription audit. Found three we forgot about. That's $45/month wasted.",2025-01-14,0.5,Complete
+Gym membership renewal,"Renew the family gym membership. The kids' swim lessons are included.",2025-01-17,0.5,Complete
+Backup computer files,"Full system backup. Also clean up the photo library duplicates.",2025-01-19,1,Complete
+Schedule kids' dental cleanings,"Book the kids' cleanings for early February before the schedule fills up.",2025-01-21,0.25,Complete
+Order birthday gift for Mom,"Mom's birthday is in March. Order the new garden tool set she mentioned.",2025-01-24,0.5,Complete
+Sister's birthday,"Rachel's birthday dinner at her favorite Greek restaurant.",2025-01-28,1.5,Complete
+Batch cook meals for the week,"Sunday meal prep. Making soup, grilled chicken, and pasta salad.",2025-01-26,3,Complete
+Pay credit card bill,"January credit card bill. Holiday spending is done.",2025-01-31,0.25,Complete
+Car registration renewal,"Vehicle registration renewal. Emissions test passed already.",2025-02-03,1,Complete
+Valentine's Day reservation,"Valentine's dinner. Trying a new sushi omakase place this year.",2025-02-10,1,Complete
+Pay electric bill,"February electric bill.",2025-02-12,0.25,Complete
+Dinner with the Hendersons,"Saturday dinner at the Hendersons'. They got a new pizza oven.",2025-02-15,3,Complete
+1-on-1 with manager,"Check-in with Janet. Discuss the team restructuring proposal.",2025-02-18,1,Complete
+Oil change for the Honda,"Honda oil change. Also rotate the tires while it's in the shop.",2025-02-21,1,Complete
+Coffee catch-up with Lisa,"Coffee with Lisa. She's thinking about changing jobs and wants to talk it through.",2025-02-24,1.5,Complete
+Submit expense report,"February expense report. Just the team lunch and office supplies.",2025-02-27,1,Complete
+Board meeting prep,"Q1 board meeting prep. The growth numbers look good this quarter.",2025-02-28,4,Complete
+Spring cleaning weekend,"Spring cleaning. Attack the closets and the junk drawer situation.",2025-03-01,8,Complete
+Book club meeting,"March book club. This month's pick is a memoir about hiking the PCT.",2025-03-05,2,Complete
+Replace smoke detector batteries,"Smoke detectors chirping at 3am. Replace all batteries immediately.",2025-03-08,0.5,Complete
+Attend PTA meeting,"PTA meeting about the end-of-year celebration plans.",2025-03-10,1.5,Complete
+Mom's birthday,"Mom's birthday! Carrot cake from Delilah's and the garden tool set.",2025-03-14,2,Complete
+Annual physical exam,"Annual physical with Dr. Morrison. Blood work results from last week looked fine.",2025-03-17,2,Complete
+Haircut appointment,"Haircut at Tony's. Way overdue. Walk-in wait is terrible so keep the appointment.",2025-03-20,0.5,Complete
+Pizza night with kids,"Friday pizza night. Emma wants to try making the dough from scratch.",2025-03-21,2,Complete
+Baby shower for Sarah,"Sarah's second baby shower. It's a boy this time! Registry gift ordered.",2025-03-23,3,Complete
+Fix leaky faucet in bathroom,"Bathroom faucet dripping again. This time replace the whole valve assembly.",2025-03-25,1,Complete
+Grocery run for the week,"Big grocery run. Stocking up for the busy week ahead.",2025-03-28,1.5,Complete
+Pay credit card bill,"March statement. Pretty standard month.",2025-03-31,0.25,Complete
+Dentist cleaning,"Spring dental cleaning. Mention the tooth sensitivity that started last month.",2025-04-02,1.5,Complete
+Easter brunch prep,"Easter brunch for the family. Trying a new honey-glazed ham recipe.",2025-04-14,3,Complete
+Spring garden planting,"Garden day! Adding herbs this year: rosemary, thyme, and cilantro.",2025-04-16,4,Complete
+File taxes,"File 2024 taxes. The new deduction from the home office should help.",2025-04-15,4,Complete
+Allergy meds refill,"Allergy season is early this year. Stock up on everything.",2025-04-18,0.25,Complete
+Client presentation prep,"Prepare the Meridian Corp annual review presentation.",2025-04-21,3,Complete
+Client presentation to Meridian Corp,"Annual review presentation to Meridian. Showcase the platform improvements.",2025-04-23,1.5,Complete
+Yoga class registration,"Spring yoga session. Upgrade to the unlimited class package.",2025-04-25,0.25,Complete
+Kids' soccer game,"Emma's soccer game. She's playing goalie for the first time.",2025-04-26,2,Complete
+Flea and tick treatment for Max,"Monthly flea treatment for Max. Starting early since it's a warm spring.",2025-04-28,0.25,Complete
+Pay mortgage,"May mortgage payment.",2025-05-01,0.25,Complete
+AC maintenance and filter change,"AC tune-up. The tech found a minor refrigerant leak last year, check on it.",2025-05-05,1,Complete
+Emma's birthday party,"Emma turns 8! Arts and crafts party at the house.",2025-05-07,4,Complete
+Call Mom for Mother's Day,"Mother's Day. The kids made a scrapbook this year.",2025-05-11,0.5,Complete
+Vet appointment for Max,"Max's annual visit. He's 6 now so ask about senior dog diet.",2025-05-14,1.5,Complete
+Get quotes for deck staining,"Get deck staining quotes. The wood is starting to gray.",2025-05-16,0.5,Complete
+Date night at Olive Garden,"Date night. Use the Olive Garden gift card from Jake's teacher.",2025-05-23,2.5,Complete
+Meal prep Sunday,"Meal prep for the week. Grilled chicken, rice bowls, and overnight oats.",2025-05-25,2,Complete
+Pressure test sprinkler system,"Turn on sprinklers. Zone 5 head was cracked over winter.",2025-05-28,1.5,Complete
+Pool opening and chemical balance,"Pool opening. New pump motor installed in the off-season.",2025-06-02,3,Complete
+Kids camp registration,"Camp Pinewood summer registration. Both kids in the adventure track.",2025-06-04,0.5,Complete
+Set up 529 college savings plan,"Finally setting up the 529. Researched the state tax benefits.",2025-06-06,2,Complete
+Wedding anniversary dinner,"Tenth anniversary! Splurge on the tasting menu at Maison Laurent.",2025-06-12,3,Complete
+Father's Day gift shopping,"Dad's gift: a nice bottle of bourbon and the wood-fired pizza cookbook he wants.",2025-06-15,1,Complete
+File quarterly estimated taxes,"Q2 estimated taxes. Freelance income is consistent this year.",2025-06-16,1,Complete
+Renew car insurance,"Car insurance renewal. Switched to Geico last year and it's been fine.",2025-06-18,1,Complete
+Pay electric bill,"June electric bill. AC is running more than usual this summer.",2025-06-20,0.25,Complete
+Game night at Dave's house,"Game night. Trying the new Dune board game Dave got.",2025-06-21,3,Complete
+Tire rotation,"Tire rotation and inspection. Front right feels low.",2025-06-25,1,Complete
+Weekly team standup,"Monday standup. Mid-year check on OKR progress.",2025-06-30,0.5,Complete
+4th of July BBQ shopping,"BBQ supplies for the annual party. New grill accessories too.",2025-07-02,2,Complete
+Book flights to Denver,"Book Denver flights for August. Prices are climbing so book now.",2025-07-07,1,Complete
+Volunteer at food bank,"Food bank Saturday shift. Teaching Jake about community service.",2025-07-12,3,Complete
+Deploy to staging environment,"Push the v4.0 RC to staging. Major release with the new UI.",2025-07-14,2,Complete
+Sushi dinner downtown,"Sushi dinner with Mike and his wife. Double date at Saka.",2025-07-17,2,Complete
+Best friend Mike's birthday dinner,"Mike's birthday dinner. He wants Korean BBQ this year.",2025-07-19,2,Complete
+Write unit tests for auth module,"Write tests for the new OAuth2 flow. Need 95% coverage.",2025-07-23,3,Complete
+Research new phone plans,"Phone plan review. Our contract is up, time to negotiate or switch.",2025-07-25,1,Complete
+Reserve hotel for beach trip,"Book the Outer Banks house rental for the family beach week.",2025-07-28,0.5,Complete
+Pack for camping weekend,"Pack for the Blue Ridge camping trip. New tent this year.",2025-07-31,1.5,Complete
+Pay mortgage,"August mortgage payment.",2025-08-01,0.25,Complete
+Finalize quarterly budget report,"Q2 budget report. On track across all categories.",2025-08-04,3,Complete
+Back to school supplies shopping,"School supplies for fourth grade and second grade. Lists are on the fridge.",2025-08-11,2,Complete
+Coach Jake's basketball practice,"Jake's basketball. Working on free throws this week.",2025-08-14,1.5,Complete
+Dog grooming appointment,"Max grooming. He rolled in something questionable at the park.",2025-08-16,0.5,Complete
+Order new running shoes,"New Brooks Ghost 16s. The old pair is well past 500 miles.",2025-08-18,0.5,Complete
+Dad's birthday dinner,"Dad's 65th birthday! Big dinner at Rosario's with the whole family.",2025-08-22,2.5,Complete
+Complete annual review self-assessment,"Self-assessment for annual review. Document the v4 platform launch success.",2025-08-25,2,Complete
+Performance review meeting,"Annual review with Janet. Strong year, discuss the senior lead opportunity.",2025-08-27,1,Complete
+Wash and detail the car,"Post-beach-trip car cleaning. Sand in every crevice.",2025-08-29,0.5,Complete
+Pay credit card bill,"August statement. Vacation spending was budgeted for this time.",2025-08-31,0.25,Complete
+Replace furnace filter,"Swap the furnace filter. Bought a two-pack last time so the spare is ready.",2025-09-01,0.5,Complete
+Eye exam appointment,"Annual eye exam. The new glasses prescription is working well but double check.",2025-09-05,1,Complete
+Sign up for the Harvest 5K,"Harvest 5K registration. Going for under 24 minutes this year.",2025-09-08,0.25,Complete
+Schedule family photos,"Book the family photo session at the arboretum. Peak fall colors around Oct 15.",2025-09-12,0.5,Complete
+Renew library card,"Library card expired last month. Bring ID and proof of address to renew.",2025-09-15,0.5,Pending
+Neighborhood block party,"Block party. The new neighbors are hosting the dessert table.",2025-09-20,4,Complete
+Deep clean the kitchen,"Kitchen deep clean. The oven is overdue for a serious scrubbing.",2025-09-22,3,Complete
+Take kids to the science museum,"Science museum trip. They have a new space exploration exhibit.",2025-09-27,4,Complete
+Prepare quarterly OKRs,"Q4 OKRs draft. Focus on the customer portal launch.",2025-09-29,2,Complete
+Update project roadmap,"Revise product roadmap based on customer feedback from the beta.",2025-09-30,2,Complete
+Flu shot appointment,"Family flu shots. The pharmacy has the updated formula.",2025-10-02,0.5,Complete
+Winterize the garden,"Pull up the garden and winterize. Best harvest ever this year.",2025-10-04,3,Complete
+Fall dentist cleaning,"Fall dental cleaning. The kids go right after school.",2025-10-07,1.5,Complete
+Dermatology checkup,"Skin check with Dr. Lee. Everything looked stable last time.",2025-10-10,1,Complete
+Halloween costume shopping,"Emma wants to be a vampire queen. Jake is going as a chef.",2025-10-13,2,Complete
+Oil change for the Honda,"Oil change and multi-point inspection. Car has 85k miles now.",2025-10-16,1,Complete
+Wine tasting event at Cedar Creek,"Fall wine tasting with the whole friend group. Dave is driving.",2025-10-18,3,Complete
+Pick up prescription refills,"Blood pressure meds and the kids' vitamins. Ready at Walgreens.",2025-10-20,0.5,Complete
+Recycle old electronics,"E-waste recycling run. Old router, phone cables, and Jake's broken tablet.",2025-10-23,1,Complete
+Photo album project,"Finally organize and print the 2024 family photos for the album.",2025-10-25,3,Complete
+Attend neighborhood HOA meeting,"HOA meeting. Holiday decorations policy and the fence repair proposal.",2025-10-27,1.5,Complete
+Replace kitchen faucet,"New Moen faucet install. The old one is corroding.",2025-10-29,2,Complete
+Pay electric bill,"October electric bill. Transition month so it's reasonable.",2025-10-31,0.25,Complete
+Jake's birthday,"Jake turns 9! Bowling party at Lucky Strike Lanes.",2025-11-03,3,Complete
+Leaf cleanup and yard waste bags,"Huge leaf pile this year. Three full days of raking honestly.",2025-11-08,3,Complete
+Order firewood for winter,"Firewood order from Brennan's. Two cords of seasoned oak.",2025-11-10,0.25,Complete
+Clean gutters before winter,"Gutter cleaning. Hire someone this year, it's too much with the extension.",2025-11-12,3,Complete
+Snow tire swap,"Snow tire swap at Discount Tire. Storms coming next week.",2025-11-15,1.5,Complete
+Call pest control about ants,"Ants found near the kitchen window again. Need professional treatment.",2025-11-17,0.25,Complete
+New hire onboarding session,"Onboard the new senior developer. Walk through architecture and deployment.",2025-11-19,3,Complete
+Sprint retrospective,"Sprint retro. Great sprint velocity but need to address tech debt.",2025-11-21,1,Complete
+Thanksgiving dinner prep,"Thanksgiving prep for 14 people this year. Start brining Tuesday night.",2025-11-26,6,Complete
+Pay mortgage,"December mortgage payment.",2025-12-01,0.25,Complete
+Finalize quarterly budget report,"Q3 budget wrap-up. Came in under budget overall. Nice way to end the year.",2025-12-02,3,Complete
+Donate old clothes to Goodwill,"Pre-holiday donation run. Kids have outgrown so many clothes.",2025-12-04,1,Complete
+Contract renewal review,"Year-end vendor reviews. Negotiate better terms on the cloud hosting contract.",2025-12-06,2,Complete
+Renew professional certification,"AWS certification renewal. Studied last week, take the exam online.",2025-12-08,1,Complete
+Assemble kids' new bookshelf,"Build the new bookshelf for Jake's room. He got into chapter books.",2025-12-10,2,Complete
+Install doorbell camera,"Upgrade the Ring doorbell to the newer model before package season.",2025-12-12,1,Complete
+Power wash the driveway,"Rent a power washer and clean the driveway before the holiday guests arrive.",2025-12-13,2.5,Complete
+IT security training,"Annual cybersecurity training. New module on AI-generated phishing.",2025-12-15,1,Complete
+Buy new winter coat,"New winter coat for Jake. He's grown three inches since last winter.",2025-12-16,1.5,Complete
+Christmas shopping deadline,"Final Christmas shopping. Wrap everything and hide it in the guest room closet.",2025-12-18,4,Complete
+Holiday card mailing,"Mail the holiday cards. 60 this year, hand-write a note in each one.",2025-12-19,2,Complete
+Finish reading for book club,"Need to finish the December book club pick before the Thursday meeting.",2025-12-22,2,Complete
+Plan holiday dinner menu,"Christmas dinner: going with prime rib this year. Full menu and shopping list.",2025-12-23,1,Complete
+Help Jake with science fair project,"Jake's science fair entry: testing which brand of battery lasts longest.",2025-12-26,3,Complete
+Year-end inventory count,"Annual inventory. Using the new automated system should cut time in half.",2025-12-29,8,Complete
+New Year's Eve plans,"Quiet New Year's at home. Fondue and a movie with the kids.",2025-12-31,2,Complete
+Pay mortgage,"January mortgage. Same amount as last year thankfully.",2026-01-01,0.25,Complete
+Gather tax documents,"Start collecting 2025 tax documents. The new freelance 1099s should arrive soon.",2026-01-05,3,Complete
+Weekly team standup,"First standup of 2026. Set the Q1 priorities and review the product backlog.",2026-01-05,0.5,Complete
+Review investment portfolio,"Investment review for 2025 performance. Consider the Roth conversion strategy.",2026-01-08,2,Complete
+Update household budget,"2026 household budget. Increase the kids' activities category.",2026-01-12,1,Complete
+Pay electric bill,"January electric bill. Heating costs are up a bit from the cold snap.",2026-01-14,0.25,Complete
+Gym membership renewal,"Gym membership renewal. Family plan with the pool access is worth it.",2026-01-16,0.5,Complete
+Cancel unused subscriptions,"Subscription audit. Found two streaming services we never use.",2026-01-18,0.5,Complete
+Backup computer files,"Full backup to external drive and verify cloud sync is current.",2026-01-20,1,Complete
+Schedule kids' dental cleanings,"Book February dental appointments for both kids.",2026-01-22,0.25,Complete
+Pizza night with kids,"Friday pizza night. Jake wants to try making calzones.",2026-01-23,2,Complete
+Sister's birthday,"Rachel's birthday. Got her concert tickets to her favorite band.",2026-01-28,1.5,Complete
+Pay credit card bill,"January credit card. Post-holiday balances cleared.",2026-01-30,0.25,Complete
+Car registration renewal,"Registration renewal. Need to do emissions test this week first.",2026-02-02,1,Complete
+Submit expense report,"January expense report. Conference registration and the team dinner.",2026-02-03,1,Complete
+1-on-1 with manager,"Check-in with Janet. Discuss Q1 milestones and the new team structure.",2026-02-04,1,Complete
+Dinner with the Hendersons,"Saturday dinner at the Hendersons'. They're making homemade pasta.",2026-02-07,3,Complete
+Valentine's Day reservation,"Valentine's dinner at the new tapas bar on Market Street.",2026-02-10,1,Complete
+Grocery run for the week,"Weekly grocery trip. Super Bowl snacks and regular essentials.",2026-02-11,1.5,Complete
+Stock up on pantry staples,"Big Costco run. Rice, pasta, olive oil, canned goods, and paper products.",2026-02-12,1.5,Complete
+Pay electric bill,"February electric bill. Slightly less than January.",2026-02-13,0.25,Complete
+Coffee catch-up with Lisa,"Coffee with Lisa at Blue Bottle. She started the new job and wants to vent.",2026-02-14,1.5,Complete
+Board meeting prep,"Q1 board meeting prep. Update the growth dashboard and investor summary.",2026-02-16,4,In Progress
+Weekly team standup,"Monday standup. Sprint planning for the customer portal features.",2026-02-16,0.5,In Progress
+Pay mortgage,"February mortgage payment.",2026-02-16,0.25,In Progress
+Spring cleaning weekend,"Deep clean the whole house. Start with the bathrooms and work outward.",2026-02-21,8,Pending
+Oil change for the Honda,"Honda is at 90k miles. Oil change plus the 90k mile service.",2026-02-22,1,Pending
+Dentist cleaning,"Spring dental cleaning. Both of us are due this month.",2026-02-23,1.5,Pending
+Book club meeting,"February book club meeting. This month's pick is a science fiction novel.",2026-02-24,2,Pending
+Annual physical exam,"Annual physical with Dr. Morrison. Schedule the fasting blood work for morning.",2026-02-26,2,Pending
+Replace windshield wipers,"Winter took a toll on the wipers. Streaking badly in the rain.",2026-02-27,0.25,Pending
+Mom's birthday,"Mom's birthday coming up. Ordered the new KitchenAid mixer she wanted.",2026-03-14,2,Pending
+File taxes,"File 2025 taxes. All documents collected and ready for TurboTax.",2026-04-12,4,Pending
+Spring garden planting,"Plan the garden layout. Adding a pollinator section this year.",2026-04-18,4,Pending
+Batch cook meals for the week,"Sunday meal prep. Try the new sheet pan dinner recipes.",2026-02-22,3,Pending
+Haircut appointment,"Haircut at Tony's. Been over a month.",2026-02-19,0.5,In Progress
+Attend PTA meeting,"PTA meeting about the spring field day event planning.",2026-02-20,1.5,Pending
+Update the home Wi-Fi password,"Wi-Fi password change overdue. Set up the guest network too.",2026-02-25,0.25,Pending
+Renew homeowner's insurance,"Review homeowner's policy coverage. Replacement costs should be updated.",2026-03-01,1,Pending
+Schedule meeting with financial advisor,"Annual meeting with Greg at Fidelity. Discuss the college fund progress.",2026-03-04,0.5,Pending
+Review 401k contributions,"Check 401k contribution rate. Consider maxing out this year.",2026-03-06,0.5,Pending
+Set up kids' bikes for spring,"Get the bikes ready for spring riding. Both kids need bigger bikes soon.",2026-03-08,1,Pending
+Allergy meds refill,"Allergies will start soon. Refill everything before pollen hits.",2026-03-10,0.25,Pending
+Paint bedroom accent wall,"Finally paint the accent wall. The navy paint has been in the garage for months.",2026-03-15,4,Pending
+Organize garage,"Garage organization project. Install the wall-mounted tool rack system.",2026-03-12,6,Pending
+Vet appointment for Max,"Max is due for his annual checkup and vaccinations.",2026-03-09,1.5,Pending
+Dog grooming appointment,"Max needs grooming badly. He's looking like a mop.",2026-03-02,0.5,Pending
+Easter brunch prep,"Easter brunch planning. Start the menu and shopping list.",2026-04-01,3,Pending
+Q3 planning meeting,"Q2 planning session. Bring the customer portal metrics.",2026-03-20,2,Pending
+Write API documentation,"Document the v5 API changes for the partner developer portal.",2026-03-15,4,In Progress
+Renew passport,"Passport renewal. Expires in June and need it for the summer trip.",2026-03-01,1.5,Pending
+Cousin Tyler's wedding RSVP,"RSVP for Tyler's wedding. Need to pick chicken or fish. Plus-one confirmed.",2022-03-02,0.25,Complete
+Visit grandparents,"Drive up to visit Grandma and Grandpa for the weekend. Bring the photo album.",2022-03-12,5,Complete
+Plan Rachel's surprise party,"Coordinate with Mike and Sarah. Book the private room at The Rustic Barrel.",2022-04-05,2,Complete
+Meal prep Sunday,"Prep lunches for the work week. Turkey wraps and grain bowls.",2022-04-24,2,Complete
+Pick up dry cleaning,"Grab the suits from Park Avenue Cleaners before they close at 6.",2022-05-02,0.5,Complete
+Family reunion planning call,"Conference call with Aunt Patty and Uncle Jim to plan the summer reunion.",2022-05-12,1,Complete
+Update the home Wi-Fi password,"Change the Wi-Fi password. Too many neighbors have the old one.",2022-05-20,0.25,Complete
+Property tax payment,"Semi-annual property tax payment due. Check the county website for the amount.",2022-06-10,0.5,Complete
+Dermatology checkup,"Annual skin check with Dr. Lee. Monitor the mole on the left shoulder.",2022-06-20,1,Complete
+Marathon training run - 10 miles,"Long run along the river trail. Test the new energy gels.",2022-06-25,2,Complete
+Schedule kids' dental cleanings,"Both kids are due for their six-month cleanings. Call Bright Smile.",2022-07-05,0.25,Complete
+Buy pet food in bulk,"Big Chewy order for Max. Stock up on the grain-free formula.",2022-07-12,0.5,Complete
+Renew homeowner's insurance,"Review the homeowner's policy. Check if coverage limits need updating.",2022-07-15,1,Complete
+Coach Jake's basketball practice,"Run drills at the community center. Work on layups today.",2022-07-20,1.5,Complete
+Pick up prescription refills,"Refill the blood pressure medication at Walgreens.",2022-07-27,0.5,Complete
+Complete annual review self-assessment,"Fill out the self-assessment form. Focus on the Q2 project wins.",2022-08-15,2,Complete
+Performance review meeting,"Annual review meeting with Janet. Discuss growth opportunities.",2022-08-18,1,Complete
+Schedule meeting with financial advisor,"Book the annual review with Greg at Fidelity. Discuss 401k allocation.",2022-08-20,0.5,Complete
+Review 401k contributions,"Check if on track to max out contributions for the year.",2022-09-05,0.5,Complete
+Haircut appointment,"Overdue haircut at Tony's Barber Shop. Use the appointment this time.",2022-09-12,0.5,Complete
+Return Amazon packages,"Return the wrong-size curtains and the duplicate coffee maker.",2022-09-15,0.5,Complete
+Donate old clothes to Goodwill,"Sort through the hall closet. Donate everything that doesn't fit.",2022-09-20,1,Complete
+Attend PTA meeting,"PTA meeting at school. Agenda includes the fall carnival planning.",2022-09-26,1.5,Complete
+Kids' soccer game,"Jake's soccer game at Riverside Park. He's excited to play forward.",2022-10-01,2,Complete
+Stock up on pantry staples,"Costco run for rice, pasta, canned tomatoes, and olive oil.",2022-10-08,1.5,Complete
+Replace kitchen faucet,"The kitchen faucet is leaking at the base. Install the new Moen.",2022-10-12,2,Complete
+Water heater inspection,"Water heater is 7 years old. Schedule the annual flush and inspection.",2022-10-20,1,Complete
+Date night movie and dinner,"See the new movie at AMC and grab burgers after. Babysitter at 5pm.",2022-10-29,4,Complete
+Flea and tick treatment for Max,"Monthly flea and tick application. Reorder the next three-month supply.",2022-11-01,0.25,Complete
+Set up 529 college savings plan,"Research 529 plans for the kids. Compare the state tax benefit options.",2022-11-04,2,Complete
+Install doorbell camera,"Install the new Ring doorbell. Need it before holiday package deliveries.",2022-11-09,1,Complete
+Caulk around windows,"Caulk the windows in the den. Cold drafts coming through.",2022-11-18,1.5,Complete
+Renew professional certification,"AWS certification renewal deadline approaching. Schedule the exam.",2022-11-20,1,Complete
+Grocery run for the week,"Thanksgiving week grocery run. Get everything on the big list.",2022-11-21,1.5,Complete
+File quarterly estimated taxes,"Q4 estimated tax payment due. Calculate based on year-to-date.",2022-12-15,1,Complete
+Review 401k contributions,"Year-end check on 401k. Still room to contribute more before Dec 31.",2022-12-18,0.5,Complete
+Batch cook meals for the week,"Holiday week meal prep. Simple meals since the fridge is full of leftovers.",2022-12-27,3,Complete
+Stock up on pantry staples,"Post-holiday pantry restock. Ran through everything during the festivities.",2023-01-03,1.5,Complete
+Pick up dry cleaning,"Grab the holiday party outfits from the cleaners.",2023-01-05,0.5,Complete
+Pay electric bill,"January electric bill. Post-holiday energy usage was high.",2023-01-20,0.25,Complete
+Visit grandparents,"Weekend visit to Grandma and Grandpa. Bring the Christmas photos.",2023-01-22,5,Complete
+Pay mortgage,"February mortgage payment.",2023-02-01,0.25,Complete
+Grocery run for the week,"Weekly grocery run. Trying a new meal plan this month.",2023-02-12,1.5,Complete
+Backup computer files,"Monthly backup. Also check the cloud storage usage.",2023-02-16,1,Complete
+Sprint retrospective,"End-of-sprint retro. Discuss the deployment issues from last Thursday.",2023-02-20,1,Complete
+Property tax payment,"Semi-annual property tax due. Pay through the county website.",2023-03-01,0.5,Complete
+Replace windshield wipers,"Wipers are shot after the ice storms. New Bosch Icons from AutoZone.",2023-03-10,0.25,Complete
+Kids' soccer game,"Emma's second soccer game. She scored her first goal last week!",2023-03-18,2,Complete
+Oil change for the Honda,"Routine oil change. The car is at 65k miles now.",2023-03-21,1,Complete
+1-on-1 with manager,"Bi-weekly check-in with Janet. Review the sprint velocity trends.",2023-03-24,1,Complete
+Flea and tick treatment for Max,"Spring flea treatment. Apply the monthly dose and order refills.",2023-03-28,0.25,Complete
+Pay mortgage,"April mortgage payment.",2023-04-01,0.25,Complete
+Marathon training run - 10 miles,"Long run day. New route through the state park.",2023-04-09,2,Complete
+Wash and detail the car,"Spring car wash and interior detail. Winter salt damage needs addressing.",2023-04-14,0.5,Complete
+Schedule meeting with financial advisor,"Annual meeting with Greg. Review the 529 plan performance.",2023-04-18,0.5,Complete
+Attend PTA meeting,"PTA meeting. Spring field trip chaperone sign-ups.",2023-04-20,1.5,Complete
+Pick up prescription refills,"Blood pressure meds ready at Walgreens. Also pick up the kids' vitamins.",2023-04-22,0.5,Complete
+Update the home Wi-Fi password,"Quarterly Wi-Fi password change. Too many devices connected.",2023-05-05,0.25,Complete
+Review 401k contributions,"Mid-year 401k check. Increase contribution by 2% if possible.",2023-05-09,0.5,Complete
+Property tax payment,"Semi-annual property tax payment. Due by end of month.",2023-05-15,0.5,Complete
+Set up kids' bikes for spring,"Get the bikes ready. Jake's needs training wheels removed finally.",2023-05-18,1,Complete
+Stock up on pantry staples,"Big Costco run before the vacation. Get snacks for the road trip too.",2023-05-20,1.5,Complete
+Dermatology checkup,"Six-month follow-up with Dr. Lee. The mole biopsy results were clear.",2023-05-22,1,Complete
+Install new light fixtures in hallway,"Install the new flush mount fixtures. The old ones are dated.",2023-05-28,2,Complete
+Power wash the driveway,"Rent a power washer. The driveway has winter grime and moss.",2023-06-02,2.5,Complete
+Deep clean the kitchen,"Saturday deep clean. Focus on the fridge and the area behind the stove.",2023-06-10,3,Complete
+Family reunion planning call,"Finalize the reunion details. Aunt Patty is handling the venue.",2023-06-13,1,Complete
+Organize garage,"Major garage organization project. Install pegboard and new shelving.",2023-06-17,6,Complete
+Buy new winter coat,"End of season sale at REI. Get a good deal on next winter's coat.",2023-06-20,1.5,Complete
+Paint bedroom accent wall,"Finally painting the accent wall. Ordered the sage green paint.",2023-06-22,4,Complete
+Finish reading for book club,"Need to finish the June book club pick before Thursday.",2023-06-25,2,Complete
+Pay mortgage,"July mortgage payment.",2023-07-01,0.25,Complete
+Replace smoke detector batteries,"Two smoke detectors are beeping. Replace all to be safe.",2023-07-05,0.5,Complete
+Fix leaky faucet in bathroom,"Guest bathroom faucet is dripping. YouTube tutorial says it's easy.",2023-07-09,1,Complete
+Coach Jake's basketball practice,"Summer basketball camp coaching. Focus on teamwork drills.",2023-07-12,1.5,Complete
+Order birthday gift for Mom,"Mom's half-birthday tradition. She loves getting flowers mid-year.",2023-07-16,0.5,Complete
+Renew homeowner's insurance,"Homeowner's insurance renewal. Compare quotes before auto-renewing.",2023-07-18,1,Complete
+Date night at Olive Garden,"Date night at OG. The never-ending pasta bowl promo is back.",2023-07-22,2.5,Complete
+Grocery run for the week,"Weekly grocery run. Lots of fresh produce for the summer recipes.",2023-07-25,1.5,Complete
+File quarterly estimated taxes,"Q3 estimated taxes due. Freelance income bumped up this quarter.",2023-07-30,1,Complete
+Attend neighborhood HOA meeting,"Summer HOA meeting. Pool rules and parking enforcement on the agenda.",2023-08-02,1.5,Complete
+Water heater inspection,"Annual water heater maintenance. Flush the tank and check the anode rod.",2023-08-05,1,Complete
+Return library books,"Library books are due. Also check if the kids' summer reading holds are in.",2023-08-08,0.5,Complete
+Schedule roof inspection,"A few shingles look loose after the summer storms. Get it inspected.",2023-08-12,0.5,Complete
+Caulk around windows,"Recaulk the bathroom window. Moisture is getting in around the frame.",2023-08-15,1.5,Complete
+Visit grandparents,"End of summer visit to the grandparents. Bring the summer vacation photos.",2023-08-20,5,Complete
+Cancel unused subscriptions,"Quarterly subscription review. Found two more to cancel.",2023-08-23,0.5,Complete
+Lawn mower maintenance,"Season-end mower maintenance. Oil change, blade sharpening, and winterize.",2023-08-27,2,Complete
+Batch cook meals for the week,"Back to school meal prep. Easy lunches for the kids' first week.",2023-09-03,3,Complete
+Sprint retrospective,"Sprint retro. The database migration went smoother than expected.",2023-09-06,1,Complete
+Pick up dry cleaning,"Grab the fall jackets and Rachel's blazer from the cleaners.",2023-09-09,0.5,Complete
+Pay electric bill,"September electric bill. AC costs dropping as it cools down.",2023-09-12,0.25,Complete
+Coffee catch-up with Lisa,"Coffee with Lisa at the new place on Oak Street. She's training for a triathlon.",2023-09-15,1.5,Complete
+Flea and tick treatment for Max,"Monthly flea treatment. Fall is still active season for ticks.",2023-09-18,0.25,Complete
+Grocery run for the week,"Weekly grocery run. Fall recipes starting: soups and stews.",2023-09-22,1.5,Complete
+Review investment portfolio,"Quarterly investment review. Bonds allocation needs attention.",2023-09-25,2,Complete
+Renew car insurance,"Car insurance renewal. Happy with Geico so just renew at the same rate.",2023-09-28,1,Complete
+Pay mortgage,"October mortgage payment.",2023-10-01,0.25,Complete
+Lawn mower maintenance,"Clean and store the mower for winter. Drain the gas tank.",2023-10-05,2,Complete
+Schedule chimney inspection,"Annual chimney sweep before fireplace season. Call Acme Chimney.",2023-10-09,0.25,Complete
+Wash and detail the car,"Fall car detail before the weather turns. Focus on wax coating.",2023-10-13,0.5,Complete
+Coach Jake's basketball practice,"Fall basketball practice. Getting ready for the winter league tryouts.",2023-10-17,1.5,Complete
+Pick up prescription refills,"Refill blood pressure meds. Also get the flu medicine prescription.",2023-10-20,0.5,Complete
+Pay mortgage,"November mortgage payment.",2023-11-01,0.25,Complete
+Pizza night with kids,"Friday pizza night. Trying cauliflower crust this time for variety.",2023-11-10,2,Complete
+Replace kitchen faucet,"Kitchen faucet replacement. The sprayer hose is leaking now too.",2023-11-17,2,Complete
+Pay electric bill,"November electric bill. Heating season is here.",2023-11-20,0.25,Complete
+Property tax payment,"Semi-annual property tax. Due before end of November.",2023-11-25,0.5,Complete
+Grocery run for the week,"Thanksgiving shopping list. Everything for the feast plus regular supplies.",2023-11-19,1.5,Complete
+File quarterly estimated taxes,"Q4 estimated taxes. Last payment of the year.",2023-12-15,1,Complete
+Backup computer files,"Year-end backup. Archive 2023 files to the external drive.",2023-12-17,1,Complete
+Donate old clothes to Goodwill,"End of year donation. Get the receipt for tax deductions.",2023-12-24,1,Complete
+Stock up on pantry staples,"Post-Christmas pantry restock at Costco.",2023-12-26,1.5,Complete
+Property tax payment,"Semi-annual property tax due in January. Pay early to clear it.",2024-01-06,0.5,Complete
+Pay electric bill,"January electric bill. The coldest month of the year.",2024-01-12,0.25,Complete
+Visit grandparents,"New Year's visit. Grandpa wants to show off his new workshop.",2024-01-14,5,Complete
+Pick up dry cleaning,"Pick up the New Year's party outfits from the cleaners.",2024-01-18,0.5,Complete
+Sprint retrospective,"Q4 final sprint retro. Big platform launch was a success.",2024-01-21,1,Complete
+Family reunion planning call,"Start planning this year's reunion. New venue suggestions needed.",2024-01-25,1,Complete
+Flea and tick treatment for Max,"Even in winter, keep up with the treatment. Vet recommended year-round.",2024-01-30,0.25,Complete
+Pay mortgage,"February mortgage payment.",2024-02-01,0.25,Complete
+Lawn mower maintenance,"Pre-season mower maintenance. Change oil, replace spark plug, sharpen blade.",2024-02-08,2,Complete
+Stock up on pantry staples,"Monthly Costco run for bulk items.",2024-02-12,1.5,Complete
+Batch cook meals for the week,"Sunday meal prep. Valentine's week so keep meals simple.",2024-02-09,3,Complete
+Schedule roof inspection,"Roof inspection follow-up from the hail damage claim.",2024-02-15,0.5,Complete
+Pick up prescription refills,"Monthly prescription pickup at CVS.",2024-02-19,0.5,Complete
+Coach Jake's basketball practice,"Winter league practice. Working on defensive positioning.",2024-02-22,1.5,Complete
+Review 401k contributions,"Annual max-out check for the 401k. On track so far.",2024-02-25,0.5,Complete
+File quarterly estimated taxes,"Q1 estimated tax payment. New freelance rate changes the calculation.",2024-03-15,1,Complete
+Pay electric bill,"March electric bill. Heating costs finally dropping.",2024-03-10,0.25,Complete
+Grocery run for the week,"Weekly grocery run. Lots of fresh citrus this time of year.",2024-03-15,1.5,Complete
+Sprint retrospective,"Sprint retro. Deployed two major features without issues.",2024-03-18,1,Complete
+Visit grandparents,"Spring visit. Help Grandpa plant his vegetable garden.",2024-03-30,5,Complete
+Oil change for the Honda,"Oil change at the dealership. Free tire rotation with service.",2024-04-05,1,Complete
+Lawn mower maintenance,"First mow of the season prep. Check everything before the first cut.",2024-04-08,2,Complete
+Wash and detail the car,"Spring car cleaning. Wash off all the winter road salt.",2024-04-10,0.5,Complete
+Pay mortgage,"April mortgage payment.",2024-04-01,0.25,Complete
+Pick up dry cleaning,"Spring wardrobe pieces from the cleaners.",2024-04-19,0.5,Complete
+Renew homeowner's insurance,"Annual homeowner's insurance review. Update the home value estimate.",2024-04-21,1,Complete
+Stock up on pantry staples,"Monthly Costco trip. Big BBQ season haul coming soon.",2024-04-25,1.5,Complete
+Pay mortgage,"May mortgage payment.",2024-05-01,0.25,Complete
+Flea and tick treatment for Max,"Monthly flea and tick treatment. Outdoor season is starting.",2024-05-10,0.25,Complete
+Grocery run for the week,"Weekly grocery run. Getting ingredients for the birthday party food.",2024-05-04,1.5,Complete
+Coffee catch-up with Lisa,"Coffee with Lisa. Celebrating her new promotion.",2024-05-18,1.5,Complete
+Sprint retrospective,"Sprint retro. Discuss the load testing results from the staging push.",2024-05-20,1,Complete
+Coach Jake's basketball practice,"Summer league tryouts prep. Extra practice session this week.",2024-05-25,1.5,Complete
+Lawn mower maintenance,"Mid-season blade sharpening. The grass is thick this year.",2024-05-30,2,Complete
+Pay mortgage,"June mortgage payment.",2024-06-01,0.25,Complete
+Property tax payment,"Semi-annual property tax payment. Check the updated assessment value.",2024-06-05,0.5,Complete
+Deep clean the kitchen,"Pre-party deep clean. Getting the house ready for the anniversary dinner.",2024-06-10,3,Complete
+Visit grandparents,"Summer visit with the whole family. BBQ at Grandpa's.",2024-06-15,5,Complete
+Update the home Wi-Fi password,"Change the password. Too many smart home devices are connected.",2024-06-20,0.25,Complete
+Replace smoke detector batteries,"Annual battery replacement. Also test the carbon monoxide detectors.",2024-06-24,0.5,Complete
+Pay electric bill,"June electric bill. AC usage is climbing.",2024-06-25,0.25,Complete
+Finish reading for book club,"Need to finish the thriller before Wednesday's meeting.",2024-06-27,2,Complete
+Pay mortgage,"July mortgage payment.",2024-07-01,0.25,Complete
+Grocery run for the week,"4th of July shopping plus regular weekly groceries.",2024-07-01,1.5,Complete
+Schedule kids' dental cleanings,"Summer cleaning appointments. Try to get them done before school starts.",2024-07-09,0.25,Complete
+Renew homeowner's insurance,"Homeowner's insurance mid-year review. Add the new shed to the policy.",2024-07-11,1,Complete
+Batch cook meals for the week,"Summer meal prep. Cold salads and grilled proteins for the heat.",2024-07-14,3,Complete
+Pizza night with kids,"Outdoor pizza night using the grill pizza stone. Kids love it.",2024-07-18,2,Complete
+Pick up prescription refills,"Summer prescription refills. Also get sunscreen from the pharmacy.",2024-07-20,0.5,Complete
+Review investment portfolio,"Mid-year investment checkup. Market is doing well, stay the course.",2024-07-23,2,Complete
+Flea and tick treatment for Max,"Monthly treatment. Max has been spending a lot of time in the tall grass.",2024-07-26,0.25,Complete
+Schedule chimney inspection,"Schedule the fall chimney inspection early before the busy season.",2024-07-29,0.25,Complete
+Pay mortgage,"August mortgage payment.",2024-08-01,0.25,Complete
+Dermatology checkup,"Summer skin check. New mole appeared on the forearm.",2024-08-07,1,Complete
+Replace windshield wipers,"Summer storm season destroyed the wipers. Replace both pairs.",2024-08-12,0.25,Complete
+Organize garage,"End-of-summer garage cleanup. Sort through the camping gear.",2024-08-17,6,Complete
+Grocery run for the week,"Back to school weekly groceries. Stock up on lunch box snacks.",2024-08-18,1.5,Complete
+Pay electric bill,"August electric bill. Peak summer AC usage.",2024-08-20,0.25,Complete
+File quarterly estimated taxes,"Q3 estimated taxes. The freelance income was strong this quarter.",2024-08-25,1,Complete
+Sprint retrospective,"Sprint retro. Discuss the hotfix deployment and lessons learned.",2024-08-28,1,Complete
+Pay mortgage,"September mortgage payment.",2024-09-01,0.25,Complete
+Batch cook meals for the week,"Fall meal prep kickoff. Chili, soups, and casseroles for the week.",2024-09-07,3,Complete
+Pick up dry cleaning,"Fall clothes from the cleaners. Plus the tablecloth for the dinner party.",2024-09-10,0.5,Complete
+Grocery run for the week,"Weekly groceries. Fall produce is looking great at the farmers market.",2024-09-14,1.5,Complete
+Coffee catch-up with Lisa,"Coffee catch-up. Lisa wants advice on a career change.",2024-09-17,1.5,Complete
+Update the home Wi-Fi password,"Quarterly password rotation. Also update the smart home devices.",2024-09-20,0.25,Complete
+Pay electric bill,"September electric bill. Cooling down, usage should drop.",2024-09-25,0.25,Complete
+Flea and tick treatment for Max,"Monthly treatment. The vet said to continue through November.",2024-09-28,0.25,Complete
+Lawn mower maintenance,"End of season mower storage. Clean, drain fuel, and cover.",2024-10-02,2,Complete
+Grocery run for the week,"Weekly grocery run. Pumpkin everything season has arrived.",2024-10-06,1.5,Complete
+Sprint retrospective,"Sprint retro. The platform migration sprint was tough but complete.",2024-10-09,1,Complete
+Visit grandparents,"Fall visit. Help Grandma with the garden winterization.",2024-10-12,5,Complete
+Wash and detail the car,"Fall detail. Get the interior cleaned before winter.",2024-10-15,0.5,Complete
+Pay mortgage,"October mortgage payment.",2024-10-01,0.25,Complete
+Pay electric bill,"October electric bill. Mild month so costs are down.",2024-10-22,0.25,Complete
+Pick up prescription refills,"Monthly prescription pickup. Also ask about the new generic option.",2024-10-24,0.5,Complete
+Stock up on pantry staples,"Big fall Costco haul. Thanksgiving prep starts early this year.",2024-10-27,1.5,Complete
+Pay mortgage,"November mortgage payment.",2024-11-01,0.25,Complete
+Batch cook meals for the week,"Pre-Thanksgiving meal prep. Make easy freezer meals for the busy week.",2024-11-02,3,Complete
+Kids' soccer game,"Fall soccer playoffs. Emma's team made the semifinals!",2024-11-08,2,Complete
+Grocery run for the week,"Weekly groceries plus Thanksgiving shopping list part one.",2024-11-10,1.5,Complete
+Organize garage,"Quick garage tidy before winter. Make room for snow equipment.",2024-11-12,6,Complete
+Renew car insurance,"Fall car insurance renewal. Same carrier, same plan.",2024-11-15,1,Complete
+Review investment portfolio,"Pre-holiday investment review. Check tax loss harvesting opportunities.",2024-11-17,2,Complete
+Schedule roof inspection,"Pre-winter roof inspection. The gutter crew noticed some loose flashing.",2024-11-19,0.5,Complete
+Pay electric bill,"November electric bill. First month with the heat on full time.",2024-11-22,0.25,Complete
+Visit grandparents,"Thanksgiving Eve visit. Drop off pies and spend the evening.",2024-11-26,5,Complete
+Flea and tick treatment for Max,"November flea treatment. The vet said one more month then winter break.",2024-11-28,0.25,Complete
+Grocery run for the week,"Post-Thanksgiving grocery reset. The fridge is empty after the feast.",2024-12-01,1.5,Complete
+Property tax payment,"Semi-annual property tax due before year-end.",2024-12-05,0.5,Complete
+Replace smoke detector batteries,"Pre-holiday battery swap. Also check the fire extinguisher date.",2024-12-07,0.5,Complete
+Sprint retrospective,"Final sprint retro of the year. Celebrate the team's accomplishments.",2024-12-10,1,Complete
+Pay electric bill,"December electric bill. Holiday lights adding to the total.",2024-12-14,0.25,Complete
+Finish reading for book club,"December book club pick. A holiday-themed cozy mystery.",2024-12-17,2,Complete
+Pick up prescription refills,"Year-end prescription refills before the insurance resets.",2024-12-22,0.5,Complete
+File quarterly estimated taxes,"Q4 estimated taxes. Last payment of the year.",2024-12-27,1,Complete
+Grocery run for the week,"New Year's Eve grocery run. Fondue ingredients and party snacks.",2024-12-29,1.5,Complete
+Pay electric bill,"February electric bill. Heating season is winding down slightly.",2025-02-05,0.25,Complete
+Grocery run for the week,"Weekly grocery run. Super Bowl party prep.",2025-02-07,1.5,Complete
+Sprint retrospective,"Sprint retro. Good start to Q1 with the new team structure.",2025-02-10,1,Complete
+Pick up dry cleaning,"Pick up Rachel's dress for the Valentine's dinner.",2025-02-12,0.5,Complete
+Pay mortgage,"February mortgage payment.",2025-02-01,0.25,Complete
+Property tax payment,"Semi-annual property tax. Increased slightly from reassessment.",2025-02-14,0.5,Complete
+Visit grandparents,"Weekend visit. Grandma's 80th birthday party at the house.",2025-02-16,5,Complete
+Batch cook meals for the week,"Weekly meal prep. Trying Mediterranean recipes this month.",2025-02-23,3,Complete
+Replace windshield wipers,"Ice storms destroyed the wipers. Emergency replacement needed.",2025-02-26,0.25,Complete
+Pay mortgage,"March mortgage payment.",2025-03-01,0.25,Complete
+Flea and tick treatment for Max,"Spring flea season starting. Apply treatment and reorder supply.",2025-03-03,0.25,Complete
+Grocery run for the week,"Weekly grocery trip. Stocking up before spring break.",2025-03-06,1.5,Complete
+Oil change for the Honda,"Oil change plus tire rotation at Jiffy Lube.",2025-03-12,1,Complete
+1-on-1 with manager,"Check-in with Janet. Discuss the new project assignments.",2025-03-15,1,Complete
+Pick up prescription refills,"Refills ready at Walgreens. Also need to pick up allergy meds.",2025-03-18,0.5,Complete
+Sprint retrospective,"March sprint retro. The customer portal MVP is on track.",2025-03-22,1,Complete
+Schedule chimney inspection,"Schedule spring chimney sweep. Need to check the damper.",2025-03-26,0.25,Complete
+Pay electric bill,"March electric bill. Transition from heating to cooling.",2025-03-30,0.25,Complete
+Pay mortgage,"April mortgage payment.",2025-04-01,0.25,Complete
+Property tax payment,"Spring property tax payment due by April 30.",2025-04-05,0.5,Complete
+File quarterly estimated taxes,"Q1 estimated tax payment. Calculate the new rate.",2025-04-08,1,Complete
+Wash and detail the car,"Spring car wash. Salt damage from the winter roads.",2025-04-11,0.5,Complete
+Organize garage,"Spring garage cleanup. Donate the items from the winter purge.",2025-04-13,6,Complete
+Batch cook meals for the week,"Easter week meal prep. Keep it simple with the big brunch planned.",2025-04-12,3,Complete
+Pay electric bill,"April electric bill. Nice shoulder season costs.",2025-04-20,0.25,Complete
+Pick up dry cleaning,"Spring wardrobe pieces from the cleaners.",2025-04-22,0.5,Complete
+Visit grandparents,"Spring visit. Help Grandpa with the garden planting.",2025-04-27,5,Complete
+Replace smoke detector batteries,"Time for new batteries. The one in the hallway is beeping again.",2025-04-29,0.5,Complete
+Pay mortgage,"May mortgage payment.",2025-05-01,0.25,Complete
+Grocery run for the week,"Weekly grocery run. Getting pool party supplies for Emma's birthday.",2025-05-03,1.5,Complete
+1-on-1 with manager,"Check-in with Janet about the senior lead timeline.",2025-05-08,1,Complete
+Pay electric bill,"May electric bill. AC is starting to kick in.",2025-05-12,0.25,Complete
+Pick up prescription refills,"Monthly prescriptions. The pharmacy switched to a new generic brand.",2025-05-15,0.5,Complete
+Sprint retrospective,"Sprint retro. The portal beta launch metrics look promising.",2025-05-19,1,Complete
+Lawn mower maintenance,"Mid-season blade sharpening. Also replace the air filter.",2025-05-22,2,Complete
+Flea and tick treatment for Max,"Monthly treatment. The ticks are bad this year according to the vet.",2025-05-27,0.25,Complete
+Stock up on pantry staples,"Summer Costco haul. Pool snacks and bulk drinks.",2025-05-30,1.5,Complete
+Pay mortgage,"June mortgage payment.",2025-06-01,0.25,Complete
+Grocery run for the week,"Weekly grocery run. BBQ season ingredients.",2025-06-07,1.5,Complete
+Property tax payment,"Semi-annual property tax. Paid through the county portal.",2025-06-09,0.5,Complete
+Sprint retrospective,"Sprint retro. Preparing for the v4 launch next month.",2025-06-11,1,Complete
+Pay electric bill,"June electric bill. AC costs climbing in the heat.",2025-06-16,0.25,Complete
+Schedule chimney inspection,"Pre-winter chimney inspection booking. They fill up fast in fall.",2025-06-19,0.25,Complete
+1-on-1 with manager,"Mid-year check-in with Janet. Discuss the v4 launch timeline.",2025-06-23,1,Complete
+Pick up prescription refills,"Summer prescription refills. Stock up before vacation.",2025-06-27,0.5,Complete
+Flea and tick treatment for Max,"Monthly treatment. Max is spending lots of time outdoors.",2025-06-28,0.25,Complete
+Pay mortgage,"July mortgage payment.",2025-07-01,0.25,Complete
+Grocery run for the week,"4th of July BBQ shopping and regular groceries.",2025-07-01,1.5,Complete
+File quarterly estimated taxes,"Q3 estimated tax payment.",2025-07-15,1,Complete
+Pay electric bill,"July electric bill. Hottest month on record, AC running constantly.",2025-07-18,0.25,Complete
+Kids' soccer game,"Summer league playoff game. Emma's team is undefeated!",2025-07-20,2,Complete
+Sprint retrospective,"Sprint retro. v4 launch prep is 95% complete.",2025-07-21,1,Complete
+Batch cook meals for the week,"Summer meal prep. Cold salads and wraps for the hot weather.",2025-07-27,3,Complete
+Flea and tick treatment for Max,"Monthly flea and tick. Max rolled in something suspicious at the dog park.",2025-07-30,0.25,Complete
+Grocery run for the week,"Weekly grocery run. Beach trip supplies for next week.",2025-08-03,1.5,Complete
+Lawn mower maintenance,"Clean the mower deck. Grass buildup is reducing performance.",2025-08-07,2,Complete
+1-on-1 with manager,"Check-in with Janet. Post-v4-launch debrief.",2025-08-10,1,Complete
+Pick up prescription refills,"Monthly prescriptions. Add sunscreen to the order.",2025-08-12,0.5,Complete
+Pay electric bill,"August electric bill. Last big AC month hopefully.",2025-08-15,0.25,Complete
+Sprint retrospective,"Sprint retro. v4 post-launch bug fixes were handled quickly.",2025-08-20,1,Complete
+Property tax payment,"Summer property tax. Pay through the online portal.",2025-08-23,0.5,Complete
+Flea and tick treatment for Max,"Monthly treatment. Continue through October per vet advice.",2025-08-26,0.25,Complete
+Stock up on pantry staples,"Back to school Costco run. Lunch supplies and breakfast items.",2025-08-28,1.5,Complete
+Pay mortgage,"September mortgage payment.",2025-09-01,0.25,Complete
+Grocery run for the week,"Weekly groceries. Fall produce is starting to appear.",2025-09-06,1.5,Complete
+Sprint retrospective,"Sprint retro. Q4 push is starting strong.",2025-09-10,1,Complete
+1-on-1 with manager,"Check-in with Janet. Discuss the Q4 product roadmap.",2025-09-14,1,Complete
+Pay electric bill,"September electric bill. AC use is dropping nicely.",2025-09-17,0.25,Complete
+Lawn mower maintenance,"Fall season mower prep. A few more weeks of mowing left.",2025-09-19,2,Complete
+Pick up prescription refills,"Monthly prescriptions ready at Walgreens.",2025-09-23,0.5,Complete
+Flea and tick treatment for Max,"Monthly treatment. Getting close to the end of flea season.",2025-09-26,0.25,Complete
+Pay mortgage,"October mortgage payment.",2025-10-01,0.25,Complete
+Batch cook meals for the week,"Fall meal prep. Hearty soups and stews for the cooler weather.",2025-10-05,3,Complete
+File quarterly estimated taxes,"Q4 estimated tax payment. Last one of the year.",2025-10-15,1,Complete
+Grocery run for the week,"Weekly grocery run. Fall baking ingredients.",2025-10-17,1.5,Complete
+Sprint retrospective,"Sprint retro. Customer portal metrics are exceeding targets.",2025-10-21,1,Complete
+Visit grandparents,"Fall visit. Help with leaf cleanup and enjoy Grandma's apple pie.",2025-10-24,5,Complete
+Flea and tick treatment for Max,"Last flea treatment of the season. Resume in March.",2025-10-28,0.25,Complete
+Pay mortgage,"November mortgage payment.",2025-11-01,0.25,Complete
+Grocery run for the week,"Weekly groceries. Start stocking up for Thanksgiving.",2025-11-04,1.5,Complete
+1-on-1 with manager,"Check-in with Janet. Year-end review prep discussion.",2025-11-06,1,Complete
+Pay electric bill,"November electric bill. Heating season begins.",2025-11-10,0.25,Complete
+Property tax payment,"Semi-annual property tax. Due before Thanksgiving.",2025-11-13,0.5,Complete
+Pick up prescription refills,"Pre-holiday prescription refills. Get the flu meds just in case.",2025-11-16,0.5,Complete
+Wash and detail the car,"Pre-winter car detail. Apply wax before the salt season.",2025-11-18,0.5,Complete
+Review 401k contributions,"Year-end 401k max-out check. A few more pay periods to contribute.",2025-11-20,0.5,Complete
+Grocery run for the week,"Thanksgiving week grocery run. The big list.",2025-11-23,1.5,Complete
+Batch cook meals for the week,"Post-Thanksgiving meal prep. Use up all the leftovers creatively.",2025-11-30,3,Complete
+Grocery run for the week,"December grocery run. Holiday baking supplies.",2025-12-06,1.5,Complete
+Schedule meeting with financial advisor,"Year-end meeting with Greg. Tax strategy and Roth conversion discussion.",2025-12-07,0.5,Complete
+Pay electric bill,"December electric bill. Holiday lights are festive but costly.",2025-12-09,0.25,Complete
+Pick up dry cleaning,"Holiday party outfits from the cleaners.",2025-12-11,0.5,Complete
+Visit grandparents,"Pre-Christmas visit. Drop off gifts and spend the afternoon.",2025-12-14,5,Complete
+1-on-1 with manager,"Final check-in of the year with Janet. Set Q1 2026 expectations.",2025-12-17,1,Complete
+Review investment portfolio,"Year-end portfolio review. Plan the January rebalancing.",2025-12-20,2,Complete
+Pick up prescription refills,"Year-end prescriptions before the insurance deductible resets.",2025-12-21,0.5,Complete
+Pay electric bill,"December electric bill. Final utility bill of the year.",2025-12-28,0.25,Complete
+Pay credit card bill,"December credit card. Holiday spending wrapped up.",2025-12-30,0.25,Complete
+Sprint retrospective,"First sprint retro of 2026. Set the tone for the year.",2026-01-09,1,Complete
+Flea and tick treatment for Max,"Winter break from flea meds. Resume in March per vet.",2026-01-10,0.25,Complete
+Visit grandparents,"New Year's weekend visit. Bring the holiday photo prints.",2026-01-11,5,Complete
+Property tax payment,"First property tax payment of 2026.",2026-01-15,0.5,Complete
+Pick up dry cleaning,"Winter coats and sweaters from the cleaners.",2026-01-19,0.5,Complete
+Oil change for the Honda,"Start of year oil change. Car is running well at 88k miles.",2026-01-21,1,Complete
+Grocery run for the week,"Weekly grocery run. Healthy eating resolution in full effect.",2026-01-24,1.5,Complete
+Batch cook meals for the week,"January meal prep. Lean proteins and lots of vegetables.",2026-01-25,3,Complete
+Pay mortgage,"February mortgage payment.",2026-02-01,0.25,Complete
+Replace smoke detector batteries,"All smoke detectors due for fresh batteries.",2026-02-05,0.5,Complete
+Pay credit card bill,"February credit card. New year spending is minimal.",2026-02-06,0.25,Complete
+Sprint retrospective,"February sprint retro. Customer portal enhancements on track.",2026-02-09,1,Complete
+Pick up prescription refills,"Monthly prescription pickup at Walgreens.",2026-02-10,0.5,Complete
+Wash and detail the car,"Wash off the winter salt before it does more damage.",2026-02-15,0.5,Complete
+Schedule roof inspection,"Spring roof inspection. The shingles took a beating this winter.",2022-02-20,0.5,Complete
+Renew library card,"Library card expiring soon. Need to bring proof of address to renew.",2022-03-15,0.5,Complete
+Cousin Tyler's wedding RSVP,"Wedding is in June. RSVP with the chicken option.",2022-04-02,0.25,Complete
+Volunteer at food bank,"Saturday morning food bank shift at First Baptist Church.",2022-04-09,3,Complete
+Recycle old electronics,"Drop off the old printer and router at Best Buy e-waste recycling.",2022-04-14,1,Complete
+Photo album project,"Sort through the 2021 photos and order prints for the physical album.",2022-05-15,3,Complete
+Order new running shoes,"Running shoes need replacing. Over 400 miles on the current pair.",2022-05-22,0.5,Complete
+Research summer vacation options,"Compare Myrtle Beach vs Outer Banks for the family trip.",2022-05-28,1,Complete
+Finish reading for book club,"Only three chapters left. Book club meeting is tomorrow night.",2022-06-07,2,Complete
+Replace smoke detector batteries,"Annual battery check. The upstairs hallway one is chirping.",2022-06-12,0.5,Complete
+Coffee catch-up with Lisa,"Haven't seen Lisa in months. Catch up at Blue Bottle on Saturday.",2022-06-19,1.5,Complete
+Organize garage,"Summer garage organization project. Clear out space for the new tools.",2022-06-26,6,Complete
+Renew homeowner's insurance,"Annual homeowner's insurance review and renewal.",2022-07-02,1,Complete
+Batch cook meals for the week,"Summer meal prep. Light salads and grilled chicken.",2022-07-10,3,Complete
+Install new light fixtures in hallway,"Replace the dated hallway fixtures with the new ones from Amazon.",2022-07-17,2,Complete
+Power wash the driveway,"Borrow Dave's power washer and clean the driveway and sidewalk.",2022-07-24,2.5,Complete
+Paint bedroom accent wall,"Accent wall project. Going with the dark blue paint we picked.",2022-08-06,4,Complete
+Review investment portfolio,"Mid-year portfolio check. Tech stocks are volatile.",2022-08-09,2,Complete
+Deep clean the kitchen,"End of summer deep kitchen clean. Scrub the grout and degrease everything.",2022-08-14,3,Complete
+Lawn mower maintenance,"Mower needs the blade sharpened before the fall push.",2022-08-21,2,Complete
+Water heater inspection,"Annual water heater flush. Prevent sediment buildup.",2022-09-03,1,Complete
+Schedule roof inspection,"Roof check after the hailstorm last month. Need photos for insurance.",2022-09-09,0.5,Complete
+Call pest control about ants,"Ants in the kitchen again. Call Terminix for a treatment.",2022-09-18,0.25,Complete
+Assemble kids' new bookshelf,"The new bookshelf arrived for Emma's room. Allen wrenches are in the drawer.",2022-09-24,2,Complete
+Renew car insurance,"Fall car insurance renewal. Get quotes from Progressive and State Farm.",2022-09-29,1,Complete
+Grocery run for the week,"October grocery run. Stock up on fall baking supplies.",2022-10-05,1.5,Complete
+Marathon training run - 10 miles,"10-mile training run for the November race. River trail route.",2022-10-10,2,Complete
+File quarterly estimated taxes,"Q3 estimated tax payment due.",2022-10-15,1,Complete
+Visit grandparents,"Fall visit to grandparents. Help with the yard cleanup.",2022-10-22,5,Complete
+Pay mortgage,"October mortgage payment. Escrow adjusted this month.",2022-10-01,0.25,Complete
+Meal prep Sunday,"Prep meals for the busy Halloween week.",2022-10-30,2,Complete
+Grocery run for the week,"Thanksgiving shopping part one. Get the non-perishables early.",2022-11-12,1.5,Complete
+Pick up prescription refills,"Fall prescription refills. Also ask about the generic alternatives.",2022-11-15,0.5,Complete
+Cousin Tyler's wedding weekend,"Tyler and Jessica's wedding! Pack the suit and the gift.",2022-11-19,8,Complete
+Batch cook meals for the week,"Post-Thanksgiving meal prep. Turkey soup and turkey sandwiches all week.",2022-11-27,3,Complete
+Visit grandparents,"December visit. Bring the Christmas gifts early to avoid the rush.",2022-12-04,5,Complete
+Pay electric bill,"December electric bill. The new LED holiday lights are saving money.",2022-12-12,0.25,Complete
+Grocery run for the week,"Christmas week grocery run. Everything for the holiday dinner.",2022-12-19,1.5,Complete
+Replace windshield wipers,"Wipers are falling apart in the ice. Emergency replacement.",2023-01-12,0.25,Complete
+Schedule roof inspection,"Post-winter roof inspection. Ice dam damage possible.",2023-01-16,0.5,Complete
+Flea and tick treatment for Max,"Winter flea treatment. Vet recommended continuing through winter.",2023-01-25,0.25,Complete
+Oil change for the Honda,"New year oil change. The car is at 60k miles.",2023-01-28,1,Complete
+Lawn mower maintenance,"Pre-season mower prep. Order the new air filter.",2023-02-05,2,Complete
+Pick up prescription refills,"February prescription refills at CVS.",2023-02-08,0.5,Complete
+Organize garage,"Quick garage tidy. Find the Valentine's Day decorations.",2023-02-11,6,Complete
+Pay mortgage,"March mortgage payment.",2023-03-01,0.25,Complete
+Batch cook meals for the week,"March meal prep. St. Patrick's Day corned beef and cabbage included.",2023-03-12,3,Complete
+Visit grandparents,"Spring break visit with the kids to Grandma and Grandpa's.",2023-03-16,5,Complete
+Schedule meeting with financial advisor,"Q1 meeting with Greg. Review the tax implications of the home office deduction.",2023-03-19,0.5,Complete
+Stock up on pantry staples,"Quarterly Costco pantry restock.",2023-03-25,1.5,Complete
+Grocery run for the week,"April grocery run. Easter supplies and regular items.",2023-04-03,1.5,Complete
+Pay mortgage,"April mortgage payment.",2023-04-01,0.25,Complete
+Replace kitchen faucet,"The kitchen faucet handle is loose. Replace with the new Kohler model.",2023-04-08,2,Complete
+Install doorbell camera,"Upgrade to the Ring Doorbell Pro. Better night vision needed.",2023-04-15,1,Complete
+Backup computer files,"Spring computer maintenance. Full backup and disk cleanup.",2023-04-19,1,Complete
+Review 401k contributions,"Q1 401k check. Contribution rate is fine but consider Roth option.",2023-04-21,0.5,Complete
+Grocery run for the week,"Weekly groceries. Farmers market opened for the season.",2023-05-06,1.5,Complete
+Pay mortgage,"May mortgage payment.",2023-05-01,0.25,Complete
+Order birthday gift for Mom,"Mom's birthday gift. She wants a new set of gardening gloves.",2023-05-10,0.5,Complete
+Schedule kids' dental cleanings,"Spring dental appointments for both kids.",2023-05-12,0.25,Complete
+Property tax payment,"Spring property tax payment due end of May.",2023-05-25,0.5,Complete
+Pay electric bill,"May electric bill. AC starting up.",2023-05-28,0.25,Complete
+Return Amazon packages,"Return the wrong-size shoes and the defective Bluetooth speaker.",2023-06-01,0.5,Complete
+Pay mortgage,"June mortgage payment.",2023-06-01,0.25,Complete
+Wash and detail the car,"Summer car detail. Getting ready for the road trip.",2023-06-08,0.5,Complete
+Sprint retrospective,"June sprint retro. Feature velocity is great heading into summer.",2023-06-12,1,Complete
+Replace windshield wipers,"Summer storm debris damaged the wipers. Quick replacement.",2023-06-16,0.25,Complete
+Grocery run for the week,"June grocery run. Stocking up for the camping trip.",2023-06-22,1.5,Complete
+Pay mortgage,"July mortgage payment.",2023-07-01,0.25,Complete
+Review investment portfolio,"Mid-year investment review. The bond portfolio needs attention.",2023-07-03,2,Complete
+Kids' soccer game,"Jake's summer league game. He's playing defender this season.",2023-07-07,2,Complete
+Batch cook meals for the week,"Summer meal prep. Light meals for the hot weather.",2023-07-10,3,Complete
+Grocery run for the week,"Weekly groceries. Lots of watermelon and berries.",2023-07-15,1.5,Complete
+Backup computer files,"Mid-year backup. Clean up old files and update cloud sync.",2023-07-20,1,Complete
+Pay electric bill,"July electric bill. AC is running full blast.",2023-07-23,0.25,Complete
+Sprint retrospective,"July sprint retro. Database migration planning is on track.",2023-07-26,1,Complete
+Replace smoke detector batteries,"Replace batteries in all detectors. CO detector batteries too.",2023-08-01,0.5,Complete
+Pay mortgage,"August mortgage payment.",2023-08-01,0.25,Complete
+Grocery run for the week,"August grocery run. Back to school is approaching.",2023-08-06,1.5,Complete
+Schedule roof inspection,"Annual roof inspection before the fall storm season.",2023-08-09,0.5,Complete
+Oil change for the Honda,"Summer oil change. Car is at 70k miles now.",2023-08-14,1,Complete
+Pay electric bill,"August electric bill. Peak AC costs this month.",2023-08-17,0.25,Complete
+File quarterly estimated taxes,"Q3 estimated tax payment due.",2023-09-15,1,Complete
+Grocery run for the week,"September grocery run. Fall recipes starting up.",2023-09-10,1.5,Complete
+Pay mortgage,"September mortgage payment.",2023-09-01,0.25,Complete
+Property tax payment,"Fall property tax installment due this month.",2023-09-20,0.5,Complete
+Wash and detail the car,"End of summer car detail. Clean up the camping dirt.",2023-09-24,0.5,Complete
+Batch cook meals for the week,"Fall meal prep kickoff. Making beef stew and chicken pot pie.",2023-09-30,3,Complete
+Grocery run for the week,"October grocery run. Pumpkin baking season!",2023-10-08,1.5,Complete
+Pay mortgage,"October mortgage payment.",2023-10-01,0.25,Complete
+Kids' soccer game,"Fall soccer. Emma's team is in first place!",2023-10-14,2,Complete
+Backup computer files,"Fall backup. Quarter-end file organization.",2023-10-18,1,Complete
+Grocery run for the week,"Weekly run. Stocking up for the Halloween party.",2023-10-25,1.5,Complete
+Pay electric bill,"October electric bill. Reasonable shoulder month.",2023-10-28,0.25,Complete
+Pay mortgage,"November mortgage payment.",2023-11-01,0.25,Complete
+Property tax payment,"Semi-annual property tax. Due before end of November.",2023-11-08,0.5,Complete
+Pay electric bill,"November electric bill. First heating month.",2023-11-15,0.25,Complete
+Sprint retrospective,"November sprint retro. Year-end push is going well.",2023-11-17,1,Complete
+Grocery run for the week,"Thanksgiving grocery trip. Getting everything in one big haul.",2023-11-18,1.5,Complete
+Visit grandparents,"Pre-Thanksgiving visit. Deliver the pumpkin pie.",2023-11-21,5,Complete
+Pay mortgage,"December mortgage payment. Final one of the year.",2023-12-01,0.25,Complete
+Pick up prescription refills,"December prescription refills before the holiday travel.",2023-12-05,0.5,Complete
+Pay electric bill,"December electric bill. Holiday lights and heating.",2023-12-12,0.25,Complete
+Grocery run for the week,"Christmas week groceries. Prime rib and all the fixings.",2023-12-18,1.5,Complete
+Review investment portfolio,"Year-end investment review. Strong finish to the market.",2023-12-22,2,Complete
+Batch cook meals for the week,"Post-holiday meal prep using all the leftovers.",2023-12-29,3,Complete
+Sprint retrospective,"First sprint retro of 2024. Planning the big platform push.",2024-01-07,1,Complete
+Pay electric bill,"January electric bill. Cold snap drove up heating costs.",2024-01-15,0.25,Complete
+Grocery run for the week,"Weekly groceries. Healthy eating for the new year.",2024-01-20,1.5,Complete
+Backup computer files,"New year full backup. Archive all 2023 files.",2024-01-22,1,Complete
+Flea and tick treatment for Max,"January flea treatment. Vet says keep it up year-round.",2024-01-27,0.25,Complete
+Order birthday gift for Mom,"Mom's birthday coming up. Order the new cookbook she wanted.",2024-01-30,0.5,Complete
+Sprint retrospective,"February sprint retro. Auth module refactor is complete.",2024-02-07,1,Complete
+Property tax payment,"Q1 property tax installment. Check the updated amount online.",2024-02-10,0.5,Complete
+Schedule meeting with financial advisor,"Annual meeting with Greg. Review the 529 plan and retirement timeline.",2024-02-14,0.5,Complete
+Grocery run for the week,"February grocery run. Valentine's Day dinner ingredients.",2024-02-16,1.5,Complete
+Batch cook meals for the week,"Meal prep for the short week. Simple one-pot meals.",2024-02-18,3,Complete
+Pay credit card bill,"February credit card bill. Valentine's dinner was worth it.",2024-02-28,0.25,Complete
+Finish reading for book club,"March book club pick. Only 50 pages left to read.",2024-03-04,2,Complete
+Pay mortgage,"March mortgage payment.",2024-03-01,0.25,Complete
+Pay electric bill,"March electric bill. Starting to use less heat.",2024-03-12,0.25,Complete
+Grocery run for the week,"Weekly groceries. Spring produce is showing up at the market.",2024-03-16,1.5,Complete
+Pay credit card bill,"April credit card. Tax season expenses included.",2024-04-30,0.25,Complete
+Flea and tick treatment for Max,"Spring flea season. Apply treatment and order the next supply.",2024-04-02,0.25,Complete
+Pay mortgage,"April mortgage payment.",2024-04-01,0.25,Complete
+Grocery run for the week,"April grocery run. Lots of asparagus and strawberries.",2024-04-13,1.5,Complete
+Sprint retrospective,"April sprint retro. Preparing for the summer feature release.",2024-04-16,1,Complete
+Pick up prescription refills,"Spring prescription refills at Walgreens.",2024-04-18,0.5,Complete
+Backup computer files,"Quarterly backup. External drive and cloud sync verified.",2024-04-20,1,Complete
+Pay electric bill,"April electric bill. Great shoulder month.",2024-04-23,0.25,Complete
+Batch cook meals for the week,"April meal prep. Mediterranean bowls and chicken wraps.",2024-04-27,3,Complete
+Pay mortgage,"June mortgage payment.",2024-06-01,0.25,Complete
+Grocery run for the week,"June grocery run. Picnic and BBQ supplies.",2024-06-08,1.5,Complete
+Sprint retrospective,"June sprint retro. On track for the big summer deployment.",2024-06-12,1,Complete
+Pick up dry cleaning,"Summer clothes from the cleaners. Rachel's sundress and my blazer.",2024-06-14,0.5,Complete
+Flea and tick treatment for Max,"Monthly flea treatment. Peak tick season now.",2024-06-18,0.25,Complete
+Backup computer files,"Mid-year backup. Clean up the downloads folder too.",2024-06-21,1,Complete
+Lawn mower maintenance,"Mid-season blade sharpening. Grass is growing fast.",2024-06-26,2,Complete
+Pay mortgage,"July mortgage payment.",2024-07-01,0.25,Complete
+Sprint retrospective,"July sprint retro. Summer deployment was smooth.",2024-07-16,1,Complete
+Kids' soccer game,"Summer league. Jake scored a hat trick!",2024-07-12,2,Complete
+Batch cook meals for the week,"July meal prep. Poke bowls and grilled veggies.",2024-07-14,3,Complete
+Pay electric bill,"July electric bill. Running the AC around the clock.",2024-07-21,0.25,Complete
+Grocery run for the week,"Weekly groceries. Preparing for the beach trip.",2024-07-25,1.5,Complete
+Pay mortgage,"September mortgage payment.",2024-09-01,0.25,Complete
+Grocery run for the week,"September grocery run. Apple picking season!",2024-09-06,1.5,Complete
+Sprint retrospective,"September sprint retro. Database migration went well.",2024-09-11,1,Complete
+Backup computer files,"Quarter-end backup and file organization.",2024-09-14,1,Complete
+Pick up prescription refills,"Fall prescriptions and flu season meds.",2024-09-18,0.5,Complete
+Coffee catch-up with Lisa,"Coffee with Lisa. She landed the new job!",2024-09-22,1.5,Complete
+Pay electric bill,"September electric bill. AC costs dropping.",2024-09-27,0.25,Complete
+Visit grandparents,"Fall visit. Apple picking at the orchard near their house.",2024-10-13,5,Complete
+Pick up dry cleaning,"Fall wardrobe pieces from the cleaners.",2024-10-20,0.5,Complete
+Grocery run for the week,"October grocery run. Halloween candy and fall baking.",2024-10-25,1.5,Complete
+Batch cook meals for the week,"October meal prep. Pumpkin soup and turkey meatballs.",2024-10-26,3,Complete
+Sprint retrospective,"October sprint retro. Q4 is off to a strong start.",2024-10-30,1,Complete
+Pay mortgage,"December mortgage payment. Year-end.",2024-12-01,0.25,Complete
+Backup computer files,"Year-end backup. Archive everything from 2024.",2024-12-08,1,Complete
+Flea and tick treatment for Max,"December flea treatment. Vet says skip Jan and Feb.",2024-12-12,0.25,Complete
+Grocery run for the week,"December grocery run. Holiday baking and dinner party supplies.",2024-12-14,1.5,Complete
+Visit grandparents,"Pre-Christmas visit. The kids put up decorations with Grandma.",2024-12-21,5,Complete
+Pay electric bill,"December electric bill. End of year utilities.",2024-12-26,0.25,Complete
+Grocery run for the week,"New Year's Eve grocery run. Party supplies.",2024-12-30,1.5,Complete
+Pick up dry cleaning,"New year wardrobe items from the cleaners.",2025-01-03,0.5,Complete
+Sprint retrospective,"January sprint retro. New year roadmap kickoff.",2025-01-08,1,Complete
+Flea and tick treatment for Max,"February flea treatment. Indoor-only treatment per the vet.",2025-02-02,0.25,Complete
+Pick up prescription refills,"February prescriptions. Blood pressure and allergy meds.",2025-02-08,0.5,Complete
+Grocery run for the week,"February grocery run. Valentine's treats and weekly staples.",2025-02-09,1.5,Complete
