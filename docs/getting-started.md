@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide walks through building a Retold application step by step, adding one layer at a time. See the [Architecture](architecture.md) page for a full description of the layer model.
+This guide walks through building a Retold application step by step, adding one layer at a time. See the [Architecture](architecture/architecture.md) page for a full description of the layer model.
 
 > **Working examples:** Each step below has a corresponding runnable example in
 > [`examples/quickstart/`](../examples/quickstart/). Clone the repo and follow
@@ -264,9 +264,10 @@ Supporting the application stack are utility modules like **Manyfest** (schema-d
 
 ## Next Steps
 
-- **[Architecture](architecture.md)** — Understand the layer model in depth
-- **[Fable](fable.md)** — Deep dive into the core ecosystem and service provider pattern
-- **[Meadow](meadow.md)** — Data access, FoxHound queries, and Stricture schemas
-- **[Orator](orator.md)** — Server configuration, lifecycle hooks, and middleware
-- **[Pict](pict.md)** — Views, templates, providers, and application lifecycle
-- **[All Modules](modules.md)** — Every repository in the Retold suite
+- **[Architecture](architecture/architecture.md)** — Understand the layer model in depth
+- **[Examples](examples/examples.md)** — Complete runnable applications, including the [Todo List](examples/todolist/todo-list.md) full-stack example with four clients
+- **[Fable](modules/fable.md)** — Deep dive into the core ecosystem and service provider pattern
+- **[Meadow](modules/meadow.md)** — Data access, FoxHound queries, and Stricture schemas
+- **[Orator](modules/orator.md)** — Server configuration, lifecycle hooks, and middleware
+- **[Pict](modules/pict.md)** — Views, templates, providers, and application lifecycle
+- **[All Modules](modules/modules.md)** — Every repository in the Retold suite

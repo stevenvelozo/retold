@@ -221,6 +221,43 @@ npx todo remove 42
 npx todo --help
 ```
 
+## Running with Docker
+
+If you have Docker installed you can skip the per-component setup and run
+everything in a container. The image installs all four components, builds the
+web client, and seeds the database on first start.
+
+### Quick Start (server only)
+
+```bash
+./docker-run.sh
+```
+
+This builds the image and starts the API server. Open **http://localhost:8086**
+in your browser for the web client.
+
+### Interactive Shell
+
+```bash
+./docker-shell.sh
+```
+
+This builds the image and drops you into a bash shell inside the container. A
+help banner lists the available commands. To use the CLI or console client,
+start the server in the background first:
+
+```bash
+node server/server.cjs &
+cd /app/cli-client && npx todo list
+```
+
+Or launch the console TUI:
+
+```bash
+node server/server.cjs &
+node console-client/console-client.cjs
+```
+
 ## What Each Component Does
 
 ### Shared Data Model (`model/`)

@@ -1,10 +1,20 @@
 - Getting Started
 
-  - [Architecture](architecture.md)
   - [Getting Started](getting-started.md)
-  - [All Modules](modules.md)
+  - [Architecture](architecture/architecture.md)
+  - [Ecosystem Architecture](architecture/module-architecture.md)
+  - [All Modules](modules/modules.md)
 
-- [Fable — Core Ecosystem](fable.md)
+- [Examples](examples/examples.md)
+
+  - [Todo List Application](examples/todolist/todo-list.md)
+  - [Todo List: System Model](examples/todolist/todo-list-model.md)
+  - [Todo List: API Server](examples/todolist/todo-list-server.md)
+  - [Todo List: Web Client](examples/todolist/todo-list-web-client.md)
+  - [Todo List: Console Client](examples/todolist/todo-list-console-client.md)
+  - [Todo List: CLI Client](examples/todolist/todo-list-cli-client.md)
+
+- [Fable — Core Ecosystem](modules/fable.md)
 
   - [fable](/fable/fable/)
   - [fable-serviceproviderbase](/fable/fable-serviceproviderbase/)
@@ -13,7 +23,7 @@
   - [fable-uuid](/fable/fable-uuid/)
   - [fable-log-logger-bunyan](/fable/fable-log-logger-bunyan/)
 
-- [Meadow — Data Access](meadow.md)
+- [Meadow — Data Access](modules/meadow.md)
 
   - [stricture](/meadow/stricture/)
   - [foxhound](/meadow/foxhound/)
@@ -28,7 +38,7 @@
   - [retold-harness](/meadow/retold-harness/)
   - [meadow-integration](/meadow/meadow-integration/)
 
-- [Orator — API Server](orator.md)
+- [Orator — API Server](modules/orator.md)
 
   - [orator](/orator/orator/)
   - [orator-serviceserver-restify](/orator/orator-serviceserver-restify/)
@@ -38,7 +48,7 @@
   - [orator-endpoint](/orator/orator-endpoint/)
   - [orator-conversion](/orator/orator-conversion/)
 
-- [Pict — MVC Tools](pict.md)
+- [Pict — MVC Tools](modules/pict.md)
 
   - [pict](/pict/pict/)
   - [pict-template](/pict/pict-template/)
@@ -60,7 +70,7 @@
   - [pict-serviceproviderbase](/pict/pict-serviceproviderbase/)
   - [pict-terminalui](/pict/pict-terminalui/)
 
-- [Utility — Build Tools](utility.md)
+- [Utility — Build Tools](modules/utility.md)
 
   - [indoctrinate](/utility/indoctrinate/)
   - [manyfest](/utility/manyfest/)

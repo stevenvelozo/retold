@@ -148,13 +148,14 @@ _Fable.log.info('Retold application started.');
 
 ## Learn More
 
-- **[Architecture](architecture.md)** — Detailed layer-by-layer breakdown of the module stack
+- **[Architecture](architecture/architecture.md)** — Detailed layer-by-layer breakdown of the module stack
 - **[Getting Started](getting-started.md)** — Building your first Retold application
-- **[Fable In Depth](fable.md)** — The core ecosystem and service provider pattern
-- **[Meadow In Depth](meadow.md)** — Data access, schemas, and query generation
-- **[Orator In Depth](orator.md)** — API servers and endpoint generation
-- **[Pict In Depth](pict.md)** — MVC tools for browser and console UIs
-- **[All Modules](modules.md)** — Exhaustive list of every Retold repository
+- **[Examples](examples/examples.md)** — Complete runnable applications including the Todo List full-stack example
+- **[Fable In Depth](modules/fable.md)** — The core ecosystem and service provider pattern
+- **[Meadow In Depth](modules/meadow.md)** — Data access, schemas, and query generation
+- **[Orator In Depth](modules/orator.md)** — API servers and endpoint generation
+- **[Pict In Depth](modules/pict.md)** — MVC tools for browser and console UIs
+- **[All Modules](modules/modules.md)** — Exhaustive list of every Retold repository
 
 ## License
 
