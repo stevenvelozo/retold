@@ -177,9 +177,24 @@ Toast UI Grid integration for tabular data display. Provides spreadsheet-like da
 
 ### [Pict-Section-Content](/pict/pict-section-content/)
 
-Content display sections for rendering static or dynamic content blocks.
+Markdown parsing and content rendering with Mermaid diagrams and KaTeX math equations. Provides a reusable provider for markdown-to-HTML conversion and a styled view with post-render hooks.
 
 **npm:** `pict-section-content`
+
+---
+
+### [Pict-Section-Flow](/pict/pict-section-flow/)
+
+Flow diagram section for visual workflow and process representations.
+
+**npm:** `pict-section-flow`
+
+## Application Modules
+
+| Module | Purpose | npm |
+|--------|---------|-----|
+| [pict-docuserve](/pict/pict-docuserve/) | Single-page documentation viewer built on Pict with catalog navigation and search | `pict-docuserve` |
+| [pict-nonlinearconfig](/pict/pict-nonlinearconfig/) | Nonlinear configuration manager | `pict-nonlinearconfig` |
 
 ## Supporting Modules
 
@@ -191,23 +206,28 @@ Content display sections for rendering static or dynamic content blocks.
 | [cryptbrau](/pict/cryptbrau/) | Simple in-browser symmetric encryption | `cryptbrau` |
 | [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | Base classes for Pict services with pre-initialization support | `pict-serviceproviderbase` |
 | [pict-service-commandlineutility](/pict/pict-service-commandlineutility/) | CLI utility tools built on Commander | `pict-service-commandlineutility` |
+| [pict-terminalui](/pict/pict-terminalui/) | Blessed-based terminal interface for Pict views | `pict-terminalui` |
 
 ## All Pict Modules
 
 | Module | Description |
 |--------|-------------|
 | [pict](/pict/pict/) | Core MVC module with template engine |
-| [pict-view](/pict/pict-view/) | View base class with full lifecycle |
 | [pict-template](/pict/pict-template/) | Custom template handler base class |
+| [pict-view](/pict/pict-view/) | View base class with full lifecycle |
 | [pict-provider](/pict/pict-provider/) | Data provider base class |
 | [pict-application](/pict/pict-application/) | Application lifecycle management |
-| [pict-section-form](/pict/pict-section-form/) | Configuration-driven dynamic forms |
-| [pict-section-recordset](/pict/pict-section-recordset/) | CRUD record management views |
-| [pict-section-tuigrid](/pict/pict-section-tuigrid/) | Toast UI Grid tabular data |
-| [pict-section-content](/pict/pict-section-content/) | Content display sections |
 | [pict-panel](/pict/pict-panel/) | Hot-loadable control panel |
-| [pict-router](/pict/pict-router/) | Hash-based URL routing |
-| [informary](/pict/informary/) | Browser form marshaling with undo/redo |
+| [pict-nonlinearconfig](/pict/pict-nonlinearconfig/) | Nonlinear configuration manager |
+| [pict-section-flow](/pict/pict-section-flow/) | Flow diagram section |
+| [pict-docuserve](/pict/pict-docuserve/) | Single-page documentation viewer |
 | [cryptbrau](/pict/cryptbrau/) | In-browser symmetric encryption |
-| [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | Pict service base classes |
+| [informary](/pict/informary/) | Browser form marshaling with undo/redo |
 | [pict-service-commandlineutility](/pict/pict-service-commandlineutility/) | CLI utility tools |
+| [pict-section-recordset](/pict/pict-section-recordset/) | CRUD record management views |
+| [pict-section-content](/pict/pict-section-content/) | Markdown parsing and content rendering |
+| [pict-section-form](/pict/pict-section-form/) | Configuration-driven dynamic forms |
+| [pict-section-tuigrid](/pict/pict-section-tuigrid/) | Toast UI Grid tabular data |
+| [pict-router](/pict/pict-router/) | Hash-based URL routing |
+| [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | Pict service base classes |
+| [pict-terminalui](/pict/pict-terminalui/) | Blessed-based terminal interface |

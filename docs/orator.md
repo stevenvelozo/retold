@@ -162,3 +162,4 @@ This gives you a full REST API with Create, Read, Reads, Update, Delete, Undelet
 | [orator-http-proxy](/orator/orator-http-proxy/) | HTTP reverse proxy pass-through |
 | [tidings](/orator/tidings/) | Reporting scaffolding for HTML/PDF output |
 | [orator-endpoint](/orator/orator-endpoint/) | Reusable endpoint base class |
+| [orator-conversion](/orator/orator-conversion/) | File format conversion endpoints |

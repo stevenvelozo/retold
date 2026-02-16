@@ -13,25 +13,24 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [fable-uuid](/fable/fable-uuid/) | `fable-uuid` | UUID generator supporting RFC 4122 v4 and configurable random strings |
 | [fable-log-logger-bunyan](/fable/fable-log-logger-bunyan/) | `fable-log-logger-bunyan` | Bunyan structured logging provider for Fable-Log |
 
-## Meadow — Data Access Layer (13 modules)
+## Meadow — Data Access Layer (12 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
-| [meadow](/meadow/meadow/) | `meadow` | Provider-agnostic data broker with CRUD operations, audit tracking, and soft deletes |
-| [foxhound](/meadow/foxhound/) | `foxhound` | Fluent query DSL generating dialect-specific SQL for MySQL, MSSQL, SQLite, and ALASQL |
 | [stricture](/meadow/stricture/) | `stricture` | MicroDDL schema definition language generating JSON, SQL DDL, and documentation |
+| [foxhound](/meadow/foxhound/) | `foxhound` | Fluent query DSL generating dialect-specific SQL for MySQL, MSSQL, SQLite, and ALASQL |
+| [bibliograph](/meadow/bibliograph/) | `bibliograph` | Key-value record comprehension for change tracking in data ingestion pipelines |
+| [meadow](/meadow/meadow/) | `meadow` | Provider-agnostic data broker with CRUD operations, audit tracking, and soft deletes |
+| [parime](/meadow/parime/) | `parime` | Generic data lake behaviors and services |
 | [meadow-endpoints](/meadow/meadow-endpoints/) | `meadow-endpoints` | Automatic RESTful CRUD endpoint generation from Meadow entities with behavior injection |
 | [meadow-connection-mysql](/meadow/meadow-connection-mysql/) | `meadow-connection-mysql` | MySQL/MariaDB pooled connection provider for Meadow |
 | [meadow-connection-mssql](/meadow/meadow-connection-mssql/) | `meadow-connection-mssql` | Microsoft SQL Server connection provider for Meadow |
 | [meadow-connection-sqlite](/meadow/meadow-connection-sqlite/) | `meadow-connection-sqlite` | SQLite connection provider for Meadow via better-sqlite3 |
 | [retold-data-service](/meadow/retold-data-service/) | `retold-data-service` | All-in-one Fable service assembling schema → entity → endpoints → REST API |
 | [retold-harness](/meadow/retold-harness/) | `retold-harness` | Pre-built API harness with a bookstore demo (8 entities, 10,000+ records) |
-| [bibliograph](/meadow/bibliograph/) | `bibliograph` | Key-value record comprehension for change tracking in data ingestion pipelines |
-| [parime](/meadow/parime/) | `parime` | Generic data lake behaviors and services |
 | [meadow-integration](/meadow/meadow-integration/) | `meadow-integration` | Data integration tools for CSV import, schema mapping, and centralized formats |
-| [meadow-graph-client](/meadow/meadow-graph-client/) | `meadow-graph-client` | Client for pulling related record sets from relational database graphs |
 
-## Orator — API Server (6 modules)
+## Orator — API Server (7 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -41,35 +40,39 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [orator-http-proxy](/orator/orator-http-proxy/) | `orator-http-proxy` | HTTP reverse proxy for forwarding requests to backend services |
 | [tidings](/orator/tidings/) | `tidings` | Extensible reporting system for generating HTML, PDF, and other format reports |
 | [orator-endpoint](/orator/orator-endpoint/) | `orator-endpoint` | Pluggable API endpoint base class for reusable route handlers |
+| [orator-conversion](/orator/orator-conversion/) | `orator-conversion` | File format conversion endpoints for Orator service servers |
 
-## Pict — MVC Tools (15 modules)
+## Pict — MVC Tools (19 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
 | [pict](/pict/pict/) | `pict` | Non-opinionated MVC module with template expression engine for text-based UIs |
-| [pict-view](/pict/pict-view/) | `pict-view` | View base class with full lifecycle (init, render, solve, marshal), renderables, and CSS |
 | [pict-template](/pict/pict-template/) | `pict-template` | Template handler base class for custom expression types |
+| [pict-view](/pict/pict-view/) | `pict-view` | View base class with full lifecycle (init, render, solve, marshal), renderables, and CSS |
 | [pict-provider](/pict/pict-provider/) | `pict-provider` | Data provider base class for delivering data to views |
 | [pict-application](/pict/pict-application/) | `pict-application` | Application base class coordinating views, state, and lifecycle |
-| [pict-section-form](/pict/pict-section-form/) | `pict-section-form` | Configuration-driven dynamic forms with 13+ input types and data marshaling |
-| [pict-section-recordset](/pict/pict-section-recordset/) | `pict-section-recordset` | CRUD record management views from Meadow endpoint schemas |
-| [pict-section-tuigrid](/pict/pict-section-tuigrid/) | `pict-section-tuigrid` | Toast UI Grid integration for tabular data display and editing |
-| [pict-section-content](/pict/pict-section-content/) | `pict-section-content` | Content display sections for static and dynamic content blocks |
 | [pict-panel](/pict/pict-panel/) | `pict-panel` | Hot-loadable control panel component for browser applications |
-| [pict-router](/pict/pict-router/) | `pict-router` | Hash-based URL routing via Navigo with template string route functions |
-| [informary](/pict/informary/) | `informary` | Dependency-free browser form marshaling with undo/redo and field-level deltas |
+| [pict-nonlinearconfig](/pict/pict-nonlinearconfig/) | `pict-nonlinearconfig` | Pict nonlinear configuration manager |
+| [pict-section-flow](/pict/pict-section-flow/) | `pict-section-flow` | Pict section flow diagram |
+| [pict-docuserve](/pict/pict-docuserve/) | `pict-docuserve` | Single-page documentation viewer built on Pict |
 | [cryptbrau](/pict/cryptbrau/) | `cryptbrau` | Simple in-browser symmetric encryption |
-| [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | `pict-serviceproviderbase` | Base classes for Pict services with pre-initialization support |
+| [informary](/pict/informary/) | `informary` | Dependency-free browser form marshaling with undo/redo and field-level deltas |
 | [pict-service-commandlineutility](/pict/pict-service-commandlineutility/) | `pict-service-commandlineutility` | CLI utility module built on Commander for Pict-based command-line tools |
+| [pict-section-recordset](/pict/pict-section-recordset/) | `pict-section-recordset` | CRUD record management views from Meadow endpoint schemas |
+| [pict-section-content](/pict/pict-section-content/) | `pict-section-content` | Markdown parsing and content rendering with Mermaid diagrams and KaTeX math |
+| [pict-section-form](/pict/pict-section-form/) | `pict-section-form` | Configuration-driven dynamic forms with 13+ input types and data marshaling |
+| [pict-section-tuigrid](/pict/pict-section-tuigrid/) | `pict-section-tuigrid` | Toast UI Grid integration for tabular data display and editing |
+| [pict-router](/pict/pict-router/) | `pict-router` | Hash-based URL routing via Navigo with template string route functions |
+| [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | `pict-serviceproviderbase` | Base classes for Pict services with pre-initialization support |
+| [pict-terminalui](/pict/pict-terminalui/) | `pict-terminalui` | Blessed-based terminal interface for Pict views |
 
-## Utility — Build & Documentation Tools (5 modules)
+## Utility — Build & Documentation Tools (4 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
 | [indoctrinate](/utility/indoctrinate/) | `indoctrinate` | Documentation scaffolding with content cataloging, label-based filtering, and multi-format output |
 | [manyfest](/utility/manyfest/) | `manyfest` | JSON manifest for consistent data description, validation, and address-based access across layers |
 | [quackage](/utility/quackage/) | `quackage` | Standardized build tool for browser bundles, transpilation, testing, and packaging |
-| [choreographic](/utility/choreographic/) | `choreographic` | Scaffolding for single-run data processing scripts with organized output |
 | [ultravisor](/utility/ultravisor/) | `ultravisor` | Process supervision with scheduled tasks, distributed nodes, and LLM integration |
 
 ## Summary
@@ -77,11 +80,11 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | Group | Count | Focus |
 |-------|-------|-------|
 | Fable | 6 | Core ecosystem, DI, configuration, logging |
-| Meadow | 13 | Data access, ORM, query DSL, schema, connectors |
-| Orator | 6 | API server, HTTP, static files, proxy, reporting |
-| Pict | 15 | MVC, views, templates, forms, grids, routing |
-| Utility | 5 | Build tools, manifests, docs, process supervision |
-| **Total** | **45** | |
+| Meadow | 12 | Data access, ORM, query DSL, schema, connectors |
+| Orator | 7 | API server, HTTP, static files, proxy, reporting, conversion |
+| Pict | 19 | MVC, views, templates, forms, grids, routing, docs, TUI |
+| Utility | 4 | Build tools, manifests, docs, process supervision |
+| **Total** | **48** | |
 
 ## GitHub Repositories
 

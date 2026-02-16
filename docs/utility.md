@@ -38,14 +38,6 @@ npx quack coverage       # Generate coverage report
 
 ---
 
-### [Choreographic](/utility/choreographic/)
-
-Scaffolding for single-run data processing scripts. Provides pre-packaged application services — file reading/writing, logging, and organized output folders — for tasks like data migration, report generation, and batch processing.
-
-**npm:** `choreographic` · **Version:** 1.0.x
-
----
-
 ### [Ultravisor](/utility/ultravisor/)
 
 Process supervision tool for running commands on schedule with LLM integration. Supports distributed nodes, global state, and flexible task types (shell, browser, HTTP, database).
@@ -59,5 +51,4 @@ Process supervision tool for running commands on schedule with LLM integration. 
 | [indoctrinate](/utility/indoctrinate/) | Documentation scaffolding with content cataloging and cross-module search |
 | [manyfest](/utility/manyfest/) | JSON manifest for data description, validation, and address-based access |
 | [quackage](/utility/quackage/) | Build tool for browser bundles, testing, and packaging |
-| [choreographic](/utility/choreographic/) | Scaffolding for single-run data processing scripts |
 | [ultravisor](/utility/ultravisor/) | Process supervision with scheduled tasks and LLM integration |

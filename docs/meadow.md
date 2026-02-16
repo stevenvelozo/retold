@@ -190,22 +190,20 @@ Each connection module provides a pooled database connection as a Fable service.
 | [parime](/meadow/parime/) | Generic data lake behaviors and services | `parime` |
 | [retold-harness](/meadow/retold-harness/) | Pre-built API harness with a bookstore demo (8 entities, 10,000+ records) | `retold-harness` |
 | [meadow-integration](/meadow/meadow-integration/) | Data integration tools for CSV import and schema mapping | `meadow-integration` |
-| [meadow-graph-client](/meadow/meadow-graph-client/) | Client for pulling related record sets from relational database graphs | `meadow-graph-client` |
 
 ## All Meadow Modules
 
 | Module | Description |
 |--------|-------------|
-| [meadow](/meadow/meadow/) | Provider-agnostic data broker and ORM |
-| [foxhound](/meadow/foxhound/) | Fluent query DSL with multi-dialect SQL generation |
 | [stricture](/meadow/stricture/) | MicroDDL schema definition and code generation |
+| [foxhound](/meadow/foxhound/) | Fluent query DSL with multi-dialect SQL generation |
+| [bibliograph](/meadow/bibliograph/) | Record-level change tracking |
+| [meadow](/meadow/meadow/) | Provider-agnostic data broker and ORM |
+| [parime](/meadow/parime/) | Data lake behaviors |
 | [meadow-endpoints](/meadow/meadow-endpoints/) | Automatic RESTful CRUD endpoint generation |
 | [meadow-connection-mysql](/meadow/meadow-connection-mysql/) | MySQL connection provider |
 | [meadow-connection-mssql](/meadow/meadow-connection-mssql/) | MSSQL connection provider |
 | [meadow-connection-sqlite](/meadow/meadow-connection-sqlite/) | SQLite connection provider |
 | [retold-data-service](/meadow/retold-data-service/) | All-in-one schema-to-REST-API service |
 | [retold-harness](/meadow/retold-harness/) | Demo API harness with bookstore dataset |
-| [bibliograph](/meadow/bibliograph/) | Record-level change tracking |
-| [parime](/meadow/parime/) | Data lake behaviors |
 | [meadow-integration](/meadow/meadow-integration/) | Data integration and CSV import |
-| [meadow-graph-client](/meadow/meadow-graph-client/) | Relational graph record fetching |
