@@ -4,6 +4,7 @@
   - [Architecture](architecture/architecture.md)
   - [Ecosystem Architecture](architecture/module-architecture.md)
   - [All Modules](architecture/modules.md)
+  - [Comprehensions](architecture/comprehensions.md)
 
 - [Examples](examples/examples.md)
 
