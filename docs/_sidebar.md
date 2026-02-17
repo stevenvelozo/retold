@@ -3,8 +3,9 @@
   - [Getting Started](getting-started.md)
   - [Architecture](architecture/architecture.md)
   - [Ecosystem Architecture](architecture/module-architecture.md)
-  - [All Modules](architecture/modules.md)
+  - [Fluid Models](architecture/fluid-models.md)
   - [Comprehensions](architecture/comprehensions.md)
+  - [All Modules](architecture/modules.md)
 
 - [Examples](examples/examples.md)
 

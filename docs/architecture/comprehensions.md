@@ -75,7 +75,7 @@ GUIDs are the primary key for comprehension records. Good GUID design ensures th
 - **Determinism** — the same source data always generates the same GUID
 - **Mergeability** — related data from different sources can be matched by GUID
 
-GUID templates use Pict's `{~D:...~}` syntax to pull values from the source record:
+GUID templates use Pict's jellyfish template syntax (`{~D:...~}`) to pull values from the source record:
 
 ```json
 {
@@ -112,7 +112,7 @@ Format modifiers like `{~PascalCaseIdentifier:Record.name~}` are useful in combi
 
 ## The `_GUID` Prefix — Bypassing Magic Marshaling
 
-When the integration adapter pushes comprehension records into Meadow, it encounters GUID-prefixed fields and applies special handling. The underscore prefix controls which code path a GUID field takes.
+When the integration adapter pushes comprehension records into Meadow, places a prefix on GUID fields based on the integration being run. This can signify the source system, data set or anything else the developer wants to connote in the GUID string itself. The underscore prefix controls which code path a GUID field takes.
 
 **`GUIDBook`** — a field starting with `GUID` is treated as an **external system GUID**. The adapter runs it through the full marshaling pipeline: it looks up the external GUID in the mapping table to find the corresponding Meadow numeric ID, and writes that ID into the output record as `IDBook`.
 
