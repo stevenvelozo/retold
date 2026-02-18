@@ -10,6 +10,6 @@ repositoriesOrator=("orator" "orator-serviceserver-restify" "orator-static-serve
 
 repositoriesPict=("pict" "pict-template" "pict-view" "pict-provider" "pict-application" "pict-panel" "pict-nonlinearconfig" "pict-section-flow" "pict-docuserve" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-section-recordset" "pict-section-content" "pict-section-form" "pict-section-tuigrid" "pict-router" "pict-serviceproviderbase" "pict-terminalui")
 
-repositoriesUtility=("indoctrinate" "manyfest" "quackage" "ultravisor")
+repositoriesUtility=("indoctrinate" "manyfest" "cachetrax" "precedent" "quackage" "ultravisor")
 
 echo "### ... Module lists built!"

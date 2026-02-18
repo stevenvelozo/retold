@@ -73,9 +73,11 @@
   - [pict-serviceproviderbase](/pict/pict-serviceproviderbase/)
   - [pict-terminalui](/pict/pict-terminalui/)
 
-- [Utility — Build Tools](modules/utility.md)
+- [Utility — General Tools](modules/utility.md)
 
+  - [cachetrax](/utility/cachetrax/)
   - [indoctrinate](/utility/indoctrinate/)
   - [manyfest](/utility/manyfest/)
+  - [precedent](/utility/precedent/)
   - [quackage](/utility/quackage/)
   - [ultravisor](/utility/ultravisor/)

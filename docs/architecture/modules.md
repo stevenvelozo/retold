@@ -65,12 +65,14 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | `pict-serviceproviderbase` | Base classes for Pict services with pre-initialization support |
 | [pict-terminalui](/pict/pict-terminalui/) | `pict-terminalui` | Blessed-based terminal interface for Pict views |
 
-## Utility — Build & Documentation Tools (4 modules)
+## Utility — Build & Documentation Tools (6 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
+| [cachetrax](/utility/cachetrax/) | `cachetrax` | Hash-indexed object cache with O(1) lookups, time and size based expiration, and custom pruning |
 | [indoctrinate](/utility/indoctrinate/) | `indoctrinate` | Documentation scaffolding with content cataloging, label-based filtering, and multi-format output |
 | [manyfest](/utility/manyfest/) | `manyfest` | JSON manifest for consistent data description, validation, and address-based access across layers |
+| [precedent](/utility/precedent/) | `precedent` | Meta-templating engine with pattern-based start/end markers and word tree matching |
 | [quackage](/utility/quackage/) | `quackage` | Standardized build tool for browser bundles, transpilation, testing, and packaging |
 | [ultravisor](/utility/ultravisor/) | `ultravisor` | Process supervision with scheduled tasks, distributed nodes, and LLM integration |
 
@@ -82,8 +84,8 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | Meadow | 12 | Data access, ORM, query DSL, schema, connectors |
 | Orator | 6 | API server, HTTP, static files, proxy, reporting, conversion |
 | Pict | 19 | MVC, views, templates, forms, grids, routing, docs, TUI |
-| Utility | 4 | Build tools, manifests, docs, process supervision |
-| **Total** | **47** | |
+| Utility | 6 | Build tools, caching, templating, manifests, docs, process supervision |
+| **Total** | **49** | |
 
 ## GitHub Repositories
 
