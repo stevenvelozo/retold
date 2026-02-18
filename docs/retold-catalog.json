@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-18T05:29:06.815Z",
+	"Generated": "2026-02-18T05:51:39.719Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -2756,6 +2756,7 @@
 						"configuration.md",
 						"content-authoring.md",
 						"cover.md",
+						"css/docuserve.css",
 						"deployment.md",
 						"diagrams.md",
 						"example_applications/contacts-app/README.md",
@@ -3076,7 +3077,8 @@
 						"extending.md",
 						"index.html",
 						"link-resolver.md",
-						"retold-catalog.json"
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -3909,10 +3911,49 @@
 					"Repo": "cachetrax",
 					"Group": "utility",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Usage",
+							"Children": [
+								{
+									"Title": "Cache Operations",
+									"Path": "operations.md"
+								},
+								{
+									"Title": "Pruning Strategies",
+									"Path": "pruning.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"architecture.md",
+						"cover.md",
+						"css/docuserve.css",
+						"index.html",
+						"operations.md",
+						"pruning.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "cumulation",
