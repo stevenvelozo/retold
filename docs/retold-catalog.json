@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-18T05:04:26.865Z",
+	"Generated": "2026-02-18T05:29:06.815Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -1911,6 +1911,7 @@
 						"Command-TestObjectContainers.md",
 						"Docuserve-Configuration.md",
 						"MicroDDL-Syntax.md",
+						"README.md",
 						"Stricture-Legacy-Compiler.md",
 						"css/docuserve.css",
 						"index.html",
@@ -2836,10 +2837,12 @@
 					"Repo": "pict-nonlinearconfig",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						"README.md"
+					]
 				},
 				{
 					"Name": "pict-panel",
@@ -3091,10 +3094,12 @@
 					"Repo": "pict-section-flow",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						"README.md"
+					]
 				},
 				{
 					"Name": "pict-section-form",
@@ -4430,6 +4435,7 @@
 					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"architecture.md",
