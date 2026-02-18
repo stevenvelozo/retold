@@ -1,8 +1,11 @@
 {
     "name": "retold",
-    "version": "4.0.3",
+    "version": "4.0.4",
     "description": "The pict and fable node ecosystem.",
     "main": "source/Retold.cjs",
+    "bin": {
+        "manager": "./source/retold-manager/retold-manager.js"
+    },
     "scripts": {
         "start": "node source/Retold.cjs",
         "coverage": "./node_modules/.bin/nyc --reporter=lcov --reporter=text-lcov ./node_modules/mocha/bin/_mocha -- -u tdd -R spec",

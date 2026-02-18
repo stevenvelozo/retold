@@ -61,6 +61,26 @@ let _Fable = new libFable({
 _Fable.log.info('Retold application started.');
 ```
 
+## Testing
+
+Each module has its own test suite: `npm test` from any module directory. Most modules only need Node.js, but the Meadow data access modules require MySQL and MSSQL for their full test suites.
+
+Docker scripts in `modules/meadow/meadow/scripts/` manage disposable test containers on non-standard ports (MySQL 33306, MSSQL 31433) so they won't conflict with local databases.
+
+```bash
+cd modules/meadow/meadow
+
+# Start databases, seed data, and run tests
+npm run test-mysql           # MySQL tests only
+npm run test-mssql           # MSSQL tests only
+npm run test-all-providers   # Both
+
+# Tear down when done
+npm run docker-cleanup
+```
+
+See [docs/testing.md](docs/testing.md) for full details on ports, connection settings, and managing containers.
+
 ## Repository Structure
 
 Each module is its own git repo, cloned into a category folder under `modules/`. The root repo tracks module organization — individual module code lives in their respective repos.

@@ -8,7 +8,7 @@ A fully-realized Retold application assembles five layers, from infrastructure a
 
 ```mermaid
 graph TB
-  L5["<b>Layer 5</b> — Your Application / Mid-Tier Service<br/><i>Authentication, business logic, custom endpoints</i>"]
+  L5["<b>Layer 5</b> — Pict + Your Application / Mid-Tier Service<br/><i>MVC tools, authentication, business logic, custom endpoints</i>"]
   L4["<b>Layer 4</b> — Orator (API Server)<br/><i>HTTP lifecycle, middleware, static files, proxy</i>"]
   L3["<b>Layer 3</b> — Meadow-Endpoints<br/><i>Auto-generated CRUD routes, behavior hooks</i>"]
   L2["<b>Layer 2</b> — Meadow + FoxHound + Stricture<br/><i>Data broker, SQL generation, schema definitions</i>"]
@@ -188,7 +188,7 @@ graph TB
 
 Orator is deliberately thin. It provides a consistent interface regardless of the underlying server, so you can swap Restify for another implementation or use IPC mode for testing — without changing your application code.
 
-## Pict — MVC Tools
+## Layer 5: Pict — MVC Tools
 
 Pict sits alongside the server stack, providing Model-View-Controller tools for any text-based UI: browser DOM, terminal, or rendered strings.
 

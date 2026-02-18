@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-17T15:12:19.628Z",
+	"Generated": "2026-02-18T05:02:02.139Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -153,7 +153,10 @@
 						"_sidebar.md",
 						"architecture.md",
 						"cover.md",
+						"css/docuserve.css",
 						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"services/README.md",
 						"services/anticipate.md",
 						"services/csv-parser.md",
@@ -361,10 +364,13 @@
 						"browser-usage.md",
 						"configuration.md",
 						"cover.md",
+						"css/docuserve.css",
 						"custom-providers.md",
 						"getting-started.md",
 						"index.html",
-						"providers.md"
+						"providers.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -486,12 +492,17 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"cover.md",
-						"initialization-patterns.md"
+						"css/docuserve.css",
+						"index.html",
+						"initialization-patterns.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -622,8 +633,11 @@
 						"configuration.md",
 						"contributing.md",
 						"cover.md",
+						"css/docuserve.css",
 						"index.html",
-						"resources.md"
+						"resources.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				}
 			]
@@ -723,6 +737,7 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -731,7 +746,10 @@
 						"cli.md",
 						"configuration.md",
 						"cover.md",
+						"css/docuserve.css",
 						"index.html",
+						"js/pict.min.js",
+						"js/pict.min.js.map",
 						"operations/delete.md",
 						"operations/diff-and-deltas.md",
 						"operations/exists.md",
@@ -740,7 +758,10 @@
 						"operations/record-keys.md",
 						"operations/sources.md",
 						"operations/write.md",
+						"pict-docuserve.min.js",
+						"pict-docuserve.min.js.map",
 						"quick-start.md",
+						"retold-catalog.json",
 						"storage-providers.md"
 					]
 				},
@@ -895,6 +916,7 @@
 						"architecture.md",
 						"configuration.md",
 						"cover.md",
+						"css/docuserve.css",
 						"dialects/README.md",
 						"dialects/alasql.md",
 						"dialects/mssql.md",
@@ -911,6 +933,8 @@
 						"query/read.md",
 						"query/update.md",
 						"query-overrides.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"schema.md",
 						"sorting.md"
 					]
@@ -1039,8 +1063,10 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
+						"css/docuserve.css",
 						"index.html",
 						"providers/README.md",
 						"providers/alasql.md",
@@ -1053,6 +1079,8 @@
 						"query/delete.md",
 						"query/read.md",
 						"query/update.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"schema/README.md"
 					]
 				},
@@ -1402,6 +1430,7 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"crud/README.md",
@@ -1411,7 +1440,10 @@
 						"crud/read.md",
 						"crud/schema.md",
 						"crud/update.md",
-						"index.html"
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -1562,6 +1594,7 @@
 						"cli-reference.md",
 						"comprehensions.md",
 						"cover.md",
+						"css/docuserve.css",
 						"examples/bookstore/.gitignore",
 						"examples/bookstore/BookData.md",
 						"examples/bookstore/Generate_Bookstore_Comprehension.sh",
@@ -1582,6 +1615,8 @@
 						"mapping-files.md",
 						"programmatic-api.md",
 						"rest-api-reference.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"vocabulary/Column.md",
 						"vocabulary/Comprehension.md",
 						"vocabulary/Confidence.md",
@@ -1859,6 +1894,7 @@
 					"HasCover": false,
 					"Sidebar": [],
 					"DocFiles": [
+						".nojekyll",
 						"Command-Authorization.md",
 						"Command-Compile.md",
 						"Command-DataDictionary.md",
@@ -1875,7 +1911,11 @@
 						"Command-TestObjectContainers.md",
 						"Docuserve-Configuration.md",
 						"MicroDDL-Syntax.md",
-						"Stricture-Legacy-Compiler.md"
+						"Stricture-Legacy-Compiler.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				}
 			]
@@ -1961,12 +2001,14 @@
 						"architecture.md",
 						"configuration.md",
 						"cover.md",
+						"css/docuserve.css",
 						"getting-started.md",
 						"http-proxy.md",
 						"index.html",
 						"ipc-server.md",
 						"lifecycle-hooks.md",
 						"restify-server.md",
+						"retold-catalog.json",
 						"service-servers.md",
 						"static-files.md"
 					]
@@ -2034,24 +2076,17 @@
 						"api-reference.md",
 						"configuration.md",
 						"cover.md",
+						"css/docuserve.css",
 						"endpoints/001-jpg-to-png.md",
 						"endpoints/002-png-to-jpg.md",
 						"endpoints/003-pdf-to-page-png.md",
 						"endpoints/004-pdf-to-page-jpg.md",
 						"endpoints/README.md",
 						"getting-started.md",
-						"index.html"
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
-				},
-				{
-					"Name": "orator-endpoint",
-					"Repo": "orator-endpoint",
-					"Group": "orator",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
 				},
 				{
 					"Name": "orator-http-proxy",
@@ -2090,8 +2125,11 @@
 						"_sidebar.md",
 						"configuration.md",
 						"cover.md",
+						"css/docuserve.css",
 						"getting-started.md",
-						"index.html"
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -2186,9 +2224,12 @@
 						"body-parsing.md",
 						"configuration.md",
 						"cover.md",
+						"css/docuserve.css",
 						"getting-started.md",
 						"index.html",
-						"middleware.md"
+						"middleware.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -2232,8 +2273,11 @@
 						"_sidebar.md",
 						"api-reference.md",
 						"cover.md",
+						"css/docuserve.css",
 						"getting-started.md",
 						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"subdomain-routing.md"
 					]
 				},
@@ -2298,13 +2342,18 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"cover.md",
+						"css/docuserve.css",
+						"index.html",
 						"rasterizers.md",
-						"rendering-pipeline.md"
+						"rendering-pipeline.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				}
 			]
@@ -2414,7 +2463,9 @@
 						"cover.md",
 						"css/docuserve.css",
 						"index.html",
-						"lifecycle.md"
+						"lifecycle.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -2548,6 +2599,7 @@
 						"application_lifecycle/README.md",
 						"applications/README.md",
 						"cover.md",
+						"css/docuserve.css",
 						"design_philosophy/applications_providers_views_and_solvers.md",
 						"design_philosophy/config.json",
 						"design_philosophy/model_view_controller_ohmy.md",
@@ -2583,6 +2635,8 @@
 						"pict_keyconcepts.md",
 						"pict_quickstart.md",
 						"providers/README.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"solvers/README.md",
 						"state_management/README.md",
 						"templating/pict_metatemplate_manager.md",
@@ -2633,7 +2687,10 @@
 						"README.md",
 						"_sidebar.md",
 						"cover.md",
-						"index.html"
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -3006,13 +3063,17 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"cover.md",
+						"css/docuserve.css",
 						"extending.md",
-						"link-resolver.md"
+						"index.html",
+						"link-resolver.md",
+						"retold-catalog.json"
 					]
 				},
 				{
@@ -3202,6 +3263,7 @@
 						"Templates.md",
 						"_sidebar.md",
 						"cover.md",
+						"css/docuserve.css",
 						"examples/README.md",
 						"examples/complex_table/README.md",
 						"examples/complex_tuigrid/README.md",
@@ -3225,7 +3287,9 @@
 						"input_providers/011-autofill-trigger-group.md",
 						"input_providers/012-tab-group-selector.md",
 						"input_providers/013-tab-section-selector.md",
-						"input_providers/README.md"
+						"input_providers/README.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -3295,9 +3359,12 @@
 						"_sidebar.md",
 						"api-reference.md",
 						"cover.md",
+						"css/docuserve.css",
 						"filters.md",
 						"index.html",
 						"record-providers.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"views/create/README.md",
 						"views/dashboard/README.md",
 						"views/list/README.md",
@@ -3471,8 +3538,11 @@
 						"api-reference.md",
 						"cover.md",
 						"creating-services.md",
+						"css/docuserve.css",
 						"fable-relationship.md",
-						"index.html"
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -3549,14 +3619,19 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"cover.md",
+						"css/docuserve.css",
 						"examples-conditionals-and-logic.md",
 						"examples-custom-expressions.md",
-						"examples-data-and-lists.md"
+						"examples-data-and-lists.md",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -3808,9 +3883,12 @@
 						"configuration.md",
 						"contributing.md",
 						"cover.md",
+						"css/docuserve.css",
 						"custom-navbar.md",
 						"index.html",
 						"resources.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"themes.md"
 					]
 				}
@@ -3899,6 +3977,7 @@
 						"configuration/special-files.md",
 						"configuration/structures-targets.md",
 						"cover.md",
+						"css/docuserve.css",
 						"design/labels.md",
 						"design/overview.md",
 						"examples/README.md",
@@ -3936,6 +4015,8 @@
 						"retold/README.md",
 						"retold/catalog-generation.md",
 						"retold/keyword-index.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"vocabulary.md",
 						"README.md",
 						"_sidebar.md",
@@ -4015,10 +4096,13 @@
 						"_sidebar.md",
 						"address-notation.md",
 						"cover.md",
+						"css/docuserve.css",
 						"hash-translation.md",
 						"index.html",
 						"quickstart.md",
 						"reading.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"schema-manipulation.md",
 						"schema.md",
 						"validating.md",

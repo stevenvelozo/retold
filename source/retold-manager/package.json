@@ -1,0 +1,23 @@
+{
+	"name": "retold-manager",
+	"version": "0.0.1",
+	"description": "Terminal UI manager for retold module repositories",
+	"main": "retold-manager.js",
+	"bin": {
+		"retold-manager": "./retold-manager.js"
+	},
+	"scripts": {
+		"start": "node retold-manager.js",
+		"test": "echo \"No tests yet\" && exit 0"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"blessed": "^0.1.81",
+		"fable": "^3.0.232",
+		"fable-serviceproviderbase": "^3.0.16",
+		"pict": "^1.0.345",
+		"pict-application": "^1.0.28",
+		"pict-terminalui": "^0.0.2",
+		"pict-view": "^1.0.64"
+	}
+}

@@ -1,6 +1,8 @@
 - Getting Started
 
   - [Getting Started](getting-started.md)
+  - [Testing](testing.md)
+  - [Contributing](contributing.md)
   - [Architecture](architecture/architecture.md)
   - [Ecosystem Architecture](architecture/module-architecture.md)
   - [Fluid Models](architecture/fluid-models.md)
