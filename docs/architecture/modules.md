@@ -30,7 +30,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [retold-harness](/meadow/retold-harness/) | `retold-harness` | Pre-built API harness with a bookstore demo (8 entities, 10,000+ records) |
 | [meadow-integration](/meadow/meadow-integration/) | `meadow-integration` | Data integration tools for CSV import, schema mapping, and centralized formats |
 
-## Orator — API Server (7 modules)
+## Orator — API Server (6 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -39,7 +39,6 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [orator-static-server](/orator/orator-static-server/) | `orator-static-server` | Static file serving with MIME detection, default files, and subdomain routing |
 | [orator-http-proxy](/orator/orator-http-proxy/) | `orator-http-proxy` | HTTP reverse proxy for forwarding requests to backend services |
 | [tidings](/orator/tidings/) | `tidings` | Extensible reporting system for generating HTML, PDF, and other format reports |
-| [orator-endpoint](/orator/orator-endpoint/) | `orator-endpoint` | Pluggable API endpoint base class for reusable route handlers |
 | [orator-conversion](/orator/orator-conversion/) | `orator-conversion` | File format conversion endpoints for Orator service servers |
 
 ## Pict — MVC Tools (19 modules)
@@ -81,10 +80,10 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 |-------|-------|-------|
 | Fable | 6 | Core ecosystem, DI, configuration, logging |
 | Meadow | 12 | Data access, ORM, query DSL, schema, connectors |
-| Orator | 7 | API server, HTTP, static files, proxy, reporting, conversion |
+| Orator | 6 | API server, HTTP, static files, proxy, reporting, conversion |
 | Pict | 19 | MVC, views, templates, forms, grids, routing, docs, TUI |
 | Utility | 4 | Build tools, manifests, docs, process supervision |
-| **Total** | **48** | |
+| **Total** | **47** | |
 
 ## GitHub Repositories
 

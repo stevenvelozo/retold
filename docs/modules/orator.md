@@ -112,12 +112,6 @@ An extensible reporting system for generating HTML, PDF, and other format report
 
 ---
 
-### [Orator-Endpoint](/orator/orator-endpoint/)
-
-A base class for creating reusable, pluggable API endpoint handlers that can be shared across Orator applications.
-
-**npm:** `orator-endpoint` · **Version:** 1.0.x
-
 ## Typical Setup
 
 A standard API server combines Orator with Meadow-Endpoints:
@@ -161,5 +155,4 @@ This gives you a full REST API with Create, Read, Reads, Update, Delete, Undelet
 | [orator-static-server](/orator/orator-static-server/) | Static file serving with MIME detection |
 | [orator-http-proxy](/orator/orator-http-proxy/) | HTTP reverse proxy pass-through |
 | [tidings](/orator/tidings/) | Reporting scaffolding for HTML/PDF output |
-| [orator-endpoint](/orator/orator-endpoint/) | Reusable endpoint base class |
 | [orator-conversion](/orator/orator-conversion/) | File format conversion endpoints |

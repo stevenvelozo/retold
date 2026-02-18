@@ -49,7 +49,6 @@
   - [orator-static-server](/orator/orator-static-server/)
   - [orator-http-proxy](/orator/orator-http-proxy/)
   - [tidings](/orator/tidings/)
-  - [orator-endpoint](/orator/orator-endpoint/)
   - [orator-conversion](/orator/orator-conversion/)
 
 - [Pict — MVC Tools](modules/pict.md)
