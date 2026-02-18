@@ -82,7 +82,7 @@ npm install
 npm run build
 ```
 
-Open **http://localhost:8086** in a browser. The server serves the built client as static files. The web client includes a sortable task list with search and pagination, an add/edit form, and week/month/year calendar views.
+Open **http://localhost:8086** in a browser. The server serves the built client as static files. The web client includes a sortable task list with search and pagination, an add/edit form, and week/month/year calendar views.  You may have to restart the server for the client to begin serving, depending on your environment.
 
 See [Web Client](examples/todolist/todo-list-web-client.md) for details.
 

@@ -143,7 +143,7 @@ graph LR
   endpoints --> r5["POST /Book → Create"]
   endpoints --> r6["PUT /Book → Update"]
   endpoints --> r7["DEL /Book/:id → Delete"]
-  endpoints --> r8["DEL /Book/:id/Undelete"]
+  endpoints --> r8["DEL /Book/Undelete/:id"]
 
   entity --> hooks["+ Behavior injection hooks<br/>+ Dynamic filtering & pagination<br/>+ Bulk operations"]
 

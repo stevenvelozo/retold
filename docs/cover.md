@@ -1,6 +1,6 @@
 # Retold
 
-> A story-obsessed application suite
+> What is software if not a tool to tell stories.
 
 ~50 JavaScript/Node.js modules for building web applications and APIs. Service provider pattern from foundation to full-stack.
 

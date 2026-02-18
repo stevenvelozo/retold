@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-18T05:51:39.719Z",
+	"Generated": "2026-02-18T09:31:53.908Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -151,6 +151,7 @@
 						".nojekyll",
 						"README.md",
 						"_sidebar.md",
+						"_topbar.md",
 						"architecture.md",
 						"cover.md",
 						"css/docuserve.css",
@@ -2597,6 +2598,7 @@
 						".nojekyll",
 						"README.md",
 						"_sidebar.md",
+						"_topbar.md",
 						"application_lifecycle/README.md",
 						"applications/README.md",
 						"cover.md",
@@ -2850,10 +2852,84 @@
 					"Repo": "pict-panel",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Hotloading",
+									"Path": "hotloading.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Panel Features",
+							"Children": [
+								{
+									"Title": "Views",
+									"Path": "views.md"
+								},
+								{
+									"Title": "Providers",
+									"Path": "providers.md"
+								},
+								{
+									"Title": "Template Overrides",
+									"Path": "overrides.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "pict/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Provider",
+									"Path": "pict/pict-provider/README.md"
+								},
+								{
+									"Title": "Pict Template",
+									"Path": "pict/pict-template/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Fable Service Base",
+									"Path": "fable/fable-serviceproviderbase/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"architecture.md",
+						"cover.md",
+						"hotloading.md",
+						"overrides.md",
+						"providers.md",
+						"views.md"
+					]
 				},
 				{
 					"Name": "pict-provider",
