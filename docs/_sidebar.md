@@ -1,13 +1,23 @@
 - Getting Started
 
   - [Getting Started](getting-started.md)
-  - [Testing](testing.md)
-  - [Contributing](contributing.md)
+
+- Ecosystem Architecture
   - [Architecture](architecture/architecture.md)
   - [Ecosystem Architecture](architecture/module-architecture.md)
   - [Fluid Models](architecture/fluid-models.md)
   - [Comprehensions](architecture/comprehensions.md)
   - [All Modules](architecture/modules.md)
+
+- Style Guides
+
+  - [Documentation Style Guide](architecture/documentation-style-guide.md)
+  - [Example App Style Guide](architecture/example-app-style-guide.md)
+
+- Contributing
+
+  - [Contributing](contributing.md)
+  - [Testing](testing.md)
 
 - [Examples](examples/examples.md)
 
