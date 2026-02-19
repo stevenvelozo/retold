@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-18T09:31:53.908Z",
+	"Generated": "2026-02-19T23:55:25.738Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -431,16 +431,6 @@
 					]
 				},
 				{
-					"Name": "fable-operationstep",
-					"Repo": "fable-operationstep",
-					"Group": "fable",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "fable-serviceproviderbase",
 					"Repo": "fable-serviceproviderbase",
 					"Group": "fable",
@@ -765,36 +755,6 @@
 						"retold-catalog.json",
 						"storage-providers.md"
 					]
-				},
-				{
-					"Name": "bibliograph-storage-leveldb",
-					"Repo": "bibliograph-storage-leveldb",
-					"Group": "meadow",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
-					"Name": "bibliograph-storage-lmdb",
-					"Repo": "bibliograph-storage-lmdb",
-					"Group": "meadow",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
-					"Name": "bibliograph-storage-rocksdb",
-					"Repo": "bibliograph-storage-rocksdb",
-					"Group": "meadow",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
 				},
 				{
 					"Name": "foxhound",
@@ -1448,16 +1408,6 @@
 					]
 				},
 				{
-					"Name": "meadow-graph-client",
-					"Repo": "meadow-graph-client",
-					"Group": "meadow",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "meadow-integration",
 					"Repo": "meadow-integration",
 					"Group": "meadow",
@@ -1599,9 +1549,9 @@
 						"examples/bookstore/.gitignore",
 						"examples/bookstore/BookData.md",
 						"examples/bookstore/Generate_Bookstore_Comprehension.sh",
-						"examples/bookstore/mapping_books_Author.json",
-						"examples/bookstore/mapping_books_Book.json",
 						"examples/bookstore/mapping_books_BookAuthorJoin.json",
+						"examples/bookstore/mapping_books_author.json",
+						"examples/bookstore/mapping_books_book.json",
 						"examples/data/books.csv",
 						"examples/data/seattle_neighborhoods/Seattle_Data_Information.md",
 						"examples/data/seattle_neighborhoods/housing_characteristics_Neighborhoods.csv",
@@ -1915,9 +1865,7 @@
 						"README.md",
 						"Stricture-Legacy-Compiler.md",
 						"css/docuserve.css",
-						"index.html",
-						"retold-catalog.json",
-						"retold-keyword-index.json"
+						"index.html"
 					]
 				}
 			]
@@ -2091,6 +2039,16 @@
 					]
 				},
 				{
+					"Name": "orator-endpoint",
+					"Repo": "orator-endpoint",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
 					"Name": "orator-http-proxy",
 					"Repo": "orator-http-proxy",
 					"Group": "orator",
@@ -2132,52 +2090,6 @@
 						"index.html",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
-					]
-				},
-				{
-					"Name": "orator-serviceserver-base",
-					"Repo": "orator-serviceserver-base",
-					"Group": "orator",
-					"Branch": "master",
-					"HasDocs": true,
-					"HasCover": true,
-					"Sidebar": [
-						{
-							"Title": "Getting Started",
-							"Children": [
-								{
-									"Title": "Introduction",
-									"Path": "README.md"
-								},
-								{
-									"Title": "Creating a Custom Server",
-									"Path": "custom-server.md"
-								}
-							]
-						},
-						{
-							"Title": "Reference",
-							"Children": [
-								{
-									"Title": "API Reference",
-									"Path": "api-reference.md"
-								},
-								{
-									"Title": "Template Method Pattern",
-									"Path": "template-method.md"
-								}
-							]
-						}
-					],
-					"DocFiles": [
-						".nojekyll",
-						"README.md",
-						"_sidebar.md",
-						"api-reference.md",
-						"cover.md",
-						"custom-server.md",
-						"index.html",
-						"template-method.md"
 					]
 				},
 				{
@@ -2619,19 +2531,12 @@
 						"examples/complex_example_seattle_data/data/race_ethnicity_Neighborhoods_-7085838689260358328.csv",
 						"examples/hello_world/.babelrc",
 						"examples/hello_world/.browserslistrc",
-						"examples/hello_world/.browserslistrc-BACKUP",
-						"examples/hello_world/.gulpfile-quackage-config.json",
-						"examples/hello_world/.gulpfile-quackage.js",
 						"examples/hello_world/.quackage.json",
 						"examples/hello_world/README.md",
 						"examples/hello_world/dist/.gitignore",
-						"examples/hello_world/dist/hello_world.js",
-						"examples/hello_world/dist/hello_world.js.map",
 						"examples/hello_world/dist/hello_world.min.js",
-						"examples/hello_world/dist/hello_world.min.js.map",
 						"examples/hello_world/dist/index.html",
 						"examples/hello_world/index.js",
-						"examples/hello_world/package-lock.json",
 						"examples/hello_world/package.json",
 						"examples/quickstart.js",
 						"index.html",
@@ -2695,16 +2600,6 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
-				},
-				{
-					"Name": "pict-chance",
-					"Repo": "pict-chance",
-					"Group": "pict",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
 				},
 				{
 					"Name": "pict-docuserve",
@@ -3156,16 +3051,6 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
-				},
-				{
-					"Name": "pict-section-entitymanagement",
-					"Repo": "pict-section-entitymanagement",
-					"Group": "pict",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
 				},
 				{
 					"Name": "pict-section-flow",
@@ -4032,16 +3917,6 @@
 					]
 				},
 				{
-					"Name": "cumulation",
-					"Repo": "cumulation",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "indoctrinate",
 					"Repo": "indoctrinate",
 					"Group": "utility",
@@ -4230,16 +4105,6 @@
 						"validating.md",
 						"writing.md"
 					]
-				},
-				{
-					"Name": "pict-cruisecontrol",
-					"Repo": "pict-cruisecontrol",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
 				},
 				{
 					"Name": "precedent",

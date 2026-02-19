@@ -1,6 +1,6 @@
 {
     "name": "retold",
-    "version": "4.0.5",
+    "version": "4.0.6",
     "description": "The pict and fable node ecosystem.",
     "main": "source/Retold.cjs",
     "bin": {
