@@ -93,6 +93,7 @@
   - [pict-section-recordset](/pict/pict-section-recordset/)
   - [pict-section-content](/pict/pict-section-content/)
   - [pict-section-form](/pict/pict-section-form/)
+  - [pict-section-objecteditor](/pict/pict-section-objecteditor/)
   - [pict-section-tuigrid](/pict/pict-section-tuigrid/)
   - [pict-router](/pict/pict-router/)
   - [pict-serviceproviderbase](/pict/pict-serviceproviderbase/)

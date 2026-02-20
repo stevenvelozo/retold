@@ -205,6 +205,7 @@ graph TB
     subgraph Sections["Sections & Components"]
       forms["Forms<br/><i>pict-section-form</i>"]
       recordset["Recordset<br/><i>pict-section-recordset</i>"]
+      objecteditor["Object Editor<br/><i>pict-section-objecteditor</i>"]
       tuigrid["TUI Grid<br/><i>pict-section-tuigrid</i>"]
       content["Content<br/><i>pict-section-content</i>"]
     end
@@ -220,6 +221,7 @@ graph TB
   style appfw fill:#fff,stroke:#ce93d8,color:#333
   style forms fill:#fff,stroke:#ce93d8,color:#333
   style recordset fill:#fff,stroke:#ce93d8,color:#333
+  style objecteditor fill:#fff,stroke:#ce93d8,color:#333
   style tuigrid fill:#fff,stroke:#ce93d8,color:#333
   style content fill:#fff,stroke:#ce93d8,color:#333
 ```
@@ -291,7 +293,6 @@ Supporting the application stack are utility modules:
 | **[Quackage](/utility/quackage/)** | Standardized build tool for browser bundles, testing, and packaging |
 | **[Indoctrinate](/utility/indoctrinate/)** | Documentation scaffolding, catalog generation, and cross-module search |
 | **[Ultravisor](/utility/ultravisor/)** | Process supervision with scheduled tasks and LLM integration |
-| **[Choreographic](/utility/choreographic/)** | Scaffolding for single-run data processing scripts |
 
 ## Design Principles
 

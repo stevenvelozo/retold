@@ -41,7 +41,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [tidings](/orator/tidings/) | `tidings` | Extensible reporting system for generating HTML, PDF, and other format reports |
 | [orator-conversion](/orator/orator-conversion/) | `orator-conversion` | File format conversion endpoints for Orator service servers |
 
-## Pict — MVC Tools (19 modules)
+## Pict — MVC Tools (20 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -60,6 +60,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [pict-section-recordset](/pict/pict-section-recordset/) | `pict-section-recordset` | CRUD record management views from Meadow endpoint schemas |
 | [pict-section-content](/pict/pict-section-content/) | `pict-section-content` | Markdown parsing and content rendering with Mermaid diagrams and KaTeX math |
 | [pict-section-form](/pict/pict-section-form/) | `pict-section-form` | Configuration-driven dynamic forms with 13+ input types and data marshaling |
+| [pict-section-objecteditor](/pict/pict-section-objecteditor/) | `pict-section-objecteditor` | Tree-based JSON object editor section for Pict views |
 | [pict-section-tuigrid](/pict/pict-section-tuigrid/) | `pict-section-tuigrid` | Toast UI Grid integration for tabular data display and editing |
 | [pict-router](/pict/pict-router/) | `pict-router` | Hash-based URL routing via Navigo with template string route functions |
 | [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | `pict-serviceproviderbase` | Base classes for Pict services with pre-initialization support |
@@ -83,9 +84,9 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | Fable | 6 | Core ecosystem, DI, configuration, logging |
 | Meadow | 12 | Data access, ORM, query DSL, schema, connectors |
 | Orator | 6 | API server, HTTP, static files, proxy, reporting, conversion |
-| Pict | 19 | MVC, views, templates, forms, grids, routing, docs, TUI |
+| Pict | 20 | MVC, views, templates, forms, grids, routing, docs, TUI |
 | Utility | 6 | Build tools, caching, templating, manifests, docs, process supervision |
-| **Total** | **49** | |
+| **Total** | **50** | |
 
 ## GitHub Repositories
 
