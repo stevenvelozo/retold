@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-20T06:31:23.189Z",
+	"Generated": "2026-02-20T23:58:41.143Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -3075,6 +3075,95 @@
 					]
 				},
 				{
+					"Name": "pict-section-code",
+					"Repo": "pict-section-code",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Getting Started",
+									"Path": "getting-started.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								},
+								{
+									"Title": "Syntax Highlighting",
+									"Path": "highlighting.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Example Overview",
+									"Path": "examples.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "pict/pict-view/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Fable Service Base",
+									"Path": "fable/fable-serviceproviderbase/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"api.md",
+						"configuration.md",
+						"cover.md",
+						"css/docuserve.css",
+						"examples.md",
+						"getting-started.md",
+						"highlighting.md",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
+				},
+				{
 					"Name": "pict-section-content",
 					"Repo": "pict-section-content",
 					"Group": "pict",
@@ -3374,6 +3463,16 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
+				},
+				{
+					"Name": "pict-section-formeditor",
+					"Repo": "pict-section-formeditor",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "pict-section-objecteditor",

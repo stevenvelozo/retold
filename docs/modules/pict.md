@@ -185,6 +185,14 @@ Markdown parsing and content rendering with Mermaid diagrams and KaTeX math equa
 
 ---
 
+### [Pict-Section-Code](/pict/pict-section-code/)
+
+Code editor and syntax highlighter wrapping CodeJar. Provides editable code editors and read-only syntax-highlighted displays with built-in support for JavaScript, JSON, HTML, CSS, and SQL. Supports custom highlighter functions and two-way data binding to Pict AppData.
+
+**npm:** `pict-section-code`
+
+---
+
 ### [Pict-Section-Flow](/pict/pict-section-flow/)
 
 Flow diagram section for visual workflow and process representations.
@@ -228,6 +236,7 @@ Flow diagram section for visual workflow and process representations.
 | [pict-service-commandlineutility](/pict/pict-service-commandlineutility/) | CLI utility tools |
 | [pict-section-recordset](/pict/pict-section-recordset/) | CRUD record management views |
 | [pict-section-content](/pict/pict-section-content/) | Markdown parsing and content rendering |
+| [pict-section-code](/pict/pict-section-code/) | Code editor and syntax highlighter wrapping CodeJar |
 | [pict-section-form](/pict/pict-section-form/) | Configuration-driven dynamic forms |
 | [pict-section-tuigrid](/pict/pict-section-tuigrid/) | Toast UI Grid tabular data |
 | [pict-router](/pict/pict-router/) | Hash-based URL routing |

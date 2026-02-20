@@ -92,7 +92,7 @@ The simplest expressions resolve a value from the address space and return it as
 <script>var config = {~DJ:AppData.Config~};</script>
 ```
 
-See [Data Access Expressions](architecture/templating/data-access.md) for the full reference.
+See [Template Expressions](architecture/templating/template-expressions.md) for the full reference.
 
 ### Data Formatting
 
@@ -112,7 +112,7 @@ Formatting expressions transform values for display -- numbers, dates, currencie
 <p>{~J:, ^Record.City^Record.State^Record.Country~}</p>
 ```
 
-See [Data Formatting Expressions](architecture/templating/data-formatting.md) for the full reference.
+See [Template Expressions](architecture/templating/template-expressions.md) for the full reference.
 
 ### Template Composition
 
@@ -132,7 +132,7 @@ Templates can render other templates, enabling reuse and modular design.
 {~TFM:DinoCard:AppData.DinosaurMap:Record.IDDinosaur~}
 ```
 
-See [Template Composition Expressions](architecture/templating/template-composition.md) for the full reference.
+See [Template Expressions](architecture/templating/template-expressions.md) for the full reference.
 
 ### Iteration
 
@@ -151,7 +151,7 @@ Template sets render a template once for each item in a collection. The current 
 {~TVS:ValueDisplay:AppData.CategoryMap~}
 ```
 
-See [Iteration Expressions](architecture/templating/iteration.md) for the full reference.
+See [Template Expressions](architecture/templating/template-expressions.md) for the full reference.
 
 ### Logic and Conditionals
 
@@ -173,7 +173,7 @@ Conditional expressions compare values and render templates when conditions are 
 {~HCE:Record.ShowSection~}
 ```
 
-See [Logic Expressions](architecture/templating/logic.md) for the full reference.
+See [Template Expressions](architecture/templating/template-expressions.md) for the full reference.
 
 ### Solvers
 
@@ -193,7 +193,7 @@ Solver expressions evaluate mathematical expressions using Fable's expression pa
 {~SBR:AppData.PricingFormula:AppData.OrderData~}
 ```
 
-See [Solver Expressions](architecture/templating/solvers.md) for the full reference.
+See [Template Expressions](architecture/templating/template-expressions.md) for the full reference.
 
 ### Entity Access
 
@@ -207,7 +207,7 @@ The Entity expression fetches records from Meadow REST APIs and renders them wit
 {~E:Book^Record.IDBook^BookCard~}
 ```
 
-See [Entity Expressions](architecture/templating/entity.md) for the full reference.
+See [Template Expressions](architecture/templating/template-expressions.md) for the full reference.
 
 ### Views and Self-Reference
 
@@ -224,7 +224,7 @@ Templates can render Pict views inline or reference the Pict instance for JavaSc
 <button onclick="{~P~}.views['MyView'].doSomething()">Click</button>
 ```
 
-See [View and Self-Reference Expressions](architecture/templating/views.md) for the full reference.
+See [Template Expressions](architecture/templating/template-expressions.md) for the full reference.
 
 ### Debugging
 
@@ -244,7 +244,7 @@ Debugging expressions help during development -- they log values, insert breakpo
 {~DT:AppData.DebugData~}
 ```
 
-See [Debugging Expressions](architecture/templating/debugging.md) for the full reference.
+See [Template Expressions](architecture/templating/template-expressions.md) for the full reference.
 
 ### Data Generation
 
@@ -258,7 +258,7 @@ Generate random values for testing, unique IDs, or placeholder content.
 <code>{~RNS:8~}</code>
 ```
 
-See [Data Generation Expressions](architecture/templating/data-generation.md) for the full reference.
+See [Template Expressions](architecture/templating/template-expressions.md) for the full reference.
 
 ## Using Templates Programmatically
 
@@ -473,13 +473,4 @@ Custom expressions follow the same lifecycle as built-in ones. They have access 
 ## Further Reading
 
 - [Jellyfish Deep Dive](architecture/templating/jellyfish-deep-dive.md) -- Detailed internals of the template engine
-- [Data Access Expressions](architecture/templating/data-access.md) -- D, DWTF, DWAF, DVBK, DJ, DEJS
-- [Data Formatting Expressions](architecture/templating/data-formatting.md) -- Digits, Dollars, dates, joins, PascalCase
-- [Logic Expressions](architecture/templating/logic.md) -- TIf, TIfAbs, NE, HTML comments
-- [Iteration Expressions](architecture/templating/iteration.md) -- TS, TSFM, TSWP, TVS
-- [Template Composition Expressions](architecture/templating/template-composition.md) -- T, TBDA, TBR, TFA, TFM, TBT
-- [Solver Expressions](architecture/templating/solvers.md) -- S, SBR
-- [Entity Expressions](architecture/templating/entity.md) -- E
-- [View and Self-Reference Expressions](architecture/templating/views.md) -- V, VRS, P
-- [Debugging Expressions](architecture/templating/debugging.md) -- Breakpoint, LS, LV, LVT, DT
-- [Data Generation Expressions](architecture/templating/data-generation.md) -- RN, RNS
+- [Template Expressions](architecture/templating/template-expressions.md) -- All 44 built-in expressions with links to individual reference pages

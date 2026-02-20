@@ -8,7 +8,7 @@ repositoriesMeadow=("stricture" "foxhound" "bibliograph" "meadow" "parime" "mead
 
 repositoriesOrator=("orator" "orator-serviceserver-restify" "orator-static-server" "orator-http-proxy" "tidings" "orator-conversion")
 
-repositoriesPict=("pict" "pict-template" "pict-view" "pict-provider" "pict-application" "pict-panel" "pict-nonlinearconfig" "pict-section-flow" "pict-docuserve" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-section-recordset" "pict-section-content" "pict-section-objecteditor" "pict-section-formeditor" "pict-section-form" "pict-section-tuigrid" "pict-router" "pict-serviceproviderbase" "pict-terminalui")
+repositoriesPict=("pict" "pict-template" "pict-view" "pict-provider" "pict-application" "pict-panel" "pict-nonlinearconfig" "pict-section-flow" "pict-docuserve" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-section-recordset" "pict-section-code" "pict-section-content" "pict-section-objecteditor" "pict-section-formeditor" "pict-section-form" "pict-section-tuigrid" "pict-router" "pict-serviceproviderbase" "pict-terminalui")
 
 repositoriesUtility=("indoctrinate" "manyfest" "cachetrax" "precedent" "quackage" "ultravisor")
 

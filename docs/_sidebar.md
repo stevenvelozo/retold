@@ -13,16 +13,7 @@
 
   - [Jellyfish Templates](architecture/templating/jellyfish-templates.md)
   - [Jellyfish Deep Dive](architecture/templating/jellyfish-deep-dive.md)
-  - [Data Access Expressions](architecture/templating/data-access.md)
-  - [Data Formatting Expressions](architecture/templating/data-formatting.md)
-  - [Logic Expressions](architecture/templating/logic.md)
-  - [Iteration Expressions](architecture/templating/iteration.md)
-  - [Template Composition Expressions](architecture/templating/template-composition.md)
-  - [Solver Expressions](architecture/templating/solvers.md)
-  - [Entity Expressions](architecture/templating/entity.md)
-  - [View and Self-Reference Expressions](architecture/templating/views.md)
-  - [Debugging Expressions](architecture/templating/debugging.md)
-  - [Data Generation Expressions](architecture/templating/data-generation.md)
+  - [Template Expressions](architecture/templating/template-expressions.md)
 
 - Style Guides
 
@@ -95,6 +86,7 @@
   - [pict-section-form](/pict/pict-section-form/)
   - [pict-section-objecteditor](/pict/pict-section-objecteditor/)
   - [pict-section-tuigrid](/pict/pict-section-tuigrid/)
+  - [pict-section-code](/pict/pict-section-code/)
   - [pict-router](/pict/pict-router/)
   - [pict-serviceproviderbase](/pict/pict-serviceproviderbase/)
   - [pict-terminalui](/pict/pict-terminalui/)
