@@ -87,6 +87,7 @@
   - [pict-section-objecteditor](/pict/pict-section-objecteditor/)
   - [pict-section-tuigrid](/pict/pict-section-tuigrid/)
   - [pict-section-code](/pict/pict-section-code/)
+  - [pict-section-markdowneditor](/pict/pict-section-markdowneditor/)
   - [pict-router](/pict/pict-router/)
   - [pict-serviceproviderbase](/pict/pict-serviceproviderbase/)
   - [pict-terminalui](/pict/pict-terminalui/)

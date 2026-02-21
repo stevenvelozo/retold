@@ -3164,6 +3164,104 @@
 					]
 				},
 				{
+					"Name": "pict-section-markdowneditor",
+					"Repo": "pict-section-markdowneditor",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								},
+								{
+									"Title": "Image Upload",
+									"Path": "image_upload.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Markdown Editor",
+									"Path": "examples/markdown_editor.md"
+								},
+								{
+									"Title": "Embedded Editor",
+									"Path": "examples/embedded_editor.md"
+								},
+								{
+									"Title": "Book Viewer",
+									"Path": "examples/book_viewer.md"
+								},
+								{
+									"Title": "Server Upload",
+									"Path": "examples/server_upload.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "pict/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Section Content",
+									"Path": "pict/pict-section-content/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api.md",
+						"configuration.md",
+						"cover.md",
+						"css/docuserve.css",
+						"examples/book_viewer.md",
+						"examples/embedded_editor.md",
+						"examples/markdown_editor.md",
+						"examples/server_upload.md",
+						"image_upload.md",
+						"index.html"
+					]
+				},
+				{
 					"Name": "pict-section-content",
 					"Repo": "pict-section-content",
 					"Group": "pict",

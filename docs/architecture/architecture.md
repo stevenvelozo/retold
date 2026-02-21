@@ -208,6 +208,7 @@ graph TB
       objecteditor["Object Editor<br/><i>pict-section-objecteditor</i>"]
       tuigrid["TUI Grid<br/><i>pict-section-tuigrid</i>"]
       content["Content<br/><i>pict-section-content</i>"]
+      mdeditor["Markdown Editor<br/><i>pict-section-markdowneditor</i>"]
     end
     Core --> Sections
   end
@@ -224,6 +225,7 @@ graph TB
   style objecteditor fill:#fff,stroke:#ce93d8,color:#333
   style tuigrid fill:#fff,stroke:#ce93d8,color:#333
   style content fill:#fff,stroke:#ce93d8,color:#333
+  style mdeditor fill:#fff,stroke:#ce93d8,color:#333
 ```
 
 Pict's core philosophy: UI is text. Views render templates into strings. Providers fetch data. The Application class coordinates lifecycle. Sections provide pre-built patterns for common UI needs (forms, record lists, grids).

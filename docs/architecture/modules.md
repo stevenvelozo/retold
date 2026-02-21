@@ -62,6 +62,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [pict-section-form](/pict/pict-section-form/) | `pict-section-form` | Configuration-driven dynamic forms with 13+ input types and data marshaling |
 | [pict-section-objecteditor](/pict/pict-section-objecteditor/) | `pict-section-objecteditor` | Tree-based JSON object editor section for Pict views |
 | [pict-section-tuigrid](/pict/pict-section-tuigrid/) | `pict-section-tuigrid` | Toast UI Grid integration for tabular data display and editing |
+| [pict-section-markdowneditor](/pict/pict-section-markdowneditor/) | `pict-section-markdowneditor` | Segmented markdown editor built on CodeMirror v6 with rich previews |
 | [pict-router](/pict/pict-router/) | `pict-router` | Hash-based URL routing via Navigo with template string route functions |
 | [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | `pict-serviceproviderbase` | Base classes for Pict services with pre-initialization support |
 | [pict-terminalui](/pict/pict-terminalui/) | `pict-terminalui` | Blessed-based terminal interface for Pict views |

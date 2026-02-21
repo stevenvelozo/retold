@@ -193,6 +193,14 @@ Code editor and syntax highlighter wrapping CodeJar. Provides editable code edit
 
 ---
 
+### [Pict-Section-MarkdownEditor](/pict/pict-section-markdowneditor/)
+
+Segmented markdown editor built on CodeMirror v6. Splits documents into independently editable segments with drag-and-drop reorder, formatting toolbar, image upload hooks, and live rich previews with Mermaid diagrams and KaTeX math. Supports read-only mode, rendered view toggle, and server-side image upload integration.
+
+**npm:** `pict-section-markdowneditor`
+
+---
+
 ### [Pict-Section-Flow](/pict/pict-section-flow/)
 
 Flow diagram section for visual workflow and process representations.
@@ -237,6 +245,7 @@ Flow diagram section for visual workflow and process representations.
 | [pict-section-recordset](/pict/pict-section-recordset/) | CRUD record management views |
 | [pict-section-content](/pict/pict-section-content/) | Markdown parsing and content rendering |
 | [pict-section-code](/pict/pict-section-code/) | Code editor and syntax highlighter wrapping CodeJar |
+| [pict-section-markdowneditor](/pict/pict-section-markdowneditor/) | Segmented markdown editor built on CodeMirror v6 |
 | [pict-section-form](/pict/pict-section-form/) | Configuration-driven dynamic forms |
 | [pict-section-tuigrid](/pict/pict-section-tuigrid/) | Toast UI Grid tabular data |
 | [pict-router](/pict/pict-router/) | Hash-based URL routing |
