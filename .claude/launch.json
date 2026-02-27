@@ -1,0 +1,29 @@
+{
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"name": "docs",
+			"runtimeExecutable": "npx",
+			"runtimeArgs": ["quack", "docs-serve", "./docs"],
+			"port": 3333
+		},
+		{
+			"name": "retold-content-system",
+			"runtimeExecutable": "bash",
+			"runtimeArgs": ["-c", "cd modules/apps/retold-content-system && PORT=9001 node server.js"],
+			"port": 9001
+		},
+		{
+			"name": "retold-remote",
+			"runtimeExecutable": "bash",
+			"runtimeArgs": ["-c", "cd modules/apps/retold-remote && PORT=9002 node server.js"],
+			"port": 9002
+		},
+		{
+			"name": "retold-harness",
+			"runtimeExecutable": "bash",
+			"runtimeArgs": ["-c", "cd modules/meadow/retold-harness && PORT=9003 node source/Retold-Harness.js"],
+			"port": 9003
+		}
+	]
+}

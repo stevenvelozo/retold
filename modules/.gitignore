@@ -1,5 +1,5 @@
-utility
-
+./utility
+./apps
 # Added by quackage update-node-gitignore
 
 package-lock.json

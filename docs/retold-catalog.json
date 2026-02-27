@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-20T23:58:41.143Z",
+	"Generated": "2026-02-27T03:17:11.185Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -14,7 +14,7 @@
 					"Group": "fable",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -150,10 +150,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"architecture.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -296,7 +296,7 @@
 					"Group": "fable",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -359,12 +359,12 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"advanced-usage.md",
 						"api-reference.md",
 						"browser-usage.md",
 						"configuration.md",
-						"cover.md",
 						"css/docuserve.css",
 						"custom-providers.md",
 						"getting-started.md",
@@ -380,7 +380,7 @@
 					"Group": "fable",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -420,10 +420,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -446,7 +446,7 @@
 					"Group": "fable",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -495,10 +495,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"initialization-patterns.md",
@@ -512,7 +512,7 @@
 					"Group": "fable",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -561,10 +561,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"environment-variables.md",
 						"index.html",
@@ -578,7 +578,7 @@
 					"Group": "fable",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -627,13 +627,13 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"api.md",
 						"browser-support.md",
 						"changelog.md",
 						"configuration.md",
 						"contributing.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"resources.md",
@@ -654,7 +654,7 @@
 					"Group": "meadow",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -740,13 +740,13 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"architecture.md",
 						"cli.md",
 						"configuration.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"js/pict.min.js",
@@ -802,7 +802,7 @@
 					"Group": "meadow",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -913,10 +913,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"architecture.md",
 						"configuration.md",
-						"cover.md",
 						"css/docuserve.css",
 						"dialects/README.md",
 						"dialects/alasql.md",
@@ -1091,7 +1091,7 @@
 					"Group": "meadow",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -1144,10 +1144,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -1161,7 +1161,7 @@
 					"Group": "meadow",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -1214,10 +1214,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -1231,7 +1231,7 @@
 					"Group": "meadow",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -1293,10 +1293,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"examples-pipeline.md",
 						"index.html",
@@ -1463,7 +1463,7 @@
 					"Group": "meadow",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -1590,11 +1590,11 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"cli-reference.md",
 						"comprehensions.md",
-						"cover.md",
 						"css/docuserve.css",
 						"examples/bookstore/.gitignore",
 						"examples/bookstore/BookData.md",
@@ -1641,7 +1641,7 @@
 					"Group": "meadow",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -1694,12 +1694,12 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"architecture.md",
 						"binary-lakes.md",
 						"combined-lakes.md",
 						"configuration.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"quick-start.md",
@@ -1715,7 +1715,7 @@
 					"Group": "meadow",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -1776,11 +1776,11 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"architecture.md",
 						"behavior-injection.md",
 						"configuration.md",
-						"cover.md",
 						"dal-access.md",
 						"endpoints.md",
 						"index.html",
@@ -1871,7 +1871,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
-						"_coverpage.md",
+						"_cover.md",
 						"_sidebar.md",
 						"behavior-injection.md",
 						"configuration.md",
@@ -1933,7 +1933,7 @@
 					"Group": "orator",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -1999,10 +1999,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"architecture.md",
 						"configuration.md",
-						"cover.md",
 						"css/docuserve.css",
 						"getting-started.md",
 						"http-proxy.md",
@@ -2021,7 +2021,7 @@
 					"Group": "orator",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -2074,10 +2074,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"api-reference.md",
 						"configuration.md",
-						"cover.md",
 						"css/docuserve.css",
 						"endpoints/001-jpg-to-png.md",
 						"endpoints/002-png-to-jpg.md",
@@ -2096,7 +2096,7 @@
 					"Group": "orator",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -2124,9 +2124,9 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"configuration.md",
-						"cover.md",
 						"css/docuserve.css",
 						"getting-started.md",
 						"index.html",
@@ -2186,7 +2186,7 @@
 					"Group": "orator",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -2222,10 +2222,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"body-parsing.md",
 						"configuration.md",
-						"cover.md",
 						"css/docuserve.css",
 						"getting-started.md",
 						"index.html",
@@ -2240,7 +2240,7 @@
 					"Group": "orator",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -2272,9 +2272,9 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"api-reference.md",
-						"cover.md",
 						"css/docuserve.css",
 						"getting-started.md",
 						"index.html",
@@ -2289,7 +2289,7 @@
 					"Group": "orator",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -2346,10 +2346,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"rasterizers.md",
@@ -2371,7 +2371,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -2416,10 +2416,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -2432,7 +2432,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Home",
@@ -2459,10 +2459,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"lifecycle.md",
@@ -2476,7 +2476,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -2597,11 +2597,11 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"application_lifecycle/README.md",
 						"applications/README.md",
-						"cover.md",
 						"css/docuserve.css",
 						"design_philosophy/applications_providers_views_and_solvers.md",
 						"design_philosophy/config.json",
@@ -2653,7 +2653,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -2688,8 +2688,8 @@
 						"EXAMPLES.md",
 						"GETTING_STARTED.md",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -2752,12 +2752,12 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"architecture.md",
 						"configuration.md",
 						"content-authoring.md",
-						"cover.md",
 						"css/docuserve.css",
 						"deployment.md",
 						"diagrams.md",
@@ -2853,7 +2853,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -2921,10 +2921,10 @@
 					],
 					"DocFiles": [
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"architecture.md",
-						"cover.md",
 						"hotloading.md",
 						"overrides.md",
 						"providers.md",
@@ -2937,7 +2937,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -2994,10 +2994,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"lifecycle.md",
@@ -3011,7 +3011,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -3064,10 +3064,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -3080,7 +3080,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -3150,10 +3150,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"api.md",
 						"configuration.md",
-						"cover.md",
 						"css/docuserve.css",
 						"examples.md",
 						"getting-started.md",
@@ -3164,110 +3164,12 @@
 					]
 				},
 				{
-					"Name": "pict-section-markdowneditor",
-					"Repo": "pict-section-markdowneditor",
-					"Group": "pict",
-					"Branch": "master",
-					"HasDocs": true,
-					"HasCover": true,
-					"Sidebar": [
-						{
-							"Title": "Getting Started",
-							"Children": [
-								{
-									"Title": "Overview",
-									"Path": "README.md"
-								},
-								{
-									"Title": "Configuration",
-									"Path": "configuration.md"
-								}
-							]
-						},
-						{
-							"Title": "Reference",
-							"Children": [
-								{
-									"Title": "API Reference",
-									"Path": "api.md"
-								},
-								{
-									"Title": "Image Upload",
-									"Path": "image_upload.md"
-								}
-							]
-						},
-						{
-							"Title": "Examples",
-							"Children": [
-								{
-									"Title": "Markdown Editor",
-									"Path": "examples/markdown_editor.md"
-								},
-								{
-									"Title": "Embedded Editor",
-									"Path": "examples/embedded_editor.md"
-								},
-								{
-									"Title": "Book Viewer",
-									"Path": "examples/book_viewer.md"
-								},
-								{
-									"Title": "Server Upload",
-									"Path": "examples/server_upload.md"
-								}
-							]
-						},
-						{
-							"Title": "Retold Ecosystem",
-							"Children": [
-								{
-									"Title": "Pict",
-									"Path": "pict/pict/README.md"
-								},
-								{
-									"Title": "Pict Application",
-									"Path": "pict/pict-application/README.md"
-								},
-								{
-									"Title": "Pict View",
-									"Path": "pict/pict-view/README.md"
-								},
-								{
-									"Title": "Pict Section Content",
-									"Path": "pict/pict-section-content/README.md"
-								},
-								{
-									"Title": "Fable",
-									"Path": "fable/fable/README.md"
-								}
-							]
-						}
-					],
-					"DocFiles": [
-						".nojekyll",
-						"README.md",
-						"_sidebar.md",
-						"_topbar.md",
-						"api.md",
-						"configuration.md",
-						"cover.md",
-						"css/docuserve.css",
-						"examples/book_viewer.md",
-						"examples/embedded_editor.md",
-						"examples/markdown_editor.md",
-						"examples/server_upload.md",
-						"image_upload.md",
-						"index.html"
-					]
-				},
-				{
 					"Name": "pict-section-content",
 					"Repo": "pict-section-content",
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -3332,10 +3234,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"extending.md",
 						"index.html",
@@ -3355,6 +3257,70 @@
 					"DocFiles": []
 				},
 				{
+					"Name": "pict-section-filebrowser",
+					"Repo": "pict-section-filebrowser",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "Configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Providers",
+									"Path": "Providers.md"
+								},
+								{
+									"Title": "Views",
+									"Path": "Views.md"
+								},
+								{
+									"Title": "Layouts",
+									"Path": "Layouts.md"
+								},
+								{
+									"Title": "Icons",
+									"Path": "Icons.md"
+								}
+							]
+						},
+						{
+							"Title": "Service",
+							"Children": [
+								{
+									"Title": "REST API",
+									"Path": "REST_API.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"cover.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
+				},
+				{
 					"Name": "pict-section-flow",
 					"Repo": "pict-section-flow",
 					"Group": "pict",
@@ -3372,7 +3338,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -3531,8 +3497,8 @@
 						"README.md",
 						"Solvers.md",
 						"Templates.md",
+						"_cover.md",
 						"_sidebar.md",
-						"cover.md",
 						"css/docuserve.css",
 						"examples/README.md",
 						"examples/complex_table/README.md",
@@ -3563,8 +3529,251 @@
 					]
 				},
 				{
-					"Name": "pict-section-filebrowser",
-					"Repo": "pict-section-filebrowser",
+					"Name": "pict-section-formeditor",
+					"Repo": "pict-section-formeditor",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "#/README"
+								},
+								{
+									"Title": "Installation",
+									"Path": "#/README?id=install"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "#/README?id=add-the-editor-to-your-application"
+								},
+								{
+									"Title": "HTML Setup",
+									"Path": "#/README?id=html-setup"
+								}
+							]
+						},
+						{
+							"Title": "Using the Editor",
+							"Children": [
+								{
+									"Title": "Editor Tabs",
+									"Path": "#/README?id=editor-tabs"
+								},
+								{
+									"Title": "Visual Editor",
+									"Path": "#/README?id=visual-editor"
+								},
+								{
+									"Title": "JSON Editor",
+									"Path": "#/README?id=json-editor"
+								},
+								{
+									"Title": "Preview",
+									"Path": "#/README?id=preview"
+								},
+								{
+									"Title": "Solver Editor",
+									"Path": "#/README?id=solver-editor"
+								}
+							]
+						},
+						{
+							"Title": "Developer Guide",
+							"Children": [
+								{
+									"Title": "Configuration",
+									"Path": "#/README?id=configuration"
+								},
+								{
+									"Title": "Loading a Manifest",
+									"Path": "#/README?id=loading-a-manifest"
+								},
+								{
+									"Title": "Reading the Manifest",
+									"Path": "#/README?id=reading-the-manifest-back"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "#/README?id=architecture"
+								}
+							]
+						},
+						{
+							"Title": "Resources",
+							"Children": [
+								{
+									"Title": "Example Application",
+									"Path": "#/README?id=example-application"
+								},
+								{
+									"Title": "GitHub",
+									"Path": "https://github.com/stevenvelozo/pict-section-formeditor"
+								},
+								{
+									"Title": "pict-section-form",
+									"Path": "https://github.com/stevenvelozo/pict-section-form"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"Getting-Started.md",
+						"Groups.md",
+						"Inputs.md",
+						"Sections.md",
+						"Shortcuts.md",
+						"Solver-Expression-Walkthrough.md",
+						"Solver-Expressions-Advanced.md",
+						"Solver-Functions.md",
+						"Solvers.md",
+						"ToC.md",
+						"pict_documentation_topics.json",
+						"solverfunctions/abs.md",
+						"solverfunctions/aggregationhistogram.md",
+						"solverfunctions/aggregationhistogrambyobject.md",
+						"solverfunctions/arrayconcat.md",
+						"solverfunctions/avg.md",
+						"solverfunctions/bucketset.md",
+						"solverfunctions/ceil.md",
+						"solverfunctions/cleanvaluearray.md",
+						"solverfunctions/cleanvalueobject.md",
+						"solverfunctions/colorgroupbackground.md",
+						"solverfunctions/colorinputbackground.md",
+						"solverfunctions/colorinputbackgroundtabular.md",
+						"solverfunctions/colorsectionbackground.md",
+						"solverfunctions/compare.md",
+						"solverfunctions/concat.md",
+						"solverfunctions/concatraw.md",
+						"solverfunctions/cos.md",
+						"solverfunctions/count.md",
+						"solverfunctions/countset.md",
+						"solverfunctions/countsetelements.md",
+						"solverfunctions/createarrayfromabsolutevalues.md",
+						"solverfunctions/createvalueobjectbyhashes.md",
+						"solverfunctions/cumulativesummation.md",
+						"solverfunctions/dateadddays.md",
+						"solverfunctions/dateaddhours.md",
+						"solverfunctions/dateaddmilliseconds.md",
+						"solverfunctions/dateaddminutes.md",
+						"solverfunctions/dateaddmonths.md",
+						"solverfunctions/dateaddseconds.md",
+						"solverfunctions/dateaddweeks.md",
+						"solverfunctions/dateaddyears.md",
+						"solverfunctions/datedaydifference.md",
+						"solverfunctions/datefromparts.md",
+						"solverfunctions/datehourdifference.md",
+						"solverfunctions/datemathadd.md",
+						"solverfunctions/datemilliseconddifference.md",
+						"solverfunctions/dateminutedifference.md",
+						"solverfunctions/datemonthdifference.md",
+						"solverfunctions/dateseconddifference.md",
+						"solverfunctions/dateweekdifference.md",
+						"solverfunctions/dateyeardifference.md",
+						"solverfunctions/differencearrays.md",
+						"solverfunctions/disablesolverordinal.md",
+						"solverfunctions/distributionhistogram.md",
+						"solverfunctions/distributionhistogrambyobject.md",
+						"solverfunctions/enablesolverordinal.md",
+						"solverfunctions/entryinset.md",
+						"solverfunctions/euler.md",
+						"solverfunctions/exp.md",
+						"solverfunctions/findfirstvaluebyexactmatch.md",
+						"solverfunctions/findfirstvaluebystringincludes.md",
+						"solverfunctions/flatten.md",
+						"solverfunctions/floor.md",
+						"solverfunctions/gaussianelimination.md",
+						"solverfunctions/generatearrayofobjectsfromsets.md",
+						"solverfunctions/generatehtmlhexcolor.md",
+						"solverfunctions/getvalue.md",
+						"solverfunctions/getvaluearray.md",
+						"solverfunctions/getvalueobject.md",
+						"solverfunctions/hidesections.md",
+						"solverfunctions/if.md",
+						"solverfunctions/iterativeseries.md",
+						"solverfunctions/join.md",
+						"solverfunctions/joinraw.md",
+						"solverfunctions/largestinset.md",
+						"solverfunctions/leastsquares.md",
+						"solverfunctions/linest.md",
+						"solverfunctions/log.md",
+						"solverfunctions/logvalues.md",
+						"solverfunctions/match.md",
+						"solverfunctions/matrixinverse.md",
+						"solverfunctions/matrixmultiply.md",
+						"solverfunctions/matrixtranspose.md",
+						"solverfunctions/matrixvectormultiply.md",
+						"solverfunctions/max.md",
+						"solverfunctions/mean.md",
+						"solverfunctions/median.md",
+						"solverfunctions/min.md",
+						"solverfunctions/mode.md",
+						"solverfunctions/objectkeystoarray.md",
+						"solverfunctions/objectvaluessortbyexternalobjectarray.md",
+						"solverfunctions/objectvaluestoarray.md",
+						"solverfunctions/percent.md",
+						"solverfunctions/pi.md",
+						"solverfunctions/polynomialregression.md",
+						"solverfunctions/predict.md",
+						"solverfunctions/rad.md",
+						"solverfunctions/randomfloat.md",
+						"solverfunctions/randomfloatbetween.md",
+						"solverfunctions/randomfloatupto.md",
+						"solverfunctions/randominteger.md",
+						"solverfunctions/randomintegerbetween.md",
+						"solverfunctions/randomintegerupto.md",
+						"solverfunctions/refreshtabularsection.md",
+						"solverfunctions/resolvehtmlentities.md",
+						"solverfunctions/round.md",
+						"solverfunctions/runsolvers.md",
+						"solverfunctions/setconcatenate.md",
+						"solverfunctions/setgroupvisibility.md",
+						"solverfunctions/setsectionvisibility.md",
+						"solverfunctions/setsolverordinalenabled.md",
+						"solverfunctions/settabularrowlength.md",
+						"solverfunctions/setvalue.md",
+						"solverfunctions/showsections.md",
+						"solverfunctions/sin.md",
+						"solverfunctions/slice.md",
+						"solverfunctions/smallestinset.md",
+						"solverfunctions/sortarray.md",
+						"solverfunctions/sorthistogram.md",
+						"solverfunctions/sorthistogrambykeys.md",
+						"solverfunctions/sortset.md",
+						"solverfunctions/sqrt.md",
+						"solverfunctions/stdev.md",
+						"solverfunctions/stdeva.md",
+						"solverfunctions/stdevp.md",
+						"solverfunctions/stringcountsegments.md",
+						"solverfunctions/stringgetsegments.md",
+						"solverfunctions/subtractingsummation.md",
+						"solverfunctions/sum.md",
+						"solverfunctions/tan.md",
+						"solverfunctions/tofixed.md",
+						"solverfunctions/unionarrays.md",
+						"solverfunctions/uniquearray.md",
+						"solverfunctions/var.md",
+						"solverfunctions/vara.md",
+						"solverfunctions/varp.md",
+						"solverfunctions/when.md"
+					]
+				},
+				{
+					"Name": "pict-section-markdowneditor",
+					"Repo": "pict-section-markdowneditor",
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
@@ -3574,42 +3783,79 @@
 							"Title": "Getting Started",
 							"Children": [
 								{
-									"Title": "Introduction",
+									"Title": "Overview",
 									"Path": "README.md"
 								},
 								{
 									"Title": "Configuration",
-									"Path": "Configuration.md"
+									"Path": "configuration.md"
 								}
 							]
 						},
 						{
-							"Title": "Architecture",
+							"Title": "Reference",
 							"Children": [
 								{
-									"Title": "Providers",
-									"Path": "Providers.md"
+									"Title": "API Reference",
+									"Path": "api.md"
 								},
 								{
-									"Title": "Views",
-									"Path": "Views.md"
-								},
-								{
-									"Title": "Layouts",
-									"Path": "Layouts.md"
-								},
-								{
-									"Title": "Icons",
-									"Path": "Icons.md"
+									"Title": "Image Upload",
+									"Path": "image_upload.md"
 								}
 							]
 						},
 						{
-							"Title": "Service",
+							"Title": "Examples",
 							"Children": [
 								{
-									"Title": "REST API",
-									"Path": "REST_API.md"
+									"Title": "Markdown Editor",
+									"Path": "examples/markdown_editor.md"
+								},
+								{
+									"Title": "Embedded Editor",
+									"Path": "examples/embedded_editor.md"
+								},
+								{
+									"Title": "Book Viewer",
+									"Path": "examples/book_viewer.md"
+								},
+								{
+									"Title": "Server Upload",
+									"Path": "examples/server_upload.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "pict/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Provider",
+									"Path": "pict/pict-provider/README.md"
+								},
+								{
+									"Title": "Pict Section Content",
+									"Path": "pict/pict-section-content/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
 								}
 							]
 						}
@@ -3619,20 +3865,19 @@
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"api.md",
+						"configuration.md",
 						"cover.md",
 						"css/docuserve.css",
-						"index.html"
+						"examples/book_viewer.md",
+						"examples/embedded_editor.md",
+						"examples/markdown_editor.md",
+						"examples/server_upload.md",
+						"image_upload.md",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
-				},
-				{
-					"Name": "pict-section-formeditor",
-					"Repo": "pict-section-formeditor",
-					"Group": "pict",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
 				},
 				{
 					"Name": "pict-section-objecteditor",
@@ -3657,7 +3902,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -3715,9 +3960,9 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"api-reference.md",
-						"cover.md",
 						"css/docuserve.css",
 						"filters.md",
 						"index.html",
@@ -3736,7 +3981,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -3793,11 +4038,11 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
 						"configuration.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -3810,7 +4055,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -3847,10 +4092,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"api-reference.md",
 						"configuration.md",
-						"cover.md",
 						"creating-commands.md",
 						"index.html"
 					]
@@ -3861,7 +4106,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -3893,9 +4138,9 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"api-reference.md",
-						"cover.md",
 						"creating-services.md",
 						"css/docuserve.css",
 						"fable-relationship.md",
@@ -3910,7 +4155,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -3980,10 +4225,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"examples-conditionals-and-logic.md",
 						"examples-custom-expressions.md",
@@ -3999,7 +4244,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -4133,10 +4378,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"building-an-app.md",
-						"cover.md",
 						"index.html",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
@@ -4168,7 +4413,7 @@
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -4237,11 +4482,11 @@
 						"Pict View Renderables.md",
 						"Pict-Views.md",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"changelog.md",
 						"configuration.md",
 						"contributing.md",
-						"cover.md",
 						"css/docuserve.css",
 						"custom-navbar.md",
 						"index.html",
@@ -4264,7 +4509,7 @@
 					"Group": "utility",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -4296,9 +4541,9 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"architecture.md",
-						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"operations.md",
@@ -4355,6 +4600,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"architecture.md",
 						"commands/README.md",
@@ -4374,7 +4620,6 @@
 						"configuration/README.md",
 						"configuration/special-files.md",
 						"configuration/structures-targets.md",
-						"cover.md",
 						"css/docuserve.css",
 						"design/labels.md",
 						"design/overview.md",
@@ -4434,7 +4679,7 @@
 					"Group": "utility",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -4491,9 +4736,9 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"address-notation.md",
-						"cover.md",
 						"css/docuserve.css",
 						"hash-translation.md",
 						"index.html",
@@ -4523,7 +4768,7 @@
 					"Group": "utility",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -4581,10 +4826,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
-						"cover.md",
 						"css/docuserve.css",
 						"examples.md",
 						"index.html",
@@ -4598,7 +4843,7 @@
 					"Group": "utility",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Quackage",
@@ -4729,6 +4974,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"commands/boilerplate/README.md",
@@ -4755,7 +5001,6 @@
 						"commands/package-management/lint.md",
 						"commands/package-management/luxuryupdatepackage.md",
 						"commands/package-management/updatepackage.md",
-						"cover.md",
 						"errorpage.md",
 						"index.html",
 						"retold-catalog.json",
@@ -4768,7 +5013,7 @@
 					"Group": "utility",
 					"Branch": "master",
 					"HasDocs": true,
-					"HasCover": true,
+					"HasCover": false,
 					"Sidebar": [
 						{
 							"Title": "Getting Started",
@@ -4829,10 +5074,10 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"architecture.md",
-						"cover.md",
 						"features/api.md",
 						"features/cli.md",
 						"features/configuration.md",
@@ -4846,6 +5091,89 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
+				}
+			]
+		},
+		{
+			"Name": "Apps",
+			"Key": "apps",
+			"Description": "",
+			"Modules": [
+				{
+					"Name": "retold-content-system",
+					"Repo": "retold-content-system",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "getting-started.md"
+								}
+							]
+						},
+						{
+							"Title": "Using the Editor",
+							"Children": [
+								{
+									"Title": "Editor Guide",
+									"Path": "editor-guide.md"
+								},
+								{
+									"Title": "Keyboard Shortcuts",
+									"Path": "keyboard-shortcuts.md"
+								}
+							]
+						},
+						{
+							"Title": "Command Line",
+							"Children": [
+								{
+									"Title": "CLI Reference",
+									"Path": "cli.md"
+								}
+							]
+						},
+						{
+							"Title": "Topics System",
+							"Children": [
+								{
+									"Title": "Documentation Topics",
+									"Path": "topics.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"cli.md",
+						"css/docuserve.css",
+						"editor-guide.md",
+						"getting-started.md",
+						"index.html",
+						"keyboard-shortcuts.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"topics.md"
+					]
+				},
+				{
+					"Name": "retold-remote",
+					"Repo": "retold-remote",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				}
 			]
 		},
