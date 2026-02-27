@@ -1,0 +1,3168 @@
+{
+	"metadata": {
+		"generated": "2026-02-27",
+		"description": "In-ecosystem dependency graph for the Retold module suite",
+		"totalModules": 77,
+		"totalEcosystemPackages": 76,
+		"groups": [
+			"fable",
+			"meadow",
+			"orator",
+			"pict",
+			"utility",
+			"apps",
+			"root"
+		]
+	},
+	"nodes": [
+		{
+			"name": "retold-manager",
+			"group": "root",
+			"category": "internal",
+			"version": "0.0.1",
+			"description": "Terminal UI manager for retold module repositories",
+			"path": "./source/retold-manager",
+			"ecosystemProductionDependencyCount": 6,
+			"ecosystemDevDependencyCount": 0,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold",
+			"group": "root",
+			"category": "root",
+			"version": "4.0.6",
+			"description": "The pict and fable node ecosystem.",
+			"path": ".",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 3,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold-example-todo-cli",
+			"group": "root",
+			"category": "example",
+			"version": "1.0.0",
+			"description": "Retold Example: Todo List CLI (pict-service-commandlineutility)",
+			"path": "./examples/todo-list/cli-client",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 0,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold-example-todo-console-client",
+			"group": "root",
+			"category": "example",
+			"version": "1.0.0",
+			"description": "Retold Example: Todo List Console Client (blessed TUI)",
+			"path": "./examples/todo-list/console-client",
+			"ecosystemProductionDependencyCount": 5,
+			"ecosystemDevDependencyCount": 0,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold-example-todo-server",
+			"group": "root",
+			"category": "example",
+			"version": "1.0.0",
+			"description": "Retold Example: Todo List API Server with SQLite",
+			"path": "./examples/todo-list/server",
+			"ecosystemProductionDependencyCount": 6,
+			"ecosystemDevDependencyCount": 0,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold-example-todo-web-client",
+			"group": "root",
+			"category": "example",
+			"version": "1.0.0",
+			"description": "Retold Example: Todo List Web Client (Pict Application)",
+			"path": "./examples/todo-list/web-client",
+			"ecosystemProductionDependencyCount": 5,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold-quickstart-layer1-fable",
+			"group": "root",
+			"category": "example",
+			"version": "1.0.0",
+			"description": "Retold Quickstart: Layer 1 - Fable (Core DI, Configuration, Logging)",
+			"path": "./examples/quickstart/layer1",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 0,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold-quickstart-layer2-meadow",
+			"group": "root",
+			"category": "example",
+			"version": "1.0.0",
+			"description": "Retold Quickstart: Layer 2 - Meadow (Data Access with MySQL)",
+			"path": "./examples/quickstart/layer2",
+			"ecosystemProductionDependencyCount": 3,
+			"ecosystemDevDependencyCount": 0,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold-quickstart-layer5-utility",
+			"group": "root",
+			"category": "example",
+			"version": "1.0.0",
+			"description": "Retold Quickstart: Layer 5 - Utility (Manyfest Object Navigation)",
+			"path": "./examples/quickstart/layer5",
+			"ecosystemProductionDependencyCount": 2,
+			"ecosystemDevDependencyCount": 0,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold-quickstart-layer4-pict",
+			"group": "root",
+			"category": "example",
+			"version": "1.0.0",
+			"description": "Retold Quickstart: Layer 4 - Pict (Browser MVC with Views and Router)",
+			"path": "./examples/quickstart/layer4",
+			"ecosystemProductionDependencyCount": 8,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold-quickstart-layer3-orator",
+			"group": "root",
+			"category": "example",
+			"version": "1.0.0",
+			"description": "Retold Quickstart: Layer 3 - Orator (REST API Server)",
+			"path": "./examples/quickstart/layer3",
+			"ecosystemProductionDependencyCount": 3,
+			"ecosystemDevDependencyCount": 0,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "orator-serviceserver-restify",
+			"group": "orator",
+			"category": "module",
+			"version": "2.0.8",
+			"description": "Restify Service Server for Orator",
+			"path": "./modules/orator/orator-serviceserver-restify",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 3,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 8
+		},
+		{
+			"name": "orator-http-proxy",
+			"group": "orator",
+			"category": "module",
+			"version": "1.0.4",
+			"description": "Orator http proxy pass-through.",
+			"path": "./modules/orator/orator-http-proxy",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 4,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "orator",
+			"group": "orator",
+			"category": "module",
+			"version": "6.0.2",
+			"description": "Unopinionated API http server abstraction - REST or IPC",
+			"path": "./modules/orator/orator",
+			"ecosystemProductionDependencyCount": 3,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "orator-static-server",
+			"group": "orator",
+			"category": "module",
+			"version": "2.0.3",
+			"description": "Static file serving for Orator API servers.",
+			"path": "./modules/orator/orator-static-server",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 4,
+			"totalExternalDependencyCount": 3,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "orator-conversion",
+			"group": "orator",
+			"category": "module",
+			"version": "1.0.1",
+			"description": "File format conversion endpoints for Orator service servers.",
+			"path": "./modules/orator/orator-conversion",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 4,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "orator-serviceserver-base",
+			"group": "orator",
+			"category": "module",
+			"version": "1.0.5",
+			"description": "Base Orator serviceserver class",
+			"path": "./modules/orator/orator-serviceserver-base",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 3,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 9
+		},
+		{
+			"name": "tidings",
+			"group": "orator",
+			"category": "module",
+			"version": "1.0.35",
+			"description": "Reporting scaffolding and pattern.",
+			"path": "./modules/orator/tidings",
+			"ecosystemProductionDependencyCount": 2,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 12,
+			"totalExternalDevDependencyCount": 1
+		},
+		{
+			"name": "pict-panel",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.5",
+			"description": "Pict Control Panel",
+			"path": "./modules/pict/pict-panel",
+			"ecosystemProductionDependencyCount": 4,
+			"ecosystemDevDependencyCount": 3,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "pict-section-filebrowser",
+			"group": "pict",
+			"category": "module",
+			"version": "0.0.1",
+			"description": "Pict file browser section - composable browsing, listing, and viewing views for file system navigation",
+			"path": "./modules/pict/pict-section-filebrowser",
+			"ecosystemProductionDependencyCount": 6,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 2
+		},
+		{
+			"name": "pict-application",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.32",
+			"description": "Application base class for a pict view-based application",
+			"path": "./modules/pict/pict-application",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 4,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 4
+		},
+		{
+			"name": "pict-view",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.66",
+			"description": "Pict View Base Class",
+			"path": "./modules/pict/pict-view",
+			"ecosystemProductionDependencyCount": 2,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 4
+		},
+		{
+			"name": "pict-nonlinearconfig",
+			"group": "pict",
+			"category": "module",
+			"version": "0.0.1",
+			"description": "Pict Nonlinear Configuration Manager",
+			"path": "./modules/pict/pict-nonlinearconfig",
+			"ecosystemProductionDependencyCount": 5,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "pict-router",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.5",
+			"description": "Pict Router",
+			"path": "./modules/pict/pict-router",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 5
+		},
+		{
+			"name": "pict-section-objecteditor",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.0",
+			"description": "Pict tree-based JSON object editor section",
+			"path": "./modules/pict/pict-section-objecteditor",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "cryptbrau",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.1",
+			"description": "Simple in-browser encryption (symmetric).",
+			"path": "./modules/pict/cryptbrau",
+			"ecosystemProductionDependencyCount": 0,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "pict-section-formeditor",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.8",
+			"description": "Pict visual editor for pict-section-form configurations",
+			"path": "./modules/pict/pict-section-formeditor",
+			"ecosystemProductionDependencyCount": 6,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "pict-serviceproviderbase",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.3",
+			"description": "Simple base classes for pict services.",
+			"path": "./modules/pict/pict-serviceproviderbase",
+			"ecosystemProductionDependencyCount": 2,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "pict",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.354",
+			"description": "Pict browser library.",
+			"path": "./modules/pict/pict",
+			"ecosystemProductionDependencyCount": 6,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 7
+		},
+		{
+			"name": "pict-section-flow",
+			"group": "pict",
+			"category": "module",
+			"version": "0.0.1",
+			"description": "Pict Section Flow Diagram",
+			"path": "./modules/pict/pict-section-flow",
+			"ecosystemProductionDependencyCount": 3,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "pict-section-entitymanagement",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.0",
+			"description": "Dynamic entity management sections leveraging pict-section-forms metatemplates.",
+			"path": "./modules/pict/pict-section-entitymanagement",
+			"ecosystemProductionDependencyCount": 2,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "pict-section-recordset",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.63",
+			"description": "Pict dynamic record set management views",
+			"path": "./modules/pict/pict-section-recordset",
+			"ecosystemProductionDependencyCount": 6,
+			"ecosystemDevDependencyCount": 4,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 7
+		},
+		{
+			"name": "pict-section-content",
+			"group": "pict",
+			"category": "module",
+			"version": "0.0.6",
+			"description": "Pict content rendering section - markdown parsing, Mermaid diagrams, and KaTeX equations",
+			"path": "./modules/pict/pict-section-content",
+			"ecosystemProductionDependencyCount": 3,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "pict-service-commandlineutility",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.18",
+			"description": "Pict Command-Line Utility Service",
+			"path": "./modules/pict/pict-service-commandlineutility",
+			"ecosystemProductionDependencyCount": 2,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 3
+		},
+		{
+			"name": "pict-section-markdowneditor",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.0",
+			"description": "Pict segmented markdown editor section built on CodeMirror",
+			"path": "./modules/pict/pict-section-markdowneditor",
+			"ecosystemProductionDependencyCount": 2,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 3
+		},
+		{
+			"name": "informary",
+			"group": "pict",
+			"category": "module",
+			"version": "2.0.22",
+			"description": "Informary form data marshaling library.",
+			"path": "./modules/pict/informary",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 5
+		},
+		{
+			"name": "pict-template",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.14",
+			"description": "Pict Template Base Class",
+			"path": "./modules/pict/pict-template",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 1
+		},
+		{
+			"name": "pict-section-form",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.192",
+			"description": "Pict dynamic form sections",
+			"path": "./modules/pict/pict-section-form",
+			"ecosystemProductionDependencyCount": 5,
+			"ecosystemDevDependencyCount": 4,
+			"totalExternalDependencyCount": 2,
+			"totalExternalDevDependencyCount": 6
+		},
+		{
+			"name": "pict-provider",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.11",
+			"description": "Pict Provider Base Class",
+			"path": "./modules/pict/pict-provider",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 3
+		},
+		{
+			"name": "pict-chance",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.0",
+			"description": "Chance library random function goodness, packaged for pict templates.",
+			"path": "./modules/pict/pict-chance",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "pict-terminalui",
+			"group": "pict",
+			"category": "module",
+			"version": "0.0.2",
+			"description": "Pict Terminal UI - Blessed-based terminal interface for Pict views",
+			"path": "./modules/pict/pict-terminalui",
+			"ecosystemProductionDependencyCount": 5,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "pict-section-tuigrid",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.30",
+			"description": "Pict Toast UI Grid Section",
+			"path": "./modules/pict/pict-section-tuigrid",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 4
+		},
+		{
+			"name": "pict-docuserve",
+			"group": "pict",
+			"category": "module",
+			"version": "0.0.27",
+			"description": "Pict Documentation Server - A single-page documentation viewer built on Pict",
+			"path": "./modules/pict/pict-docuserve",
+			"ecosystemProductionDependencyCount": 6,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "pict-section-code",
+			"group": "pict",
+			"category": "module",
+			"version": "1.0.2",
+			"description": "Pict code editor section wrapping CodeJar",
+			"path": "./modules/pict/pict-section-code",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 2
+		},
+		{
+			"name": "fable-serviceproviderbase",
+			"group": "fable",
+			"category": "module",
+			"version": "3.0.18",
+			"description": "Simple base classes for fable services.",
+			"path": "./modules/fable/fable-serviceproviderbase",
+			"ecosystemProductionDependencyCount": 0,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 2
+		},
+		{
+			"name": "fable-log",
+			"group": "fable",
+			"category": "module",
+			"version": "3.0.17",
+			"description": "A simple logging wrapper.",
+			"path": "./modules/fable/fable-log",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "fable-operationstep",
+			"group": "fable",
+			"category": "module",
+			"version": "3.0.1",
+			"description": "Simple base class for fable operation steps.",
+			"path": "./modules/fable/fable-operationstep",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "fable-settings",
+			"group": "fable",
+			"category": "module",
+			"version": "3.0.15",
+			"description": "A simple, tolerant configuration chain.",
+			"path": "./modules/fable/fable-settings",
+			"ecosystemProductionDependencyCount": 2,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "fable-uuid",
+			"group": "fable",
+			"category": "module",
+			"version": "3.0.12",
+			"description": "A simple UUID Generator.",
+			"path": "./modules/fable/fable-uuid",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "fable",
+			"group": "fable",
+			"category": "module",
+			"version": "3.1.62",
+			"description": "A service dependency injection, configuration and logging library.",
+			"path": "./modules/fable/fable",
+			"ecosystemProductionDependencyCount": 6,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 7,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "fable-log-logger-bunyan",
+			"group": "fable",
+			"category": "module",
+			"version": "1.0.4",
+			"description": "Bunyan logger for fable-log.",
+			"path": "./modules/fable/fable-log-logger-bunyan",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold-harness",
+			"group": "meadow",
+			"category": "module",
+			"version": "1.1.0",
+			"description": "Restful API harness.  Serves on 8086.",
+			"path": "./modules/meadow/retold-harness",
+			"ecosystemProductionDependencyCount": 2,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 1
+		},
+		{
+			"name": "meadow-graph-client",
+			"group": "meadow",
+			"category": "module",
+			"version": "1.0.0",
+			"description": "Meadow graph client for pulling sets of records and comprehensions.",
+			"path": "./modules/meadow/meadow-graph-client",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "meadow-connection-mysql",
+			"group": "meadow",
+			"category": "module",
+			"version": "1.0.8",
+			"description": "Meadow MySQL Plugin",
+			"path": "./modules/meadow/meadow-connection-mysql",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 1
+		},
+		{
+			"name": "bibliograph-storage-lmdb",
+			"group": "meadow",
+			"category": "module",
+			"version": "1.0.0",
+			"description": "",
+			"path": "./modules/meadow/bibliograph-storage-lmdb",
+			"ecosystemProductionDependencyCount": 0,
+			"ecosystemDevDependencyCount": 0,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "stricture",
+			"group": "meadow",
+			"category": "module",
+			"version": "3.0.0",
+			"description": "Stricture MicroDDL JSON Parser — compiler and multi-target schema code generator",
+			"path": "./modules/meadow/stricture",
+			"ecosystemProductionDependencyCount": 5,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 3,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "meadow-connection-sqlite",
+			"group": "meadow",
+			"category": "module",
+			"version": "1.0.12",
+			"description": "Meadow SQLite Plugin",
+			"path": "./modules/meadow/meadow-connection-sqlite",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "meadow-connection-mssql",
+			"group": "meadow",
+			"category": "module",
+			"version": "1.0.11",
+			"description": "Meadow MSSQL Plugin",
+			"path": "./modules/meadow/meadow-connection-mssql",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "meadow-endpoints",
+			"group": "meadow",
+			"category": "module",
+			"version": "4.0.9",
+			"description": "Automatic API endpoints for Meadow data.",
+			"path": "./modules/meadow/meadow-endpoints",
+			"ecosystemProductionDependencyCount": 3,
+			"ecosystemDevDependencyCount": 3,
+			"totalExternalDependencyCount": 4,
+			"totalExternalDevDependencyCount": 9
+		},
+		{
+			"name": "foxhound",
+			"group": "meadow",
+			"category": "module",
+			"version": "2.0.17",
+			"description": "A Database Query generation library.",
+			"path": "./modules/meadow/foxhound",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "meadow-integration",
+			"group": "meadow",
+			"category": "module",
+			"version": "1.0.4",
+			"description": "Meadow Data Integration",
+			"path": "./modules/meadow/meadow-integration",
+			"ecosystemProductionDependencyCount": 5,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "parime",
+			"group": "meadow",
+			"category": "module",
+			"version": "1.0.1",
+			"description": "Simple generic data lake behaviors.",
+			"path": "./modules/meadow/parime",
+			"ecosystemProductionDependencyCount": 4,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "bibliograph-storage-rocksdb",
+			"group": "meadow",
+			"category": "module",
+			"version": "1.0.0",
+			"description": "",
+			"path": "./modules/meadow/bibliograph-storage-leveldb",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "bibliograph-storage-rocksdb",
+			"group": "meadow",
+			"category": "module",
+			"version": "1.0.0",
+			"description": "",
+			"path": "./modules/meadow/bibliograph-storage-rocksdb",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "meadow",
+			"group": "meadow",
+			"category": "module",
+			"version": "2.0.22",
+			"description": "A data access library.",
+			"path": "./modules/meadow/meadow",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 5,
+			"totalExternalDependencyCount": 3,
+			"totalExternalDevDependencyCount": 4
+		},
+		{
+			"name": "retold-data-service",
+			"group": "meadow",
+			"category": "module",
+			"version": "2.0.11",
+			"description": "Serve up a whole model!",
+			"path": "./modules/meadow/retold-data-service",
+			"ecosystemProductionDependencyCount": 9,
+			"ecosystemDevDependencyCount": 3,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 1
+		},
+		{
+			"name": "bibliograph",
+			"group": "meadow",
+			"category": "module",
+			"version": "0.1.2",
+			"description": "Key value record comprehension service.  Raw data.",
+			"path": "./modules/meadow/bibliograph",
+			"ecosystemProductionDependencyCount": 2,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "retold-content-system",
+			"group": "apps",
+			"category": "module",
+			"version": "1.0.1",
+			"description": "Retold Content System - Markdown content viewer and editor",
+			"path": "./modules/apps/retold-content-system",
+			"ecosystemProductionDependencyCount": 13,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 7
+		},
+		{
+			"name": "retold-remote",
+			"group": "apps",
+			"category": "module",
+			"version": "0.0.1",
+			"description": "Retold Remote - NAS media browser with gallery views and keyboard navigation",
+			"path": "./modules/apps/retold-remote",
+			"ecosystemProductionDependencyCount": 12,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 2,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "quackage",
+			"group": "utility",
+			"category": "module",
+			"version": "1.0.58",
+			"description": "Building.  Testing.  Quacking.  Reloading.",
+			"path": "./modules/utility/quackage",
+			"ecosystemProductionDependencyCount": 3,
+			"ecosystemDevDependencyCount": 0,
+			"totalExternalDependencyCount": 16,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "precedent",
+			"group": "utility",
+			"category": "module",
+			"version": "1.0.16",
+			"description": "Precedent Meta-Templating",
+			"path": "./modules/utility/precedent",
+			"ecosystemProductionDependencyCount": 0,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "indoctrinate",
+			"group": "utility",
+			"category": "module",
+			"version": "1.0.7",
+			"description": "Documentation generation and indoctrination.",
+			"path": "./modules/utility/indoctrinate",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 6,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "cachetrax",
+			"group": "utility",
+			"category": "module",
+			"version": "1.0.5",
+			"description": "Caching Money.",
+			"path": "./modules/utility/cachetrax",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "manyfest",
+			"group": "utility",
+			"category": "module",
+			"version": "1.0.47",
+			"description": "JSON Object Manifest for Data Description and Parsing",
+			"path": "./modules/utility/manyfest",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 1
+		},
+		{
+			"name": "cumulation",
+			"group": "utility",
+			"category": "module",
+			"version": "1.0.18",
+			"description": "Cumulation data sync library.",
+			"path": "./modules/utility/cumulation",
+			"ecosystemProductionDependencyCount": 0,
+			"ecosystemDevDependencyCount": 0,
+			"totalExternalDependencyCount": 6,
+			"totalExternalDevDependencyCount": 13
+		},
+		{
+			"name": "pict-cruisecontrol",
+			"group": "utility",
+			"category": "module",
+			"version": "1.0.0",
+			"description": "Automated and user-assisted web page navigation and data marshaling.",
+			"path": "./modules/utility/pict-cruisecontrol",
+			"ecosystemProductionDependencyCount": 1,
+			"ecosystemDevDependencyCount": 2,
+			"totalExternalDependencyCount": 0,
+			"totalExternalDevDependencyCount": 0
+		},
+		{
+			"name": "ultravisor",
+			"group": "utility",
+			"category": "module",
+			"version": "1.0.2",
+			"description": "Cyclic process execution with ai integration.",
+			"path": "./modules/utility/ultravisor",
+			"ecosystemProductionDependencyCount": 5,
+			"ecosystemDevDependencyCount": 1,
+			"totalExternalDependencyCount": 1,
+			"totalExternalDevDependencyCount": 0
+		}
+	],
+	"edges": [
+		{
+			"from": "retold-manager",
+			"to": "fable",
+			"version": "^3.0.232",
+			"type": "production"
+		},
+		{
+			"from": "retold-manager",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.16",
+			"type": "production"
+		},
+		{
+			"from": "retold-manager",
+			"to": "pict",
+			"version": "^1.0.345",
+			"type": "production"
+		},
+		{
+			"from": "retold-manager",
+			"to": "pict-application",
+			"version": "^1.0.28",
+			"type": "production"
+		},
+		{
+			"from": "retold-manager",
+			"to": "pict-terminalui",
+			"version": "^0.0.2",
+			"type": "production"
+		},
+		{
+			"from": "retold-manager",
+			"to": "pict-view",
+			"version": "^1.0.64",
+			"type": "production"
+		},
+		{
+			"from": "retold",
+			"to": "retold-content-system",
+			"version": "^1.0.0",
+			"type": "production"
+		},
+		{
+			"from": "retold",
+			"to": "indoctrinate",
+			"version": "^1.0.7",
+			"type": "development"
+		},
+		{
+			"from": "retold",
+			"to": "pict-docuserve",
+			"version": "^0.0.16",
+			"type": "development"
+		},
+		{
+			"from": "retold",
+			"to": "quackage",
+			"version": "^1.0.51",
+			"type": "development"
+		},
+		{
+			"from": "retold-example-todo-cli",
+			"to": "pict-service-commandlineutility",
+			"version": "^1.0.18",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-console-client",
+			"to": "fable",
+			"version": "^3.0.232",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-console-client",
+			"to": "pict",
+			"version": "^1.0.343",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-console-client",
+			"to": "pict-application",
+			"version": "^1.0.28",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-console-client",
+			"to": "pict-view",
+			"version": "^1.0.64",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-console-client",
+			"to": "pict-terminalui",
+			"version": "^0.0.1",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-server",
+			"to": "fable",
+			"version": "^3.1.51",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-server",
+			"to": "meadow",
+			"version": "^2.0.18",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-server",
+			"to": "meadow-connection-sqlite",
+			"version": "^1.0.11",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-server",
+			"to": "meadow-endpoints",
+			"version": "^4.0.7",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-server",
+			"to": "orator",
+			"version": "^5.0.2",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-server",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.5",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-web-client",
+			"to": "pict",
+			"version": "^1.0.343",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-web-client",
+			"to": "pict-application",
+			"version": "^1.0.28",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-web-client",
+			"to": "pict-router",
+			"version": "^1.0.4",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-web-client",
+			"to": "pict-view",
+			"version": "^1.0.64",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-web-client",
+			"to": "pict-provider",
+			"version": "^1.0.3",
+			"type": "production"
+		},
+		{
+			"from": "retold-example-todo-web-client",
+			"to": "quackage",
+			"version": "^1.0.41",
+			"type": "development"
+		},
+		{
+			"from": "retold-quickstart-layer1-fable",
+			"to": "fable",
+			"version": "^3.1.51",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer2-meadow",
+			"to": "fable",
+			"version": "^3.1.51",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer2-meadow",
+			"to": "meadow",
+			"version": "^2.0.18",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer2-meadow",
+			"to": "meadow-connection-mysql",
+			"version": "^1.0.6",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer5-utility",
+			"to": "fable",
+			"version": "^3.1.51",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer5-utility",
+			"to": "manyfest",
+			"version": "^1.0.44",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer4-pict",
+			"to": "pict",
+			"version": "^1.0.343",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer4-pict",
+			"to": "pict-application",
+			"version": "^1.0.28",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer4-pict",
+			"to": "pict-router",
+			"version": "^1.0.4",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer4-pict",
+			"to": "pict-view",
+			"version": "^1.0.64",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer4-pict",
+			"to": "pict-provider",
+			"version": "^1.0.3",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer4-pict",
+			"to": "orator",
+			"version": "^5.0.2",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer4-pict",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.5",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer4-pict",
+			"to": "fable",
+			"version": "^3.1.51",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer4-pict",
+			"to": "quackage",
+			"version": "^1.0.41",
+			"type": "development"
+		},
+		{
+			"from": "retold-quickstart-layer3-orator",
+			"to": "fable",
+			"version": "^3.1.51",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer3-orator",
+			"to": "orator",
+			"version": "^5.0.2",
+			"type": "production"
+		},
+		{
+			"from": "retold-quickstart-layer3-orator",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.5",
+			"type": "production"
+		},
+		{
+			"from": "orator-serviceserver-restify",
+			"to": "orator-serviceserver-base",
+			"version": "^1.0.5",
+			"type": "production"
+		},
+		{
+			"from": "orator-serviceserver-restify",
+			"to": "fable",
+			"version": "^3.1.61",
+			"type": "development"
+		},
+		{
+			"from": "orator-serviceserver-restify",
+			"to": "orator",
+			"version": "^6.0.2",
+			"type": "development"
+		},
+		{
+			"from": "orator-serviceserver-restify",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "orator-http-proxy",
+			"to": "orator-serviceserver-base",
+			"version": "^1.0.2",
+			"type": "production"
+		},
+		{
+			"from": "orator-http-proxy",
+			"to": "fable",
+			"version": "^3.1.55",
+			"type": "development"
+		},
+		{
+			"from": "orator-http-proxy",
+			"to": "orator",
+			"version": "^6.0.1",
+			"type": "development"
+		},
+		{
+			"from": "orator-http-proxy",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.7",
+			"type": "development"
+		},
+		{
+			"from": "orator-http-proxy",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "orator",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "orator",
+			"to": "orator-serviceserver-base",
+			"version": "^1.0.2",
+			"type": "production"
+		},
+		{
+			"from": "orator",
+			"to": "orator-static-server",
+			"version": "^2.0.3",
+			"type": "production"
+		},
+		{
+			"from": "orator",
+			"to": "fable",
+			"version": "^3.1.57",
+			"type": "development"
+		},
+		{
+			"from": "orator",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "orator-static-server",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "orator-static-server",
+			"to": "fable",
+			"version": "^3.1.57",
+			"type": "development"
+		},
+		{
+			"from": "orator-static-server",
+			"to": "orator",
+			"version": "^6.0.1",
+			"type": "development"
+		},
+		{
+			"from": "orator-static-server",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.7",
+			"type": "development"
+		},
+		{
+			"from": "orator-static-server",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "orator-conversion",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "orator-conversion",
+			"to": "fable",
+			"version": "^3.1.55",
+			"type": "development"
+		},
+		{
+			"from": "orator-conversion",
+			"to": "orator",
+			"version": "^6.0.1",
+			"type": "development"
+		},
+		{
+			"from": "orator-conversion",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.7",
+			"type": "development"
+		},
+		{
+			"from": "orator-conversion",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "orator-serviceserver-base",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "orator-serviceserver-base",
+			"to": "fable",
+			"version": "^3.1.61",
+			"type": "development"
+		},
+		{
+			"from": "orator-serviceserver-base",
+			"to": "orator",
+			"version": "^6.0.2",
+			"type": "development"
+		},
+		{
+			"from": "orator-serviceserver-base",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "tidings",
+			"to": "fable",
+			"version": "^2.0.5",
+			"type": "production"
+		},
+		{
+			"from": "tidings",
+			"to": "orator",
+			"version": "^2.0.4",
+			"type": "production"
+		},
+		{
+			"from": "tidings",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-panel",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "pict-panel",
+			"to": "pict-provider",
+			"version": "^1.0.10",
+			"type": "production"
+		},
+		{
+			"from": "pict-panel",
+			"to": "pict-template",
+			"version": "^1.0.14",
+			"type": "production"
+		},
+		{
+			"from": "pict-panel",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-panel",
+			"to": "pict",
+			"version": "^1.0.348",
+			"type": "development"
+		},
+		{
+			"from": "pict-panel",
+			"to": "pict-section-form",
+			"version": "^1.0.189",
+			"type": "development"
+		},
+		{
+			"from": "pict-panel",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-filebrowser",
+			"to": "fable",
+			"version": "^3.1.58",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-filebrowser",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.16",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-filebrowser",
+			"to": "orator",
+			"version": "^6.0.2",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-filebrowser",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.7",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-filebrowser",
+			"to": "pict-provider",
+			"version": "^1.0.10",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-filebrowser",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-filebrowser",
+			"to": "pict",
+			"version": "^1.0.350",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-filebrowser",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-application",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "pict-application",
+			"to": "pict",
+			"version": "^1.0.348",
+			"type": "development"
+		},
+		{
+			"from": "pict-application",
+			"to": "pict-provider",
+			"version": "^1.0.10",
+			"type": "development"
+		},
+		{
+			"from": "pict-application",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "development"
+		},
+		{
+			"from": "pict-application",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-view",
+			"to": "fable",
+			"version": "^3.1.57",
+			"type": "production"
+		},
+		{
+			"from": "pict-view",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "pict-view",
+			"to": "pict",
+			"version": "^1.0.348",
+			"type": "development"
+		},
+		{
+			"from": "pict-view",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-nonlinearconfig",
+			"to": "pict",
+			"version": "^1.0.343",
+			"type": "production"
+		},
+		{
+			"from": "pict-nonlinearconfig",
+			"to": "pict-application",
+			"version": "^1.0.28",
+			"type": "production"
+		},
+		{
+			"from": "pict-nonlinearconfig",
+			"to": "pict-router",
+			"version": "^1.0.4",
+			"type": "production"
+		},
+		{
+			"from": "pict-nonlinearconfig",
+			"to": "pict-view",
+			"version": "^1.0.64",
+			"type": "production"
+		},
+		{
+			"from": "pict-nonlinearconfig",
+			"to": "pict-provider",
+			"version": "^1.0.3",
+			"type": "production"
+		},
+		{
+			"from": "pict-nonlinearconfig",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-router",
+			"to": "pict-provider",
+			"version": "^1.0.10",
+			"type": "production"
+		},
+		{
+			"from": "pict-router",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-objecteditor",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-objecteditor",
+			"to": "pict",
+			"version": "^1.0.348",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-objecteditor",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "cryptbrau",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-formeditor",
+			"to": "pict-section-code",
+			"version": "^1.0.2",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-formeditor",
+			"to": "pict-section-content",
+			"version": "^0.0.6",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-formeditor",
+			"to": "pict-section-form",
+			"version": "^1.0.192",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-formeditor",
+			"to": "pict-section-markdowneditor",
+			"version": "^1.0.0",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-formeditor",
+			"to": "pict-section-objecteditor",
+			"version": "^1.0.0",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-formeditor",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-formeditor",
+			"to": "pict",
+			"version": "^1.0.354",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-formeditor",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-serviceproviderbase",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "pict-serviceproviderbase",
+			"to": "pict",
+			"version": "^1.0.348",
+			"type": "production"
+		},
+		{
+			"from": "pict-serviceproviderbase",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict",
+			"to": "cachetrax",
+			"version": "^1.0.5",
+			"type": "production"
+		},
+		{
+			"from": "pict",
+			"to": "fable",
+			"version": "^3.1.62",
+			"type": "production"
+		},
+		{
+			"from": "pict",
+			"to": "pict-application",
+			"version": "^1.0.32",
+			"type": "production"
+		},
+		{
+			"from": "pict",
+			"to": "pict-provider",
+			"version": "^1.0.11",
+			"type": "production"
+		},
+		{
+			"from": "pict",
+			"to": "pict-template",
+			"version": "^1.0.14",
+			"type": "production"
+		},
+		{
+			"from": "pict",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-flow",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-flow",
+			"to": "pict-provider",
+			"version": "^1.0.11",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-flow",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-flow",
+			"to": "pict",
+			"version": "^1.0.354",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-flow",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-entitymanagement",
+			"to": "pict-router",
+			"version": "^1.0.1",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-entitymanagement",
+			"to": "pict-section-form",
+			"version": "^1.0.39",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-entitymanagement",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-recordset",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-recordset",
+			"to": "pict-provider",
+			"version": "^1.0.10",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-recordset",
+			"to": "pict-router",
+			"version": "^1.0.4",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-recordset",
+			"to": "pict-section-form",
+			"version": "^1.0.189",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-recordset",
+			"to": "pict-template",
+			"version": "^1.0.14",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-recordset",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-recordset",
+			"to": "pict",
+			"version": "^1.0.350",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-recordset",
+			"to": "pict-application",
+			"version": "^1.0.32",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-recordset",
+			"to": "pict-service-commandlineutility",
+			"version": "^1.0.18",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-recordset",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-content",
+			"to": "pict-provider",
+			"version": "^1.0.10",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-content",
+			"to": "pict-section-code",
+			"version": "^0.0.1",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-content",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-content",
+			"to": "pict",
+			"version": "^1.0.350",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-content",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-service-commandlineutility",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.16",
+			"type": "production"
+		},
+		{
+			"from": "pict-service-commandlineutility",
+			"to": "pict",
+			"version": "^1.0.345",
+			"type": "production"
+		},
+		{
+			"from": "pict-service-commandlineutility",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-markdowneditor",
+			"to": "pict-section-content",
+			"version": "^0.0.6",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-markdowneditor",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-markdowneditor",
+			"to": "pict",
+			"version": "^1.0.350",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-markdowneditor",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "informary",
+			"to": "cachetrax",
+			"version": "^1.0.0",
+			"type": "production"
+		},
+		{
+			"from": "informary",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-template",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "pict-template",
+			"to": "pict",
+			"version": "^1.0.348",
+			"type": "development"
+		},
+		{
+			"from": "pict-template",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-form",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-form",
+			"to": "pict-provider",
+			"version": "^1.0.11",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-form",
+			"to": "pict-section-tuigrid",
+			"version": "^1.0.30",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-form",
+			"to": "pict-template",
+			"version": "^1.0.14",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-form",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-form",
+			"to": "pict",
+			"version": "^1.0.353",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-form",
+			"to": "pict-application",
+			"version": "^1.0.32",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-form",
+			"to": "pict-service-commandlineutility",
+			"version": "^1.0.18",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-form",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-provider",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "pict-provider",
+			"to": "pict",
+			"version": "^1.0.351",
+			"type": "development"
+		},
+		{
+			"from": "pict-provider",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-chance",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.5",
+			"type": "production"
+		},
+		{
+			"from": "pict-chance",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-terminalui",
+			"to": "fable",
+			"version": "^3.0.232",
+			"type": "production"
+		},
+		{
+			"from": "pict-terminalui",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.16",
+			"type": "production"
+		},
+		{
+			"from": "pict-terminalui",
+			"to": "pict",
+			"version": "^1.0.343",
+			"type": "production"
+		},
+		{
+			"from": "pict-terminalui",
+			"to": "pict-application",
+			"version": "^1.0.28",
+			"type": "production"
+		},
+		{
+			"from": "pict-terminalui",
+			"to": "pict-view",
+			"version": "^1.0.64",
+			"type": "production"
+		},
+		{
+			"from": "pict-terminalui",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-tuigrid",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-tuigrid",
+			"to": "pict",
+			"version": "^1.0.348",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-tuigrid",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-docuserve",
+			"to": "pict",
+			"version": "^1.0.348",
+			"type": "production"
+		},
+		{
+			"from": "pict-docuserve",
+			"to": "pict-application",
+			"version": "^1.0.32",
+			"type": "production"
+		},
+		{
+			"from": "pict-docuserve",
+			"to": "pict-provider",
+			"version": "^1.0.10",
+			"type": "production"
+		},
+		{
+			"from": "pict-docuserve",
+			"to": "pict-section-content",
+			"version": "^0.0.5",
+			"type": "production"
+		},
+		{
+			"from": "pict-docuserve",
+			"to": "pict-service-commandlineutility",
+			"version": "^1.0.18",
+			"type": "production"
+		},
+		{
+			"from": "pict-docuserve",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-docuserve",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-code",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "pict-section-code",
+			"to": "pict",
+			"version": "^1.0.350",
+			"type": "development"
+		},
+		{
+			"from": "pict-section-code",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "fable-serviceproviderbase",
+			"to": "fable",
+			"version": "^3.1.55",
+			"type": "development"
+		},
+		{
+			"from": "fable-serviceproviderbase",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "fable-log",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.17",
+			"type": "production"
+		},
+		{
+			"from": "fable-log",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "fable-operationstep",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.13",
+			"type": "production"
+		},
+		{
+			"from": "fable-operationstep",
+			"to": "fable",
+			"version": "^3.0.118",
+			"type": "development"
+		},
+		{
+			"from": "fable-operationstep",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "fable-settings",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.17",
+			"type": "production"
+		},
+		{
+			"from": "fable-settings",
+			"to": "precedent",
+			"version": "^1.0.15",
+			"type": "production"
+		},
+		{
+			"from": "fable-settings",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "fable-uuid",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.17",
+			"type": "production"
+		},
+		{
+			"from": "fable-uuid",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "fable",
+			"to": "cachetrax",
+			"version": "^1.0.5",
+			"type": "production"
+		},
+		{
+			"from": "fable",
+			"to": "fable-log",
+			"version": "^3.0.17",
+			"type": "production"
+		},
+		{
+			"from": "fable",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "fable",
+			"to": "fable-settings",
+			"version": "^3.0.15",
+			"type": "production"
+		},
+		{
+			"from": "fable",
+			"to": "fable-uuid",
+			"version": "^3.0.12",
+			"type": "production"
+		},
+		{
+			"from": "fable",
+			"to": "manyfest",
+			"version": "^1.0.47",
+			"type": "production"
+		},
+		{
+			"from": "fable",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "fable-log-logger-bunyan",
+			"to": "fable-log",
+			"version": "^3.0.16",
+			"type": "production"
+		},
+		{
+			"from": "fable-log-logger-bunyan",
+			"to": "fable",
+			"version": "^3.1.55",
+			"type": "development"
+		},
+		{
+			"from": "fable-log-logger-bunyan",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "retold-harness",
+			"to": "meadow-connection-sqlite",
+			"version": "^1.0.11",
+			"type": "production"
+		},
+		{
+			"from": "retold-harness",
+			"to": "retold-data-service",
+			"version": "^2.0.11",
+			"type": "production"
+		},
+		{
+			"from": "retold-harness",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "retold-harness",
+			"to": "stricture",
+			"version": "^1.0.38",
+			"type": "development"
+		},
+		{
+			"from": "meadow-graph-client",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.13",
+			"type": "production"
+		},
+		{
+			"from": "meadow-graph-client",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "meadow-graph-client",
+			"to": "stricture",
+			"version": "^1.0.36",
+			"type": "development"
+		},
+		{
+			"from": "meadow-connection-mysql",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "meadow-connection-mysql",
+			"to": "fable",
+			"version": "^3.1.55",
+			"type": "development"
+		},
+		{
+			"from": "meadow-connection-mysql",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "stricture",
+			"to": "pict",
+			"version": "^1.0.347",
+			"type": "production"
+		},
+		{
+			"from": "stricture",
+			"to": "pict-application",
+			"version": "^1.0.32",
+			"type": "production"
+		},
+		{
+			"from": "stricture",
+			"to": "pict-service-commandlineutility",
+			"version": "^1.0.18",
+			"type": "production"
+		},
+		{
+			"from": "stricture",
+			"to": "pict-terminalui",
+			"version": "^0.0.2",
+			"type": "production"
+		},
+		{
+			"from": "stricture",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "stricture",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "meadow-connection-sqlite",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "meadow-connection-sqlite",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "meadow-connection-sqlite",
+			"to": "retold-harness",
+			"version": "^1.1.0",
+			"type": "development"
+		},
+		{
+			"from": "meadow-connection-mssql",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "meadow-connection-mssql",
+			"to": "fable",
+			"version": "^3.1.55",
+			"type": "development"
+		},
+		{
+			"from": "meadow-connection-mssql",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "meadow-endpoints",
+			"to": "fable",
+			"version": "^3.1.55",
+			"type": "production"
+		},
+		{
+			"from": "meadow-endpoints",
+			"to": "meadow",
+			"version": "^2.0.22",
+			"type": "production"
+		},
+		{
+			"from": "meadow-endpoints",
+			"to": "orator",
+			"version": "^5.0.2",
+			"type": "production"
+		},
+		{
+			"from": "meadow-endpoints",
+			"to": "meadow-connection-sqlite",
+			"version": "meadow-connection-sqlite",
+			"type": "development"
+		},
+		{
+			"from": "meadow-endpoints",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.5",
+			"type": "development"
+		},
+		{
+			"from": "meadow-endpoints",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "foxhound",
+			"to": "fable",
+			"version": "^3.1.53",
+			"type": "production"
+		},
+		{
+			"from": "foxhound",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "meadow-integration",
+			"to": "fable",
+			"version": "^3.1.55",
+			"type": "production"
+		},
+		{
+			"from": "meadow-integration",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "meadow-integration",
+			"to": "orator",
+			"version": "^6.0.0",
+			"type": "production"
+		},
+		{
+			"from": "meadow-integration",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.5",
+			"type": "production"
+		},
+		{
+			"from": "meadow-integration",
+			"to": "pict-service-commandlineutility",
+			"version": "^1.0.18",
+			"type": "production"
+		},
+		{
+			"from": "meadow-integration",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "parime",
+			"to": "bibliograph",
+			"version": "^0.1.1",
+			"type": "production"
+		},
+		{
+			"from": "parime",
+			"to": "orator",
+			"version": "^6.0.0",
+			"type": "production"
+		},
+		{
+			"from": "parime",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.5",
+			"type": "production"
+		},
+		{
+			"from": "parime",
+			"to": "pict",
+			"version": "^1.0.347",
+			"type": "production"
+		},
+		{
+			"from": "parime",
+			"to": "orator-http-proxy",
+			"version": "^1.0.1",
+			"type": "development"
+		},
+		{
+			"from": "parime",
+			"to": "quackage",
+			"version": "^1.0.51",
+			"type": "development"
+		},
+		{
+			"from": "bibliograph-storage-rocksdb",
+			"to": "bibliograph",
+			"version": "^0.1.0",
+			"type": "production"
+		},
+		{
+			"from": "bibliograph-storage-rocksdb",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "bibliograph-storage-rocksdb",
+			"to": "bibliograph",
+			"version": "^0.1.0",
+			"type": "production"
+		},
+		{
+			"from": "bibliograph-storage-rocksdb",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "meadow",
+			"to": "foxhound",
+			"version": "^2.0.16",
+			"type": "production"
+		},
+		{
+			"from": "meadow",
+			"to": "fable",
+			"version": "^3.1.53",
+			"type": "development"
+		},
+		{
+			"from": "meadow",
+			"to": "meadow-connection-mssql",
+			"version": "^1.0.10",
+			"type": "development"
+		},
+		{
+			"from": "meadow",
+			"to": "meadow-connection-mysql",
+			"version": "^1.0.7",
+			"type": "development"
+		},
+		{
+			"from": "meadow",
+			"to": "meadow-connection-sqlite",
+			"version": "meadow-connection-sqlite",
+			"type": "development"
+		},
+		{
+			"from": "meadow",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "fable",
+			"version": "^3.1.11",
+			"type": "production"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.15",
+			"type": "production"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "meadow",
+			"version": "^2.0.21",
+			"type": "production"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "meadow-connection-mysql",
+			"version": "^1.0.4",
+			"type": "production"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "meadow-endpoints",
+			"version": "^4.0.7",
+			"type": "production"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "orator",
+			"version": "^5.0.1",
+			"type": "production"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "orator-http-proxy",
+			"version": "^1.0.1",
+			"type": "production"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.4",
+			"type": "production"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "orator-static-server",
+			"version": "^1.0.1",
+			"type": "production"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "meadow-connection-sqlite",
+			"version": "^1.0.11",
+			"type": "development"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "retold-data-service",
+			"to": "stricture",
+			"version": "^1.0.37",
+			"type": "development"
+		},
+		{
+			"from": "bibliograph",
+			"to": "pict",
+			"version": "^1.0.347",
+			"type": "production"
+		},
+		{
+			"from": "bibliograph",
+			"to": "pict-provider",
+			"version": "^1.0.9",
+			"type": "production"
+		},
+		{
+			"from": "bibliograph",
+			"to": "quackage",
+			"version": "^1.0.51",
+			"type": "development"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "fable",
+			"version": "^3.1.58",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "orator",
+			"version": "^6.0.2",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.7",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "pict",
+			"version": "^1.0.350",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "pict-application",
+			"version": "^1.0.32",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "pict-docuserve",
+			"version": "^0.0.27",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "pict-provider",
+			"version": "^1.0.10",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "pict-section-code",
+			"version": "^1.0.0",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "pict-section-content",
+			"version": "^0.0.6",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "pict-section-filebrowser",
+			"version": "^0.0.1",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "pict-section-markdowneditor",
+			"version": "^1.0.0",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "pict-service-commandlineutility",
+			"version": "^1.0.18",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "retold-content-system",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "retold-remote",
+			"to": "fable",
+			"version": "^3.1.58",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.16",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "orator",
+			"version": "^6.0.2",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.7",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "pict",
+			"version": "^1.0.350",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "pict-application",
+			"version": "^1.0.32",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "pict-provider",
+			"version": "^1.0.10",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "pict-section-code",
+			"version": "^1.0.2",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "pict-section-filebrowser",
+			"version": "^0.0.1",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "pict-service-commandlineutility",
+			"version": "^1.0.18",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "pict-view",
+			"version": "^1.0.66",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "retold-content-system",
+			"version": "^1.0.1",
+			"type": "production"
+		},
+		{
+			"from": "retold-remote",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		},
+		{
+			"from": "quackage",
+			"to": "indoctrinate",
+			"version": "^1.0.6",
+			"type": "production"
+		},
+		{
+			"from": "quackage",
+			"to": "pict-docuserve",
+			"version": "^0.0.16",
+			"type": "production"
+		},
+		{
+			"from": "quackage",
+			"to": "pict-service-commandlineutility",
+			"version": "^1.0.18",
+			"type": "production"
+		},
+		{
+			"from": "precedent",
+			"to": "quackage",
+			"version": "^1.0.48",
+			"type": "development"
+		},
+		{
+			"from": "indoctrinate",
+			"to": "pict-service-commandlineutility",
+			"version": "^1.0.18",
+			"type": "production"
+		},
+		{
+			"from": "indoctrinate",
+			"to": "quackage",
+			"version": "^1.0.51",
+			"type": "development"
+		},
+		{
+			"from": "cachetrax",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.18",
+			"type": "production"
+		},
+		{
+			"from": "cachetrax",
+			"to": "quackage",
+			"version": "^1.0.51",
+			"type": "development"
+		},
+		{
+			"from": "manyfest",
+			"to": "fable-serviceproviderbase",
+			"version": "^3.0.17",
+			"type": "production"
+		},
+		{
+			"from": "manyfest",
+			"to": "quackage",
+			"version": "^1.0.51",
+			"type": "development"
+		},
+		{
+			"from": "pict-cruisecontrol",
+			"to": "pict-view",
+			"version": "^1.0.37",
+			"type": "production"
+		},
+		{
+			"from": "pict-cruisecontrol",
+			"to": "pict",
+			"version": "^1.0.152",
+			"type": "development"
+		},
+		{
+			"from": "pict-cruisecontrol",
+			"to": "quackage",
+			"version": "^1.0.25",
+			"type": "development"
+		},
+		{
+			"from": "ultravisor",
+			"to": "orator",
+			"version": "^6.0.2",
+			"type": "production"
+		},
+		{
+			"from": "ultravisor",
+			"to": "orator-serviceserver-restify",
+			"version": "^2.0.8",
+			"type": "production"
+		},
+		{
+			"from": "ultravisor",
+			"to": "pict",
+			"version": "^1.0.354",
+			"type": "production"
+		},
+		{
+			"from": "ultravisor",
+			"to": "pict-service-commandlineutility",
+			"version": "^1.0.18",
+			"type": "production"
+		},
+		{
+			"from": "ultravisor",
+			"to": "pict-serviceproviderbase",
+			"version": "^1.0.3",
+			"type": "production"
+		},
+		{
+			"from": "ultravisor",
+			"to": "quackage",
+			"version": "^1.0.58",
+			"type": "development"
+		}
+	],
+	"groups": {
+		"root": [
+			"retold-manager",
+			"retold",
+			"retold-example-todo-cli",
+			"retold-example-todo-console-client",
+			"retold-example-todo-server",
+			"retold-example-todo-web-client",
+			"retold-quickstart-layer1-fable",
+			"retold-quickstart-layer2-meadow",
+			"retold-quickstart-layer5-utility",
+			"retold-quickstart-layer4-pict",
+			"retold-quickstart-layer3-orator"
+		],
+		"orator": [
+			"orator-serviceserver-restify",
+			"orator-http-proxy",
+			"orator",
+			"orator-static-server",
+			"orator-conversion",
+			"orator-serviceserver-base",
+			"tidings"
+		],
+		"pict": [
+			"pict-panel",
+			"pict-section-filebrowser",
+			"pict-application",
+			"pict-view",
+			"pict-nonlinearconfig",
+			"pict-router",
+			"pict-section-objecteditor",
+			"cryptbrau",
+			"pict-section-formeditor",
+			"pict-serviceproviderbase",
+			"pict",
+			"pict-section-flow",
+			"pict-section-entitymanagement",
+			"pict-section-recordset",
+			"pict-section-content",
+			"pict-service-commandlineutility",
+			"pict-section-markdowneditor",
+			"informary",
+			"pict-template",
+			"pict-section-form",
+			"pict-provider",
+			"pict-chance",
+			"pict-terminalui",
+			"pict-section-tuigrid",
+			"pict-docuserve",
+			"pict-section-code"
+		],
+		"fable": [
+			"fable-serviceproviderbase",
+			"fable-log",
+			"fable-operationstep",
+			"fable-settings",
+			"fable-uuid",
+			"fable",
+			"fable-log-logger-bunyan"
+		],
+		"meadow": [
+			"retold-harness",
+			"meadow-graph-client",
+			"meadow-connection-mysql",
+			"bibliograph-storage-lmdb",
+			"stricture",
+			"meadow-connection-sqlite",
+			"meadow-connection-mssql",
+			"meadow-endpoints",
+			"foxhound",
+			"meadow-integration",
+			"parime",
+			"bibliograph-storage-rocksdb",
+			"bibliograph-storage-rocksdb",
+			"meadow",
+			"retold-data-service",
+			"bibliograph"
+		],
+		"apps": [
+			"retold-content-system",
+			"retold-remote"
+		],
+		"utility": [
+			"quackage",
+			"precedent",
+			"indoctrinate",
+			"cachetrax",
+			"manyfest",
+			"cumulation",
+			"pict-cruisecontrol",
+			"ultravisor"
+		]
+	},
+	"analytics": {
+		"leafNodes": [
+			"bibliograph-storage-lmdb",
+			"cumulation"
+		],
+		"rootNodes": [
+			"retold-manager",
+			"retold",
+			"retold-example-todo-cli",
+			"retold-example-todo-console-client",
+			"retold-example-todo-server",
+			"retold-example-todo-web-client",
+			"retold-quickstart-layer1-fable",
+			"retold-quickstart-layer2-meadow",
+			"retold-quickstart-layer5-utility",
+			"retold-quickstart-layer4-pict",
+			"retold-quickstart-layer3-orator",
+			"orator-conversion",
+			"tidings",
+			"pict-panel",
+			"pict-nonlinearconfig",
+			"cryptbrau",
+			"pict-section-formeditor",
+			"pict-section-flow",
+			"pict-section-entitymanagement",
+			"pict-section-recordset",
+			"informary",
+			"pict-chance",
+			"fable-operationstep",
+			"fable-log-logger-bunyan",
+			"meadow-graph-client",
+			"bibliograph-storage-lmdb",
+			"meadow-integration",
+			"parime",
+			"bibliograph-storage-rocksdb",
+			"bibliograph-storage-rocksdb",
+			"retold-remote",
+			"cumulation",
+			"pict-cruisecontrol",
+			"ultravisor"
+		],
+		"mostDependedUpon": [
+			{
+				"name": "quackage",
+				"dependedUponBy": 66
+			},
+			{
+				"name": "fable-serviceproviderbase",
+				"dependedUponBy": 32
+			},
+			{
+				"name": "fable",
+				"dependedUponBy": 31
+			},
+			{
+				"name": "pict",
+				"dependedUponBy": 31
+			},
+			{
+				"name": "pict-view",
+				"dependedUponBy": 24
+			},
+			{
+				"name": "orator",
+				"dependedUponBy": 17
+			},
+			{
+				"name": "pict-provider",
+				"dependedUponBy": 16
+			},
+			{
+				"name": "orator-serviceserver-restify",
+				"dependedUponBy": 14
+			},
+			{
+				"name": "pict-application",
+				"dependedUponBy": 13
+			},
+			{
+				"name": "pict-service-commandlineutility",
+				"dependedUponBy": 11
+			},
+			{
+				"name": "meadow-connection-sqlite",
+				"dependedUponBy": 5
+			},
+			{
+				"name": "pict-router",
+				"dependedUponBy": 5
+			},
+			{
+				"name": "meadow",
+				"dependedUponBy": 4
+			},
+			{
+				"name": "pict-template",
+				"dependedUponBy": 4
+			},
+			{
+				"name": "pict-section-form",
+				"dependedUponBy": 4
+			},
+			{
+				"name": "pict-section-code",
+				"dependedUponBy": 4
+			},
+			{
+				"name": "pict-section-content",
+				"dependedUponBy": 4
+			},
+			{
+				"name": "pict-terminalui",
+				"dependedUponBy": 3
+			},
+			{
+				"name": "pict-docuserve",
+				"dependedUponBy": 3
+			},
+			{
+				"name": "meadow-connection-mysql",
+				"dependedUponBy": 3
+			}
+		],
+		"totalProductionEdges": 212,
+		"totalDevelopmentEdges": 122
+	}
+}

@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1308 932" width="1308" height="932" font-family="'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace">
+<style>
+  .node-box { transition: opacity 0.2s; }
+  .edge-line { transition: opacity 0.2s; }
+</style>
+<defs>
+  <marker id="arrowProd" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L7,2.5 L0,5" fill="#666" />
+  </marker>
+  <marker id="arrowDev" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L7,2.5 L0,5" fill="#BBB" />
+  </marker>
+</defs>
+<rect width="100%" height="100%" fill="#FAFBFC" />
+<text x="654" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#2C3E50">Retold In-Ecosystem Dependency Graph</text>
+<text x="654" y="46" text-anchor="middle" font-size="10" fill="#7F8C8D">67 modules | 172 production deps | 120 dev deps | Generated 2026-02-27</text>
+<g transform="translate(998, 14)">
+  <line x1="0" y1="0" x2="24" y2="0" stroke="#555" stroke-width="1.5" marker-end="url(#arrowProd)" />
+  <text x="30" y="4" font-size="9" fill="#555">Production dep</text>
+  <line x1="120" y1="0" x2="144" y2="0" stroke="#BBB" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrowDev)" />
+  <text x="150" y="4" font-size="9" fill="#555">Dev dep</text>
+  <rect x="0" y="12" width="12" height="12" rx="2" fill="#8E44AD" stroke="#8E44AD" />
+  <text x="18" y="22" font-size="9" fill="#555">Core module (10+ dependents)</text>
+</g>
+<g id="edges">
+  <path class="edge-line" d="M141.5,832 C568.3,832 781.7,130 1208.5,130" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,832 C551.5,832 756.5,628 1166.5,628" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,832 C404.3,832 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,468 C346.5,332.8 141.5,265.2 141.5,130" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M249,481 C249,468.2 239,461.8 239,449" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,468 C527.3,468 617.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M551.5,436 C387.5,436 305.5,130 141.5,130" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M454,449 C368,449 325,449 239,449" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M454,449 C454,461.8 444,468.2 444,481" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M551.5,436 C650.3,436 699.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,436 C141.5,313.6 141.5,252.4 141.5,130" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,436 C404.3,436 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M551.5,468 C387.5,468 305.5,130 141.5,130" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M454,481 C368,481 325,449 239,449" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M454,481 C450,481 448,481 444,481" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M551.5,468 C551.5,358.4 798.5,303.6 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,436 C346.5,313.6 141.5,252.4 141.5,130" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M249,449 C245,449 243,449 239,449" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M249,449 C327,449 366,481 444,481" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,436 C527.3,436 617.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,468 C141.5,332.8 141.5,265.2 141.5,130" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M44,481 C122,481 161,449 239,449" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,468 C404.3,468 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,500 C404.3,500 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M444,647 C444,634.2 454,627.8 454,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M444,647 C530,647 573,679 659,679" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,634 C527.3,634 617.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M444,679 C444,653.4 454,640.6 454,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,666 C346.5,477.2 798.5,382.8 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M659,615 C655,615 653,615 649,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M659,615 C659,627.8 649,634.2 649,647" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M659,615 C573,615 530,743 444,743" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M756.5,602 C756.5,438.8 798.5,357.2 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M444,743 C444,691.8 454,666.2 454,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,730 C346.5,515.6 798.5,408.4 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,634 C404.3,634 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M756.5,634 C756.5,458 798.5,370 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M239,711 C325,711 368,615 454,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,698 C404.3,698 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,602 C404.3,602 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M864,679 C778,679 735,615 649,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M961.5,666 C961.5,477.2 798.5,382.8 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M961.5,698 C961.5,496.4 798.5,395.6 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M551.5,602 C551.5,438.8 798.5,357.2 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M454,679 C532,679 571,615 649,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M551.5,666 C551.5,477.2 798.5,382.8 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,666 C404.3,666 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M444,711 C444,672.6 454,653.4 454,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M444,711 C530,711 573,615 659,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M444,711 C530,711 573,711 659,711" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,698 C346.5,496.4 798.5,395.6 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1069,647 C901,647 817,615 649,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1166.5,634 C1166.5,458 798.5,370 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M756.5,698 C756.5,496.4 798.5,395.6 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1069,679 C901,679 817,615 649,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1166.5,666 C1166.5,477.2 798.5,382.8 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,602 C527.3,602 617.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1069,711 C901,711 817,615 649,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1166.5,698 C1166.5,496.4 798.5,395.6 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M659,679 C659,653.4 649,640.6 649,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M659,679 C737,679 776,615 854,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M659,679 C737,679 776,711 854,711" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M756.5,666 C756.5,477.2 798.5,382.8 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M454,647 C532,647 571,615 649,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M551.5,634 C551.5,458 798.5,370 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M961.5,602 C961.5,438.8 798.5,357.2 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,730 C404.3,730 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M454,711 C532,711 571,615 649,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M551.5,698 C551.5,496.4 798.5,395.6 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1166.5,602 C1166.5,438.8 798.5,357.2 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M864,647 C778,647 735,615 649,615" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M961.5,634 C961.5,458 798.5,370 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M249,149 C249,136.2 239,129.8 239,117" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M444,149 C546.8,149 598.2,181 701,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M444,117 C546.8,117 598.2,181 701,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M44,149 C122,149 161,117 239,117" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M239,149 C423.8,149 516.2,181 701,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M649,149 C669.8,149 680.2,181 701,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M239,181 C423.8,181 516.2,181 701,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M239,117 C423.8,117 516.2,181 701,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M454,117 C368,117 325,117 239,117" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M649,117 C649,142.6 701,155.4 701,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M551.5,334 C650.3,334 699.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M649,347 C653,347 655,347 659,347" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M961.5,302 C896.3,302 863.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M864,315 C864,327.8 854,334.2 854,347" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,302 C264.5,302 223.5,130 141.5,130" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,302 C527.3,302 617.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M756.5,334 C756.5,278 798.5,250 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M551.5,302 C650.3,302 699.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M454,315 C532,315 571,347 649,347" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,302 C141.5,233.2 141.5,198.8 141.5,130" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,302 C404.3,302 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M659,315 C655,315 653,315 649,315" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M756.5,328 C592.5,328 510.5,468 346.5,468" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M756.5,302 C756.5,258.8 798.5,237.2 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M961.5,270 C896.3,270 863.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1166.5,302 C1019.3,302 945.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,360 C305.5,360 387.5,436 551.5,436" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,334 C404.3,334 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M756.5,270 C756.5,239.6 798.5,224.4 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M756.5,270 C756.5,239.6 798.5,224.4 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1166.5,270 C756.5,270 551.5,130 141.5,130" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1069,283 C737,283 571,315 239,315" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1069,283 C819,283 694,315 444,315" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1069,283 C901,283 817,315 649,315" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1166.5,270 C1019.3,270 945.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M444,347 C444,334.2 454,327.8 454,315" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M346.5,334 C527.3,334 617.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M444,347 C530,347 573,347 659,347" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,270 C404.3,270 535.7,194 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M798.5,436 C798.5,339.2 798.5,290.8 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1003.5,436 C1003.5,339.2 798.5,290.8 798.5,194" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1111,149 C1025,149 982,181 896,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1111,117 C1025,117 982,181 896,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M701,117 C779,117 818,181 896,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M701,149 C779,149 818,181 896,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M1003.5,162 C822.7,162 732.3,602 551.5,602" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M906,149 C906,161.8 896,168.2 896,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M906,181 C902,181 900,181 896,181" fill="none" stroke="#CCC" stroke-width="0.7" stroke-dasharray="4,3" marker-end="url(#arrowDev)" opacity="0.15" />
+  <path class="edge-line" d="M141.5,832 C404.3,832 535.7,462 798.5,462" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M249,481 C245,481 243,481 239,481" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M454,449 C368,449 325,481 239,481" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M141.5,436 C141.5,326.4 346.5,271.6 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M44,449 C122,449 161,481 239,481" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,449 C325,449 368,481 454,481" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M551.5,468 C551.5,345.6 346.5,284.4 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,436 C346.5,326.4 346.5,271.6 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M141.5,468 C141.5,345.6 346.5,284.4 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M141.5,500 C141.5,352 141.5,278 141.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M44,513 C122,513 161,449 239,449" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,634 C346.5,445.2 346.5,350.8 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M444,647 C448,647 450,647 454,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M444,647 C694,647 819,711 1069,711" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M249,647 C327,647 366,743 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,666 C346.5,451.6 141.5,344.4 141.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,666 C346.5,464.4 346.5,363.6 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,666 C264.5,666 223.5,462 141.5,462" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,666 C346.5,597.2 346.5,562.8 346.5,494" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M444,679 C444,666.2 454,659.8 454,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M249,679 C327,679 366,743 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M756.5,602 C756.5,426 346.5,338 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,730 C346.5,490 141.5,370 141.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,730 C346.5,502.8 346.5,389.2 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,647 C325,647 368,615 454,615" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,647 C407,647 491,615 659,615" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,647 C407,647 491,647 659,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,647 C239,685.4 249,704.6 249,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,647 C325,647 368,647 454,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M659,647 C655,647 653,647 649,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,711 C239,723.8 249,730.2 249,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M864,679 C942,679 981,647 1059,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1059,679 C1059,666.2 1069,659.8 1069,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M864,679 C860,679 858,679 854,679" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1059,679 C1063,679 1065,679 1069,679" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M864,679 C614,679 489,711 239,711" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M864,679 C696,679 612,743 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M961.5,698 C715.5,698 592.5,162 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M864,711 C778,711 735,615 649,615" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M551.5,602 C551.5,413.2 798.5,318.8 798.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M551.5,602 C551.5,413.2 141.5,318.8 141.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M649,615 C653,615 655,615 659,615" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M454,615 C532,615 571,647 649,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M649,615 C817,615 901,711 1069,711" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M454,615 C454,666.2 444,691.8 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M454,679 C454,704.6 444,717.4 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M454,679 C532,679 571,647 649,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M551.5,666 C551.5,464.4 346.5,363.6 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,679 C407,679 491,647 659,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,679 C407,679 491,679 659,679" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,698 C346.5,483.6 346.5,376.4 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M444,711 C444,685.4 454,672.6 454,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M444,711 C530,711 573,647 659,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M444,711 C530,711 573,679 659,679" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M444,711 C694,711 819,711 1069,711" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M249,711 C327,711 366,743 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,647 C901,647 817,647 649,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,647 C1065,647 1063,647 1059,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,647 C819,647 694,743 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M756.5,698 C756.5,483.6 346.5,376.4 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M659,711 C659,672.6 649,653.4 649,615" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,679 C1147,679 1186,647 1264,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,679 C819,679 694,743 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,602 C346.5,413.2 798.5,318.8 798.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1166.5,698 C838.5,698 674.5,162 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M756.5,666 C756.5,464.4 346.5,363.6 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M659,679 C659,666.2 649,659.8 649,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M659,679 C659,691.8 649,698.2 649,711" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M854,679 C940,679 983,711 1069,711" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M659,679 C573,679 530,743 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M551.5,634 C551.5,445.2 346.5,350.8 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M961.5,602 C715.5,602 592.5,162 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M141.5,730 C141.5,490 141.5,370 141.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M141.5,730 C141.5,502.8 346.5,389.2 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,743 C325,743 368,615 454,615" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,743 C407,743 491,615 659,615" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,743 C243,743 245,743 249,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M454,711 C454,723.8 444,730.2 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,615 C901,615 817,615 649,615" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,615 C983,615 940,615 854,615" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,615 C901,615 817,647 649,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,615 C1147,615 1186,647 1264,647" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,615 C983,615 940,711 854,711" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,615 C819,615 694,743 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M864,647 C696,647 612,743 444,743" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M249,117 C327,117 366,149 444,149" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,149 C243,149 245,149 249,149" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M454,149 C450,149 448,149 444,149" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M649,149 C833.8,149 926.2,149 1111,149" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,181 C239,168.2 249,161.8 249,149" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,117 C423.8,117 516.2,117 701,117" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,117 C243,117 245,117 249,117" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,117 C239,129.8 249,136.2 249,149" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,117 C325,117 368,149 454,149" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M44,117 C122,117 161,181 239,181" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M239,117 C423.8,117 516.2,149 701,149" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M454,117 C450,117 448,117 444,117" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M454,347 C532,347 571,315 649,315" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M454,347 C450,347 448,347 444,347" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M961.5,302 C715.5,302 592.5,162 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,302 C346.5,246 346.5,218 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M756.5,360 C756.5,456.8 551.5,505.2 551.5,602" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M756.5,360 C756.5,456.8 756.5,505.2 756.5,602" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M756.5,360 C756.5,495.2 756.5,562.8 756.5,698" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M756.5,360 C510.5,360 387.5,730 141.5,730" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M756.5,360 C592.5,360 510.5,730 346.5,730" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M551.5,302 C469.5,302 428.5,162 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M141.5,302 C223.5,302 264.5,162 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M756.5,302 C510.5,302 387.5,130 141.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M854,315 C940,315 983,283 1069,283" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M756.5,328 C510.5,328 387.5,436 141.5,436" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M961.5,270 C633.5,270 469.5,130 141.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1166.5,302 C756.5,302 551.5,130 141.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1166.5,302 C838.5,302 674.5,162 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1166.5,328 C756.5,328 551.5,436 141.5,436" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1166.5,328 C838.5,328 674.5,468 346.5,468" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1166.5,328 C1002.5,328 920.5,698 756.5,698" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M44,347 C122,347 161,283 239,283" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M141.5,360 C141.5,390.4 141.5,405.6 141.5,436" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M141.5,360 C223.5,360 264.5,468 346.5,468" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M141.5,360 C305.5,360 387.5,602 551.5,602" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M659,283 C491,283 407,283 239,283" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M659,283 C491,283 407,283 239,283" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1069,283 C1065,283 1063,283 1059,283" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,334 C264.5,334 223.5,130 141.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,334 C346.5,265.2 346.5,230.8 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M444,347 C694,347 819,283 1069,283" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M249,347 C327,347 366,315 444,315" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M444,347 C530,347 573,315 659,315" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,360 C264.5,360 223.5,436 141.5,436" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,360 C428.5,360 469.5,436 551.5,436" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,360 C346.5,403.2 346.5,424.8 346.5,468" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M346.5,360 C428.5,360 469.5,468 551.5,468" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M141.5,296 C305.5,296 387.5,602 551.5,602" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M141.5,296 C305.5,296 387.5,634 551.5,634" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,436 C535.7,436 404.3,130 141.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M701,449 C516.2,449 423.8,449 239,449" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M701,449 C598.2,449 546.8,481 444,481" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,462 C699.7,462 650.3,602 551.5,602" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,462 C798.5,518 756.5,546 756.5,602" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,462 C945.7,462 1019.3,602 1166.5,602" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,462 C699.7,462 650.3,634 551.5,634" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,462 C798.5,530.8 961.5,565.2 961.5,634" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,462 C945.7,462 1019.3,634 1166.5,634" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,462 C617.7,462 527.3,666 346.5,666" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,462 C945.7,462 1019.3,666 1166.5,666" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,462 C798.5,556.4 756.5,603.6 756.5,698" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,462 C617.7,462 527.3,730 346.5,730" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,436 C658.7,436 486.3,130 141.5,130" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,436 C740.7,436 609.3,162 346.5,162" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M906,449 C639.2,449 505.8,449 239,449" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M906,449 C721.2,449 628.8,481 444,481" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,462 C822.7,462 732.3,602 551.5,602" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,462 C904.7,462 855.3,602 756.5,602" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,462 C822.7,462 732.3,634 551.5,634" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,462 C1003.5,530.8 961.5,565.2 961.5,634" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,462 C740.7,462 609.3,666 346.5,666" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,462 C904.7,462 855.3,698 756.5,698" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,462 C740.7,462 609.3,730 346.5,730" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M906,449 C902,449 900,449 896,449" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M896,181 C982,181 1025,117 1111,117" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,194 C798.5,357.2 1166.5,438.8 1166.5,602" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M798.5,194 C798.5,395.6 756.5,496.4 756.5,698" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1208.5,130 C1208.5,357.2 756.5,470.8 756.5,698" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M701,117 C598.2,117 546.8,149 444,149" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M701,149 C598.2,149 546.8,149 444,149" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,162 C740.7,162 609.3,730 346.5,730" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,194 C658.7,194 486.3,436 141.5,436" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,194 C740.7,194 609.3,468 346.5,468" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,194 C822.7,194 732.3,602 551.5,602" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,194 C1003.5,395.6 756.5,496.4 756.5,698" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+  <path class="edge-line" d="M1003.5,194 C1003.5,395.6 961.5,496.4 961.5,698" fill="none" stroke="#555" stroke-width="1" marker-end="url(#arrowProd)" opacity="0.3" />
+</g>
+<g id="group-fable">
+  <rect x="30" y="72" width="633" height="142" rx="8" fill="#EBF2FA" stroke="#4A90D9" stroke-width="1.5" opacity="0.85" />
+  <text x="42" y="92" font-size="12" font-weight="bold" fill="#4A90D9">Fable (Core)</text>
+  <text x="651" y="92" text-anchor="end" font-size="9" fill="#4A90D9" opacity="0.7">7 modules</text>
+</g>
+<g id="group-utility">
+  <rect x="687" y="72" width="633" height="142" rx="8" fill="#EBEDEF" stroke="#2C3E50" stroke-width="1.5" opacity="0.85" />
+  <text x="699" y="92" font-size="12" font-weight="bold" fill="#2C3E50">Utility (Build/Ops)</text>
+  <text x="1308" y="92" text-anchor="end" font-size="9" fill="#2C3E50" opacity="0.7">8 modules</text>
+</g>
+<g id="group-meadow">
+  <rect x="30" y="238" width="1248" height="142" rx="8" fill="#E8F8EF" stroke="#27AE60" stroke-width="1.5" opacity="0.85" />
+  <text x="42" y="258" font-size="12" font-weight="bold" fill="#27AE60">Meadow (Data)</text>
+  <text x="1266" y="258" text-anchor="end" font-size="9" fill="#27AE60" opacity="0.7">16 modules</text>
+</g>
+<g id="group-orator">
+  <rect x="30" y="404" width="633" height="142" rx="8" fill="#FDF2E9" stroke="#E67E22" stroke-width="1.5" opacity="0.85" />
+  <text x="42" y="424" font-size="12" font-weight="bold" fill="#E67E22">Orator (API)</text>
+  <text x="651" y="424" text-anchor="end" font-size="9" fill="#E67E22" opacity="0.7">7 modules</text>
+</g>
+<g id="group-apps">
+  <rect x="687" y="404" width="633" height="78" rx="8" fill="#FDEDEC" stroke="#C0392B" stroke-width="1.5" opacity="0.85" />
+  <text x="699" y="424" font-size="12" font-weight="bold" fill="#C0392B">Apps (Full Stack)</text>
+  <text x="1308" y="424" text-anchor="end" font-size="9" fill="#C0392B" opacity="0.7">2 modules</text>
+</g>
+<g id="group-pict">
+  <rect x="30" y="570" width="1248" height="206" rx="8" fill="#F4ECF7" stroke="#8E44AD" stroke-width="1.5" opacity="0.85" />
+  <text x="42" y="590" font-size="12" font-weight="bold" fill="#8E44AD">Pict (MVC/UI)</text>
+  <text x="1266" y="590" text-anchor="end" font-size="9" fill="#8E44AD" opacity="0.7">26 modules</text>
+</g>
+<g id="group-root">
+  <rect x="30" y="800" width="1248" height="78" rx="8" fill="#F2F3F4" stroke="#7F8C8D" stroke-width="1.5" opacity="0.85" />
+  <text x="42" y="820" font-size="12" font-weight="bold" fill="#7F8C8D">Root / Examples</text>
+  <text x="1266" y="820" text-anchor="end" font-size="9" fill="#7F8C8D" opacity="0.7">1 modules</text>
+</g>
+<g id="nodes">
+  <g class="node-box">
+    <rect x="44" y="104" width="195" height="26" rx="4" fill="#4A90D9" stroke="#4A90D9" stroke-width="2" />
+    <text x="50" y="121" font-size="9" fill="#FFFFFF">fable</text>
+    <text x="233" y="121" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.8)">23</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="104" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#4A90D9" stroke-width="1" />
+    <text x="255" y="121" font-size="9" fill="#2C3E50">fable-log</text>
+    <text x="438" y="121" text-anchor="end" font-size="7" fill="#AAA">2</text>
+  </g>
+  <g class="node-box">
+    <rect x="454" y="104" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#4A90D9" stroke-width="1" />
+    <text x="460" y="121" font-size="9" fill="#2C3E50">fable-log-logger-bunyan</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="136" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#4A90D9" stroke-width="1" />
+    <text x="50" y="153" font-size="9" fill="#2C3E50">fable-operationstep</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="136" width="195" height="26" rx="4" fill="#4A90D9" stroke="#4A90D9" stroke-width="2" />
+    <text x="255" y="153" font-size="9" fill="#FFFFFF">fable-serviceproviderbase</text>
+    <text x="438" y="153" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.8)">31</text>
+  </g>
+  <g class="node-box">
+    <rect x="454" y="136" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#4A90D9" stroke-width="1" />
+    <text x="460" y="153" font-size="9" fill="#2C3E50">fable-settings</text>
+    <text x="643" y="153" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="168" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#4A90D9" stroke-width="1" />
+    <text x="50" y="185" font-size="9" fill="#2C3E50">fable-uuid</text>
+    <text x="233" y="185" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="701" y="104" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1" />
+    <text x="707" y="121" font-size="9" fill="#2C3E50">cachetrax</text>
+    <text x="890" y="121" text-anchor="end" font-size="7" fill="#AAA">3</text>
+  </g>
+  <g class="node-box">
+    <rect x="906" y="104" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1" />
+    <text x="912" y="121" font-size="9" fill="#2C3E50">cumulation</text>
+  </g>
+  <g class="node-box">
+    <rect x="1111" y="104" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1" />
+    <text x="1117" y="121" font-size="9" fill="#2C3E50">indoctrinate</text>
+    <text x="1300" y="121" text-anchor="end" font-size="7" fill="#AAA">2</text>
+  </g>
+  <g class="node-box">
+    <rect x="701" y="136" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1" />
+    <text x="707" y="153" font-size="9" fill="#2C3E50">manyfest</text>
+    <text x="890" y="153" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="906" y="136" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1" />
+    <text x="912" y="153" font-size="9" fill="#2C3E50">pict-cruisecontrol</text>
+  </g>
+  <g class="node-box">
+    <rect x="1111" y="136" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1" />
+    <text x="1117" y="153" font-size="9" fill="#2C3E50">precedent</text>
+    <text x="1300" y="153" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="701" y="168" width="195" height="26" rx="4" fill="#2C3E50" stroke="#2C3E50" stroke-width="2" />
+    <text x="707" y="185" font-size="9" fill="#FFFFFF">quackage</text>
+    <text x="890" y="185" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.8)">64</text>
+  </g>
+  <g class="node-box">
+    <rect x="906" y="168" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#2C3E50" stroke-width="1" />
+    <text x="912" y="185" font-size="9" fill="#2C3E50">ultravisor</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="270" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="50" y="287" font-size="9" fill="#2C3E50">bibliograph</text>
+    <text x="233" y="287" text-anchor="end" font-size="7" fill="#AAA">3</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="270" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="255" y="287" font-size="9" fill="#2C3E50">bibliograph-storage-lmdb</text>
+  </g>
+  <g class="node-box">
+    <rect x="659" y="270" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="665" y="287" font-size="9" fill="#2C3E50">bibliograph-storage-rock..</text>
+  </g>
+  <g class="node-box">
+    <rect x="864" y="270" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="870" y="287" font-size="9" fill="#2C3E50">foxhound</text>
+    <text x="1053" y="287" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="1069" y="270" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="1075" y="287" font-size="9" fill="#2C3E50">meadow</text>
+    <text x="1258" y="287" text-anchor="end" font-size="7" fill="#AAA">2</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="302" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="50" y="319" font-size="9" fill="#2C3E50">meadow-connection-mssql</text>
+    <text x="233" y="319" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="302" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="255" y="319" font-size="9" fill="#2C3E50">meadow-connection-mysql</text>
+    <text x="438" y="319" text-anchor="end" font-size="7" fill="#AAA">2</text>
+  </g>
+  <g class="node-box">
+    <rect x="454" y="302" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="460" y="319" font-size="9" fill="#2C3E50">meadow-connection-sqlite</text>
+    <text x="643" y="319" text-anchor="end" font-size="7" fill="#AAA">4</text>
+  </g>
+  <g class="node-box">
+    <rect x="659" y="302" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="665" y="319" font-size="9" fill="#2C3E50">meadow-endpoints</text>
+    <text x="848" y="319" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="864" y="302" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="870" y="319" font-size="9" fill="#2C3E50">meadow-graph-client</text>
+  </g>
+  <g class="node-box">
+    <rect x="1069" y="302" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="1075" y="319" font-size="9" fill="#2C3E50">meadow-integration</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="334" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="50" y="351" font-size="9" fill="#2C3E50">parime</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="334" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="255" y="351" font-size="9" fill="#2C3E50">retold-data-service</text>
+    <text x="438" y="351" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="454" y="334" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="460" y="351" font-size="9" fill="#2C3E50">retold-harness</text>
+    <text x="643" y="351" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="659" y="334" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#27AE60" stroke-width="1" />
+    <text x="665" y="351" font-size="9" fill="#2C3E50">stricture</text>
+    <text x="848" y="351" text-anchor="end" font-size="7" fill="#AAA">3</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="436" width="195" height="26" rx="4" fill="#E67E22" stroke="#E67E22" stroke-width="2" />
+    <text x="50" y="453" font-size="9" fill="#FFFFFF">orator</text>
+    <text x="233" y="453" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.8)">14</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="436" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#E67E22" stroke-width="1" />
+    <text x="255" y="453" font-size="9" fill="#2C3E50">orator-conversion</text>
+  </g>
+  <g class="node-box">
+    <rect x="454" y="436" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#E67E22" stroke-width="1" />
+    <text x="460" y="453" font-size="9" fill="#2C3E50">orator-http-proxy</text>
+    <text x="643" y="453" text-anchor="end" font-size="7" fill="#AAA">2</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="468" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#E67E22" stroke-width="1" />
+    <text x="50" y="485" font-size="9" fill="#2C3E50">orator-serviceserver-base</text>
+    <text x="233" y="485" text-anchor="end" font-size="7" fill="#AAA">3</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="468" width="195" height="26" rx="4" fill="#E67E22" stroke="#E67E22" stroke-width="2" />
+    <text x="255" y="485" font-size="9" fill="#FFFFFF">orator-serviceserver-res..</text>
+    <text x="438" y="485" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.8)">11</text>
+  </g>
+  <g class="node-box">
+    <rect x="454" y="468" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#E67E22" stroke-width="1" />
+    <text x="460" y="485" font-size="9" fill="#2C3E50">orator-static-server</text>
+    <text x="643" y="485" text-anchor="end" font-size="7" fill="#AAA">2</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="500" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#E67E22" stroke-width="1" />
+    <text x="50" y="517" font-size="9" fill="#2C3E50">tidings</text>
+  </g>
+  <g class="node-box">
+    <rect x="701" y="436" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#C0392B" stroke-width="1" />
+    <text x="707" y="453" font-size="9" fill="#2C3E50">retold-content-system</text>
+    <text x="890" y="453" text-anchor="end" font-size="7" fill="#AAA">2</text>
+  </g>
+  <g class="node-box">
+    <rect x="906" y="436" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#C0392B" stroke-width="1" />
+    <text x="912" y="453" font-size="9" fill="#2C3E50">retold-remote</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="602" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="50" y="619" font-size="9" fill="#2C3E50">cryptbrau</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="602" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="255" y="619" font-size="9" fill="#2C3E50">informary</text>
+  </g>
+  <g class="node-box">
+    <rect x="454" y="602" width="195" height="26" rx="4" fill="#8E44AD" stroke="#8E44AD" stroke-width="2" />
+    <text x="460" y="619" font-size="9" fill="#FFFFFF">pict</text>
+    <text x="643" y="619" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.8)">27</text>
+  </g>
+  <g class="node-box">
+    <rect x="659" y="602" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="665" y="619" font-size="9" fill="#2C3E50">pict-application</text>
+    <text x="848" y="619" text-anchor="end" font-size="7" fill="#AAA">9</text>
+  </g>
+  <g class="node-box">
+    <rect x="864" y="602" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="870" y="619" font-size="9" fill="#2C3E50">pict-chance</text>
+  </g>
+  <g class="node-box">
+    <rect x="1069" y="602" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="1075" y="619" font-size="9" fill="#2C3E50">pict-docuserve</text>
+    <text x="1258" y="619" text-anchor="end" font-size="7" fill="#AAA">3</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="634" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="50" y="651" font-size="9" fill="#2C3E50">pict-nonlinearconfig</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="634" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="255" y="651" font-size="9" fill="#2C3E50">pict-panel</text>
+  </g>
+  <g class="node-box">
+    <rect x="454" y="634" width="195" height="26" rx="4" fill="#8E44AD" stroke="#8E44AD" stroke-width="2" />
+    <text x="460" y="651" font-size="9" fill="#FFFFFF">pict-provider</text>
+    <text x="643" y="651" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.8)">14</text>
+  </g>
+  <g class="node-box">
+    <rect x="659" y="634" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="665" y="651" font-size="9" fill="#2C3E50">pict-router</text>
+    <text x="848" y="651" text-anchor="end" font-size="7" fill="#AAA">3</text>
+  </g>
+  <g class="node-box">
+    <rect x="864" y="634" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="870" y="651" font-size="9" fill="#2C3E50">pict-section-code</text>
+    <text x="1053" y="651" text-anchor="end" font-size="7" fill="#AAA">4</text>
+  </g>
+  <g class="node-box">
+    <rect x="1069" y="634" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="1075" y="651" font-size="9" fill="#2C3E50">pict-section-content</text>
+    <text x="1258" y="651" text-anchor="end" font-size="7" fill="#AAA">4</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="666" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="50" y="683" font-size="9" fill="#2C3E50">pict-section-entitymanag..</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="666" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="255" y="683" font-size="9" fill="#2C3E50">pict-section-filebrowser</text>
+    <text x="438" y="683" text-anchor="end" font-size="7" fill="#AAA">2</text>
+  </g>
+  <g class="node-box">
+    <rect x="454" y="666" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="460" y="683" font-size="9" fill="#2C3E50">pict-section-flow</text>
+  </g>
+  <g class="node-box">
+    <rect x="659" y="666" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="665" y="683" font-size="9" fill="#2C3E50">pict-section-form</text>
+    <text x="848" y="683" text-anchor="end" font-size="7" fill="#AAA">4</text>
+  </g>
+  <g class="node-box">
+    <rect x="864" y="666" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="870" y="683" font-size="9" fill="#2C3E50">pict-section-formeditor</text>
+  </g>
+  <g class="node-box">
+    <rect x="1069" y="666" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="1075" y="683" font-size="9" fill="#2C3E50">pict-section-markdownedi..</text>
+    <text x="1258" y="683" text-anchor="end" font-size="7" fill="#AAA">2</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="698" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="50" y="715" font-size="9" fill="#2C3E50">pict-section-objecteditor</text>
+    <text x="233" y="715" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="698" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="255" y="715" font-size="9" fill="#2C3E50">pict-section-recordset</text>
+  </g>
+  <g class="node-box">
+    <rect x="454" y="698" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="460" y="715" font-size="9" fill="#2C3E50">pict-section-tuigrid</text>
+    <text x="643" y="715" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="659" y="698" width="195" height="26" rx="4" fill="#8E44AD" stroke="#8E44AD" stroke-width="2" />
+    <text x="665" y="715" font-size="9" fill="#FFFFFF">pict-service-commandline..</text>
+    <text x="848" y="715" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.8)">10</text>
+  </g>
+  <g class="node-box">
+    <rect x="864" y="698" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="870" y="715" font-size="9" fill="#2C3E50">pict-serviceproviderbase</text>
+    <text x="1053" y="715" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="1069" y="698" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="1075" y="715" font-size="9" fill="#2C3E50">pict-template</text>
+    <text x="1258" y="715" text-anchor="end" font-size="7" fill="#AAA">4</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="730" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#8E44AD" stroke-width="1" />
+    <text x="50" y="747" font-size="9" fill="#2C3E50">pict-terminalui</text>
+    <text x="233" y="747" text-anchor="end" font-size="7" fill="#AAA">1</text>
+  </g>
+  <g class="node-box">
+    <rect x="249" y="730" width="195" height="26" rx="4" fill="#8E44AD" stroke="#8E44AD" stroke-width="2" />
+    <text x="255" y="747" font-size="9" fill="#FFFFFF">pict-view</text>
+    <text x="438" y="747" text-anchor="end" font-size="7" fill="rgba(255,255,255,0.8)">20</text>
+  </g>
+  <g class="node-box">
+    <rect x="44" y="832" width="195" height="26" rx="4" fill="#FFFFFF" stroke="#7F8C8D" stroke-width="1" />
+    <text x="50" y="849" font-size="9" fill="#2C3E50">retold</text>
+  </g>
+</g>
+</svg>
