@@ -20,7 +20,7 @@ Core modules (10+ dependents) are highlighted with filled backgrounds. The numbe
 | Production dependency edges | 212 |
 | Development dependency edges | 122 |
 | Total in-ecosystem edges | 334 |
-| Dependency depth (max layers) | 9 (layers 0-8) |
+| Dependency depth (max groups) | 9 (groups 0-8) |
 
 ## Module Groups
 
@@ -51,11 +51,11 @@ These modules form the critical path of the ecosystem. Changes here have the wid
 | **pict-application** | pict | 13 | Application lifecycle |
 | **pict-service-commandlineutility** | pict | 11 | CLI framework |
 
-## Topological Layers (Dependency Depth)
+## Topological Groups (Dependency Depth)
 
-Modules at Layer 0 have no ecosystem production dependencies. Each subsequent layer depends on modules from lower layers. This ordering defines the safe update sequence: update from the bottom up.
+Modules at Group 0 have no ecosystem production dependencies. Each subsequent group depends on modules from lower groups. This ordering defines the safe update sequence: update from the bottom up.
 
-### Layer 0 — Foundations (5 modules)
+### Group 0 — Foundations (5 modules)
 
 No ecosystem production dependencies. These are leaf nodes.
 
@@ -67,9 +67,9 @@ No ecosystem production dependencies. These are leaf nodes.
 | **fable-serviceproviderbase** | fable |
 | precedent | utility |
 
-### Layer 1 — Base Services (17 modules)
+### Group 1 — Base Services (17 modules)
 
-Depend only on Layer 0 modules.
+Depend only on Group 0 modules.
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -91,7 +91,7 @@ Depend only on Layer 0 modules.
 | pict-provider | pict | fable-serviceproviderbase |
 | pict-template | pict | fable-serviceproviderbase |
 
-### Layer 2 — Framework Core (7 modules)
+### Group 2 — Framework Core (7 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -103,7 +103,7 @@ Depend only on Layer 0 modules.
 | orator-serviceserver-restify | orator | orator-serviceserver-base |
 | pict-router | pict | pict-provider |
 
-### Layer 3 — Derived Services (6 modules)
+### Group 3 — Derived Services (6 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -111,7 +111,7 @@ Depend only on Layer 0 modules.
 | **pict-view** | pict | fable, fable-serviceproviderbase |
 | tidings | orator | fable, orator |
 
-### Layer 4 — Composite Modules (9 modules)
+### Group 4 — Composite Modules (9 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -125,7 +125,7 @@ Depend only on Layer 0 modules.
 | pict-section-objecteditor | pict | pict-view |
 | pict-section-tuigrid | pict | pict-view |
 
-### Layer 5 — Higher-Level Sections (11 modules)
+### Group 5 — Higher-Level Sections (11 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -138,7 +138,7 @@ Depend only on Layer 0 modules.
 | pict-serviceproviderbase | pict | fable-serviceproviderbase, pict |
 | pict-terminalui | pict | fable, fable-serviceproviderbase, pict, pict-application, pict-view |
 
-### Layer 6 — Integration Modules (15 modules)
+### Group 6 — Integration Modules (15 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -154,7 +154,7 @@ Depend only on Layer 0 modules.
 | stricture | meadow | pict, pict-application, pict-service-commandlineutility, pict-terminalui, pict-view |
 | ultravisor | utility | orator, orator-serviceserver-restify, pict, pict-service-commandlineutility, pict-serviceproviderbase |
 
-### Layer 7 — Application Components (4 modules)
+### Group 7 — Application Components (4 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -163,7 +163,7 @@ Depend only on Layer 0 modules.
 | retold-content-system | apps | fable, orator, orator-serviceserver-restify, pict, pict-application, pict-docuserve, pict-provider, pict-section-code, pict-section-content, pict-section-filebrowser, pict-section-markdowneditor, pict-service-commandlineutility, pict-view |
 | retold-harness | meadow | meadow-connection-sqlite, retold-data-service |
 
-### Layer 8 — Top-Level Applications (2 modules)
+### Group 8 — Top-Level Applications (2 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -172,46 +172,46 @@ Depend only on Layer 0 modules.
 
 ## Architectural Dependency Flow
 
-The general dependency flow follows the Retold architectural layers:
+The general dependency flow follows the Retold architectural groups:
 
 ```
- Layer 0   fable-serviceproviderbase, precedent, cryptbrau, cumulation
+ Group 0   fable-serviceproviderbase, precedent, cryptbrau, cumulation
               |
- Layer 1   fable-log, fable-settings, fable-uuid, cachetrax, manyfest
+ Group 1   fable-log, fable-settings, fable-uuid, cachetrax, manyfest
            meadow-connection-*, orator-serviceserver-base, orator-static-server
            pict-application, pict-provider, pict-template
               |
- Layer 2   fable, orator, orator-serviceserver-restify, orator-http-proxy
+ Group 2   fable, orator, orator-serviceserver-restify, orator-http-proxy
            pict-router
               |
- Layer 3   foxhound, pict-view, tidings
+ Group 3   foxhound, pict-view, tidings
               |
- Layer 4   meadow, pict, pict-section-* (basic)
+ Group 4   meadow, pict, pict-section-* (basic)
               |
- Layer 5   meadow-endpoints, pict-section-form, pict-service-commandlineutility
+ Group 5   meadow-endpoints, pict-section-form, pict-service-commandlineutility
            pict-terminalui, bibliograph
               |
- Layer 6   retold-data-service, stricture, indoctrinate, pict-docuserve
+ Group 6   retold-data-service, stricture, indoctrinate, pict-docuserve
            pict-section-recordset, ultravisor
               |
- Layer 7   quackage, retold-content-system, retold-harness
+ Group 7   quackage, retold-content-system, retold-harness
               |
- Layer 8   retold, retold-remote
+ Group 8   retold, retold-remote
 ```
 
 ## Update Order
 
-When performing ecosystem-wide updates, follow the topological layer order (bottom-up):
+When performing ecosystem-wide updates, follow the topological group order (bottom-up):
 
-1. **Layer 0** first — `fable-serviceproviderbase`, `precedent`
-2. **Layer 1** — `fable-log`, `fable-settings`, `fable-uuid`, `cachetrax`, `manyfest`, connection modules, `pict-application`, `pict-provider`, `pict-template`
-3. **Layer 2** — `fable`, `orator`, `orator-serviceserver-restify`
-4. **Layer 3** — `foxhound`, `pict-view`
-5. **Layer 4** — `meadow`, `pict`, basic pict-section modules
-6. **Layer 5** — `meadow-endpoints`, `pict-section-form`, `pict-service-commandlineutility`
-7. **Layer 6** — `retold-data-service`, `stricture`, `indoctrinate`, `pict-docuserve`
-8. **Layer 7** — `quackage`, `retold-content-system`, `retold-harness`
-9. **Layer 8** — `retold`, `retold-remote`
+1. **Group 0** first — `fable-serviceproviderbase`, `precedent`
+2. **Group 1** — `fable-log`, `fable-settings`, `fable-uuid`, `cachetrax`, `manyfest`, connection modules, `pict-application`, `pict-provider`, `pict-template`
+3. **Group 2** — `fable`, `orator`, `orator-serviceserver-restify`
+4. **Group 3** — `foxhound`, `pict-view`
+5. **Group 4** — `meadow`, `pict`, basic pict-section modules
+6. **Group 5** — `meadow-endpoints`, `pict-section-form`, `pict-service-commandlineutility`
+7. **Group 6** — `retold-data-service`, `stricture`, `indoctrinate`, `pict-docuserve`
+8. **Group 7** — `quackage`, `retold-content-system`, `retold-harness`
+9. **Group 8** — `retold`, `retold-remote`
 
 ## Data Files
 

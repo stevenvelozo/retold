@@ -8,6 +8,12 @@
 			"port": 3333
 		},
 		{
+			"name": "docuserve-todo-app",
+			"runtimeExecutable": "bash",
+			"runtimeArgs": ["-c", "cd modules/pict/pict-docuserve && node example_applications/build-examples.js serve todo-app"],
+			"port": 3333
+		},
+		{
 			"name": "retold-content-system",
 			"runtimeExecutable": "bash",
 			"runtimeArgs": ["-c", "cd modules/apps/retold-content-system && PORT=9001 node server.js"],
