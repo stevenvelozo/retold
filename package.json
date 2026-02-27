@@ -1,6 +1,6 @@
 {
     "name": "retold",
-    "version": "4.0.6",
+    "version": "4.0.7",
     "description": "The pict and fable node ecosystem.",
     "main": "source/Retold.cjs",
     "bin": {
@@ -8,10 +8,8 @@
     },
     "scripts": {
         "start": "node source/Retold.cjs",
-        "coverage": "./node_modules/.bin/nyc --reporter=lcov --reporter=text-lcov ./node_modules/mocha/bin/_mocha -- -u tdd -R spec",
-        "test": "./node_modules/.bin/mocha -u tdd -R spec",
         "build-docs": "npx quack prepare-docs ./docs -d ./modules",
-        "serve-docs": "npx pict-docuserve serve ./docs"
+        "serve-docs": "npx pict-docuserve serve ./docs -p 3456"
     },
     "repository": {
         "type": "git",
@@ -25,11 +23,11 @@
     },
     "homepage": "https://github.com/stevenvelozo/retold",
     "devDependencies": {
-        "indoctrinate": "^1.0.7",
-        "pict-docuserve": "^0.0.16",
-        "quackage": "^1.0.51"
+        "indoctrinate": "^1.0.8",
+        "pict-docuserve": "^0.0.28",
+        "quackage": "^1.0.59"
     },
     "dependencies": {
-        "retold-content-system": "^1.0.0"
+        "retold-content-system": "^1.0.2"
     }
 }
