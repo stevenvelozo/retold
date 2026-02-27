@@ -23,6 +23,7 @@ All modules are hosted at `github.com/stevenvelozo/<module-name>`.
 | Orator | `orator/` | 6 | API server, Restify, proxy, WebSocket |
 | Pict | `pict/` | 15 | MVC, views, templates, forms, TUI |
 | Utility | `utility/` | 10+ | Build tools, manifests, docs |
+| Apps | `apps/` | 2 | Full-stack applications built on Retold |
 
 ## Working in a Module
 

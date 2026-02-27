@@ -547,6 +547,30 @@
 					"RelatedModules": ["pict", "pict-application"]
 				}
 			]
+		},
+		{
+			"Name": "Apps",
+			"Description": "Full-stack applications built on the Retold ecosystem",
+			"Path": "modules/apps",
+			"Modules":
+			[
+				{
+					"Name": "retold-content-system",
+					"Path": "modules/apps/retold-content-system",
+					"Description": "Content management system built on the Retold ecosystem",
+					"GitHub": "https://github.com/stevenvelozo/retold-content-system",
+					"Documentation": false,
+					"RelatedModules": ["fable", "meadow", "orator", "pict"]
+				},
+				{
+					"Name": "retold-remote",
+					"Path": "modules/apps/retold-remote",
+					"Description": "Remote access application built on the Retold ecosystem",
+					"GitHub": "https://github.com/stevenvelozo/retold-remote",
+					"Documentation": false,
+					"RelatedModules": ["fable", "meadow", "orator", "pict"]
+				}
+			]
 		}
 	]
 }

@@ -3563,6 +3563,68 @@
 					]
 				},
 				{
+					"Name": "pict-section-filebrowser",
+					"Repo": "pict-section-filebrowser",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "Configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Providers",
+									"Path": "Providers.md"
+								},
+								{
+									"Title": "Views",
+									"Path": "Views.md"
+								},
+								{
+									"Title": "Layouts",
+									"Path": "Layouts.md"
+								},
+								{
+									"Title": "Icons",
+									"Path": "Icons.md"
+								}
+							]
+						},
+						{
+							"Title": "Service",
+							"Children": [
+								{
+									"Title": "REST API",
+									"Path": "REST_API.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"cover.md",
+						"css/docuserve.css",
+						"index.html"
+					]
+				},
+				{
 					"Name": "pict-section-formeditor",
 					"Repo": "pict-section-formeditor",
 					"Group": "pict",

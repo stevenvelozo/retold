@@ -49,6 +49,7 @@ process_repository_set "meadow" "${repositoriesMeadow[@]}"
 process_repository_set "orator" "${repositoriesOrator[@]}"
 process_repository_set "pict" "${repositoriesPict[@]}"
 process_repository_set "utility" "${repositoriesUtility[@]}"
+process_repository_set "apps" "${repositoriesApps[@]}"
 
 echo ""
 echo "===== Summary ====="

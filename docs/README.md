@@ -2,7 +2,7 @@
 
 > A story-obsessed application suite.
 
-Retold is a collection of ~50 JavaScript/Node.js modules for building web applications and APIs. The modules span five groups — from core dependency injection up through data access, API serving, and full MVC — all designed to compose together through a shared service provider pattern.
+Retold is a collection of ~50 JavaScript/Node.js modules for building web applications and APIs. The modules span six groups — from core dependency injection up through data access, API serving, full MVC, and complete applications — all designed to compose together through a shared service provider pattern.
 
 ## Architecture at a Glance
 
@@ -117,6 +117,12 @@ Non-opinionated Model-View-Controller tools for building UIs as text strings —
 Build tooling, manifest management, documentation generation, and process supervision.
 
 **Key modules:** [indoctrinate](/utility/indoctrinate/) · [manyfest](/utility/manyfest/) · [quackage](/utility/quackage/) · [ultravisor](/utility/ultravisor/)
+
+### [Apps](/apps/retold-content-system/) — Applications
+
+Full-stack applications built on the Retold ecosystem, combining Fable, Meadow, Orator, and Pict into complete systems.
+
+**Key modules:** [retold-content-system](/apps/retold-content-system/) · [retold-remote](/apps/retold-remote/)
 
 ## Quick Start
 

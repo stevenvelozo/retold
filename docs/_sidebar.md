@@ -88,6 +88,7 @@
   - [pict-section-tuigrid](/pict/pict-section-tuigrid/)
   - [pict-section-code](/pict/pict-section-code/)
   - [pict-section-markdowneditor](/pict/pict-section-markdowneditor/)
+  - [pict-section-filebrowser](/pict/pict-section-filebrowser/)
   - [pict-router](/pict/pict-router/)
   - [pict-serviceproviderbase](/pict/pict-serviceproviderbase/)
   - [pict-terminalui](/pict/pict-terminalui/)
@@ -100,3 +101,8 @@
   - [precedent](/utility/precedent/)
   - [quackage](/utility/quackage/)
   - [ultravisor](/utility/ultravisor/)
+
+- [Apps — Applications](modules/apps.md)
+
+  - [retold-content-system](/apps/retold-content-system/)
+  - [retold-remote](/apps/retold-remote/)

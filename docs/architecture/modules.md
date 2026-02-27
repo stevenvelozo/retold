@@ -78,6 +78,13 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [quackage](/utility/quackage/) | `quackage` | Standardized build tool for browser bundles, transpilation, testing, and packaging |
 | [ultravisor](/utility/ultravisor/) | `ultravisor` | Process supervision with scheduled tasks, distributed nodes, and LLM integration |
 
+## Apps — Applications (2 modules)
+
+| Module | npm | Description |
+|--------|-----|-------------|
+| [retold-content-system](/apps/retold-content-system/) | `retold-content-system` | Content management system built on the Retold ecosystem |
+| [retold-remote](/apps/retold-remote/) | `retold-remote` | Remote access application built on the Retold ecosystem |
+
 ## Summary
 
 | Group | Count | Focus |
@@ -87,7 +94,8 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | Orator | 6 | API server, HTTP, static files, proxy, reporting, conversion |
 | Pict | 20 | MVC, views, templates, forms, grids, routing, docs, TUI |
 | Utility | 6 | Build tools, caching, templating, manifests, docs, process supervision |
-| **Total** | **50** | |
+| Apps | 2 | Full-stack applications built on Retold |
+| **Total** | **52** | |
 
 ## GitHub Repositories
 
