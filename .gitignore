@@ -18,11 +18,14 @@ modules/utility/cachetrax
 modules/utility/choreographic
 modules/utility/cumulation
 modules/utility/elucidator
+modules/utility/indoctrinate
+modules/utility/indoctrinate_*
 modules/utility/manyfest
 modules/utility/merquerial
 modules/utility/precedent
 modules/utility/quantifier
 modules/utility/quackage
+modules/utility/ultravisor
 modules/utility/data-arithmatic
 modules/utility/pict-*
 

@@ -2,14 +2,14 @@
 
 > A story-obsessed application suite.
 
-Retold is a collection of ~50 JavaScript/Node.js modules for building web applications and APIs. The modules span six groups — from core dependency injection up through data access, API serving, full MVC, and complete applications — all designed to compose together through a shared service provider pattern. Plain JavaScript, no TypeScript. MIT licensed.
+Retold is a collection of 60+ JavaScript/Node.js modules for building web applications and APIs. The modules span six groups — from core dependency injection up through data access, API serving, full MVC, and complete applications — all designed to compose together through a shared service provider pattern. Plain JavaScript, no TypeScript. MIT licensed.
 
 ## Module Groups
 
 | Group | Purpose |
 |-------|---------|
 | **Fable** | Core ecosystem: dependency injection, configuration, logging, UUID generation, expression parsing, REST client, template engine |
-| **Meadow** | Data access layer: provider-agnostic ORM, query generation (FoxHound), schema definitions (Stricture), database connectors (MySQL, MSSQL, SQLite), auto-generated REST endpoints |
+| **Meadow** | Data access layer: provider-agnostic ORM, query generation (FoxHound), schema definitions (Stricture), database connectors (MySQL, MSSQL, PostgreSQL, SQLite, MongoDB, DGraph, Solr, RocksDB), auto-generated REST endpoints |
 | **Orator** | API server: HTTP server abstraction over Restify, static file serving, reverse proxy, WebSocket reporting |
 | **Pict** | MVC tools: views, templates, providers, application lifecycle — for browser, terminal, or any text-based UI |
 | **Utility** | Build tools (Quackage), manifest management (Manyfest), documentation generation (Indoctrinate), process supervision (Ultravisor) |
@@ -92,12 +92,12 @@ retold/
 ├── test/
 ├── docs/                 # Documentation site (pict-docuserve)
 └── modules/
-    ├── fable/            # Core ecosystem (~6 modules)
-    ├── meadow/           # Data access (~13 modules)
-    ├── orator/           # API server (~7 modules)
-    ├── pict/             # MVC tools (~15 modules)
-    ├── utility/          # Build & docs (~10 modules)
-    └── apps/             # Applications (~2 apps)
+    ├── fable/            # Core ecosystem (6 modules)
+    ├── meadow/           # Data access (19 modules)
+    ├── orator/           # API server (7 modules)
+    ├── pict/             # MVC tools (22 modules)
+    ├── utility/          # Build & docs (6 modules)
+    └── apps/             # Applications (2 apps)
 ```
 
 ## Documentation

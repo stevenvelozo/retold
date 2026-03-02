@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-27T12:43:08.346Z",
+	"Generated": "2026-03-02T06:05:50.448Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -431,16 +431,6 @@
 					]
 				},
 				{
-					"Name": "fable-operationstep",
-					"Repo": "fable-operationstep",
-					"Group": "fable",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "fable-serviceproviderbase",
 					"Repo": "fable-serviceproviderbase",
 					"Group": "fable",
@@ -724,12 +714,105 @@
 							]
 						},
 						{
-							"Title": "Reference",
+							"Title": "API Reference",
 							"Children": [
 								{
-									"Title": "API",
-									"Path": "api.md"
+									"Title": "Overview",
+									"Path": "api/reference.md"
 								},
+								{
+									"Title": "Lifecycle",
+									"Children": []
+								},
+								{
+									"Title": "initialize",
+									"Path": "api/initialize.md"
+								},
+								{
+									"Title": "Source Management",
+									"Children": []
+								},
+								{
+									"Title": "createSource",
+									"Path": "api/createSource.md"
+								},
+								{
+									"Title": "checkSourceExists",
+									"Path": "api/checkSourceExists.md"
+								},
+								{
+									"Title": "Record Operations",
+									"Children": []
+								},
+								{
+									"Title": "write",
+									"Path": "api/write.md"
+								},
+								{
+									"Title": "read",
+									"Path": "api/read.md"
+								},
+								{
+									"Title": "delete",
+									"Path": "api/delete.md"
+								},
+								{
+									"Title": "exists",
+									"Path": "api/exists.md"
+								},
+								{
+									"Title": "Metadata & Deltas",
+									"Children": []
+								},
+								{
+									"Title": "readRecordMetadata",
+									"Path": "api/readRecordMetadata.md"
+								},
+								{
+									"Title": "readRecordDelta",
+									"Path": "api/readRecordDelta.md"
+								},
+								{
+									"Title": "Key Enumeration",
+									"Children": []
+								},
+								{
+									"Title": "readRecordKeys",
+									"Path": "api/readRecordKeys.md"
+								},
+								{
+									"Title": "readRecordKeysByTimestamp",
+									"Path": "api/readRecordKeysByTimestamp.md"
+								},
+								{
+									"Title": "Utility",
+									"Children": []
+								},
+								{
+									"Title": "recordHash",
+									"Path": "api/recordHash.md"
+								},
+								{
+									"Title": "Record Diff Service",
+									"Children": []
+								},
+								{
+									"Title": "diffRecords",
+									"Path": "api/diffRecords.md"
+								},
+								{
+									"Title": "generateDiffDelta",
+									"Path": "api/generateDiffDelta.md"
+								},
+								{
+									"Title": "generateDelta",
+									"Path": "api/generateDelta.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
 								{
 									"Title": "CLI",
 									"Path": "cli.md"
@@ -743,6 +826,22 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"api/checkSourceExists.md",
+						"api/createSource.md",
+						"api/delete.md",
+						"api/diffRecords.md",
+						"api/exists.md",
+						"api/generateDelta.md",
+						"api/generateDiffDelta.md",
+						"api/initialize.md",
+						"api/read.md",
+						"api/readRecordDelta.md",
+						"api/readRecordKeys.md",
+						"api/readRecordKeysByTimestamp.md",
+						"api/readRecordMetadata.md",
+						"api/recordHash.md",
+						"api/reference.md",
+						"api/write.md",
 						"api.md",
 						"architecture.md",
 						"cli.md",
@@ -763,38 +862,189 @@
 						"pict-docuserve.min.js.map",
 						"quick-start.md",
 						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"storage-providers.md"
 					]
 				},
 				{
-					"Name": "bibliograph-storage-leveldb",
-					"Repo": "bibliograph-storage-leveldb",
+					"Name": "bibliograph-storage-meadow",
+					"Repo": "bibliograph-storage-meadow",
 					"Group": "meadow",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
-					"Name": "bibliograph-storage-lmdb",
-					"Repo": "bibliograph-storage-lmdb",
-					"Group": "meadow",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
-					"Name": "bibliograph-storage-rocksdb",
-					"Repo": "bibliograph-storage-rocksdb",
-					"Group": "meadow",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "**Getting Started**",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "**Concepts**",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Database Schema",
+									"Path": "schema.md"
+								}
+							]
+						},
+						{
+							"Title": "**API Reference**",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "Lifecycle",
+									"Children": []
+								},
+								{
+									"Title": "initialize()",
+									"Path": "api/initialize.md"
+								},
+								{
+									"Title": "Source Operations",
+									"Children": []
+								},
+								{
+									"Title": "sourceExists()",
+									"Path": "api/sourceExists.md"
+								},
+								{
+									"Title": "sourceCreate()",
+									"Path": "api/sourceCreate.md"
+								},
+								{
+									"Title": "Record Operations",
+									"Children": []
+								},
+								{
+									"Title": "exists()",
+									"Path": "api/exists.md"
+								},
+								{
+									"Title": "read()",
+									"Path": "api/read.md"
+								},
+								{
+									"Title": "persistRecord()",
+									"Path": "api/persistRecord.md"
+								},
+								{
+									"Title": "persistDelete()",
+									"Path": "api/persistDelete.md"
+								},
+								{
+									"Title": "Metadata",
+									"Children": []
+								},
+								{
+									"Title": "readRecordMetadata()",
+									"Path": "api/readRecordMetadata.md"
+								},
+								{
+									"Title": "persistRecordMetadata()",
+									"Path": "api/persistRecordMetadata.md"
+								},
+								{
+									"Title": "Timestamps",
+									"Children": []
+								},
+								{
+									"Title": "stampRecordTimestamp()",
+									"Path": "api/stampRecordTimestamp.md"
+								},
+								{
+									"Title": "Deltas",
+									"Children": []
+								},
+								{
+									"Title": "readRecordDelta()",
+									"Path": "api/readRecordDelta.md"
+								},
+								{
+									"Title": "persistRecordDelta()",
+									"Path": "api/persistRecordDelta.md"
+								},
+								{
+									"Title": "Key Enumeration",
+									"Children": []
+								},
+								{
+									"Title": "readRecordKeys()",
+									"Path": "api/readRecordKeys.md"
+								},
+								{
+									"Title": "readRecordKeysByTimestamp()",
+									"Path": "api/readRecordKeysByTimestamp.md"
+								}
+							]
+						},
+						{
+							"Title": "**Ecosystem**",
+							"Children": [
+								{
+									"Title": "Bibliograph",
+									"Path": "https://github.com/stevenvelozo/bibliograph"
+								},
+								{
+									"Title": "Meadow",
+									"Path": "https://github.com/stevenvelozo/meadow"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://github.com/stevenvelozo/fable"
+								},
+								{
+									"Title": "Pict",
+									"Path": "https://github.com/stevenvelozo/pict"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/exists.md",
+						"api/initialize.md",
+						"api/persistDelete.md",
+						"api/persistRecord.md",
+						"api/persistRecordDelta.md",
+						"api/persistRecordMetadata.md",
+						"api/read.md",
+						"api/readRecordDelta.md",
+						"api/readRecordKeys.md",
+						"api/readRecordKeysByTimestamp.md",
+						"api/readRecordMetadata.md",
+						"api/reference.md",
+						"api/sourceCreate.md",
+						"api/sourceExists.md",
+						"api/stampRecordTimestamp.md",
+						"api.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"schema.md"
+					]
 				},
 				{
 					"Name": "foxhound",
@@ -956,8 +1206,16 @@
 									"Path": "README.md"
 								},
 								{
+									"Title": "Quick Start",
+									"Path": "quick-start.md"
+								},
+								{
 									"Title": "Architecture",
 									"Path": "architecture.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
 								}
 							]
 						},
@@ -969,33 +1227,28 @@
 									"Path": "schema/README.md"
 								},
 								{
-									"Title": "CRUD Operations",
-									"Path": "crud-operations.md"
-								},
-								{
 									"Title": "Query DSL",
 									"Path": "query-dsl.md"
 								},
 								{
 									"Title": "Raw Queries",
 									"Path": "raw-queries.md"
+								},
+								{
+									"Title": "Audit Tracking",
+									"Path": "audit-tracking.md"
+								},
+								{
+									"Title": "Soft Deletes",
+									"Path": "soft-deletes.md"
 								}
 							]
 						},
 						{
-							"Title": "Schema",
+							"Title": "CRUD Operations",
 							"Children": [
 								{
-									"Title": "Schema Overview",
-									"Path": "schema/README.md"
-								}
-							]
-						},
-						{
-							"Title": "Query Operations",
-							"Children": [
-								{
-									"Title": "Query Overview",
+									"Title": "Overview",
 									"Path": "query/README.md"
 								},
 								{
@@ -1024,7 +1277,7 @@
 							"Title": "Providers",
 							"Children": [
 								{
-									"Title": "Providers Overview",
+									"Title": "Overview",
 									"Path": "providers/README.md"
 								},
 								{
@@ -1036,29 +1289,137 @@
 									"Path": "providers/mssql.md"
 								},
 								{
+									"Title": "PostgreSQL",
+									"Path": "providers/postgresql.md"
+								},
+								{
 									"Title": "SQLite",
 									"Path": "providers/sqlite.md"
 								},
 								{
+									"Title": "MongoDB",
+									"Path": "providers/mongodb.md"
+								},
+								{
+									"Title": "RocksDB",
+									"Path": "providers/rocksdb.md"
+								},
+								{
 									"Title": "ALASQL",
 									"Path": "providers/alasql.md"
+								},
+								{
+									"Title": "MeadowEndpoints",
+									"Path": "providers/meadow-endpoints.md"
 								}
 							]
 						},
 						{
-							"Title": "Advanced",
+							"Title": "API Reference",
 							"Children": [
 								{
-									"Title": "Audit Tracking",
-									"Path": "audit-tracking.md"
+									"Title": "Overview",
+									"Path": "api/reference.md"
 								},
 								{
-									"Title": "Soft Deletes",
-									"Path": "soft-deletes.md"
+									"Title": "CRUD Methods",
+									"Children": []
 								},
 								{
-									"Title": "Configuration Reference",
-									"Path": "configuration.md"
+									"Title": "doCreate()",
+									"Path": "api/doCreate.md"
+								},
+								{
+									"Title": "doRead()",
+									"Path": "api/doRead.md"
+								},
+								{
+									"Title": "doReads()",
+									"Path": "api/doReads.md"
+								},
+								{
+									"Title": "doUpdate()",
+									"Path": "api/doUpdate.md"
+								},
+								{
+									"Title": "doDelete()",
+									"Path": "api/doDelete.md"
+								},
+								{
+									"Title": "doUndelete()",
+									"Path": "api/doUndelete.md"
+								},
+								{
+									"Title": "doCount()",
+									"Path": "api/doCount.md"
+								},
+								{
+									"Title": "Configuration",
+									"Children": []
+								},
+								{
+									"Title": "setProvider()",
+									"Path": "api/setProvider.md"
+								},
+								{
+									"Title": "setScope()",
+									"Path": "api/setScope.md"
+								},
+								{
+									"Title": "setSchema()",
+									"Path": "api/setSchema.md"
+								},
+								{
+									"Title": "setDefaultIdentifier()",
+									"Path": "api/setDefaultIdentifier.md"
+								},
+								{
+									"Title": "setIDUser()",
+									"Path": "api/setIDUser.md"
+								},
+								{
+									"Title": "setJsonSchema()",
+									"Path": "api/setJsonSchema.md"
+								},
+								{
+									"Title": "setDefault()",
+									"Path": "api/setDefault.md"
+								},
+								{
+									"Title": "setAuthorizer()",
+									"Path": "api/setAuthorizer.md"
+								},
+								{
+									"Title": "setDomain()",
+									"Path": "api/setDomain.md"
+								},
+								{
+									"Title": "loadFromPackage()",
+									"Path": "api/loadFromPackage.md"
+								},
+								{
+									"Title": "Utility",
+									"Children": []
+								},
+								{
+									"Title": "query (property)",
+									"Path": "api/query.md"
+								},
+								{
+									"Title": "rawQueries",
+									"Path": "api/rawQueries.md"
+								},
+								{
+									"Title": "validateObject()",
+									"Path": "api/validateObject.md"
+								},
+								{
+									"Title": "marshalRecordFromSourceToObject()",
+									"Path": "api/marshalRecordFromSourceToObject.md"
+								},
+								{
+									"Title": "getRoleName()",
+									"Path": "api/getRoleName.md"
 								}
 							]
 						}
@@ -1066,13 +1427,45 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
+						"_topbar.md",
+						"api/doCount.md",
+						"api/doCreate.md",
+						"api/doDelete.md",
+						"api/doRead.md",
+						"api/doReads.md",
+						"api/doUndelete.md",
+						"api/doUpdate.md",
+						"api/getRoleName.md",
+						"api/loadFromPackage.md",
+						"api/marshalRecordFromSourceToObject.md",
+						"api/query.md",
+						"api/rawQueries.md",
+						"api/reference.md",
+						"api/setAuthorizer.md",
+						"api/setDefault.md",
+						"api/setDefaultIdentifier.md",
+						"api/setDomain.md",
+						"api/setIDUser.md",
+						"api/setJsonSchema.md",
+						"api/setProvider.md",
+						"api/setSchema.md",
+						"api/setScope.md",
+						"api/validateObject.md",
+						"architecture.md",
+						"audit-tracking.md",
+						"configuration.md",
 						"css/docuserve.css",
 						"index.html",
 						"providers/README.md",
 						"providers/alasql.md",
+						"providers/meadow-endpoints.md",
+						"providers/mongodb.md",
 						"providers/mssql.md",
 						"providers/mysql.md",
+						"providers/postgresql.md",
+						"providers/rocksdb.md",
 						"providers/sqlite.md",
 						"query/README.md",
 						"query/count.md",
@@ -1080,9 +1473,313 @@
 						"query/delete.md",
 						"query/read.md",
 						"query/update.md",
+						"query-dsl.md",
+						"quick-start.md",
+						"raw-queries.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
-						"schema/README.md"
+						"schema/README.md",
+						"soft-deletes.md"
+					]
+				},
+				{
+					"Name": "meadow-connection-dgraph",
+					"Repo": "meadow-connection-dgraph",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design & Data Flow",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Schema & Predicates",
+									"Path": "schema.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "connectAsync",
+									"Path": "api/connectAsync.md"
+								},
+								{
+									"Title": "connect",
+									"Path": "api/connect.md"
+								},
+								{
+									"Title": "pool",
+									"Path": "api/pool.md"
+								},
+								{
+									"Title": "stub",
+									"Path": "api/stub.md"
+								},
+								{
+									"Title": "generateCreateTableStatement",
+									"Path": "api/generateCreateTableStatement.md"
+								},
+								{
+									"Title": "createTable",
+									"Path": "api/createTable.md"
+								},
+								{
+									"Title": "createTables",
+									"Path": "api/createTables.md"
+								},
+								{
+									"Title": "generateDropTableStatement",
+									"Path": "api/generateDropTableStatement.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "meadow/meadow/README.md"
+								},
+								{
+									"Title": "FoxHound",
+									"Path": "meadow/foxhound/README.md"
+								},
+								{
+									"Title": "MySQL Connector",
+									"Path": "meadow/meadow-connection-mysql/README.md"
+								},
+								{
+									"Title": "MSSQL Connector",
+									"Path": "meadow/meadow-connection-mssql/README.md"
+								},
+								{
+									"Title": "SQLite Connector",
+									"Path": "meadow/meadow-connection-sqlite/README.md"
+								},
+								{
+									"Title": "RocksDB Connector",
+									"Path": "meadow/meadow-connection-rocksdb/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Stricture",
+									"Path": "meadow/stricture/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/connect.md",
+						"api/connectAsync.md",
+						"api/createTable.md",
+						"api/createTables.md",
+						"api/generateCreateTableStatement.md",
+						"api/generateDropTableStatement.md",
+						"api/pool.md",
+						"api/reference.md",
+						"api/stub.md",
+						"api.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"schema.md"
+					]
+				},
+				{
+					"Name": "meadow-connection-mongodb",
+					"Repo": "meadow-connection-mongodb",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "**Getting Started**",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "**Concepts**",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Collections & Indexes",
+									"Path": "schema.md"
+								}
+							]
+						},
+						{
+							"Title": "**API Reference**",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "Connection",
+									"Children": []
+								},
+								{
+									"Title": "connectAsync(fCallback)",
+									"Path": "api/connectAsync.md"
+								},
+								{
+									"Title": "connect()",
+									"Path": "api/connect.md"
+								},
+								{
+									"Title": "Accessors",
+									"Children": []
+								},
+								{
+									"Title": "pool",
+									"Path": "api/pool.md"
+								},
+								{
+									"Title": "client",
+									"Path": "api/client.md"
+								},
+								{
+									"Title": "Schema Management",
+									"Children": []
+								},
+								{
+									"Title": "generateCreateTableStatement()",
+									"Path": "api/generateCreateTableStatement.md"
+								},
+								{
+									"Title": "createTable()",
+									"Path": "api/createTable.md"
+								},
+								{
+									"Title": "createTables()",
+									"Path": "api/createTables.md"
+								},
+								{
+									"Title": "generateDropTableStatement()",
+									"Path": "api/generateDropTableStatement.md"
+								}
+							]
+						},
+						{
+							"Title": "**Ecosystem**",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "https://github.com/stevenvelozo/meadow"
+								},
+								{
+									"Title": "FoxHound",
+									"Path": "https://github.com/stevenvelozo/foxhound"
+								},
+								{
+									"Title": "Stricture",
+									"Path": "https://github.com/stevenvelozo/stricture"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://github.com/stevenvelozo/fable"
+								},
+								{
+									"Title": "Connectors",
+									"Children": []
+								},
+								{
+									"Title": "MySQL",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-mysql"
+								},
+								{
+									"Title": "MSSQL",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-mssql"
+								},
+								{
+									"Title": "SQLite",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-sqlite"
+								},
+								{
+									"Title": "RocksDB",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-rocksdb"
+								},
+								{
+									"Title": "Dgraph",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-dgraph"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/client.md",
+						"api/connect.md",
+						"api/connectAsync.md",
+						"api/createTable.md",
+						"api/createTables.md",
+						"api/generateCreateTableStatement.md",
+						"api/generateDropTableStatement.md",
+						"api/pool.md",
+						"api/reference.md",
+						"api.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"schema.md"
 					]
 				},
 				{
@@ -1101,17 +1798,66 @@
 									"Path": "README.md"
 								},
 								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design & Data Flow",
+									"Path": "architecture.md"
+								},
+								{
 									"Title": "Schema & Table Creation",
 									"Path": "schema.md"
 								}
 							]
 						},
 						{
-							"Title": "Reference",
+							"Title": "API Reference",
 							"Children": [
 								{
-									"Title": "API Reference",
-									"Path": "api.md"
+									"Title": "Full Reference",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "connectAsync()",
+									"Path": "api/connectAsync.md"
+								},
+								{
+									"Title": "connect()",
+									"Path": "api/connect.md"
+								},
+								{
+									"Title": "pool",
+									"Path": "api/pool.md"
+								},
+								{
+									"Title": "preparedStatement",
+									"Path": "api/preparedStatement.md"
+								},
+								{
+									"Title": "MSSQL",
+									"Path": "api/MSSQL.md"
+								},
+								{
+									"Title": "generateCreateTableStatement()",
+									"Path": "api/generateCreateTableStatement.md"
+								},
+								{
+									"Title": "createTable()",
+									"Path": "api/createTable.md"
+								},
+								{
+									"Title": "createTables()",
+									"Path": "api/createTables.md"
+								},
+								{
+									"Title": "generateDropTableStatement()",
+									"Path": "api/generateDropTableStatement.md"
 								}
 							]
 						},
@@ -1135,6 +1881,18 @@
 									"Path": "meadow/meadow-endpoints/README.md"
 								},
 								{
+									"Title": "Meadow Connection MySQL",
+									"Path": "meadow/meadow-connection-mysql/README.md"
+								},
+								{
+									"Title": "Meadow Connection SQLite",
+									"Path": "meadow/meadow-connection-sqlite/README.md"
+								},
+								{
+									"Title": "Meadow Connection RocksDB",
+									"Path": "meadow/meadow-connection-rocksdb/README.md"
+								},
+								{
 									"Title": "Fable",
 									"Path": "fable/fable/README.md"
 								}
@@ -1147,9 +1905,21 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"api/MSSQL.md",
+						"api/connect.md",
+						"api/connectAsync.md",
+						"api/createTable.md",
+						"api/createTables.md",
+						"api/generateCreateTableStatement.md",
+						"api/generateDropTableStatement.md",
+						"api/pool.md",
+						"api/preparedStatement.md",
+						"api/reference.md",
 						"api.md",
+						"architecture.md",
 						"css/docuserve.css",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
 						"schema.md"
@@ -1171,17 +1941,58 @@
 									"Path": "README.md"
 								},
 								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design & Data Flow",
+									"Path": "architecture.md"
+								},
+								{
 									"Title": "Schema & Table Creation",
 									"Path": "schema.md"
 								}
 							]
 						},
 						{
-							"Title": "Reference",
+							"Title": "API Reference",
 							"Children": [
 								{
-									"Title": "API Reference",
-									"Path": "api.md"
+									"Title": "Full Reference",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "connect()",
+									"Path": "api/connect.md"
+								},
+								{
+									"Title": "connectAsync()",
+									"Path": "api/connectAsync.md"
+								},
+								{
+									"Title": "pool",
+									"Path": "api/pool.md"
+								},
+								{
+									"Title": "generateCreateTableStatement()",
+									"Path": "api/generateCreateTableStatement.md"
+								},
+								{
+									"Title": "createTable()",
+									"Path": "api/createTable.md"
+								},
+								{
+									"Title": "createTables()",
+									"Path": "api/createTables.md"
+								},
+								{
+									"Title": "generateDropTableStatement()",
+									"Path": "api/generateDropTableStatement.md"
 								}
 							]
 						},
@@ -1205,6 +2016,18 @@
 									"Path": "meadow/meadow-endpoints/README.md"
 								},
 								{
+									"Title": "Meadow Connection MSSQL",
+									"Path": "meadow/meadow-connection-mssql/README.md"
+								},
+								{
+									"Title": "Meadow Connection SQLite",
+									"Path": "meadow/meadow-connection-sqlite/README.md"
+								},
+								{
+									"Title": "Meadow Connection RocksDB",
+									"Path": "meadow/meadow-connection-rocksdb/README.md"
+								},
+								{
 									"Title": "Fable",
 									"Path": "fable/fable/README.md"
 								}
@@ -1217,9 +2040,460 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"api/connect.md",
+						"api/connectAsync.md",
+						"api/createTable.md",
+						"api/createTables.md",
+						"api/generateCreateTableStatement.md",
+						"api/generateDropTableStatement.md",
+						"api/pool.md",
+						"api/reference.md",
 						"api.md",
+						"architecture.md",
 						"css/docuserve.css",
 						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"schema.md"
+					]
+				},
+				{
+					"Name": "meadow-connection-postgresql",
+					"Repo": "meadow-connection-postgresql",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "**Getting Started**",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "**Concepts**",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Schema & Column Types",
+									"Path": "schema.md"
+								}
+							]
+						},
+						{
+							"Title": "**API Reference**",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "Connection",
+									"Children": []
+								},
+								{
+									"Title": "connectAsync(fCallback)",
+									"Path": "api/connectAsync.md"
+								},
+								{
+									"Title": "connect()",
+									"Path": "api/connect.md"
+								},
+								{
+									"Title": "Accessors",
+									"Children": []
+								},
+								{
+									"Title": "pool",
+									"Path": "api/pool.md"
+								},
+								{
+									"Title": "Schema Management",
+									"Children": []
+								},
+								{
+									"Title": "generateCreateTableStatement()",
+									"Path": "api/generateCreateTableStatement.md"
+								},
+								{
+									"Title": "createTable()",
+									"Path": "api/createTable.md"
+								},
+								{
+									"Title": "createTables()",
+									"Path": "api/createTables.md"
+								},
+								{
+									"Title": "generateDropTableStatement()",
+									"Path": "api/generateDropTableStatement.md"
+								}
+							]
+						},
+						{
+							"Title": "**Ecosystem**",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "https://github.com/stevenvelozo/meadow"
+								},
+								{
+									"Title": "FoxHound",
+									"Path": "https://github.com/stevenvelozo/foxhound"
+								},
+								{
+									"Title": "Stricture",
+									"Path": "https://github.com/stevenvelozo/stricture"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://github.com/stevenvelozo/fable"
+								},
+								{
+									"Title": "Connectors",
+									"Children": []
+								},
+								{
+									"Title": "MySQL",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-mysql"
+								},
+								{
+									"Title": "MSSQL",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-mssql"
+								},
+								{
+									"Title": "SQLite",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-sqlite"
+								},
+								{
+									"Title": "MongoDB",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-mongodb"
+								},
+								{
+									"Title": "RocksDB",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-rocksdb"
+								},
+								{
+									"Title": "Dgraph",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-dgraph"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/connect.md",
+						"api/connectAsync.md",
+						"api/createTable.md",
+						"api/createTables.md",
+						"api/generateCreateTableStatement.md",
+						"api/generateDropTableStatement.md",
+						"api/pool.md",
+						"api/reference.md",
+						"api.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"schema.md"
+					]
+				},
+				{
+					"Name": "meadow-connection-rocksdb",
+					"Repo": "meadow-connection-rocksdb",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Limitations",
+									"Path": "limitations.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "connectAsync",
+									"Path": "api/connectAsync.md"
+								},
+								{
+									"Title": "closeAsync",
+									"Path": "api/closeAsync.md"
+								},
+								{
+									"Title": "connect",
+									"Path": "api/connect.md"
+								},
+								{
+									"Title": "db",
+									"Path": "api/db.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Full Pipeline",
+									"Path": "examples-pipeline.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "meadow/meadow/README.md"
+								},
+								{
+									"Title": "FoxHound",
+									"Path": "meadow/foxhound/README.md"
+								},
+								{
+									"Title": "SQLite Connector",
+									"Path": "meadow/meadow-connection-sqlite/README.md"
+								},
+								{
+									"Title": "MySQL Connector",
+									"Path": "meadow/meadow-connection-mysql/README.md"
+								},
+								{
+									"Title": "MSSQL Connector",
+									"Path": "meadow/meadow-connection-mssql/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/closeAsync.md",
+						"api/connect.md",
+						"api/connectAsync.md",
+						"api/db.md",
+						"api/reference.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"examples-pipeline.md",
+						"index.html",
+						"limitations.md",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
+				},
+				{
+					"Name": "meadow-connection-solr",
+					"Repo": "meadow-connection-solr",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "**Getting Started**",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "**Concepts**",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Schema & Field Types",
+									"Path": "schema.md"
+								}
+							]
+						},
+						{
+							"Title": "**API Reference**",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "Connection",
+									"Children": []
+								},
+								{
+									"Title": "connectAsync(fCallback)",
+									"Path": "api/connectAsync.md"
+								},
+								{
+									"Title": "connect()",
+									"Path": "api/connect.md"
+								},
+								{
+									"Title": "Accessors",
+									"Children": []
+								},
+								{
+									"Title": "pool",
+									"Path": "api/pool.md"
+								},
+								{
+									"Title": "Schema Management",
+									"Children": []
+								},
+								{
+									"Title": "generateCreateTableStatement()",
+									"Path": "api/generateCreateTableStatement.md"
+								},
+								{
+									"Title": "createTable()",
+									"Path": "api/createTable.md"
+								},
+								{
+									"Title": "createTables()",
+									"Path": "api/createTables.md"
+								},
+								{
+									"Title": "generateDropTableStatement()",
+									"Path": "api/generateDropTableStatement.md"
+								}
+							]
+						},
+						{
+							"Title": "**Ecosystem**",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "https://github.com/stevenvelozo/meadow"
+								},
+								{
+									"Title": "FoxHound",
+									"Path": "https://github.com/stevenvelozo/foxhound"
+								},
+								{
+									"Title": "Stricture",
+									"Path": "https://github.com/stevenvelozo/stricture"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://github.com/stevenvelozo/fable"
+								},
+								{
+									"Title": "Connectors",
+									"Children": []
+								},
+								{
+									"Title": "MySQL",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-mysql"
+								},
+								{
+									"Title": "MSSQL",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-mssql"
+								},
+								{
+									"Title": "PostgreSQL",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-postgresql"
+								},
+								{
+									"Title": "SQLite",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-sqlite"
+								},
+								{
+									"Title": "MongoDB",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-mongodb"
+								},
+								{
+									"Title": "RocksDB",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-rocksdb"
+								},
+								{
+									"Title": "Dgraph",
+									"Path": "https://github.com/stevenvelozo/meadow-connection-dgraph"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/connect.md",
+						"api/connectAsync.md",
+						"api/createTable.md",
+						"api/createTables.md",
+						"api/generateCreateTableStatement.md",
+						"api/generateDropTableStatement.md",
+						"api/pool.md",
+						"api/reference.md",
+						"api.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
 						"schema.md"
@@ -1239,15 +2513,68 @@
 								{
 									"Title": "Overview",
 									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
 								}
 							]
 						},
 						{
-							"Title": "Reference",
+							"Title": "Architecture",
 							"Children": [
 								{
-									"Title": "API Reference",
-									"Path": "api.md"
+									"Title": "Design & Data Flow",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Schema & Table Creation",
+									"Path": "schema.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "connectAsync",
+									"Path": "api/connectAsync.md"
+								},
+								{
+									"Title": "connect",
+									"Path": "api/connect.md"
+								},
+								{
+									"Title": "db",
+									"Path": "api/db.md"
+								},
+								{
+									"Title": "SQLite",
+									"Path": "api/SQLite.md"
+								},
+								{
+									"Title": "preparedStatement",
+									"Path": "api/preparedStatement.md"
+								},
+								{
+									"Title": "generateCreateTableStatement",
+									"Path": "api/generateCreateTableStatement.md"
+								},
+								{
+									"Title": "createTable",
+									"Path": "api/createTable.md"
+								},
+								{
+									"Title": "createTables",
+									"Path": "api/createTables.md"
+								},
+								{
+									"Title": "generateDropTableStatement",
+									"Path": "api/generateDropTableStatement.md"
 								}
 							]
 						},
@@ -1280,8 +2607,16 @@
 									"Path": "meadow/meadow-connection-mssql/README.md"
 								},
 								{
+									"Title": "RocksDB Connector",
+									"Path": "meadow/meadow-connection-rocksdb/README.md"
+								},
+								{
 									"Title": "Fable",
 									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Stricture",
+									"Path": "meadow/stricture/README.md"
 								},
 								{
 									"Title": "Indoctrinate",
@@ -1296,12 +2631,25 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"api/SQLite.md",
+						"api/connect.md",
+						"api/connectAsync.md",
+						"api/createTable.md",
+						"api/createTables.md",
+						"api/db.md",
+						"api/generateCreateTableStatement.md",
+						"api/generateDropTableStatement.md",
+						"api/preparedStatement.md",
+						"api/reference.md",
 						"api.md",
+						"architecture.md",
 						"css/docuserve.css",
 						"examples-pipeline.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
-						"retold-keyword-index.json"
+						"retold-keyword-index.json",
+						"schema.md"
 					]
 				},
 				{
@@ -1448,16 +2796,6 @@
 					]
 				},
 				{
-					"Name": "meadow-graph-client",
-					"Repo": "meadow-graph-client",
-					"Group": "meadow",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "meadow-integration",
 					"Repo": "meadow-integration",
 					"Group": "meadow",
@@ -1599,9 +2937,9 @@
 						"examples/bookstore/.gitignore",
 						"examples/bookstore/BookData.md",
 						"examples/bookstore/Generate_Bookstore_Comprehension.sh",
-						"examples/bookstore/mapping_books_Author.json",
-						"examples/bookstore/mapping_books_Book.json",
 						"examples/bookstore/mapping_books_BookAuthorJoin.json",
+						"examples/bookstore/mapping_books_author.json",
+						"examples/bookstore/mapping_books_book.json",
 						"examples/data/books.csv",
 						"examples/data/seattle_neighborhoods/Seattle_Data_Information.md",
 						"examples/data/seattle_neighborhoods/housing_characteristics_Neighborhoods.csv",
@@ -1721,12 +3059,12 @@
 							"Title": "Getting Started",
 							"Children": [
 								{
-									"Title": "Introduction",
+									"Title": "Overview",
 									"Path": "README.md"
 								},
 								{
-									"Title": "Architecture",
-									"Path": "architecture.md"
+									"Title": "Quick Start",
+									"Path": "quick-start.md"
 								},
 								{
 									"Title": "Configuration",
@@ -1735,14 +3073,27 @@
 							]
 						},
 						{
-							"Title": "Usage",
+							"Title": "Architecture",
 							"Children": [
+								{
+									"Title": "System Design",
+									"Path": "architecture.md"
+								},
 								{
 									"Title": "Initialization",
 									"Path": "initialization.md"
 								},
 								{
-									"Title": "Endpoints",
+									"Title": "Schema Definition",
+									"Path": "schema-definition.md"
+								}
+							]
+						},
+						{
+							"Title": "Usage",
+							"Children": [
+								{
+									"Title": "REST Endpoints",
 									"Path": "endpoints.md"
 								},
 								{
@@ -1752,23 +3103,51 @@
 								{
 									"Title": "Behavior Injection",
 									"Path": "behavior-injection.md"
+								},
+								{
+									"Title": "Lifecycle Hooks",
+									"Path": "lifecycle-hooks.md"
 								}
 							]
 						},
 						{
-							"Title": "Advanced",
+							"Title": "API Reference",
 							"Children": [
 								{
-									"Title": "Lifecycle Hooks",
-									"Path": "lifecycle-hooks.md"
+									"Title": "Overview",
+									"Path": "api/reference.md"
 								},
 								{
-									"Title": "Storage Providers",
-									"Path": "storage-providers.md"
+									"Title": "constructor",
+									"Path": "api/constructor.md"
 								},
 								{
-									"Title": "Schema Definition",
-									"Path": "schema-definition.md"
+									"Title": "initializeService",
+									"Path": "api/initializeService.md"
+								},
+								{
+									"Title": "stopService",
+									"Path": "api/stopService.md"
+								},
+								{
+									"Title": "initializePersistenceEngine",
+									"Path": "api/initializePersistenceEngine.md"
+								},
+								{
+									"Title": "initializeDataEndpoints",
+									"Path": "api/initializeDataEndpoints.md"
+								},
+								{
+									"Title": "onBeforeInitialize",
+									"Path": "api/onBeforeInitialize.md"
+								},
+								{
+									"Title": "onInitialize",
+									"Path": "api/onInitialize.md"
+								},
+								{
+									"Title": "onAfterInitialize",
+									"Path": "api/onAfterInitialize.md"
 								}
 							]
 						}
@@ -1778,14 +3157,28 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_topbar.md",
+						"api/constructor.md",
+						"api/initializeDataEndpoints.md",
+						"api/initializePersistenceEngine.md",
+						"api/initializeService.md",
+						"api/onAfterInitialize.md",
+						"api/onBeforeInitialize.md",
+						"api/onInitialize.md",
+						"api/reference.md",
+						"api/stopService.md",
 						"architecture.md",
 						"behavior-injection.md",
 						"configuration.md",
+						"css/docuserve.css",
 						"dal-access.md",
 						"endpoints.md",
 						"index.html",
 						"initialization.md",
 						"lifecycle-hooks.md",
+						"quick-start.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"schema-definition.md",
 						"storage-providers.md"
 					]
@@ -1812,6 +3205,23 @@
 								{
 									"Title": "Docker Setup",
 									"Path": "docker.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "System Design",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Schema Providers",
+									"Path": "schema-providers.md"
+								},
+								{
+									"Title": "Provider Configurators",
+									"Path": "provider-configurators.md"
 								}
 							]
 						},
@@ -1855,15 +3265,45 @@
 							]
 						},
 						{
+							"Title": "Management Tool",
+							"Children": [
+								{
+									"Title": "Terminal UI",
+									"Path": "management-tool.md"
+								}
+							]
+						},
+						{
 							"Title": "Development",
 							"Children": [
 								{
 									"Title": "Testing",
 									"Path": "testing.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "api/reference.md"
 								},
 								{
-									"Title": "Luxury Code IDE",
-									"Path": "luxury-code.md"
+									"Title": "RetoldHarness",
+									"Path": "api/retold-harness.md"
+								},
+								{
+									"Title": "MeadowProviderConfigurator",
+									"Path": "api/meadow-provider-configurator.md"
+								},
+								{
+									"Title": "SchemaProvider",
+									"Path": "api/schema-provider.md"
+								},
+								{
+									"Title": "ProcessManager",
+									"Path": "api/process-manager.md"
 								}
 							]
 						}
@@ -1873,17 +3313,201 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_topbar.md",
+						"api/meadow-provider-configurator.md",
+						"api/process-manager.md",
+						"api/reference.md",
+						"api/retold-harness.md",
+						"api/schema-provider.md",
+						"architecture.md",
 						"behavior-injection.md",
 						"configuration.md",
+						"css/docuserve.css",
 						"docker.md",
 						"endpoints.md",
 						"entities.md",
 						"filtering.md",
 						"index.html",
-						"luxury-code.md",
+						"management-tool.md",
+						"provider-configurators.md",
 						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"schema-providers.md",
 						"schema.md",
-						"testing.md"
+						"testing.md",
+						"dgraph/linux.md",
+						"dgraph/mac.md",
+						"dgraph/windows.md",
+						"mongodb/linux.md",
+						"mongodb/mac.md",
+						"mongodb/windows.md",
+						"mssql/linux.md",
+						"mssql/mac.md",
+						"mssql/windows.md",
+						"mysql/linux.md",
+						"mysql/mac.md",
+						"mysql/windows.md",
+						"postgresql/linux.md",
+						"postgresql/mac.md",
+						"postgresql/windows.md",
+						"solr/linux.md",
+						"solr/mac.md",
+						"solr/windows.md",
+						"sqlite/linux.md",
+						"sqlite/mac.md",
+						"sqlite/windows.md"
+					]
+				},
+				{
+					"Name": "retold-harness-consistency-proxy",
+					"Repo": "retold-harness-consistency-proxy",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quick-start.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "Response Envelope",
+									"Path": "envelope.md"
+								},
+								{
+									"Title": "Field Exclusion",
+									"Path": "field-exclusion.md"
+								},
+								{
+									"Title": "Provider Discovery",
+									"Path": "provider-discovery.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "ConsistencyProxy",
+									"Children": []
+								},
+								{
+									"Title": "constructor()",
+									"Path": "api/constructor.md"
+								},
+								{
+									"Title": "start()",
+									"Path": "api/start.md"
+								},
+								{
+									"Title": "stop()",
+									"Path": "api/stop.md"
+								},
+								{
+									"Title": "RequestFanout",
+									"Children": []
+								},
+								{
+									"Title": "setBackends()",
+									"Path": "api/setBackends.md"
+								},
+								{
+									"Title": "getBackends()",
+									"Path": "api/getBackends.md"
+								},
+								{
+									"Title": "fanout()",
+									"Path": "api/fanout.md"
+								},
+								{
+									"Title": "ResponseComparator",
+									"Children": []
+								},
+								{
+									"Title": "compare()",
+									"Path": "api/compare.md"
+								},
+								{
+									"Title": "Provider Discovery",
+									"Children": []
+								},
+								{
+									"Title": "parseBackendsArg()",
+									"Path": "api/parseBackendsArg.md"
+								},
+								{
+									"Title": "probePort()",
+									"Path": "api/probePort.md"
+								},
+								{
+									"Title": "discoverBackends()",
+									"Path": "api/discoverBackends.md"
+								},
+								{
+									"Title": "parseArgv()",
+									"Path": "api/parseArgv.md"
+								},
+								{
+									"Title": "DefaultProviderPortMap",
+									"Path": "api/DefaultProviderPortMap.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/DefaultProviderPortMap.md",
+						"api/compare.md",
+						"api/constructor.md",
+						"api/discoverBackends.md",
+						"api/fanout.md",
+						"api/getBackends.md",
+						"api/parseArgv.md",
+						"api/parseBackendsArg.md",
+						"api/probePort.md",
+						"api/reference.md",
+						"api/setBackends.md",
+						"api/start.md",
+						"api/stop.md",
+						"architecture.md",
+						"configuration.md",
+						"css/docuserve.css",
+						"envelope.md",
+						"field-exclusion.md",
+						"index.html",
+						"provider-discovery.md",
+						"quick-start.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -1915,9 +3539,7 @@
 						"README.md",
 						"Stricture-Legacy-Compiler.md",
 						"css/docuserve.css",
-						"index.html",
-						"retold-catalog.json",
-						"retold-keyword-index.json"
+						"index.html"
 					]
 				}
 			]
@@ -2091,6 +3713,16 @@
 					]
 				},
 				{
+					"Name": "orator-endpoint",
+					"Repo": "orator-endpoint",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
 					"Name": "orator-http-proxy",
 					"Repo": "orator-http-proxy",
 					"Group": "orator",
@@ -2132,52 +3764,6 @@
 						"index.html",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
-					]
-				},
-				{
-					"Name": "orator-serviceserver-base",
-					"Repo": "orator-serviceserver-base",
-					"Group": "orator",
-					"Branch": "master",
-					"HasDocs": true,
-					"HasCover": true,
-					"Sidebar": [
-						{
-							"Title": "Getting Started",
-							"Children": [
-								{
-									"Title": "Introduction",
-									"Path": "README.md"
-								},
-								{
-									"Title": "Creating a Custom Server",
-									"Path": "custom-server.md"
-								}
-							]
-						},
-						{
-							"Title": "Reference",
-							"Children": [
-								{
-									"Title": "API Reference",
-									"Path": "api-reference.md"
-								},
-								{
-									"Title": "Template Method Pattern",
-									"Path": "template-method.md"
-								}
-							]
-						}
-					],
-					"DocFiles": [
-						".nojekyll",
-						"README.md",
-						"_sidebar.md",
-						"api-reference.md",
-						"cover.md",
-						"custom-server.md",
-						"index.html",
-						"template-method.md"
 					]
 				},
 				{
@@ -2619,19 +4205,12 @@
 						"examples/complex_example_seattle_data/data/race_ethnicity_Neighborhoods_-7085838689260358328.csv",
 						"examples/hello_world/.babelrc",
 						"examples/hello_world/.browserslistrc",
-						"examples/hello_world/.browserslistrc-BACKUP",
-						"examples/hello_world/.gulpfile-quackage-config.json",
-						"examples/hello_world/.gulpfile-quackage.js",
 						"examples/hello_world/.quackage.json",
 						"examples/hello_world/README.md",
 						"examples/hello_world/dist/.gitignore",
-						"examples/hello_world/dist/hello_world.js",
-						"examples/hello_world/dist/hello_world.js.map",
 						"examples/hello_world/dist/hello_world.min.js",
-						"examples/hello_world/dist/hello_world.min.js.map",
 						"examples/hello_world/dist/index.html",
 						"examples/hello_world/index.js",
-						"examples/hello_world/package-lock.json",
 						"examples/hello_world/package.json",
 						"examples/quickstart.js",
 						"index.html",
@@ -2695,16 +4274,6 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
-				},
-				{
-					"Name": "pict-chance",
-					"Repo": "pict-chance",
-					"Group": "pict",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
 				},
 				{
 					"Name": "pict-docuserve",
@@ -3247,80 +4816,6 @@
 					]
 				},
 				{
-					"Name": "pict-section-entitymanagement",
-					"Repo": "pict-section-entitymanagement",
-					"Group": "pict",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
-					"Name": "pict-section-filebrowser",
-					"Repo": "pict-section-filebrowser",
-					"Group": "pict",
-					"Branch": "master",
-					"HasDocs": true,
-					"HasCover": true,
-					"Sidebar": [
-						{
-							"Title": "Getting Started",
-							"Children": [
-								{
-									"Title": "Introduction",
-									"Path": "README.md"
-								},
-								{
-									"Title": "Configuration",
-									"Path": "Configuration.md"
-								}
-							]
-						},
-						{
-							"Title": "Architecture",
-							"Children": [
-								{
-									"Title": "Providers",
-									"Path": "Providers.md"
-								},
-								{
-									"Title": "Views",
-									"Path": "Views.md"
-								},
-								{
-									"Title": "Layouts",
-									"Path": "Layouts.md"
-								},
-								{
-									"Title": "Icons",
-									"Path": "Icons.md"
-								}
-							]
-						},
-						{
-							"Title": "Service",
-							"Children": [
-								{
-									"Title": "REST API",
-									"Path": "REST_API.md"
-								}
-							]
-						}
-					],
-					"DocFiles": [
-						".nojekyll",
-						"README.md",
-						"_sidebar.md",
-						"_topbar.md",
-						"cover.md",
-						"css/docuserve.css",
-						"index.html",
-						"retold-catalog.json",
-						"retold-keyword-index.json"
-					]
-				},
-				{
 					"Name": "pict-section-flow",
 					"Repo": "pict-section-flow",
 					"Group": "pict",
@@ -3631,6 +5126,146 @@
 						"index.html",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
+						".pict_documentation_topics.json",
+						"Getting-Started.md",
+						"Groups.md",
+						"Inputs.md",
+						"Sections.md",
+						"Shortcuts.md",
+						"Solver-Expression-Walkthrough.md",
+						"Solver-Expressions-Advanced.md",
+						"Solver-Functions.md",
+						"Solvers.md",
+						"ToC.md",
+						"pict_documentation_topics.json",
+						"solverfunctions/abs.md",
+						"solverfunctions/aggregationhistogram.md",
+						"solverfunctions/aggregationhistogrambyobject.md",
+						"solverfunctions/arrayconcat.md",
+						"solverfunctions/avg.md",
+						"solverfunctions/bucketset.md",
+						"solverfunctions/ceil.md",
+						"solverfunctions/cleanvaluearray.md",
+						"solverfunctions/cleanvalueobject.md",
+						"solverfunctions/colorgroupbackground.md",
+						"solverfunctions/colorinputbackground.md",
+						"solverfunctions/colorinputbackgroundtabular.md",
+						"solverfunctions/colorsectionbackground.md",
+						"solverfunctions/compare.md",
+						"solverfunctions/concat.md",
+						"solverfunctions/concatraw.md",
+						"solverfunctions/cos.md",
+						"solverfunctions/count.md",
+						"solverfunctions/countset.md",
+						"solverfunctions/countsetelements.md",
+						"solverfunctions/createarrayfromabsolutevalues.md",
+						"solverfunctions/createvalueobjectbyhashes.md",
+						"solverfunctions/cumulativesummation.md",
+						"solverfunctions/dateadddays.md",
+						"solverfunctions/dateaddhours.md",
+						"solverfunctions/dateaddmilliseconds.md",
+						"solverfunctions/dateaddminutes.md",
+						"solverfunctions/dateaddmonths.md",
+						"solverfunctions/dateaddseconds.md",
+						"solverfunctions/dateaddweeks.md",
+						"solverfunctions/dateaddyears.md",
+						"solverfunctions/datedaydifference.md",
+						"solverfunctions/datefromparts.md",
+						"solverfunctions/datehourdifference.md",
+						"solverfunctions/datemathadd.md",
+						"solverfunctions/datemilliseconddifference.md",
+						"solverfunctions/dateminutedifference.md",
+						"solverfunctions/datemonthdifference.md",
+						"solverfunctions/dateseconddifference.md",
+						"solverfunctions/dateweekdifference.md",
+						"solverfunctions/dateyeardifference.md",
+						"solverfunctions/differencearrays.md",
+						"solverfunctions/disablesolverordinal.md",
+						"solverfunctions/distributionhistogram.md",
+						"solverfunctions/distributionhistogrambyobject.md",
+						"solverfunctions/enablesolverordinal.md",
+						"solverfunctions/entryinset.md",
+						"solverfunctions/euler.md",
+						"solverfunctions/exp.md",
+						"solverfunctions/findfirstvaluebyexactmatch.md",
+						"solverfunctions/findfirstvaluebystringincludes.md",
+						"solverfunctions/flatten.md",
+						"solverfunctions/floor.md",
+						"solverfunctions/gaussianelimination.md",
+						"solverfunctions/generatearrayofobjectsfromsets.md",
+						"solverfunctions/generatehtmlhexcolor.md",
+						"solverfunctions/getvalue.md",
+						"solverfunctions/getvaluearray.md",
+						"solverfunctions/getvalueobject.md",
+						"solverfunctions/hidesections.md",
+						"solverfunctions/if.md",
+						"solverfunctions/iterativeseries.md",
+						"solverfunctions/join.md",
+						"solverfunctions/joinraw.md",
+						"solverfunctions/largestinset.md",
+						"solverfunctions/leastsquares.md",
+						"solverfunctions/linest.md",
+						"solverfunctions/log.md",
+						"solverfunctions/logvalues.md",
+						"solverfunctions/match.md",
+						"solverfunctions/matrixinverse.md",
+						"solverfunctions/matrixmultiply.md",
+						"solverfunctions/matrixtranspose.md",
+						"solverfunctions/matrixvectormultiply.md",
+						"solverfunctions/max.md",
+						"solverfunctions/mean.md",
+						"solverfunctions/median.md",
+						"solverfunctions/min.md",
+						"solverfunctions/mode.md",
+						"solverfunctions/objectkeystoarray.md",
+						"solverfunctions/objectvaluessortbyexternalobjectarray.md",
+						"solverfunctions/objectvaluestoarray.md",
+						"solverfunctions/percent.md",
+						"solverfunctions/pi.md",
+						"solverfunctions/polynomialregression.md",
+						"solverfunctions/predict.md",
+						"solverfunctions/rad.md",
+						"solverfunctions/randomfloat.md",
+						"solverfunctions/randomfloatbetween.md",
+						"solverfunctions/randomfloatupto.md",
+						"solverfunctions/randominteger.md",
+						"solverfunctions/randomintegerbetween.md",
+						"solverfunctions/randomintegerupto.md",
+						"solverfunctions/refreshtabularsection.md",
+						"solverfunctions/resolvehtmlentities.md",
+						"solverfunctions/round.md",
+						"solverfunctions/runsolvers.md",
+						"solverfunctions/setconcatenate.md",
+						"solverfunctions/setgroupvisibility.md",
+						"solverfunctions/setsectionvisibility.md",
+						"solverfunctions/setsolverordinalenabled.md",
+						"solverfunctions/settabularrowlength.md",
+						"solverfunctions/setvalue.md",
+						"solverfunctions/showsections.md",
+						"solverfunctions/sin.md",
+						"solverfunctions/slice.md",
+						"solverfunctions/smallestinset.md",
+						"solverfunctions/sortarray.md",
+						"solverfunctions/sorthistogram.md",
+						"solverfunctions/sorthistogrambykeys.md",
+						"solverfunctions/sortset.md",
+						"solverfunctions/sqrt.md",
+						"solverfunctions/stdev.md",
+						"solverfunctions/stdeva.md",
+						"solverfunctions/stdevp.md",
+						"solverfunctions/stringcountsegments.md",
+						"solverfunctions/stringgetsegments.md",
+						"solverfunctions/subtractingsummation.md",
+						"solverfunctions/sum.md",
+						"solverfunctions/tan.md",
+						"solverfunctions/tofixed.md",
+						"solverfunctions/unionarrays.md",
+						"solverfunctions/uniquearray.md",
+						"solverfunctions/var.md",
+						"solverfunctions/vara.md",
+						"solverfunctions/varp.md",
+						"solverfunctions/when.md",
+						".pict_documentation_topics.json",
 						"Getting-Started.md",
 						"Groups.md",
 						"Inputs.md",
@@ -3769,114 +5404,6 @@
 						"solverfunctions/vara.md",
 						"solverfunctions/varp.md",
 						"solverfunctions/when.md"
-					]
-				},
-				{
-					"Name": "pict-section-markdowneditor",
-					"Repo": "pict-section-markdowneditor",
-					"Group": "pict",
-					"Branch": "master",
-					"HasDocs": true,
-					"HasCover": true,
-					"Sidebar": [
-						{
-							"Title": "Getting Started",
-							"Children": [
-								{
-									"Title": "Overview",
-									"Path": "README.md"
-								},
-								{
-									"Title": "Configuration",
-									"Path": "configuration.md"
-								}
-							]
-						},
-						{
-							"Title": "Reference",
-							"Children": [
-								{
-									"Title": "API Reference",
-									"Path": "api.md"
-								},
-								{
-									"Title": "Image Upload",
-									"Path": "image_upload.md"
-								}
-							]
-						},
-						{
-							"Title": "Examples",
-							"Children": [
-								{
-									"Title": "Markdown Editor",
-									"Path": "examples/markdown_editor.md"
-								},
-								{
-									"Title": "Embedded Editor",
-									"Path": "examples/embedded_editor.md"
-								},
-								{
-									"Title": "Book Viewer",
-									"Path": "examples/book_viewer.md"
-								},
-								{
-									"Title": "Server Upload",
-									"Path": "examples/server_upload.md"
-								}
-							]
-						},
-						{
-							"Title": "Retold Ecosystem",
-							"Children": [
-								{
-									"Title": "Pict",
-									"Path": "pict/pict/README.md"
-								},
-								{
-									"Title": "Pict Application",
-									"Path": "pict/pict-application/README.md"
-								},
-								{
-									"Title": "Pict View",
-									"Path": "pict/pict-view/README.md"
-								},
-								{
-									"Title": "Pict Provider",
-									"Path": "pict/pict-provider/README.md"
-								},
-								{
-									"Title": "Pict Section Content",
-									"Path": "pict/pict-section-content/README.md"
-								},
-								{
-									"Title": "Fable",
-									"Path": "fable/fable/README.md"
-								},
-								{
-									"Title": "Indoctrinate",
-									"Path": "utility/indoctrinate/README.md"
-								}
-							]
-						}
-					],
-					"DocFiles": [
-						".nojekyll",
-						"README.md",
-						"_sidebar.md",
-						"_topbar.md",
-						"api.md",
-						"configuration.md",
-						"cover.md",
-						"css/docuserve.css",
-						"examples/book_viewer.md",
-						"examples/embedded_editor.md",
-						"examples/markdown_editor.md",
-						"examples/server_upload.md",
-						"image_upload.md",
-						"index.html",
-						"retold-catalog.json",
-						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -4553,16 +6080,6 @@
 					]
 				},
 				{
-					"Name": "cumulation",
-					"Repo": "cumulation",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "indoctrinate",
 					"Repo": "indoctrinate",
 					"Group": "utility",
@@ -4751,16 +6268,6 @@
 						"validating.md",
 						"writing.md"
 					]
-				},
-				{
-					"Name": "pict-cruisecontrol",
-					"Repo": "pict-cruisecontrol",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
 				},
 				{
 					"Name": "precedent",

@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-02-21",
+	"Generated": "2026-03-01",
 	"Description": "Manifest of all modules in the Retold ecosystem",
 	"GitHubOrg": "stevenvelozo",
 	"Groups":
@@ -85,7 +85,7 @@
 				{
 					"Name": "foxhound",
 					"Path": "modules/meadow/foxhound",
-					"Description": "Fluent query DSL generating dialect-specific SQL for MySQL, MSSQL, SQLite, and ALASQL",
+					"Description": "Fluent query DSL generating dialect-specific queries for MySQL, MSSQL, SQLite, ALASQL, and MongoDB",
 					"GitHub": "https://github.com/stevenvelozo/foxhound",
 					"Documentation": "https://stevenvelozo.github.io/foxhound/",
 					"RelatedModules": ["meadow", "stricture", "meadow-connection-mysql", "meadow-connection-mssql", "meadow-connection-sqlite"]
@@ -96,39 +96,23 @@
 					"Description": "Key-value record comprehension service for change tracking in data ingestion pipelines",
 					"GitHub": "https://github.com/stevenvelozo/bibliograph",
 					"Documentation": "https://stevenvelozo.github.io/bibliograph/",
-					"RelatedModules": ["fable", "bibliograph-storage-leveldb", "bibliograph-storage-lmdb", "bibliograph-storage-rocksdb"]
+					"RelatedModules": ["fable", "bibliograph-storage-meadow"]
 				},
 				{
-					"Name": "bibliograph-storage-leveldb",
-					"Path": "modules/meadow/bibliograph-storage-leveldb",
-					"Description": "LevelDB storage provider for Bibliograph record comprehension",
-					"GitHub": "https://github.com/stevenvelozo/bibliograph-storage-leveldb",
-					"Documentation": false,
-					"RelatedModules": ["bibliograph"]
-				},
-				{
-					"Name": "bibliograph-storage-lmdb",
-					"Path": "modules/meadow/bibliograph-storage-lmdb",
-					"Description": "LMDB storage provider for Bibliograph record comprehension",
-					"GitHub": "https://github.com/stevenvelozo/bibliograph-storage-lmdb",
-					"Documentation": false,
-					"RelatedModules": ["bibliograph"]
-				},
-				{
-					"Name": "bibliograph-storage-rocksdb",
-					"Path": "modules/meadow/bibliograph-storage-rocksdb",
-					"Description": "RocksDB storage provider for Bibliograph record comprehension",
-					"GitHub": "https://github.com/stevenvelozo/bibliograph-storage-rocksdb",
-					"Documentation": false,
-					"RelatedModules": ["bibliograph"]
+					"Name": "bibliograph-storage-meadow",
+					"Path": "modules/meadow/bibliograph-storage-meadow",
+					"Description": "Meadow-backed storage provider for Bibliograph record comprehension with full CRUD persistence",
+					"GitHub": "https://github.com/stevenvelozo/bibliograph-storage-meadow",
+					"Documentation": "https://stevenvelozo.github.io/bibliograph-storage-meadow/",
+					"RelatedModules": ["bibliograph", "meadow"]
 				},
 				{
 					"Name": "meadow",
 					"Path": "modules/meadow/meadow",
-					"Description": "Provider-agnostic data broker with CRUD operations, audit tracking, and soft deletes",
+					"Description": "Provider-agnostic data broker with CRUD operations, audit tracking, and soft deletes across 8 database engines",
 					"GitHub": "https://github.com/stevenvelozo/meadow",
 					"Documentation": "https://stevenvelozo.github.io/meadow/",
-					"RelatedModules": ["fable", "stricture", "foxhound", "meadow-endpoints", "meadow-connection-mysql", "meadow-connection-mssql", "meadow-connection-sqlite"]
+					"RelatedModules": ["fable", "stricture", "foxhound", "meadow-endpoints", "meadow-connection-mysql", "meadow-connection-mssql", "meadow-connection-sqlite", "meadow-connection-postgresql", "meadow-connection-mongodb", "meadow-connection-dgraph", "meadow-connection-solr", "meadow-connection-rocksdb"]
 				},
 				{
 					"Name": "parime",
@@ -171,6 +155,46 @@
 					"RelatedModules": ["meadow", "foxhound"]
 				},
 				{
+					"Name": "meadow-connection-postgresql",
+					"Path": "modules/meadow/meadow-connection-postgresql",
+					"Description": "PostgreSQL connection provider for Meadow via pg with connection pooling",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-postgresql",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-postgresql/",
+					"RelatedModules": ["meadow", "foxhound"]
+				},
+				{
+					"Name": "meadow-connection-mongodb",
+					"Path": "modules/meadow/meadow-connection-mongodb",
+					"Description": "MongoDB document database connection provider for Meadow",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-mongodb",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-mongodb/",
+					"RelatedModules": ["meadow", "foxhound"]
+				},
+				{
+					"Name": "meadow-connection-dgraph",
+					"Path": "modules/meadow/meadow-connection-dgraph",
+					"Description": "DGraph graph database connection provider for Meadow",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-dgraph",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-dgraph/",
+					"RelatedModules": ["meadow"]
+				},
+				{
+					"Name": "meadow-connection-solr",
+					"Path": "modules/meadow/meadow-connection-solr",
+					"Description": "Apache Solr search platform connection provider for Meadow",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-solr",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-solr/",
+					"RelatedModules": ["meadow"]
+				},
+				{
+					"Name": "meadow-connection-rocksdb",
+					"Path": "modules/meadow/meadow-connection-rocksdb",
+					"Description": "RocksDB embedded key-value store connection provider for Meadow",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-rocksdb",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-rocksdb/",
+					"RelatedModules": ["meadow"]
+				},
+				{
 					"Name": "meadow-graph-client",
 					"Path": "modules/meadow/meadow-graph-client",
 					"Description": "Graph client for pulling sets of records and comprehensions from Meadow endpoints",
@@ -189,10 +213,18 @@
 				{
 					"Name": "retold-harness",
 					"Path": "modules/meadow/retold-harness",
-					"Description": "Pre-built API harness with a bookstore demo for testing and development",
+					"Description": "Composable REST API harness with 3 pluggable schemas, 7 database providers, and a terminal management tool",
 					"GitHub": "https://github.com/stevenvelozo/retold-harness",
 					"Documentation": "https://stevenvelozo.github.io/retold-harness/",
-					"RelatedModules": ["retold-data-service", "orator", "meadow"]
+					"RelatedModules": ["retold-data-service", "retold-harness-consistency-proxy", "orator", "meadow", "meadow-connection-mysql", "meadow-connection-mssql", "meadow-connection-sqlite", "meadow-connection-postgresql", "meadow-connection-mongodb", "meadow-connection-dgraph", "meadow-connection-solr"]
+				},
+				{
+					"Name": "retold-harness-consistency-proxy",
+					"Path": "modules/meadow/retold-harness-consistency-proxy",
+					"Description": "HTTP consistency proxy that fans requests across multiple database providers and compares responses",
+					"GitHub": "https://github.com/stevenvelozo/retold-harness-consistency-proxy",
+					"Documentation": "https://stevenvelozo.github.io/retold-harness-consistency-proxy/",
+					"RelatedModules": ["retold-harness", "retold-data-service"]
 				},
 				{
 					"Name": "meadow-integration",
@@ -265,6 +297,14 @@
 					"GitHub": "https://github.com/stevenvelozo/orator-conversion",
 					"Documentation": "https://stevenvelozo.github.io/orator-conversion/",
 					"RelatedModules": ["orator"]
+				},
+				{
+					"Name": "orator-endpoint",
+					"Path": "modules/orator/orator-endpoint",
+					"Description": "Base endpoint class for Orator providing route definition and request handling patterns",
+					"GitHub": "https://github.com/stevenvelozo/orator-endpoint",
+					"Documentation": false,
+					"RelatedModules": ["orator", "meadow-endpoints"]
 				}
 			]
 		},

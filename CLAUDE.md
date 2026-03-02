@@ -1,13 +1,13 @@
 # Retold
 
-A suite of ~50 JavaScript/Node.js modules for building web applications and APIs. MIT licensed.
+A suite of 60+ JavaScript/Node.js modules for building web applications and APIs. MIT licensed.
 
 ## Architecture
 
 Six module groups, each in `modules/<group>/`:
 
 - **Fable** — Core ecosystem: dependency injection (service provider pattern), configuration, logging, UUID generation, expression parser, REST client, template engine
-- **Meadow** — Data access layer: ORM, query DSL (FoxHound), schema definitions (Stricture), DB connectors (MySQL, MSSQL, SQLite), RESTful endpoint generation
+- **Meadow** — Data access layer: ORM, query DSL (FoxHound), schema definitions (Stricture), DB connectors (MySQL, MSSQL, PostgreSQL, SQLite, MongoDB, DGraph, Solr, RocksDB), RESTful endpoint generation
 - **Orator** — API server: Restify wrapper, static file serving, HTTP proxy, WebSocket support (Tidings)
 - **Pict** — MVC tools: views, templates, providers, application lifecycle, form builders, TUI grid, CLI utilities
 - **Utility** — Build tools (Quackage), manifest management (Manyfest), documentation (Indoctrinate), process supervision (Ultravisor)
@@ -23,10 +23,10 @@ retold/
 ├── test/                    # Root-level tests
 ├── modules/
 │   ├── fable/              # 6 modules
-│   ├── meadow/             # 13 modules
-│   ├── orator/             # 6 modules
-│   ├── pict/               # 15 modules
-│   ├── utility/            # 10+ modules
+│   ├── meadow/             # 19 modules
+│   ├── orator/             # 7 modules
+│   ├── pict/               # 22 modules
+│   ├── utility/            # 6 modules
 │   └── apps/               # 2 applications
 ```
 
