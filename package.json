@@ -1,6 +1,6 @@
 {
     "name": "retold",
-    "version": "4.0.7",
+    "version": "4.0.8",
     "description": "The pict and fable node ecosystem.",
     "main": "source/Retold.cjs",
     "bin": {
@@ -24,10 +24,10 @@
     "homepage": "https://github.com/stevenvelozo/retold",
     "devDependencies": {
         "indoctrinate": "^1.0.8",
-        "pict-docuserve": "^0.0.28",
+        "pict-docuserve": "^0.0.30",
         "quackage": "^1.0.59"
     },
     "dependencies": {
-        "retold-content-system": "^1.0.2"
+        "retold-content-system": "^1.0.8"
     }
 }
