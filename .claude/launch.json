@@ -30,6 +30,18 @@
 			"runtimeExecutable": "bash",
 			"runtimeArgs": ["-c", "cd modules/meadow/retold-harness && PORT=9003 node source/Retold-Harness.js"],
 			"port": 9003
+		},
+		{
+			"name": "flow-example",
+			"runtimeExecutable": "bash",
+			"runtimeArgs": ["-c", "cd modules/pict/pict-section-flow/example_applications/simple_cards/dist && python3 -m http.server 9099"],
+			"port": 9099
+		},
+		{
+			"name": "ultravisor-webinterface",
+			"runtimeExecutable": "bash",
+			"runtimeArgs": ["-c", "cd modules/utility/ultravisor/webinterface/dist && python3 -m http.server 9100"],
+			"port": 9100
 		}
 	]
 }
