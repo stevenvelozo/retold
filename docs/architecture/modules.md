@@ -13,7 +13,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [fable-uuid](/fable/fable-uuid/) | `fable-uuid` | UUID generator supporting RFC 4122 v4 and configurable random strings |
 | [fable-log-logger-bunyan](/fable/fable-log-logger-bunyan/) | `fable-log-logger-bunyan` | Bunyan structured logging provider for Fable-Log |
 
-## Meadow — Data Access Layer (19 modules)
+## Meadow — Data Access Layer (20 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -36,6 +36,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [retold-harness](/meadow/retold-harness/) | `retold-harness` | Composable REST API harness with 3 schemas, 7 providers, and terminal management tool |
 | [retold-harness-consistency-proxy](/meadow/retold-harness-consistency-proxy/) | `retold-harness-consistency-proxy` | HTTP consistency proxy comparing responses across multiple database providers |
 | [meadow-integration](/meadow/meadow-integration/) | `meadow-integration` | Data integration tools for CSV import, schema mapping, and centralized formats |
+| [meadow-migrationmanager](/meadow/meadow-migrationmanager/) | `meadow-migrationmanager` | CLI, Web, and Console UI tool for managing database schemas and migrations |
 
 ## Orator — API Server (7 modules)
 
@@ -49,7 +50,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [tidings](/orator/tidings/) | `tidings` | Extensible reporting system for generating HTML, PDF, and other format reports |
 | [orator-conversion](/orator/orator-conversion/) | `orator-conversion` | File format conversion endpoints for Orator service servers |
 
-## Pict — MVC Tools (22 modules)
+## Pict — MVC Tools (24 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -69,12 +70,14 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [pict-service-commandlineutility](/pict/pict-service-commandlineutility/) | `pict-service-commandlineutility` | CLI utility module built on Commander for Pict-based command-line tools |
 | [pict-section-recordset](/pict/pict-section-recordset/) | `pict-section-recordset` | CRUD record management views from Meadow endpoint schemas |
 | [pict-section-content](/pict/pict-section-content/) | `pict-section-content` | Markdown parsing and content rendering with Mermaid diagrams and KaTeX math |
+| [pict-section-markdowneditor](/pict/pict-section-markdowneditor/) | `pict-section-markdowneditor` | Segmented markdown editor built on CodeMirror v6 with drag-and-drop reorder and live rich previews |
 | [pict-section-form](/pict/pict-section-form/) | `pict-section-form` | Configuration-driven dynamic forms with 13+ input types and data marshaling |
 | [pict-section-objecteditor](/pict/pict-section-objecteditor/) | `pict-section-objecteditor` | Tree-based JSON object editor section for Pict views |
 | [pict-section-tuigrid](/pict/pict-section-tuigrid/) | `pict-section-tuigrid` | Toast UI Grid integration for tabular data display and editing |
 | [pict-router](/pict/pict-router/) | `pict-router` | Hash-based URL routing via Navigo with template string route functions |
 | [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | `pict-serviceproviderbase` | Base classes for Pict services with pre-initialization support |
 | [pict-terminalui](/pict/pict-terminalui/) | `pict-terminalui` | Blessed-based terminal interface for Pict views |
+| [pict-sessionmanager](/pict/pict-sessionmanager/) | `pict-sessionmanager` | Session management service handling authenticated REST requests across security contexts |
 
 ## Utility — Build & Documentation Tools (6 modules)
 
@@ -99,12 +102,12 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | Group | Count | Focus |
 |-------|-------|-------|
 | Fable | 6 | Core ecosystem, DI, configuration, logging |
-| Meadow | 19 | Data access, ORM, query DSL, schema, 8 DB connectors, harness |
+| Meadow | 20 | Data access, ORM, query DSL, schema, 8 DB connectors, harness, migrations |
 | Orator | 7 | API server, HTTP, static files, proxy, reporting, conversion |
-| Pict | 22 | MVC, views, templates, forms, grids, editors, routing, docs, TUI |
+| Pict | 24 | MVC, views, templates, forms, grids, editors, routing, docs, TUI, sessions |
 | Utility | 6 | Build tools, caching, templating, manifests, docs, process supervision |
 | Apps | 2 | Full-stack applications built on Retold |
-| **Total** | **62** | |
+| **Total** | **65** | |
 
 ## GitHub Repositories
 

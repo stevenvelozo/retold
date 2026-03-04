@@ -233,6 +233,14 @@
 					"GitHub": "https://github.com/stevenvelozo/meadow-integration",
 					"Documentation": "https://stevenvelozo.github.io/meadow-integration/",
 					"RelatedModules": ["meadow", "stricture"]
+				},
+				{
+					"Name": "meadow-migrationmanager",
+					"Path": "modules/meadow/meadow-migrationmanager",
+					"Description": "CLI, Web, and Console UI tool for managing database schemas and migrations",
+					"GitHub": "https://github.com/stevenvelozo/meadow-migrationmanager",
+					"Documentation": false,
+					"RelatedModules": ["meadow", "stricture", "meadow-connection-mysql", "meadow-connection-mssql", "meadow-connection-sqlite", "meadow-connection-postgresql"]
 				}
 			]
 		},
@@ -513,6 +521,14 @@
 					"GitHub": "https://github.com/stevenvelozo/pict-terminalui",
 					"Documentation": "https://stevenvelozo.github.io/pict-terminalui/",
 					"RelatedModules": ["pict", "pict-view", "pict-application"]
+				},
+				{
+					"Name": "pict-sessionmanager",
+					"Path": "modules/pict/pict-sessionmanager",
+					"Description": "Session management service for Pict handling authenticated REST requests across multiple security contexts",
+					"GitHub": "https://github.com/stevenvelozo/pict-sessionmanager",
+					"Documentation": false,
+					"RelatedModules": ["pict", "fable-serviceproviderbase"]
 				}
 			]
 		},
