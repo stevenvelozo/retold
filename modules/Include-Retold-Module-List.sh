@@ -4,7 +4,7 @@ echo "### Building list of modules..."
 
 repositoriesFable=("fable" "fable-log" "fable-settings" "fable-uuid" "fable-serviceproviderbase" "fable-log-logger-bunyan")
 
-repositoriesMeadow=("stricture" "foxhound" "bibliograph" "bibliograph-storage-meadow" "meadow" "parime" "meadow-endpoints" "meadow-connection-mysql" "meadow-connection-mssql" "meadow-connection-sqlite" "meadow-connection-postgresql" "meadow-connection-mongodb" "meadow-connection-dgraph" "meadow-connection-solr" "meadow-connection-rocksdb" "meadow-graph-client" "retold-data-service" "retold-harness" "retold-harness-consistency-proxy" "meadow-integration" "meadow-migrationmanager")
+repositoriesMeadow=("stricture" "foxhound" "bibliograph" "bibliograph-storage-meadow" "meadow" "parime" "meadow-endpoints" "meadow-connection-mysql" "meadow-connection-mssql" "meadow-connection-sqlite" "meadow-connection-sqlite-browser" "meadow-connection-postgresql" "meadow-connection-mongodb" "meadow-connection-dgraph" "meadow-connection-solr" "meadow-connection-rocksdb" "meadow-graph-client" "retold-data-service" "retold-harness" "retold-harness-consistency-proxy" "meadow-integration" "meadow-migrationmanager")
 
 repositoriesOrator=("orator" "orator-serviceserver-restify" "orator-static-server" "orator-http-proxy" "orator-endpoint" "tidings" "orator-conversion")
 
