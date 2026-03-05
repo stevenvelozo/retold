@@ -38,10 +38,22 @@
 			"port": 9099
 		},
 		{
+			"name": "data-cloner",
+			"runtimeExecutable": "bash",
+			"runtimeArgs": ["-c", "cd modules/meadow/retold-data-service/example_applications/data-cloner && node data-cloner.js"],
+			"port": 8095
+		},
+		{
 			"name": "ultravisor-webinterface",
 			"runtimeExecutable": "bash",
 			"runtimeArgs": ["-c", "cd modules/utility/ultravisor/webinterface/dist && python3 -m http.server 9100"],
 			"port": 9100
+		},
+		{
+			"name": "formeditor-example",
+			"runtimeExecutable": "bash",
+			"runtimeArgs": ["-c", "cd modules/pict/pict-section-formeditor && npx quack examples -p 9200"],
+			"port": 9200
 		}
 	]
 }
