@@ -64,11 +64,20 @@ module.exports =
 		{
 			Name: 'utility',
 			Label: 'Utility',
-			Description: 'Build tools, manifests, docs, supervision',
+			Description: 'Build tools, manifests, docs',
 			Modules:
 			[
 				'cachetrax', 'cumulation', 'indoctrinate', 'manyfest',
-				'pict-cruisecontrol', 'precedent', 'quackage', 'ultravisor'
+				'pict-cruisecontrol', 'precedent', 'quackage'
+			]
+		},
+		{
+			Name: 'apps',
+			Label: 'Apps',
+			Description: 'Full-stack applications: CMS, remote access, process supervision',
+			Modules:
+			[
+				'retold-content-system', 'retold-remote', 'ultravisor'
 			]
 		}
 	]

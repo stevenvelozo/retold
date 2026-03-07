@@ -587,14 +587,6 @@
 					"RelatedModules": ["fable"]
 				},
 				{
-					"Name": "ultravisor",
-					"Path": "modules/utility/ultravisor",
-					"Description": "Process supervision with scheduled tasks, distributed nodes, and LLM integration for automated workflows",
-					"GitHub": "https://github.com/stevenvelozo/ultravisor",
-					"Documentation": "https://stevenvelozo.github.io/ultravisor/",
-					"RelatedModules": ["fable"]
-				},
-				{
 					"Name": "pict-cruisecontrol",
 					"Path": "modules/utility/pict-cruisecontrol",
 					"Description": "Automated and user-assisted web page navigation and data marshaling for browser automation",
@@ -625,6 +617,14 @@
 					"GitHub": "https://github.com/stevenvelozo/retold-remote",
 					"Documentation": false,
 					"RelatedModules": ["fable", "meadow", "orator", "pict"]
+				},
+				{
+					"Name": "ultravisor",
+					"Path": "modules/apps/ultravisor",
+					"Description": "Process supervision with scheduled tasks, distributed nodes, and LLM integration for automated workflows",
+					"GitHub": "https://github.com/stevenvelozo/ultravisor",
+					"Documentation": "https://stevenvelozo.github.io/ultravisor/",
+					"RelatedModules": ["fable"]
 				}
 			]
 		}

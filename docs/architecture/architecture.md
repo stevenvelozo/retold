@@ -294,7 +294,7 @@ Supporting the application stack are utility modules:
 | **[Manyfest](/utility/manyfest/)** | JSON manifest for consistent data description across layers |
 | **[Quackage](/utility/quackage/)** | Standardized build tool for browser bundles, testing, and packaging |
 | **[Indoctrinate](/utility/indoctrinate/)** | Documentation scaffolding, catalog generation, and cross-module search |
-| **[Ultravisor](/utility/ultravisor/)** | Process supervision with scheduled tasks and LLM integration |
+| **[Ultravisor](/apps/ultravisor/)** | Process supervision with scheduled tasks and LLM integration |
 
 ## Design Principles
 

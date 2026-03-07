@@ -114,15 +114,15 @@ Non-opinionated Model-View-Controller tools for building UIs as text strings —
 
 ### [Utility](/utility/indoctrinate/) — Build & Documentation Tools
 
-Build tooling, manifest management, documentation generation, and process supervision.
+Build tooling, manifest management, and documentation generation.
 
-**Key modules:** [indoctrinate](/utility/indoctrinate/) · [manyfest](/utility/manyfest/) · [quackage](/utility/quackage/) · [ultravisor](/utility/ultravisor/)
+**Key modules:** [indoctrinate](/utility/indoctrinate/) · [manyfest](/utility/manyfest/) · [quackage](/utility/quackage/)
 
 ### [Apps](/apps/retold-content-system/) — Applications
 
 Full-stack applications built on the Retold ecosystem, combining Fable, Meadow, Orator, and Pict into complete systems.
 
-**Key modules:** [retold-content-system](/apps/retold-content-system/) · [retold-remote](/apps/retold-remote/)
+**Key modules:** [retold-content-system](/apps/retold-content-system/) · [retold-remote](/apps/retold-remote/) · [ultravisor](/apps/ultravisor/)
 
 ## Quick Start
 

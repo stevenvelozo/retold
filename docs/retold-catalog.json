@@ -7129,7 +7129,7 @@
 				{
 					"Name": "ultravisor",
 					"Repo": "ultravisor",
-					"Group": "utility",
+					"Group": "apps",
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,

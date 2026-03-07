@@ -260,7 +260,7 @@ _BookService.connectRoutes(_Orator);
 >
 > Working example: [`examples/quickstart/layer5/`](../examples/quickstart/layer5/) (Manyfest)
 
-Supporting the application stack are utility modules like **Manyfest** (schema-driven object navigation), **Quackage** (browser bundling), **Indoctrinate** (documentation generation), and **Ultravisor** (process supervision). These are used throughout the stack but don't live in the numbered layer model.
+Supporting the application stack are utility modules like **Manyfest** (schema-driven object navigation), **Quackage** (browser bundling), and **Indoctrinate** (documentation generation). **Ultravisor** (process supervision) lives in the Apps group as a full-stack application. These are used throughout the stack but don't live in the numbered layer model.
 
 ## Next Steps
 

@@ -25,7 +25,7 @@ modules/utility/merquerial
 modules/utility/precedent
 modules/utility/quantifier
 modules/utility/quackage
-modules/utility/ultravisor
+modules/apps/ultravisor
 modules/utility/data-arithmatic
 modules/utility/pict-*
 

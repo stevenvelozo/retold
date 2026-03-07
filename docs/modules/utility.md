@@ -1,6 +1,6 @@
 # Utility — Build & Documentation Tools
 
-The utility group provides supporting tools for building, documenting, testing, caching, templating, and supervising Retold applications.
+The utility group provides supporting tools for building, documenting, testing, caching, and templating Retold applications.
 
 ## Modules
 
@@ -56,14 +56,6 @@ npx quack coverage       # Generate coverage report
 
 **npm:** `quackage` · **Version:** 1.0.x
 
----
-
-### [Ultravisor](/utility/ultravisor/)
-
-Process supervision tool for running commands on schedule with LLM integration. Supports distributed nodes, global state, and flexible task types (shell, browser, HTTP, database).
-
-**npm:** `ultravisor` · **Version:** 1.0.x
-
 ## All Utility Modules
 
 | Module | Description |
@@ -73,4 +65,3 @@ Process supervision tool for running commands on schedule with LLM integration. 
 | [manyfest](/utility/manyfest/) | JSON manifest for data description, validation, and address-based access |
 | [precedent](/utility/precedent/) | Meta-templating engine with pattern-based start/end markers and word tree matching |
 | [quackage](/utility/quackage/) | Build tool for browser bundles, testing, and packaging |
-| [ultravisor](/utility/ultravisor/) | Process supervision with scheduled tasks and LLM integration |

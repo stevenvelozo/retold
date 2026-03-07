@@ -325,7 +325,7 @@
 <g id="group-utility">
   <rect x="687" y="72" width="633" height="142" rx="8" fill="#EBEDEF" stroke="#2C3E50" stroke-width="1.5" opacity="0.85" />
   <text x="699" y="92" font-size="12" font-weight="bold" fill="#2C3E50">Utility (Build/Ops)</text>
-  <text x="1308" y="92" text-anchor="end" font-size="9" fill="#2C3E50" opacity="0.7">8 modules</text>
+  <text x="1308" y="92" text-anchor="end" font-size="9" fill="#2C3E50" opacity="0.7">7 modules</text>
 </g>
 <g id="group-meadow">
   <rect x="30" y="238" width="1248" height="142" rx="8" fill="#E8F8EF" stroke="#27AE60" stroke-width="1.5" opacity="0.85" />
@@ -340,7 +340,7 @@
 <g id="group-apps">
   <rect x="687" y="404" width="633" height="78" rx="8" fill="#FDEDEC" stroke="#C0392B" stroke-width="1.5" opacity="0.85" />
   <text x="699" y="424" font-size="12" font-weight="bold" fill="#C0392B">Apps (Full Stack)</text>
-  <text x="1308" y="424" text-anchor="end" font-size="9" fill="#C0392B" opacity="0.7">2 modules</text>
+  <text x="1308" y="424" text-anchor="end" font-size="9" fill="#C0392B" opacity="0.7">3 modules</text>
 </g>
 <g id="group-pict">
   <rect x="30" y="570" width="1248" height="206" rx="8" fill="#F4ECF7" stroke="#8E44AD" stroke-width="1.5" opacity="0.85" />

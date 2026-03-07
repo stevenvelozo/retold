@@ -46,7 +46,7 @@
 		{
 			"name": "ultravisor-webinterface",
 			"runtimeExecutable": "bash",
-			"runtimeArgs": ["-c", "cd modules/utility/ultravisor/webinterface/dist && python3 -m http.server 9100"],
+			"runtimeArgs": ["-c", "cd modules/apps/ultravisor/webinterface/dist && python3 -m http.server 9100"],
 			"port": 9100
 		},
 		{

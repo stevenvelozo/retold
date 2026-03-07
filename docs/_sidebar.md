@@ -100,9 +100,9 @@
   - [manyfest](/utility/manyfest/)
   - [precedent](/utility/precedent/)
   - [quackage](/utility/quackage/)
-  - [ultravisor](/utility/ultravisor/)
 
 - [Apps — Applications](modules/apps.md)
 
   - [retold-content-system](/apps/retold-content-system/)
   - [retold-remote](/apps/retold-remote/)
+  - [ultravisor](/apps/ultravisor/)

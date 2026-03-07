@@ -10,8 +10,8 @@ Six module groups, each in `modules/<group>/`:
 - **Meadow** — Data access layer: ORM, query DSL (FoxHound), schema definitions (Stricture), DB connectors (MySQL, MSSQL, PostgreSQL, SQLite, MongoDB, DGraph, Solr, RocksDB), RESTful endpoint generation
 - **Orator** — API server: Restify wrapper, static file serving, HTTP proxy, WebSocket support (Tidings)
 - **Pict** — MVC tools: views, templates, providers, application lifecycle, form builders, TUI grid, CLI utilities
-- **Utility** — Build tools (Quackage), manifest management (Manyfest), documentation (Indoctrinate), process supervision (Ultravisor)
-- **Apps** — Full-stack applications: content management (retold-content-system), remote access (retold-remote)
+- **Utility** — Build tools (Quackage), manifest management (Manyfest), documentation (Indoctrinate)
+- **Apps** — Full-stack applications: content management (retold-content-system), remote access (retold-remote), process supervision (Ultravisor)
 
 ## Repository Structure
 
@@ -26,8 +26,8 @@ retold/
 │   ├── meadow/             # 19 modules
 │   ├── orator/             # 7 modules
 │   ├── pict/               # 22 modules
-│   ├── utility/            # 6 modules
-│   └── apps/               # 2 applications
+│   ├── utility/            # 5 modules
+│   └── apps/               # 3 applications
 ```
 
 ## Code Style

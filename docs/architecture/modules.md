@@ -88,14 +88,14 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [manyfest](/utility/manyfest/) | `manyfest` | JSON manifest for consistent data description, validation, and address-based access across layers |
 | [precedent](/utility/precedent/) | `precedent` | Meta-templating engine with pattern-based start/end markers and word tree matching |
 | [quackage](/utility/quackage/) | `quackage` | Standardized build tool for browser bundles, transpilation, testing, and packaging |
-| [ultravisor](/utility/ultravisor/) | `ultravisor` | Process supervision with scheduled tasks, distributed nodes, and LLM integration |
 
-## Apps — Applications (2 modules)
+## Apps — Applications (3 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
 | [retold-content-system](/apps/retold-content-system/) | `retold-content-system` | Content management system built on the Retold ecosystem |
 | [retold-remote](/apps/retold-remote/) | `retold-remote` | Remote access application built on the Retold ecosystem |
+| [ultravisor](/apps/ultravisor/) | `ultravisor` | Process supervision with scheduled tasks, distributed nodes, and LLM integration |
 
 ## Summary
 
@@ -105,8 +105,8 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | Meadow | 20 | Data access, ORM, query DSL, schema, 8 DB connectors, harness, migrations |
 | Orator | 7 | API server, HTTP, static files, proxy, reporting, conversion |
 | Pict | 24 | MVC, views, templates, forms, grids, editors, routing, docs, TUI, sessions |
-| Utility | 6 | Build tools, caching, templating, manifests, docs, process supervision |
-| Apps | 2 | Full-stack applications built on Retold |
+| Utility | 5 | Build tools, caching, templating, manifests, docs |
+| Apps | 3 | Full-stack applications built on Retold |
 | **Total** | **65** | |
 
 ## GitHub Repositories

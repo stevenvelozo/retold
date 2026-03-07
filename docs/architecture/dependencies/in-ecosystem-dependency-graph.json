@@ -929,11 +929,11 @@
 		},
 		{
 			"name": "ultravisor",
-			"group": "utility",
+			"group": "apps",
 			"category": "module",
 			"version": "1.0.2",
 			"description": "Cyclic process execution with ai integration.",
-			"path": "./modules/utility/ultravisor",
+			"path": "./modules/apps/ultravisor",
 			"ecosystemProductionDependencyCount": 5,
 			"ecosystemDevDependencyCount": 1,
 			"totalExternalDependencyCount": 1,

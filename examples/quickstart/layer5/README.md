@@ -1,8 +1,8 @@
 # Utility: Manyfest - Object Navigation
 
 > Retold Utility Layer — Supporting tools: Manyfest (manifest management),
-> Quackage (build), Indoctrinate (documentation), Ultravisor (process
-> supervision), CacheTrax (caching), Precedent (meta-templating), and more
+> Quackage (build), Indoctrinate (documentation), CacheTrax (caching),
+> Precedent (meta-templating), and more
 
 Manyfest provides schema-driven JSON object description, navigation, and
 validation. It is used throughout Retold for consistent data access across

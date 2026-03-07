@@ -12,8 +12,8 @@ Retold is a collection of 60+ JavaScript/Node.js modules for building web applic
 | **Meadow** | Data access layer: provider-agnostic ORM, query generation (FoxHound), schema definitions (Stricture), database connectors (MySQL, MSSQL, PostgreSQL, SQLite, MongoDB, DGraph, Solr, RocksDB), auto-generated REST endpoints |
 | **Orator** | API server: HTTP server abstraction over Restify, static file serving, reverse proxy, WebSocket reporting |
 | **Pict** | MVC tools: views, templates, providers, application lifecycle — for browser, terminal, or any text-based UI |
-| **Utility** | Build tools (Quackage), manifest management (Manyfest), documentation generation (Indoctrinate), process supervision (Ultravisor) |
-| **Apps** | Full-stack applications built on Retold: content management (retold-content-system), remote access (retold-remote) |
+| **Utility** | Build tools (Quackage), manifest management (Manyfest), documentation generation (Indoctrinate) |
+| **Apps** | Full-stack applications built on Retold: content management (retold-content-system), remote access (retold-remote), process supervision (Ultravisor) |
 
 ## The Service Provider Pattern
 
