@@ -50,10 +50,22 @@
 			"port": 9100
 		},
 		{
+			"name": "ultravisor-dev",
+			"runtimeExecutable": "bash",
+			"runtimeArgs": ["-c", "cd modules/apps/ultravisor && node source/cli/Ultravisor-Run.cjs start --config .claude/ultravisor-dev-config.json"],
+			"port": 54321
+		},
+		{
 			"name": "formeditor-example",
 			"runtimeExecutable": "bash",
 			"runtimeArgs": ["-c", "cd modules/pict/pict-section-formeditor && npx quack examples -p 9200"],
 			"port": 9200
+		},
+		{
+			"name": "graph-explorer",
+			"runtimeExecutable": "bash",
+			"runtimeArgs": ["-c", "cd modules/meadow/meadow-graph-client/example_applications/graph-explorer && node server.js"],
+			"port": 3420
 		}
 	]
 }

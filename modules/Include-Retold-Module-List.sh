@@ -10,7 +10,7 @@ repositoriesOrator=("orator" "orator-serviceserver-restify" "orator-static-serve
 
 repositoriesPict=("pict" "pict-template" "pict-view" "pict-provider" "pict-application" "pict-panel" "pict-nonlinearconfig" "pict-section-flow" "pict-docuserve" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-section-openseadragon" "pict-section-recordset" "pict-section-code" "pict-section-content" "pict-section-objecteditor" "pict-section-formeditor" "pict-section-form" "pict-section-tuigrid" "pict-router" "pict-serviceproviderbase" "pict-terminalui" "pict-sessionmanager" "pict-section-markdowneditor")
 
-repositoriesUtility=("indoctrinate" "manyfest" "cachetrax" "precedent" "quackage")
+repositoriesUtility=("indoctrinate" "manyfest" "cachetrax" "precedent" "quackage" "retold-sample-data")
 
 repositoriesApps=("retold-content-system" "retold-remote" "ultravisor")
 
