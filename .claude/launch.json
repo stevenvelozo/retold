@@ -66,6 +66,12 @@
 			"runtimeExecutable": "bash",
 			"runtimeArgs": ["-c", "cd modules/meadow/meadow-graph-client/example_applications/graph-explorer && node server.js"],
 			"port": 3420
+		},
+		{
+			"name": "login-example",
+			"runtimeExecutable": "bash",
+			"runtimeArgs": ["-c", "cd modules/orator/orator-authentication/example_applications/simple_login && node Serve-Login-Example.js"],
+			"port": 9060
 		}
 	]
 }
