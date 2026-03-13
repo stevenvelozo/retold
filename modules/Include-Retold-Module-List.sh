@@ -8,7 +8,7 @@ repositoriesMeadow=("stricture" "foxhound" "bibliograph" "bibliograph-storage-me
 
 repositoriesOrator=("orator" "orator-serviceserver-restify" "orator-static-server" "orator-http-proxy" "orator-endpoint" "tidings" "orator-conversion" "orator-authentication")
 
-repositoriesPict=("pict" "pict-template" "pict-view" "pict-provider" "pict-application" "pict-panel" "pict-nonlinearconfig" "pict-section-flow" "pict-docuserve" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-section-openseadragon" "pict-section-recordset" "pict-section-code" "pict-section-content" "pict-section-objecteditor" "pict-section-formeditor" "pict-section-form" "pict-section-tuigrid" "pict-section-login" "pict-router" "pict-serviceproviderbase" "pict-terminalui" "pict-sessionmanager" "pict-section-markdowneditor")
+repositoriesPict=("pict" "pict-template" "pict-template-preprocessor" "pict-view" "pict-provider" "pict-application" "pict-panel" "pict-nonlinearconfig" "pict-section-flow" "pict-docuserve" "cryptbrau" "informary" "pict-service-commandlineutility" "pict-section-openseadragon" "pict-section-recordset" "pict-section-code" "pict-section-content" "pict-section-objecteditor" "pict-section-formeditor" "pict-section-form" "pict-section-tuigrid" "pict-section-login" "pict-router" "pict-serviceproviderbase" "pict-terminalui" "pict-sessionmanager" "pict-section-markdowneditor")
 
 repositoriesUtility=("indoctrinate" "manyfest" "cachetrax" "precedent" "quackage" "retold-sample-data")
 

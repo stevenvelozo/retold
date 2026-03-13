@@ -50,12 +50,13 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [tidings](/orator/tidings/) | `tidings` | Extensible reporting system for generating HTML, PDF, and other format reports |
 | [orator-conversion](/orator/orator-conversion/) | `orator-conversion` | File format conversion endpoints for Orator service servers |
 
-## Pict — MVC Tools (24 modules)
+## Pict — MVC Tools (25 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
 | [pict](/pict/pict/) | `pict` | Non-opinionated MVC module with template expression engine for text-based UIs |
 | [pict-template](/pict/pict-template/) | `pict-template` | Template handler base class for custom expression types |
+| [pict-template-preprocessor](/pict/pict-template-preprocessor/) | `pict-template-preprocessor` | Template compiler and optimizer with cached segment arrays, dependency graphs, and entity batch prefetch |
 | [pict-view](/pict/pict-view/) | `pict-view` | View base class with full lifecycle (init, render, solve, marshal), renderables, and CSS |
 | [pict-provider](/pict/pict-provider/) | `pict-provider` | Data provider base class for delivering data to views |
 | [pict-application](/pict/pict-application/) | `pict-application` | Application base class coordinating views, state, and lifecycle |
@@ -104,10 +105,10 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | Fable | 6 | Core ecosystem, DI, configuration, logging |
 | Meadow | 20 | Data access, ORM, query DSL, schema, 8 DB connectors, harness, migrations |
 | Orator | 7 | API server, HTTP, static files, proxy, reporting, conversion |
-| Pict | 24 | MVC, views, templates, forms, grids, editors, routing, docs, TUI, sessions |
+| Pict | 25 | MVC, views, templates, forms, grids, editors, routing, docs, TUI, sessions |
 | Utility | 5 | Build tools, caching, templating, manifests, docs |
 | Apps | 3 | Full-stack applications built on Retold |
-| **Total** | **65** | |
+| **Total** | **66** | |
 
 ## GitHub Repositories
 

@@ -71,6 +71,7 @@
 
   - [pict](/pict/pict/)
   - [pict-template](/pict/pict-template/)
+  - [pict-template-preprocessor](/pict/pict-template-preprocessor/)
   - [pict-view](/pict/pict-view/)
   - [pict-provider](/pict/pict-provider/)
   - [pict-application](/pict/pict-application/)

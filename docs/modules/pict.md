@@ -115,6 +115,26 @@ Base class for custom template handlers. Extend this to add new template express
 
 ---
 
+### [Pict-Template-Preprocessor](/pict/pict-template-preprocessor/)
+
+Template compiler and optimizer. Compiles template strings into cached segment arrays on first parse so the character-by-character trie walk only happens once per unique template. Builds an expression dependency graph with JSON and Graphviz DOT export, and batch-prefetches entities at TemplateSet boundaries to eliminate N+1 fetch patterns.
+
+```javascript
+const libPreprocessor = require('pict-template-preprocessor');
+
+// Register and instantiate -- wrappers install automatically
+_Pict.addServiceType('PictTemplatePreprocessor', libPreprocessor);
+let _Preprocessor = _Pict.instantiateServiceProvider('PictTemplatePreprocessor');
+
+// All parseTemplate calls now use the compiled fast path
+// Inspect the dependency graph
+console.log(_Preprocessor.graph.toDOT());
+```
+
+**npm:** `pict-template-preprocessor` · **Version:** 0.0.x
+
+---
+
 ### [Pict-Provider](/pict/pict-provider/)
 
 Base class for data providers. Providers fetch, transform, and deliver data to views.
@@ -232,6 +252,7 @@ Flow diagram section for visual workflow and process representations.
 |--------|-------------|
 | [pict](/pict/pict/) | Core MVC module with template engine |
 | [pict-template](/pict/pict-template/) | Custom template handler base class |
+| [pict-template-preprocessor](/pict/pict-template-preprocessor/) | Template compiler with cached segments, dependency graphs, and entity prefetch |
 | [pict-view](/pict/pict-view/) | View base class with full lifecycle |
 | [pict-provider](/pict/pict-provider/) | Data provider base class |
 | [pict-application](/pict/pict-application/) | Application lifecycle management |
