@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-03-04T21:51:49.003Z",
+	"Generated": "2026-03-13T19:52:17.272Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -1223,6 +1223,10 @@
 									"Path": "schema.md"
 								},
 								{
+									"Title": "JSON Columns",
+									"Path": "json-columns.md"
+								},
+								{
 									"Title": "Query Overrides",
 									"Path": "query-overrides.md"
 								},
@@ -1266,6 +1270,7 @@
 						"filters.md",
 						"index.html",
 						"joins.md",
+						"json-columns.md",
 						"pagination.md",
 						"query/README.md",
 						"query/count.md",
@@ -1316,6 +1321,10 @@
 								{
 									"Title": "Schema",
 									"Path": "schema/README.md"
+								},
+								{
+									"Title": "JSON Columns",
+									"Path": "schema/json-columns.md"
 								},
 								{
 									"Title": "Query DSL",
@@ -1570,6 +1579,7 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json",
 						"schema/README.md",
+						"schema/json-columns.md",
 						"soft-deletes.md"
 					]
 				},
@@ -2744,6 +2754,159 @@
 					]
 				},
 				{
+					"Name": "meadow-connection-sqlite-browser",
+					"Repo": "meadow-connection-sqlite-browser",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design & Data Flow",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Schema & Table Creation",
+									"Path": "schema.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "connectAsync",
+									"Path": "api/connectAsync.md"
+								},
+								{
+									"Title": "connect",
+									"Path": "api/connect.md"
+								},
+								{
+									"Title": "db",
+									"Path": "api/db.md"
+								},
+								{
+									"Title": "SQLite",
+									"Path": "api/SQLite.md"
+								},
+								{
+									"Title": "preparedStatement",
+									"Path": "api/preparedStatement.md"
+								},
+								{
+									"Title": "generateCreateTableStatement",
+									"Path": "api/generateCreateTableStatement.md"
+								},
+								{
+									"Title": "createTable",
+									"Path": "api/createTable.md"
+								},
+								{
+									"Title": "createTables",
+									"Path": "api/createTables.md"
+								},
+								{
+									"Title": "generateDropTableStatement",
+									"Path": "api/generateDropTableStatement.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Full Pipeline",
+									"Path": "examples-pipeline.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "meadow/meadow/README.md"
+								},
+								{
+									"Title": "FoxHound",
+									"Path": "meadow/foxhound/README.md"
+								},
+								{
+									"Title": "MySQL Connector",
+									"Path": "meadow/meadow-connection-mysql/README.md"
+								},
+								{
+									"Title": "MSSQL Connector",
+									"Path": "meadow/meadow-connection-mssql/README.md"
+								},
+								{
+									"Title": "RocksDB Connector",
+									"Path": "meadow/meadow-connection-rocksdb/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Stricture",
+									"Path": "meadow/stricture/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/SQLite.md",
+						"api/connect.md",
+						"api/connectAsync.md",
+						"api/createTable.md",
+						"api/createTables.md",
+						"api/db.md",
+						"api/generateCreateTableStatement.md",
+						"api/generateDropTableStatement.md",
+						"api/preparedStatement.md",
+						"api/reference.md",
+						"api.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"examples-pipeline.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"schema.md"
+					]
+				},
+				{
 					"Name": "meadow-endpoints",
 					"Repo": "meadow-endpoints",
 					"Group": "meadow",
@@ -2948,6 +3111,19 @@
 							]
 						},
 						{
+							"Title": "Comprehension Push",
+							"Children": [
+								{
+									"Title": "Integration Adapter",
+									"Path": "integration-adapter.md"
+								},
+								{
+									"Title": "Push Configuration",
+									"Path": "comprehension-push/configuration.md"
+								}
+							]
+						},
+						{
 							"Title": "Data Synchronization",
 							"Children": [
 								{
@@ -2963,7 +3139,7 @@
 									"Path": "data-clone/sync-modes.md"
 								},
 								{
-									"Title": "Configuration",
+									"Title": "Clone Configuration",
 									"Path": "data-clone/configuration.md"
 								},
 								{
@@ -3207,6 +3383,7 @@
 						"cli/serve.md",
 						"cli/tsvtransform.md",
 						"cli-reference.md",
+						"comprehension-push/configuration.md",
 						"comprehensions.md",
 						"css/docuserve.css",
 						"data-clone/configuration.md",
@@ -3345,6 +3522,16 @@
 						"user-guide.md",
 						"web-server.md"
 					]
+				},
+				{
+					"Name": "meadow-provider-offline",
+					"Repo": "meadow-provider-offline",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "parime",
@@ -4649,6 +4836,16 @@
 					]
 				},
 				{
+					"Name": "pict-chance",
+					"Repo": "pict-chance",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
 					"Name": "pict-docuserve",
 					"Repo": "pict-docuserve",
 					"Group": "pict",
@@ -5206,6 +5403,16 @@
 					]
 				},
 				{
+					"Name": "pict-section-entitymanagement",
+					"Repo": "pict-section-entitymanagement",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
 					"Name": "pict-section-flow",
 					"Repo": "pict-section-flow",
 					"Group": "pict",
@@ -5515,285 +5722,7 @@
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
-						"retold-keyword-index.json",
-						".pict_documentation_topics.json",
-						"Getting-Started.md",
-						"Groups.md",
-						"Inputs.md",
-						"Sections.md",
-						"Shortcuts.md",
-						"Solver-Expression-Walkthrough.md",
-						"Solver-Expressions-Advanced.md",
-						"Solver-Functions.md",
-						"Solvers.md",
-						"ToC.md",
-						"pict_documentation_topics.json",
-						"solverfunctions/abs.md",
-						"solverfunctions/aggregationhistogram.md",
-						"solverfunctions/aggregationhistogrambyobject.md",
-						"solverfunctions/arrayconcat.md",
-						"solverfunctions/avg.md",
-						"solverfunctions/bucketset.md",
-						"solverfunctions/ceil.md",
-						"solverfunctions/cleanvaluearray.md",
-						"solverfunctions/cleanvalueobject.md",
-						"solverfunctions/colorgroupbackground.md",
-						"solverfunctions/colorinputbackground.md",
-						"solverfunctions/colorinputbackgroundtabular.md",
-						"solverfunctions/colorsectionbackground.md",
-						"solverfunctions/compare.md",
-						"solverfunctions/concat.md",
-						"solverfunctions/concatraw.md",
-						"solverfunctions/cos.md",
-						"solverfunctions/count.md",
-						"solverfunctions/countset.md",
-						"solverfunctions/countsetelements.md",
-						"solverfunctions/createarrayfromabsolutevalues.md",
-						"solverfunctions/createvalueobjectbyhashes.md",
-						"solverfunctions/cumulativesummation.md",
-						"solverfunctions/dateadddays.md",
-						"solverfunctions/dateaddhours.md",
-						"solverfunctions/dateaddmilliseconds.md",
-						"solverfunctions/dateaddminutes.md",
-						"solverfunctions/dateaddmonths.md",
-						"solverfunctions/dateaddseconds.md",
-						"solverfunctions/dateaddweeks.md",
-						"solverfunctions/dateaddyears.md",
-						"solverfunctions/datedaydifference.md",
-						"solverfunctions/datefromparts.md",
-						"solverfunctions/datehourdifference.md",
-						"solverfunctions/datemathadd.md",
-						"solverfunctions/datemilliseconddifference.md",
-						"solverfunctions/dateminutedifference.md",
-						"solverfunctions/datemonthdifference.md",
-						"solverfunctions/dateseconddifference.md",
-						"solverfunctions/dateweekdifference.md",
-						"solverfunctions/dateyeardifference.md",
-						"solverfunctions/differencearrays.md",
-						"solverfunctions/disablesolverordinal.md",
-						"solverfunctions/distributionhistogram.md",
-						"solverfunctions/distributionhistogrambyobject.md",
-						"solverfunctions/enablesolverordinal.md",
-						"solverfunctions/entryinset.md",
-						"solverfunctions/euler.md",
-						"solverfunctions/exp.md",
-						"solverfunctions/findfirstvaluebyexactmatch.md",
-						"solverfunctions/findfirstvaluebystringincludes.md",
-						"solverfunctions/flatten.md",
-						"solverfunctions/floor.md",
-						"solverfunctions/gaussianelimination.md",
-						"solverfunctions/generatearrayofobjectsfromsets.md",
-						"solverfunctions/generatehtmlhexcolor.md",
-						"solverfunctions/getvalue.md",
-						"solverfunctions/getvaluearray.md",
-						"solverfunctions/getvalueobject.md",
-						"solverfunctions/hidesections.md",
-						"solverfunctions/if.md",
-						"solverfunctions/iterativeseries.md",
-						"solverfunctions/join.md",
-						"solverfunctions/joinraw.md",
-						"solverfunctions/largestinset.md",
-						"solverfunctions/leastsquares.md",
-						"solverfunctions/linest.md",
-						"solverfunctions/log.md",
-						"solverfunctions/logvalues.md",
-						"solverfunctions/match.md",
-						"solverfunctions/matrixinverse.md",
-						"solverfunctions/matrixmultiply.md",
-						"solverfunctions/matrixtranspose.md",
-						"solverfunctions/matrixvectormultiply.md",
-						"solverfunctions/max.md",
-						"solverfunctions/mean.md",
-						"solverfunctions/median.md",
-						"solverfunctions/min.md",
-						"solverfunctions/mode.md",
-						"solverfunctions/objectkeystoarray.md",
-						"solverfunctions/objectvaluessortbyexternalobjectarray.md",
-						"solverfunctions/objectvaluestoarray.md",
-						"solverfunctions/percent.md",
-						"solverfunctions/pi.md",
-						"solverfunctions/polynomialregression.md",
-						"solverfunctions/predict.md",
-						"solverfunctions/rad.md",
-						"solverfunctions/randomfloat.md",
-						"solverfunctions/randomfloatbetween.md",
-						"solverfunctions/randomfloatupto.md",
-						"solverfunctions/randominteger.md",
-						"solverfunctions/randomintegerbetween.md",
-						"solverfunctions/randomintegerupto.md",
-						"solverfunctions/refreshtabularsection.md",
-						"solverfunctions/resolvehtmlentities.md",
-						"solverfunctions/round.md",
-						"solverfunctions/runsolvers.md",
-						"solverfunctions/setconcatenate.md",
-						"solverfunctions/setgroupvisibility.md",
-						"solverfunctions/setsectionvisibility.md",
-						"solverfunctions/setsolverordinalenabled.md",
-						"solverfunctions/settabularrowlength.md",
-						"solverfunctions/setvalue.md",
-						"solverfunctions/showsections.md",
-						"solverfunctions/sin.md",
-						"solverfunctions/slice.md",
-						"solverfunctions/smallestinset.md",
-						"solverfunctions/sortarray.md",
-						"solverfunctions/sorthistogram.md",
-						"solverfunctions/sorthistogrambykeys.md",
-						"solverfunctions/sortset.md",
-						"solverfunctions/sqrt.md",
-						"solverfunctions/stdev.md",
-						"solverfunctions/stdeva.md",
-						"solverfunctions/stdevp.md",
-						"solverfunctions/stringcountsegments.md",
-						"solverfunctions/stringgetsegments.md",
-						"solverfunctions/subtractingsummation.md",
-						"solverfunctions/sum.md",
-						"solverfunctions/tan.md",
-						"solverfunctions/tofixed.md",
-						"solverfunctions/unionarrays.md",
-						"solverfunctions/uniquearray.md",
-						"solverfunctions/var.md",
-						"solverfunctions/vara.md",
-						"solverfunctions/varp.md",
-						"solverfunctions/when.md",
-						".pict_documentation_topics.json",
-						"Getting-Started.md",
-						"Groups.md",
-						"Inputs.md",
-						"Sections.md",
-						"Shortcuts.md",
-						"Solver-Expression-Walkthrough.md",
-						"Solver-Expressions-Advanced.md",
-						"Solver-Functions.md",
-						"Solvers.md",
-						"ToC.md",
-						"pict_documentation_topics.json",
-						"solverfunctions/abs.md",
-						"solverfunctions/aggregationhistogram.md",
-						"solverfunctions/aggregationhistogrambyobject.md",
-						"solverfunctions/arrayconcat.md",
-						"solverfunctions/avg.md",
-						"solverfunctions/bucketset.md",
-						"solverfunctions/ceil.md",
-						"solverfunctions/cleanvaluearray.md",
-						"solverfunctions/cleanvalueobject.md",
-						"solverfunctions/colorgroupbackground.md",
-						"solverfunctions/colorinputbackground.md",
-						"solverfunctions/colorinputbackgroundtabular.md",
-						"solverfunctions/colorsectionbackground.md",
-						"solverfunctions/compare.md",
-						"solverfunctions/concat.md",
-						"solverfunctions/concatraw.md",
-						"solverfunctions/cos.md",
-						"solverfunctions/count.md",
-						"solverfunctions/countset.md",
-						"solverfunctions/countsetelements.md",
-						"solverfunctions/createarrayfromabsolutevalues.md",
-						"solverfunctions/createvalueobjectbyhashes.md",
-						"solverfunctions/cumulativesummation.md",
-						"solverfunctions/dateadddays.md",
-						"solverfunctions/dateaddhours.md",
-						"solverfunctions/dateaddmilliseconds.md",
-						"solverfunctions/dateaddminutes.md",
-						"solverfunctions/dateaddmonths.md",
-						"solverfunctions/dateaddseconds.md",
-						"solverfunctions/dateaddweeks.md",
-						"solverfunctions/dateaddyears.md",
-						"solverfunctions/datedaydifference.md",
-						"solverfunctions/datefromparts.md",
-						"solverfunctions/datehourdifference.md",
-						"solverfunctions/datemathadd.md",
-						"solverfunctions/datemilliseconddifference.md",
-						"solverfunctions/dateminutedifference.md",
-						"solverfunctions/datemonthdifference.md",
-						"solverfunctions/dateseconddifference.md",
-						"solverfunctions/dateweekdifference.md",
-						"solverfunctions/dateyeardifference.md",
-						"solverfunctions/differencearrays.md",
-						"solverfunctions/disablesolverordinal.md",
-						"solverfunctions/distributionhistogram.md",
-						"solverfunctions/distributionhistogrambyobject.md",
-						"solverfunctions/enablesolverordinal.md",
-						"solverfunctions/entryinset.md",
-						"solverfunctions/euler.md",
-						"solverfunctions/exp.md",
-						"solverfunctions/findfirstvaluebyexactmatch.md",
-						"solverfunctions/findfirstvaluebystringincludes.md",
-						"solverfunctions/flatten.md",
-						"solverfunctions/floor.md",
-						"solverfunctions/gaussianelimination.md",
-						"solverfunctions/generatearrayofobjectsfromsets.md",
-						"solverfunctions/generatehtmlhexcolor.md",
-						"solverfunctions/getvalue.md",
-						"solverfunctions/getvaluearray.md",
-						"solverfunctions/getvalueobject.md",
-						"solverfunctions/hidesections.md",
-						"solverfunctions/if.md",
-						"solverfunctions/iterativeseries.md",
-						"solverfunctions/join.md",
-						"solverfunctions/joinraw.md",
-						"solverfunctions/largestinset.md",
-						"solverfunctions/leastsquares.md",
-						"solverfunctions/linest.md",
-						"solverfunctions/log.md",
-						"solverfunctions/logvalues.md",
-						"solverfunctions/match.md",
-						"solverfunctions/matrixinverse.md",
-						"solverfunctions/matrixmultiply.md",
-						"solverfunctions/matrixtranspose.md",
-						"solverfunctions/matrixvectormultiply.md",
-						"solverfunctions/max.md",
-						"solverfunctions/mean.md",
-						"solverfunctions/median.md",
-						"solverfunctions/min.md",
-						"solverfunctions/mode.md",
-						"solverfunctions/objectkeystoarray.md",
-						"solverfunctions/objectvaluessortbyexternalobjectarray.md",
-						"solverfunctions/objectvaluestoarray.md",
-						"solverfunctions/percent.md",
-						"solverfunctions/pi.md",
-						"solverfunctions/polynomialregression.md",
-						"solverfunctions/predict.md",
-						"solverfunctions/rad.md",
-						"solverfunctions/randomfloat.md",
-						"solverfunctions/randomfloatbetween.md",
-						"solverfunctions/randomfloatupto.md",
-						"solverfunctions/randominteger.md",
-						"solverfunctions/randomintegerbetween.md",
-						"solverfunctions/randomintegerupto.md",
-						"solverfunctions/refreshtabularsection.md",
-						"solverfunctions/resolvehtmlentities.md",
-						"solverfunctions/round.md",
-						"solverfunctions/runsolvers.md",
-						"solverfunctions/setconcatenate.md",
-						"solverfunctions/setgroupvisibility.md",
-						"solverfunctions/setsectionvisibility.md",
-						"solverfunctions/setsolverordinalenabled.md",
-						"solverfunctions/settabularrowlength.md",
-						"solverfunctions/setvalue.md",
-						"solverfunctions/showsections.md",
-						"solverfunctions/sin.md",
-						"solverfunctions/slice.md",
-						"solverfunctions/smallestinset.md",
-						"solverfunctions/sortarray.md",
-						"solverfunctions/sorthistogram.md",
-						"solverfunctions/sorthistogrambykeys.md",
-						"solverfunctions/sortset.md",
-						"solverfunctions/sqrt.md",
-						"solverfunctions/stdev.md",
-						"solverfunctions/stdeva.md",
-						"solverfunctions/stdevp.md",
-						"solverfunctions/stringcountsegments.md",
-						"solverfunctions/stringgetsegments.md",
-						"solverfunctions/subtractingsummation.md",
-						"solverfunctions/sum.md",
-						"solverfunctions/tan.md",
-						"solverfunctions/tofixed.md",
-						"solverfunctions/unionarrays.md",
-						"solverfunctions/uniquearray.md",
-						"solverfunctions/var.md",
-						"solverfunctions/vara.md",
-						"solverfunctions/varp.md",
-						"solverfunctions/when.md"
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -5920,6 +5849,16 @@
 						"Usage-Pict-Application.md",
 						"Usage-Plain-JavaScript.md"
 					]
+				},
+				{
+					"Name": "pict-section-openseadragon",
+					"Repo": "pict-section-openseadragon",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "pict-section-recordset",
@@ -6378,6 +6317,136 @@
 					]
 				},
 				{
+					"Name": "pict-template-preprocessor",
+					"Repo": "pict-template-preprocessor",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Design",
+							"Children": [
+								{
+									"Title": "Architecture & Internals",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Implementation Reference",
+									"Path": "implementation-reference.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "compile",
+									"Path": "api/compile.md"
+								},
+								{
+									"Title": "executeCompiled",
+									"Path": "api/execute-compiled.md"
+								},
+								{
+									"Title": "executeCompiledAsync",
+									"Path": "api/execute-compiled-async.md"
+								},
+								{
+									"Title": "classifyEdges",
+									"Path": "api/classify-edges.md"
+								},
+								{
+									"Title": "addEdgeClassifier",
+									"Path": "api/add-edge-classifier.md"
+								},
+								{
+									"Title": "prefetchEntitiesForSet",
+									"Path": "api/prefetch-entities-for-set.md"
+								},
+								{
+									"Title": "clearCache",
+									"Path": "api/clear-cache.md"
+								},
+								{
+									"Title": "clear",
+									"Path": "api/clear.md"
+								},
+								{
+									"Title": "unwrapTemplateFunctions",
+									"Path": "api/unwrap-template-functions.md"
+								},
+								{
+									"Title": "TemplateGraph",
+									"Path": "api/template-graph.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Template",
+									"Path": "pict/pict-template/README.md"
+								},
+								{
+									"Title": "Pict Template Audit",
+									"Path": "pict/pict-template-audit/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/add-edge-classifier.md",
+						"api/classify-edges.md",
+						"api/clear-cache.md",
+						"api/clear.md",
+						"api/compile.md",
+						"api/execute-compiled-async.md",
+						"api/execute-compiled.md",
+						"api/prefetch-entities-for-set.md",
+						"api/template-graph.md",
+						"api/unwrap-template-functions.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"implementation-reference.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
+				},
+				{
 					"Name": "pict-terminalui",
 					"Repo": "pict-terminalui",
 					"Group": "pict",
@@ -6692,6 +6761,36 @@
 					]
 				},
 				{
+					"Name": "choreographic",
+					"Repo": "choreographic",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "cumulation",
+					"Repo": "cumulation",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "elucidator",
+					"Repo": "elucidator",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
 					"Name": "indoctrinate",
 					"Repo": "indoctrinate",
 					"Group": "utility",
@@ -6880,6 +6979,26 @@
 						"validating.md",
 						"writing.md"
 					]
+				},
+				{
+					"Name": "merquerial",
+					"Repo": "merquerial",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-cruisecontrol",
+					"Repo": "pict-cruisecontrol",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "precedent",
@@ -7127,6 +7246,338 @@
 					]
 				},
 				{
+					"Name": "retold-sample-data",
+					"Repo": "retold-sample-data",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				}
+			]
+		},
+		{
+			"Name": "Apps",
+			"Key": "apps",
+			"Description": "",
+			"Modules": [
+				{
+					"Name": "retold-content-system",
+					"Repo": "retold-content-system",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "retold-remote",
+					"Repo": "retold-remote",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Home",
+							"Path": "README.md"
+						},
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Server Setup & Docker",
+									"Path": "server-setup.md"
+								},
+								{
+									"Title": "Ultravisor Integration",
+									"Path": "ultravisor-integration.md"
+								}
+							]
+						},
+						{
+							"Title": "Media Viewers",
+							"Children": [
+								{
+									"Title": "Image Viewer",
+									"Path": "image-viewer.md"
+								},
+								{
+									"Title": "Video Viewer",
+									"Path": "video-viewer.md"
+								},
+								{
+									"Title": "Audio Viewer",
+									"Path": "audio-viewer.md"
+								},
+								{
+									"Title": "eBook Reader",
+									"Path": "ebook-reader.md"
+								}
+							]
+						},
+						{
+							"Title": "Explorers",
+							"Children": [
+								{
+									"Title": "Image Explorer",
+									"Path": "image-explorer.md"
+								},
+								{
+									"Title": "Video Explorer",
+									"Path": "video-explorer.md"
+								},
+								{
+									"Title": "Audio Explorer",
+									"Path": "audio-explorer.md"
+								}
+							]
+						},
+						{
+							"Title": "Features",
+							"Children": [
+								{
+									"Title": "Collections",
+									"Path": "collections.md"
+								},
+								{
+									"Title": "File Metadata",
+									"Path": "metadata.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"audio-explorer.md",
+						"audio-viewer.md",
+						"collections.md",
+						"ebook-reader.md",
+						"image-explorer.md",
+						"image-viewer.md",
+						"metadata.md",
+						"server-setup.md",
+						"ultravisor-configuration.md",
+						"ultravisor-integration.md",
+						"video-explorer.md",
+						"video-viewer.md",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"audio-explorer.md",
+						"audio-viewer.md",
+						"collections.md",
+						"ebook-reader.md",
+						"image-explorer.md",
+						"image-viewer.md",
+						"metadata.md",
+						"server-setup.md",
+						"ultravisor-integration.md",
+						"video-explorer.md",
+						"video-viewer.md"
+					]
+				},
+				{
+					"Name": "retold-remote-desktop",
+					"Repo": "retold-remote-desktop",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Home",
+							"Path": "README.md"
+						},
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Server Setup & Docker",
+									"Path": "server-setup.md"
+								}
+							]
+						},
+						{
+							"Title": "Media Viewers",
+							"Children": [
+								{
+									"Title": "Image Viewer",
+									"Path": "image-viewer.md"
+								},
+								{
+									"Title": "Video Viewer",
+									"Path": "video-viewer.md"
+								},
+								{
+									"Title": "Audio Viewer",
+									"Path": "audio-viewer.md"
+								},
+								{
+									"Title": "eBook Reader",
+									"Path": "ebook-reader.md"
+								}
+							]
+						},
+						{
+							"Title": "Explorers",
+							"Children": [
+								{
+									"Title": "Image Explorer",
+									"Path": "image-explorer.md"
+								},
+								{
+									"Title": "Video Explorer",
+									"Path": "video-explorer.md"
+								},
+								{
+									"Title": "Audio Explorer",
+									"Path": "audio-explorer.md"
+								}
+							]
+						},
+						{
+							"Title": "Features",
+							"Children": [
+								{
+									"Title": "Collections",
+									"Path": "collections.md"
+								},
+								{
+									"Title": "File Metadata",
+									"Path": "metadata.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"audio-explorer.md",
+						"audio-viewer.md",
+						"collections.md",
+						"ebook-reader.md",
+						"image-explorer.md",
+						"image-viewer.md",
+						"metadata.md",
+						"server-setup.md",
+						"video-explorer.md",
+						"video-viewer.md"
+					]
+				},
+				{
+					"Name": "retold-remote-ios",
+					"Repo": "retold-remote-ios",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Home",
+							"Path": "README.md"
+						},
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Server Setup & Docker",
+									"Path": "server-setup.md"
+								}
+							]
+						},
+						{
+							"Title": "Media Viewers",
+							"Children": [
+								{
+									"Title": "Image Viewer",
+									"Path": "image-viewer.md"
+								},
+								{
+									"Title": "Video Viewer",
+									"Path": "video-viewer.md"
+								},
+								{
+									"Title": "Audio Viewer",
+									"Path": "audio-viewer.md"
+								},
+								{
+									"Title": "eBook Reader",
+									"Path": "ebook-reader.md"
+								}
+							]
+						},
+						{
+							"Title": "Explorers",
+							"Children": [
+								{
+									"Title": "Image Explorer",
+									"Path": "image-explorer.md"
+								},
+								{
+									"Title": "Video Explorer",
+									"Path": "video-explorer.md"
+								},
+								{
+									"Title": "Audio Explorer",
+									"Path": "audio-explorer.md"
+								}
+							]
+						},
+						{
+							"Title": "Features",
+							"Children": [
+								{
+									"Title": "Collections",
+									"Path": "collections.md"
+								},
+								{
+									"Title": "File Metadata",
+									"Path": "metadata.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"audio-explorer.md",
+						"audio-viewer.md",
+						"collections.md",
+						"ebook-reader.md",
+						"image-explorer.md",
+						"image-viewer.md",
+						"metadata.md",
+						"server-setup.md",
+						"video-explorer.md",
+						"video-viewer.md",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"audio-explorer.md",
+						"audio-viewer.md",
+						"collections.md",
+						"ebook-reader.md",
+						"image-explorer.md",
+						"image-viewer.md",
+						"metadata.md",
+						"server-setup.md",
+						"video-explorer.md",
+						"video-viewer.md"
+					]
+				},
+				{
 					"Name": "ultravisor",
 					"Repo": "ultravisor",
 					"Group": "apps",
@@ -7157,6 +7608,18 @@
 								{
 									"Title": "Tasks",
 									"Path": "features/tasks.md"
+								},
+								{
+									"Title": "Capabilities",
+									"Path": "features/capabilities.md"
+								},
+								{
+									"Title": "Beacons",
+									"Path": "features/beacons.md"
+								},
+								{
+									"Title": "Building Beacon Providers",
+									"Path": "features/beacon-providers.md"
 								},
 								{
 									"Title": "Operations",
@@ -7197,7 +7660,33 @@
 						"_sidebar.md",
 						"_topbar.md",
 						"architecture.md",
+						"css/docuserve.css",
 						"features/api.md",
+						"features/beacon-providers.md",
+						"features/beacons.md",
+						"features/capabilities.md",
+						"features/cli.md",
+						"features/configuration.md",
+						"features/manifests.md",
+						"features/operations.md",
+						"features/scheduling.md",
+						"features/tasks.md",
+						"index.html",
+						"overview.md",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"features/api.md",
+						"features/beacon-providers.md",
+						"features/beacons.md",
+						"features/capabilities.md",
 						"features/cli.md",
 						"features/configuration.md",
 						"features/manifests.md",
@@ -7209,87 +7698,6 @@
 						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
-					]
-				}
-			]
-		},
-		{
-			"Name": "Apps",
-			"Key": "apps",
-			"Description": "",
-			"Modules": [
-				{
-					"Name": "retold-content-system",
-					"Repo": "retold-content-system",
-					"Group": "apps",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
-					"Name": "retold-remote",
-					"Repo": "retold-remote",
-					"Group": "apps",
-					"Branch": "master",
-					"HasDocs": true,
-					"HasCover": false,
-					"Sidebar": [
-						{
-							"Title": "Home",
-							"Path": "README.md"
-						},
-						{
-							"Title": "Getting Started",
-							"Children": [
-								{
-									"Title": "Server Setup & Docker",
-									"Path": "server-setup.md"
-								}
-							]
-						},
-						{
-							"Title": "Media Viewers",
-							"Children": [
-								{
-									"Title": "Image Viewer",
-									"Path": "image-viewer.md"
-								},
-								{
-									"Title": "Video Viewer & Explorer",
-									"Path": "video-viewer.md"
-								},
-								{
-									"Title": "Audio Viewer & Explorer",
-									"Path": "audio-viewer.md"
-								},
-								{
-									"Title": "eBook Reader",
-									"Path": "ebook-reader.md"
-								}
-							]
-						}
-					],
-					"DocFiles": [
-						"README.md",
-						"_cover.md",
-						"_sidebar.md",
-						"_topbar.md",
-						"audio-viewer.md",
-						"ebook-reader.md",
-						"image-viewer.md",
-						"server-setup.md",
-						"video-viewer.md",
-						"README.md",
-						"_cover.md",
-						"_sidebar.md",
-						"_topbar.md",
-						"audio-viewer.md",
-						"ebook-reader.md",
-						"image-viewer.md",
-						"server-setup.md",
-						"video-viewer.md"
 					]
 				}
 			]
