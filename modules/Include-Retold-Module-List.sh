@@ -12,6 +12,6 @@ repositoriesPict=("pict" "pict-template" "pict-template-preprocessor" "pict-view
 
 repositoriesUtility=("indoctrinate" "manyfest" "cachetrax" "precedent" "quackage" "retold-sample-data")
 
-repositoriesApps=("retold-content-system" "retold-remote" "retold-remote-desktop" "retold-remote-ios" "ultravisor")
+repositoriesApps=("retold-content-system" "retold-remote" "retold-remote-desktop" "retold-remote-ios" "ultravisor" "retold-facto")
 
 echo "### ... Module lists built!"
