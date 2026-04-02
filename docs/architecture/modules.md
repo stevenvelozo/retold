@@ -2,7 +2,7 @@
 
 An exhaustive list of every repository in the Retold suite, organized by group. Each module is its own git repository hosted at `github.com/stevenvelozo/<module-name>`.
 
-## Fable — Core Ecosystem (6 modules)
+## Fable — Core Ecosystem (8 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -12,8 +12,10 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [fable-log](/fable/fable-log/) | `fable-log` | Flexible logging wrapper with six levels and extensible output streams |
 | [fable-uuid](/fable/fable-uuid/) | `fable-uuid` | UUID generator supporting RFC 4122 v4 and configurable random strings |
 | [fable-log-logger-bunyan](/fable/fable-log-logger-bunyan/) | `fable-log-logger-bunyan` | Bunyan structured logging provider for Fable-Log |
+| [ultravisor-beacon](/fable/ultravisor-beacon/) | `ultravisor-beacon` | Lightweight beacon client and Fable service for remote task execution with pluggable providers |
+| [ultravisor-beacon-capability](/fable/ultravisor-beacon-capability/) | `ultravisor-beacon-capability` | Convention-based base class for building beacon capabilities with action method discovery |
 
-## Meadow — Data Access Layer (20 modules)
+## Meadow — Data Access Layer (23 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -27,18 +29,21 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [meadow-connection-mysql](/meadow/meadow-connection-mysql/) | `meadow-connection-mysql` | MySQL/MariaDB pooled connection provider for Meadow |
 | [meadow-connection-mssql](/meadow/meadow-connection-mssql/) | `meadow-connection-mssql` | Microsoft SQL Server connection provider for Meadow |
 | [meadow-connection-sqlite](/meadow/meadow-connection-sqlite/) | `meadow-connection-sqlite` | SQLite connection provider for Meadow via better-sqlite3 |
+| [meadow-connection-sqlite-browser](/meadow/meadow-connection-sqlite-browser/) | `meadow-connection-sqlite-browser` | Browser-compatible SQLite connection provider for Meadow |
 | [meadow-connection-postgresql](/meadow/meadow-connection-postgresql/) | `meadow-connection-postgresql` | PostgreSQL connection provider for Meadow via pg |
 | [meadow-connection-mongodb](/meadow/meadow-connection-mongodb/) | `meadow-connection-mongodb` | MongoDB document database connection provider for Meadow |
 | [meadow-connection-dgraph](/meadow/meadow-connection-dgraph/) | `meadow-connection-dgraph` | DGraph graph database connection provider for Meadow |
 | [meadow-connection-solr](/meadow/meadow-connection-solr/) | `meadow-connection-solr` | Apache Solr search platform connection provider for Meadow |
 | [meadow-connection-rocksdb](/meadow/meadow-connection-rocksdb/) | `meadow-connection-rocksdb` | RocksDB embedded key-value store connection provider for Meadow |
+| [meadow-graph-client](/meadow/meadow-graph-client/) | `meadow-graph-client` | Graph database client for Meadow |
 | [retold-data-service](/meadow/retold-data-service/) | `retold-data-service` | All-in-one Fable service assembling schema → entity → endpoints → REST API |
 | [retold-harness](/meadow/retold-harness/) | `retold-harness` | Composable REST API harness with 3 schemas, 7 providers, and terminal management tool |
 | [retold-harness-consistency-proxy](/meadow/retold-harness-consistency-proxy/) | `retold-harness-consistency-proxy` | HTTP consistency proxy comparing responses across multiple database providers |
 | [meadow-integration](/meadow/meadow-integration/) | `meadow-integration` | Data integration tools for CSV import, schema mapping, and centralized formats |
 | [meadow-migrationmanager](/meadow/meadow-migrationmanager/) | `meadow-migrationmanager` | CLI, Web, and Console UI tool for managing database schemas and migrations |
+| [meadow-provider-offline](/meadow/meadow-provider-offline/) | `meadow-provider-offline` | Offline-capable data provider for Meadow with local caching |
 
-## Orator — API Server (7 modules)
+## Orator — API Server (8 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -49,8 +54,9 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [orator-endpoint](/orator/orator-endpoint/) | `orator-endpoint` | Base endpoint class for Orator route definition and request handling |
 | [tidings](/orator/tidings/) | `tidings` | Extensible reporting system for generating HTML, PDF, and other format reports |
 | [orator-conversion](/orator/orator-conversion/) | `orator-conversion` | File format conversion endpoints for Orator service servers |
+| [orator-authentication](/orator/orator-authentication/) | `orator-authentication` | Authentication middleware and session management for Orator servers |
 
-## Pict — MVC Tools (25 modules)
+## Pict — MVC Tools (30 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -79,6 +85,11 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | `pict-serviceproviderbase` | Base classes for Pict services with pre-initialization support |
 | [pict-terminalui](/pict/pict-terminalui/) | `pict-terminalui` | Blessed-based terminal interface for Pict views |
 | [pict-sessionmanager](/pict/pict-sessionmanager/) | `pict-sessionmanager` | Session management service handling authenticated REST requests across security contexts |
+| [pict-section-histogram](/pict/pict-section-histogram/) | `pict-section-histogram` | Histogram and chart visualization section for Pict views |
+| [pict-section-inlinedocumentation](/pict/pict-section-inlinedocumentation/) | `pict-section-inlinedocumentation` | Inline documentation section for contextual help in Pict applications |
+| [pict-section-modal](/pict/pict-section-modal/) | `pict-section-modal` | Modal dialog section for Pict views |
+| [pict-section-login](/pict/pict-section-login/) | `pict-section-login` | Login and authentication form section for Pict applications |
+| [pict-section-openseadragon](/pict/pict-section-openseadragon/) | `pict-section-openseadragon` | Deep-zoom image viewer section wrapping OpenSeadragon |
 
 ## Utility — Build & Documentation Tools (6 modules)
 
@@ -89,26 +100,32 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [manyfest](/utility/manyfest/) | `manyfest` | JSON manifest for consistent data description, validation, and address-based access across layers |
 | [precedent](/utility/precedent/) | `precedent` | Meta-templating engine with pattern-based start/end markers and word tree matching |
 | [quackage](/utility/quackage/) | `quackage` | Standardized build tool for browser bundles, transpilation, testing, and packaging |
+| [retold-sample-data](/utility/retold-sample-data/) | `retold-sample-data` | Sample datasets for testing and development across Retold modules |
 
-## Apps — Applications (3 modules)
+## Apps — Applications (8 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
 | [retold-content-system](/apps/retold-content-system/) | `retold-content-system` | Content management system built on the Retold ecosystem |
 | [retold-remote](/apps/retold-remote/) | `retold-remote` | Remote access application built on the Retold ecosystem |
+| [retold-remote-desktop](/apps/retold-remote-desktop/) | `retold-remote-desktop` | Desktop client for Retold Remote |
+| [retold-remote-ios](/apps/retold-remote-ios/) | `retold-remote-ios` | iOS client for Retold Remote |
 | [ultravisor](/apps/ultravisor/) | `ultravisor` | Process supervision with scheduled tasks, distributed nodes, and LLM integration |
+| [ultravisor-suite-harness](/apps/ultravisor-suite-harness/) | `ultravisor-suite-harness` | Integration test harness for the Ultravisor ecosystem |
+| [retold-facto](/apps/retold-facto/) | `retold-facto` | Data warehouse with ingestion pipelines and beacon integration |
+| [retold-databeacon](/apps/retold-databeacon/) | `retold-databeacon` | Lightweight data beacon for connecting data sources to Ultravisor |
 
 ## Summary
 
 | Group | Count | Focus |
 |-------|-------|-------|
-| Fable | 6 | Core ecosystem, DI, configuration, logging |
-| Meadow | 20 | Data access, ORM, query DSL, schema, 8 DB connectors, harness, migrations |
-| Orator | 7 | API server, HTTP, static files, proxy, reporting, conversion |
-| Pict | 25 | MVC, views, templates, forms, grids, editors, routing, docs, TUI, sessions |
-| Utility | 5 | Build tools, caching, templating, manifests, docs |
-| Apps | 3 | Full-stack applications built on Retold |
-| **Total** | **66** | |
+| Fable | 8 | Core ecosystem, DI, configuration, logging, beacon services |
+| Meadow | 23 | Data access, ORM, query DSL, schema, 9 DB connectors, harness, migrations |
+| Orator | 8 | API server, HTTP, static files, proxy, auth, reporting, conversion |
+| Pict | 30 | MVC, views, templates, forms, grids, editors, routing, docs, TUI, sessions |
+| Utility | 6 | Build tools, caching, templating, manifests, docs, sample data |
+| Apps | 8 | Full-stack applications built on Retold |
+| **Total** | **83** | |
 
 ## GitHub Repositories
 

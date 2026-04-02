@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-03-13T19:52:17.272Z",
+	"Generated": "2026-04-02T12:42:29.436Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -171,6 +171,8 @@
 						"services/expression-parser-functions/aggregationhistogrambyobject.md",
 						"services/expression-parser-functions/arrayconcat.md",
 						"services/expression-parser-functions/avg.md",
+						"services/expression-parser-functions/beziercurvefit.md",
+						"services/expression-parser-functions/bezierpoint.md",
 						"services/expression-parser-functions/bucketset.md",
 						"services/expression-parser-functions/ceil.md",
 						"services/expression-parser-functions/cleanvaluearray.md",
@@ -218,6 +220,7 @@
 						"services/expression-parser-functions/getvaluearray.md",
 						"services/expression-parser-functions/getvalueobject.md",
 						"services/expression-parser-functions/if.md",
+						"services/expression-parser-functions/intercept.md",
 						"services/expression-parser-functions/iterativeseries.md",
 						"services/expression-parser-functions/join.md",
 						"services/expression-parser-functions/joinraw.md",
@@ -252,8 +255,10 @@
 						"services/expression-parser-functions/resolvehtmlentities.md",
 						"services/expression-parser-functions/round.md",
 						"services/expression-parser-functions/setconcatenate.md",
+						"services/expression-parser-functions/setvalue.md",
 						"services/expression-parser-functions/sin.md",
 						"services/expression-parser-functions/slice.md",
+						"services/expression-parser-functions/slope.md",
 						"services/expression-parser-functions/smallestinset.md",
 						"services/expression-parser-functions/sorthistogram.md",
 						"services/expression-parser-functions/sorthistogrambykeys.md",
@@ -267,6 +272,7 @@
 						"services/expression-parser-functions/subtractingsummation.md",
 						"services/expression-parser-functions/sum.md",
 						"services/expression-parser-functions/tan.md",
+						"services/expression-parser-functions/ternary.md",
 						"services/expression-parser-functions/tofixed.md",
 						"services/expression-parser-functions/var.md",
 						"services/expression-parser-functions/vara.md",
@@ -627,6 +633,273 @@
 						"css/docuserve.css",
 						"index.html",
 						"resources.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
+				},
+				{
+					"Name": "ultravisor-beacon",
+					"Repo": "ultravisor-beacon",
+					"Group": "fable",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "Providers Overview",
+									"Path": "providers/README.md"
+								},
+								{
+									"Title": "Shell",
+									"Path": "providers/shell.md"
+								},
+								{
+									"Title": "FileSystem",
+									"Path": "providers/filesystem.md"
+								},
+								{
+									"Title": "LLM",
+									"Path": "providers/llm.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "api/README.md"
+								},
+								{
+									"Title": "Service",
+									"Children": []
+								},
+								{
+									"Title": "BeaconService",
+									"Path": "api/beacon-service.md"
+								},
+								{
+									"Title": "BeaconClient",
+									"Path": "api/beacon-client.md"
+								},
+								{
+									"Title": "Execution",
+									"Children": []
+								},
+								{
+									"Title": "Executor",
+									"Path": "api/executor.md"
+								},
+								{
+									"Title": "ProviderRegistry",
+									"Path": "api/provider-registry.md"
+								},
+								{
+									"Title": "Capabilities",
+									"Children": []
+								},
+								{
+									"Title": "CapabilityManager",
+									"Path": "api/capability-manager.md"
+								},
+								{
+									"Title": "CapabilityProvider",
+									"Path": "api/capability-provider.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/README.md",
+						"api/beacon-client.md",
+						"api/beacon-service.md",
+						"api/capability-manager.md",
+						"api/capability-provider.md",
+						"api/executor.md",
+						"api/provider-registry.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"index.html",
+						"providers/README.md",
+						"providers/filesystem.md",
+						"providers/llm.md",
+						"providers/shell.md",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
+				},
+				{
+					"Name": "ultravisor-beacon-capability",
+					"Repo": "ultravisor-beacon-capability",
+					"Group": "fable",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "api/README.md"
+								},
+								{
+									"Title": "UltravisorBeaconCapability",
+									"Path": "api/beacon-capability.md"
+								},
+								{
+									"Title": "Action Convention",
+									"Path": "api/action-convention.md"
+								},
+								{
+									"Title": "buildActionMap",
+									"Path": "api/build-action-map.md"
+								},
+								{
+									"Title": "connect",
+									"Path": "api/connect.md"
+								},
+								{
+									"Title": "disconnect",
+									"Path": "api/disconnect.md"
+								},
+								{
+									"Title": "addAction",
+									"Path": "api/add-action.md"
+								},
+								{
+									"Title": "onInitialize / onShutdown",
+									"Path": "api/lifecycle-hooks.md"
+								},
+								{
+									"Title": "isConnected",
+									"Path": "api/is-connected.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "examples/README.md"
+								},
+								{
+									"Title": "Shell Commands",
+									"Path": "examples/shell-commands.md"
+								},
+								{
+									"Title": "MySQL Maintenance",
+									"Path": "examples/mysql-maintenance.md"
+								},
+								{
+									"Title": "PostgreSQL Aggregation",
+									"Path": "examples/postgresql-aggregation.md"
+								},
+								{
+									"Title": "REST API Health Check",
+									"Path": "examples/rest-api-health-check.md"
+								},
+								{
+									"Title": "REST Endpoint Sync",
+									"Path": "examples/rest-endpoint-sync.md"
+								},
+								{
+									"Title": "Log File Cleanup",
+									"Path": "examples/log-file-cleanup.md"
+								},
+								{
+									"Title": "Log Archive and Upload",
+									"Path": "examples/log-archive-and-upload.md"
+								},
+								{
+									"Title": "Server Metrics Collection",
+									"Path": "examples/server-metrics-collection.md"
+								},
+								{
+									"Title": "Certificate Expiry Monitor",
+									"Path": "examples/certificate-expiry-monitor.md"
+								},
+								{
+									"Title": "Docker Container Management",
+									"Path": "examples/docker-container-management.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/README.md",
+						"api/action-convention.md",
+						"api/add-action.md",
+						"api/beacon-capability.md",
+						"api/build-action-map.md",
+						"api/connect.md",
+						"api/disconnect.md",
+						"api/is-connected.md",
+						"api/lifecycle-hooks.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"examples/README.md",
+						"examples/certificate-expiry-monitor.md",
+						"examples/docker-container-management.md",
+						"examples/log-archive-and-upload.md",
+						"examples/log-file-cleanup.md",
+						"examples/mysql-maintenance.md",
+						"examples/postgresql-aggregation.md",
+						"examples/rest-api-health-check.md",
+						"examples/rest-endpoint-sync.md",
+						"examples/server-metrics-collection.md",
+						"examples/shell-commands.md",
+						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -4198,6 +4471,131 @@
 					]
 				},
 				{
+					"Name": "orator-authentication",
+					"Repo": "orator-authentication",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "Session Management",
+									"Path": "session-management.md"
+								},
+								{
+									"Title": "Pluggable Authenticator",
+									"Path": "pluggable-authenticator.md"
+								},
+								{
+									"Title": "Configuration Reference",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "OAuth / OIDC",
+							"Children": [
+								{
+									"Title": "OAuth Overview",
+									"Path": "oauth-overview.md"
+								},
+								{
+									"Title": "Google (OIDC)",
+									"Path": "provider-google.md"
+								},
+								{
+									"Title": "Microsoft (OIDC)",
+									"Path": "provider-microsoft.md"
+								},
+								{
+									"Title": "Microsoft (MSAL / Exchange)",
+									"Path": "provider-microsoft-msal.md"
+								},
+								{
+									"Title": "OAuth User Mapper",
+									"Path": "oauth-user-mapper.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Full API Reference",
+									"Path": "api-reference.md"
+								},
+								{
+									"Title": "setAuthenticator",
+									"Path": "api-setAuthenticator.md"
+								},
+								{
+									"Title": "setOAuthUserMapper",
+									"Path": "api-setOAuthUserMapper.md"
+								},
+								{
+									"Title": "addOAuthProvider",
+									"Path": "api-addOAuthProvider.md"
+								},
+								{
+									"Title": "connectRoutes",
+									"Path": "api-connectRoutes.md"
+								},
+								{
+									"Title": "getSessionForRequest",
+									"Path": "api-getSessionForRequest.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api-addOAuthProvider.md",
+						"api-connectRoutes.md",
+						"api-getSessionForRequest.md",
+						"api-reference.md",
+						"api-setAuthenticator.md",
+						"api-setOAuthUserMapper.md",
+						"architecture.md",
+						"configuration.md",
+						"css/docuserve.css",
+						"index.html",
+						"oauth-overview.md",
+						"oauth-user-mapper.md",
+						"pluggable-authenticator.md",
+						"provider-google.md",
+						"provider-microsoft-msal.md",
+						"provider-microsoft.md",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"session-management.md"
+					]
+				},
+				{
 					"Name": "orator-conversion",
 					"Repo": "orator-conversion",
 					"Group": "orator",
@@ -4836,16 +5234,6 @@
 					]
 				},
 				{
-					"Name": "pict-chance",
-					"Repo": "pict-chance",
-					"Group": "pict",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "pict-docuserve",
 					"Repo": "pict-docuserve",
 					"Group": "pict",
@@ -5403,25 +5791,210 @@
 					]
 				},
 				{
-					"Name": "pict-section-entitymanagement",
-					"Repo": "pict-section-entitymanagement",
-					"Group": "pict",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "pict-section-flow",
 					"Repo": "pict-section-flow",
 					"Group": "pict",
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "Getting_Started.md"
+								},
+								{
+									"Title": "Custom Styling",
+									"Path": "Custom-Styling.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design Overview",
+									"Path": "Architecture.md"
+								},
+								{
+									"Title": "Data Model",
+									"Path": "Data_Model.md"
+								},
+								{
+									"Title": "Event System",
+									"Path": "Event_System.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Implementation Reference",
+									"Path": "Implementation_Reference.md"
+								},
+								{
+									"Title": "Layout Persistence",
+									"Path": "Layout_Persistence.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Data Management",
+							"Children": [
+								{
+									"Title": "addNode",
+									"Path": "api/addNode.md"
+								},
+								{
+									"Title": "removeNode",
+									"Path": "api/removeNode.md"
+								},
+								{
+									"Title": "addConnection",
+									"Path": "api/addConnection.md"
+								},
+								{
+									"Title": "removeConnection",
+									"Path": "api/removeConnection.md"
+								},
+								{
+									"Title": "getFlowData / setFlowData",
+									"Path": "api/getFlowData.md"
+								},
+								{
+									"Title": "marshalToView / marshalFromView",
+									"Path": "api/marshalToView.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Selection & Viewport",
+							"Children": [
+								{
+									"Title": "selectNode / deselectAll",
+									"Path": "api/selectNode.md"
+								},
+								{
+									"Title": "setZoom / zoomToFit",
+									"Path": "api/setZoom.md"
+								},
+								{
+									"Title": "autoLayout",
+									"Path": "api/autoLayout.md"
+								},
+								{
+									"Title": "screenToSVGCoords",
+									"Path": "api/screenToSVGCoords.md"
+								},
+								{
+									"Title": "toggleFullscreen",
+									"Path": "api/toggleFullscreen.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Panels",
+							"Children": [
+								{
+									"Title": "openPanel / closePanel / togglePanel",
+									"Path": "api/openPanel.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Theming & Events",
+							"Children": [
+								{
+									"Title": "setTheme / registerTheme",
+									"Path": "api/setTheme.md"
+								},
+								{
+									"Title": "registerHandler / fireEvent",
+									"Path": "api/registerHandler.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Layout Persistence",
+							"Children": [
+								{
+									"Title": "saveLayout / restoreLayout",
+									"Path": "api/saveLayout.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Extension Points",
+							"Children": [
+								{
+									"Title": "PictFlowCard",
+									"Path": "api/PictFlowCard.md"
+								},
+								{
+									"Title": "PictFlowCardPropertiesPanel",
+									"Path": "api/PictFlowCardPropertiesPanel.md"
+								},
+								{
+									"Title": "registerNodeType",
+									"Path": "api/registerNodeType.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
-						"README.md"
+						".nojekyll",
+						"Architecture.md",
+						"Custom-Styling.md",
+						"Data_Model.md",
+						"Event_System.md",
+						"Getting_Started.md",
+						"Implementation_Reference.md",
+						"Layout_Persistence.md",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/PictFlowCard.md",
+						"api/PictFlowCardPropertiesPanel.md",
+						"api/addConnection.md",
+						"api/addNode.md",
+						"api/autoLayout.md",
+						"api/getFlowData.md",
+						"api/marshalToView.md",
+						"api/openPanel.md",
+						"api/registerHandler.md",
+						"api/registerNodeType.md",
+						"api/removeConnection.md",
+						"api/removeNode.md",
+						"api/saveLayout.md",
+						"api/screenToSVGCoords.md",
+						"api/selectNode.md",
+						"api/setTheme.md",
+						"api/setZoom.md",
+						"api/toggleFullscreen.md",
+						"card-help/EACH.md",
+						"card-help/FREAD.md",
+						"card-help/FWRITE.md",
+						"card-help/GET.md",
+						"card-help/ITE.md",
+						"card-help/LOG.md",
+						"card-help/NOTE.md",
+						"card-help/PREV.md",
+						"card-help/SET.md",
+						"card-help/SPKL.md",
+						"card-help/STAT.md",
+						"card-help/SW.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -5722,8 +6295,504 @@
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
+						"retold-keyword-index.json",
+						".pict_documentation_topics.json",
+						"Getting-Started.md",
+						"Groups.md",
+						"Inputs.md",
+						"Sections.md",
+						"Shortcuts.md",
+						"Solver-Expression-Walkthrough.md",
+						"Solver-Expressions-Advanced.md",
+						"Solver-Functions.md",
+						"Solvers.md",
+						"ToC.md",
+						"pict_documentation_topics.json",
+						"solverfunctions/abs.md",
+						"solverfunctions/aggregationhistogram.md",
+						"solverfunctions/aggregationhistogrambyobject.md",
+						"solverfunctions/arrayconcat.md",
+						"solverfunctions/avg.md",
+						"solverfunctions/bucketset.md",
+						"solverfunctions/ceil.md",
+						"solverfunctions/cleanvaluearray.md",
+						"solverfunctions/cleanvalueobject.md",
+						"solverfunctions/colorgroupbackground.md",
+						"solverfunctions/colorinputbackground.md",
+						"solverfunctions/colorinputbackgroundtabular.md",
+						"solverfunctions/colorsectionbackground.md",
+						"solverfunctions/compare.md",
+						"solverfunctions/concat.md",
+						"solverfunctions/concatraw.md",
+						"solverfunctions/cos.md",
+						"solverfunctions/count.md",
+						"solverfunctions/countset.md",
+						"solverfunctions/countsetelements.md",
+						"solverfunctions/createarrayfromabsolutevalues.md",
+						"solverfunctions/createvalueobjectbyhashes.md",
+						"solverfunctions/cumulativesummation.md",
+						"solverfunctions/dateadddays.md",
+						"solverfunctions/dateaddhours.md",
+						"solverfunctions/dateaddmilliseconds.md",
+						"solverfunctions/dateaddminutes.md",
+						"solverfunctions/dateaddmonths.md",
+						"solverfunctions/dateaddseconds.md",
+						"solverfunctions/dateaddweeks.md",
+						"solverfunctions/dateaddyears.md",
+						"solverfunctions/datedaydifference.md",
+						"solverfunctions/datefromparts.md",
+						"solverfunctions/datehourdifference.md",
+						"solverfunctions/datemathadd.md",
+						"solverfunctions/datemilliseconddifference.md",
+						"solverfunctions/dateminutedifference.md",
+						"solverfunctions/datemonthdifference.md",
+						"solverfunctions/dateseconddifference.md",
+						"solverfunctions/dateweekdifference.md",
+						"solverfunctions/dateyeardifference.md",
+						"solverfunctions/differencearrays.md",
+						"solverfunctions/disablesolverordinal.md",
+						"solverfunctions/distributionhistogram.md",
+						"solverfunctions/distributionhistogrambyobject.md",
+						"solverfunctions/enablesolverordinal.md",
+						"solverfunctions/entryinset.md",
+						"solverfunctions/euler.md",
+						"solverfunctions/exp.md",
+						"solverfunctions/findfirstvaluebyexactmatch.md",
+						"solverfunctions/findfirstvaluebystringincludes.md",
+						"solverfunctions/flatten.md",
+						"solverfunctions/floor.md",
+						"solverfunctions/gaussianelimination.md",
+						"solverfunctions/generatearrayofobjectsfromsets.md",
+						"solverfunctions/generatehtmlhexcolor.md",
+						"solverfunctions/getvalue.md",
+						"solverfunctions/getvaluearray.md",
+						"solverfunctions/getvalueobject.md",
+						"solverfunctions/hidesections.md",
+						"solverfunctions/if.md",
+						"solverfunctions/intercept.md",
+						"solverfunctions/iterativeseries.md",
+						"solverfunctions/join.md",
+						"solverfunctions/joinraw.md",
+						"solverfunctions/largestinset.md",
+						"solverfunctions/leastsquares.md",
+						"solverfunctions/linest.md",
+						"solverfunctions/log.md",
+						"solverfunctions/logvalues.md",
+						"solverfunctions/match.md",
+						"solverfunctions/matrixinverse.md",
+						"solverfunctions/matrixmultiply.md",
+						"solverfunctions/matrixtranspose.md",
+						"solverfunctions/matrixvectormultiply.md",
+						"solverfunctions/max.md",
+						"solverfunctions/mean.md",
+						"solverfunctions/median.md",
+						"solverfunctions/min.md",
+						"solverfunctions/mode.md",
+						"solverfunctions/objectkeystoarray.md",
+						"solverfunctions/objectvaluessortbyexternalobjectarray.md",
+						"solverfunctions/objectvaluestoarray.md",
+						"solverfunctions/percent.md",
+						"solverfunctions/pi.md",
+						"solverfunctions/polynomialregression.md",
+						"solverfunctions/predict.md",
+						"solverfunctions/rad.md",
+						"solverfunctions/randomfloat.md",
+						"solverfunctions/randomfloatbetween.md",
+						"solverfunctions/randomfloatupto.md",
+						"solverfunctions/randominteger.md",
+						"solverfunctions/randomintegerbetween.md",
+						"solverfunctions/randomintegerupto.md",
+						"solverfunctions/refreshtabularsection.md",
+						"solverfunctions/resolvehtmlentities.md",
+						"solverfunctions/round.md",
+						"solverfunctions/runsolvers.md",
+						"solverfunctions/setconcatenate.md",
+						"solverfunctions/setgroupvisibility.md",
+						"solverfunctions/setsectionvisibility.md",
+						"solverfunctions/setsolverordinalenabled.md",
+						"solverfunctions/settabularrowlength.md",
+						"solverfunctions/setvalue.md",
+						"solverfunctions/showsections.md",
+						"solverfunctions/sin.md",
+						"solverfunctions/slice.md",
+						"solverfunctions/slope.md",
+						"solverfunctions/smallestinset.md",
+						"solverfunctions/sortarray.md",
+						"solverfunctions/sorthistogram.md",
+						"solverfunctions/sorthistogrambykeys.md",
+						"solverfunctions/sortset.md",
+						"solverfunctions/sqrt.md",
+						"solverfunctions/stdev.md",
+						"solverfunctions/stdeva.md",
+						"solverfunctions/stdevp.md",
+						"solverfunctions/stringcountsegments.md",
+						"solverfunctions/stringgetsegments.md",
+						"solverfunctions/subtractingsummation.md",
+						"solverfunctions/sum.md",
+						"solverfunctions/tan.md",
+						"solverfunctions/tofixed.md",
+						"solverfunctions/unionarrays.md",
+						"solverfunctions/uniquearray.md",
+						"solverfunctions/var.md",
+						"solverfunctions/vara.md",
+						"solverfunctions/varp.md",
+						"solverfunctions/when.md",
+						"solveroperators/add.md",
+						"solveroperators/assign.md",
+						"solveroperators/divide.md",
+						"solveroperators/exponent.md",
+						"solveroperators/expressionbegin.md",
+						"solveroperators/modulus.md",
+						"solveroperators/multiply.md",
+						"solveroperators/nullcoalesce.md",
+						"solveroperators/setconcat.md",
+						"solveroperators/subtract.md",
+						".pict_documentation_topics.json",
+						"Getting-Started.md",
+						"Groups.md",
+						"Inputs.md",
+						"Sections.md",
+						"Shortcuts.md",
+						"Solver-Expression-Walkthrough.md",
+						"Solver-Expressions-Advanced.md",
+						"Solver-Functions.md",
+						"Solvers.md",
+						"ToC.md",
+						"pict_documentation_topics.json",
+						"solverfunctions/abs.md",
+						"solverfunctions/aggregationhistogram.md",
+						"solverfunctions/aggregationhistogrambyobject.md",
+						"solverfunctions/arrayconcat.md",
+						"solverfunctions/avg.md",
+						"solverfunctions/bucketset.md",
+						"solverfunctions/ceil.md",
+						"solverfunctions/cleanvaluearray.md",
+						"solverfunctions/cleanvalueobject.md",
+						"solverfunctions/colorgroupbackground.md",
+						"solverfunctions/colorinputbackground.md",
+						"solverfunctions/colorinputbackgroundtabular.md",
+						"solverfunctions/colorsectionbackground.md",
+						"solverfunctions/compare.md",
+						"solverfunctions/concat.md",
+						"solverfunctions/concatraw.md",
+						"solverfunctions/cos.md",
+						"solverfunctions/count.md",
+						"solverfunctions/countset.md",
+						"solverfunctions/countsetelements.md",
+						"solverfunctions/createarrayfromabsolutevalues.md",
+						"solverfunctions/createvalueobjectbyhashes.md",
+						"solverfunctions/cumulativesummation.md",
+						"solverfunctions/dateadddays.md",
+						"solverfunctions/dateaddhours.md",
+						"solverfunctions/dateaddmilliseconds.md",
+						"solverfunctions/dateaddminutes.md",
+						"solverfunctions/dateaddmonths.md",
+						"solverfunctions/dateaddseconds.md",
+						"solverfunctions/dateaddweeks.md",
+						"solverfunctions/dateaddyears.md",
+						"solverfunctions/datedaydifference.md",
+						"solverfunctions/datefromparts.md",
+						"solverfunctions/datehourdifference.md",
+						"solverfunctions/datemathadd.md",
+						"solverfunctions/datemilliseconddifference.md",
+						"solverfunctions/dateminutedifference.md",
+						"solverfunctions/datemonthdifference.md",
+						"solverfunctions/dateseconddifference.md",
+						"solverfunctions/dateweekdifference.md",
+						"solverfunctions/dateyeardifference.md",
+						"solverfunctions/differencearrays.md",
+						"solverfunctions/disablesolverordinal.md",
+						"solverfunctions/distributionhistogram.md",
+						"solverfunctions/distributionhistogrambyobject.md",
+						"solverfunctions/enablesolverordinal.md",
+						"solverfunctions/entryinset.md",
+						"solverfunctions/euler.md",
+						"solverfunctions/exp.md",
+						"solverfunctions/findfirstvaluebyexactmatch.md",
+						"solverfunctions/findfirstvaluebystringincludes.md",
+						"solverfunctions/flatten.md",
+						"solverfunctions/floor.md",
+						"solverfunctions/gaussianelimination.md",
+						"solverfunctions/generatearrayofobjectsfromsets.md",
+						"solverfunctions/generatehtmlhexcolor.md",
+						"solverfunctions/getvalue.md",
+						"solverfunctions/getvaluearray.md",
+						"solverfunctions/getvalueobject.md",
+						"solverfunctions/hidesections.md",
+						"solverfunctions/if.md",
+						"solverfunctions/intercept.md",
+						"solverfunctions/iterativeseries.md",
+						"solverfunctions/join.md",
+						"solverfunctions/joinraw.md",
+						"solverfunctions/largestinset.md",
+						"solverfunctions/leastsquares.md",
+						"solverfunctions/linest.md",
+						"solverfunctions/log.md",
+						"solverfunctions/logvalues.md",
+						"solverfunctions/match.md",
+						"solverfunctions/matrixinverse.md",
+						"solverfunctions/matrixmultiply.md",
+						"solverfunctions/matrixtranspose.md",
+						"solverfunctions/matrixvectormultiply.md",
+						"solverfunctions/max.md",
+						"solverfunctions/mean.md",
+						"solverfunctions/median.md",
+						"solverfunctions/min.md",
+						"solverfunctions/mode.md",
+						"solverfunctions/objectkeystoarray.md",
+						"solverfunctions/objectvaluessortbyexternalobjectarray.md",
+						"solverfunctions/objectvaluestoarray.md",
+						"solverfunctions/percent.md",
+						"solverfunctions/pi.md",
+						"solverfunctions/polynomialregression.md",
+						"solverfunctions/predict.md",
+						"solverfunctions/rad.md",
+						"solverfunctions/randomfloat.md",
+						"solverfunctions/randomfloatbetween.md",
+						"solverfunctions/randomfloatupto.md",
+						"solverfunctions/randominteger.md",
+						"solverfunctions/randomintegerbetween.md",
+						"solverfunctions/randomintegerupto.md",
+						"solverfunctions/refreshtabularsection.md",
+						"solverfunctions/resolvehtmlentities.md",
+						"solverfunctions/round.md",
+						"solverfunctions/runsolvers.md",
+						"solverfunctions/setconcatenate.md",
+						"solverfunctions/setgroupvisibility.md",
+						"solverfunctions/setsectionvisibility.md",
+						"solverfunctions/setsolverordinalenabled.md",
+						"solverfunctions/settabularrowlength.md",
+						"solverfunctions/setvalue.md",
+						"solverfunctions/showsections.md",
+						"solverfunctions/sin.md",
+						"solverfunctions/slice.md",
+						"solverfunctions/slope.md",
+						"solverfunctions/smallestinset.md",
+						"solverfunctions/sortarray.md",
+						"solverfunctions/sorthistogram.md",
+						"solverfunctions/sorthistogrambykeys.md",
+						"solverfunctions/sortset.md",
+						"solverfunctions/sqrt.md",
+						"solverfunctions/stdev.md",
+						"solverfunctions/stdeva.md",
+						"solverfunctions/stdevp.md",
+						"solverfunctions/stringcountsegments.md",
+						"solverfunctions/stringgetsegments.md",
+						"solverfunctions/subtractingsummation.md",
+						"solverfunctions/sum.md",
+						"solverfunctions/tan.md",
+						"solverfunctions/tofixed.md",
+						"solverfunctions/unionarrays.md",
+						"solverfunctions/uniquearray.md",
+						"solverfunctions/var.md",
+						"solverfunctions/vara.md",
+						"solverfunctions/varp.md",
+						"solverfunctions/when.md"
+					]
+				},
+				{
+					"Name": "pict-section-histogram",
+					"Repo": "pict-section-histogram",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Method Snippets",
+							"Children": [
+								{
+									"Title": "getBins",
+									"Path": "api/getBins.md"
+								},
+								{
+									"Title": "setBins",
+									"Path": "api/setBins.md"
+								},
+								{
+									"Title": "getSelection",
+									"Path": "api/getSelection.md"
+								},
+								{
+									"Title": "setSelection",
+									"Path": "api/setSelection.md"
+								},
+								{
+									"Title": "renderHistogram",
+									"Path": "api/renderHistogram.md"
+								},
+								{
+									"Title": "setOrientation",
+									"Path": "api/setOrientation.md"
+								},
+								{
+									"Title": "setRenderMode",
+									"Path": "api/setRenderMode.md"
+								},
+								{
+									"Title": "onSelectionChange",
+									"Path": "api/onSelectionChange.md"
+								},
+								{
+									"Title": "toText",
+									"Path": "api/toText.md"
+								},
+								{
+									"Title": "handleBarClick",
+									"Path": "api/handleBarClick.md"
+								},
+								{
+									"Title": "handleRangeBarClick",
+									"Path": "api/handleRangeBarClick.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "pict/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Provider",
+									"Path": "pict/pict-provider/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								},
+								{
+									"Title": "Indoctrinate",
+									"Path": "utility/indoctrinate/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/getBins.md",
+						"api/getSelection.md",
+						"api/handleBarClick.md",
+						"api/handleRangeBarClick.md",
+						"api/onSelectionChange.md",
+						"api/renderHistogram.md",
+						"api/setBins.md",
+						"api/setOrientation.md",
+						"api/setRenderMode.md",
+						"api/setSelection.md",
+						"api/toText.md",
+						"api.md",
+						"architecture.md",
+						"configuration.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
+				},
+				{
+					"Name": "pict-section-inlinedocumentation",
+					"Repo": "pict-section-inlinedocumentation",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Welcome",
+							"Path": "welcome.md"
+						},
+						{
+							"Title": "Using the Bookshop",
+							"Children": [
+								{
+									"Title": "Book Catalog",
+									"Path": "book-list.md"
+								},
+								{
+									"Title": "Book Details",
+									"Path": "book-detail.md"
+								},
+								{
+									"Title": "Store Page",
+									"Path": "store.md"
+								},
+								{
+									"Title": "Search & Filter",
+									"Path": "search-filter.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						"README.md",
+						"_sidebar.md",
+						"_topics.json",
+						"advanced-topics.md",
+						"getting-started.md",
+						"_sidebar.md",
+						"book-detail.md",
+						"book-list.md",
+						"pict_documentation_topics.json",
+						"search-filter.md",
+						"store.md",
+						"welcome.md",
+						"_sidebar.md",
+						"book-detail.md",
+						"book-list.md",
+						"search-filter.md",
+						"store.md",
+						"welcome.md"
+					]
+				},
+				{
+					"Name": "pict-section-login",
+					"Repo": "pict-section-login",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "pict-section-markdowneditor",
@@ -5828,6 +6897,147 @@
 						"examples/markdown_editor.md",
 						"examples/server_upload.md",
 						"image_upload.md",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
+				},
+				{
+					"Name": "pict-section-modal",
+					"Repo": "pict-section-modal",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "Quick_Start.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design Overview",
+									"Path": "Architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Implementation Reference",
+									"Path": "Implementation_Reference.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Confirmations",
+							"Children": [
+								{
+									"Title": "confirm",
+									"Path": "api/confirm.md"
+								},
+								{
+									"Title": "doubleConfirm",
+									"Path": "api/doubleConfirm.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Modal Windows",
+							"Children": [
+								{
+									"Title": "show",
+									"Path": "api/show.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Toast Notifications",
+							"Children": [
+								{
+									"Title": "toast",
+									"Path": "api/toast.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Tooltips",
+							"Children": [
+								{
+									"Title": "tooltip",
+									"Path": "api/tooltip.md"
+								},
+								{
+									"Title": "richTooltip",
+									"Path": "api/richTooltip.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Cleanup",
+							"Children": [
+								{
+									"Title": "dismissAll",
+									"Path": "api/dismissAll.md"
+								},
+								{
+									"Title": "dismissModals",
+									"Path": "api/dismissModals.md"
+								},
+								{
+									"Title": "dismissTooltips",
+									"Path": "api/dismissTooltips.md"
+								},
+								{
+									"Title": "dismissToasts",
+									"Path": "api/dismissToasts.md"
+								},
+								{
+									"Title": "destroy",
+									"Path": "api/destroy.md"
+								}
+							]
+						},
+						{
+							"Title": "API — Theming",
+							"Children": [
+								{
+									"Title": "CSS Custom Properties",
+									"Path": "api/CSS_Custom_Properties.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"Architecture.md",
+						"Implementation_Reference.md",
+						"Quick_Start.md",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/confirm.md",
+						"api/dismissAll.md",
+						"api/doubleConfirm.md",
+						"api/richTooltip.md",
+						"api/show.md",
+						"api/theming.md",
+						"api/toast.md",
+						"api/tooltip.md",
+						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
@@ -6761,36 +7971,6 @@
 					]
 				},
 				{
-					"Name": "choreographic",
-					"Repo": "choreographic",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
-					"Name": "cumulation",
-					"Repo": "cumulation",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
-					"Name": "elucidator",
-					"Repo": "elucidator",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
 					"Name": "indoctrinate",
 					"Repo": "indoctrinate",
 					"Group": "utility",
@@ -6979,26 +8159,6 @@
 						"validating.md",
 						"writing.md"
 					]
-				},
-				{
-					"Name": "merquerial",
-					"Repo": "merquerial",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
-					"Name": "pict-cruisecontrol",
-					"Repo": "pict-cruisecontrol",
-					"Group": "utility",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
 				},
 				{
 					"Name": "precedent",
@@ -7273,6 +8433,16 @@
 					"DocFiles": []
 				},
 				{
+					"Name": "retold-facto",
+					"Repo": "retold-facto",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
 					"Name": "retold-remote",
 					"Repo": "retold-remote",
 					"Group": "apps",
@@ -7294,6 +8464,10 @@
 								{
 									"Title": "Ultravisor Integration",
 									"Path": "ultravisor-integration.md"
+								},
+								{
+									"Title": "Ultravisor Beacon Tool Setup",
+									"Path": "ultravisor-configuration.md"
 								}
 							]
 						},
@@ -7378,6 +8552,7 @@
 						"image-viewer.md",
 						"metadata.md",
 						"server-setup.md",
+						"ultravisor-configuration.md",
 						"ultravisor-integration.md",
 						"video-explorer.md",
 						"video-viewer.md"
@@ -7388,194 +8563,20 @@
 					"Repo": "retold-remote-desktop",
 					"Group": "apps",
 					"Branch": "master",
-					"HasDocs": true,
+					"HasDocs": false,
 					"HasCover": false,
-					"Sidebar": [
-						{
-							"Title": "Home",
-							"Path": "README.md"
-						},
-						{
-							"Title": "Getting Started",
-							"Children": [
-								{
-									"Title": "Server Setup & Docker",
-									"Path": "server-setup.md"
-								}
-							]
-						},
-						{
-							"Title": "Media Viewers",
-							"Children": [
-								{
-									"Title": "Image Viewer",
-									"Path": "image-viewer.md"
-								},
-								{
-									"Title": "Video Viewer",
-									"Path": "video-viewer.md"
-								},
-								{
-									"Title": "Audio Viewer",
-									"Path": "audio-viewer.md"
-								},
-								{
-									"Title": "eBook Reader",
-									"Path": "ebook-reader.md"
-								}
-							]
-						},
-						{
-							"Title": "Explorers",
-							"Children": [
-								{
-									"Title": "Image Explorer",
-									"Path": "image-explorer.md"
-								},
-								{
-									"Title": "Video Explorer",
-									"Path": "video-explorer.md"
-								},
-								{
-									"Title": "Audio Explorer",
-									"Path": "audio-explorer.md"
-								}
-							]
-						},
-						{
-							"Title": "Features",
-							"Children": [
-								{
-									"Title": "Collections",
-									"Path": "collections.md"
-								},
-								{
-									"Title": "File Metadata",
-									"Path": "metadata.md"
-								}
-							]
-						}
-					],
-					"DocFiles": [
-						"README.md",
-						"_cover.md",
-						"_sidebar.md",
-						"_topbar.md",
-						"audio-explorer.md",
-						"audio-viewer.md",
-						"collections.md",
-						"ebook-reader.md",
-						"image-explorer.md",
-						"image-viewer.md",
-						"metadata.md",
-						"server-setup.md",
-						"video-explorer.md",
-						"video-viewer.md"
-					]
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "retold-remote-ios",
 					"Repo": "retold-remote-ios",
 					"Group": "apps",
 					"Branch": "master",
-					"HasDocs": true,
+					"HasDocs": false,
 					"HasCover": false,
-					"Sidebar": [
-						{
-							"Title": "Home",
-							"Path": "README.md"
-						},
-						{
-							"Title": "Getting Started",
-							"Children": [
-								{
-									"Title": "Server Setup & Docker",
-									"Path": "server-setup.md"
-								}
-							]
-						},
-						{
-							"Title": "Media Viewers",
-							"Children": [
-								{
-									"Title": "Image Viewer",
-									"Path": "image-viewer.md"
-								},
-								{
-									"Title": "Video Viewer",
-									"Path": "video-viewer.md"
-								},
-								{
-									"Title": "Audio Viewer",
-									"Path": "audio-viewer.md"
-								},
-								{
-									"Title": "eBook Reader",
-									"Path": "ebook-reader.md"
-								}
-							]
-						},
-						{
-							"Title": "Explorers",
-							"Children": [
-								{
-									"Title": "Image Explorer",
-									"Path": "image-explorer.md"
-								},
-								{
-									"Title": "Video Explorer",
-									"Path": "video-explorer.md"
-								},
-								{
-									"Title": "Audio Explorer",
-									"Path": "audio-explorer.md"
-								}
-							]
-						},
-						{
-							"Title": "Features",
-							"Children": [
-								{
-									"Title": "Collections",
-									"Path": "collections.md"
-								},
-								{
-									"Title": "File Metadata",
-									"Path": "metadata.md"
-								}
-							]
-						}
-					],
-					"DocFiles": [
-						"README.md",
-						"_cover.md",
-						"_sidebar.md",
-						"_topbar.md",
-						"audio-explorer.md",
-						"audio-viewer.md",
-						"collections.md",
-						"ebook-reader.md",
-						"image-explorer.md",
-						"image-viewer.md",
-						"metadata.md",
-						"server-setup.md",
-						"video-explorer.md",
-						"video-viewer.md",
-						"README.md",
-						"_cover.md",
-						"_sidebar.md",
-						"_topbar.md",
-						"audio-explorer.md",
-						"audio-viewer.md",
-						"collections.md",
-						"ebook-reader.md",
-						"image-explorer.md",
-						"image-viewer.md",
-						"metadata.md",
-						"server-setup.md",
-						"video-explorer.md",
-						"video-viewer.md"
-					]
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "ultravisor",
@@ -7622,6 +8623,14 @@
 									"Path": "features/beacon-providers.md"
 								},
 								{
+									"Title": "LLM Integration",
+									"Path": "features/llm.md"
+								},
+								{
+									"Title": "LLM Model Setup Guide",
+									"Path": "features/llm-model-setup.md"
+								},
+								{
 									"Title": "Operations",
 									"Path": "features/operations.md"
 								},
@@ -7662,15 +8671,31 @@
 						"architecture.md",
 						"css/docuserve.css",
 						"features/api.md",
+						"features/beacon-authentication.md",
 						"features/beacon-providers.md",
 						"features/beacons.md",
 						"features/capabilities.md",
+						"features/case-study-retold-remote.md",
 						"features/cli.md",
 						"features/configuration.md",
+						"features/llm-model-setup.md",
+						"features/llm.md",
 						"features/manifests.md",
 						"features/operations.md",
+						"features/platform-cards.md",
+						"features/reachability-matrix.md",
 						"features/scheduling.md",
+						"features/tasks-content-system.md",
+						"features/tasks-data-transform.md",
+						"features/tasks-extension.md",
+						"features/tasks-file-system.md",
+						"features/tasks-flow-control.md",
+						"features/tasks-http-client.md",
+						"features/tasks-llm.md",
+						"features/tasks-meadow-api.md",
+						"features/tasks-user-interaction.md",
 						"features/tasks.md",
+						"features/universal-addressing.md",
 						"index.html",
 						"overview.md",
 						"quickstart.md",
@@ -7689,6 +8714,8 @@
 						"features/capabilities.md",
 						"features/cli.md",
 						"features/configuration.md",
+						"features/llm-model-setup.md",
+						"features/llm.md",
 						"features/manifests.md",
 						"features/operations.md",
 						"features/scheduling.md",
@@ -7697,8 +8724,60 @@
 						"overview.md",
 						"quickstart.md",
 						"retold-catalog.json",
-						"retold-keyword-index.json"
+						"retold-keyword-index.json",
+						"card-help/beacon-dispatch.md",
+						"card-help/command.md",
+						"card-help/comprehension-intersect.md",
+						"card-help/content-create-folder.md",
+						"card-help/content-list-files.md",
+						"card-help/content-read-file.md",
+						"card-help/content-save-file.md",
+						"card-help/copy-file.md",
+						"card-help/csv-transform.md",
+						"card-help/end.md",
+						"card-help/error-message.md",
+						"card-help/expression-solver.md",
+						"card-help/get-json.md",
+						"card-help/get-text.md",
+						"card-help/histogram.md",
+						"card-help/if-conditional.md",
+						"card-help/launch-operation.md",
+						"card-help/list-files.md",
+						"card-help/llm-chat-completion.md",
+						"card-help/llm-embedding.md",
+						"card-help/llm-tool-use.md",
+						"card-help/meadow-count.md",
+						"card-help/meadow-create.md",
+						"card-help/meadow-delete.md",
+						"card-help/meadow-read.md",
+						"card-help/meadow-reads.md",
+						"card-help/meadow-update.md",
+						"card-help/parse-csv.md",
+						"card-help/read-file-buffered.md",
+						"card-help/read-file.md",
+						"card-help/read-json.md",
+						"card-help/replace-string.md",
+						"card-help/rest-request.md",
+						"card-help/send-json.md",
+						"card-help/set-values.md",
+						"card-help/split-execute.md",
+						"card-help/start.md",
+						"card-help/string-appender.md",
+						"card-help/template-string.md",
+						"card-help/value-input.md",
+						"card-help/write-file.md",
+						"card-help/write-json.md"
 					]
+				},
+				{
+					"Name": "ultravisor-suite-harness",
+					"Repo": "ultravisor-suite-harness",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				}
 			]
 		},

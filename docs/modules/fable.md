@@ -154,6 +154,62 @@ A structured logging provider that routes Fable-Log output to Bunyan for product
 
 **npm:** `fable-log-logger-bunyan` · **Version:** 1.0.x
 
+### [Ultravisor-Beacon](/fable/ultravisor-beacon/)
+
+A lightweight beacon client and Fable service for remote task execution. Turns any Node.js application into a distributed worker node that connects to an Ultravisor server, advertises capabilities, and executes work items on demand.
+
+```javascript
+tmpFable.addAndInstantiateServiceType('UltravisorBeacon', libBeacon, {
+	ServerURL: 'http://localhost:54321',
+	Name: 'my-worker'
+});
+
+let tmpBeacon = tmpFable.services.UltravisorBeacon;
+tmpBeacon.registerCapability({
+	Capability: 'DataProcessor',
+	actions: {
+		'Transform': {
+			Description: 'Transform a data payload',
+			Handler: function (pWorkItem, pContext, fCallback)
+			{
+				return fCallback(null, { Outputs: { Result: 'done' } });
+			}
+		}
+	}
+});
+tmpBeacon.enable(function (pError) { });
+```
+
+**npm:** `ultravisor-beacon` · **Version:** 0.0.x
+
+---
+
+### [Ultravisor-Beacon-Capability](/fable/ultravisor-beacon-capability/)
+
+A convention-based base class for building Ultravisor beacon capabilities with minimal boilerplate. Extend the class, define action methods with the `action` prefix, and call `connect()`.
+
+```javascript
+class MyCapability extends libBeaconCapability
+{
+	constructor(pFable, pOptions, pServiceHash)
+	{
+		super(pFable, pOptions, pServiceHash);
+		this.serviceType = 'MyCapability';
+		this.capabilityName = 'MyCapability';
+	}
+
+	get actionDoWork_Description() { return 'Do some work'; }
+	actionDoWork(pSettings, pWorkItem, fCallback)
+	{
+		return fCallback(null, { Outputs: { Result: 'done' } });
+	}
+}
+```
+
+**npm:** `ultravisor-beacon-capability` · **Version:** 0.0.x
+
+---
+
 ## The Service Provider Pattern
 
 Fable's core design pattern: modules register as services and discover each other through the Fable instance.
@@ -196,3 +252,5 @@ Services can be registered by type (`addServiceType`) or instantiated on registr
 | [fable-log](/fable/fable-log/) | Logging library |
 | [fable-uuid](/fable/fable-uuid/) | UUID generation |
 | [fable-log-logger-bunyan](/fable/fable-log-logger-bunyan/) | Bunyan log provider |
+| [ultravisor-beacon](/fable/ultravisor-beacon/) | Beacon client for remote task execution |
+| [ultravisor-beacon-capability](/fable/ultravisor-beacon-capability/) | Convention-based base class for beacon capabilities |

@@ -26,10 +26,45 @@ Process supervision tool for running commands on schedule with LLM integration. 
 
 **npm:** `ultravisor` · **Version:** 1.0.x
 
+---
+
+### [Retold Remote Desktop](/apps/retold-remote-desktop/)
+
+Desktop client for Retold Remote, providing a native application interface for media management and content operations.
+
+---
+
+### [Retold Remote iOS](/apps/retold-remote-ios/)
+
+iOS client for Retold Remote.
+
+---
+
+### [Ultravisor Suite Harness](/apps/ultravisor-suite-harness/)
+
+Integration test harness for the Ultravisor ecosystem. Starts multiple servers (Facto, Meadow-Integration, Ultravisor) and exercises beacon registration, capability dispatch, and operation execution end-to-end.
+
+---
+
+### [Retold Facto](/apps/retold-facto/)
+
+Data warehouse application with record ingestion pipelines, projection stores, and Ultravisor beacon integration for distributed data processing.
+
+---
+
+### [Retold Data Beacon](/apps/retold-databeacon/)
+
+Lightweight data beacon application for connecting data sources to an Ultravisor server.
+
 ## All Apps Modules
 
 | Module | Description |
 |--------|-------------|
 | [retold-content-system](/apps/retold-content-system/) | Content management system built on the Retold ecosystem |
 | [retold-remote](/apps/retold-remote/) | Remote access application built on the Retold ecosystem |
+| [retold-remote-desktop](/apps/retold-remote-desktop/) | Desktop client for Retold Remote |
+| [retold-remote-ios](/apps/retold-remote-ios/) | iOS client for Retold Remote |
 | [ultravisor](/apps/ultravisor/) | Process supervision with scheduled tasks and LLM integration |
+| [ultravisor-suite-harness](/apps/ultravisor-suite-harness/) | Integration test harness for the Ultravisor ecosystem |
+| [retold-facto](/apps/retold-facto/) | Data warehouse with ingestion pipelines and beacon integration |
+| [retold-databeacon](/apps/retold-databeacon/) | Lightweight data beacon for connecting data sources to Ultravisor |
