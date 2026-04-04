@@ -270,4 +270,4 @@ Supporting the application stack are utility modules like **Manyfest** (schema-d
 - **[Meadow](modules/meadow.md)** — Data access, FoxHound queries, and Stricture schemas
 - **[Orator](modules/orator.md)** — Server configuration, lifecycle hooks, and middleware
 - **[Pict](modules/pict.md)** — Views, templates, providers, and application lifecycle
-- **[All Modules](modules/modules.md)** — Every repository in the Retold suite
+- **[All Modules](modules)** — Every repository in the Retold suite
