@@ -1,0 +1,7 @@
+{
+	"ExcludedModules":
+		[
+			"retold-remote-desktop",
+			"retold-remote-ios"
+		]
+}

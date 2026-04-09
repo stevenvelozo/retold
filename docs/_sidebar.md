@@ -122,14 +122,11 @@
   - [manyfest](/utility/manyfest/)
   - [precedent](/utility/precedent/)
   - [quackage](/utility/quackage/)
-  - [retold-sample-data](/utility/retold-sample-data/)
 
 - [Apps — Applications](modules/apps.md)
 
   - [retold-content-system](/apps/retold-content-system/)
   - [retold-remote](/apps/retold-remote/)
-  - [retold-remote-desktop](/apps/retold-remote-desktop/)
-  - [retold-remote-ios](/apps/retold-remote-ios/)
   - [ultravisor](/apps/ultravisor/)
   - [ultravisor-suite-harness](/apps/ultravisor-suite-harness/)
   - [retold-facto](/apps/retold-facto/)

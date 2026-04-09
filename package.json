@@ -23,7 +23,7 @@
     },
     "homepage": "https://github.com/stevenvelozo/retold",
     "devDependencies": {
-        "indoctrinate": "^1.0.8",
+        "indoctrinate": "^1.0.9",
         "pict-docuserve": "^0.0.32",
         "quackage": "^1.0.60"
     },

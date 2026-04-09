@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-04-02T12:42:29.436Z",
+	"Generated": "2026-04-09T20:02:40.409Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -1999,6 +1999,16 @@
 					]
 				},
 				{
+					"Name": "meadow-connection-manager",
+					"Repo": "meadow-connection-manager",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
 					"Name": "meadow-connection-mongodb",
 					"Repo": "meadow-connection-mongodb",
 					"Group": "meadow",
@@ -3327,10 +3337,130 @@
 					"Repo": "meadow-graph-client",
 					"Group": "meadow",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "Core Concepts",
+									"Path": "concepts.md"
+								},
+								{
+									"Title": "Filter DSL Reference",
+									"Path": "filter-dsl.md"
+								},
+								{
+									"Title": "Hints and Manual Paths",
+									"Path": "hints-and-manual-paths.md"
+								},
+								{
+									"Title": "Configuration Reference",
+									"Path": "configuration.md"
+								},
+								{
+									"Title": "Data Request Service",
+									"Path": "data-request-service.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "API Index",
+									"Path": "api-reference.md"
+								},
+								{
+									"Title": "loadDataModel",
+									"Path": "api-loadDataModel.md"
+								},
+								{
+									"Title": "addEntityToDataModel",
+									"Path": "api-addEntityToDataModel.md"
+								},
+								{
+									"Title": "cleanMissingEntityConnections",
+									"Path": "api-cleanMissingEntityConnections.md"
+								},
+								{
+									"Title": "lintFilterObject",
+									"Path": "api-lintFilterObject.md"
+								},
+								{
+									"Title": "parseFilterObject",
+									"Path": "api-parseFilterObject.md"
+								},
+								{
+									"Title": "buildFilterExpression",
+									"Path": "api-buildFilterExpression.md"
+								},
+								{
+									"Title": "solveGraphConnections",
+									"Path": "api-solveGraphConnections.md"
+								},
+								{
+									"Title": "compileFilter",
+									"Path": "api-compileFilter.md"
+								},
+								{
+									"Title": "get",
+									"Path": "api-get.md"
+								},
+								{
+									"Title": "convertFilterObjectToFilterString",
+									"Path": "api-convertFilterObjectToFilterString.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api-addEntityToDataModel.md",
+						"api-buildFilterExpression.md",
+						"api-cleanMissingEntityConnections.md",
+						"api-compileFilter.md",
+						"api-convertFilterObjectToFilterString.md",
+						"api-get.md",
+						"api-lintFilterObject.md",
+						"api-loadDataModel.md",
+						"api-parseFilterObject.md",
+						"api-reference.md",
+						"api-solveGraphConnections.md",
+						"architecture.md",
+						"concepts.md",
+						"configuration.md",
+						"css/docuserve.css",
+						"data-request-service.md",
+						"filter-dsl.md",
+						"hints-and-manual-paths.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "meadow-integration",
@@ -3801,10 +3931,245 @@
 					"Repo": "meadow-provider-offline",
 					"Group": "meadow",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "Core Concepts",
+									"Path": "concepts.md"
+								},
+								{
+									"Title": "Entity Schema",
+									"Path": "entity-schema.md"
+								},
+								{
+									"Title": "Sync Strategies",
+									"Path": "sync-strategies.md"
+								},
+								{
+									"Title": "Native Bridge",
+									"Path": "native-bridge.md"
+								},
+								{
+									"Title": "Configuration Reference",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "API Index",
+									"Path": "api-reference.md"
+								}
+							]
+						},
+						{
+							"Title": "MeadowProviderOffline",
+							"Children": [
+								{
+									"Title": "initializeAsync",
+									"Path": "api-initializeAsync.md"
+								},
+								{
+									"Title": "addEntity",
+									"Path": "api-addEntity.md"
+								},
+								{
+									"Title": "addEntities",
+									"Path": "api-addEntities.md"
+								},
+								{
+									"Title": "removeEntity",
+									"Path": "api-removeEntity.md"
+								},
+								{
+									"Title": "seedEntity",
+									"Path": "api-seedEntity.md"
+								},
+								{
+									"Title": "injectRecords",
+									"Path": "api-injectRecords.md"
+								},
+								{
+									"Title": "connect",
+									"Path": "api-connect.md"
+								},
+								{
+									"Title": "disconnect",
+									"Path": "api-disconnect.md"
+								},
+								{
+									"Title": "enableCacheThrough",
+									"Path": "api-enableCacheThrough.md"
+								},
+								{
+									"Title": "enableNegativeIDs",
+									"Path": "api-enableNegativeIDs.md"
+								},
+								{
+									"Title": "getNextNegativeID",
+									"Path": "api-getNextNegativeID.md"
+								},
+								{
+									"Title": "remapID",
+									"Path": "api-remapID.md"
+								},
+								{
+									"Title": "setNativeBridge",
+									"Path": "api-setNativeBridge.md"
+								},
+								{
+									"Title": "getEntity",
+									"Path": "api-getEntity.md"
+								}
+							]
+						},
+						{
+							"Title": "DirtyRecordTracker",
+							"Children": [
+								{
+									"Title": "trackMutation",
+									"Path": "api-trackMutation.md"
+								},
+								{
+									"Title": "getDirtyMutations",
+									"Path": "api-getDirtyMutations.md"
+								},
+								{
+									"Title": "clearMutation",
+									"Path": "api-clearMutation.md"
+								},
+								{
+									"Title": "clearAll",
+									"Path": "api-clearAll.md"
+								},
+								{
+									"Title": "hasDirtyRecords",
+									"Path": "api-hasDirtyRecords.md"
+								},
+								{
+									"Title": "trackBinaryMutation",
+									"Path": "api-trackBinaryMutation.md"
+								}
+							]
+						},
+						{
+							"Title": "DataCacheManager",
+							"Children": [
+								{
+									"Title": "createTable",
+									"Path": "api-createTable.md"
+								},
+								{
+									"Title": "dropTable",
+									"Path": "api-dropTable.md"
+								},
+								{
+									"Title": "seedTable",
+									"Path": "api-seedTable.md"
+								},
+								{
+									"Title": "ingestRecords",
+									"Path": "api-ingestRecords.md"
+								}
+							]
+						},
+						{
+							"Title": "BlobStoreManager",
+							"Children": [
+								{
+									"Title": "storeBlob",
+									"Path": "api-storeBlob.md"
+								},
+								{
+									"Title": "getBlob",
+									"Path": "api-getBlob.md"
+								},
+								{
+									"Title": "getBlobURL",
+									"Path": "api-getBlobURL.md"
+								},
+								{
+									"Title": "deleteBlob",
+									"Path": "api-deleteBlob.md"
+								},
+								{
+									"Title": "setStorageDelegate",
+									"Path": "api-setStorageDelegate.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api-addEntities.md",
+						"api-addEntity.md",
+						"api-clearAll.md",
+						"api-clearMutation.md",
+						"api-connect.md",
+						"api-createTable.md",
+						"api-deleteBlob.md",
+						"api-disconnect.md",
+						"api-dropTable.md",
+						"api-enableCacheThrough.md",
+						"api-enableNegativeIDs.md",
+						"api-getBlob.md",
+						"api-getBlobURL.md",
+						"api-getDirtyMutations.md",
+						"api-getEntity.md",
+						"api-getNextNegativeID.md",
+						"api-hasDirtyRecords.md",
+						"api-ingestRecords.md",
+						"api-initializeAsync.md",
+						"api-injectRecords.md",
+						"api-reference.md",
+						"api-remapID.md",
+						"api-removeEntity.md",
+						"api-seedEntity.md",
+						"api-seedTable.md",
+						"api-setNativeBridge.md",
+						"api-setStorageDelegate.md",
+						"api-storeBlob.md",
+						"api-trackBinaryMutation.md",
+						"api-trackMutation.md",
+						"architecture.md",
+						"concepts.md",
+						"configuration.md",
+						"css/docuserve.css",
+						"entity-schema.md",
+						"index.html",
+						"native-bridge.md",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"sync-strategies.md"
+					]
 				},
 				{
 					"Name": "parime",
@@ -4779,6 +5144,131 @@
 					]
 				},
 				{
+					"Name": "orator-ssl-proxy",
+					"Repo": "orator-ssl-proxy",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Core Concepts",
+							"Children": [
+								{
+									"Title": "Configuration Reference",
+									"Path": "configuration.md"
+								},
+								{
+									"Title": "CLI Reference",
+									"Path": "cli-reference.md"
+								},
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								}
+							]
+						},
+						{
+							"Title": "Configuration Recipes",
+							"Children": [
+								{
+									"Title": "Self-Signed with Local CA",
+									"Path": "config-selfsigned-localca.md"
+								},
+								{
+									"Title": "Self-Signed Ad-Hoc",
+									"Path": "config-selfsigned-adhoc.md"
+								},
+								{
+									"Title": "Let's Encrypt",
+									"Path": "config-letsencrypt.md"
+								},
+								{
+									"Title": "File-Based Certs",
+									"Path": "config-file-certs.md"
+								}
+							]
+						},
+						{
+							"Title": "Local Dev That Just Works",
+							"Children": [
+								{
+									"Title": "End-to-End Setup",
+									"Path": "local-dev-just-works.md"
+								},
+								{
+									"Title": "Install Local CA on macOS",
+									"Path": "install-ca-mac.md"
+								},
+								{
+									"Title": "Install Local CA on Windows",
+									"Path": "install-ca-windows.md"
+								},
+								{
+									"Title": "Install Local CA on Ubuntu",
+									"Path": "install-ca-ubuntu.md"
+								},
+								{
+									"Title": "Install Local CA on iPhone / iPad",
+									"Path": "install-ca-ios.md"
+								}
+							]
+						},
+						{
+							"Title": "Deployment",
+							"Children": [
+								{
+									"Title": "Docker",
+									"Path": "docker.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api-reference.md",
+						"architecture.md",
+						"cli-reference.md",
+						"config-file-certs.md",
+						"config-letsencrypt.md",
+						"config-selfsigned-adhoc.md",
+						"config-selfsigned-localca.md",
+						"configuration.md",
+						"css/docuserve.css",
+						"docker.md",
+						"index.html",
+						"install-ca-ios.md",
+						"install-ca-mac.md",
+						"install-ca-ubuntu.md",
+						"install-ca-windows.md",
+						"local-dev-just-works.md",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
+				},
+				{
 					"Name": "orator-static-server",
 					"Repo": "orator-static-server",
 					"Group": "orator",
@@ -5234,6 +5724,16 @@
 					]
 				},
 				{
+					"Name": "pict-chance",
+					"Repo": "pict-chance",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
 					"Name": "pict-docuserve",
 					"Repo": "pict-docuserve",
 					"Group": "pict",
@@ -5378,6 +5878,16 @@
 						"tags.md",
 						"tasks.md"
 					]
+				},
+				{
+					"Name": "pict-meadow-connection-manager",
+					"Repo": "pict-meadow-connection-manager",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "pict-nonlinearconfig",
@@ -5789,6 +6299,26 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
+				},
+				{
+					"Name": "pict-section-entitymanagement",
+					"Repo": "pict-section-entitymanagement",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-section-equation",
+					"Repo": "pict-section-equation",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "pict-section-flow",
@@ -6269,6 +6799,56 @@
 							]
 						},
 						{
+							"Title": "User Documentation",
+							"Children": [
+								{
+									"Title": "Table of Contents",
+									"Path": "user-docs/ToC.md"
+								},
+								{
+									"Title": "Getting Started",
+									"Path": "user-docs/Getting-Started.md"
+								},
+								{
+									"Title": "Sections",
+									"Path": "user-docs/Sections.md"
+								},
+								{
+									"Title": "Groups",
+									"Path": "user-docs/Groups.md"
+								},
+								{
+									"Title": "Inputs & Data Types",
+									"Path": "user-docs/Inputs.md"
+								},
+								{
+									"Title": "Solvers",
+									"Path": "user-docs/Solvers.md"
+								},
+								{
+									"Title": "Keyboard Shortcuts",
+									"Path": "user-docs/Shortcuts.md"
+								}
+							]
+						},
+						{
+							"Title": "Solver Expression Guides",
+							"Children": [
+								{
+									"Title": "Solver Expression Walkthrough",
+									"Path": "user-docs/Solver-Expression-Walkthrough.md"
+								},
+								{
+									"Title": "Solver Expressions Advanced Topics",
+									"Path": "user-docs/Solver-Expressions-Advanced.md"
+								},
+								{
+									"Title": "Solver Functions Reference",
+									"Path": "user-docs/Solver-Functions.md"
+								}
+							]
+						},
+						{
 							"Title": "Resources",
 							"Children": [
 								{
@@ -6296,7 +6876,156 @@
 						"index.html",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
-						".pict_documentation_topics.json",
+						"user-docs/Getting-Started.md",
+						"user-docs/Groups.md",
+						"user-docs/Inputs.md",
+						"user-docs/Sections.md",
+						"user-docs/Shortcuts.md",
+						"user-docs/Solver-Expression-Walkthrough.md",
+						"user-docs/Solver-Expressions-Advanced.md",
+						"user-docs/Solver-Functions.md",
+						"user-docs/Solvers.md",
+						"user-docs/ToC.md",
+						"user-docs/pict_documentation_topics.json",
+						"user-docs/solverfunctions/abs.md",
+						"user-docs/solverfunctions/aggregationhistogram.md",
+						"user-docs/solverfunctions/aggregationhistogrambyobject.md",
+						"user-docs/solverfunctions/arrayconcat.md",
+						"user-docs/solverfunctions/avg.md",
+						"user-docs/solverfunctions/bucketset.md",
+						"user-docs/solverfunctions/ceil.md",
+						"user-docs/solverfunctions/cleanvaluearray.md",
+						"user-docs/solverfunctions/cleanvalueobject.md",
+						"user-docs/solverfunctions/colorgroupbackground.md",
+						"user-docs/solverfunctions/colorinputbackground.md",
+						"user-docs/solverfunctions/colorinputbackgroundtabular.md",
+						"user-docs/solverfunctions/colorsectionbackground.md",
+						"user-docs/solverfunctions/compare.md",
+						"user-docs/solverfunctions/concat.md",
+						"user-docs/solverfunctions/concatraw.md",
+						"user-docs/solverfunctions/cos.md",
+						"user-docs/solverfunctions/count.md",
+						"user-docs/solverfunctions/countset.md",
+						"user-docs/solverfunctions/countsetelements.md",
+						"user-docs/solverfunctions/createarrayfromabsolutevalues.md",
+						"user-docs/solverfunctions/createvalueobjectbyhashes.md",
+						"user-docs/solverfunctions/cumulativesummation.md",
+						"user-docs/solverfunctions/dateadddays.md",
+						"user-docs/solverfunctions/dateaddhours.md",
+						"user-docs/solverfunctions/dateaddmilliseconds.md",
+						"user-docs/solverfunctions/dateaddminutes.md",
+						"user-docs/solverfunctions/dateaddmonths.md",
+						"user-docs/solverfunctions/dateaddseconds.md",
+						"user-docs/solverfunctions/dateaddweeks.md",
+						"user-docs/solverfunctions/dateaddyears.md",
+						"user-docs/solverfunctions/datedaydifference.md",
+						"user-docs/solverfunctions/datefromparts.md",
+						"user-docs/solverfunctions/datehourdifference.md",
+						"user-docs/solverfunctions/datemathadd.md",
+						"user-docs/solverfunctions/datemilliseconddifference.md",
+						"user-docs/solverfunctions/dateminutedifference.md",
+						"user-docs/solverfunctions/datemonthdifference.md",
+						"user-docs/solverfunctions/dateseconddifference.md",
+						"user-docs/solverfunctions/dateweekdifference.md",
+						"user-docs/solverfunctions/dateyeardifference.md",
+						"user-docs/solverfunctions/differencearrays.md",
+						"user-docs/solverfunctions/disablesolverordinal.md",
+						"user-docs/solverfunctions/distributionhistogram.md",
+						"user-docs/solverfunctions/distributionhistogrambyobject.md",
+						"user-docs/solverfunctions/enablesolverordinal.md",
+						"user-docs/solverfunctions/entryinset.md",
+						"user-docs/solverfunctions/euler.md",
+						"user-docs/solverfunctions/exp.md",
+						"user-docs/solverfunctions/findfirstvaluebyexactmatch.md",
+						"user-docs/solverfunctions/findfirstvaluebystringincludes.md",
+						"user-docs/solverfunctions/flatten.md",
+						"user-docs/solverfunctions/floor.md",
+						"user-docs/solverfunctions/gaussianelimination.md",
+						"user-docs/solverfunctions/generatearrayofobjectsfromsets.md",
+						"user-docs/solverfunctions/generatehtmlhexcolor.md",
+						"user-docs/solverfunctions/getvalue.md",
+						"user-docs/solverfunctions/getvaluearray.md",
+						"user-docs/solverfunctions/getvalueobject.md",
+						"user-docs/solverfunctions/hidesections.md",
+						"user-docs/solverfunctions/if.md",
+						"user-docs/solverfunctions/intercept.md",
+						"user-docs/solverfunctions/iterativeseries.md",
+						"user-docs/solverfunctions/join.md",
+						"user-docs/solverfunctions/joinraw.md",
+						"user-docs/solverfunctions/largestinset.md",
+						"user-docs/solverfunctions/leastsquares.md",
+						"user-docs/solverfunctions/linest.md",
+						"user-docs/solverfunctions/log.md",
+						"user-docs/solverfunctions/logvalues.md",
+						"user-docs/solverfunctions/match.md",
+						"user-docs/solverfunctions/matrixinverse.md",
+						"user-docs/solverfunctions/matrixmultiply.md",
+						"user-docs/solverfunctions/matrixtranspose.md",
+						"user-docs/solverfunctions/matrixvectormultiply.md",
+						"user-docs/solverfunctions/max.md",
+						"user-docs/solverfunctions/mean.md",
+						"user-docs/solverfunctions/median.md",
+						"user-docs/solverfunctions/min.md",
+						"user-docs/solverfunctions/mode.md",
+						"user-docs/solverfunctions/objectkeystoarray.md",
+						"user-docs/solverfunctions/objectvaluessortbyexternalobjectarray.md",
+						"user-docs/solverfunctions/objectvaluestoarray.md",
+						"user-docs/solverfunctions/percent.md",
+						"user-docs/solverfunctions/pi.md",
+						"user-docs/solverfunctions/polynomialregression.md",
+						"user-docs/solverfunctions/predict.md",
+						"user-docs/solverfunctions/rad.md",
+						"user-docs/solverfunctions/randomfloat.md",
+						"user-docs/solverfunctions/randomfloatbetween.md",
+						"user-docs/solverfunctions/randomfloatupto.md",
+						"user-docs/solverfunctions/randominteger.md",
+						"user-docs/solverfunctions/randomintegerbetween.md",
+						"user-docs/solverfunctions/randomintegerupto.md",
+						"user-docs/solverfunctions/refreshtabularsection.md",
+						"user-docs/solverfunctions/resolvehtmlentities.md",
+						"user-docs/solverfunctions/round.md",
+						"user-docs/solverfunctions/runsolvers.md",
+						"user-docs/solverfunctions/setconcatenate.md",
+						"user-docs/solverfunctions/setgroupvisibility.md",
+						"user-docs/solverfunctions/setsectionvisibility.md",
+						"user-docs/solverfunctions/setsolverordinalenabled.md",
+						"user-docs/solverfunctions/settabularrowlength.md",
+						"user-docs/solverfunctions/setvalue.md",
+						"user-docs/solverfunctions/showsections.md",
+						"user-docs/solverfunctions/sin.md",
+						"user-docs/solverfunctions/slice.md",
+						"user-docs/solverfunctions/slope.md",
+						"user-docs/solverfunctions/smallestinset.md",
+						"user-docs/solverfunctions/sortarray.md",
+						"user-docs/solverfunctions/sorthistogram.md",
+						"user-docs/solverfunctions/sorthistogrambykeys.md",
+						"user-docs/solverfunctions/sortset.md",
+						"user-docs/solverfunctions/sqrt.md",
+						"user-docs/solverfunctions/stdev.md",
+						"user-docs/solverfunctions/stdeva.md",
+						"user-docs/solverfunctions/stdevp.md",
+						"user-docs/solverfunctions/stringcountsegments.md",
+						"user-docs/solverfunctions/stringgetsegments.md",
+						"user-docs/solverfunctions/subtractingsummation.md",
+						"user-docs/solverfunctions/sum.md",
+						"user-docs/solverfunctions/tan.md",
+						"user-docs/solverfunctions/tofixed.md",
+						"user-docs/solverfunctions/unionarrays.md",
+						"user-docs/solverfunctions/uniquearray.md",
+						"user-docs/solverfunctions/var.md",
+						"user-docs/solverfunctions/vara.md",
+						"user-docs/solverfunctions/varp.md",
+						"user-docs/solverfunctions/when.md",
+						"user-docs/solveroperators/add.md",
+						"user-docs/solveroperators/assign.md",
+						"user-docs/solveroperators/divide.md",
+						"user-docs/solveroperators/exponent.md",
+						"user-docs/solveroperators/expressionbegin.md",
+						"user-docs/solveroperators/modulus.md",
+						"user-docs/solveroperators/multiply.md",
+						"user-docs/solveroperators/nullcoalesce.md",
+						"user-docs/solveroperators/setconcat.md",
+						"user-docs/solveroperators/subtract.md",
 						"Getting-Started.md",
 						"Groups.md",
 						"Inputs.md",
@@ -6447,7 +7176,6 @@
 						"solveroperators/nullcoalesce.md",
 						"solveroperators/setconcat.md",
 						"solveroperators/subtract.md",
-						".pict_documentation_topics.json",
 						"Getting-Started.md",
 						"Groups.md",
 						"Inputs.md",
@@ -6587,7 +7315,17 @@
 						"solverfunctions/var.md",
 						"solverfunctions/vara.md",
 						"solverfunctions/varp.md",
-						"solverfunctions/when.md"
+						"solverfunctions/when.md",
+						"solveroperators/add.md",
+						"solveroperators/assign.md",
+						"solveroperators/divide.md",
+						"solveroperators/exponent.md",
+						"solveroperators/expressionbegin.md",
+						"solveroperators/modulus.md",
+						"solveroperators/multiply.md",
+						"solveroperators/nullcoalesce.md",
+						"solveroperators/setconcat.md",
+						"solveroperators/subtract.md"
 					]
 				},
 				{
@@ -7971,6 +8709,36 @@
 					]
 				},
 				{
+					"Name": "choreographic",
+					"Repo": "choreographic",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "cumulation",
+					"Repo": "cumulation",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "elucidator",
+					"Repo": "elucidator",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
 					"Name": "indoctrinate",
 					"Repo": "indoctrinate",
 					"Group": "utility",
@@ -8159,6 +8927,203 @@
 						"validating.md",
 						"writing.md"
 					]
+				},
+				{
+					"Name": "manyfest-conversion",
+					"Repo": "manyfest-conversion",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Overview",
+									"Path": "overview.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Implementation Reference",
+									"Path": "implementation-reference.md"
+								}
+							]
+						},
+						{
+							"Title": "Mapping Manyfests",
+							"Children": [
+								{
+									"Title": "Mapping Manyfest Format",
+									"Path": "mapping-manyfest-format.md"
+								},
+								{
+									"Title": "Source Address Syntax",
+									"Path": "source-address-syntax.md"
+								},
+								{
+									"Title": "Target Cell and Range Syntax",
+									"Path": "target-cell-syntax.md"
+								},
+								{
+									"Title": "Sidecar Reports",
+									"Path": "sidecar-reports.md"
+								}
+							]
+						},
+						{
+							"Title": "CLI Reference",
+							"Children": [
+								{
+									"Title": "CLI Overview",
+									"Path": "cli/overview.md"
+								},
+								{
+									"Title": "extract-fields",
+									"Path": "cli/extract-fields.md"
+								},
+								{
+									"Title": "build-mappings",
+									"Path": "cli/build-mappings.md"
+								},
+								{
+									"Title": "fill-pdf",
+									"Path": "cli/fill-pdf.md"
+								},
+								{
+									"Title": "fill-xlsx",
+									"Path": "cli/fill-xlsx.md"
+								},
+								{
+									"Title": "convert-batch",
+									"Path": "cli/convert-batch.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "MappingManyfestBuilder",
+									"Path": "api/mapping-manyfest-builder.md"
+								},
+								{
+									"Title": "PDFFormFiller",
+									"Path": "api/pdf-form-filler.md"
+								},
+								{
+									"Title": "XLSXFormFiller",
+									"Path": "api/xlsx-form-filler.md"
+								},
+								{
+									"Title": "ConversionReport",
+									"Path": "api/conversion-report.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Examples Walkthrough",
+									"Path": "examples/README.md"
+								},
+								{
+									"Title": "Bookstore Acquisition Order",
+									"Path": "examples/bookstore-acquisition.md"
+								},
+								{
+									"Title": "Library Catalog Inventory",
+									"Path": "examples/library-catalog.md"
+								},
+								{
+									"Title": "IRS W-9 Form",
+									"Path": "examples/irs-w9.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/conversion-report.md",
+						"api/mapping-manyfest-builder.md",
+						"api/pdf-form-filler.md",
+						"api/xlsx-form-filler.md",
+						"architecture.md",
+						"cli/build-mappings.md",
+						"cli/convert-batch.md",
+						"cli/extract-fields.md",
+						"cli/fill-pdf.md",
+						"cli/fill-xlsx.md",
+						"cli/overview.md",
+						"css/docuserve.css",
+						"examples/README.md",
+						"examples/bookstore-acquisition.md",
+						"examples/data/bookstore/built-mappings/AcquisitionOrder.pdf.mapping.json",
+						"examples/data/bookstore/built-mappings/InventorySheet.xlsx.mapping.json",
+						"examples/data/bookstore/built-mappings/build-report.json",
+						"examples/data/bookstore/mappings.csv",
+						"examples/data/bookstore/source.json",
+						"examples/data/irs-w9/built-mappings/build-report.json",
+						"examples/data/irs-w9/built-mappings/fw9.pdf.mapping.json",
+						"examples/data/irs-w9/mappings.csv",
+						"examples/data/irs-w9/source.json",
+						"examples/data/library/built-mappings/CatalogInventory.xlsx.mapping.json",
+						"examples/data/library/mappings.csv",
+						"examples/data/library/source.json",
+						"examples/irs-w9.md",
+						"examples/library-catalog.md",
+						"implementation-reference.md",
+						"index.html",
+						"mapping-manyfest-format.md",
+						"overview.md",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"sidecar-reports.md",
+						"source-address-syntax.md",
+						"target-cell-syntax.md"
+					]
+				},
+				{
+					"Name": "merquerial",
+					"Repo": "merquerial",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-cruisecontrol",
+					"Repo": "pict-cruisecontrol",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "precedent",
@@ -8433,6 +9398,127 @@
 					"DocFiles": []
 				},
 				{
+					"Name": "retold-databeacon",
+					"Repo": "retold-databeacon",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Implementation Reference",
+									"Path": "implementation-reference.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "api/README.md"
+								},
+								{
+									"Title": "RetoldDataBeacon",
+									"Path": "api/retold-databeacon.md"
+								},
+								{
+									"Title": "ConnectionBridge",
+									"Path": "api/connection-bridge.md"
+								},
+								{
+									"Title": "SchemaIntrospector",
+									"Path": "api/schema-introspector.md"
+								},
+								{
+									"Title": "DynamicEndpointManager",
+									"Path": "api/dynamic-endpoint-manager.md"
+								},
+								{
+									"Title": "BeaconProvider",
+									"Path": "api/beacon-provider.md"
+								},
+								{
+									"Title": "REST Endpoints",
+									"Path": "api/rest-endpoints.md"
+								}
+							]
+						},
+						{
+							"Title": "Usage Workflows",
+							"Children": [
+								{
+									"Title": "Global CLI Install",
+									"Path": "examples/workflow-global-cli.md"
+								},
+								{
+									"Title": "Local Development",
+									"Path": "examples/workflow-local-development.md"
+								},
+								{
+									"Title": "Docker Local",
+									"Path": "examples/workflow-docker-local.md"
+								},
+								{
+									"Title": "Docker Remote Deployment",
+									"Path": "examples/workflow-docker-remote.md"
+								},
+								{
+									"Title": "Embedding as a Library",
+									"Path": "examples/workflow-embedding-library.md"
+								},
+								{
+									"Title": "Facto Projection Pipeline",
+									"Path": "examples/workflow-facto-projection.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"JSDocOutput.json",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api/README.md",
+						"api/beacon-provider.md",
+						"api/connection-bridge.md",
+						"api/dynamic-endpoint-manager.md",
+						"api/rest-endpoints.md",
+						"api/retold-databeacon.md",
+						"api/schema-introspector.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"examples/workflow-docker-local.md",
+						"examples/workflow-docker-remote.md",
+						"examples/workflow-embedding-library.md",
+						"examples/workflow-facto-projection.md",
+						"examples/workflow-global-cli.md",
+						"examples/workflow-local-development.md",
+						"implementation-reference.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
+				},
+				{
 					"Name": "retold-facto",
 					"Repo": "retold-facto",
 					"Group": "apps",
@@ -8460,6 +9546,14 @@
 								{
 									"Title": "Server Setup & Docker",
 									"Path": "server-setup.md"
+								},
+								{
+									"Title": "Stack Launcher",
+									"Path": "stack-launcher.md"
+								},
+								{
+									"Title": "Synology Container Manager",
+									"Path": "synology.md"
 								},
 								{
 									"Title": "Ultravisor Integration",
@@ -8536,6 +9630,8 @@
 						"image-viewer.md",
 						"metadata.md",
 						"server-setup.md",
+						"stack-launcher.md",
+						"synology.md",
 						"ultravisor-configuration.md",
 						"ultravisor-integration.md",
 						"video-explorer.md",
@@ -8552,31 +9648,13 @@
 						"image-viewer.md",
 						"metadata.md",
 						"server-setup.md",
+						"stack-launcher.md",
+						"synology.md",
 						"ultravisor-configuration.md",
 						"ultravisor-integration.md",
 						"video-explorer.md",
 						"video-viewer.md"
 					]
-				},
-				{
-					"Name": "retold-remote-desktop",
-					"Repo": "retold-remote-desktop",
-					"Group": "apps",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
-				},
-				{
-					"Name": "retold-remote-ios",
-					"Repo": "retold-remote-ios",
-					"Group": "apps",
-					"Branch": "master",
-					"HasDocs": false,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
 				},
 				{
 					"Name": "ultravisor",
@@ -8623,6 +9701,22 @@
 									"Path": "features/beacon-providers.md"
 								},
 								{
+									"Title": "Beacon Authentication",
+									"Path": "features/beacon-authentication.md"
+								},
+								{
+									"Title": "Universal Addressing",
+									"Path": "features/universal-addressing.md"
+								},
+								{
+									"Title": "Reachability Matrix",
+									"Path": "features/reachability-matrix.md"
+								},
+								{
+									"Title": "Platform Cards",
+									"Path": "features/platform-cards.md"
+								},
+								{
 									"Title": "LLM Integration",
 									"Path": "features/llm.md"
 								},
@@ -8645,6 +9739,47 @@
 							]
 						},
 						{
+							"Title": "Task Reference",
+							"Children": [
+								{
+									"Title": "Data Transform",
+									"Path": "features/tasks-data-transform.md"
+								},
+								{
+									"Title": "File System",
+									"Path": "features/tasks-file-system.md"
+								},
+								{
+									"Title": "Flow Control",
+									"Path": "features/tasks-flow-control.md"
+								},
+								{
+									"Title": "HTTP Client",
+									"Path": "features/tasks-http-client.md"
+								},
+								{
+									"Title": "LLM",
+									"Path": "features/tasks-llm.md"
+								},
+								{
+									"Title": "Meadow API",
+									"Path": "features/tasks-meadow-api.md"
+								},
+								{
+									"Title": "Content System",
+									"Path": "features/tasks-content-system.md"
+								},
+								{
+									"Title": "Extension",
+									"Path": "features/tasks-extension.md"
+								},
+								{
+									"Title": "User Interaction",
+									"Path": "features/tasks-user-interaction.md"
+								}
+							]
+						},
+						{
 							"Title": "Reference",
 							"Children": [
 								{
@@ -8658,6 +9793,15 @@
 								{
 									"Title": "Configuration",
 									"Path": "features/configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Case Studies",
+							"Children": [
+								{
+									"Title": "retold-remote + orator-conversion",
+									"Path": "features/case-study-retold-remote.md"
 								}
 							]
 						}
@@ -8709,17 +9853,31 @@
 						"architecture.md",
 						"css/docuserve.css",
 						"features/api.md",
+						"features/beacon-authentication.md",
 						"features/beacon-providers.md",
 						"features/beacons.md",
 						"features/capabilities.md",
+						"features/case-study-retold-remote.md",
 						"features/cli.md",
 						"features/configuration.md",
 						"features/llm-model-setup.md",
 						"features/llm.md",
 						"features/manifests.md",
 						"features/operations.md",
+						"features/platform-cards.md",
+						"features/reachability-matrix.md",
 						"features/scheduling.md",
+						"features/tasks-content-system.md",
+						"features/tasks-data-transform.md",
+						"features/tasks-extension.md",
+						"features/tasks-file-system.md",
+						"features/tasks-flow-control.md",
+						"features/tasks-http-client.md",
+						"features/tasks-llm.md",
+						"features/tasks-meadow-api.md",
+						"features/tasks-user-interaction.md",
 						"features/tasks.md",
+						"features/universal-addressing.md",
 						"index.html",
 						"overview.md",
 						"quickstart.md",

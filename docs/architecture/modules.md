@@ -91,7 +91,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [pict-section-login](/pict/pict-section-login/) | `pict-section-login` | Login and authentication form section for Pict applications |
 | [pict-section-openseadragon](/pict/pict-section-openseadragon/) | `pict-section-openseadragon` | Deep-zoom image viewer section wrapping OpenSeadragon |
 
-## Utility — Build & Documentation Tools (6 modules)
+## Utility — Build & Documentation Tools (5 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -100,16 +100,13 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [manyfest](/utility/manyfest/) | `manyfest` | JSON manifest for consistent data description, validation, and address-based access across layers |
 | [precedent](/utility/precedent/) | `precedent` | Meta-templating engine with pattern-based start/end markers and word tree matching |
 | [quackage](/utility/quackage/) | `quackage` | Standardized build tool for browser bundles, transpilation, testing, and packaging |
-| [retold-sample-data](/utility/retold-sample-data/) | `retold-sample-data` | Sample datasets for testing and development across Retold modules |
 
-## Apps — Applications (8 modules)
+## Apps — Applications (6 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
 | [retold-content-system](/apps/retold-content-system/) | `retold-content-system` | Content management system built on the Retold ecosystem |
 | [retold-remote](/apps/retold-remote/) | `retold-remote` | Remote access application built on the Retold ecosystem |
-| [retold-remote-desktop](/apps/retold-remote-desktop/) | `retold-remote-desktop` | Desktop client for Retold Remote |
-| [retold-remote-ios](/apps/retold-remote-ios/) | `retold-remote-ios` | iOS client for Retold Remote |
 | [ultravisor](/apps/ultravisor/) | `ultravisor` | Process supervision with scheduled tasks, distributed nodes, and LLM integration |
 | [ultravisor-suite-harness](/apps/ultravisor-suite-harness/) | `ultravisor-suite-harness` | Integration test harness for the Ultravisor ecosystem |
 | [retold-facto](/apps/retold-facto/) | `retold-facto` | Data warehouse with ingestion pipelines and beacon integration |
@@ -123,9 +120,9 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | Meadow | 23 | Data access, ORM, query DSL, schema, 9 DB connectors, harness, migrations |
 | Orator | 8 | API server, HTTP, static files, proxy, auth, reporting, conversion |
 | Pict | 30 | MVC, views, templates, forms, grids, editors, routing, docs, TUI, sessions |
-| Utility | 6 | Build tools, caching, templating, manifests, docs, sample data |
-| Apps | 8 | Full-stack applications built on Retold |
-| **Total** | **83** | |
+| Utility | 5 | Build tools, caching, templating, manifests, docs |
+| Apps | 6 | Full-stack applications built on Retold |
+| **Total** | **80** | |
 
 ## GitHub Repositories
 
