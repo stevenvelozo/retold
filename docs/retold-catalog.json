@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-04-09T20:02:40.409Z",
+	"Generated": "2026-04-09T23:29:47.229Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -2003,10 +2003,16 @@
 					"Repo": "meadow-connection-manager",
 					"Group": "meadow",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "meadow-connection-mongodb",
@@ -4737,7 +4743,9 @@
 						"README.md",
 						"Stricture-Legacy-Compiler.md",
 						"css/docuserve.css",
-						"index.html"
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				}
 			]
@@ -4831,6 +4839,7 @@
 						"lifecycle-hooks.md",
 						"restify-server.md",
 						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"service-servers.md",
 						"static-files.md"
 					]
@@ -5728,10 +5737,16 @@
 					"Repo": "pict-chance",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "pict-docuserve",
@@ -5884,10 +5899,16 @@
 					"Repo": "pict-meadow-connection-manager",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "pict-nonlinearconfig",
@@ -5898,7 +5919,12 @@
 					"HasCover": false,
 					"Sidebar": [],
 					"DocFiles": [
-						"README.md"
+						".nojekyll",
+						"README.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -5974,14 +6000,19 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"architecture.md",
+						"css/docuserve.css",
 						"hotloading.md",
+						"index.html",
 						"overrides.md",
 						"providers.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"views.md"
 					]
 				},
@@ -6305,20 +6336,32 @@
 					"Repo": "pict-section-entitymanagement",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "pict-section-equation",
 					"Repo": "pict-section-equation",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "pict-section-flow",
@@ -7502,6 +7545,11 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"README.md",
 						"_sidebar.md",
 						"_topics.json",
@@ -7527,10 +7575,16 @@
 					"Repo": "pict-section-login",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "pict-section-markdowneditor",
@@ -7790,12 +7844,17 @@
 					"HasCover": false,
 					"Sidebar": [],
 					"DocFiles": [
+						".nojekyll",
 						"API-Reference.md",
 						"Configuration.md",
 						"README.md",
 						"Styling-and-Themes.md",
 						"Usage-Pict-Application.md",
-						"Usage-Plain-JavaScript.md"
+						"Usage-Plain-JavaScript.md",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -8009,7 +8068,10 @@
 						"api-reference.md",
 						"configuration.md",
 						"creating-commands.md",
-						"index.html"
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -8538,6 +8600,7 @@
 						"_sidebar.md",
 						"_topbar.md",
 						"building-an-app.md",
+						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
@@ -8713,30 +8776,48 @@
 					"Repo": "choreographic",
 					"Group": "utility",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "cumulation",
 					"Repo": "cumulation",
 					"Group": "utility",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "elucidator",
 					"Repo": "elucidator",
 					"Group": "utility",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "indoctrinate",
@@ -9110,20 +9191,32 @@
 					"Repo": "merquerial",
 					"Group": "utility",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "pict-cruisecontrol",
 					"Repo": "pict-cruisecontrol",
 					"Group": "utility",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "precedent",
@@ -9364,6 +9457,7 @@
 						"commands/package-management/lint.md",
 						"commands/package-management/luxuryupdatepackage.md",
 						"commands/package-management/updatepackage.md",
+						"css/docuserve.css",
 						"errorpage.md",
 						"index.html",
 						"retold-catalog.json",
@@ -9375,10 +9469,110 @@
 					"Repo": "retold-sample-data",
 					"Group": "utility",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Schema Reference",
+							"Children": [
+								{
+									"Title": "Schema Overview",
+									"Path": "schema.md"
+								},
+								{
+									"Title": "Entity Reference",
+									"Path": "entities.md"
+								},
+								{
+									"Title": "Seed Data",
+									"Path": "seed-data.md"
+								}
+							]
+						},
+						{
+							"Title": "Using the Data",
+							"Children": [
+								{
+									"Title": "Using With Meadow",
+									"Path": "using-with-meadow.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "API Index",
+									"Path": "api-reference.md"
+								},
+								{
+									"Title": "getBookstoreSchemaPath",
+									"Path": "api-getBookstoreSchemaPath.md"
+								},
+								{
+									"Title": "getMeadowModel",
+									"Path": "api-getMeadowModel.md"
+								},
+								{
+									"Title": "getSchema",
+									"Path": "api-getSchema.md"
+								},
+								{
+									"Title": "getMeadowSchema",
+									"Path": "api-getMeadowSchema.md"
+								},
+								{
+									"Title": "getEntityList",
+									"Path": "api-getEntityList.md"
+								},
+								{
+									"Title": "getSQLiteDDL",
+									"Path": "api-getSQLiteDDL.md"
+								},
+								{
+									"Title": "getSeedDataSQL",
+									"Path": "api-getSeedDataSQL.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api-getBookstoreSchemaPath.md",
+						"api-getEntityList.md",
+						"api-getMeadowModel.md",
+						"api-getMeadowSchema.md",
+						"api-getSQLiteDDL.md",
+						"api-getSchema.md",
+						"api-getSeedDataSQL.md",
+						"api-reference.md",
+						"css/docuserve.css",
+						"entities.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"schema.md",
+						"seed-data.md",
+						"using-with-meadow.md"
+					]
 				}
 			]
 		},
@@ -9392,10 +9586,16 @@
 					"Repo": "retold-content-system",
 					"Group": "apps",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "retold-databeacon",
@@ -9523,10 +9723,126 @@
 					"Repo": "retold-facto",
 					"Group": "apps",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								},
+								{
+									"Title": "Ultravisor Integration",
+									"Path": "ultravisor-integration.md"
+								}
+							]
+						},
+						{
+							"Title": "Subsystems",
+							"Children": [
+								{
+									"Title": "Recordset",
+									"Path": "subsystems/recordset.md"
+								},
+								{
+									"Title": "Projection",
+									"Path": "subsystems/projection.md"
+								},
+								{
+									"Title": "Mapping",
+									"Path": "subsystems/mapping.md"
+								},
+								{
+									"Title": "Connection",
+									"Path": "subsystems/connection.md"
+								},
+								{
+									"Title": "Audit",
+									"Path": "subsystems/audit.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "meadow/meadow/README.md"
+								},
+								{
+									"Title": "Meadow Endpoints",
+									"Path": "meadow/meadow-endpoints/README.md"
+								},
+								{
+									"Title": "Meadow Integration",
+									"Path": "meadow/meadow-integration/README.md"
+								},
+								{
+									"Title": "Orator",
+									"Path": "orator/orator/README.md"
+								},
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Stricture",
+									"Path": "utility/stricture/README.md"
+								},
+								{
+									"Title": "Ultravisor",
+									"Path": "apps/ultravisor/README.md"
+								},
+								{
+									"Title": "Ultravisor Beacon",
+									"Path": "utility/ultravisor-beacon/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api-reference.md",
+						"architecture.md",
+						"css/docuserve.css",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"subsystems/audit.md",
+						"subsystems/connection.md",
+						"subsystems/mapping.md",
+						"subsystems/projection.md",
+						"subsystems/recordset.md",
+						"ultravisor-integration.md"
+					]
 				},
 				{
 					"Name": "retold-remote",
@@ -9618,6 +9934,7 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
@@ -9625,10 +9942,14 @@
 						"audio-explorer.md",
 						"audio-viewer.md",
 						"collections.md",
+						"css/docuserve.css",
 						"ebook-reader.md",
 						"image-explorer.md",
 						"image-viewer.md",
+						"index.html",
 						"metadata.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"server-setup.md",
 						"stack-launcher.md",
 						"synology.md",
@@ -9932,10 +10253,16 @@
 					"Repo": "ultravisor-suite-harness",
 					"Group": "apps",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				}
 			]
 		},
