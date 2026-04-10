@@ -1,73 +1,327 @@
 /* ============================================================================
-   Pict Docuserve - Base Styles
+   Pict Docuserve - Base Styles & Theme Variables
    ============================================================================ */
 
-/* Reset and base */
-*, *::before, *::after {
+/* ----------------------------------------------------------------------------
+   Theme variables — light defaults on :root.
+   Dark mode applies when either:
+     (a) the user explicitly selected dark via <html data-theme="dark">
+     (b) the user hasn't chosen anything AND the system prefers dark
+   An explicit <html data-theme="light"> pins the light palette regardless.
+   ---------------------------------------------------------------------------- */
+
+:root
+{
+	/* Surfaces */
+	--docuserve-bg: #FDFBF7;
+	--docuserve-bg-elevated: #FFFFFF;
+	--docuserve-border: #DDD6CA;
+	--docuserve-border-soft: #EAE3D8;
+
+	/* Text */
+	--docuserve-text: #2A241E;
+	--docuserve-text-strong: #3D3229;
+	--docuserve-text-muted: #5E5549;
+	--docuserve-text-dim: #8A7F72;
+
+	/* Accent / links */
+	--docuserve-accent: #2E7D74;
+	--docuserve-accent-hover: #236660;
+
+	/* Top bar */
+	--docuserve-topbar-bg: #3D3229;
+	--docuserve-topbar-text: #E8E0D4;
+	--docuserve-topbar-text-muted: #B5AA9A;
+	--docuserve-topbar-text-dim: #8A7F72;
+	--docuserve-topbar-hover-bg: #524438;
+	--docuserve-topbar-version-bg: rgba(255, 255, 255, 0.06);
+	--docuserve-topbar-version-border: rgba(255, 255, 255, 0.08);
+	--docuserve-topbar-version-text: #B5AA9A;
+
+	/* Sidebar */
+	--docuserve-sidebar-bg: #FAF7F1;
+	--docuserve-sidebar-border: #DDD6CA;
+	--docuserve-sidebar-border-soft: #E5DED1;
+	--docuserve-sidebar-text: #423D37;
+	--docuserve-sidebar-group-title: #3D3229;
+	--docuserve-sidebar-module-text: #5E5549;
+	--docuserve-sidebar-hover-bg: #EAE3D8;
+	--docuserve-sidebar-hover-text: #2E7D74;
+	--docuserve-sidebar-active-bg: #E5DED1;
+	--docuserve-sidebar-active-text: #2E7D74;
+	--docuserve-sidebar-search-bg: #FFFFFF;
+	--docuserve-sidebar-search-border: #DDD6CA;
+
+	/* Inline code */
+	--docuserve-inline-code-bg: #F0ECE4;
+	--docuserve-inline-code-text: #9E3A50;
+
+	/* Code block panel */
+	--docuserve-code-bg: #F6F3EE;
+	--docuserve-code-border: #E5DED1;
+	--docuserve-code-gutter-bg: #EFEAE0;
+	--docuserve-code-gutter-border: #DDD6CA;
+	--docuserve-code-gutter-text: #A59986;
+	--docuserve-code-text: #2A241E;
+
+	/* Syntax tokens — low-chroma dark-on-light palette */
+	--docuserve-tok-keyword: #A03472;
+	--docuserve-tok-string: #1A6640;
+	--docuserve-tok-number: #B25A00;
+	--docuserve-tok-comment: #8A7F72;
+	--docuserve-tok-operator: #2E7D74;
+	--docuserve-tok-punctuation: #2A241E;
+	--docuserve-tok-function: #2A5DB0;
+	--docuserve-tok-property: #9E3A50;
+	--docuserve-tok-tag: #9E3A50;
+	--docuserve-tok-attr-name: #B25A00;
+	--docuserve-tok-attr-value: #1A6640;
+
+	/* Tables, blockquotes, mermaid */
+	--docuserve-table-header-bg: #F5F0E8;
+	--docuserve-table-row-alt-bg: #F9F6F0;
+	--docuserve-blockquote-bg: #F7F5F0;
+	--docuserve-blockquote-border: #2E7D74;
+	--docuserve-blockquote-text: #5E5549;
+	--docuserve-mermaid-bg: #FFFFFF;
+
+	/* Scrollbars */
+	--docuserve-scrollbar-track: #F5F0E8;
+	--docuserve-scrollbar-thumb: #D4CCBE;
+	--docuserve-scrollbar-thumb-hover: #B5AA9A;
+}
+
+@media (prefers-color-scheme: dark)
+{
+	:root:not([data-theme="light"])
+	{
+		--docuserve-bg: #15120F;
+		--docuserve-bg-elevated: #1B1814;
+		--docuserve-border: #2F2823;
+		--docuserve-border-soft: #26211C;
+
+		--docuserve-text: #E8E0D4;
+		--docuserve-text-strong: #F2ECE0;
+		--docuserve-text-muted: #B5AA9A;
+		--docuserve-text-dim: #7A6F62;
+
+		--docuserve-accent: #5DB8A8;
+		--docuserve-accent-hover: #7FCCB8;
+
+		--docuserve-topbar-bg: #1A1612;
+		--docuserve-topbar-text: #E8E0D4;
+		--docuserve-topbar-text-muted: #B5AA9A;
+		--docuserve-topbar-text-dim: #7A6F62;
+		--docuserve-topbar-hover-bg: #2A241E;
+		--docuserve-topbar-version-bg: rgba(255, 255, 255, 0.05);
+		--docuserve-topbar-version-border: rgba(255, 255, 255, 0.09);
+		--docuserve-topbar-version-text: #B5AA9A;
+
+		--docuserve-sidebar-bg: #1B1814;
+		--docuserve-sidebar-border: #2F2823;
+		--docuserve-sidebar-border-soft: #26211C;
+		--docuserve-sidebar-text: #C9C0B3;
+		--docuserve-sidebar-group-title: #F2ECE0;
+		--docuserve-sidebar-module-text: #B5AA9A;
+		--docuserve-sidebar-hover-bg: #2A241E;
+		--docuserve-sidebar-hover-text: #7FCCB8;
+		--docuserve-sidebar-active-bg: #2F2823;
+		--docuserve-sidebar-active-text: #7FCCB8;
+		--docuserve-sidebar-search-bg: #26211C;
+		--docuserve-sidebar-search-border: #2F2823;
+
+		--docuserve-inline-code-bg: #2A241E;
+		--docuserve-inline-code-text: #E8B07A;
+
+		--docuserve-code-bg: #1E1A17;
+		--docuserve-code-border: #2F2823;
+		--docuserve-code-gutter-bg: #17130F;
+		--docuserve-code-gutter-border: #2F2823;
+		--docuserve-code-gutter-text: #6A6052;
+		--docuserve-code-text: #E8E0D4;
+
+		--docuserve-tok-keyword: #C678DD;
+		--docuserve-tok-string: #98C379;
+		--docuserve-tok-number: #D19A66;
+		--docuserve-tok-comment: #7F848E;
+		--docuserve-tok-operator: #56B6C2;
+		--docuserve-tok-punctuation: #E8E0D4;
+		--docuserve-tok-function: #61AFEF;
+		--docuserve-tok-property: #E06C75;
+		--docuserve-tok-tag: #E06C75;
+		--docuserve-tok-attr-name: #D19A66;
+		--docuserve-tok-attr-value: #98C379;
+
+		--docuserve-table-header-bg: #26211C;
+		--docuserve-table-row-alt-bg: #1F1B17;
+		--docuserve-blockquote-bg: #1F1B17;
+		--docuserve-blockquote-border: #5DB8A8;
+		--docuserve-blockquote-text: #C9C0B3;
+		--docuserve-mermaid-bg: #E8E0D4;
+
+		--docuserve-scrollbar-track: #1B1814;
+		--docuserve-scrollbar-thumb: #3A322B;
+		--docuserve-scrollbar-thumb-hover: #524438;
+	}
+}
+
+:root[data-theme="dark"]
+{
+	--docuserve-bg: #15120F;
+	--docuserve-bg-elevated: #1B1814;
+	--docuserve-border: #2F2823;
+	--docuserve-border-soft: #26211C;
+
+	--docuserve-text: #E8E0D4;
+	--docuserve-text-strong: #F2ECE0;
+	--docuserve-text-muted: #B5AA9A;
+	--docuserve-text-dim: #7A6F62;
+
+	--docuserve-accent: #5DB8A8;
+	--docuserve-accent-hover: #7FCCB8;
+
+	--docuserve-topbar-bg: #1A1612;
+	--docuserve-topbar-text: #E8E0D4;
+	--docuserve-topbar-text-muted: #B5AA9A;
+	--docuserve-topbar-text-dim: #7A6F62;
+	--docuserve-topbar-hover-bg: #2A241E;
+	--docuserve-topbar-version-bg: rgba(255, 255, 255, 0.05);
+	--docuserve-topbar-version-border: rgba(255, 255, 255, 0.09);
+	--docuserve-topbar-version-text: #B5AA9A;
+
+	--docuserve-sidebar-bg: #1B1814;
+	--docuserve-sidebar-border: #2F2823;
+	--docuserve-sidebar-border-soft: #26211C;
+	--docuserve-sidebar-text: #C9C0B3;
+	--docuserve-sidebar-group-title: #F2ECE0;
+	--docuserve-sidebar-module-text: #B5AA9A;
+	--docuserve-sidebar-hover-bg: #2A241E;
+	--docuserve-sidebar-hover-text: #7FCCB8;
+	--docuserve-sidebar-active-bg: #2F2823;
+	--docuserve-sidebar-active-text: #7FCCB8;
+	--docuserve-sidebar-search-bg: #26211C;
+	--docuserve-sidebar-search-border: #2F2823;
+
+	--docuserve-inline-code-bg: #2A241E;
+	--docuserve-inline-code-text: #E8B07A;
+
+	--docuserve-code-bg: #1E1A17;
+	--docuserve-code-border: #2F2823;
+	--docuserve-code-gutter-bg: #17130F;
+	--docuserve-code-gutter-border: #2F2823;
+	--docuserve-code-gutter-text: #6A6052;
+	--docuserve-code-text: #E8E0D4;
+
+	--docuserve-tok-keyword: #C678DD;
+	--docuserve-tok-string: #98C379;
+	--docuserve-tok-number: #D19A66;
+	--docuserve-tok-comment: #7F848E;
+	--docuserve-tok-operator: #56B6C2;
+	--docuserve-tok-punctuation: #E8E0D4;
+	--docuserve-tok-function: #61AFEF;
+	--docuserve-tok-property: #E06C75;
+	--docuserve-tok-tag: #E06C75;
+	--docuserve-tok-attr-name: #D19A66;
+	--docuserve-tok-attr-value: #98C379;
+
+	--docuserve-table-header-bg: #26211C;
+	--docuserve-table-row-alt-bg: #1F1B17;
+	--docuserve-blockquote-bg: #1F1B17;
+	--docuserve-blockquote-border: #5DB8A8;
+	--docuserve-blockquote-text: #C9C0B3;
+	--docuserve-mermaid-bg: #E8E0D4;
+
+	--docuserve-scrollbar-track: #1B1814;
+	--docuserve-scrollbar-thumb: #3A322B;
+	--docuserve-scrollbar-thumb-hover: #524438;
+}
+
+/* ----------------------------------------------------------------------------
+   Reset and base
+   ---------------------------------------------------------------------------- */
+
+*, *::before, *::after
+{
 	box-sizing: border-box;
 }
 
-html, body {
+html, body
+{
 	margin: 0;
 	padding: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 	font-size: 16px;
 	line-height: 1.5;
-	color: #423D37;
-	background-color: #fff;
+	color: var(--docuserve-text);
+	background-color: var(--docuserve-bg);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6
+{
 	margin-top: 0;
 	line-height: 1.3;
+	color: var(--docuserve-text-strong);
 }
 
-a {
-	color: #2E7D74;
+a
+{
+	color: var(--docuserve-accent);
 	text-decoration: none;
 }
 
-a:hover {
-	color: #256861;
+a:hover
+{
+	color: var(--docuserve-accent-hover);
 }
 
 /* Application container */
-#Docuserve-Application-Container {
+#Docuserve-Application-Container
+{
 	min-height: 100vh;
 }
 
 /* Utility: scrollbar styling */
-::-webkit-scrollbar {
+::-webkit-scrollbar
+{
 	width: 8px;
+	height: 8px;
 }
 
-::-webkit-scrollbar-track {
-	background: #F5F0E8;
+::-webkit-scrollbar-track
+{
+	background: var(--docuserve-scrollbar-track);
 }
 
-::-webkit-scrollbar-thumb {
-	background: #D4CCBE;
+::-webkit-scrollbar-thumb
+{
+	background: var(--docuserve-scrollbar-thumb);
 	border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-	background: #B5AA9A;
+::-webkit-scrollbar-thumb:hover
+{
+	background: var(--docuserve-scrollbar-thumb-hover);
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
-	html {
+@media (max-width: 768px)
+{
+	html
+	{
 		font-size: 14px;
 	}
 
-	#Docuserve-Sidebar-Container {
+	#Docuserve-Sidebar-Container
+	{
 		display: none;
 	}
 
-	.docuserve-body {
+	.docuserve-body
+	{
 		flex-direction: column;
 	}
 }
