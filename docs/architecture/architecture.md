@@ -8,11 +8,11 @@ A fully-realized Retold application assembles five layers, from infrastructure a
 
 ```mermaid
 graph TB
-  L5["<b>Layer 5</b> — Pict + Your Application / Mid-Tier Service<br/><i>MVC tools, authentication, business logic, custom endpoints</i>"]
-  L4["<b>Layer 4</b> — Orator (API Server)<br/><i>HTTP lifecycle, middleware, static files, proxy</i>"]
-  L3["<b>Layer 3</b> — Meadow-Endpoints<br/><i>Auto-generated CRUD routes, behavior hooks</i>"]
-  L2["<b>Layer 2</b> — Meadow + FoxHound + Stricture<br/><i>Data broker, SQL generation, schema definitions</i>"]
-  L1["<b>Layer 1</b> — Fable (Core Ecosystem)<br/><i>DI, configuration, logging, UUID, expressions</i>"]
+  L5["<b>Layer 5</b> -- Pict + Your Application / Mid-Tier Service<br/><i>MVC tools, authentication, business logic, custom endpoints</i>"]
+  L4["<b>Layer 4</b> -- Orator (API Server)<br/><i>HTTP lifecycle, middleware, static files, proxy</i>"]
+  L3["<b>Layer 3</b> -- Meadow-Endpoints<br/><i>Auto-generated CRUD routes, behavior hooks</i>"]
+  L2["<b>Layer 2</b> -- Meadow + FoxHound + Stricture<br/><i>Data broker, SQL generation, schema definitions</i>"]
+  L1["<b>Layer 1</b> -- Fable (Core Ecosystem)<br/><i>DI, configuration, logging, UUID, expressions</i>"]
   Infra["<b>Infrastructure</b><br/><i>Config files, log streams, databases, filesystem</i>"]
 
   L5 --> L4
@@ -35,11 +35,11 @@ Not every application uses every layer. A browser app might use Fable + Pict. A 
 
 Every Retold module extends `fable-serviceproviderbase`. This base class provides:
 
-- **Registration** — Services register with a Fable instance by type and hash
-- **Dependency access** — Any service can reach any other through `this.fable`
-- **Logging** — Built-in `this.log` from Fable-Log
-- **Configuration** — Shared settings through `this.fable.settings`
-- **Identity** — UUID generation through `this.fable.getUUID()`
+- **Registration** -- Services register with a Fable instance by type and hash
+- **Dependency access** -- Any service can reach any other through `this.fable`
+- **Logging** -- Built-in `this.log` from Fable-Log
+- **Configuration** -- Shared settings through `this.fable.settings`
+- **Identity** -- UUID generation through `this.fable.getUUID()`
 
 ```javascript
 const libFable = require('fable');
@@ -58,7 +58,7 @@ let _Orator = _Fable.instantiateServiceProvider('Orator');
 
 This pattern means modules are loosely coupled. You can swap database providers, change API server implementations, or add custom services without modifying existing code.
 
-## Layer 1: Fable — The Foundation
+## Layer 1: Fable -- The Foundation
 
 Fable is the only module that every other module depends on. It provides the core services that all other modules consume.
 
@@ -92,9 +92,9 @@ graph TB
 
 **Fable-ServiceProviderBase** is the base class all Retold services extend. It provides the registration and dependency injection mechanics.
 
-Fable also bundles an expression parser, a REST client (Fable-RestClient), a template engine, date utilities, and data format helpers — all accessible as services.
+Fable also bundles an expression parser, a REST client (Fable-RestClient), a template engine, date utilities, and data format helpers -- all accessible as services.
 
-## Layer 2: Meadow — Data Access
+## Layer 2: Meadow -- Data Access
 
 Meadow sits on top of Fable and provides a provider-agnostic data broker. You define entities once and access them through any supported database.
 
@@ -124,11 +124,11 @@ graph TB
 
 **FoxHound** generates dialect-specific SQL from a single chainable API. One query definition produces correct SQL for MySQL, MSSQL, SQLite, or ALASQL (for in-browser use).
 
-**Stricture** is an opinionated MicroDDL — define your data model in a simple text format and generate JSON schemas, MySQL CREATE statements, Meadow schema files, and documentation from a single source.
+**Stricture** is an opinionated MicroDDL -- define your data model in a simple text format and generate JSON schemas, MySQL CREATE statements, Meadow schema files, and documentation from a single source.
 
 **Connection modules** (meadow-connection-mysql, meadow-connection-mssql, meadow-connection-sqlite) provide pooled database connections as Fable services.
 
-## Layer 3: Meadow-Endpoints — Auto-Generated API
+## Layer 3: Meadow-Endpoints -- Auto-Generated API
 
 Meadow-Endpoints takes a Meadow entity definition and automatically generates a full suite of RESTful routes.
 
@@ -136,13 +136,13 @@ Meadow-Endpoints takes a Meadow entity definition and automatically generates a 
 graph LR
   entity["Meadow Entity<br/><b>Book</b>"] --> endpoints["<b>Meadow-Endpoints</b>"]
 
-  endpoints --> r1["GET /Books → Reads"]
-  endpoints --> r2["GET /Books/Count → Count"]
-  endpoints --> r3["GET /Book/:id → Read"]
-  endpoints --> r4["GET /Book/Schema → Schema"]
-  endpoints --> r5["POST /Book → Create"]
-  endpoints --> r6["PUT /Book → Update"]
-  endpoints --> r7["DEL /Book/:id → Delete"]
+  endpoints --> r1["GET /Books -> Reads"]
+  endpoints --> r2["GET /Books/Count -> Count"]
+  endpoints --> r3["GET /Book/:id -> Read"]
+  endpoints --> r4["GET /Book/Schema -> Schema"]
+  endpoints --> r5["POST /Book -> Create"]
+  endpoints --> r6["PUT /Book -> Update"]
+  endpoints --> r7["DEL /Book/:id -> Delete"]
   endpoints --> r8["DEL /Book/Undelete/:id"]
 
   entity --> hooks["+ Behavior injection hooks<br/>+ Dynamic filtering & pagination<br/>+ Bulk operations"]
@@ -160,9 +160,9 @@ graph LR
   style r8 fill:#fff,stroke:#90caf9,color:#333
 ```
 
-Behavior hooks let you inject authentication, authorization, validation, and transformation logic at any point in the request lifecycle — before or after each CRUD operation.
+Behavior hooks let you inject authentication, authorization, validation, and transformation logic at any point in the request lifecycle -- before or after each CRUD operation.
 
-## Layer 4: Orator — API Server
+## Layer 4: Orator -- API Server
 
 Orator provides the HTTP server that hosts the endpoints from Layer 3 (and any custom routes).
 
@@ -186,9 +186,9 @@ graph TB
   style tidings fill:#fff,stroke:#90caf9,color:#333
 ```
 
-Orator is deliberately thin. It provides a consistent interface regardless of the underlying server, so you can swap Restify for another implementation or use IPC mode for testing — without changing your application code.
+Orator is deliberately thin. It provides a consistent interface regardless of the underlying server, so you can swap Restify for another implementation or use IPC mode for testing -- without changing your application code.
 
-## Layer 5: Pict — MVC Tools
+## Layer 5: Pict -- MVC Tools
 
 Pict sits alongside the server stack, providing Model-View-Controller tools for any text-based UI: browser DOM, terminal, or rendered strings.
 
@@ -304,7 +304,7 @@ Modules generate rich metadata automatically. A Meadow entity with a well-named 
 
 ### Provider Agnostic
 
-Data access, server implementations, and log destinations are all pluggable. Swap MySQL for SQLite, Restify for IPC, or console logging for Bunyan — without changing application code.
+Data access, server implementations, and log destinations are all pluggable. Swap MySQL for SQLite, Restify for IPC, or console logging for Bunyan -- without changing application code.
 
 ### Composable, Not Monolithic
 

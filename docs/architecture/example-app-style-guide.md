@@ -2,7 +2,7 @@
 
 ## Red Rock Mesa Theme
 
-All Pict example applications use the **Red Rock Mesa** theme — a southwest-inspired design that makes it immediately obvious you are looking at a Pict example app.
+All Pict example applications use the **Red Rock Mesa** theme -- a southwest-inspired design that makes it immediately obvious you are looking at a Pict example app.
 
 The theme is named for the Sedona red rock and Monument Valley landscape: deep sky teal headers, sienna accents, sandstone borders, and pale desert backgrounds.
 
@@ -38,7 +38,7 @@ Every example app includes a header bar with three elements:
 </div>
 ```
 
-- **Badge** (left): Sienna background with star icon and "PICT EXAMPLE" text — identifies this as a Pict example
+- **Badge** (left): Sienna background with star icon and "PICT EXAMPLE" text -- identifies this as a Pict example
 - **App Name** (center-left): The specific example application name in pale desert text
 - **Module Name** (right): The source module name in sandstone text, pushed to the far right
 
@@ -61,7 +61,7 @@ Every example app includes a header bar with three elements:
 </body>
 ```
 
-The content area has `1.5rem` padding and spans the full browser width — no max-width constraint, so wide tables and grids are usable at any viewport size.
+The content area has `1.5rem` padding and spans the full browser width -- no max-width constraint, so wide tables and grids are usable at any viewport size.
 
 ## Form Container
 
@@ -69,7 +69,7 @@ The main form container has:
 
 - White background
 - Sandstone (`#D4A373`) border
-- **4px sienna top border** — the signature accent
+- **4px sienna top border** -- the signature accent
 - 6px border radius
 - Subtle box shadow
 
@@ -130,7 +130,7 @@ color: #FAEDCD;
 
 ## Implementation Notes
 
-- **All CSS is inline** within `<style>` tags in each HTML file — no external CSS framework dependencies
+- **All CSS is inline** within `<style>` tags in each HTML file -- no external CSS framework dependencies
 - The `<style id="PICT-CSS"></style>` tag must remain present for Pict's dynamic CSS injection
 - Theme CSS should come **after** the PICT-CSS tag so it can override dynamic styles if needed
 - Use the `box-sizing: border-box` reset on all elements
@@ -144,11 +144,11 @@ When creating a new example application:
 2. Update the `<title>` tag: `Your App Name - Pict Example`
 3. Update the header app name: `<div class="pict-example-app-name">Your App Name</div>`
 4. Update the module name if it differs from `pict-section-form`
-5. Keep all theme CSS intact — the inline styles are self-contained
+5. Keep all theme CSS intact -- the inline styles are self-contained
 6. Add any app-specific CSS **after** the theme block with a comment separator
 
 ## Exceptions
 
-- The **postcard_example** (`Das Postkard`) has its own distinct styling with Pure CSS and a sidebar navigation — it is excluded from the standard theme
+- The **postcard_example** (`Das Postkard`) has its own distinct styling with Pure CSS and a sidebar navigation -- it is excluded from the standard theme
 - Apps using third-party component CSS (TUI Grid, JSON Editor, etc.) should load those stylesheets **before** the theme `<style>` block so the theme can override as needed
 - The `complex_table` example preserves custom `.HasFancyHeaders` styles, adapted to use theme-compatible colors

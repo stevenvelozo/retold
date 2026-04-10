@@ -1,4 +1,4 @@
-# Orator — API Server
+# Orator -- API Server
 
 Orator provides an unopinionated HTTP server abstraction for Retold applications. It wraps service server implementations (Restify for production, IPC for testing) behind a consistent interface, so your application code does not depend on any specific HTTP library.
 
@@ -19,7 +19,7 @@ graph TB
   style other fill:#f5f5f5,stroke:#bdbdbd,color:#666
 ```
 
-Your application registers routes, middleware, and lifecycle hooks with Orator. Orator delegates to whichever service server implementation is configured — Restify for real HTTP, IPC for in-process testing.
+Your application registers routes, middleware, and lifecycle hooks with Orator. Orator delegates to whichever service server implementation is configured -- Restify for real HTTP, IPC for in-process testing.
 
 ## Core Modules
 
@@ -144,7 +144,7 @@ _Orator.startService((pError) =>
 });
 ```
 
-This gives you a full REST API with Create, Read, Reads, Update, Delete, Undelete, Count, and Schema endpoints for the Book entity — all auto-generated.
+This gives you a full REST API with Create, Read, Reads, Update, Delete, Undelete, Count, and Schema endpoints for the Book entity -- all auto-generated.
 
 ## All Orator Modules
 

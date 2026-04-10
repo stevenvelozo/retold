@@ -1,4 +1,4 @@
-# Fable — Core Ecosystem
+# Fable -- Core Ecosystem
 
 Fable is the foundation of every Retold application. It provides dependency injection, configuration management, logging, UUID generation, and a collection of utility services. Every other Retold module depends on Fable.
 
@@ -6,15 +6,15 @@ Fable is the foundation of every Retold application. It provides dependency inje
 
 When you create a Fable instance, you get:
 
-- **Service provider registry** — Register, discover, and inject services by type
-- **Configuration** — Merge settings from files, defaults, and runtime overrides
-- **Logging** — Six log levels with extensible output streams
-- **UUID generation** — RFC 4122 v4 UUIDs or configurable random strings
-- **Expression parser** — Evaluate mathematical and logical expressions with 80+ built-in functions
-- **REST client** — Make HTTP requests from Node.js or the browser
-- **Template engine** — Render templates with data binding
-- **Date utilities** — Date parsing and formatting
-- **Data format helpers** — Clean numbers, pad strings, format values
+- **Service provider registry** -- Register, discover, and inject services by type
+- **Configuration** -- Merge settings from files, defaults, and runtime overrides
+- **Logging** -- Six log levels with extensible output streams
+- **UUID generation** -- RFC 4122 v4 UUIDs or configurable random strings
+- **Expression parser** -- Evaluate mathematical and logical expressions with 80+ built-in functions
+- **REST client** -- Make HTTP requests from Node.js or the browser
+- **Template engine** -- Render templates with data binding
+- **Date utilities** -- Date parsing and formatting
+- **Data format helpers** -- Clean numbers, pad strings, format values
 
 ## Core Service Modules
 
@@ -45,11 +45,11 @@ _Fable.log.trace(`UUID: ${_Fable.getUUID()}`);
 The base class that all Retold services extend. Provides the registration and dependency injection mechanics.
 
 Every service gets:
-- `this.fable` — Reference to the Fable instance
-- `this.log` — Shortcut to logging
-- `this.options` — Service-specific options
-- `this.serviceType` — The registered service type name
-- `this.Hash` — Unique identifier for this service instance
+- `this.fable` -- Reference to the Fable instance
+- `this.log` -- Shortcut to logging
+- `this.options` -- Service-specific options
+- `this.serviceType` -- The registered service type name
+- `this.Hash` -- Unique identifier for this service instance
 
 ```javascript
 const libServiceProviderBase = require('fable-serviceproviderbase');
@@ -83,7 +83,7 @@ _Fable.addAndInstantiateServiceType('MyService', MyService);
 A tolerant configuration chain. Loads settings from files, merges with defaults, and allows runtime overrides.
 
 ```javascript
-// Settings merge in order: defaults → file → constructor → runtime
+// Settings merge in order: defaults -> file -> constructor -> runtime
 let _Fable = new libFable({
     Product: 'MyApp',
     MySQL: {
@@ -138,7 +138,7 @@ UUID generation for identity and uniqueness.
 ```javascript
 // RFC 4122 v4 UUID
 let tmpUUID = _Fable.getUUID();
-// → '83853f9c-732c-4225-9a20-abcde47c6ddb'
+// -> '83853f9c-732c-4225-9a20-abcde47c6ddb'
 
 // Random string (configurable length and character set)
 let tmpRandom = _Fable.fable.UUID.getUUID({ length: 12 });

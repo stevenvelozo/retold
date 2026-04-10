@@ -1,4 +1,4 @@
-# Apps — Applications
+# Apps -- Applications
 
 Full-stack applications built on the Retold ecosystem, combining Fable, Meadow, Orator, and Pict into complete systems.
 

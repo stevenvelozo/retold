@@ -11,7 +11,7 @@ Core modules (10+ dependents) are shown with stadium-shaped nodes. The number in
 ```mermaid
 flowchart TD
 
-	subgraph sg_fable["Fable — Core Ecosystem"]
+	subgraph sg_fable["Fable -- Core Ecosystem"]
 		n_fable([fable (23)])
 		n_fable_log[fable-log (2)]
 		n_fable_log_logger_bunyan[fable-log-logger-bunyan]
@@ -21,7 +21,7 @@ flowchart TD
 		n_fable_uuid[fable-uuid (1)]
 	end
 
-	subgraph sg_utility["Utility — Build & Ops"]
+	subgraph sg_utility["Utility -- Build & Ops"]
 		n_cachetrax[cachetrax (3)]
 		n_cumulation[cumulation]
 		n_indoctrinate[indoctrinate (2)]
@@ -31,7 +31,7 @@ flowchart TD
 		n_quackage([quackage (64)])
 	end
 
-	subgraph sg_meadow["Meadow — Data Access"]
+	subgraph sg_meadow["Meadow -- Data Access"]
 		n_bibliograph[bibliograph (3)]
 		n_bibliograph_storage_lmdb[bibliograph-storage-lmdb]
 		n_bibliograph_storage_rocksdb[bibliograph-storage-rocksdb]
@@ -49,7 +49,7 @@ flowchart TD
 		n_stricture[stricture (3)]
 	end
 
-	subgraph sg_orator["Orator — API Server"]
+	subgraph sg_orator["Orator -- API Server"]
 		n_orator([orator (14)])
 		n_orator_conversion[orator-conversion]
 		n_orator_http_proxy[orator-http-proxy (2)]
@@ -59,13 +59,13 @@ flowchart TD
 		n_tidings[tidings]
 	end
 
-	subgraph sg_apps["Apps — Full Stack"]
+	subgraph sg_apps["Apps -- Full Stack"]
 		n_retold_content_system[retold-content-system (2)]
 		n_retold_remote[retold-remote]
 		n_ultravisor[ultravisor]
 	end
 
-	subgraph sg_pict["Pict — MVC & UI"]
+	subgraph sg_pict["Pict -- MVC & UI"]
 		n_cryptbrau[cryptbrau]
 		n_informary[informary]
 		n_pict([pict (27)])
@@ -94,7 +94,7 @@ flowchart TD
 		n_pict_view([pict-view (20)])
 	end
 
-	subgraph sg_root["Root — Meta & Examples"]
+	subgraph sg_root["Root -- Meta & Examples"]
 		n_retold[retold]
 	end
 
@@ -447,7 +447,7 @@ These modules form the critical path of the ecosystem. Changes here have the wid
 
 Modules at Group 0 have no ecosystem production dependencies. Each subsequent group depends on modules from lower groups. This ordering defines the safe update sequence: update from the bottom up.
 
-### Group 0 — Foundations (5 modules)
+### Group 0 -- Foundations (5 modules)
 
 No ecosystem production dependencies. These are leaf nodes.
 
@@ -459,7 +459,7 @@ No ecosystem production dependencies. These are leaf nodes.
 | **fable-serviceproviderbase** | fable |
 | precedent | utility |
 
-### Group 1 — Base Services (17 modules)
+### Group 1 -- Base Services (17 modules)
 
 Depend only on Group 0 modules.
 
@@ -483,7 +483,7 @@ Depend only on Group 0 modules.
 | pict-provider | pict | fable-serviceproviderbase |
 | pict-template | pict | fable-serviceproviderbase |
 
-### Group 2 — Framework Core (7 modules)
+### Group 2 -- Framework Core (7 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -495,7 +495,7 @@ Depend only on Group 0 modules.
 | orator-serviceserver-restify | orator | orator-serviceserver-base |
 | pict-router | pict | pict-provider |
 
-### Group 3 — Derived Services (6 modules)
+### Group 3 -- Derived Services (6 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -503,7 +503,7 @@ Depend only on Group 0 modules.
 | **pict-view** | pict | fable, fable-serviceproviderbase |
 | tidings | orator | fable, orator |
 
-### Group 4 — Composite Modules (9 modules)
+### Group 4 -- Composite Modules (9 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -517,7 +517,7 @@ Depend only on Group 0 modules.
 | pict-section-objecteditor | pict | pict-view |
 | pict-section-tuigrid | pict | pict-view |
 
-### Group 5 — Higher-Level Sections (11 modules)
+### Group 5 -- Higher-Level Sections (11 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -530,7 +530,7 @@ Depend only on Group 0 modules.
 | pict-serviceproviderbase | pict | fable-serviceproviderbase, pict |
 | pict-terminalui | pict | fable, fable-serviceproviderbase, pict, pict-application, pict-view |
 
-### Group 6 — Integration Modules (15 modules)
+### Group 6 -- Integration Modules (15 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -546,7 +546,7 @@ Depend only on Group 0 modules.
 | stricture | meadow | pict, pict-application, pict-service-commandlineutility, pict-terminalui, pict-view |
 | ultravisor | apps | orator, orator-serviceserver-restify, pict, pict-service-commandlineutility, pict-serviceproviderbase |
 
-### Group 7 — Application Components (4 modules)
+### Group 7 -- Application Components (4 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -555,7 +555,7 @@ Depend only on Group 0 modules.
 | retold-content-system | apps | fable, orator, orator-serviceserver-restify, pict, pict-application, pict-docuserve, pict-provider, pict-section-code, pict-section-content, pict-section-filebrowser, pict-section-markdowneditor, pict-service-commandlineutility, pict-view |
 | retold-harness | meadow | meadow-connection-sqlite, retold-data-service |
 
-### Group 8 — Top-Level Applications (2 modules)
+### Group 8 -- Top-Level Applications (2 modules)
 
 | Module | Group | Depends On |
 |---|---|---|
@@ -595,18 +595,18 @@ The general dependency flow follows the Retold architectural groups:
 
 When performing ecosystem-wide updates, follow the topological group order (bottom-up):
 
-1. **Group 0** first — `fable-serviceproviderbase`, `precedent`
-2. **Group 1** — `fable-log`, `fable-settings`, `fable-uuid`, `cachetrax`, `manyfest`, connection modules, `pict-application`, `pict-provider`, `pict-template`
-3. **Group 2** — `fable`, `orator`, `orator-serviceserver-restify`
-4. **Group 3** — `foxhound`, `pict-view`
-5. **Group 4** — `meadow`, `pict`, basic pict-section modules
-6. **Group 5** — `meadow-endpoints`, `pict-section-form`, `pict-service-commandlineutility`
-7. **Group 6** — `retold-data-service`, `stricture`, `indoctrinate`, `pict-docuserve`
-8. **Group 7** — `quackage`, `retold-content-system`, `retold-harness`
-9. **Group 8** — `retold`, `retold-remote`
+1. **Group 0** first -- `fable-serviceproviderbase`, `precedent`
+2. **Group 1** -- `fable-log`, `fable-settings`, `fable-uuid`, `cachetrax`, `manyfest`, connection modules, `pict-application`, `pict-provider`, `pict-template`
+3. **Group 2** -- `fable`, `orator`, `orator-serviceserver-restify`
+4. **Group 3** -- `foxhound`, `pict-view`
+5. **Group 4** -- `meadow`, `pict`, basic pict-section modules
+6. **Group 5** -- `meadow-endpoints`, `pict-section-form`, `pict-service-commandlineutility`
+7. **Group 6** -- `retold-data-service`, `stricture`, `indoctrinate`, `pict-docuserve`
+8. **Group 7** -- `quackage`, `retold-content-system`, `retold-harness`
+9. **Group 8** -- `retold`, `retold-remote`
 
 ## Data Files
 
-- **[in-ecosystem-dependency-graph.json](in-ecosystem-dependency-graph.json)** — Machine-readable graph with nodes, edges, groups, and analytics
-- **[_generate-graph.js](_generate-graph.js)** — Script to regenerate the JSON from package.json files
-- **[_generate-mermaid.js](_generate-mermaid.js)** — Script to regenerate the Mermaid diagram from the JSON
+- **[in-ecosystem-dependency-graph.json](in-ecosystem-dependency-graph.json)** -- Machine-readable graph with nodes, edges, groups, and analytics
+- **[_generate-graph.js](_generate-graph.js)** -- Script to regenerate the JSON from package.json files
+- **[_generate-mermaid.js](_generate-mermaid.js)** -- Script to regenerate the Mermaid diagram from the JSON

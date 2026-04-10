@@ -53,10 +53,10 @@ Both scripts print summary statistics to stdout on completion.
 2. Filters to module-category and root-category nodes (excludes examples and internal packages)
 3. Lays out groups in a 2-column grid following the architectural layer order:
    - Row 0: Fable (Core) | Utility (Build/Ops)
-   - Row 1: Meadow (Data) — full width
+   - Row 1: Meadow (Data) -- full width
    - Row 2: Orator (API) | Apps (Full Stack)
-   - Row 3: Pict (MVC/UI) — full width
-   - Row 4: Root — full width
+   - Row 3: Pict (MVC/UI) -- full width
+   - Row 4: Root -- full width
 4. Draws edges as cubic bezier curves (solid for production, dashed for development)
 5. Highlights core modules (10+ dependents) with filled backgrounds
 6. Writes the result to `in-ecosystem-dependency-graph.svg`

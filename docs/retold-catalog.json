@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-04-10T03:31:53.448Z",
+	"Generated": "2026-04-10T17:43:43.660Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -153,6 +153,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"architecture.md",
 						"css/docuserve.css",
 						"index.html",
@@ -740,6 +741,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/README.md",
 						"api/beacon-client.md",
 						"api/beacon-service.md",
@@ -3465,6 +3467,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api-addEntityToDataModel.md",
 						"api-buildFilterExpression.md",
 						"api-cleanMissingEntityConnections.md",
@@ -3790,6 +3793,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/clone-rest-client.md",
 						"api/connection-manager.md",
 						"api/guid-map.md",
@@ -3942,6 +3946,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api-reference.md",
 						"architecture.md",
 						"cli-guide.md",
@@ -4385,6 +4390,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/constructor.md",
 						"api/initializeDataEndpoints.md",
 						"api/initializePersistenceEngine.md",
@@ -4541,6 +4547,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/meadow-provider-configurator.md",
 						"api/process-manager.md",
 						"api/reference.md",
@@ -5057,6 +5064,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"api-reference.md",
 						"configuration.md",
 						"css/docuserve.css",
@@ -5292,6 +5300,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api-reference.md",
 						"architecture.md",
 						"cli-reference.md",
@@ -5683,6 +5692,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"application_lifecycle/README.md",
 						"applications/README.md",
 						"css/docuserve.css",
@@ -5930,6 +5940,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -6181,6 +6192,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"css/docuserve.css",
 						"index.html",
@@ -6266,6 +6278,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"api.md",
 						"configuration.md",
 						"css/docuserve.css",
@@ -6388,6 +6401,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -6450,7 +6464,7 @@
 							]
 						},
 						{
-							"Title": "API — Data Management",
+							"Title": "API -- Data Management",
 							"Children": [
 								{
 									"Title": "addNode",
@@ -6479,7 +6493,7 @@
 							]
 						},
 						{
-							"Title": "API — Selection & Viewport",
+							"Title": "API -- Selection & Viewport",
 							"Children": [
 								{
 									"Title": "selectNode / deselectAll",
@@ -6504,7 +6518,7 @@
 							]
 						},
 						{
-							"Title": "API — Panels",
+							"Title": "API -- Panels",
 							"Children": [
 								{
 									"Title": "openPanel / closePanel / togglePanel",
@@ -6513,7 +6527,7 @@
 							]
 						},
 						{
-							"Title": "API — Theming & Events",
+							"Title": "API -- Theming & Events",
 							"Children": [
 								{
 									"Title": "setTheme / registerTheme",
@@ -6526,7 +6540,7 @@
 							]
 						},
 						{
-							"Title": "API — Layout Persistence",
+							"Title": "API -- Layout Persistence",
 							"Children": [
 								{
 									"Title": "saveLayout / restoreLayout",
@@ -6535,7 +6549,7 @@
 							]
 						},
 						{
-							"Title": "API — Extension Points",
+							"Title": "API -- Extension Points",
 							"Children": [
 								{
 									"Title": "PictFlowCard",
@@ -6565,6 +6579,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/PictFlowCard.md",
 						"api/PictFlowCardPropertiesPanel.md",
 						"api/addConnection.md",
@@ -6768,6 +6783,7 @@
 						"Templates.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"css/docuserve.css",
 						"examples/README.md",
 						"examples/complex_table/README.md",
@@ -6946,6 +6962,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -7521,6 +7538,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/getBins.md",
 						"api/getSelection.md",
 						"api/handleBarClick.md",
@@ -7581,6 +7599,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api-reference.md",
 						"architecture.md",
 						"css/docuserve.css",
@@ -7818,6 +7837,7 @@
 						"README.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"configuration.md",
 						"cover.md",
@@ -7872,7 +7892,7 @@
 							]
 						},
 						{
-							"Title": "API — Confirmations",
+							"Title": "API -- Confirmations",
 							"Children": [
 								{
 									"Title": "confirm",
@@ -7885,7 +7905,7 @@
 							]
 						},
 						{
-							"Title": "API — Modal Windows",
+							"Title": "API -- Modal Windows",
 							"Children": [
 								{
 									"Title": "show",
@@ -7894,7 +7914,7 @@
 							]
 						},
 						{
-							"Title": "API — Toast Notifications",
+							"Title": "API -- Toast Notifications",
 							"Children": [
 								{
 									"Title": "toast",
@@ -7903,7 +7923,7 @@
 							]
 						},
 						{
-							"Title": "API — Tooltips",
+							"Title": "API -- Tooltips",
 							"Children": [
 								{
 									"Title": "tooltip",
@@ -7916,7 +7936,7 @@
 							]
 						},
 						{
-							"Title": "API — Cleanup",
+							"Title": "API -- Cleanup",
 							"Children": [
 								{
 									"Title": "dismissAll",
@@ -7941,7 +7961,7 @@
 							]
 						},
 						{
-							"Title": "API — Theming",
+							"Title": "API -- Theming",
 							"Children": [
 								{
 									"Title": "CSS Custom Properties",
@@ -7959,6 +7979,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/confirm.md",
 						"api/dismissAll.md",
 						"api/doubleConfirm.md",
@@ -8153,6 +8174,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"api-reference.md",
 						"css/docuserve.css",
 						"filters.md",
@@ -8662,6 +8684,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/add-edge-classifier.md",
 						"api/classify-edges.md",
 						"api/clear-cache.md",
@@ -8929,6 +8952,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"changelog.md",
 						"configuration.md",
 						"contributing.md",
@@ -9089,6 +9113,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"architecture.md",
 						"commands/README.md",
 						"commands/compile.md",
@@ -9377,6 +9402,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/conversion-report.md",
 						"api/mapping-manyfest-builder.md",
 						"api/pdf-form-filler.md",
@@ -9790,6 +9816,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api-getBookstoreSchemaPath.md",
 						"api-getEntityList.md",
 						"api-getMeadowModel.md",
@@ -9915,6 +9942,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api-reference.md",
 						"architecture.md",
 						"cli-reference.md",
@@ -10027,6 +10055,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/README.md",
 						"api/beacon-provider.md",
 						"api/connection-bridge.md",
@@ -10160,6 +10189,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api-reference.md",
 						"architecture.md",
 						"css/docuserve.css",
@@ -10270,6 +10300,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"audio-explorer.md",
 						"audio-viewer.md",
 						"collections.md",
@@ -10464,6 +10495,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"architecture.md",
 						"css/docuserve.css",
 						"features/api.md",

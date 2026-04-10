@@ -1,8 +1,8 @@
 # Comprehensions
 
-Comprehensions are the intermediate data format that Retold uses for data integration pipelines. When you need to ingest records from external systems — CSV files, JSON feeds, other databases — comprehensions provide a consistent structure for staging, deduplicating, merging, and cross-referencing that data before it reaches Meadow.
+Comprehensions are the intermediate data format that Retold uses for data integration pipelines. When you need to ingest records from external systems -- CSV files, JSON feeds, other databases -- comprehensions provide a consistent structure for staging, deduplicating, merging, and cross-referencing that data before it reaches Meadow.
 
-The modules [bibliograph](/meadow/bibliograph/) and [meadow-integration](/meadow/meadow-integration/) both work with comprehensions. Bibliograph provides key-value record comprehension for change tracking. Meadow-integration provides the full transformation and integration pipeline — mapping source data into comprehensions and pushing them into Meadow entities through the integration adapter.
+The modules [bibliograph](/meadow/bibliograph/) and [meadow-integration](/meadow/meadow-integration/) both work with comprehensions. Bibliograph provides key-value record comprehension for change tracking. Meadow-integration provides the full transformation and integration pipeline -- mapping source data into comprehensions and pushing them into Meadow entities through the integration adapter.
 
 ## The Object Format
 
@@ -23,10 +23,10 @@ A comprehension is traditionally a JSON object where entity records are keyed by
 
 Each top-level key is an entity name. Within each entity, records are stored as properties keyed by their GUID value. This gives you:
 
-- **O(1) lookup** — find any record by GUID without scanning
-- **Natural deduplication** — writing the same GUID twice merges rather than duplicates
-- **Easy merging** — `Object.assign()` combines records from multiple sources
-- **Multi-entity support** — a single comprehension can hold Books, Authors, and join records together
+- **O(1) lookup** -- find any record by GUID without scanning
+- **Natural deduplication** -- writing the same GUID twice merges rather than duplicates
+- **Easy merging** -- `Object.assign()` combines records from multiple sources
+- **Multi-entity support** -- a single comprehension can hold Books, Authors, and join records together
 
 ## The Array Format
 
@@ -71,9 +71,9 @@ Mapping files control the transformation from source columns to comprehension fi
 
 GUIDs are the primary key for comprehension records. Good GUID design ensures three things:
 
-- **Uniqueness** — each record gets a distinct key
-- **Determinism** — the same source data always generates the same GUID
-- **Mergeability** — related data from different sources can be matched by GUID
+- **Uniqueness** -- each record gets a distinct key
+- **Determinism** -- the same source data always generates the same GUID
+- **Mergeability** -- related data from different sources can be matched by GUID
 
 GUID templates use Pict's jellyfish template syntax (`{~D:...~}`) to pull values from the source record:
 
@@ -106,17 +106,17 @@ When no single source column provides a natural unique key, you build a combinat
 }
 ```
 
-This produces GUIDs like `TXN_2025-02-17_12345_001` — unique across the combination of date, account, and sequence number. The composite key ensures that two transactions on the same day for the same account are distinguishable, while the determinism means re-running the transform on the same source data produces the same GUIDs (merging cleanly rather than creating duplicates).
+This produces GUIDs like `TXN_2025-02-17_12345_001` -- unique across the combination of date, account, and sequence number. The composite key ensures that two transactions on the same day for the same account are distinguishable, while the determinism means re-running the transform on the same source data produces the same GUIDs (merging cleanly rather than creating duplicates).
 
 Format modifiers like `{~PascalCaseIdentifier:Record.name~}` are useful in combinatorial keys when the source values contain spaces or special characters that would make messy GUIDs.
 
-## The `_GUID` Prefix — Bypassing Magic Marshaling
+## The `_GUID` Prefix -- Bypassing Magic Marshaling
 
 When the integration adapter pushes comprehension records into Meadow, places a prefix on GUID fields based on the integration being run. This can signify the source system, data set or anything else the developer wants to connote in the GUID string itself. The underscore prefix controls which code path a GUID field takes.
 
-**`GUIDBook`** — a field starting with `GUID` is treated as an **external system GUID**. The adapter runs it through the full marshaling pipeline: it looks up the external GUID in the mapping table to find the corresponding Meadow numeric ID, and writes that ID into the output record as `IDBook`.
+**`GUIDBook`** -- a field starting with `GUID` is treated as an **external system GUID**. The adapter runs it through the full marshaling pipeline: it looks up the external GUID in the mapping table to find the corresponding Meadow numeric ID, and writes that ID into the output record as `IDBook`.
 
-**`_GUIDBook`** — a field starting with `_GUID` is treated as a **Meadow GUID** that already exists in the system. The adapter skips the external-to-internal translation and does a direct lookup from Meadow GUID to numeric ID. No prefix magic is applied.
+**`_GUIDBook`** -- a field starting with `_GUID` is treated as a **Meadow GUID** that already exists in the system. The adapter skips the external-to-internal translation and does a direct lookup from Meadow GUID to numeric ID. No prefix magic is applied.
 
 ```json
 {
@@ -130,7 +130,7 @@ When the integration adapter pushes comprehension records into Meadow, places a 
 }
 ```
 
-In this example, `GUIDBook` with value `Book_1` is an external key from the comprehension — the adapter will look up what Meadow ID corresponds to external GUID `Book_1`. But `_GUIDUser` with value `0x01234567` is already a Meadow GUID — the adapter looks it up directly without applying the integration prefix.
+In this example, `GUIDBook` with value `Book_1` is an external key from the comprehension -- the adapter will look up what Meadow ID corresponds to external GUID `Book_1`. But `_GUIDUser` with value `0x01234567` is already a Meadow GUID -- the adapter looks it up directly without applying the integration prefix.
 
 The distinction matters when you are integrating data that references both external records (from the same import batch) and existing Meadow records (already in the database). Use `GUID` for references within the comprehension. Use `_GUID` when pointing at records that already exist in Meadow.
 
@@ -255,7 +255,7 @@ When the same entities have data spread across multiple source files, comprehens
 }
 ```
 
-This is why deterministic GUID design matters — when two sources use the same GUID template for the same logical entity, their data merges cleanly.
+This is why deterministic GUID design matters -- when two sources use the same GUID template for the same logical entity, their data merges cleanly.
 
 ## The Integration Adapter: GUID to Database ID
 
@@ -279,4 +279,4 @@ graph LR
 2. The adapter upserts the record to the Meadow API. The server returns the numeric database ID
 3. The GUIDMap service tracks the bidirectional mapping: external GUID to Meadow GUID to database ID
 
-This mapping persists across the entire integration run. When later entities reference `GUIDBook: "Book_1"`, the adapter looks up the mapping and resolves it to the correct numeric `IDBook` value. Entity integration order matters — referenced entities must be pushed before the entities that reference them.
+This mapping persists across the entire integration run. When later entities reference `GUIDBook: "Book_1"`, the adapter looks up the mapping and resolves it to the correct numeric `IDBook` value. Entity integration order matters -- referenced entities must be pushed before the entities that reference them.

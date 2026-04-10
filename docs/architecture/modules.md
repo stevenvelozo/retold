@@ -2,11 +2,11 @@
 
 An exhaustive list of every repository in the Retold suite, organized by group. Each module is its own git repository hosted at `github.com/stevenvelozo/<module-name>`.
 
-## Fable — Core Ecosystem (8 modules)
+## Fable -- Core Ecosystem (8 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
-| [fable](/fable/fable/) | `fable` | Service dependency injection, configuration, and logging library — the foundation of every Retold application |
+| [fable](/fable/fable/) | `fable` | Service dependency injection, configuration, and logging library -- the foundation of every Retold application |
 | [fable-serviceproviderbase](/fable/fable-serviceproviderbase/) | `fable-serviceproviderbase` | Base classes for Fable services providing registration, DI, and lifecycle |
 | [fable-settings](/fable/fable-settings/) | `fable-settings` | Tolerant configuration chain for loading and merging application settings |
 | [fable-log](/fable/fable-log/) | `fable-log` | Flexible logging wrapper with six levels and extensible output streams |
@@ -15,7 +15,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [ultravisor-beacon](/fable/ultravisor-beacon/) | `ultravisor-beacon` | Lightweight beacon client and Fable service for remote task execution with pluggable providers |
 | [ultravisor-beacon-capability](/fable/ultravisor-beacon-capability/) | `ultravisor-beacon-capability` | Convention-based base class for building beacon capabilities with action method discovery |
 
-## Meadow — Data Access Layer (23 modules)
+## Meadow -- Data Access Layer (23 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -36,14 +36,14 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [meadow-connection-solr](/meadow/meadow-connection-solr/) | `meadow-connection-solr` | Apache Solr search platform connection provider for Meadow |
 | [meadow-connection-rocksdb](/meadow/meadow-connection-rocksdb/) | `meadow-connection-rocksdb` | RocksDB embedded key-value store connection provider for Meadow |
 | [meadow-graph-client](/meadow/meadow-graph-client/) | `meadow-graph-client` | Graph database client for Meadow |
-| [retold-data-service](/meadow/retold-data-service/) | `retold-data-service` | All-in-one Fable service assembling schema → entity → endpoints → REST API |
+| [retold-data-service](/meadow/retold-data-service/) | `retold-data-service` | All-in-one Fable service assembling schema -> entity -> endpoints -> REST API |
 | [retold-harness](/meadow/retold-harness/) | `retold-harness` | Composable REST API harness with 3 schemas, 7 providers, and terminal management tool |
 | [retold-harness-consistency-proxy](/meadow/retold-harness-consistency-proxy/) | `retold-harness-consistency-proxy` | HTTP consistency proxy comparing responses across multiple database providers |
 | [meadow-integration](/meadow/meadow-integration/) | `meadow-integration` | Data integration tools for CSV import, schema mapping, and centralized formats |
 | [meadow-migrationmanager](/meadow/meadow-migrationmanager/) | `meadow-migrationmanager` | CLI, Web, and Console UI tool for managing database schemas and migrations |
 | [meadow-provider-offline](/meadow/meadow-provider-offline/) | `meadow-provider-offline` | Offline-capable data provider for Meadow with local caching |
 
-## Orator — API Server (8 modules)
+## Orator -- API Server (8 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -56,7 +56,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [orator-conversion](/orator/orator-conversion/) | `orator-conversion` | File format conversion endpoints for Orator service servers |
 | [orator-authentication](/orator/orator-authentication/) | `orator-authentication` | Authentication middleware and session management for Orator servers |
 
-## Pict — MVC Tools (30 modules)
+## Pict -- MVC Tools (30 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -91,7 +91,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [pict-section-login](/pict/pict-section-login/) | `pict-section-login` | Login and authentication form section for Pict applications |
 | [pict-section-openseadragon](/pict/pict-section-openseadragon/) | `pict-section-openseadragon` | Deep-zoom image viewer section wrapping OpenSeadragon |
 
-## Utility — Build & Documentation Tools (5 modules)
+## Utility -- Build & Documentation Tools (5 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -101,7 +101,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [precedent](/utility/precedent/) | `precedent` | Meta-templating engine with pattern-based start/end markers and word tree matching |
 | [quackage](/utility/quackage/) | `quackage` | Standardized build tool for browser bundles, transpilation, testing, and packaging |
 
-## Apps — Applications (6 modules)
+## Apps -- Applications (6 modules)
 
 | Module | npm | Description |
 |--------|-----|-------------|
@@ -128,10 +128,10 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 
 All modules are hosted at `github.com/stevenvelozo/<module-name>`:
 
-- [github.com/stevenvelozo/retold](https://github.com/stevenvelozo/retold) — This meta-repository
-- [github.com/stevenvelozo/fable](https://github.com/stevenvelozo/fable) — Core ecosystem
-- [github.com/stevenvelozo/meadow](https://github.com/stevenvelozo/meadow) — Data access
-- [github.com/stevenvelozo/orator](https://github.com/stevenvelozo/orator) — API server
-- [github.com/stevenvelozo/pict](https://github.com/stevenvelozo/pict) — MVC tools
+- [github.com/stevenvelozo/retold](https://github.com/stevenvelozo/retold) -- This meta-repository
+- [github.com/stevenvelozo/fable](https://github.com/stevenvelozo/fable) -- Core ecosystem
+- [github.com/stevenvelozo/meadow](https://github.com/stevenvelozo/meadow) -- Data access
+- [github.com/stevenvelozo/orator](https://github.com/stevenvelozo/orator) -- API server
+- [github.com/stevenvelozo/pict](https://github.com/stevenvelozo/pict) -- MVC tools
 
 Each module follows the same structure: `package.json`, `source/`, `test/` (Mocha TDD), and optionally `docs/` (pict-docuserve).

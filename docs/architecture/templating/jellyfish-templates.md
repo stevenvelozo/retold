@@ -62,10 +62,10 @@ When you write `{~D:AppData.User.Name~}`, the engine looks up `AppData.User.Name
 Addresses use dot notation to traverse nested objects and bracket notation for arrays:
 
 ```
-AppData.Users[0].Name          → first user's name
-Record.Address.City            → city from the current record
-Bundle.Config.DefaultTheme     → a configuration value
-Pict.UUID                      → the Pict instance UUID
+AppData.Users[0].Name          -> first user's name
+Record.Address.City            -> city from the current record
+Bundle.Config.DefaultTheme     -> a configuration value
+Pict.UUID                      -> the Pict instance UUID
 ```
 
 Manyfest handles the resolution. Missing paths return `undefined` rather than throwing -- templates never crash on absent data.

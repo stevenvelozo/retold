@@ -62,7 +62,7 @@ graph TB
     end
 
     subgraph tui["pict-terminalui"]
-        bridge["ContentAssignment bridge<br/><i>Pict views → blessed widgets</i>"]
+        bridge["ContentAssignment bridge<br/><i>Pict views -> blessed widgets</i>"]
     end
 
     subgraph blessed["blessed screen"]

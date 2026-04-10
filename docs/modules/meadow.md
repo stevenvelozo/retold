@@ -1,4 +1,4 @@
-# Meadow — Data Access Layer
+# Meadow -- Data Access Layer
 
 Meadow provides provider-agnostic data access for Retold applications. Define your entities once, and Meadow handles CRUD operations, query generation, schema management, and audit tracking across MySQL, MSSQL, SQLite, or in-browser ALASQL.
 
@@ -22,7 +22,7 @@ graph LR
   style output fill:#f5f5f5,stroke:#bdbdbd,color:#666
 ```
 
-**Meadow** is the data broker — it exposes CRUD methods, handles audit columns, and delegates query building and execution to FoxHound and the connection provider.
+**Meadow** is the data broker -- it exposes CRUD methods, handles audit columns, and delegates query building and execution to FoxHound and the connection provider.
 
 **FoxHound** generates SQL from a fluent API. Write one query definition; get correct SQL for any supported dialect.
 
@@ -89,7 +89,7 @@ let tmpQuery = _Fable.instantiateServiceProvider('FoxHound')
 
 **Supported dialects:** MySQL, MSSQL, SQLite, ALASQL (in-browser)
 
-**Operations:** Create, Read, Update, Delete, Count — each generates the correct SQL for the configured dialect with parameterized queries to prevent injection.
+**Operations:** Create, Read, Update, Delete, Count -- each generates the correct SQL for the configured dialect with parameterized queries to prevent injection.
 
 **npm:** `foxhound` · **Version:** 2.0.x
 
@@ -112,10 +112,10 @@ Book
 
 From this definition, Stricture generates:
 
-- **JSON schema** — For Meadow entity configuration
-- **MySQL CREATE TABLE** — Database DDL with indexes
-- **Meadow schema** — Column definitions for the data broker
-- **Documentation** — Human-readable data model docs
+- **JSON schema** -- For Meadow entity configuration
+- **MySQL CREATE TABLE** -- Database DDL with indexes
+- **Meadow schema** -- Column definitions for the data broker
+- **Documentation** -- Human-readable data model docs
 
 **npm:** `stricture` · **Version:** 1.0.x
 
@@ -158,7 +158,7 @@ _Endpoints.BehaviorModifications.setBehavior('Read-Authorize',
 
 ### [Retold-Data-Service](/meadow/retold-data-service/)
 
-An all-in-one Fable service that assembles a Stricture schema into a complete REST API — Meadow entity, endpoints, and connection — in a single service instantiation.
+An all-in-one Fable service that assembles a Stricture schema into a complete REST API -- Meadow entity, endpoints, and connection -- in a single service instantiation.
 
 ```javascript
 let _BookService = _Fable.instantiateServiceProvider('RetoldDataService',
@@ -167,7 +167,7 @@ let _BookService = _Fable.instantiateServiceProvider('RetoldDataService',
     Schema: BookSchema
 });
 
-// That's it — full CRUD REST API is ready to be wired to Orator
+// That's it -- full CRUD REST API is ready to be wired to Orator
 ```
 
 **npm:** `retold-data-service` · **Version:** 2.0.x
@@ -180,7 +180,7 @@ let _BookService = _Fable.instantiateServiceProvider('RetoldDataService',
 | [meadow-connection-mssql](/meadow/meadow-connection-mssql/) | Microsoft SQL Server | `meadow-connection-mssql` |
 | [meadow-connection-sqlite](/meadow/meadow-connection-sqlite/) | SQLite (via better-sqlite3) | `meadow-connection-sqlite` |
 
-Each connection module provides a pooled database connection as a Fable service. Swap between databases by changing which connection module you install — no application code changes needed.
+Each connection module provides a pooled database connection as a Fable service. Swap between databases by changing which connection module you install -- no application code changes needed.
 
 ## Supporting Modules
 

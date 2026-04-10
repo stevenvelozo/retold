@@ -9,7 +9,7 @@ Retold documentation uses **pict-docuserve** with hash-based routing, not standa
 - **Local page links:** `#/page/<path>` (e.g., `#/page/architecture/architecture.md`)
 - **Module doc links:** `#/doc/<group>/<module>` (e.g., `#/doc/pict/pict-section-form`)
 - **Links in subdirectory `.md` files** must use absolute paths from the docs root (no relative path resolution for `#/page/` routes)
-- **Anchor fragments** (`#heading-slug`) are not supported in cross-file links — do not use them
+- **Anchor fragments** (`#heading-slug`) are not supported in cross-file links -- do not use them
 
 ## Markdown Conventions
 
@@ -39,7 +39,7 @@ See [pict-section-form](#/doc/pict/pict-section-form) for details.
 
 - Write in plain, direct language
 - Prefer active voice
-- Keep paragraphs short — aim for 2–4 sentences
+- Keep paragraphs short -- aim for 2-4 sentences
 - Lead with the most important information
 
 ## File Organization

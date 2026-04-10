@@ -6,9 +6,9 @@ This guide walks through building a Retold application step by step, adding one 
 > [`examples/quickstart/`](../examples/quickstart/). Clone the repo and follow
 > along with real code.
 
-## Step 1: Fable — The Foundation
+## Step 1: Fable -- The Foundation
 
-> **Layer 1 — Fable (Core Ecosystem):** DI, configuration, logging, UUID, expressions
+> **Layer 1 -- Fable (Core Ecosystem):** DI, configuration, logging, UUID, expressions
 >
 > Working example: [`examples/quickstart/layer1/`](../examples/quickstart/layer1/)
 
@@ -47,9 +47,9 @@ Configuration can come from the constructor, a `.fable.config.json` file, or a c
 }
 ```
 
-## Step 2: Meadow — Define Your Data
+## Step 2: Meadow -- Define Your Data
 
-> **Layer 2 — Meadow + FoxHound + Stricture:** Data broker, SQL generation, schema definitions
+> **Layer 2 -- Meadow + FoxHound + Stricture:** Data broker, SQL generation, schema definitions
 >
 > Working example: [`examples/quickstart/layer2/`](../examples/quickstart/layer2/)
 
@@ -104,9 +104,9 @@ _BookMeadow.doCreate({ Title: 'The Hobbit', Author: 'Tolkien', YearPublished: 19
     });
 ```
 
-## Step 3: Meadow-Endpoints — Auto-Generate Your API
+## Step 3: Meadow-Endpoints -- Auto-Generate Your API
 
-> **Layer 3 — Meadow-Endpoints:** Auto-generated CRUD routes, behavior hooks
+> **Layer 3 -- Meadow-Endpoints:** Auto-generated CRUD routes, behavior hooks
 
 Add Meadow-Endpoints to automatically create RESTful routes from your entity.
 
@@ -138,9 +138,9 @@ _BookEndpoints.BehaviorModifications.setBehavior('Create-Authorize',
 
 This generates endpoints for: `GET /Books`, `GET /Book/:id`, `POST /Book`, `PUT /Book`, `DEL /Book/:id`, `GET /Books/Count`, `GET /Book/Schema`, and `DEL /Book/:id/Undelete`.
 
-## Step 4: Orator — Serve Your API
+## Step 4: Orator -- Serve Your API
 
-> **Layer 4 — Orator (API Server):** HTTP lifecycle, middleware, static files, proxy
+> **Layer 4 -- Orator (API Server):** HTTP lifecycle, middleware, static files, proxy
 >
 > Working example: [`examples/quickstart/layer3/`](../examples/quickstart/layer3/)
 
@@ -196,9 +196,9 @@ curl http://localhost:8086/Book/1
 curl http://localhost:8086/Books/Count
 ```
 
-## Step 5: Pict — Add a Browser UI (Optional)
+## Step 5: Pict -- Add a Browser UI (Optional)
 
-> **Pict (MVC Tools):** Views, templates, providers, application lifecycle — sits alongside the server stack
+> **Pict (MVC Tools):** Views, templates, providers, application lifecycle -- sits alongside the server stack
 >
 > Working example: [`examples/quickstart/layer4/`](../examples/quickstart/layer4/)
 
@@ -235,7 +235,7 @@ fetch('/Books')
 
 ## The Shortcut: Retold-Data-Service
 
-For the common case of "schema → full REST API", **retold-data-service** wraps Layers 2–3 (Meadow + Meadow-Endpoints) into a single call:
+For the common case of "schema -> full REST API", **retold-data-service** wraps Layers 2-3 (Meadow + Meadow-Endpoints) into a single call:
 
 ```bash
 npm install retold-data-service
@@ -250,7 +250,7 @@ let _BookService = _Fable.instantiateServiceProvider('RetoldDataService',
     Schema: BookSchema
 });
 
-// Full CRUD endpoints ready — wire to Orator and go
+// Full CRUD endpoints ready -- wire to Orator and go
 _BookService.connectRoutes(_Orator);
 ```
 
@@ -264,10 +264,10 @@ Supporting the application stack are utility modules like **Manyfest** (schema-d
 
 ## Next Steps
 
-- **[Architecture](architecture/architecture.md)** — Understand the layer model in depth
-- **[Examples](examples/examples.md)** — Complete runnable applications, including the [Todo List](examples/todolist/todo-list.md) full-stack example with four clients
-- **[Fable](modules/fable.md)** — Deep dive into the core ecosystem and service provider pattern
-- **[Meadow](modules/meadow.md)** — Data access, FoxHound queries, and Stricture schemas
-- **[Orator](modules/orator.md)** — Server configuration, lifecycle hooks, and middleware
-- **[Pict](modules/pict.md)** — Views, templates, providers, and application lifecycle
-- **[All Modules](modules/modules.md)** — Every repository in the Retold suite
+- **[Architecture](architecture/architecture.md)** -- Understand the layer model in depth
+- **[Examples](examples/examples.md)** -- Complete runnable applications, including the [Todo List](examples/todolist/todo-list.md) full-stack example with four clients
+- **[Fable](modules/fable.md)** -- Deep dive into the core ecosystem and service provider pattern
+- **[Meadow](modules/meadow.md)** -- Data access, FoxHound queries, and Stricture schemas
+- **[Orator](modules/orator.md)** -- Server configuration, lifecycle hooks, and middleware
+- **[Pict](modules/pict.md)** -- Views, templates, providers, and application lifecycle
+- **[All Modules](modules/modules.md)** -- Every repository in the Retold suite

@@ -1,10 +1,10 @@
-# Pict — MVC Tools
+# Pict -- MVC Tools
 
 Pict provides a non-opinionated set of Model-View-Controller tools for building user interfaces. Its core insight: UI is text. Whether you are rendering to a browser DOM, a terminal, or generating strings for another system, Pict treats the output as rendered text and gives you a consistent set of tools for managing views, templates, data, and application lifecycle.
 
 ## Design Philosophy
 
-Pict does not impose opinions about what MVC means. It provides discrete tools — Views, Templates, Providers, and an Application class — that you can use individually or compose together.
+Pict does not impose opinions about what MVC means. It provides discrete tools -- Views, Templates, Providers, and an Application class -- that you can use individually or compose together.
 
 *Pict is a subclass of Fable*, so does everything fable does.
 
@@ -76,7 +76,7 @@ _Pict.AppData.Record = { Name: 'World' };
 
 ### [Pict-View](/pict/pict-view/)
 
-The View base class. Views manage a complete lifecycle — initialization, rendering, data marshaling (two-way binding), CSS injection, and teardown.
+The View base class. Views manage a complete lifecycle -- initialization, rendering, data marshaling (two-way binding), CSS injection, and teardown.
 
 ```javascript
 const libPictView = require('pict-view');
@@ -101,7 +101,7 @@ class MyView extends libPictView
 }
 ```
 
-**View lifecycle:** Initialize → Render → Solve → Marshal From View → Marshal To View
+**View lifecycle:** Initialize -> Render -> Solve -> Marshal From View -> Marshal To View
 
 **npm:** `pict-view` · **Version:** 1.0.x
 
@@ -173,7 +173,7 @@ Sections are pre-built view patterns for common UI needs.
 
 ### [Pict-Section-Form](/pict/pict-section-form/)
 
-Configuration-driven dynamic forms. Define form layout, fields, validation, and data binding in JSON — the section handles rendering, data marshaling, and mathematical solving.
+Configuration-driven dynamic forms. Define form layout, fields, validation, and data binding in JSON -- the section handles rendering, data marshaling, and mathematical solving.
 
 Supports 13+ input types with custom providers for each. Used extensively for building data entry interfaces without writing HTML by hand.
 

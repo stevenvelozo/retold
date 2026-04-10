@@ -1,6 +1,6 @@
 # Ecosystem Architecture - Module Philosophy
 
-Retold modules each embody a specific design philosophy. Together they form a coherent system for building applications — from the stateless service core, through data access and API generation, up to state-driven UI rendering.  At the same time, each module is designed to be used (*and useful*) independently. You can adopt Fable's configuration and logging without using Pict. You can use Meadow for data access without Orator. These modules are decoupled by design, but also fit together in a complementary way.
+Retold modules each embody a specific design philosophy. Together they form a coherent system for building applications -- from the stateless service core, through data access and API generation, up to state-driven UI rendering.  At the same time, each module is designed to be used (*and useful*) independently. You can adopt Fable's configuration and logging without using Pict. You can use Meadow for data access without Orator. These modules are decoupled by design, but also fit together in a complementary way.
 
 ```mermaid
 graph TB
@@ -22,7 +22,7 @@ graph TB
 		subgraph DataTools["Schema & Query Tools"]
 			direction LR
 			foxhound["FoxHound<br/><i>Query Generation</i>"]
-			stricture["Stricture<br/><i>MicroDDL → Schema</i>"]
+			stricture["Stricture<br/><i>MicroDDL -> Schema</i>"]
 		end
 
 		orator --> endpoints
@@ -59,7 +59,7 @@ graph TB
 	style manyfest fill:#fff,stroke:#ef9a9a,color:#333
 ```
 
-Clients — browsers, terminals, CLI tools — communicate with the server over HTTP. Orator receives those requests, Meadow-Endpoints maps them to data operations, and Meadow executes them against the database. Fable provides the stateless service container that every module on both sides of the network depends on. Manyfest provides the consistent data-addressing language used everywhere.
+Clients -- browsers, terminals, CLI tools -- communicate with the server over HTTP. Orator receives those requests, Meadow-Endpoints maps them to data operations, and Meadow executes them against the database. Fable provides the stateless service container that every module on both sides of the network depends on. Manyfest provides the consistent data-addressing language used everywhere.
 
 ---
 
@@ -67,11 +67,11 @@ Clients — browsers, terminals, CLI tools — communicate with the server over 
 
 Fable draws a hard line between **configuration** and **state**.
 
-In Retold's vocabulary, *state* is **application data** — the records in a database, the items in a shopping cart, the text a user has typed into a form. State changes as users interact with the system. It is the core subject matter of the application.
+In Retold's vocabulary, *state* is **application data** -- the records in a database, the items in a shopping cart, the text a user has typed into a form. State changes as users interact with the system. It is the core subject matter of the application.
 
 Configuration is everything else: the address of the database server, the port the API listens on, the log level, the product name. Configuration describes how the application runs in its environment, not what the application is doing. Fable manages configuration. It does not manage state.
 
-This distinction matters because the "Out of the Tar Pit" problem — the paper Fable's design references — identifies uncontrolled state as the primary source of software complexity. By keeping the service container stateless, Fable ensures that the foundation layer has no opinion about your data. Services register with Fable, receive configuration and logging, and operate on whatever data flows through them without Fable holding onto it.
+This distinction matters because the "Out of the Tar Pit" problem -- the paper Fable's design references -- identifies uncontrolled state as the primary source of software complexity. By keeping the service container stateless, Fable ensures that the foundation layer has no opinion about your data. Services register with Fable, receive configuration and logging, and operate on whatever data flows through them without Fable holding onto it.
 
 Every Retold module extends `fable-serviceproviderbase` and registers with a Fable instance. That instance provides dependency injection, logging, UUID generation, and shared settings. But the Fable instance itself stores no application data. It is the wiring, not the warehouse.
 
@@ -89,7 +89,7 @@ Pict provides three dedicated state containers:
 
 All state lives in known locations. Templates reference state through address expressions like `AppData.Tasks[0].Name`. Code accesses the same state through the same addresses. There is one source of truth and one notation for reaching it.
 
-The key insight is that **state and lifecycle are coupled**. Pict's lifecycle phases — Solve, Render, Marshal — all operate on these state containers:
+The key insight is that **state and lifecycle are coupled**. Pict's lifecycle phases -- Solve, Render, Marshal -- all operate on these state containers:
 
 1. **Solve** reads state and writes derived values back into state
 2. **Render** reads state and produces output through templates
@@ -123,7 +123,7 @@ graph LR
 	style marshal fill:#f3e5f5,stroke:#ab47bc,color:#333
 ```
 
-Each view and provider within the application participates in these phases. Pict-Application ensures they execute in the correct order (controlled by configurable ordinals) and provides auto-behaviors to reduce boilerplate — for example, automatically solving and rendering after initialization completes.
+Each view and provider within the application participates in these phases. Pict-Application ensures they execute in the correct order (controlled by configurable ordinals) and provides auto-behaviors to reduce boilerplate -- for example, automatically solving and rendering after initialization completes.
 
 The application also manages authentication flows, data loading sequences, and the coordination between views that need to share state. It is the conductor; views and providers are the musicians.
 
@@ -133,7 +133,7 @@ A Pict view is any representation of information. It is not a page. It is not a 
 
 A single screen might contain dozens of views: a header view, a navigation view, a list view, a detail panel view, a status bar view. Or a single view might render to a log file, a terminal widget, or a test harness instead of a browser DOM. The view is the unit of *rendering*, not the unit of *navigation*.
 
-Each view contains **renderables** — individual render instructions that specify:
+Each view contains **renderables** -- individual render instructions that specify:
 
 - Which **template** to use
 - Which **data address** to read from state
@@ -142,11 +142,11 @@ Each view contains **renderables** — individual render instructions that speci
 
 This makes views composable. Small views handle small concerns. Larger patterns emerge from combining them. A form section view renders input fields. A recordset view renders a list of records. A content view renders static markup. You assemble an application from these building blocks.
 
-Because views render through a content assignment abstraction, they are not bound to the browser DOM. The same view code can render to a blessed terminal widget, a log stream, or a mock environment for testing — by swapping the content assignment functions. The view does not know or care where its output ends up.
+Because views render through a content assignment abstraction, they are not bound to the browser DOM. The same view code can render to a blessed terminal widget, a log stream, or a mock environment for testing -- by swapping the content assignment functions. The view does not know or care where its output ends up.
 
 ## Orator Abstracts Web Servers
 
-Orator provides a thin abstraction over HTTP servers. Your application code interacts with Orator's interface — defining routes, middleware, and lifecycle hooks — without coupling to a specific server implementation.
+Orator provides a thin abstraction over HTTP servers. Your application code interacts with Orator's interface -- defining routes, middleware, and lifecycle hooks -- without coupling to a specific server implementation.
 
 The default implementation uses Restify (`orator-serviceserver-restify`), but the abstraction means you could swap in a different HTTP library or use IPC mode for testing without changing application routes or middleware. Orator handles the HTTP lifecycle: receiving requests, running middleware, dispatching to handlers, and sending responses.
 
@@ -156,7 +156,7 @@ The philosophy is deliberate thinness. Orator does not dictate application struc
 
 ## Meadow Abstracts Data Access
 
-Meadow is a provider-agnostic data broker. You define entities once — their fields, types, and relationships — and Meadow handles CRUD operations against whatever database is connected.
+Meadow is a provider-agnostic data broker. You define entities once -- their fields, types, and relationships -- and Meadow handles CRUD operations against whatever database is connected.
 
 The abstraction has real teeth: the same Meadow entity definition works with MySQL, MSSQL, SQLite, and ALASQL (for in-browser use). Switch databases by swapping a connection module. Your application code, entity definitions, and endpoint configurations do not change.
 
@@ -166,7 +166,7 @@ The data access pattern is deliberately simple: Create, Read, Reads (list), Upda
 
 ## Meadow-Endpoints Connects Data Access to a Consistent API
 
-Meadow-Endpoints takes a Meadow entity and automatically generates a full REST API for it. Define an entity called `Book` and you immediately get `GET /Books`, `GET /Book/:id`, `POST /Book`, `PUT /Book`, `DEL /Book/:id`, and more — with filtering, pagination, sorting, and schema introspection built in.
+Meadow-Endpoints takes a Meadow entity and automatically generates a full REST API for it. Define an entity called `Book` and you immediately get `GET /Books`, `GET /Book/:id`, `POST /Book`, `PUT /Book`, `DEL /Book/:id`, and more -- with filtering, pagination, sorting, and schema introspection built in.
 
 This is not code generation that produces files you maintain. The endpoints are generated at runtime from the entity definition. Change the schema, restart the server, and the API updates. Add a new entity, wire it to Meadow-Endpoints, and the routes appear.
 
@@ -174,7 +174,7 @@ Behavior hooks provide the extension points. Need authentication? Add a `before`
 
 ## FoxHound Generates Queries
 
-FoxHound is the query generation engine inside Meadow. It provides a chainable API for building queries — adding filters, setting sort order, configuring pagination — and then generates the correct SQL dialect for whichever database you are using.
+FoxHound is the query generation engine inside Meadow. It provides a chainable API for building queries -- adding filters, setting sort order, configuring pagination -- and then generates the correct SQL dialect for whichever database you are using.
 
 ```javascript
 _Query.addFilter('Status', 'Complete')
@@ -189,7 +189,7 @@ FoxHound also powers the **FilteredTo** URL syntax used by Meadow-Endpoints, whi
 
 ## Stricture Transforms MicroDDL into Schemas
 
-Stricture provides a compact notation — MicroDDL — for defining data models. A MicroDDL file is a human-readable text format where each line defines a column using single-character sigils:
+Stricture provides a compact notation -- MicroDDL -- for defining data models. A MicroDDL file is a human-readable text format where each line defines a column using single-character sigils:
 
 ```
 !ID
@@ -208,7 +208,7 @@ From this terse input, Stricture generates:
 - **Documentation** describing the data model
 - **Seed data templates** for testing
 
-The philosophy is *define once, generate everywhere*. The MicroDDL is the single source of truth for a data model. Every downstream artifact — database tables, API schemas, documentation — derives from it. Change the MicroDDL, regenerate, and all representations stay in sync.
+The philosophy is *define once, generate everywhere*. The MicroDDL is the single source of truth for a data model. Every downstream artifact -- database tables, API schemas, documentation -- derives from it. Change the MicroDDL, regenerate, and all representations stay in sync.
 
 ## Manyfest Provides Address-Based Object Access
 
@@ -217,14 +217,14 @@ Manyfest solves a recurring problem: the same data structure is described and ac
 Manyfest unifies this through **address-based access**. An address is a string like `Record.Contact.Email` that describes a location in a nested JavaScript object. Manyfest provides safe accessors that navigate the address without throwing exceptions on missing intermediate objects:
 
 ```javascript
-// Safe read — returns undefined if any part of the path is missing
+// Safe read -- returns undefined if any part of the path is missing
 let email = _Manyfest.getValueAtAddress(pRecord, 'Contact.Email');
 
-// Safe write — creates intermediate objects as needed
+// Safe write -- creates intermediate objects as needed
 _Manyfest.setValueAtAddress(pRecord, 'Contact.Email', 'new@example.com');
 ```
 
-Beyond safe access, Manyfest provides **descriptors** — metadata that maps addresses to human-readable names, short names, descriptions, data types, and hashes. This means a single Manyfest definition can drive:
+Beyond safe access, Manyfest provides **descriptors** -- metadata that maps addresses to human-readable names, short names, descriptions, data types, and hashes. This means a single Manyfest definition can drive:
 
 - API field documentation
 - Form field labels and validation

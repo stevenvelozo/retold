@@ -34,7 +34,7 @@
   - [Todo List: Console Client](examples/todolist/todo-list-console-client.md)
   - [Todo List: CLI Client](examples/todolist/todo-list-cli-client.md)
 
-- [Fable — Core Ecosystem](modules/fable.md)
+- [Fable -- Core Ecosystem](modules/fable.md)
 
   - [fable](/fable/fable/)
   - [fable-serviceproviderbase](/fable/fable-serviceproviderbase/)
@@ -45,7 +45,7 @@
   - [ultravisor-beacon](/fable/ultravisor-beacon/)
   - [ultravisor-beacon-capability](/fable/ultravisor-beacon-capability/)
 
-- [Meadow — Data Access](modules/meadow.md)
+- [Meadow -- Data Access](modules/meadow.md)
 
   - [stricture](/meadow/stricture/)
   - [foxhound](/meadow/foxhound/)
@@ -71,7 +71,7 @@
   - [meadow-migrationmanager](/meadow/meadow-migrationmanager/)
   - [meadow-provider-offline](/meadow/meadow-provider-offline/)
 
-- [Orator — API Server](modules/orator.md)
+- [Orator -- API Server](modules/orator.md)
 
   - [orator](/orator/orator/)
   - [orator-serviceserver-restify](/orator/orator-serviceserver-restify/)
@@ -82,7 +82,7 @@
   - [orator-conversion](/orator/orator-conversion/)
   - [orator-authentication](/orator/orator-authentication/)
 
-- [Pict — MVC Tools](modules/pict.md)
+- [Pict -- MVC Tools](modules/pict.md)
 
   - [pict](/pict/pict/)
   - [pict-template](/pict/pict-template/)
@@ -115,7 +115,7 @@
   - [pict-sessionmanager](/pict/pict-sessionmanager/)
   - [pict-terminalui](/pict/pict-terminalui/)
 
-- [Utility — General Tools](modules/utility.md)
+- [Utility -- General Tools](modules/utility.md)
 
   - [cachetrax](/utility/cachetrax/)
   - [indoctrinate](/utility/indoctrinate/)
@@ -123,7 +123,7 @@
   - [precedent](/utility/precedent/)
   - [quackage](/utility/quackage/)
 
-- [Apps — Applications](modules/apps.md)
+- [Apps -- Applications](modules/apps.md)
 
   - [retold-content-system](/apps/retold-content-system/)
   - [retold-remote](/apps/retold-remote/)

@@ -16,7 +16,7 @@ Data access expressions resolve values from Pict's address space and return them
 <script>var config = {~DJ:AppData.Config~};</script>
 ```
 
-[Data Access Expressions — Full Documentation](architecture/templating/data-access.md)
+[Data Access Expressions -- Full Documentation](architecture/templating/data-access.md)
 
 | Expression | Tags | Description |
 |-----------|------|-------------|
@@ -39,7 +39,7 @@ Formatting expressions transform resolved values for display -- numbers, dates, 
 <p>{~J:, ^Record.City^Record.State^Record.Country~}</p>
 ```
 
-[Data Formatting Expressions — Full Documentation](architecture/templating/data-formatting.md)
+[Data Formatting Expressions -- Full Documentation](architecture/templating/data-formatting.md)
 
 | Expression | Tags | Description |
 |-----------|------|-------------|
@@ -67,7 +67,7 @@ Logic expressions evaluate conditions and control what content appears in the re
 {~NE:Record.HasAvatar^<img src="avatar.png">~}
 ```
 
-[Logic Expressions — Full Documentation](architecture/templating/logic.md)
+[Logic Expressions -- Full Documentation](architecture/templating/logic.md)
 
 | Expression | Tags | Description |
 |-----------|------|-------------|
@@ -87,7 +87,7 @@ Iteration expressions render a template once for each item in a collection.
 {~TVS:ValueDisplay:AppData.Tags~}
 ```
 
-[Iteration Expressions — Full Documentation](architecture/templating/iteration.md)
+[Iteration Expressions -- Full Documentation](architecture/templating/iteration.md)
 
 | Expression | Tags | Description |
 |-----------|------|-------------|
@@ -108,7 +108,7 @@ Composition expressions render other templates, enabling modular and reusable te
 {~TFM:DinoCard:AppData.DinosaurMap:Record.IDDinosaur~}
 ```
 
-[Template Composition Expressions — Full Documentation](architecture/templating/template-composition.md)
+[Template Composition Expressions -- Full Documentation](architecture/templating/template-composition.md)
 
 | Expression | Tags | Description |
 |-----------|------|-------------|
@@ -131,7 +131,7 @@ Solver expressions evaluate mathematical expressions using Fable's expression pa
 {~SBR:AppData.PricingFormula:AppData.OrderData~}
 ```
 
-[Solver Expressions — Full Documentation](architecture/templating/solvers.md)
+[Solver Expressions -- Full Documentation](architecture/templating/solvers.md)
 
 | Expression | Tags | Description |
 |-----------|------|-------------|
@@ -149,7 +149,7 @@ Entity expressions integrate with Pict's Meadow API layer to fetch records from 
 {~E:Book^Record.IDBook^BookCard~}
 ```
 
-[Entity Expressions — Full Documentation](architecture/templating/entity.md)
+[Entity Expressions -- Full Documentation](architecture/templating/entity.md)
 
 | Expression | Tags | Description |
 |-----------|------|-------------|
@@ -167,7 +167,7 @@ These expressions bridge templates with Pict's view system and JavaScript runtim
 <button onclick="{~P~}.views['MyView'].doSomething()">Click</button>
 ```
 
-[View and Self-Reference Expressions — Full Documentation](architecture/templating/views.md)
+[View and Self-Reference Expressions -- Full Documentation](architecture/templating/views.md)
 
 | Expression | Tags | Description |
 |-----------|------|-------------|
@@ -188,7 +188,7 @@ Debugging expressions help during development by logging values, inserting break
 {~DT:AppData.DebugData~}
 ```
 
-[Debugging Expressions — Full Documentation](architecture/templating/debugging.md)
+[Debugging Expressions -- Full Documentation](architecture/templating/debugging.md)
 
 | Expression | Tags | Description |
 |-----------|------|-------------|
@@ -209,7 +209,7 @@ Data generation expressions produce random values for testing, unique IDs, or pl
 <code>REF-{~RNS:6~}</code>
 ```
 
-[Data Generation Expressions — Full Documentation](architecture/templating/data-generation.md)
+[Data Generation Expressions -- Full Documentation](architecture/templating/data-generation.md)
 
 | Expression | Tags | Description |
 |-----------|------|-------------|

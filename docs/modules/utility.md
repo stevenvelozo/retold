@@ -1,4 +1,4 @@
-# Utility — Build & Documentation Tools
+# Utility -- Build & Documentation Tools
 
 The utility group provides supporting tools for building, documenting, testing, caching, and templating Retold applications.
 
@@ -26,7 +26,7 @@ Documentation scaffolding and generation. Scans source trees, catalogs content w
 
 ### [Manyfest](/utility/manyfest/)
 
-JSON manifest for consistent data description and parsing across all application layers — database, API, frontend, and UI. Provides address-based access patterns for reading and writing nested object properties with validation and type coercion.
+JSON manifest for consistent data description and parsing across all application layers -- database, API, frontend, and UI. Provides address-based access patterns for reading and writing nested object properties with validation and type coercion.
 
 **Key features:** Address-based data access (dot notation and array indexing), type validation and coercion, manifest-driven form generation, schema description for data layers.
 

@@ -30,7 +30,7 @@ graph TB
         s2["2. Register service types<br/><i>Orator, SQLite provider, DB init service</i>"]
         s3["3. Connect database<br/><i>Open or create todo.sqlite</i>"]
         s4["4. Create tables<br/><i>From compiled Stricture DDL</i>"]
-        s5["5. Seed data<br/><i>CSV → Meadow doCreate (if empty)</i>"]
+        s5["5. Seed data<br/><i>CSV -> Meadow doCreate (if empty)</i>"]
         s6["6. Create Meadow DAL<br/><i>Task entity with schema</i>"]
         s7["7. Create Meadow Endpoints<br/><i>Auto-generate REST routes</i>"]
         s8["8. Start Orator<br/><i>HTTP server + static files</i>"]
