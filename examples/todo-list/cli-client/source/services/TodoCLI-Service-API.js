@@ -20,7 +20,7 @@ class TodoAPIService extends libFableServiceProviderBase
 	 */
 	request(pMethod, pPath, pBody, fCallback)
 	{
-		let tmpBaseURL = this.fable.settings.ApiBaseURL || 'http://localhost:8086';
+		let tmpBaseURL = this.fable.settings.ApiBaseURL || 'http://localhost:28086';
 		let tmpURL = new URL(pPath, tmpBaseURL);
 
 		let tmpOptions =

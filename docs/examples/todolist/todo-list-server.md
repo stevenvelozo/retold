@@ -14,11 +14,11 @@ npm install
 npm start
 ```
 
-The server starts on **http://localhost:8086** and serves both the REST API and the web client's static files.
+The server starts on **http://localhost:28086** and serves both the REST API and the web client's static files.
 
 ### Running with Docker
 
-From the `examples/todo-list/` directory, run `./docker-run.sh` to build the Docker image and start the server. The web client is pre-built inside the image, so you can open **http://localhost:8086** immediately. See the [main quickstart](examples/todolist/todo-list.md) for details on the interactive shell.
+From the `examples/todo-list/` directory, run `./docker-run.sh` to build the Docker image and start the server. The web client is pre-built inside the image, so you can open **http://localhost:28086** immediately. See the [main quickstart](examples/todolist/todo-list.md) for details on the interactive shell.
 
 ## How It Works
 

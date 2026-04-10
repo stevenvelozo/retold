@@ -13,8 +13,8 @@
  * automatically on first run.
  *
  * Run:  node server.cjs
- * API:  http://localhost:8086/1.0/Task (CRUD endpoints)
- * Web:  http://localhost:8086/ (static files from ../web-client/dist/)
+ * API:  http://localhost:28086/1.0/Task (CRUD endpoints)
+ * Web:  http://localhost:28086/ (static files from ../web-client/dist/)
  */
 
 const libPath = require('path');
@@ -39,7 +39,7 @@ let _Settings =
 {
 	Product: 'TodoList-Server',
 	ProductVersion: '1.0.0',
-	APIServerPort: 8086,
+	APIServerPort: 28086,
 	SQLite:
 	{
 		SQLiteFilePath: libPath.resolve(tmpDataDir, 'todo.sqlite')

@@ -10,7 +10,7 @@ let _Pict = new libCLIProgram(
 
 		DefaultProgramConfiguration:
 		{
-			ApiBaseURL: 'http://localhost:8086'
+			ApiBaseURL: 'http://localhost:28086'
 		},
 
 		ProgramConfigurationFileName: '.todo-cli.json',

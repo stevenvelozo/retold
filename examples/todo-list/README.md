@@ -128,7 +128,7 @@ npm install
 npm start
 ```
 
-The server starts on **http://localhost:8086**.  On first run it creates a
+The server starts on **http://localhost:28086**.  On first run it creates a
 SQLite database at `server/data/todo.sqlite`, builds the Task table from the
 compiled Stricture DDL, and seeds 1,000 sample tasks from the CSV through the
 Meadow DAL (so every record gets a GUID, audit timestamps, and defaults
@@ -156,7 +156,7 @@ npm install
 npm run build
 ```
 
-Then open **http://localhost:8086** in your browser.  The server serves the
+Then open **http://localhost:28086** in your browser.  The server serves the
 built web client as static files.
 
 The web client is a Pict Application with hash-based routing.  It includes a
@@ -233,7 +233,7 @@ web client, and seeds the database on first start.
 ./docker-run.sh
 ```
 
-This builds the image and starts the API server. Open **http://localhost:8086**
+This builds the image and starts the API server. Open **http://localhost:28086**
 in your browser for the web client.
 
 ### Interactive Shell

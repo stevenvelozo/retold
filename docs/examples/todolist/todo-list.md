@@ -70,7 +70,7 @@ npm install
 npm start
 ```
 
-The server starts on **http://localhost:8086**. On first run it creates a SQLite database, builds the Task table from compiled Stricture DDL, and seeds 1,000 sample tasks from a CSV file. Every seed record passes through the Meadow DAL, so GUIDs, audit timestamps, and default values are applied automatically.
+The server starts on **http://localhost:28086**. On first run it creates a SQLite database, builds the Task table from compiled Stricture DDL, and seeds 1,000 sample tasks from a CSV file. Every seed record passes through the Meadow DAL, so GUIDs, audit timestamps, and default values are applied automatically.
 
 See [API Server](examples/todolist/todo-list-server.md) for details.
 
@@ -82,7 +82,7 @@ npm install
 npm run build
 ```
 
-Open **http://localhost:8086** in a browser. The server serves the built client as static files. The web client includes a sortable task list with search and pagination, an add/edit form, and week/month/year calendar views.  You may have to restart the server for the client to begin serving, depending on your environment.
+Open **http://localhost:28086** in a browser. The server serves the built client as static files. The web client includes a sortable task list with search and pagination, an add/edit form, and week/month/year calendar views.  You may have to restart the server for the client to begin serving, depending on your environment.
 
 See [Web Client](examples/todolist/todo-list-web-client.md) for details.
 
@@ -121,7 +121,7 @@ If you have Docker installed you can skip the per-component setup entirely. From
 ./docker-run.sh
 ```
 
-Open **http://localhost:8086** in a browser. The image builds all four components, so the web client is already compiled.
+Open **http://localhost:28086** in a browser. The image builds all four components, so the web client is already compiled.
 
 **Interactive shell** (for the CLI and console client):
 

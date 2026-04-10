@@ -24,7 +24,7 @@ cat <<'BANNER'
     node console-client/console-client.cjs
 
   Web client:
-    Open http://localhost:8086 in your browser
+    Open http://localhost:28086 in your browser
 
   TIPS
   ────────────────────────────────────────────────────────────────

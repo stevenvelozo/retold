@@ -18,7 +18,6 @@ RUN cd server && npm install --omit=dev
 # --- Web Client ---
 COPY web-client/package.json web-client/package.json
 COPY web-client/generate-build-config.cjs web-client/generate-build-config.cjs
-COPY web-client/.gulpfile-quackage.js web-client/.gulpfile-quackage.js
 COPY web-client/source/ web-client/source/
 COPY web-client/html/ web-client/html/
 COPY web-client/css/ web-client/css/
@@ -39,7 +38,8 @@ RUN cd console-client && npm install --omit=dev
 # --- Help message shown on interactive login ---
 COPY docker-motd.sh /etc/profile.d/motd.sh
 
-EXPOSE 8086
+
+EXPOSE 28086
 
 # Default: start the API server (serves the web client too)
 CMD ["node", "server/server.cjs"]

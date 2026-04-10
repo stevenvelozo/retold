@@ -15,7 +15,7 @@
  *   Enter    View selected task detail
  *   E        Edit selected task
  *   A        Add new task
- *   D        Delete selected task
+ *   D        Delete selected task (with confirmation)
  *   S        Sort order picker
  *   /        Search / filter tasks
  *   R        Refresh task list
@@ -46,7 +46,7 @@ const libViewHeader = require('./views/PictView-TUI-Header.cjs');
 const libViewTaskList = require('./views/PictView-TUI-TaskList.cjs');
 const libViewStatusBar = require('./views/PictView-TUI-StatusBar.cjs');
 
-const API_BASE = 'http://localhost:8086';
+const API_BASE = 'http://localhost:28086';
 
 // ─────────────────────────────────────────────
 //  Sort options available in the sort picker
@@ -331,7 +331,7 @@ class TodoListConsoleApplication extends libPictApplication
 				}
 			});
 
-		// Delete task
+		// Delete task (with confirmation)
 		pScreen.key(['d'],
 			() =>
 			{
@@ -340,7 +340,7 @@ class TodoListConsoleApplication extends libPictApplication
 				if (tmpTasks.length > 0)
 				{
 					let tmpTask = tmpTasks[tmpSelf.pict.AppData.TodoList.SelectedIndex];
-					tmpSelf._deleteTask(tmpTask.IDTask);
+					tmpSelf._showDeleteConfirm(tmpTask);
 				}
 			});
 
@@ -589,6 +589,8 @@ class TodoListConsoleApplication extends libPictApplication
 				},
 				tags: true,
 				keys: true,
+				focusable: true,
+				inputOnFocus: true,
 				label: ' Task Detail ',
 				content: tmpContent
 			});
@@ -701,6 +703,74 @@ class TodoListConsoleApplication extends libPictApplication
 		}
 
 		promptNextField();
+	}
+
+	// ─────────────────────────────────────────
+	//  Delete Confirmation
+	// ─────────────────────────────────────────
+
+	/**
+	 * Show a confirmation prompt before deleting a task.
+	 *
+	 * @param {Object} pTask - The task to delete
+	 */
+	_showDeleteConfirm(pTask)
+	{
+		let tmpSelf = this;
+		tmpSelf._modalOpen = true;
+
+		let tmpName = pTask.Name || '(untitled)';
+		let tmpContent = [
+			'{bold}Delete this task?{/bold}',
+			'',
+			'  ' + tmpName,
+			'',
+			'{center}{green-fg}[Y]{/green-fg} Yes   {red-fg}[N/Esc]{/red-fg} Cancel{/center}'
+		].join('\n');
+
+		let tmpBox = blessed.box(
+			{
+				parent: tmpSelf._screen,
+				top: 'center',
+				left: 'center',
+				width: '50%',
+				height: 'shrink',
+				padding: 1,
+				border: { type: 'line' },
+				style:
+				{
+					border: { fg: 'red' },
+					bg: 'black',
+					fg: 'white'
+				},
+				tags: true,
+				keys: true,
+				focusable: true,
+				inputOnFocus: true,
+				label: ' Confirm Delete ',
+				content: tmpContent
+			});
+
+		tmpBox.focus();
+
+		tmpBox.key(['y'],
+			() =>
+			{
+				tmpBox.destroy();
+				tmpSelf._modalOpen = false;
+				tmpSelf._deleteTask(pTask.IDTask);
+			});
+
+		tmpBox.key(['escape', 'n', 'q'],
+			() =>
+			{
+				tmpBox.destroy();
+				tmpSelf._modalOpen = false;
+				tmpSelf._setStatus('Delete cancelled.');
+				tmpSelf._screen.render();
+			});
+
+		tmpSelf._screen.render();
 	}
 
 	// ─────────────────────────────────────────
