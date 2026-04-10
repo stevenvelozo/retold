@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-04-09T23:29:47.229Z",
+	"Generated": "2026-04-10T01:54:41.318Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -367,6 +367,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"advanced-usage.md",
 						"api-reference.md",
 						"browser-usage.md",
@@ -429,6 +430,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"css/docuserve.css",
 						"index.html",
@@ -494,6 +496,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"css/docuserve.css",
 						"index.html",
@@ -560,6 +563,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"css/docuserve.css",
 						"environment-variables.md",
@@ -625,6 +629,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"api.md",
 						"browser-support.md",
 						"changelog.md",
@@ -876,6 +881,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/README.md",
 						"api/action-convention.md",
 						"api/add-action.md",
@@ -1099,6 +1105,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/checkSourceExists.md",
 						"api/createSource.md",
 						"api/delete.md",
@@ -1294,6 +1301,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/exists.md",
 						"api/initialize.md",
 						"api/persistDelete.md",
@@ -1516,6 +1524,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/README.md",
 						"api/addFilter.md",
 						"api/addJoin.md",
@@ -1803,6 +1812,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/doCount.md",
 						"api/doCreate.md",
 						"api/doDelete.md",
@@ -1979,6 +1989,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/connect.md",
 						"api/connectAsync.md",
 						"api/createTable.md",
@@ -2008,6 +2019,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -2153,6 +2165,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/client.md",
 						"api/connect.md",
 						"api/connectAsync.md",
@@ -2295,6 +2308,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/MSSQL.md",
 						"api/connect.md",
 						"api/connectAsync.md",
@@ -2430,6 +2444,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/connect.md",
 						"api/connectAsync.md",
 						"api/createTable.md",
@@ -2587,6 +2602,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/connect.md",
 						"api/connectAsync.md",
 						"api/createTable.md",
@@ -2713,6 +2729,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/closeAsync.md",
 						"api/connect.md",
 						"api/connectAsync.md",
@@ -2871,6 +2888,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/connect.md",
 						"api/connectAsync.md",
 						"api/createTable.md",
@@ -3021,6 +3039,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/SQLite.md",
 						"api/connect.md",
 						"api/connectAsync.md",
@@ -3174,6 +3193,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/SQLite.md",
 						"api/connect.md",
 						"api/connectAsync.md",
@@ -3325,6 +3345,7 @@
 						".nojekyll",
 						"README.md",
 						"_sidebar.md",
+						"_version.json",
 						"crud/README.md",
 						"crud/count.md",
 						"crud/create.md",
@@ -4134,6 +4155,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api-addEntities.md",
 						"api-addEntity.md",
 						"api-clearAll.md",
@@ -4238,6 +4260,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"architecture.md",
 						"binary-lakes.md",
 						"combined-lakes.md",
@@ -4689,6 +4712,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/DefaultProviderPortMap.md",
 						"api/compare.md",
 						"api/constructor.md",
@@ -4742,6 +4766,7 @@
 						"MicroDDL-Syntax.md",
 						"README.md",
 						"Stricture-Legacy-Compiler.md",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -4829,6 +4854,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"architecture.md",
 						"configuration.md",
 						"css/docuserve.css",
@@ -4947,6 +4973,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api-addOAuthProvider.md",
 						"api-connectRoutes.md",
 						"api-getSessionForRequest.md",
@@ -5049,10 +5076,17 @@
 					"Repo": "orator-endpoint",
 					"Group": "orator",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
 					"Sidebar": [],
-					"DocFiles": []
+					"DocFiles": [
+						".nojekyll",
+						"_version.json",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "orator-http-proxy",
@@ -5090,6 +5124,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"configuration.md",
 						"css/docuserve.css",
 						"getting-started.md",
@@ -5142,6 +5177,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"body-parsing.md",
 						"configuration.md",
 						"css/docuserve.css",
@@ -5317,6 +5353,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"api-reference.md",
 						"css/docuserve.css",
 						"getting-started.md",
@@ -5392,6 +5429,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"css/docuserve.css",
 						"index.html",
@@ -5462,6 +5500,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"css/docuserve.css",
 						"index.html",
@@ -5505,6 +5544,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"css/docuserve.css",
 						"index.html",
@@ -5733,22 +5773,6 @@
 					]
 				},
 				{
-					"Name": "pict-chance",
-					"Repo": "pict-chance",
-					"Group": "pict",
-					"Branch": "master",
-					"HasDocs": true,
-					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": [
-						".nojekyll",
-						"css/docuserve.css",
-						"index.html",
-						"retold-catalog.json",
-						"retold-keyword-index.json"
-					]
-				},
-				{
 					"Name": "pict-docuserve",
 					"Repo": "pict-docuserve",
 					"Group": "pict",
@@ -5810,6 +5834,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"architecture.md",
 						"configuration.md",
 						"content-authoring.md",
@@ -5921,6 +5946,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -6005,6 +6031,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"architecture.md",
 						"css/docuserve.css",
 						"hotloading.md",
@@ -6082,6 +6109,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"css/docuserve.css",
 						"index.html",
@@ -6322,6 +6350,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"css/docuserve.css",
 						"extending.md",
@@ -6341,6 +6370,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -7546,8 +7576,21 @@
 					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api-reference.md",
+						"architecture.md",
 						"css/docuserve.css",
+						"embedding-level1-sidebar.md",
+						"embedding-level2-routes.md",
+						"embedding-level3-tooltips.md",
+						"embedding-level4-autogen.md",
 						"index.html",
+						"overview.md",
+						"quickstart.md",
+						"reference.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
 						"README.md",
@@ -7577,13 +7620,107 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Guides",
+							"Children": [
+								{
+									"Title": "Embedding Guide",
+									"Path": "embedding-guide.md"
+								},
+								{
+									"Title": "Router Integration",
+									"Path": "router-integration.md"
+								},
+								{
+									"Title": "Templates & Styling",
+									"Path": "templates-and-styling.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								},
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								},
+								{
+									"Title": "Code Snippets",
+									"Path": "code-snippets.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "pict/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Router",
+									"Path": "pict/pict-router/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Orator Authentication",
+									"Path": "orator/orator-authentication/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"_version.json",
+						"api-reference.md",
+						"architecture.md",
+						"code-snippets.md",
+						"configuration.md",
 						"css/docuserve.css",
+						"embedding-guide.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
-						"retold-keyword-index.json"
+						"retold-keyword-index.json",
+						"router-integration.md",
+						"templates-and-styling.md"
 					]
 				},
 				{
@@ -7851,6 +7988,7 @@
 						"Styling-and-Themes.md",
 						"Usage-Pict-Application.md",
 						"Usage-Plain-JavaScript.md",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -7862,10 +8000,90 @@
 					"Repo": "pict-section-openseadragon",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								},
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								},
+								{
+									"Title": "Code Snippets",
+									"Path": "code-snippets.md"
+								},
+								{
+									"Title": "Annotorious Plugin Pack",
+									"Path": "annotorious-plugin-pack.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "pict/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Pict Template",
+									"Path": "pict/pict-template/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"annotorious-plugin-pack.md",
+						"api-reference.md",
+						"architecture.md",
+						"code-snippets.md",
+						"configuration.md",
+						"css/docuserve.css",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "pict-section-recordset",
@@ -8012,6 +8230,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"configuration.md",
 						"css/docuserve.css",
@@ -8065,6 +8284,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"api-reference.md",
 						"configuration.md",
 						"creating-commands.md",
@@ -8114,6 +8334,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"api-reference.md",
 						"creating-services.md",
 						"css/docuserve.css",
@@ -8222,6 +8443,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api/README.md",
 						"api/authentication.md",
 						"api/configuration.md",
@@ -8316,6 +8538,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"css/docuserve.css",
 						"examples-conditionals-and-logic.md",
@@ -8599,6 +8822,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"building-an-app.md",
 						"css/docuserve.css",
 						"index.html",
@@ -8762,6 +8986,7 @@
 						"README.md",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"architecture.md",
 						"css/docuserve.css",
 						"index.html",
@@ -8781,6 +9006,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -8797,6 +9023,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -8813,6 +9040,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -9196,6 +9424,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -9212,6 +9441,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -9285,6 +9515,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api.md",
 						"css/docuserve.css",
 						"examples.md",
@@ -9588,11 +9819,107 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "CLI Reference",
+									"Path": "cli-reference.md"
+								}
+							]
+						},
+						{
+							"Title": "Guides",
+							"Children": [
+								{
+									"Title": "Persistence Hooks",
+									"Path": "persistence-hooks.md"
+								},
+								{
+									"Title": "Code Snippets",
+									"Path": "code-snippets.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								},
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "pict/pict-application/README.md"
+								},
+								{
+									"Title": "Pict Docuserve",
+									"Path": "pict/pict-docuserve/README.md"
+								},
+								{
+									"Title": "Pict Section Markdown Editor",
+									"Path": "pict/pict-section-markdowneditor/README.md"
+								},
+								{
+									"Title": "Pict Section Code",
+									"Path": "pict/pict-section-code/README.md"
+								},
+								{
+									"Title": "Pict Section File Browser",
+									"Path": "pict/pict-section-filebrowser/README.md"
+								},
+								{
+									"Title": "Orator",
+									"Path": "orator/orator/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"api-reference.md",
+						"architecture.md",
+						"cli-reference.md",
+						"code-snippets.md",
+						"configuration.md",
 						"css/docuserve.css",
 						"index.html",
+						"persistence-hooks.md",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -10255,13 +10582,100 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Purpose",
+									"Path": "purpose.md"
+								},
+								{
+									"Title": "Usage",
+									"Path": "usage.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Pipeline",
+									"Path": "pipeline.md"
+								},
+								{
+									"Title": "Datasets",
+									"Path": "datasets.md"
+								},
+								{
+									"Title": "TUI Reference",
+									"Path": "tui-reference.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Ultravisor",
+									"Path": "apps/ultravisor/README.md"
+								},
+								{
+									"Title": "Ultravisor Beacon",
+									"Path": "utility/ultravisor-beacon/README.md"
+								},
+								{
+									"Title": "Retold Facto",
+									"Path": "meadow/retold-facto/README.md"
+								},
+								{
+									"Title": "Meadow Integration",
+									"Path": "meadow/meadow-integration/README.md"
+								},
+								{
+									"Title": "Meadow",
+									"Path": "meadow/meadow/README.md"
+								},
+								{
+									"Title": "Orator",
+									"Path": "orator/orator/README.md"
+								},
+								{
+									"Title": "Pict",
+									"Path": "pict/pict/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "fable/fable/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"_version.json",
+						"architecture.md",
 						"css/docuserve.css",
+						"datasets.md",
 						"index.html",
+						"pipeline.md",
+						"purpose.md",
 						"retold-catalog.json",
-						"retold-keyword-index.json"
+						"retold-keyword-index.json",
+						"tui-reference.md",
+						"usage.md"
 					]
 				}
 			]
