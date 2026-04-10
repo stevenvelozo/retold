@@ -23,11 +23,11 @@
     },
     "homepage": "https://github.com/stevenvelozo/retold",
     "devDependencies": {
-        "indoctrinate": "^1.0.9",
-        "pict-docuserve": "^0.0.33"
+        "indoctrinate": "^1.0.10",
+        "pict-docuserve": "^0.1.1"
     },
     "dependencies": {
         "quackage": "^1.0.68",
-        "retold-content-system": "^1.0.8"
+        "retold-content-system": "^1.0.12"
     }
 }
