@@ -26,15 +26,15 @@ From the `examples/todo-list/` directory, run `./docker-run.sh` to build the Doc
 
 #### Listing Tasks
 
-![Todo - Web - Task List](/content/examples/todolist/1775835143630-Todo - Web - Task List.png)
+![Todo - Web - Task List](1775835143630-Todo - Web - Task List.png)
 
 #### Viewing a task
 
-![Todo - Web - Task](/content/examples/todolist/1775835181095-Todo - Web - Task.png)
+![Todo - Web - Task](1775835181095-Todo - Web - Task.png)
 
 #### Year View
 
-![Todo - Web - Year View](/content/examples/todolist/1775835174484-Todo - Web - Year View.png)
+![Todo - Web - Year View](1775835174484-Todo - Web - Year View.png)
 
 ## Application Structure
 

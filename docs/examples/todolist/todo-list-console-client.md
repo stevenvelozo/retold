@@ -31,11 +31,11 @@ See the [main quickstart](examples/todolist/todo-list.md) for details.
 
 When launching the application, if the server is running you are greeted with a list of tasks:
 
-![Todo - Console - Task List](/content/examples/todolist/1775835049980-Todo - Console - Task List.png)
+![Todo - Console - Task List](1775835049980-Todo - Console - Task List.png)
 
 You can press enter on any task and it will drill in.  Just like the 1980s:
 
-![Todo - Console - Task](/content/examples/todolist/1775835094541-Todo - Console - Task.png)
+![Todo - Console - Task](1775835094541-Todo - Console - Task.png)
 
 ## Keyboard Controls
 
