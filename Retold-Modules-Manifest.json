@@ -2,37 +2,24 @@
 	"Generated": "2026-03-01",
 	"Description": "Manifest of all modules in the Retold ecosystem",
 	"GitHubOrg": "stevenvelozo",
-	"Groups":
-	[
+	"Groups": [
 		{
 			"Name": "Fable",
 			"Description": "Core ecosystem: service dependency injection, configuration, logging, UUID generation",
 			"Path": "modules/fable",
-			"Modules":
-			[
+			"Modules": [
 				{
 					"Name": "fable",
 					"Path": "modules/fable/fable",
 					"Description": "Service dependency injection, configuration, and logging library — the foundation of every Retold application",
 					"GitHub": "https://github.com/stevenvelozo/fable",
 					"Documentation": "https://stevenvelozo.github.io/fable/",
-					"RelatedModules": ["fable-serviceproviderbase", "fable-settings", "fable-log", "fable-uuid"]
-				},
-				{
-					"Name": "fable-serviceproviderbase",
-					"Path": "modules/fable/fable-serviceproviderbase",
-					"Description": "Base classes for Fable services providing registration, dependency injection, and lifecycle management",
-					"GitHub": "https://github.com/stevenvelozo/fable-serviceproviderbase",
-					"Documentation": "https://stevenvelozo.github.io/fable-serviceproviderbase/",
-					"RelatedModules": ["fable", "pict-serviceproviderbase"]
-				},
-				{
-					"Name": "fable-settings",
-					"Path": "modules/fable/fable-settings",
-					"Description": "Tolerant configuration chain for loading and merging application settings from multiple sources",
-					"GitHub": "https://github.com/stevenvelozo/fable-settings",
-					"Documentation": "https://stevenvelozo.github.io/fable-settings/",
-					"RelatedModules": ["fable"]
+					"RelatedModules": [
+						"fable-serviceproviderbase",
+						"fable-settings",
+						"fable-log",
+						"fable-uuid"
+					]
 				},
 				{
 					"Name": "fable-log",
@@ -40,15 +27,10 @@
 					"Description": "Flexible logging wrapper with six severity levels and extensible output streams",
 					"GitHub": "https://github.com/stevenvelozo/fable-log",
 					"Documentation": "https://stevenvelozo.github.io/fable-log/",
-					"RelatedModules": ["fable", "fable-log-logger-bunyan"]
-				},
-				{
-					"Name": "fable-uuid",
-					"Path": "modules/fable/fable-uuid",
-					"Description": "UUID generator supporting RFC 4122 v4 and configurable random strings",
-					"GitHub": "https://github.com/stevenvelozo/fable-uuid",
-					"Documentation": "https://stevenvelozo.github.io/fable-uuid/",
-					"RelatedModules": ["fable"]
+					"RelatedModules": [
+						"fable",
+						"fable-log-logger-bunyan"
+					]
 				},
 				{
 					"Name": "fable-log-logger-bunyan",
@@ -56,15 +38,57 @@
 					"Description": "Bunyan structured logging provider for Fable-Log",
 					"GitHub": "https://github.com/stevenvelozo/fable-log-logger-bunyan",
 					"Documentation": "https://stevenvelozo.github.io/fable-log-logger-bunyan/",
-					"RelatedModules": ["fable", "fable-log"]
+					"RelatedModules": [
+						"fable",
+						"fable-log"
+					]
 				},
 				{
-					"Name": "fable-operationstep",
-					"Path": "modules/fable/fable-operationstep",
-					"Description": "Simple base class for Fable operation steps",
-					"GitHub": "https://github.com/stevenvelozo/fable-operationstep",
-					"Documentation": false,
-					"RelatedModules": ["fable", "fable-serviceproviderbase"]
+					"Name": "fable-serviceproviderbase",
+					"Path": "modules/fable/fable-serviceproviderbase",
+					"Description": "Base classes for Fable services providing registration, dependency injection, and lifecycle management",
+					"GitHub": "https://github.com/stevenvelozo/fable-serviceproviderbase",
+					"Documentation": "https://stevenvelozo.github.io/fable-serviceproviderbase/",
+					"RelatedModules": [
+						"fable",
+						"pict-serviceproviderbase"
+					]
+				},
+				{
+					"Name": "fable-settings",
+					"Path": "modules/fable/fable-settings",
+					"Description": "Tolerant configuration chain for loading and merging application settings from multiple sources",
+					"GitHub": "https://github.com/stevenvelozo/fable-settings",
+					"Documentation": "https://stevenvelozo.github.io/fable-settings/",
+					"RelatedModules": [
+						"fable"
+					]
+				},
+				{
+					"Name": "fable-uuid",
+					"Path": "modules/fable/fable-uuid",
+					"Description": "UUID generator supporting RFC 4122 v4 and configurable random strings",
+					"GitHub": "https://github.com/stevenvelozo/fable-uuid",
+					"Documentation": "https://stevenvelozo.github.io/fable-uuid/",
+					"RelatedModules": [
+						"fable"
+					]
+				},
+				{
+					"Name": "ultravisor-beacon",
+					"Path": "modules/fable/ultravisor-beacon",
+					"Description": "Ultravisor Beacon: lightweight beacon client and Fable service for remote task execution",
+					"GitHub": "https://github.com/stevenvelozo/ultravisor-beacon",
+					"Documentation": "https://stevenvelozo.github.io/ultravisor-beacon/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "ultravisor-beacon-capability",
+					"Path": "modules/fable/ultravisor-beacon-capability",
+					"Description": "Convention-based base class for building Ultravisor beacon capabilities with minimal boilerplate",
+					"GitHub": "https://github.com/stevenvelozo/ultravisor-beacon-capability",
+					"Documentation": "https://stevenvelozo.github.io/ultravisor-beacon-capability/",
+					"RelatedModules": []
 				}
 			]
 		},
@@ -72,31 +96,17 @@
 			"Name": "Meadow",
 			"Description": "Data access layer: ORM, query DSL, schema definitions, database connectors, and RESTful endpoint generation",
 			"Path": "modules/meadow",
-			"Modules":
-			[
-				{
-					"Name": "stricture",
-					"Path": "modules/meadow/stricture",
-					"Description": "MicroDDL schema definition language generating JSON, SQL DDL, MySQL, MSSQL, and documentation from compact definitions",
-					"GitHub": "https://github.com/stevenvelozo/stricture",
-					"Documentation": "https://stevenvelozo.github.io/stricture/",
-					"RelatedModules": ["meadow", "foxhound", "meadow-endpoints"]
-				},
-				{
-					"Name": "foxhound",
-					"Path": "modules/meadow/foxhound",
-					"Description": "Fluent query DSL generating dialect-specific queries for MySQL, MSSQL, SQLite, ALASQL, and MongoDB",
-					"GitHub": "https://github.com/stevenvelozo/foxhound",
-					"Documentation": "https://stevenvelozo.github.io/foxhound/",
-					"RelatedModules": ["meadow", "stricture", "meadow-connection-mysql", "meadow-connection-mssql", "meadow-connection-sqlite"]
-				},
+			"Modules": [
 				{
 					"Name": "bibliograph",
 					"Path": "modules/meadow/bibliograph",
 					"Description": "Key-value record comprehension service for change tracking in data ingestion pipelines",
 					"GitHub": "https://github.com/stevenvelozo/bibliograph",
 					"Documentation": "https://stevenvelozo.github.io/bibliograph/",
-					"RelatedModules": ["fable", "bibliograph-storage-meadow"]
+					"RelatedModules": [
+						"fable",
+						"bibliograph-storage-meadow"
+					]
 				},
 				{
 					"Name": "bibliograph-storage-meadow",
@@ -104,7 +114,24 @@
 					"Description": "Meadow-backed storage provider for Bibliograph record comprehension with full CRUD persistence",
 					"GitHub": "https://github.com/stevenvelozo/bibliograph-storage-meadow",
 					"Documentation": "https://stevenvelozo.github.io/bibliograph-storage-meadow/",
-					"RelatedModules": ["bibliograph", "meadow"]
+					"RelatedModules": [
+						"bibliograph",
+						"meadow"
+					]
+				},
+				{
+					"Name": "foxhound",
+					"Path": "modules/meadow/foxhound",
+					"Description": "Fluent query DSL generating dialect-specific queries for MySQL, MSSQL, SQLite, ALASQL, and MongoDB",
+					"GitHub": "https://github.com/stevenvelozo/foxhound",
+					"Documentation": "https://stevenvelozo.github.io/foxhound/",
+					"RelatedModules": [
+						"meadow",
+						"stricture",
+						"meadow-connection-mysql",
+						"meadow-connection-mssql",
+						"meadow-connection-sqlite"
+					]
 				},
 				{
 					"Name": "meadow",
@@ -112,63 +139,20 @@
 					"Description": "Provider-agnostic data broker with CRUD operations, audit tracking, and soft deletes across 8 database engines",
 					"GitHub": "https://github.com/stevenvelozo/meadow",
 					"Documentation": "https://stevenvelozo.github.io/meadow/",
-					"RelatedModules": ["fable", "stricture", "foxhound", "meadow-endpoints", "meadow-connection-mysql", "meadow-connection-mssql", "meadow-connection-sqlite", "meadow-connection-postgresql", "meadow-connection-mongodb", "meadow-connection-dgraph", "meadow-connection-solr", "meadow-connection-rocksdb"]
-				},
-				{
-					"Name": "parime",
-					"Path": "modules/meadow/parime",
-					"Description": "Generic data lake behaviors and services for managing large-scale data ingestion",
-					"GitHub": "https://github.com/stevenvelozo/parime",
-					"Documentation": "https://stevenvelozo.github.io/parime/",
-					"RelatedModules": ["fable", "meadow"]
-				},
-				{
-					"Name": "meadow-endpoints",
-					"Path": "modules/meadow/meadow-endpoints",
-					"Description": "Automatic RESTful CRUD endpoint generation from Meadow entities with behavior injection hooks",
-					"GitHub": "https://github.com/stevenvelozo/meadow-endpoints",
-					"Documentation": "https://stevenvelozo.github.io/meadow-endpoints/",
-					"RelatedModules": ["meadow", "orator", "stricture", "retold-data-service"]
-				},
-				{
-					"Name": "meadow-connection-mysql",
-					"Path": "modules/meadow/meadow-connection-mysql",
-					"Description": "MySQL and MariaDB pooled connection provider for Meadow",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-mysql",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-mysql/",
-					"RelatedModules": ["meadow", "foxhound"]
-				},
-				{
-					"Name": "meadow-connection-mssql",
-					"Path": "modules/meadow/meadow-connection-mssql",
-					"Description": "Microsoft SQL Server connection provider for Meadow",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-mssql",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-mssql/",
-					"RelatedModules": ["meadow", "foxhound"]
-				},
-				{
-					"Name": "meadow-connection-sqlite",
-					"Path": "modules/meadow/meadow-connection-sqlite",
-					"Description": "SQLite connection provider for Meadow via better-sqlite3",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-sqlite",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-sqlite/",
-					"RelatedModules": ["meadow", "foxhound"]
-				},
-				{
-					"Name": "meadow-connection-postgresql",
-					"Path": "modules/meadow/meadow-connection-postgresql",
-					"Description": "PostgreSQL connection provider for Meadow via pg with connection pooling",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-postgresql",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-postgresql/",
-					"RelatedModules": ["meadow", "foxhound"]
-				},
-				{
-					"Name": "meadow-connection-mongodb",
-					"Path": "modules/meadow/meadow-connection-mongodb",
-					"Description": "MongoDB document database connection provider for Meadow",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-mongodb",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-mongodb/",
-					"RelatedModules": ["meadow", "foxhound"]
+					"RelatedModules": [
+						"fable",
+						"stricture",
+						"foxhound",
+						"meadow-endpoints",
+						"meadow-connection-mysql",
+						"meadow-connection-mssql",
+						"meadow-connection-sqlite",
+						"meadow-connection-postgresql",
+						"meadow-connection-mongodb",
+						"meadow-connection-dgraph",
+						"meadow-connection-solr",
+						"meadow-connection-rocksdb"
+					]
 				},
 				{
 					"Name": "meadow-connection-dgraph",
@@ -176,15 +160,61 @@
 					"Description": "DGraph graph database connection provider for Meadow",
 					"GitHub": "https://github.com/stevenvelozo/meadow-connection-dgraph",
 					"Documentation": "https://stevenvelozo.github.io/meadow-connection-dgraph/",
-					"RelatedModules": ["meadow"]
+					"RelatedModules": [
+						"meadow"
+					]
 				},
 				{
-					"Name": "meadow-connection-solr",
-					"Path": "modules/meadow/meadow-connection-solr",
-					"Description": "Apache Solr search platform connection provider for Meadow",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-solr",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-solr/",
-					"RelatedModules": ["meadow"]
+					"Name": "meadow-connection-manager",
+					"Path": "modules/meadow/meadow-connection-manager",
+					"Description": "Server-side meadow connection manager. Parses connection configurations and instantiates database providers with graceful fallbacks for missing drivers.",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-manager",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-manager/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "meadow-connection-mongodb",
+					"Path": "modules/meadow/meadow-connection-mongodb",
+					"Description": "MongoDB document database connection provider for Meadow",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-mongodb",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-mongodb/",
+					"RelatedModules": [
+						"meadow",
+						"foxhound"
+					]
+				},
+				{
+					"Name": "meadow-connection-mssql",
+					"Path": "modules/meadow/meadow-connection-mssql",
+					"Description": "Microsoft SQL Server connection provider for Meadow",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-mssql",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-mssql/",
+					"RelatedModules": [
+						"meadow",
+						"foxhound"
+					]
+				},
+				{
+					"Name": "meadow-connection-mysql",
+					"Path": "modules/meadow/meadow-connection-mysql",
+					"Description": "MySQL and MariaDB pooled connection provider for Meadow",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-mysql",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-mysql/",
+					"RelatedModules": [
+						"meadow",
+						"foxhound"
+					]
+				},
+				{
+					"Name": "meadow-connection-postgresql",
+					"Path": "modules/meadow/meadow-connection-postgresql",
+					"Description": "PostgreSQL connection provider for Meadow via pg with connection pooling",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-postgresql",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-postgresql/",
+					"RelatedModules": [
+						"meadow",
+						"foxhound"
+					]
 				},
 				{
 					"Name": "meadow-connection-rocksdb",
@@ -192,7 +222,51 @@
 					"Description": "RocksDB embedded key-value store connection provider for Meadow",
 					"GitHub": "https://github.com/stevenvelozo/meadow-connection-rocksdb",
 					"Documentation": "https://stevenvelozo.github.io/meadow-connection-rocksdb/",
-					"RelatedModules": ["meadow"]
+					"RelatedModules": [
+						"meadow"
+					]
+				},
+				{
+					"Name": "meadow-connection-solr",
+					"Path": "modules/meadow/meadow-connection-solr",
+					"Description": "Apache Solr search platform connection provider for Meadow",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-solr",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-solr/",
+					"RelatedModules": [
+						"meadow"
+					]
+				},
+				{
+					"Name": "meadow-connection-sqlite",
+					"Path": "modules/meadow/meadow-connection-sqlite",
+					"Description": "SQLite connection provider for Meadow via better-sqlite3",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-sqlite",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-sqlite/",
+					"RelatedModules": [
+						"meadow",
+						"foxhound"
+					]
+				},
+				{
+					"Name": "meadow-connection-sqlite-browser",
+					"Path": "modules/meadow/meadow-connection-sqlite-browser",
+					"Description": "Meadow SQLite connection provider for the browser (sql.js / WASM)",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-sqlite-browser",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-sqlite-browser/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "meadow-endpoints",
+					"Path": "modules/meadow/meadow-endpoints",
+					"Description": "Automatic RESTful CRUD endpoint generation from Meadow entities with behavior injection hooks",
+					"GitHub": "https://github.com/stevenvelozo/meadow-endpoints",
+					"Documentation": "https://stevenvelozo.github.io/meadow-endpoints/",
+					"RelatedModules": [
+						"meadow",
+						"orator",
+						"stricture",
+						"retold-data-service"
+					]
 				},
 				{
 					"Name": "meadow-graph-client",
@@ -200,31 +274,10 @@
 					"Description": "Graph client for pulling sets of records and comprehensions from Meadow endpoints",
 					"GitHub": "https://github.com/stevenvelozo/meadow-graph-client",
 					"Documentation": false,
-					"RelatedModules": ["meadow", "meadow-endpoints"]
-				},
-				{
-					"Name": "retold-data-service",
-					"Path": "modules/meadow/retold-data-service",
-					"Description": "All-in-one Fable service assembling schema, entity, endpoints, and REST API from a single configuration",
-					"GitHub": "https://github.com/stevenvelozo/retold-data-service",
-					"Documentation": "https://stevenvelozo.github.io/retold-data-service/",
-					"RelatedModules": ["fable", "meadow", "meadow-endpoints", "orator", "stricture"]
-				},
-				{
-					"Name": "retold-harness",
-					"Path": "modules/meadow/retold-harness",
-					"Description": "Composable REST API harness with 3 pluggable schemas, 7 database providers, and a terminal management tool",
-					"GitHub": "https://github.com/stevenvelozo/retold-harness",
-					"Documentation": "https://stevenvelozo.github.io/retold-harness/",
-					"RelatedModules": ["retold-data-service", "retold-harness-consistency-proxy", "orator", "meadow", "meadow-connection-mysql", "meadow-connection-mssql", "meadow-connection-sqlite", "meadow-connection-postgresql", "meadow-connection-mongodb", "meadow-connection-dgraph", "meadow-connection-solr"]
-				},
-				{
-					"Name": "retold-harness-consistency-proxy",
-					"Path": "modules/meadow/retold-harness-consistency-proxy",
-					"Description": "HTTP consistency proxy that fans requests across multiple database providers and compares responses",
-					"GitHub": "https://github.com/stevenvelozo/retold-harness-consistency-proxy",
-					"Documentation": "https://stevenvelozo.github.io/retold-harness-consistency-proxy/",
-					"RelatedModules": ["retold-harness", "retold-data-service"]
+					"RelatedModules": [
+						"meadow",
+						"meadow-endpoints"
+					]
 				},
 				{
 					"Name": "meadow-integration",
@@ -232,7 +285,10 @@
 					"Description": "Data integration tools for CSV import, schema mapping, and centralized format transformations",
 					"GitHub": "https://github.com/stevenvelozo/meadow-integration",
 					"Documentation": "https://stevenvelozo.github.io/meadow-integration/",
-					"RelatedModules": ["meadow", "stricture"]
+					"RelatedModules": [
+						"meadow",
+						"stricture"
+					]
 				},
 				{
 					"Name": "meadow-migrationmanager",
@@ -240,7 +296,90 @@
 					"Description": "CLI, Web, and Console UI tool for managing database schemas and migrations",
 					"GitHub": "https://github.com/stevenvelozo/meadow-migrationmanager",
 					"Documentation": false,
-					"RelatedModules": ["meadow", "stricture", "meadow-connection-mysql", "meadow-connection-mssql", "meadow-connection-sqlite", "meadow-connection-postgresql"]
+					"RelatedModules": [
+						"meadow",
+						"stricture",
+						"meadow-connection-mysql",
+						"meadow-connection-mssql",
+						"meadow-connection-sqlite",
+						"meadow-connection-postgresql"
+					]
+				},
+				{
+					"Name": "meadow-provider-offline",
+					"Path": "modules/meadow/meadow-provider-offline",
+					"Description": "Offline-capable Meadow provider with browser-side SQLite and IPC routing.",
+					"GitHub": "https://github.com/stevenvelozo/meadow-provider-offline",
+					"Documentation": "https://stevenvelozo.github.io/meadow-provider-offline/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "parime",
+					"Path": "modules/meadow/parime",
+					"Description": "Generic data lake behaviors and services for managing large-scale data ingestion",
+					"GitHub": "https://github.com/stevenvelozo/parime",
+					"Documentation": "https://stevenvelozo.github.io/parime/",
+					"RelatedModules": [
+						"fable",
+						"meadow"
+					]
+				},
+				{
+					"Name": "retold-data-service",
+					"Path": "modules/meadow/retold-data-service",
+					"Description": "All-in-one Fable service assembling schema, entity, endpoints, and REST API from a single configuration",
+					"GitHub": "https://github.com/stevenvelozo/retold-data-service",
+					"Documentation": "https://stevenvelozo.github.io/retold-data-service/",
+					"RelatedModules": [
+						"fable",
+						"meadow",
+						"meadow-endpoints",
+						"orator",
+						"stricture"
+					]
+				},
+				{
+					"Name": "retold-harness",
+					"Path": "modules/meadow/retold-harness",
+					"Description": "Composable REST API harness with 3 pluggable schemas, 7 database providers, and a terminal management tool",
+					"GitHub": "https://github.com/stevenvelozo/retold-harness",
+					"Documentation": "https://stevenvelozo.github.io/retold-harness/",
+					"RelatedModules": [
+						"retold-data-service",
+						"retold-harness-consistency-proxy",
+						"orator",
+						"meadow",
+						"meadow-connection-mysql",
+						"meadow-connection-mssql",
+						"meadow-connection-sqlite",
+						"meadow-connection-postgresql",
+						"meadow-connection-mongodb",
+						"meadow-connection-dgraph",
+						"meadow-connection-solr"
+					]
+				},
+				{
+					"Name": "retold-harness-consistency-proxy",
+					"Path": "modules/meadow/retold-harness-consistency-proxy",
+					"Description": "HTTP consistency proxy that fans requests across multiple database providers and compares responses",
+					"GitHub": "https://github.com/stevenvelozo/retold-harness-consistency-proxy",
+					"Documentation": "https://stevenvelozo.github.io/retold-harness-consistency-proxy/",
+					"RelatedModules": [
+						"retold-harness",
+						"retold-data-service"
+					]
+				},
+				{
+					"Name": "stricture",
+					"Path": "modules/meadow/stricture",
+					"Description": "MicroDDL schema definition language generating JSON, SQL DDL, MySQL, MSSQL, and documentation from compact definitions",
+					"GitHub": "https://github.com/stevenvelozo/stricture",
+					"Documentation": "https://stevenvelozo.github.io/stricture/",
+					"RelatedModules": [
+						"meadow",
+						"foxhound",
+						"meadow-endpoints"
+					]
 				}
 			]
 		},
@@ -248,55 +387,28 @@
 			"Name": "Orator",
 			"Description": "API server: unopinionated HTTP server abstraction, static file serving, HTTP proxy, WebSocket support, and reporting",
 			"Path": "modules/orator",
-			"Modules":
-			[
+			"Modules": [
 				{
 					"Name": "orator",
 					"Path": "modules/orator/orator",
 					"Description": "Unopinionated HTTP server abstraction with lifecycle hooks, route management, and pluggable service servers",
 					"GitHub": "https://github.com/stevenvelozo/orator",
 					"Documentation": "https://stevenvelozo.github.io/orator/",
-					"RelatedModules": ["orator-serviceserver-restify", "orator-serviceserver-base", "orator-static-server", "orator-http-proxy", "meadow-endpoints"]
+					"RelatedModules": [
+						"orator-serviceserver-restify",
+						"orator-serviceserver-base",
+						"orator-static-server",
+						"orator-http-proxy",
+						"meadow-endpoints"
+					]
 				},
 				{
-					"Name": "orator-serviceserver-base",
-					"Path": "modules/orator/orator-serviceserver-base",
-					"Description": "Base service server class for Orator providing the server abstraction interface",
-					"GitHub": "https://github.com/stevenvelozo/orator-serviceserver-base",
-					"Documentation": "https://stevenvelozo.github.io/orator-serviceserver-base/",
-					"RelatedModules": ["orator", "orator-serviceserver-restify"]
-				},
-				{
-					"Name": "orator-serviceserver-restify",
-					"Path": "modules/orator/orator-serviceserver-restify",
-					"Description": "Production HTTP server implementation for Orator powered by Restify",
-					"GitHub": "https://github.com/stevenvelozo/orator-serviceserver-restify",
-					"Documentation": "https://stevenvelozo.github.io/orator-serviceserver-restify/",
-					"RelatedModules": ["orator", "orator-serviceserver-base"]
-				},
-				{
-					"Name": "orator-static-server",
-					"Path": "modules/orator/orator-static-server",
-					"Description": "Static file serving for Orator with MIME type detection, default file resolution, and subdomain routing",
-					"GitHub": "https://github.com/stevenvelozo/orator-static-server",
-					"Documentation": "https://stevenvelozo.github.io/orator-static-server/",
-					"RelatedModules": ["orator"]
-				},
-				{
-					"Name": "orator-http-proxy",
-					"Path": "modules/orator/orator-http-proxy",
-					"Description": "HTTP reverse proxy for forwarding requests to backend services through Orator",
-					"GitHub": "https://github.com/stevenvelozo/orator-http-proxy",
-					"Documentation": "https://stevenvelozo.github.io/orator-http-proxy/",
-					"RelatedModules": ["orator"]
-				},
-				{
-					"Name": "tidings",
-					"Path": "modules/orator/tidings",
-					"Description": "Extensible reporting system for generating HTML, PDF, and other format reports",
-					"GitHub": "https://github.com/stevenvelozo/tidings",
-					"Documentation": "https://stevenvelozo.github.io/tidings/",
-					"RelatedModules": ["fable", "orator", "precedent"]
+					"Name": "orator-authentication",
+					"Path": "modules/orator/orator-authentication",
+					"Description": "Orator server-side cookie-based session authentication with pluggable authenticator and optional OAuth/OIDC support.",
+					"GitHub": "https://github.com/stevenvelozo/orator-authentication",
+					"Documentation": "https://stevenvelozo.github.io/orator-authentication/",
+					"RelatedModules": []
 				},
 				{
 					"Name": "orator-conversion",
@@ -304,7 +416,9 @@
 					"Description": "File format conversion endpoints for Orator service servers",
 					"GitHub": "https://github.com/stevenvelozo/orator-conversion",
 					"Documentation": "https://stevenvelozo.github.io/orator-conversion/",
-					"RelatedModules": ["orator"]
+					"RelatedModules": [
+						"orator"
+					]
 				},
 				{
 					"Name": "orator-endpoint",
@@ -312,7 +426,72 @@
 					"Description": "Base endpoint class for Orator providing route definition and request handling patterns",
 					"GitHub": "https://github.com/stevenvelozo/orator-endpoint",
 					"Documentation": false,
-					"RelatedModules": ["orator", "meadow-endpoints"]
+					"RelatedModules": [
+						"orator",
+						"meadow-endpoints"
+					]
+				},
+				{
+					"Name": "orator-http-proxy",
+					"Path": "modules/orator/orator-http-proxy",
+					"Description": "HTTP reverse proxy for forwarding requests to backend services through Orator",
+					"GitHub": "https://github.com/stevenvelozo/orator-http-proxy",
+					"Documentation": "https://stevenvelozo.github.io/orator-http-proxy/",
+					"RelatedModules": [
+						"orator"
+					]
+				},
+				{
+					"Name": "orator-serviceserver-base",
+					"Path": "modules/orator/orator-serviceserver-base",
+					"Description": "Base service server class for Orator providing the server abstraction interface",
+					"GitHub": "https://github.com/stevenvelozo/orator-serviceserver-base",
+					"Documentation": "https://stevenvelozo.github.io/orator-serviceserver-base/",
+					"RelatedModules": [
+						"orator",
+						"orator-serviceserver-restify"
+					]
+				},
+				{
+					"Name": "orator-serviceserver-restify",
+					"Path": "modules/orator/orator-serviceserver-restify",
+					"Description": "Production HTTP server implementation for Orator powered by Restify",
+					"GitHub": "https://github.com/stevenvelozo/orator-serviceserver-restify",
+					"Documentation": "https://stevenvelozo.github.io/orator-serviceserver-restify/",
+					"RelatedModules": [
+						"orator",
+						"orator-serviceserver-base"
+					]
+				},
+				{
+					"Name": "orator-ssl-proxy",
+					"Path": "modules/orator/orator-ssl-proxy",
+					"Description": "SSL-terminating reverse proxy with host-based routing, local CA, and Let's Encrypt support.",
+					"GitHub": "https://github.com/stevenvelozo/orator-ssl-proxy",
+					"Documentation": "https://stevenvelozo.github.io/orator-ssl-proxy/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "orator-static-server",
+					"Path": "modules/orator/orator-static-server",
+					"Description": "Static file serving for Orator with MIME type detection, default file resolution, and subdomain routing",
+					"GitHub": "https://github.com/stevenvelozo/orator-static-server",
+					"Documentation": "https://stevenvelozo.github.io/orator-static-server/",
+					"RelatedModules": [
+						"orator"
+					]
+				},
+				{
+					"Name": "tidings",
+					"Path": "modules/orator/tidings",
+					"Description": "Extensible reporting system for generating HTML, PDF, and other format reports",
+					"GitHub": "https://github.com/stevenvelozo/tidings",
+					"Documentation": "https://stevenvelozo.github.io/tidings/",
+					"RelatedModules": [
+						"fable",
+						"orator",
+						"precedent"
+					]
 				}
 			]
 		},
@@ -320,167 +499,16 @@
 			"Name": "Pict",
 			"Description": "MVC tools: views, templates, providers, application lifecycle, form builders, editors, grids, and CLI utilities",
 			"Path": "modules/pict",
-			"Modules":
-			[
+			"Modules": [
 				{
-					"Name": "pict",
-					"Path": "modules/pict/pict",
-					"Description": "Non-opinionated MVC module with template expression engine — treats UI as rendered text for browser, terminal, or any output",
-					"GitHub": "https://github.com/stevenvelozo/pict",
-					"Documentation": "https://stevenvelozo.github.io/pict/",
-					"RelatedModules": ["pict-view", "pict-template", "pict-provider", "pict-application", "fable"]
-				},
-				{
-					"Name": "pict-template",
-					"Path": "modules/pict/pict-template",
-					"Description": "Template handler base class for extending Pict with custom expression types",
-					"GitHub": "https://github.com/stevenvelozo/pict-template",
-					"Documentation": "https://stevenvelozo.github.io/pict-template/",
-					"RelatedModules": ["pict", "pict-view"]
-				},
-				{
-					"Name": "pict-view",
-					"Path": "modules/pict/pict-view",
-					"Description": "View base class with full lifecycle (initialize, render, solve, marshal), renderables, and CSS injection",
-					"GitHub": "https://github.com/stevenvelozo/pict-view",
-					"Documentation": "https://stevenvelozo.github.io/pict-view/",
-					"RelatedModules": ["pict", "pict-template", "pict-provider", "pict-application"]
-				},
-				{
-					"Name": "pict-provider",
-					"Path": "modules/pict/pict-provider",
-					"Description": "Data provider base class for fetching, transforming, and delivering data to Pict views",
-					"GitHub": "https://github.com/stevenvelozo/pict-provider",
-					"Documentation": "https://stevenvelozo.github.io/pict-provider/",
-					"RelatedModules": ["pict", "pict-view"]
-				},
-				{
-					"Name": "pict-application",
-					"Path": "modules/pict/pict-application",
-					"Description": "Application base class coordinating multiple views, shared state, and structured lifecycle management",
-					"GitHub": "https://github.com/stevenvelozo/pict-application",
-					"Documentation": "https://stevenvelozo.github.io/pict-application/",
-					"RelatedModules": ["pict", "pict-view", "pict-router"]
-				},
-				{
-					"Name": "pict-panel",
-					"Path": "modules/pict/pict-panel",
-					"Description": "Hot-loadable control panel component for browser applications",
-					"GitHub": "https://github.com/stevenvelozo/pict-panel",
-					"Documentation": "https://stevenvelozo.github.io/pict-panel/",
-					"RelatedModules": ["pict", "pict-view"]
-				},
-				{
-					"Name": "pict-router",
-					"Path": "modules/pict/pict-router",
-					"Description": "Hash-based URL routing via Navigo with template string route functions for Pict applications",
-					"GitHub": "https://github.com/stevenvelozo/pict-router",
-					"Documentation": "https://stevenvelozo.github.io/pict-router/",
-					"RelatedModules": ["pict", "pict-application"]
-				},
-				{
-					"Name": "pict-nonlinearconfig",
-					"Path": "modules/pict/pict-nonlinearconfig",
-					"Description": "Nonlinear configuration manager built on Pict for multi-step, branching configuration workflows",
-					"GitHub": "https://github.com/stevenvelozo/pict-nonlinearconfig",
-					"Documentation": "https://stevenvelozo.github.io/pict-nonlinearconfig/",
-					"RelatedModules": ["pict", "pict-application", "pict-section-form"]
-				},
-				{
-					"Name": "pict-section-form",
-					"Path": "modules/pict/pict-section-form",
-					"Description": "Configuration-driven dynamic forms with 13+ input types, data marshaling, and mathematical solving",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-form",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-form/",
-					"RelatedModules": ["pict", "pict-view", "pict-provider", "informary", "manyfest"]
-				},
-				{
-					"Name": "pict-section-recordset",
-					"Path": "modules/pict/pict-section-recordset",
-					"Description": "CRUD record management views built from Meadow endpoint schemas with list, detail, and dashboard views",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-recordset",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-recordset/",
-					"RelatedModules": ["pict", "pict-view", "meadow-endpoints", "pict-section-form"]
-				},
-				{
-					"Name": "pict-section-tuigrid",
-					"Path": "modules/pict/pict-section-tuigrid",
-					"Description": "Toast UI Grid integration for spreadsheet-like tabular data display with sorting, filtering, and editing",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-tuigrid",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-tuigrid/",
-					"RelatedModules": ["pict", "pict-view"]
-				},
-				{
-					"Name": "pict-section-content",
-					"Path": "modules/pict/pict-section-content",
-					"Description": "Markdown parsing and content rendering with syntax highlighting, Mermaid diagrams, and KaTeX math equations",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-content",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-content/",
-					"RelatedModules": ["pict", "pict-view", "pict-section-markdowneditor"]
-				},
-				{
-					"Name": "pict-section-code",
-					"Path": "modules/pict/pict-section-code",
-					"Description": "Code editor and syntax highlighter wrapping CodeJar with two-way data binding to Pict AppData",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-code",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-code/",
-					"RelatedModules": ["pict", "pict-view"]
-				},
-				{
-					"Name": "pict-section-markdowneditor",
-					"Path": "modules/pict/pict-section-markdowneditor",
-					"Description": "Segmented markdown editor built on CodeMirror v6 with drag-and-drop reorder, formatting toolbar, image upload hooks, and live rich previews",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-markdowneditor",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-markdowneditor/",
-					"RelatedModules": ["pict", "pict-view", "pict-section-content", "pict-application"]
-				},
-				{
-					"Name": "pict-section-flow",
-					"Path": "modules/pict/pict-section-flow",
-					"Description": "Flow diagram section for visual workflow and process representations",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-flow",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-flow/",
-					"RelatedModules": ["pict", "pict-view"]
-				},
-				{
-					"Name": "pict-section-objecteditor",
-					"Path": "modules/pict/pict-section-objecteditor",
-					"Description": "Tree-based JSON object editor section for browsing and editing nested data structures",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-objecteditor",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-objecteditor/",
-					"RelatedModules": ["pict", "pict-view"]
-				},
-				{
-					"Name": "pict-section-entitymanagement",
-					"Path": "modules/pict/pict-section-entitymanagement",
-					"Description": "Dynamic entity management sections leveraging pict-section-form metatemplates",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-entitymanagement",
-					"Documentation": false,
-					"RelatedModules": ["pict", "pict-section-form", "meadow-endpoints"]
-				},
-				{
-					"Name": "pict-section-formeditor",
-					"Path": "modules/pict/pict-section-formeditor",
-					"Description": "Visual form editor for designing pict-section-form configurations",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-formeditor",
-					"Documentation": false,
-					"RelatedModules": ["pict", "pict-section-form"]
-				},
-				{
-					"Name": "pict-docuserve",
-					"Path": "modules/pict/pict-docuserve",
-					"Description": "Single-page documentation viewer built on Pict with catalog navigation, search, and cross-module linking",
-					"GitHub": "https://github.com/stevenvelozo/pict-docuserve",
-					"Documentation": "https://stevenvelozo.github.io/pict-docuserve/",
-					"RelatedModules": ["pict", "pict-application", "pict-router", "indoctrinate"]
-				},
-				{
-					"Name": "pict-chance",
-					"Path": "modules/pict/pict-chance",
-					"Description": "Chance.js random data generation packaged as Pict template functions",
-					"GitHub": "https://github.com/stevenvelozo/pict-chance",
-					"Documentation": false,
-					"RelatedModules": ["pict", "pict-template"]
+					"Name": "cryptbrau",
+					"Path": "modules/pict/cryptbrau",
+					"Description": "Simple in-browser symmetric encryption for client-side data protection",
+					"GitHub": "https://github.com/stevenvelozo/cryptbrau",
+					"Documentation": "https://stevenvelozo.github.io/cryptbrau/",
+					"RelatedModules": [
+						"pict"
+					]
 				},
 				{
 					"Name": "informary",
@@ -488,15 +516,268 @@
 					"Description": "Dependency-free browser form marshaling with undo/redo history and field-level change deltas",
 					"GitHub": "https://github.com/stevenvelozo/informary",
 					"Documentation": "https://stevenvelozo.github.io/informary/",
-					"RelatedModules": ["pict-section-form"]
+					"RelatedModules": [
+						"pict-section-form"
+					]
 				},
 				{
-					"Name": "cryptbrau",
-					"Path": "modules/pict/cryptbrau",
-					"Description": "Simple in-browser symmetric encryption for client-side data protection",
-					"GitHub": "https://github.com/stevenvelozo/cryptbrau",
-					"Documentation": "https://stevenvelozo.github.io/cryptbrau/",
-					"RelatedModules": ["pict"]
+					"Name": "pict",
+					"Path": "modules/pict/pict",
+					"Description": "Non-opinionated MVC module with template expression engine — treats UI as rendered text for browser, terminal, or any output",
+					"GitHub": "https://github.com/stevenvelozo/pict",
+					"Documentation": "https://stevenvelozo.github.io/pict/",
+					"RelatedModules": [
+						"pict-view",
+						"pict-template",
+						"pict-provider",
+						"pict-application",
+						"fable"
+					]
+				},
+				{
+					"Name": "pict-application",
+					"Path": "modules/pict/pict-application",
+					"Description": "Application base class coordinating multiple views, shared state, and structured lifecycle management",
+					"GitHub": "https://github.com/stevenvelozo/pict-application",
+					"Documentation": "https://stevenvelozo.github.io/pict-application/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-router"
+					]
+				},
+				{
+					"Name": "pict-docuserve",
+					"Path": "modules/pict/pict-docuserve",
+					"Description": "Single-page documentation viewer built on Pict with catalog navigation, search, and cross-module linking",
+					"GitHub": "https://github.com/stevenvelozo/pict-docuserve",
+					"Documentation": "https://stevenvelozo.github.io/pict-docuserve/",
+					"RelatedModules": [
+						"pict",
+						"pict-application",
+						"pict-router",
+						"indoctrinate"
+					]
+				},
+				{
+					"Name": "pict-meadow-connection-manager",
+					"Path": "modules/pict/pict-meadow-connection-manager",
+					"Description": "Browser-safe Pict provider for meadow database connection configuration. No server-side database driver dependencies.",
+					"GitHub": "https://github.com/stevenvelozo/pict-meadow-connection-manager",
+					"Documentation": "https://stevenvelozo.github.io/pict-meadow-connection-manager/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "pict-nonlinearconfig",
+					"Path": "modules/pict/pict-nonlinearconfig",
+					"Description": "Nonlinear configuration manager built on Pict for multi-step, branching configuration workflows",
+					"GitHub": "https://github.com/stevenvelozo/pict-nonlinearconfig",
+					"Documentation": "https://stevenvelozo.github.io/pict-nonlinearconfig/",
+					"RelatedModules": [
+						"pict",
+						"pict-application",
+						"pict-section-form"
+					]
+				},
+				{
+					"Name": "pict-panel",
+					"Path": "modules/pict/pict-panel",
+					"Description": "Hot-loadable control panel component for browser applications",
+					"GitHub": "https://github.com/stevenvelozo/pict-panel",
+					"Documentation": "https://stevenvelozo.github.io/pict-panel/",
+					"RelatedModules": [
+						"pict",
+						"pict-view"
+					]
+				},
+				{
+					"Name": "pict-provider",
+					"Path": "modules/pict/pict-provider",
+					"Description": "Data provider base class for fetching, transforming, and delivering data to Pict views",
+					"GitHub": "https://github.com/stevenvelozo/pict-provider",
+					"Documentation": "https://stevenvelozo.github.io/pict-provider/",
+					"RelatedModules": [
+						"pict",
+						"pict-view"
+					]
+				},
+				{
+					"Name": "pict-router",
+					"Path": "modules/pict/pict-router",
+					"Description": "Hash-based URL routing via Navigo with template string route functions for Pict applications",
+					"GitHub": "https://github.com/stevenvelozo/pict-router",
+					"Documentation": "https://stevenvelozo.github.io/pict-router/",
+					"RelatedModules": [
+						"pict",
+						"pict-application"
+					]
+				},
+				{
+					"Name": "pict-section-code",
+					"Path": "modules/pict/pict-section-code",
+					"Description": "Code editor and syntax highlighter wrapping CodeJar with two-way data binding to Pict AppData",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-code",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-code/",
+					"RelatedModules": [
+						"pict",
+						"pict-view"
+					]
+				},
+				{
+					"Name": "pict-section-content",
+					"Path": "modules/pict/pict-section-content",
+					"Description": "Markdown parsing and content rendering with syntax highlighting, Mermaid diagrams, and KaTeX math equations",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-content",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-content/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-section-markdowneditor"
+					]
+				},
+				{
+					"Name": "pict-section-entitymanagement",
+					"Path": "modules/pict/pict-section-entitymanagement",
+					"Description": "Dynamic entity management sections leveraging pict-section-form metatemplates",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-entitymanagement",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict",
+						"pict-section-form",
+						"meadow-endpoints"
+					]
+				},
+				{
+					"Name": "pict-section-equation",
+					"Path": "modules/pict/pict-section-equation",
+					"Description": "Pict Section for Expression Parser Solve Visualization",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-equation",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-equation/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "pict-section-flow",
+					"Path": "modules/pict/pict-section-flow",
+					"Description": "Flow diagram section for visual workflow and process representations",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-flow",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-flow/",
+					"RelatedModules": [
+						"pict",
+						"pict-view"
+					]
+				},
+				{
+					"Name": "pict-section-form",
+					"Path": "modules/pict/pict-section-form",
+					"Description": "Configuration-driven dynamic forms with 13+ input types, data marshaling, and mathematical solving",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-form",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-form/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-provider",
+						"informary",
+						"manyfest"
+					]
+				},
+				{
+					"Name": "pict-section-formeditor",
+					"Path": "modules/pict/pict-section-formeditor",
+					"Description": "Visual form editor for designing pict-section-form configurations",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-formeditor",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict",
+						"pict-section-form"
+					]
+				},
+				{
+					"Name": "pict-section-histogram",
+					"Path": "modules/pict/pict-section-histogram",
+					"Description": "Pict histogram section with vertical/horizontal orientation, browser/consoleui/CLI rendering, and interactive selection",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-histogram",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-histogram/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "pict-section-inlinedocumentation",
+					"Path": "modules/pict/pict-section-inlinedocumentation",
+					"Description": "Pict embeddable inline documentation browser with topic support",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-inlinedocumentation",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-inlinedocumentation/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "pict-section-login",
+					"Path": "modules/pict/pict-section-login",
+					"Description": "Pict login section for authentication UIs — works with orator-authentication or any custom backend",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-login",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-login/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "pict-section-markdowneditor",
+					"Path": "modules/pict/pict-section-markdowneditor",
+					"Description": "Segmented markdown editor built on CodeMirror v6 with drag-and-drop reorder, formatting toolbar, image upload hooks, and live rich previews",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-markdowneditor",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-markdowneditor/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-section-content",
+						"pict-application"
+					]
+				},
+				{
+					"Name": "pict-section-modal",
+					"Path": "modules/pict/pict-section-modal",
+					"Description": "Pict modal section -- confirmations, tooltips, toast notifications, and floating modal windows",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-modal",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-modal/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "pict-section-objecteditor",
+					"Path": "modules/pict/pict-section-objecteditor",
+					"Description": "Tree-based JSON object editor section for browsing and editing nested data structures",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-objecteditor",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-objecteditor/",
+					"RelatedModules": [
+						"pict",
+						"pict-view"
+					]
+				},
+				{
+					"Name": "pict-section-openseadragon",
+					"Path": "modules/pict/pict-section-openseadragon",
+					"Description": "Pict Open Sea Dragon Section",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-openseadragon",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-openseadragon/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "pict-section-recordset",
+					"Path": "modules/pict/pict-section-recordset",
+					"Description": "CRUD record management views built from Meadow endpoint schemas with list, detail, and dashboard views",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-recordset",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-recordset/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"meadow-endpoints",
+						"pict-section-form"
+					]
+				},
+				{
+					"Name": "pict-section-tuigrid",
+					"Path": "modules/pict/pict-section-tuigrid",
+					"Description": "Toast UI Grid integration for spreadsheet-like tabular data display with sorting, filtering, and editing",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-tuigrid",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-tuigrid/",
+					"RelatedModules": [
+						"pict",
+						"pict-view"
+					]
 				},
 				{
 					"Name": "pict-service-commandlineutility",
@@ -504,7 +785,10 @@
 					"Description": "CLI utility module built on Commander for Pict-based command-line tools",
 					"GitHub": "https://github.com/stevenvelozo/pict-service-commandlineutility",
 					"Documentation": "https://stevenvelozo.github.io/pict-service-commandlineutility/",
-					"RelatedModules": ["pict", "fable"]
+					"RelatedModules": [
+						"pict",
+						"fable"
+					]
 				},
 				{
 					"Name": "pict-serviceproviderbase",
@@ -512,15 +796,10 @@
 					"Description": "Base classes for Pict services with pre-initialization support and lifecycle hooks",
 					"GitHub": "https://github.com/stevenvelozo/pict-serviceproviderbase",
 					"Documentation": "https://stevenvelozo.github.io/pict-serviceproviderbase/",
-					"RelatedModules": ["pict", "fable-serviceproviderbase"]
-				},
-				{
-					"Name": "pict-terminalui",
-					"Path": "modules/pict/pict-terminalui",
-					"Description": "Blessed-based terminal interface bridging Pict views to terminal widgets for TUI applications",
-					"GitHub": "https://github.com/stevenvelozo/pict-terminalui",
-					"Documentation": "https://stevenvelozo.github.io/pict-terminalui/",
-					"RelatedModules": ["pict", "pict-view", "pict-application"]
+					"RelatedModules": [
+						"pict",
+						"fable-serviceproviderbase"
+					]
 				},
 				{
 					"Name": "pict-sessionmanager",
@@ -528,7 +807,54 @@
 					"Description": "Session management service for Pict handling authenticated REST requests across multiple security contexts",
 					"GitHub": "https://github.com/stevenvelozo/pict-sessionmanager",
 					"Documentation": false,
-					"RelatedModules": ["pict", "fable-serviceproviderbase"]
+					"RelatedModules": [
+						"pict",
+						"fable-serviceproviderbase"
+					]
+				},
+				{
+					"Name": "pict-template",
+					"Path": "modules/pict/pict-template",
+					"Description": "Template handler base class for extending Pict with custom expression types",
+					"GitHub": "https://github.com/stevenvelozo/pict-template",
+					"Documentation": "https://stevenvelozo.github.io/pict-template/",
+					"RelatedModules": [
+						"pict",
+						"pict-view"
+					]
+				},
+				{
+					"Name": "pict-template-preprocessor",
+					"Path": "modules/pict/pict-template-preprocessor",
+					"Description": "Pict Template Preprocessor - compiles templates into cached segment arrays and builds expression dependency graphs",
+					"GitHub": "https://github.com/stevenvelozo/pict-template-preprocessor",
+					"Documentation": "https://stevenvelozo.github.io/pict-template-preprocessor/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "pict-terminalui",
+					"Path": "modules/pict/pict-terminalui",
+					"Description": "Blessed-based terminal interface bridging Pict views to terminal widgets for TUI applications",
+					"GitHub": "https://github.com/stevenvelozo/pict-terminalui",
+					"Documentation": "https://stevenvelozo.github.io/pict-terminalui/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-application"
+					]
+				},
+				{
+					"Name": "pict-view",
+					"Path": "modules/pict/pict-view",
+					"Description": "View base class with full lifecycle (initialize, render, solve, marshal), renderables, and CSS injection",
+					"GitHub": "https://github.com/stevenvelozo/pict-view",
+					"Documentation": "https://stevenvelozo.github.io/pict-view/",
+					"RelatedModules": [
+						"pict",
+						"pict-template",
+						"pict-provider",
+						"pict-application"
+					]
 				}
 			]
 		},
@@ -536,15 +862,24 @@
 			"Name": "Utility",
 			"Description": "Build tools, manifest management, documentation generation, process supervision, and caching",
 			"Path": "modules/utility",
-			"Modules":
-			[
+			"Modules": [
 				{
 					"Name": "cachetrax",
 					"Path": "modules/utility/cachetrax",
 					"Description": "Hash-indexed object cache with O(1) lookups, time and size based expiration, and custom pruning strategies",
 					"GitHub": "https://github.com/stevenvelozo/cachetrax",
 					"Documentation": "https://stevenvelozo.github.io/cachetrax/",
-					"RelatedModules": ["fable"]
+					"RelatedModules": [
+						"fable"
+					]
+				},
+				{
+					"Name": "choreographic",
+					"Path": "modules/utility/choreographic",
+					"Description": "Simple framework for single-run scripts.",
+					"GitHub": "https://github.com/stevenvelozo/choreographic",
+					"Documentation": "https://stevenvelozo.github.io/choreographic/",
+					"RelatedModules": []
 				},
 				{
 					"Name": "cumulation",
@@ -552,7 +887,17 @@
 					"Description": "Data synchronization library for managing cumulative state across distributed systems",
 					"GitHub": "https://github.com/stevenvelozo/cumulation",
 					"Documentation": false,
-					"RelatedModules": ["fable"]
+					"RelatedModules": [
+						"fable"
+					]
+				},
+				{
+					"Name": "elucidator",
+					"Path": "modules/utility/elucidator",
+					"Description": "Elucidator solver service and API.",
+					"GitHub": "https://github.com/stevenvelozo/elucidator",
+					"Documentation": "https://stevenvelozo.github.io/elucidator/",
+					"RelatedModules": []
 				},
 				{
 					"Name": "indoctrinate",
@@ -560,7 +905,10 @@
 					"Description": "Documentation scaffolding with content cataloging, label-based filtering, and multi-format output generation",
 					"GitHub": "https://github.com/stevenvelozo/indoctrinate",
 					"Documentation": "https://stevenvelozo.github.io/indoctrinate/",
-					"RelatedModules": ["pict-docuserve", "quackage"]
+					"RelatedModules": [
+						"pict-docuserve",
+						"quackage"
+					]
 				},
 				{
 					"Name": "manyfest",
@@ -568,23 +916,26 @@
 					"Description": "JSON manifest for consistent data description, validation, and hash-address-based access across application layers",
 					"GitHub": "https://github.com/stevenvelozo/manyfest",
 					"Documentation": "https://stevenvelozo.github.io/manyfest/",
-					"RelatedModules": ["fable", "pict-section-form"]
+					"RelatedModules": [
+						"fable",
+						"pict-section-form"
+					]
 				},
 				{
-					"Name": "precedent",
-					"Path": "modules/utility/precedent",
-					"Description": "Meta-templating engine with pattern-based start/end markers and word tree matching for code generation",
-					"GitHub": "https://github.com/stevenvelozo/precedent",
-					"Documentation": "https://stevenvelozo.github.io/precedent/",
-					"RelatedModules": ["tidings", "stricture"]
+					"Name": "manyfest-conversion",
+					"Path": "modules/utility/manyfest-conversion",
+					"Description": "Build mapping manyfests from CSVs, then fill PDF forms and XLSX spreadsheets from platform JSON payloads.",
+					"GitHub": "https://github.com/stevenvelozo/manyfest-conversion",
+					"Documentation": "https://stevenvelozo.github.io/manyfest-conversion/",
+					"RelatedModules": []
 				},
 				{
-					"Name": "quackage",
-					"Path": "modules/utility/quackage",
-					"Description": "Standardized build tool for browser bundles, transpilation, testing, and packaging via Gulp and Browserify",
-					"GitHub": "https://github.com/stevenvelozo/quackage",
-					"Documentation": "https://stevenvelozo.github.io/quackage/",
-					"RelatedModules": ["fable"]
+					"Name": "merquerial",
+					"Path": "modules/utility/merquerial",
+					"Description": "Simple dependency-free console query library.",
+					"GitHub": "https://github.com/stevenvelozo/merquerial",
+					"Documentation": "https://stevenvelozo.github.io/merquerial/",
+					"RelatedModules": []
 				},
 				{
 					"Name": "pict-cruisecontrol",
@@ -592,7 +943,39 @@
 					"Description": "Automated and user-assisted web page navigation and data marshaling for browser automation",
 					"GitHub": "https://github.com/stevenvelozo/pict-cruisecontrol",
 					"Documentation": false,
-					"RelatedModules": ["pict", "pict-application"]
+					"RelatedModules": [
+						"pict",
+						"pict-application"
+					]
+				},
+				{
+					"Name": "precedent",
+					"Path": "modules/utility/precedent",
+					"Description": "Meta-templating engine with pattern-based start/end markers and word tree matching for code generation",
+					"GitHub": "https://github.com/stevenvelozo/precedent",
+					"Documentation": "https://stevenvelozo.github.io/precedent/",
+					"RelatedModules": [
+						"tidings",
+						"stricture"
+					]
+				},
+				{
+					"Name": "quackage",
+					"Path": "modules/utility/quackage",
+					"Description": "Standardized build tool for browser bundles, transpilation, testing, and packaging via Gulp and Browserify",
+					"GitHub": "https://github.com/stevenvelozo/quackage",
+					"Documentation": "https://stevenvelozo.github.io/quackage/",
+					"RelatedModules": [
+						"fable"
+					]
+				},
+				{
+					"Name": "retold-sample-data",
+					"Path": "modules/utility/retold-sample-data",
+					"Description": "Sample data and schemas for the Retold bookstore test harness",
+					"GitHub": "https://github.com/stevenvelozo/retold-sample-data",
+					"Documentation": "https://stevenvelozo.github.io/retold-sample-data/",
+					"RelatedModules": []
 				}
 			]
 		},
@@ -600,15 +983,35 @@
 			"Name": "Apps",
 			"Description": "Full-stack applications built on the Retold ecosystem",
 			"Path": "modules/apps",
-			"Modules":
-			[
+			"Modules": [
 				{
 					"Name": "retold-content-system",
 					"Path": "modules/apps/retold-content-system",
 					"Description": "Content management system built on the Retold ecosystem",
 					"GitHub": "https://github.com/stevenvelozo/retold-content-system",
 					"Documentation": false,
-					"RelatedModules": ["fable", "meadow", "orator", "pict"]
+					"RelatedModules": [
+						"fable",
+						"meadow",
+						"orator",
+						"pict"
+					]
+				},
+				{
+					"Name": "retold-databeacon",
+					"Path": "modules/apps/retold-databeacon",
+					"Description": "Deployable data beacon service — connect to remote databases, introspect schemas, generate REST endpoints, and expose beacon capabilities to the Ultravisor mesh.",
+					"GitHub": "https://github.com/stevenvelozo/retold-databeacon",
+					"Documentation": "https://stevenvelozo.github.io/retold-databeacon/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "retold-facto",
+					"Path": "modules/apps/retold-facto",
+					"Description": "Data warehouse and knowledge graph storage for the Retold ecosystem.",
+					"GitHub": "https://github.com/stevenvelozo/retold-facto",
+					"Documentation": "https://stevenvelozo.github.io/retold-facto/",
+					"RelatedModules": []
 				},
 				{
 					"Name": "retold-remote",
@@ -616,7 +1019,28 @@
 					"Description": "Remote access application built on the Retold ecosystem",
 					"GitHub": "https://github.com/stevenvelozo/retold-remote",
 					"Documentation": false,
-					"RelatedModules": ["fable", "meadow", "orator", "pict"]
+					"RelatedModules": [
+						"fable",
+						"meadow",
+						"orator",
+						"pict"
+					]
+				},
+				{
+					"Name": "retold-remote-desktop",
+					"Path": "modules/apps/retold-remote-desktop",
+					"Description": "Native desktop application for retold-remote media browser (Tauri 2.0)",
+					"GitHub": "https://github.com/stevenvelozo/retold-remote-desktop",
+					"Documentation": "https://stevenvelozo.github.io/retold-remote-desktop/",
+					"RelatedModules": []
+				},
+				{
+					"Name": "retold-remote-ios",
+					"Path": "modules/apps/retold-remote-ios",
+					"Description": "Native iOS application for retold-remote media browser (Capacitor 8)",
+					"GitHub": "https://github.com/stevenvelozo/retold-remote-ios",
+					"Documentation": "https://stevenvelozo.github.io/retold-remote-ios/",
+					"RelatedModules": []
 				},
 				{
 					"Name": "ultravisor",
@@ -624,7 +1048,17 @@
 					"Description": "Process supervision with scheduled tasks, distributed nodes, and LLM integration for automated workflows",
 					"GitHub": "https://github.com/stevenvelozo/ultravisor",
 					"Documentation": "https://stevenvelozo.github.io/ultravisor/",
-					"RelatedModules": ["fable"]
+					"RelatedModules": [
+						"fable"
+					]
+				},
+				{
+					"Name": "ultravisor-suite-harness",
+					"Path": "modules/apps/ultravisor-suite-harness",
+					"Description": "End-to-end test harness for the Ultravisor/Facto pipeline with blessed terminal UI",
+					"GitHub": "https://github.com/stevenvelozo/ultravisor-suite-harness",
+					"Documentation": "https://stevenvelozo.github.io/ultravisor-suite-harness/",
+					"RelatedModules": []
 				}
 			]
 		}

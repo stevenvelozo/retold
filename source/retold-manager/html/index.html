@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Retold Manager</title>
+	<link rel="stylesheet" href="css/retold-manager.css">
+</head>
+<body>
+	<header id="RM-TopBar">
+		<h1>Retold Manager</h1>
+		<span id="RM-HealthBadge" class="badge">connecting...</span>
+		<div style="margin-left:auto;display:flex;gap:8px">
+			<button class="action" id="RM-LogToggle">📜 Log</button>
+			<button class="action" id="RM-ManifestToggle">⚙ Manifest</button>
+		</div>
+	</header>
+
+	<main id="RM-Main">
+		<aside id="RM-Sidebar">
+			<div id="RM-SidebarHeader">
+				<div class="sidebar-search-row">
+					<input type="search" id="RM-SidebarSearch" placeholder="Filter modules...">
+					<button id="RM-ScanButton" title="Scan all modules for changes">🔍</button>
+				</div>
+				<label class="sidebar-checkbox">
+					<input type="checkbox" id="RM-DirtyOnly"> Dirty only
+					<span id="RM-ScanMeta"></span>
+				</label>
+			</div>
+			<nav id="RM-ModuleList">
+				<p class="loading">Loading modules...</p>
+			</nav>
+		</aside>
+
+		<section id="RM-Workspace">
+			<div id="RM-WorkspacePlaceholder" class="placeholder">
+				<h2>Select a module</h2>
+				<p>Pick a module from the sidebar to review its status, bump, commit, and publish.</p>
+				<p class="hint">Phase 1 scaffold — workspace views land next.</p>
+			</div>
+		</section>
+	</main>
+
+	<footer id="RM-StatusBar">
+		<span id="RM-StatusMessage">Ready.</span>
+	</footer>
+
+	<script src="js/retold-manager-bootstrap.js"></script>
+</body>
+</html>

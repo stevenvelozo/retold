@@ -7,7 +7,6 @@
  */
 
 const blessed = require('blessed');
-const libChildProcess = require('child_process');
 const libFs = require('fs');
 const libPath = require('path');
 
@@ -15,7 +14,11 @@ const libPictApplication = require('pict-application');
 const libPictTerminalUI = require('pict-terminalui');
 
 const libModuleCatalog = require('./Retold-Manager-ModuleCatalog.js');
-const libProcessRunner = require('./Retold-Manager-ProcessRunner.js');
+const libCoreProcessRunner = require('./core/Manager-Core-ProcessRunner.js');
+const libBlessedRenderer = require('./tui/Retold-Manager-BlessedRenderer.js');
+const libCommitComposer = require('./core/Manager-Core-CommitComposer.js');
+const libModuleIntrospector = require('./core/Manager-Core-ModuleIntrospector.js');
+const libPrePublishValidator = require('./core/Manager-Core-PrePublishValidator.js');
 
 // Views
 const libViewLayout = require('./views/PictView-TUI-Layout.js');
@@ -85,15 +88,31 @@ class RetoldManagerApp extends libPictApplication
 		// Build the blessed widget layout
 		this._createBlessedLayout(tmpScreen);
 
-		// Create the process runner (pass pict.log for activity logging)
-		this.processRunner = new libProcessRunner(
+		// Create the core (transport-agnostic) ProcessRunner, then wrap it
+		// in the BlessedRenderer that reproduces the TUI's widget behavior.
+		// Downstream code keeps calling this.processRunner.run() / .kill() /
+		// .search() etc. against the renderer, which delegates to core.
+		this._coreProcessRunner = new libCoreProcessRunner({ log: this.pict.log });
+		this.processRunner = new libBlessedRenderer(
+			this._coreProcessRunner,
 			this._terminalOutput,
 			this._screen,
 			(pState, pMessage) =>
 			{
 				this._updateStatus(pMessage);
-			},
-			this.pict.log);
+			});
+
+		// Introspector + validator share a single manifest instance (libModuleCatalog.manifest).
+		this._introspector = new libModuleIntrospector(
+			{
+				manifest: libModuleCatalog,
+				log: this.pict.log,
+			});
+		this._prePublishValidator = new libPrePublishValidator(
+			{
+				introspector: this._introspector,
+				log: this.pict.log,
+			});
 
 		// File logging state -- the stream reference when active, null when off
 		this._fileLogStream = null;
@@ -585,6 +604,92 @@ class RetoldManagerApp extends libPictApplication
 			tmpModulePath);
 	}
 
+	/**
+	 * Run npm-check-updates in the selected module, optionally applying updates.
+	 * Mirrors the web UI's NCU modal. When Scope='retold', the --filter argument
+	 * restricts npm-check-updates to ecosystem modules only.
+	 */
+	_runNcu(pOptions)
+	{
+		if (this._awaitingConfirmation) { return; }
+
+		let tmpOptions = pOptions || {};
+		let tmpApply = !!tmpOptions.Apply;
+		let tmpScope = tmpOptions.Scope === 'all' ? 'all' : 'retold';
+
+		let tmpModulePath = this._getModulePath();
+		if (!tmpModulePath)
+		{
+			this._terminalOutput.setContent('');
+			this._terminalOutput.log('{yellow-fg}{bold}Select a module first.{/bold}{/yellow-fg}');
+			this._terminalOutput.log('');
+			this._terminalOutput.log('Navigate into a module group, then select or enter a module');
+			this._terminalOutput.log('before running operations.');
+			this._screen.render();
+			return;
+		}
+
+		let tmpArgs = [];
+		if (tmpApply) { tmpArgs.push('-u'); }
+		if (tmpScope === 'retold')
+		{
+			let tmpEcosystem = libModuleCatalog.getAllModuleNames();
+			tmpArgs.push('--filter');
+			tmpArgs.push(tmpEcosystem.join(','));
+		}
+
+		if (!tmpApply)
+		{
+			this.processRunner.run('npx', ['npm-check-updates'].concat(tmpArgs), tmpModulePath);
+			return;
+		}
+
+		// Apply path: confirmation prompt + runSequence(ncu -u, npm install)
+		this._terminalOutput.setContent('');
+		this._terminalOutput.log('{bold}{yellow-fg}npm-check-updates — apply (scope: ' + tmpScope + '){/yellow-fg}{/bold}');
+		this._terminalOutput.log('');
+		this._terminalOutput.log('This will update package.json with latest ' + (tmpScope === 'retold' ? 'retold ecosystem' : 'all') + ' dep versions,');
+		this._terminalOutput.log('then run {bold}npm install{/bold} to refresh node_modules and package-lock.json.');
+		this._terminalOutput.log('');
+		this._terminalOutput.log('{bold}{yellow-fg}Apply updates?  [Y] yes  [N] no{/yellow-fg}{/bold}');
+		this._updateStatus('Apply ncu updates? Y/N');
+		this._awaitingConfirmation = true;
+		this._screen.render();
+
+		let tmpSelf = this;
+		let tmpConfirmHandler = function (pCh)
+		{
+			tmpSelf._screen.removeListener('keypress', tmpConfirmHandler);
+			tmpSelf._awaitingConfirmation = false;
+
+			if (pCh === 'y' || pCh === 'Y')
+			{
+				tmpSelf.processRunner.runSequence(
+					[
+						{
+							command: 'npx',
+							args: ['npm-check-updates'].concat(tmpArgs),
+							label: 'ncu -u (scope: ' + tmpScope + ')',
+						},
+						{
+							command: 'npm',
+							args: ['install'],
+							label: 'npm install (after ncu -u)',
+						}
+					],
+					tmpModulePath);
+			}
+			else
+			{
+				tmpSelf._terminalOutput.log('');
+				tmpSelf._terminalOutput.log('{yellow-fg}{bold}ncu apply cancelled.{/bold}{/yellow-fg}');
+				tmpSelf._updateStatus('ncu apply cancelled');
+				tmpSelf._screen.render();
+			}
+		};
+		this._screen.on('keypress', tmpConfirmHandler);
+	}
+
 	_runPublish()
 	{
 		if (this._awaitingConfirmation) { return; }
@@ -602,10 +707,13 @@ class RetoldManagerApp extends libPictApplication
 			return;
 		}
 
-		// Clear and start the pre-publish validation report
+		// Clear and write the "we're validating" header so the user sees
+		// instant feedback while the async validation runs.
 		this._terminalOutput.setContent('');
 		this._terminalOutput.log('{bold}{yellow-fg}Pre-publish validation{/yellow-fg}{/bold}');
 		this._terminalOutput.log('');
+		this._terminalOutput.log('{gray-fg}  running npm queries (parallel)...{/gray-fg}');
+		this._updateStatus('Pre-publish validation running...');
 		this._screen.render();
 
 		if (this.pict.log)
@@ -613,47 +721,44 @@ class RetoldManagerApp extends libPictApplication
 			this.pict.log.info(`PUBLISH  Pre-publish validation for ${tmpModulePath}`);
 		}
 
-		// ── Step 1: Read local package.json ──
-		let tmpPkgPath = libPath.join(tmpModulePath, 'package.json');
-		let tmpPkg;
-		try
-		{
-			tmpPkg = JSON.parse(libFs.readFileSync(tmpPkgPath, 'utf8'));
-		}
-		catch (pError)
-		{
-			this._terminalOutput.log(`{red-fg}{bold}Cannot read package.json:{/bold} ${pError.message}{/red-fg}`);
-			this._screen.render();
-			return;
-		}
+		let tmpModuleName = libPath.basename(tmpModulePath);
 
-		let tmpPackageName = tmpPkg.name || libPath.basename(tmpModulePath);
-		let tmpLocalVersion = tmpPkg.version || '0.0.0';
+		this._prePublishValidator.validate(tmpModuleName).then(
+			(pReport) =>
+			{
+				this._onPrePublishReport(pReport, tmpModulePath, tmpModuleName);
+			},
+			(pError) =>
+			{
+				this._terminalOutput.log('');
+				this._terminalOutput.log(`{red-fg}{bold}Validator error:{/bold} ${pError.message}{/red-fg}`);
+				this._updateStatus('Validation failed');
+				this._screen.render();
+			});
+	}
 
-		this._terminalOutput.log(`{bold}Package:{/bold}  ${tmpPackageName}`);
-		this._terminalOutput.log(`{bold}Local:{/bold}    v${tmpLocalVersion}`);
-		this._screen.render();
+	/**
+	 * Consume a PrePublishValidator report, render it into the blessed
+	 * widget (byte-identical to the pre-refactor output), and either
+	 * abort or prompt for Y/N confirmation.
+	 */
+	_onPrePublishReport(pReport, pModulePath, pModuleName)
+	{
+		// Clear the "running..." placeholder and render the final report
+		this._terminalOutput.setContent('');
+		this._terminalOutput.log('{bold}{yellow-fg}Pre-publish validation{/yellow-fg}{/bold}');
+		this._terminalOutput.log('');
 
-		// ── Step 2: Fetch the currently published version from npm ──
-		let tmpPublishedVersion = null;
-		try
+		// Package / versions
+		this._terminalOutput.log(`{bold}Package:{/bold}  ${pReport.Package}`);
+		this._terminalOutput.log(`{bold}Local:{/bold}    v${pReport.LocalVersion}`);
+
+		let tmpVersionMatch = pReport.Problems.some((pP) => pP.Code === 'version-already-published');
+
+		if (pReport.PublishedVersion)
 		{
-			tmpPublishedVersion = libChildProcess.execSync(
-				`npm view ${tmpPackageName} version`,
-				{ cwd: tmpModulePath, encoding: 'utf8', timeout: 15000 }
-			).trim();
-		}
-		catch (pError)
-		{
-			// Package may not be published yet (404)
-			tmpPublishedVersion = null;
-		}
-
-		if (tmpPublishedVersion)
-		{
-			this._terminalOutput.log(`{bold}npm:{/bold}      v${tmpPublishedVersion}`);
-
-			if (tmpPublishedVersion === tmpLocalVersion)
+			this._terminalOutput.log(`{bold}npm:{/bold}      v${pReport.PublishedVersion}`);
+			if (tmpVersionMatch)
 			{
 				this._terminalOutput.log('');
 				this._terminalOutput.log('{red-fg}{bold}✗ Version mismatch:{/bold} local version matches what is already published on npm.{/red-fg}');
@@ -663,16 +768,13 @@ class RetoldManagerApp extends libPictApplication
 				this._terminalOutput.log('{red-fg}{bold}✗ Publish aborted{/bold}{/red-fg}');
 				if (this.pict.log)
 				{
-					this.pict.log.info(`PUBLISH  Aborted ${tmpPackageName} -- v${tmpLocalVersion} already on npm`);
+					this.pict.log.info(`PUBLISH  Aborted ${pReport.Package} -- v${pReport.LocalVersion} already on npm`);
 				}
-				this._updateStatus(`Publish aborted -- version ${tmpLocalVersion} already on npm`);
+				this._updateStatus(`Publish aborted -- version ${pReport.LocalVersion} already on npm`);
 				this._screen.render();
 				return;
 			}
-			else
-			{
-				this._terminalOutput.log(`{green-fg}  ✓ Local version differs from published{/green-fg}`);
-			}
+			this._terminalOutput.log(`{green-fg}  ✓ Local version differs from published{/green-fg}`);
 		}
 		else
 		{
@@ -681,147 +783,26 @@ class RetoldManagerApp extends libPictApplication
 		}
 
 		this._terminalOutput.log('');
-		this._screen.render();
 
-		// ── Step 3: Build the set of all retold ecosystem package names ──
-		let tmpEcosystemNames = {};
-		for (let i = 0; i < libModuleCatalog.Groups.length; i++)
-		{
-			let tmpGroup = libModuleCatalog.Groups[i];
-			for (let j = 0; j < tmpGroup.Modules.length; j++)
-			{
-				tmpEcosystemNames[tmpGroup.Modules[j]] = true;
-			}
-		}
-
-		// ── Step 4: Find ecosystem deps and check their versions against npm ──
-		let tmpAllDeps = {};
-		if (tmpPkg.dependencies)
-		{
-			let tmpKeys = Object.keys(tmpPkg.dependencies);
-			for (let i = 0; i < tmpKeys.length; i++)
-			{
-				tmpAllDeps[tmpKeys[i]] = { range: tmpPkg.dependencies[tmpKeys[i]], section: 'dependencies' };
-			}
-		}
-		if (tmpPkg.devDependencies)
-		{
-			let tmpKeys = Object.keys(tmpPkg.devDependencies);
-			for (let i = 0; i < tmpKeys.length; i++)
-			{
-				tmpAllDeps[tmpKeys[i]] = { range: tmpPkg.devDependencies[tmpKeys[i]], section: 'devDependencies' };
-			}
-		}
-
-		let tmpEcosystemDeps = [];
-		let tmpDepNames = Object.keys(tmpAllDeps);
-		for (let i = 0; i < tmpDepNames.length; i++)
-		{
-			if (tmpEcosystemNames[tmpDepNames[i]])
-			{
-				tmpEcosystemDeps.push(tmpDepNames[i]);
-			}
-		}
-
-		let tmpHasProblems = false;
-
-		if (tmpEcosystemDeps.length === 0)
+		// Ecosystem deps
+		if (pReport.EcosystemDeps.length === 0)
 		{
 			this._terminalOutput.log('{gray-fg}No retold ecosystem dependencies found.{/gray-fg}');
 		}
 		else
 		{
-			this._terminalOutput.log(`{bold}Ecosystem dependency check{/bold}  (${tmpEcosystemDeps.length} packages)`);
+			this._terminalOutput.log(`{bold}Ecosystem dependency check{/bold}  (${pReport.EcosystemDeps.length} packages)`);
 			this._terminalOutput.log('');
-
-			for (let i = 0; i < tmpEcosystemDeps.length; i++)
+			for (let i = 0; i < pReport.EcosystemDeps.length; i++)
 			{
-				let tmpDepName = tmpEcosystemDeps[i];
-				let tmpDepInfo = tmpAllDeps[tmpDepName];
-				let tmpLocalRange = tmpDepInfo.range;
-
-				// Skip file: references (local dev links)
-				if (tmpLocalRange.startsWith('file:'))
-				{
-					this._terminalOutput.log(`  {gray-fg}${tmpDepName}  ${tmpLocalRange}  (local link -- skipped){/gray-fg}`);
-					continue;
-				}
-
-				let tmpLatestVersion = null;
-				try
-				{
-					tmpLatestVersion = libChildProcess.execSync(
-						`npm view ${tmpDepName} version`,
-						{ cwd: tmpModulePath, encoding: 'utf8', timeout: 15000 }
-					).trim();
-				}
-				catch (pError)
-				{
-					this._terminalOutput.log(`  {yellow-fg}${tmpDepName}  ${tmpLocalRange}  (could not fetch from npm){/yellow-fg}`);
-					continue;
-				}
-
-				// Check if the local range covers the latest version
-				// Simple check: extract the version digits from the range (strip ^, ~, >= etc.)
-				let tmpRangeVersion = tmpLocalRange.replace(/^[\^~>=<]*/, '');
-				if (tmpRangeVersion === tmpLatestVersion)
-				{
-					this._terminalOutput.log(`  {green-fg}✓ ${tmpDepName}  ${tmpLocalRange}  (latest: ${tmpLatestVersion}){/green-fg}`);
-				}
-				else
-				{
-					// Check if the range prefix (^ or ~) might cover the latest
-					let tmpRangePrefix = tmpLocalRange.match(/^[\^~]/);
-					let tmpCoversLatest = false;
-
-					if (tmpRangePrefix)
-					{
-						// Parse major.minor.patch for both
-						let tmpRangeParts = tmpRangeVersion.split('.').map(Number);
-						let tmpLatestParts = tmpLatestVersion.split('.').map(Number);
-
-						if (tmpRangePrefix[0] === '^')
-						{
-							// ^ allows changes that don't modify the left-most non-zero digit
-							if (tmpRangeParts[0] > 0)
-							{
-								tmpCoversLatest = (tmpLatestParts[0] === tmpRangeParts[0])
-									&& (tmpLatestParts[1] > tmpRangeParts[1]
-										|| (tmpLatestParts[1] === tmpRangeParts[1] && tmpLatestParts[2] >= tmpRangeParts[2]));
-							}
-							else if (tmpRangeParts[1] > 0)
-							{
-								tmpCoversLatest = (tmpLatestParts[0] === 0 && tmpLatestParts[1] === tmpRangeParts[1])
-									&& (tmpLatestParts[2] >= tmpRangeParts[2]);
-							}
-						}
-						else if (tmpRangePrefix[0] === '~')
-						{
-							// ~ allows patch-level changes
-							tmpCoversLatest = (tmpLatestParts[0] === tmpRangeParts[0] && tmpLatestParts[1] === tmpRangeParts[1])
-								&& (tmpLatestParts[2] >= tmpRangeParts[2]);
-						}
-					}
-
-					if (tmpCoversLatest)
-					{
-						this._terminalOutput.log(`  {green-fg}✓ ${tmpDepName}  ${tmpLocalRange}  (latest: ${tmpLatestVersion} -- covered by range){/green-fg}`);
-					}
-					else
-					{
-						tmpHasProblems = true;
-						this._terminalOutput.log(`  {red-fg}{bold}✗ ${tmpDepName}{/bold}  ${tmpLocalRange}  →  latest: ${tmpLatestVersion}{/red-fg}`);
-					}
-				}
-
-				this._screen.render();
+				this._terminalOutput.log(this._formatEcosystemDepLine(pReport.EcosystemDeps[i]));
 			}
 		}
 
 		this._terminalOutput.log('');
-		this._screen.render();
 
-		if (tmpHasProblems)
+		let tmpHasStaleDeps = pReport.Problems.some((pP) => pP.Code === 'ecosystem-dep-stale');
+		if (tmpHasStaleDeps)
 		{
 			this._terminalOutput.log('{red-fg}{bold}✗ Ecosystem dependencies are out of date.{/bold}{/red-fg}');
 			this._terminalOutput.log('{red-fg}  Update package.json and run [i]nstall before publishing.{/red-fg}');
@@ -830,77 +811,32 @@ class RetoldManagerApp extends libPictApplication
 			this._terminalOutput.log('{red-fg}{bold}✗ Publish aborted{/bold}{/red-fg}');
 			if (this.pict.log)
 			{
-				this.pict.log.info(`PUBLISH  Aborted ${tmpPackageName} -- ecosystem deps out of date`);
+				this.pict.log.info(`PUBLISH  Aborted ${pReport.Package} -- ecosystem deps out of date`);
 			}
 			this._updateStatus('Publish aborted -- ecosystem deps out of date');
 			this._screen.render();
 			return;
 		}
 
-		// ── Step 5: All checks passed -- show summary and ask for confirmation ──
+		// All checks passed — summary + confirmation prompt
 		this._terminalOutput.log('{green-fg}{bold}✓ All pre-publish checks passed{/bold}{/green-fg}');
 		this._terminalOutput.log('');
 
-		// ── Step 6: Fetch recent commit log ──
 		this._terminalOutput.log('{bold}Recent commits:{/bold}');
 		this._terminalOutput.log('');
-
-		let tmpCommitLog = '';
-		try
+		if (pReport.CommitsSincePublish.length === 0)
 		{
-			// Try to get commits since the published version tag first
-			let tmpTagPatterns = [`v${tmpPublishedVersion}`, tmpPublishedVersion];
-			let tmpFoundTag = false;
-
-			if (tmpPublishedVersion)
-			{
-				for (let i = 0; i < tmpTagPatterns.length; i++)
-				{
-					try
-					{
-						tmpCommitLog = libChildProcess.execSync(
-							`git log ${tmpTagPatterns[i]}..HEAD --oneline`,
-							{ cwd: tmpModulePath, encoding: 'utf8', timeout: 10000 }
-						).trim();
-						if (tmpCommitLog)
-						{
-							tmpFoundTag = true;
-							break;
-						}
-					}
-					catch (pError)
-					{
-						// Tag doesn't exist, try the next pattern
-					}
-				}
-			}
-
-			// Fall back to recent commits if no tag was found
-			if (!tmpFoundTag || !tmpCommitLog)
-			{
-				tmpCommitLog = libChildProcess.execSync(
-					'git log --oneline -20',
-					{ cwd: tmpModulePath, encoding: 'utf8', timeout: 10000 }
-				).trim();
-			}
-		}
-		catch (pError)
-		{
-			tmpCommitLog = '';
-		}
-
-		if (tmpCommitLog)
-		{
-			let tmpCommitLines = tmpCommitLog.split('\n');
-			for (let i = 0; i < tmpCommitLines.length; i++)
-			{
-				let tmpLine = tmpCommitLines[i].replace(/\{/g, '\\{').replace(/\}/g, '\\}');
-				this._terminalOutput.log(`  {gray-fg}${tmpLine}{/gray-fg}`);
-			}
+			this._terminalOutput.log('  {gray-fg}(no commits found){/gray-fg}');
 		}
 		else
 		{
-			this._terminalOutput.log('  {gray-fg}(no commits found){/gray-fg}');
+			for (let i = 0; i < pReport.CommitsSincePublish.length; i++)
+			{
+				let tmpCommit = pReport.CommitsSincePublish[i];
+				// Escape curly braces so blessed doesn't treat them as markup
+				let tmpSafe = `${tmpCommit.Hash} ${tmpCommit.Subject}`.replace(/\{/g, '\\{').replace(/\}/g, '\\}');
+				this._terminalOutput.log(`  {gray-fg}${tmpSafe}{/gray-fg}`);
+			}
 		}
 
 		this._terminalOutput.log('');
@@ -908,13 +844,13 @@ class RetoldManagerApp extends libPictApplication
 		this._terminalOutput.log('');
 
 		// Summary block
-		if (tmpPublishedVersion)
+		if (pReport.PublishedVersion)
 		{
-			this._terminalOutput.log(`  {bold}${tmpPackageName}{/bold}  v${tmpPublishedVersion} → v${tmpLocalVersion}`);
+			this._terminalOutput.log(`  {bold}${pReport.Package}{/bold}  v${pReport.PublishedVersion} → v${pReport.LocalVersion}`);
 		}
 		else
 		{
-			this._terminalOutput.log(`  {bold}${tmpPackageName}{/bold}  v${tmpLocalVersion}  {gray-fg}(first publish){/gray-fg}`);
+			this._terminalOutput.log(`  {bold}${pReport.Package}{/bold}  v${pReport.LocalVersion}  {gray-fg}(first publish){/gray-fg}`);
 		}
 		this._terminalOutput.log('');
 		this._terminalOutput.log('{bold}{yellow-fg}Publish to npm?  [Y] yes  [N] no{/yellow-fg}{/bold}');
@@ -922,11 +858,9 @@ class RetoldManagerApp extends libPictApplication
 		this._awaitingConfirmation = true;
 		this._screen.render();
 
-		// ── Step 7: Wait for Y/N confirmation ──
 		let tmpSelf = this;
 		let tmpConfirmHandler = function (pCh, pKey)
 		{
-			// Remove this one-shot listener immediately
 			tmpSelf._screen.removeListener('keypress', tmpConfirmHandler);
 			tmpSelf._awaitingConfirmation = false;
 
@@ -939,10 +873,10 @@ class RetoldManagerApp extends libPictApplication
 
 				if (tmpSelf.pict.log)
 				{
-					tmpSelf.pict.log.info(`PUBLISH  Confirmed -- publishing ${tmpPackageName} v${tmpLocalVersion}`);
+					tmpSelf.pict.log.info(`PUBLISH  Confirmed -- publishing ${pReport.Package} v${pReport.LocalVersion}`);
 				}
 
-				tmpSelf.processRunner.run('npm', ['publish'], tmpModulePath, null, { append: true });
+				tmpSelf.processRunner.run('npm', ['publish'], pModulePath, null, { append: true });
 			}
 			else
 			{
@@ -951,7 +885,7 @@ class RetoldManagerApp extends libPictApplication
 				tmpSelf._terminalOutput.log('{yellow-fg}{bold}Publish cancelled by user{/bold}{/yellow-fg}');
 				if (tmpSelf.pict.log)
 				{
-					tmpSelf.pict.log.info(`PUBLISH  Cancelled by user -- ${tmpPackageName} v${tmpLocalVersion}`);
+					tmpSelf.pict.log.info(`PUBLISH  Cancelled by user -- ${pReport.Package} v${pReport.LocalVersion}`);
 				}
 				tmpSelf._updateStatus('Publish cancelled');
 				tmpSelf._screen.render();
@@ -959,6 +893,32 @@ class RetoldManagerApp extends libPictApplication
 		};
 
 		this._screen.on('keypress', tmpConfirmHandler);
+	}
+
+	/**
+	 * Format one ecosystem dep entry for the blessed widget. Mirrors the
+	 * original color scheme exactly.
+	 */
+	_formatEcosystemDepLine(pDep)
+	{
+		if (pDep.LocalLink)
+		{
+			return `  {gray-fg}${pDep.Name}  ${pDep.Range}  (local link -- skipped){/gray-fg}`;
+		}
+		if (pDep.Error)
+		{
+			return `  {yellow-fg}${pDep.Name}  ${pDep.Range}  (could not fetch from npm){/yellow-fg}`;
+		}
+		if (pDep.CoversLatest)
+		{
+			let tmpRangeBase = pDep.Range.replace(/^[\^~>=<]*/, '');
+			if (tmpRangeBase === pDep.LatestOnNpm)
+			{
+				return `  {green-fg}✓ ${pDep.Name}  ${pDep.Range}  (latest: ${pDep.LatestOnNpm}){/green-fg}`;
+			}
+			return `  {green-fg}✓ ${pDep.Name}  ${pDep.Range}  (latest: ${pDep.LatestOnNpm} -- covered by range){/green-fg}`;
+		}
+		return `  {red-fg}{bold}✗ ${pDep.Name}{/bold}  ${pDep.Range}  →  latest: ${pDep.LatestOnNpm}{/red-fg}`;
 	}
 
 	// ─────────────────────────────────────────────
@@ -973,11 +933,15 @@ class RetoldManagerApp extends libPictApplication
 		this._terminalOutput.log(`{bold}Module: ${tmpBrowser.ModuleName}{/bold}`);
 		this._terminalOutput.log(`{gray-fg}Path:   ${tmpBrowser.ModulePath}{/gray-fg}`);
 		this._terminalOutput.log('');
-		this._terminalOutput.log('{bold}Operations:{/bold}');
-		this._terminalOutput.log('  {cyan-fg}[i]{/cyan-fg} npm install     {cyan-fg}[t]{/cyan-fg} npm test       {cyan-fg}[y]{/cyan-fg} npm run types');
-		this._terminalOutput.log('  {cyan-fg}[b]{/cyan-fg} npm run build   {cyan-fg}[v]{/cyan-fg} Bump version   {cyan-fg}[d]{/cyan-fg} git diff');
-		this._terminalOutput.log('  {cyan-fg}[o]{/cyan-fg} git commit      {cyan-fg}[p]{/cyan-fg} git pull       {cyan-fg}[u]{/cyan-fg} git push');
-		this._terminalOutput.log('  {cyan-fg}[!]{/cyan-fg} npm publish     {cyan-fg}[x]{/cyan-fg} Kill process');
+		this._terminalOutput.log('{bold}NPM{/bold}');
+		this._terminalOutput.log('  {cyan-fg}[n]{/cyan-fg} ncu (retold)    {cyan-fg}[N]{/cyan-fg} ncu -u + install');
+		this._terminalOutput.log('  {cyan-fg}[i]{/cyan-fg} npm install     {cyan-fg}[t]{/cyan-fg} npm test       {cyan-fg}[y]{/cyan-fg} npm run types  {cyan-fg}[b]{/cyan-fg} npm run build');
+		this._terminalOutput.log('{bold}Version Bump{/bold}');
+		this._terminalOutput.log('  {cyan-fg}[v]{/cyan-fg} bump patch');
+		this._terminalOutput.log('{bold}GIT{/bold}');
+		this._terminalOutput.log('  {cyan-fg}[d]{/cyan-fg} diff            {cyan-fg}[a]{/cyan-fg} add -A         {cyan-fg}[o]{/cyan-fg} commit         {cyan-fg}[p]{/cyan-fg} pull          {cyan-fg}[u]{/cyan-fg} push');
+		this._terminalOutput.log('{bold}Software{/bold}');
+		this._terminalOutput.log('  {cyan-fg}[!]{/cyan-fg} publish         {cyan-fg}[x]{/cyan-fg} kill running process');
 		this._terminalOutput.log('');
 		this._terminalOutput.log('{bold}All Modules:{/bold}');
 		this._terminalOutput.log('  {cyan-fg}[s]{/cyan-fg} Status.sh       {cyan-fg}[r]{/cyan-fg} Update.sh      {cyan-fg}[c]{/cyan-fg} Checkout.sh');
@@ -1223,8 +1187,18 @@ class RetoldManagerApp extends libPictApplication
 
 			if (tmpTargetModule)
 			{
+				// Two-line grouped header: category labels on line 1, global
+				// nav on line 2. Keeps shortcuts discoverable at a glance
+				// without the single-line wrap that used to mush everything
+				// together.
+				let tmpGroups =
+					`{gray-fg}NPM{/gray-fg} [i]nstall [t]est t[y]pes [b]uild [n]cu [N] ncu -u`
+					+ `    {gray-fg}Bump{/gray-fg} [v] patch`
+					+ `    {gray-fg}GIT{/gray-fg} [d]iff [a]dd c[o]mmit [p]ull p[u]sh`
+					+ `    {gray-fg}Software{/gray-fg} [!] publish`;
 				tmpHeaderWidget.setContent(
-					`{bold} Retold Manager{/bold}  |  {cyan-fg}${tmpTargetModule}{/cyan-fg}  [i]nstall [t]est t[y]pes [b]uild [v]ersion [d]iff c[o]mmit [p]ull p[u]sh [!] publish  |  [x] kill  ${tmpNavKeys}`
+					`{bold} Retold Manager{/bold}  |  {cyan-fg}${tmpTargetModule}{/cyan-fg}  |  ${tmpGroups}\n`
+					+ ` [x] kill  ${tmpNavKeys}`
 				);
 			}
 			else
@@ -1354,9 +1328,9 @@ class RetoldManagerApp extends libPictApplication
 
 				if (pValue && pValue.trim().length > 0)
 				{
-					// Shell-escape the message: wrap in single quotes, escape any internal single quotes
-				let tmpMessage = pValue.trim().replace(/'/g, "'\\''");
-				this.processRunner.run('git', ['commit', '-a', '-m', `'${tmpMessage}'`], tmpModulePath);
+					let tmpCommit = libCommitComposer.buildCommitArgs(pValue);
+					// ProcessRunner spawns with shell:true, so use the shell-quoted args.
+					this.processRunner.run(tmpCommit.Command, tmpCommit.ShellArgs, tmpModulePath);
 				}
 
 				this._fileBrowser.focus();
@@ -1380,6 +1354,15 @@ class RetoldManagerApp extends libPictApplication
 		pScreen.key(['p'], () => { this._runModuleOperation('git', ['pull']); });
 		pScreen.key(['u'], () => { this._runModuleOperation('git', ['push']); });
 		pScreen.key(['!'], () => { this._runPublish(); });
+		// [a] — stage every modification/new file (git add -A). Commit via [o]
+		// after. Needed because `git commit -a` doesn't pick up untracked files.
+		pScreen.key(['a'], () => { this._runModuleOperation('git', ['add', '-A']); });
+
+		// npm-check-updates:
+		//   [n] = check retold ecosystem (read-only)
+		//   [N] = apply retold updates (ncu -u + npm install, with Y/N confirm)
+		pScreen.key(['n'], () => { this._runNcu({ Apply: false, Scope: 'retold' }); });
+		pScreen.key(['S-n'], () => { this._runNcu({ Apply: true,  Scope: 'retold' }); });
 
 		// Global script operations (run against all modules)
 		pScreen.key(['s'], () =>

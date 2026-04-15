@@ -9,7 +9,9 @@
     "scripts": {
         "start": "node source/Retold.cjs",
         "build-docs": "npx quack prepare-docs ./docs -d ./modules",
-        "serve-docs": "npx pict-docuserve serve ./docs -p 3456"
+        "serve-docs": "npx pict-docuserve serve ./docs -p 3456",
+        "audit": "node source/retold-manager/bin/manifest-audit.js",
+        "rebuild-modules": "node source/retold-manager/bin/manifest-rebuild-shell.js"
     },
     "repository": {
         "type": "git",

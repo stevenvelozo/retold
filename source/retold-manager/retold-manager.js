@@ -1,13 +1,29 @@
 #!/usr/bin/env node
 /**
- * Retold Manager -- Terminal UI for Module Management
+ * Retold Manager -- Entry point
  *
- * A pict-terminalui application for browsing the retold module suite
- * and running common operations (install, test, build, version, diff).
+ *   npx manager               -> blessed terminal UI (default)
+ *   npx manager --web         -> Orator web server on 127.0.0.1:44444,
+ *                                auto-opens the browser
+ *   npx manager --web --port 5555
+ *   npx manager --web --no-open
  *
- * Run:   node retold-manager.js
- * Quit:  Ctrl-C
+ * The dispatch happens before anything else loads so that the blessed
+ * setup (which takes over the terminal) is only reached in TUI mode.
  */
+
+const tmpArgs = process.argv.slice(2);
+const tmpWebMode = tmpArgs.indexOf('--web') !== -1;
+
+if (tmpWebMode)
+{
+	require('./retold-manager-web.js');
+	return;
+}
+
+// ─────────────────────────────────────────────
+//  TUI bootstrap (default)
+// ─────────────────────────────────────────────
 
 // Suppress blessed's Setulc stderr noise before anything loads
 const _origStderrWrite = process.stderr.write;
@@ -25,9 +41,6 @@ const libPictApplication = require('pict-application');
 
 const libRetoldManagerApp = require('./source/Retold-Manager-App.js');
 
-// ─────────────────────────────────────────────
-//  Bootstrap
-// ─────────────────────────────────────────────
 let _Pict = new libPict(
 	{
 		Product: 'RetoldManager',
