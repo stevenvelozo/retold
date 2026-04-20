@@ -5,9 +5,9 @@
 
 echo "### Building list of modules..."
 
-repositoriesFable=("fable" "fable-log" "fable-log-logger-bunyan" "fable-serviceproviderbase" "fable-settings" "fable-uuid" "ultravisor-beacon" "ultravisor-beacon-capability")
+repositoriesFable=("fable" "fable-log" "fable-log-logger-bunyan" "fable-serviceproviderbase" "fable-settings" "fable-uuid" "fable-ultravisor-client" "ultravisor-beacon" "ultravisor-beacon-capability")
 
-repositoriesMeadow=("bibliograph" "bibliograph-storage-meadow" "foxhound" "meadow" "meadow-connection-dgraph" "meadow-connection-manager" "meadow-connection-mongodb" "meadow-connection-mssql" "meadow-connection-mysql" "meadow-connection-postgresql" "meadow-connection-rocksdb" "meadow-connection-solr" "meadow-connection-sqlite" "meadow-connection-sqlite-browser" "meadow-endpoints" "meadow-graph-client" "meadow-integration" "meadow-migrationmanager" "meadow-provider-offline" "parime" "retold-data-service" "retold-harness" "retold-harness-consistency-proxy" "stricture")
+repositoriesMeadow=("bibliograph" "bibliograph-storage-meadow" "foxhound" "meadow" "meadow-connection-dgraph" "meadow-connection-manager" "meadow-connection-mongodb" "meadow-connection-mssql" "meadow-connection-mysql" "meadow-connection-postgresql" "meadow-connection-rocksdb" "meadow-connection-retold-databeacon" "meadow-connection-solr" "meadow-connection-sqlite" "meadow-connection-sqlite-browser" "meadow-endpoints" "meadow-graph-client" "meadow-integration" "meadow-migrationmanager" "meadow-provider-offline" "parime" "retold-data-service" "retold-harness" "retold-harness-consistency-proxy" "stricture")
 
 repositoriesOrator=("orator" "orator-authentication" "orator-conversion" "orator-endpoint" "orator-http-proxy" "orator-serviceserver-base" "orator-serviceserver-restify" "orator-ssl-proxy" "orator-static-server" "tidings")
 
@@ -15,6 +15,6 @@ repositoriesPict=("cryptbrau" "informary" "pict" "pict-application" "pict-docuse
 
 repositoriesUtility=("cachetrax" "choreographic" "cumulation" "elucidator" "indoctrinate" "manyfest" "manyfest-conversion" "merquerial" "pict-cruisecontrol" "precedent" "quackage" "retold-sample-data")
 
-repositoriesApps=("retold-content-system" "retold-databeacon" "retold-facto" "retold-remote" "retold-remote-desktop" "retold-remote-ios" "ultravisor" "ultravisor-suite-harness")
+repositoriesApps=("retold-content-system" "retold-databeacon" "retold-data-mapper" "retold-facto" "retold-remote" "retold-remote-desktop" "retold-remote-ios" "ultravisor" "ultravisor-lab" "ultravisor-suite-harness")
 
 echo "### ... Module lists built!"

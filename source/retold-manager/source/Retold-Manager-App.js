@@ -953,7 +953,7 @@ class RetoldManagerApp extends libPictApplication
 		this._terminalOutput.log('');
 		this._terminalOutput.log('Select a file to view its contents, or press a shortcut key.');
 
-		// Try to show package.json version info
+		// Try to show package.json version info + categorized dependencies
 		let tmpPkgPath = libPath.join(tmpBrowser.ModulePath, 'package.json');
 		try
 		{
@@ -964,6 +964,11 @@ class RetoldManagerApp extends libPictApplication
 			{
 				this._terminalOutput.log(`{gray-fg}${tmpPkg.description}{/gray-fg}`);
 			}
+
+			// Categorized deps — retold modules highlighted in cyan
+			let tmpEcosystem = new Set(libModuleCatalog.getAllModuleNames());
+			this._renderTuiDeps(tmpPkg.dependencies, 'Dependencies', tmpEcosystem);
+			this._renderTuiDeps(tmpPkg.devDependencies, 'Dev Dependencies', tmpEcosystem);
 		}
 		catch (pError)
 		{
@@ -971,6 +976,55 @@ class RetoldManagerApp extends libPictApplication
 		}
 
 		this._screen.render();
+	}
+
+	_renderTuiDeps(pDeps, pLabel, pEcosystem)
+	{
+		if (!pDeps) { return; }
+		let tmpNames = Object.keys(pDeps).sort();
+		if (tmpNames.length === 0) { return; }
+
+		let tmpRetold = [];
+		let tmpExternal = [];
+		for (let i = 0; i < tmpNames.length; i++)
+		{
+			let tmpName = tmpNames[i];
+			let tmpRange = pDeps[tmpName];
+			if (pEcosystem.has(tmpName))
+			{
+				tmpRetold.push({ Name: tmpName, Range: tmpRange });
+			}
+			else
+			{
+				tmpExternal.push({ Name: tmpName, Range: tmpRange });
+			}
+		}
+
+		this._terminalOutput.log('');
+
+		if (tmpRetold.length > 0)
+		{
+			this._terminalOutput.log(`{bold}Retold ${pLabel}{/bold}  (${tmpRetold.length})`);
+			for (let i = 0; i < tmpRetold.length; i++)
+			{
+				let tmpDep = tmpRetold[i];
+				let tmpEntry = libModuleCatalog.getModule(tmpDep.Name);
+				let tmpLinks = tmpEntry && tmpEntry.GitHub
+					? `  {gray-fg}${tmpEntry.GitHub}{/gray-fg}`
+					: '';
+				this._terminalOutput.log(`  {cyan-fg}${tmpDep.Name.padEnd(34)}{/cyan-fg} ${tmpDep.Range}${tmpLinks}`);
+			}
+		}
+
+		if (tmpExternal.length > 0)
+		{
+			this._terminalOutput.log(`{bold}External ${pLabel}{/bold}  (${tmpExternal.length})`);
+			for (let i = 0; i < tmpExternal.length; i++)
+			{
+				let tmpDep = tmpExternal[i];
+				this._terminalOutput.log(`  {gray-fg}${tmpDep.Name.padEnd(34)} ${tmpDep.Range}{/gray-fg}`);
+			}
+		}
 	}
 
 	_showFileContents(pFilePath, pFileName)

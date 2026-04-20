@@ -681,12 +681,25 @@
 				tmpHtml += '<div class="diff-panel" id="RM-DiffPanel" style="display:none">';
 				tmpHtml += '  <div class="diff-header">';
 				tmpHtml += '    <span id="RM-DiffSummary">diff</span>';
-				tmpHtml += '    <button data-act="diff-close">close</button>';
+				tmpHtml += '    <span class="diff-header-actions">';
+				tmpHtml += '      <button data-act="diff-expand" title="Open in full-screen modal">⛶ expand</button>';
+				tmpHtml += '      <button data-act="diff-close">close</button>';
+				tmpHtml += '    </span>';
 				tmpHtml += '  </div>';
 				tmpHtml += '  <div class="diff-body" id="RM-DiffBody"></div>';
 				tmpHtml += '</div>';
 			}
 			tmpHtml += '</div>';
+		}
+
+		// Dependencies — categorized: retold vs external, deps vs devDeps
+		let tmpCat = pDetail.CategorizedDeps;
+		if (tmpCat)
+		{
+			tmpHtml += renderDepSection('Retold Dependencies',       tmpCat.RetoldDeps,      true);
+			tmpHtml += renderDepSection('External Dependencies',     tmpCat.ExternalDeps,    false);
+			tmpHtml += renderDepSection('Retold Dev Dependencies',   tmpCat.RetoldDevDeps,   true);
+			tmpHtml += renderDepSection('External Dev Dependencies', tmpCat.ExternalDevDeps, false);
 		}
 
 		// Output panel container (always present, so operations can stream in)
@@ -700,17 +713,59 @@
 		wireDiffCloseButton();
 	}
 
+	function renderDepSection(pTitle, pDeps, pIsRetold)
+	{
+		if (!pDeps || pDeps.length === 0) { return ''; }
+		let tmpHtml = '<div class="workspace-section">';
+		tmpHtml += '<h3>' + escapeHtml(pTitle) + ' (' + pDeps.length + ')</h3>';
+		tmpHtml += '<table class="dep-table"><tbody>';
+		for (let i = 0; i < pDeps.length; i++)
+		{
+			let tmpDep = pDeps[i];
+			tmpHtml += '<tr>';
+			tmpHtml += '<td class="dep-name' + (pIsRetold ? ' retold' : '') + '">'
+				+ escapeHtml(tmpDep.Name) + '</td>';
+			tmpHtml += '<td class="dep-range">' + escapeHtml(tmpDep.Range) + '</td>';
+			tmpHtml += '<td class="dep-links">';
+			if (tmpDep.GitHub)
+			{
+				tmpHtml += '<a href="' + escapeHtml(tmpDep.GitHub) + '" target="_blank" title="GitHub">gh</a> ';
+			}
+			if (tmpDep.Documentation)
+			{
+				tmpHtml += '<a href="' + escapeHtml(tmpDep.Documentation) + '" target="_blank" title="Docs">docs</a> ';
+			}
+			tmpHtml += '<a href="' + escapeHtml(tmpDep.Npm) + '" target="_blank" title="npm">npm</a>';
+			tmpHtml += '</td>';
+			tmpHtml += '</tr>';
+		}
+		tmpHtml += '</tbody></table>';
+		tmpHtml += '</div>';
+		return tmpHtml;
+	}
+
 	function wireDiffCloseButton()
 	{
 		let tmpClose = elWorkspace.querySelector('[data-act="diff-close"]');
-		if (!tmpClose) { return; }
-		tmpClose.addEventListener('click', function ()
-			{
-				let tmpPanel = document.getElementById('RM-DiffPanel');
-				let tmpBody = document.getElementById('RM-DiffBody');
-				if (tmpPanel) { tmpPanel.style.display = 'none'; }
-				if (tmpBody) { tmpBody.innerHTML = ''; }
-			});
+		if (tmpClose)
+		{
+			tmpClose.addEventListener('click', function ()
+				{
+					let tmpPanel = document.getElementById('RM-DiffPanel');
+					let tmpBody = document.getElementById('RM-DiffBody');
+					if (tmpPanel) { tmpPanel.style.display = 'none'; }
+					if (tmpBody) { tmpBody.innerHTML = ''; }
+				});
+		}
+
+		let tmpExpand = elWorkspace.querySelector('[data-act="diff-expand"]');
+		if (tmpExpand)
+		{
+			tmpExpand.addEventListener('click', function ()
+				{
+					if (_selectedModule) { openDiffModal(_selectedModule); }
+				});
+		}
 	}
 
 	// ─────────────────────────────────────────────
@@ -848,9 +903,47 @@
 	}
 
 	/**
+	 * Fetch a module's unified diff as plain text. Excludes dist/ by default
+	 * (matches the TUI's [d] sequence).
+	 *
+	 * @returns {Promise<string>}
+	 */
+	function fetchDiffText(pName)
+	{
+		return fetch('/api/manager/modules/' + encodeURIComponent(pName) + '/git/diff',
+			{ headers: { 'Accept': 'text/plain' } })
+			.then(function (pResponse)
+				{
+					if (!pResponse.ok) { throw new Error('HTTP ' + pResponse.status); }
+					return pResponse.text();
+				});
+	}
+
+	/**
+	 * Populate a diff body + summary pair by fetching and rendering the diff
+	 * for the given module. Handles loading and error states.
+	 */
+	function loadDiffInto(pName, pBody, pSummary)
+	{
+		pSummary.textContent = 'loading diff...';
+		pBody.innerHTML = '<div class="diff-line meta">fetching ' + escapeHtml(pName) + ' diff...</div>';
+
+		fetchDiffText(pName).then(
+			function (pDiff)
+				{
+					renderDiff(pDiff, pBody, pSummary);
+				},
+			function (pError)
+				{
+					pBody.innerHTML = '<div class="diff-line del">Diff fetch failed: '
+						+ escapeHtml(pError.message) + '</div>';
+					pSummary.textContent = 'error';
+				});
+	}
+
+	/**
 	 * Render a syntax-coloured unified diff inline in the workspace, rather
-	 * than streaming raw text through the output panel. Excludes dist/ by
-	 * default (matches the TUI's [d] sequence).
+	 * than streaming raw text through the output panel.
 	 */
 	function showInlineDiff(pName)
 	{
@@ -860,26 +953,70 @@
 		if (!tmpPanel || !tmpBody || !tmpSummary) { return; }
 
 		tmpPanel.style.display = '';
-		tmpSummary.textContent = 'loading diff...';
-		tmpBody.innerHTML = '<div class="diff-line meta">fetching ' + escapeHtml(pName) + ' diff...</div>';
+		loadDiffInto(pName, tmpBody, tmpSummary);
+	}
 
-		fetch('/api/manager/modules/' + encodeURIComponent(pName) + '/git/diff',
-			{ headers: { 'Accept': 'text/plain' } })
-			.then(function (pResponse)
+	/**
+	 * Open the diff in a full-screen modal (same sizing as the log viewer).
+	 */
+	let _diffModalOpen = false;
+	function openDiffModal(pName)
+	{
+		if (_diffModalOpen) { return; }
+		_diffModalOpen = true;
+
+		let tmpBackdrop = document.createElement('div');
+		tmpBackdrop.className = 'modal-backdrop diff-modal';
+		tmpBackdrop.innerHTML =
+			'<div class="modal">'
+			+ '<div class="diff-panel diff-panel-modal">'
+			+ '<div class="diff-header">'
+			+ '  <span><strong>Diff — ' + escapeHtml(pName) + '</strong> '
+			+ '<span class="subtle" id="RM-DiffModalSummary" style="margin-left:8px">loading...</span></span>'
+			+ '  <span class="diff-header-actions">'
+			+ '    <button data-act="diff-modal-refresh">↻ refresh</button>'
+			+ '    <button data-act="close">✕ close</button>'
+			+ '  </span>'
+			+ '</div>'
+			+ '<div class="diff-body" id="RM-DiffModalBody"></div>'
+			+ '</div>'
+			+ '</div>';
+		document.body.appendChild(tmpBackdrop);
+
+		let tmpBody = tmpBackdrop.querySelector('#RM-DiffModalBody');
+		let tmpSummary = tmpBackdrop.querySelector('#RM-DiffModalSummary');
+
+		function close()
+		{
+			tmpBackdrop.remove();
+			_diffModalOpen = false;
+			document.removeEventListener('keydown', onKey);
+		}
+
+		function onKey(pEvent)
+		{
+			if (pEvent.key === 'Escape') { close(); }
+		}
+
+		tmpBackdrop.addEventListener('click', function (pEvent)
+			{
+				if (pEvent.target === tmpBackdrop) { close(); }
+			});
+
+		let tmpButtons = tmpBackdrop.querySelectorAll('button[data-act]');
+		for (let i = 0; i < tmpButtons.length; i++)
+		{
+			tmpButtons[i].addEventListener('click', function (pEvent)
 				{
-					if (!pResponse.ok) { throw new Error('HTTP ' + pResponse.status); }
-					return pResponse.text();
-				})
-			.then(function (pDiff)
-				{
-					renderDiff(pDiff, tmpBody, tmpSummary);
-				},
-				function (pError)
-				{
-					tmpBody.innerHTML = '<div class="diff-line del">Diff fetch failed: '
-						+ escapeHtml(pError.message) + '</div>';
-					tmpSummary.textContent = 'error';
+					let tmpAct = pEvent.currentTarget.getAttribute('data-act');
+					if (tmpAct === 'close') { return close(); }
+					if (tmpAct === 'diff-modal-refresh') { return loadDiffInto(pName, tmpBody, tmpSummary); }
 				});
+		}
+
+		document.addEventListener('keydown', onKey);
+
+		loadDiffInto(pName, tmpBody, tmpSummary);
 	}
 
 	function renderDiff(pText, pBody, pSummary)

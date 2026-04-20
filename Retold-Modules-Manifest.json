@@ -75,6 +75,18 @@
 					]
 				},
 				{
+					"Name": "fable-ultravisor-client",
+					"Path": "modules/fable/fable-ultravisor-client",
+					"Description": "HTTP client for the Ultravisor coordinator: authentication, work-item dispatch (JSON and binary-framed streaming), operation triggering",
+					"GitHub": "https://github.com/stevenvelozo/fable-ultravisor-client",
+					"Documentation": "https://stevenvelozo.github.io/fable-ultravisor-client/",
+					"RelatedModules": [
+						"fable",
+						"ultravisor",
+						"ultravisor-beacon"
+					]
+				},
+				{
 					"Name": "ultravisor-beacon",
 					"Path": "modules/fable/ultravisor-beacon",
 					"Description": "Ultravisor Beacon: lightweight beacon client and Fable service for remote task execution",
@@ -151,7 +163,8 @@
 						"meadow-connection-mongodb",
 						"meadow-connection-dgraph",
 						"meadow-connection-solr",
-						"meadow-connection-rocksdb"
+						"meadow-connection-rocksdb",
+						"meadow-connection-retold-databeacon"
 					]
 				},
 				{
@@ -224,6 +237,19 @@
 					"Documentation": "https://stevenvelozo.github.io/meadow-connection-rocksdb/",
 					"RelatedModules": [
 						"meadow"
+					]
+				},
+				{
+					"Name": "meadow-connection-retold-databeacon",
+					"Path": "modules/meadow/meadow-connection-retold-databeacon",
+					"Description": "Meadow connection that relays CRUD and introspection through an Ultravisor mesh to a remote retold-databeacon agent",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-retold-databeacon",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-retold-databeacon/",
+					"RelatedModules": [
+						"meadow",
+						"fable-ultravisor-client",
+						"retold-databeacon",
+						"ultravisor"
 					]
 				},
 				{
@@ -1006,6 +1032,17 @@
 					"RelatedModules": []
 				},
 				{
+					"Name": "retold-data-mapper",
+					"Path": "modules/apps/retold-data-mapper",
+					"Description": "Cross-beacon schema mapping and data sync — discover remote databeacons on the Ultravisor mesh, define field mappings, and execute batch syncs.",
+					"GitHub": "https://github.com/stevenvelozo/retold-data-mapper",
+					"Documentation": "https://stevenvelozo.github.io/retold-data-mapper/",
+					"RelatedModules": [
+						"fable-ultravisor-client",
+						"retold-databeacon"
+					]
+				},
+				{
 					"Name": "retold-facto",
 					"Path": "modules/apps/retold-facto",
 					"Description": "Data warehouse and knowledge graph storage for the Retold ecosystem.",
@@ -1050,6 +1087,18 @@
 					"Documentation": "https://stevenvelozo.github.io/ultravisor/",
 					"RelatedModules": [
 						"fable"
+					]
+				},
+				{
+					"Name": "ultravisor-lab",
+					"Path": "modules/apps/ultravisor-lab",
+					"Description": "Web-based orchestration and monitoring for dockerized DB engines, retold-databeacons, Ultravisor, and Facto instances",
+					"GitHub": "https://github.com/stevenvelozo/ultravisor-lab",
+					"Documentation": "https://stevenvelozo.github.io/ultravisor-lab/",
+					"RelatedModules": [
+						"ultravisor",
+						"retold-databeacon",
+						"retold-facto"
 					]
 				},
 				{

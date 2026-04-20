@@ -18,6 +18,52 @@
  *     Group metadata only (for sidebar rendering).
  */
 
+/**
+ * Split a package's deps/devDeps into four buckets: retold deps, external
+ * deps, retold devDeps, external devDeps. Each entry has Name, Range, Npm
+ * link, and (for retold) GitHub + Docs links from the manifest.
+ */
+function categorizeDeps(pPkg, pEcosystem, pCatalog)
+{
+	function buildList(pDepsObj, pSection)
+	{
+		let tmpRetold = [];
+		let tmpExternal = [];
+		let tmpNames = Object.keys(pDepsObj || {}).sort();
+		for (let i = 0; i < tmpNames.length; i++)
+		{
+			let tmpName = tmpNames[i];
+			let tmpRange = pDepsObj[tmpName];
+			let tmpBase = { Name: tmpName, Range: tmpRange, Npm: 'https://www.npmjs.com/package/' + tmpName };
+
+			if (pEcosystem.has(tmpName))
+			{
+				let tmpEntry = pCatalog.getModule(tmpName);
+				tmpBase.GitHub = tmpEntry ? tmpEntry.GitHub : null;
+				tmpBase.Documentation = tmpEntry ? tmpEntry.Documentation : null;
+				tmpBase.Retold = true;
+				tmpRetold.push(tmpBase);
+			}
+			else
+			{
+				tmpBase.Retold = false;
+				tmpExternal.push(tmpBase);
+			}
+		}
+		return { Retold: tmpRetold, External: tmpExternal };
+	}
+
+	let tmpDeps = buildList(pPkg.dependencies, 'dependencies');
+	let tmpDevDeps = buildList(pPkg.devDependencies, 'devDependencies');
+
+	return {
+		RetoldDeps:      tmpDeps.Retold,
+		ExternalDeps:    tmpDeps.External,
+		RetoldDevDeps:   tmpDevDeps.Retold,
+		ExternalDevDeps: tmpDevDeps.External,
+	};
+}
+
 module.exports = function registerManifestRoutes(pCore)
 {
 	let tmpOrator = pCore.Orator;
@@ -145,6 +191,14 @@ module.exports = function registerManifestRoutes(pCore)
 			let tmpPkg = tmpIntrospector.readPackageJson(tmpName);
 			let tmpGitStatus = tmpIntrospector.getGitStatus(tmpName);
 
+			// Build categorized dependency view: retold vs external, deps vs devDeps.
+			let tmpCategorized = null;
+			if (tmpPkg)
+			{
+				let tmpEcosystem = new Set(tmpCatalog.getAllModuleNames());
+				tmpCategorized = categorizeDeps(tmpPkg, tmpEcosystem, tmpCatalog);
+			}
+
 			pRes.send(
 				{
 					Manifest:
@@ -168,6 +222,7 @@ module.exports = function registerManifestRoutes(pCore)
 						Scripts:         tmpPkg.scripts || {},
 					} : null,
 					GitStatus: tmpGitStatus,
+					CategorizedDeps: tmpCategorized,
 				});
 			return pNext();
 		});
