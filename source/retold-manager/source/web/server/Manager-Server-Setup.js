@@ -42,6 +42,27 @@ const libRoutesRipple = require('./RetoldManager-Api-Ripple.js');
 const libOperationBroadcaster = require('./Manager-OperationBroadcaster.js');
 const libProcessStreamBridge = require('./Manager-ProcessStreamBridge.js');
 
+// ─────────────────────────────────────────────
+//  Runtime asset CDN fallback map
+//
+//  Filename (under /pict/) → CDN URL. Unversioned URLs resolve to the
+//  package's latest published version; fine for a dev tool where getting
+//  pict fixes automatically is preferable to pinning.
+// ─────────────────────────────────────────────
+
+function unpkgUrl(pPackage, pRelPath)
+{
+	return 'https://unpkg.com/' + pPackage + '/' + pRelPath;
+}
+
+function buildRuntimeCDNFallbackMap()
+{
+	// Add new entries as additional runtime assets are referenced from index.html.
+	return {
+		'pict.min.js': unpkgUrl('pict', 'dist/pict.min.js'),
+	};
+}
+
 function setupRetoldManagerServer(pOptions, fCallback)
 {
 	let tmpPort = pOptions.Port || 55555;
@@ -173,13 +194,21 @@ function setupRetoldManagerServer(pOptions, fCallback)
 			//
 			// Layout:
 			//   /             -> html/index.html (pict shell)
-			//   /css/*        -> css/           (shared stylesheet)
-			//   /pict/*       -> web-application/ (committed build output,
-			//                                     includes pict.min.js + bundle)
+			//   /css/*        -> css/ (shared stylesheet)
+			//   /app/*        -> web-application/ (committed build output) with
+			//                    CDN fallback for runtime assets not tracked
+			//                    locally (e.g. pict.min.js)
 			let tmpSourceRoot = libPath.resolve(__dirname, '..', '..', '..');
 
 			tmpOrator.addStaticRoute(`${tmpSourceRoot}/css/`, null, '/css/*', '/css/');
-			tmpOrator.addStaticRoute(`${tmpSourceRoot}/web-application/`, null, '/pict/*', '/pict/');
+
+			tmpOrator.addStaticRouteWithFallbacks(
+				`${tmpSourceRoot}/web-application/`,
+				null,
+				'/app/*',
+				'/app/',
+				null,
+				buildRuntimeCDNFallbackMap());
 
 			// Root → html/index.html. Registered last so the specific routes above win.
 			tmpOrator.addStaticRoute(`${tmpSourceRoot}/html/`, 'index.html');

@@ -22,7 +22,7 @@
 		"blessed": "^0.1.81",
 		"fable": "^3.0.232",
 		"fable-serviceproviderbase": "^3.0.16",
-		"orator": "^6.0.4",
+		"orator": "^6.1.0",
 		"orator-serviceserver-restify": "^2.0.10",
 		"pict": "^1.0.345",
 		"pict-application": "^1.0.28",

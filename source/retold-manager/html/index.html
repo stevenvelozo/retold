@@ -9,10 +9,11 @@
 </head>
 <body>
 	<div id="RetoldManager-Application-Container"></div>
-	<!-- pict runtime is loaded from the unpkg CDN; version is pinned to match
-	     the version pict-application/pict-router/etc. were bundled against. -->
-	<script src="https://unpkg.com/pict@1.0.364/dist/pict.min.js"></script>
-	<script src="pict/retold-manager.js"></script>
+	<!-- Runtime assets are served from /app/*. The server transparently 302s
+	     to a CDN (unpkg) for files not committed under web-application/, so a
+	     fresh clone works with or without the runtime files pre-dropped. -->
+	<script src="app/pict.min.js"></script>
+	<script src="app/retold-manager.js"></script>
 	<script>
 		Pict.safeLoadPictApplication(RetoldManagerApplication, 2);
 	</script>
