@@ -1011,6 +1011,17 @@
 			"Path": "modules/apps",
 			"Modules": [
 				{
+					"Name": "retold-beacon-host",
+					"Path": "modules/apps/retold-beacon-host",
+					"Description": "Generic container host for ultravisor-beacon CapabilityProvider classes published as npm packages — boots an Orator, loads one or more provider modules by name, and registers with a target Ultravisor.",
+					"GitHub": "https://github.com/stevenvelozo/retold-beacon-host",
+					"Documentation": false,
+					"RelatedModules": [
+						"ultravisor",
+						"ultravisor-beacon"
+					]
+				},
+				{
 					"Name": "retold-content-system",
 					"Path": "modules/apps/retold-content-system",
 					"Description": "Content management system built on the Retold ecosystem",
