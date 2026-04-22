@@ -1,0 +1,24 @@
+{
+	"ProviderIdentifier": "Pict-Router",
+	"AutoInitialize": true,
+	"AutoInitializeOrdinal": 0,
+	"Routes":
+	[
+		{
+			"path": "/Home",
+			"template": "{~LV:Pict.PictApplication.showView(`Manager-Home`)~}"
+		},
+		{
+			"path": "/Manifest",
+			"template": "{~LV:Pict.PictApplication.showView(`Manager-ManifestEditor`)~}"
+		},
+		{
+			"path": "/Log",
+			"template": "{~LV:Pict.PictApplication.showView(`Manager-LogViewer`)~}"
+		},
+		{
+			"path": "/Ripple",
+			"template": "{~LV:Pict.PictApplication.showView(`Manager-Ripple`)~}"
+		}
+	]
+}

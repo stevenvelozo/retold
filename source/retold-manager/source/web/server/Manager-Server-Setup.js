@@ -171,13 +171,18 @@ function setupRetoldManagerServer(pOptions, fCallback)
 			//
 			// addStaticRoute(pFilePath, pDefaultFile, pRoute='/*', pRouteStrip='/', ...)
 			//
-			// During dev we serve from the source tree directly, no copy step
-			// needed. The built `web-application/` path (if it exists) gets
-			// layered last so a real `quack copy` build wins if present.
+			// Layout:
+			//   /             -> html/index.html (pict shell)
+			//   /css/*        -> css/           (shared stylesheet)
+			//   /pict/*       -> web-application/ (quack build output)
+			//   /lib/*        -> node_modules/pict/dist/ (pict runtime)
 			let tmpSourceRoot = libPath.resolve(__dirname, '..', '..', '..');
+
 			tmpOrator.addStaticRoute(`${tmpSourceRoot}/css/`, null, '/css/*', '/css/');
-			tmpOrator.addStaticRoute(`${tmpSourceRoot}/source/web/client/`, null, '/js/*', '/js/');
-			// Root → html/index.html. Registered last so /css and /js win above.
+			tmpOrator.addStaticRoute(`${tmpSourceRoot}/web-application/`, null, '/pict/*', '/pict/');
+			tmpOrator.addStaticRoute(`${tmpSourceRoot}/node_modules/pict/dist/`, null, '/lib/*', '/lib/');
+
+			// Root → html/index.html. Registered last so the specific routes above win.
 			tmpOrator.addStaticRoute(`${tmpSourceRoot}/html/`, 'index.html');
 
 			// ─────────────────────────────────────────────

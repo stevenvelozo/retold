@@ -1,0 +1,14 @@
+{
+	"Name": "Retold Manager",
+	"Hash": "RetoldManager",
+	"MainViewportViewIdentifier": "Manager-Layout",
+	"MainViewportDestinationAddress": "#RetoldManager-Application-Container",
+	"MainViewportDefaultDataAddress": "AppData.Manager",
+	"AutoSolveAfterInitialize": true,
+	"AutoRenderMainViewportViewAfterInitialize": false,
+	"AutoRenderViewsAfterInitialize": false,
+	"pict_configuration":
+	{
+		"Product": "Retold-Manager"
+	}
+}

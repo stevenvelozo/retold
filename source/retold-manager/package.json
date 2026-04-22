@@ -11,6 +11,7 @@
 		"start": "node retold-manager.js",
 		"web": "node retold-manager-web.js",
 		"terminal": "node retold-manager.js --terminal",
+		"build": "npx quack build",
 		"audit": "node bin/manifest-audit.js",
 		"rebuild-shell": "node bin/manifest-rebuild-shell.js",
 		"rebuild-shell-check": "node bin/manifest-rebuild-shell.js --check",
@@ -25,8 +26,13 @@
 		"orator-serviceserver-restify": "^2.0.10",
 		"pict": "^1.0.345",
 		"pict-application": "^1.0.28",
+		"pict-router": "^1.0.9",
+		"pict-section-modal": "^0.0.5",
 		"pict-terminalui": "^0.0.2",
 		"pict-view": "^1.0.64",
 		"ws": "^8.20.0"
+	},
+	"devDependencies": {
+		"quackage": "^1.1.2"
 	}
 }

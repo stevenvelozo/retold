@@ -1,0 +1,19 @@
+{
+	"GulpfileConfiguration":
+	{
+		"EntrypointInputSourceFile": "{~Data:AppData.CWD~}/source/web/client/pict-app/Pict-Retold-Manager-Bundle.js",
+		"LibraryObjectName": "retoldManager",
+		"LibraryOutputFolder": "{~Data:AppData.CWD~}/web-application/",
+		"LibraryUniminifiedFileName": "retold-manager.{~Data:Record.BuildFileLabel~}js",
+		"LibraryMinifiedFileName": "retold-manager.{~Data:Record.BuildFileLabel~}min.js"
+	},
+	"GulpExecutions":
+	[
+		{
+			"Hash": "default",
+			"Name": "Default standard build.",
+			"BuildFileLabel": "",
+			"BrowsersListRC": "since 2022"
+		}
+	]
+}

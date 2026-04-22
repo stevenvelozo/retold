@@ -160,6 +160,12 @@ class PrePublishValidator
 			tmpReport.OkToPublish = false;
 			tmpReport.Aborted = true;
 		}
+		else
+		{
+			// Sequential-bump check (warn-only; skipping a patch is occasionally
+			// intentional but almost always an accident).
+			this._checkVersionSequence(tmpReport);
+		}
 
 		// file: / link: references in ANY dep section. Local dev links
 		// break every consumer's `npm install`, so they always block
@@ -167,6 +173,96 @@ class PrePublishValidator
 		this._checkForFileReferences(tmpPkg, tmpReport);
 
 		return tmpReport;
+	}
+
+	/**
+	 * Warn when the local version skips one or more releases in the
+	 * changed scope vs. what's on npm. Rules (semver):
+	 *   - patch bump: local must be M.m.(p+1)
+	 *   - minor bump: local must be M.(m+1).0
+	 *   - major bump: local must be (M+1).0.0
+	 * Anything else (e.g. npm 1.3.10 → local 1.3.12 or 1.4.5) is flagged.
+	 * Skipped when either side has a pre-release tag, or when either side
+	 * is unparsable — we defer to the human in those cases.
+	 */
+	_checkVersionSequence(pReport)
+	{
+		if (!pReport.PublishedVersion || !pReport.LocalVersion) { return; }
+
+		let tmpPub   = this._parseSemver(pReport.PublishedVersion);
+		let tmpLocal = this._parseSemver(pReport.LocalVersion);
+		if (!tmpPub || !tmpLocal) { return; }
+		if (tmpPub.Prerelease || tmpLocal.Prerelease) { return; }
+
+		// Downgrade — different warning.
+		let tmpCmp = this._compareSemver(tmpLocal, tmpPub);
+		if (tmpCmp < 0)
+		{
+			pReport.Problems.push(
+				{
+					Code: 'version-downgrade',
+					Severity: 'warn',
+					Message: `Local v${pReport.LocalVersion} is LOWER than npm v${pReport.PublishedVersion}. Publishing will be rejected by npm.`,
+					LocalVersion:     pReport.LocalVersion,
+					PublishedVersion: pReport.PublishedVersion,
+				});
+			return;
+		}
+		if (tmpCmp === 0) { return; }    // equal is handled by version-already-published
+
+		let tmpExpected;
+		let tmpScope;
+		if (tmpLocal.Major > tmpPub.Major)
+		{
+			tmpScope    = 'major';
+			tmpExpected = (tmpPub.Major + 1) + '.0.0';
+		}
+		else if (tmpLocal.Minor > tmpPub.Minor)
+		{
+			tmpScope    = 'minor';
+			tmpExpected = tmpPub.Major + '.' + (tmpPub.Minor + 1) + '.0';
+		}
+		else
+		{
+			tmpScope    = 'patch';
+			tmpExpected = tmpPub.Major + '.' + tmpPub.Minor + '.' + (tmpPub.Patch + 1);
+		}
+
+		if (pReport.LocalVersion === tmpExpected) { return; }    // all good — sequential
+
+		pReport.Problems.push(
+			{
+				Code: 'version-non-sequential',
+				Severity: 'warn',
+				Message: `Local v${pReport.LocalVersion} skips ahead of npm v${pReport.PublishedVersion} `
+					+ `— a ${tmpScope} bump from v${pReport.PublishedVersion} should land on v${tmpExpected}.`,
+				LocalVersion:     pReport.LocalVersion,
+				PublishedVersion: pReport.PublishedVersion,
+				ExpectedVersion:  tmpExpected,
+				Scope:            tmpScope,
+			});
+	}
+
+	_parseSemver(pVersion)
+	{
+		if (typeof pVersion !== 'string') { return null; }
+		// Capture M.m.p optionally followed by -prerelease / +build.
+		let tmpMatch = pVersion.match(/^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?(?:\+([0-9A-Za-z.-]+))?$/);
+		if (!tmpMatch) { return null; }
+		return {
+			Major: parseInt(tmpMatch[1], 10),
+			Minor: parseInt(tmpMatch[2], 10),
+			Patch: parseInt(tmpMatch[3], 10),
+			Prerelease: tmpMatch[4] || null,
+		};
+	}
+
+	_compareSemver(pA, pB)
+	{
+		if (pA.Major !== pB.Major) { return pA.Major - pB.Major; }
+		if (pA.Minor !== pB.Minor) { return pA.Minor - pB.Minor; }
+		if (pA.Patch !== pB.Patch) { return pA.Patch - pB.Patch; }
+		return 0;
 	}
 
 	_checkForFileReferences(pPkg, pReport)

@@ -199,6 +199,20 @@ module.exports = function registerManifestRoutes(pCore)
 				tmpCategorized = categorizeDeps(tmpPkg, tmpEcosystem, tmpCatalog);
 			}
 
+			// Fetch the currently published npm version so the client can offer
+			// pre-emptive checks (e.g. warn before a second bump that would skip
+			// a version). Wrapped so any npm hiccup degrades gracefully.
+			let tmpPublishedVersion = null;
+			if (tmpPkg && tmpPkg.name)
+			{
+				try
+				{
+					tmpPublishedVersion = tmpIntrospector.fetchPublishedVersionSync(tmpPkg.name,
+						{ Cwd: tmpEntry.AbsolutePath, Timeout: 5000 });
+				}
+				catch (pError) { tmpPublishedVersion = null; }
+			}
+
 			pRes.send(
 				{
 					Manifest:
@@ -214,12 +228,13 @@ module.exports = function registerManifestRoutes(pCore)
 							RelatedModules: tmpEntry.RelatedModules || [],
 						},
 					Package: tmpPkg ? {
-						Name:            tmpPkg.name,
-						Version:         tmpPkg.version,
-						Description:     tmpPkg.description,
-						Dependencies:    tmpPkg.dependencies || {},
-						DevDependencies: tmpPkg.devDependencies || {},
-						Scripts:         tmpPkg.scripts || {},
+						Name:             tmpPkg.name,
+						Version:          tmpPkg.version,
+						PublishedVersion: tmpPublishedVersion,
+						Description:      tmpPkg.description,
+						Dependencies:     tmpPkg.dependencies || {},
+						DevDependencies:  tmpPkg.devDependencies || {},
+						Scripts:          tmpPkg.scripts || {},
 					} : null,
 					GitStatus: tmpGitStatus,
 					CategorizedDeps: tmpCategorized,

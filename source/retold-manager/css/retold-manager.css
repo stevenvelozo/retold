@@ -233,6 +233,8 @@ body
 	font-size: 12.5px;
 	cursor: pointer;
 	border-left: 2px solid transparent;
+	color: var(--color-text);
+	text-decoration: none;
 }
 
 .module-row:hover
