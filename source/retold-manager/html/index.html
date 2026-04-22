@@ -9,7 +9,9 @@
 </head>
 <body>
 	<div id="RetoldManager-Application-Container"></div>
-	<script src="lib/pict.min.js"></script>
+	<!-- pict runtime is loaded from the unpkg CDN; version is pinned to match
+	     the version pict-application/pict-router/etc. were bundled against. -->
+	<script src="https://unpkg.com/pict@1.0.364/dist/pict.min.js"></script>
 	<script src="pict/retold-manager.js"></script>
 	<script>
 		Pict.safeLoadPictApplication(RetoldManagerApplication, 2);

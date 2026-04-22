@@ -174,13 +174,12 @@ function setupRetoldManagerServer(pOptions, fCallback)
 			// Layout:
 			//   /             -> html/index.html (pict shell)
 			//   /css/*        -> css/           (shared stylesheet)
-			//   /pict/*       -> web-application/ (quack build output)
-			//   /lib/*        -> node_modules/pict/dist/ (pict runtime)
+			//   /pict/*       -> web-application/ (committed build output,
+			//                                     includes pict.min.js + bundle)
 			let tmpSourceRoot = libPath.resolve(__dirname, '..', '..', '..');
 
 			tmpOrator.addStaticRoute(`${tmpSourceRoot}/css/`, null, '/css/*', '/css/');
 			tmpOrator.addStaticRoute(`${tmpSourceRoot}/web-application/`, null, '/pict/*', '/pict/');
-			tmpOrator.addStaticRoute(`${tmpSourceRoot}/node_modules/pict/dist/`, null, '/lib/*', '/lib/');
 
 			// Root → html/index.html. Registered last so the specific routes above win.
 			tmpOrator.addStaticRoute(`${tmpSourceRoot}/html/`, 'index.html');
