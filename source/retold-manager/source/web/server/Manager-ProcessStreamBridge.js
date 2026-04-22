@@ -81,8 +81,9 @@ class ProcessStreamBridge
 
 		this.processRunner.on('buffer-flush', (pEvent) =>
 			{
-				// No-op over WS — the browser already has every line via `stdout` frames.
-				// The TUI uses this to swap its widget to the full buffer; irrelevant here.
+				// No-op over WS — the browser already received every line via
+				// `stdout` frames. The TUI uses this to swap its widget to the
+				// complete buffer; irrelevant to the web transport.
 			});
 
 		this.processRunner.on('end', (pEvent) =>

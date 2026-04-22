@@ -95,6 +95,9 @@
 	const elScanButton     = document.getElementById('RM-ScanButton');
 	const elDirtyOnly      = document.getElementById('RM-DirtyOnly');
 	const elScanMeta       = document.getElementById('RM-ScanMeta');
+	const elOpsStatus      = document.getElementById('RM-OpsStatus');
+	const elOpsUpdate      = document.getElementById('RM-OpsUpdate');
+	const elOpsCheckout    = document.getElementById('RM-OpsCheckout');
 
 	// ─────────────────────────────────────────────
 	//  localStorage helpers
@@ -462,7 +465,7 @@
 			tmpRows[i].addEventListener('click', function (pEvent)
 				{
 					let tmpName = pEvent.currentTarget.getAttribute('data-name');
-					selectModule(tmpName);
+					navigate('/module/' + encodeURIComponent(tmpName));
 				});
 		}
 	}
@@ -574,6 +577,10 @@
 		tmpHtml += '<div class="workspace-header-right">';
 		tmpHtml += '  <button class="action danger" data-op="cancel" disabled>Cancel</button>';
 		if (tmpManifest.GitHub) { tmpHtml += '<a href="' + escapeHtml(tmpManifest.GitHub) + '" target="_blank">GitHub ↗</a>'; }
+		if (tmpPkg && tmpPkg.Name)
+		{
+			tmpHtml += '<a href="https://www.npmjs.com/package/' + encodeURIComponent(tmpPkg.Name) + '" target="_blank">npm ↗</a>';
+		}
 		if (tmpManifest.Documentation) { tmpHtml += '<a href="' + escapeHtml(tmpManifest.Documentation) + '" target="_blank">Docs ↗</a>'; }
 		tmpHtml += '</div>';
 		tmpHtml += '</div>';
@@ -1301,6 +1308,8 @@
 	// the pict-section-modal pattern we'll switch to once the client bundle
 	// moves to pict-application.
 	let _logModalOpen = false;
+	let _logBackdrop  = null;
+	let _logKeyHandler = null;
 
 	function openLogModal()
 	{
@@ -1308,9 +1317,9 @@
 		_logModalOpen = true;
 		elLogToggle.textContent = '✕ Close log';
 
-		let tmpBackdrop = document.createElement('div');
-		tmpBackdrop.className = 'modal-backdrop log-modal';
-		tmpBackdrop.innerHTML =
+		_logBackdrop = document.createElement('div');
+		_logBackdrop.className = 'modal-backdrop log-modal';
+		_logBackdrop.innerHTML =
 			'<div class="modal">'
 			+ '<div class="log-viewer">'
 			+ '<h2>Operation log <span class="subtle" id="RM-LogPath" style="margin-left:12px;font-size:11px">loading...</span></h2>'
@@ -1323,45 +1332,52 @@
 			+ '<pre id="RM-LogBody">fetching...</pre>'
 			+ '</div>'
 			+ '</div>';
-		document.body.appendChild(tmpBackdrop);
+		document.body.appendChild(_logBackdrop);
 
-		function close()
-		{
-			tmpBackdrop.remove();
-			_logModalOpen = false;
-			elLogToggle.textContent = '📜 Log';
-		}
-
-		tmpBackdrop.addEventListener('click', function (pEvent)
+		_logBackdrop.addEventListener('click', function (pEvent)
 			{
-				if (pEvent.target === tmpBackdrop) { close(); }
+				// Close on backdrop click by navigating away from /log so the
+				// router + hash stay in sync with the DOM.
+				if (pEvent.target === _logBackdrop) { dismissLogModal(); }
 			});
 
-		let tmpButtons = tmpBackdrop.querySelectorAll('button[data-act]');
+		let tmpButtons = _logBackdrop.querySelectorAll('button[data-act]');
 		for (let i = 0; i < tmpButtons.length; i++)
 		{
 			tmpButtons[i].addEventListener('click', function (pEvent)
 				{
 					let tmpAct = pEvent.currentTarget.getAttribute('data-act');
-					if (tmpAct === 'close')         { return close(); }
+					if (tmpAct === 'close')         { return dismissLogModal(); }
 					if (tmpAct === 'log-refresh')   { return loadLog(500); }
 					if (tmpAct === 'log-tail-2000') { return loadLog(2000); }
 					if (tmpAct === 'log-tail-500')  { return loadLog(500); }
 				});
 		}
 
-		// One-shot Esc handler while modal is open
-		function onKey(pEvent)
-		{
-			if (pEvent.key === 'Escape')
+		_logKeyHandler = function (pEvent)
 			{
-				document.removeEventListener('keydown', onKey);
-				close();
-			}
-		}
-		document.addEventListener('keydown', onKey);
+				if (pEvent.key === 'Escape') { dismissLogModal(); }
+			};
+		document.addEventListener('keydown', _logKeyHandler);
 
 		loadLog(500);
+	}
+
+	// User-triggered close: route away from /log so the URL reflects the new state.
+	function dismissLogModal()
+	{
+		if (!_logModalOpen) { return; }
+		navigate(_hashBeforeLog ? _hashBeforeLog.replace(/^#\/?/, '/') : '/');
+	}
+
+	// Router-triggered close: tear the DOM down without touching the hash.
+	function closeLogModal()
+	{
+		if (!_logModalOpen) { return; }
+		if (_logBackdrop) { _logBackdrop.remove(); _logBackdrop = null; }
+		if (_logKeyHandler) { document.removeEventListener('keydown', _logKeyHandler); _logKeyHandler = null; }
+		_logModalOpen = false;
+		elLogToggle.textContent = '📜 Log';
 	}
 
 	function loadLog(pTail)
@@ -2264,24 +2280,148 @@
 
 	elManifestToggle.addEventListener('click', function ()
 		{
-			if (_mode === 'manifest') { exitManifestMode(); }
-			else { enterManifestMode(); }
+			if (_mode === 'manifest') { navigate('/'); }
+			else { navigate('/manifest'); }
 		});
 
 	elLogToggle.addEventListener('click', function ()
 		{
-			// Full-screen modal overlay — the workspace stays behind, so the
-			// user can close the log and resume where they were.
-			if (_logModalOpen)
-			{
-				// If already open, the modal's own close button / Esc / backdrop
-				// click handles dismissal; bail so we don't double-open.
-				return;
-			}
-			openLogModal();
+			if (_logModalOpen) { return; }
+			navigate('/log');
 		});
+
+	elOpsStatus.addEventListener('click',   function () { navigate('/ops/status'); });
+	elOpsUpdate.addEventListener('click',   function () { navigate('/ops/update'); });
+	elOpsCheckout.addEventListener('click', function () { navigate('/ops/checkout'); });
+
+	// ─────────────────────────────────────────────
+	//  All-modules shell-script runner (Status.sh / Update.sh / Checkout.sh)
+	// ─────────────────────────────────────────────
+
+	const ALL_MODULES_SCRIPTS =
+		{
+			status:   { Label: 'Status.sh',   Tag: 'all:status' },
+			update:   { Label: 'Update.sh',   Tag: 'all:update' },
+			checkout: { Label: 'Checkout.sh', Tag: 'all:checkout' },
+		};
+
+	function runAllModulesScript(pScript)
+	{
+		let tmpInfo = ALL_MODULES_SCRIPTS[pScript];
+		if (!tmpInfo) { return; }
+
+		// Give the workspace an at-a-glance header while the script runs; live
+		// output streams into the existing output panel via the WS bridge.
+		_selectedModule = null;
+		_mode = 'workspace';
+		renderSidebar();
+		elWorkspace.innerHTML =
+			'<div class="placeholder">'
+			+ '<h2>All modules &mdash; ' + escapeHtml(tmpInfo.Label) + '</h2>'
+			+ '<p>Running <code>modules/' + escapeHtml(tmpInfo.Label) + '</code> across every module. '
+			+ 'Output streams into the panel below.</p>'
+			+ '</div>';
+		setStatus('Running ' + tmpInfo.Label + '...');
+
+		apiPost('/all/operations/' + pScript).then(
+			function (pResp) { beginOperation(pResp.OperationId, tmpInfo.Tag); },
+			function (pError)
+			{
+				setStatus(tmpInfo.Label + ' failed to start: ' + pError.message);
+				appendOutput('error', '✗ ' + tmpInfo.Label + ': ' + pError.message);
+			});
+	}
+
+	// ─────────────────────────────────────────────
+	//  Hash router — every top-level view has a distinct deep-linkable URL
+	// ─────────────────────────────────────────────
+	//
+	//   #/                  default placeholder
+	//   #/module/<name>     selected module workspace
+	//   #/manifest          manifest editor
+	//   #/log               log-viewer modal
+	//   #/ops/<script>      all-modules shell-script run (status|update|checkout)
+
+	let _currentRouteKey = null;
+	let _hashBeforeLog   = null;  // so closing /log returns to the prior view
+
+	function parseHash()
+	{
+		let tmpRaw = (window.location.hash || '').replace(/^#\/?/, '');
+		if (!tmpRaw) { return { Name: 'home', Args: [] }; }
+		let tmpParts = tmpRaw.split('/').map(decodeURIComponent);
+		return { Name: tmpParts[0], Args: tmpParts.slice(1) };
+	}
+
+	function routeKeyOf(pRoute)
+	{
+		return pRoute.Name + ':' + (pRoute.Args.join('/') || '');
+	}
+
+	function navigate(pPath)
+	{
+		let tmpTarget = '#' + (pPath.charAt(0) === '/' ? pPath : '/' + pPath);
+		if (tmpTarget === '#/log' && window.location.hash !== '#/log')
+		{
+			_hashBeforeLog = window.location.hash || '#/';
+		}
+		if (window.location.hash === tmpTarget)
+		{
+			// Re-trigger the current route (e.g., user clicks "Status" twice).
+			_currentRouteKey = null;
+			dispatchRoute();
+			return;
+		}
+		window.location.hash = tmpTarget;
+		// hashchange handler picks it up.
+	}
+
+	function dispatchRoute()
+	{
+		let tmpRoute = parseHash();
+		let tmpKey = routeKeyOf(tmpRoute);
+		if (tmpKey === _currentRouteKey) { return; }
+		_currentRouteKey = tmpKey;
+
+		// Close the log modal whenever the route moves away from it.
+		if (tmpRoute.Name !== 'log' && _logModalOpen) { closeLogModal(); }
+
+		switch (tmpRoute.Name)
+		{
+			case 'module':
+				if (tmpRoute.Args[0])
+				{
+					if (_mode === 'manifest') { exitManifestMode(); }
+					selectModule(tmpRoute.Args[0]);
+				}
+				break;
+
+			case 'manifest':
+				if (_mode !== 'manifest') { enterManifestMode(); }
+				break;
+
+			case 'log':
+				if (!_logModalOpen) { openLogModal(); }
+				break;
+
+			case 'ops':
+				if (tmpRoute.Args[0] && ALL_MODULES_SCRIPTS[tmpRoute.Args[0]])
+				{
+					runAllModulesScript(tmpRoute.Args[0]);
+				}
+				break;
+
+			case 'home':
+			default:
+				if (_mode === 'manifest') { exitManifestMode(); }
+				break;
+		}
+	}
+
+	window.addEventListener('hashchange', dispatchRoute);
 
 	connectWS();
 	pollHealth();
 	loadModules();
+	dispatchRoute();   // honor deep links on first load
 })();

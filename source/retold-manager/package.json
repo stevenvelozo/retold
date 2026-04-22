@@ -10,6 +10,7 @@
 	"scripts": {
 		"start": "node retold-manager.js",
 		"web": "node retold-manager-web.js",
+		"terminal": "node retold-manager.js --terminal",
 		"audit": "node bin/manifest-audit.js",
 		"rebuild-shell": "node bin/manifest-rebuild-shell.js",
 		"rebuild-shell-check": "node bin/manifest-rebuild-shell.js --check",

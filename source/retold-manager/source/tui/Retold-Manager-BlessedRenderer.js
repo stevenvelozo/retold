@@ -44,6 +44,12 @@ class BlessedRenderer
 		this._currentOperationId = null;
 		this._currentCommandString = '';
 
+		// Once the runner emits 'buffer-start' for the active op we stop
+		// appending live lines to the widget (the core still emits them
+		// for the web transport and log file). 'buffer-flush' at the end
+		// swaps in the full transcript so the user can scroll.
+		this._isBuffering = false;
+
 		// Status-bar throttle for "(N lines)" updates while buffering
 		this._statusThrottleTimer = null;
 
@@ -131,6 +137,7 @@ class BlessedRenderer
 
 		this._currentOperationId = pEvent.OperationId;
 		this._currentCommandString = pEvent.CommandString;
+		this._isBuffering = false;
 
 		// Cancel any prior search so fresh output is not filtered
 		this._resetSearch();
@@ -159,12 +166,16 @@ class BlessedRenderer
 
 	_onLine(pEvent)
 	{
+		// While buffering, the widget stays static; 'buffer-flush' will
+		// swap in the complete transcript once the op finishes.
+		if (this._isBuffering) { return; }
 		this.logWidget.log(this._formatLine(pEvent.Channel, pEvent.Text));
 		this._scheduleRender();
 	}
 
 	_onBufferStart(pEvent)
 	{
+		this._isBuffering = true;
 		this.logWidget.log('');
 		this.logWidget.log('{yellow-fg}{bold}... buffering remaining output (scrollable when complete){/bold}{/yellow-fg}');
 		this._scheduleRender();
@@ -184,6 +195,7 @@ class BlessedRenderer
 
 	_onBufferFlush(pEvent)
 	{
+		this._isBuffering = false;
 		// Replace the live view with the full transcript so the user can scroll.
 		let tmpLines = this.processRunner.getBuffer(pEvent.OperationId);
 		let tmpRendered = [];

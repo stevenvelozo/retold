@@ -16,11 +16,16 @@
  *     -- Fires when a command begins. For runSequence(), fires once per step.
  *
  *   'line'            { OperationId, Channel: 'stdout' | 'stderr', Text }
- *     -- One line of output. ANSI codes stripped. No markup.
- *        BUFFERING: after HEAD_LINE_LIMIT lines the runner stops emitting
- *        'line' and switches to emitting 'buffer-tick' periodically with a
- *        running line count; the full buffer is available via getBuffer()
- *        when 'end' fires. Renderers show a "buffering…" notice.
+ *     -- One line of output. ANSI codes stripped. No markup. Fires for
+ *        *every* captured line so the web transport and operation logger
+ *        get a complete transcript. Heavy renderers (the blessed TUI)
+ *        watch for 'buffer-start' as the signal to stop appending to
+ *        their widget and wait for 'buffer-flush' at the end.
+ *
+ *   'buffer-start'    { OperationId, LineCount }
+ *     -- Fires once when cumulative output crosses HEAD_LINE_LIMIT. A
+ *        hint to UI renderers that further live updates will be costly;
+ *        they may switch to a status-only view until 'buffer-flush'.
  *
  *   'buffer-tick'     { OperationId, LineCount }
  *     -- Throttled progress counter once buffering mode is active.
@@ -392,11 +397,14 @@ class ProcessRunner extends libEventEmitter
 		tmpOp.Lines.push(tmpEntry);
 		tmpOp.LineCount = tmpOp.Lines.length;
 
+		// Emit every line so the operation logger and web transport capture
+		// the complete transcript. The blessed TUI is responsible for
+		// throttling itself via the 'buffer-start' / 'buffer-flush' signals.
+		this.emit('line', { OperationId: pOpId, Channel: pChannel, Text: pText });
+
 		if (!this._buffering)
 		{
 			this._headLineCount++;
-			this.emit('line', { OperationId: pOpId, Channel: pChannel, Text: pText });
-
 			if (this._headLineCount >= HEAD_LINE_LIMIT)
 			{
 				this._buffering = true;
@@ -405,7 +413,8 @@ class ProcessRunner extends libEventEmitter
 		}
 		else
 		{
-			// Buffering mode — throttle ticks
+			// Buffering mode — throttle ticks so renderers can update a
+			// "(N lines)" indicator without re-rendering on every line.
 			if (!this._bufferTickTimer)
 			{
 				let tmpSelf = this;

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Retold Manager -- Web entry point (invoked by `npx manager --web`)
+ * Retold Manager -- Web entry point (the default; also reachable via
+ * `npx manager --web` for explicitness).
  *
  * Parses argv, composes the Orator server via Manager-Server-Setup, and
  * optionally auto-opens the user's default browser.
@@ -28,6 +29,7 @@ function parseArgs(pArgv)
 	{
 		let tmpArg = pArgv[i];
 		if (tmpArg === '--web') { continue; }
+		if (tmpArg === '--terminal' || tmpArg === '--tui') { continue; }
 		if (tmpArg === '--port')
 		{
 			tmpArgs.Port = parseInt(pArgv[++i], 10);
@@ -71,13 +73,16 @@ function parseArgs(pArgv)
 
 function printHelp()
 {
-	console.log('npx manager --web    Start the Retold Manager web UI.');
+	console.log('npx manager          Start the Retold Manager web UI (default).');
+	console.log('npx manager --terminal');
+	console.log('                     Start the blessed terminal UI instead.');
 	console.log('');
-	console.log('Options:');
+	console.log('Web-mode options:');
 	console.log('  --port <N>    Bind to port N (default: 44444).');
 	console.log('  --host <ADDR> Bind to interface ADDR (default: 127.0.0.1).');
 	console.log('  --no-open     Do not auto-open the browser.');
 	console.log('  --open        Auto-open the browser (default).');
+	console.log('  --web         Explicit web mode (same as default).');
 	console.log('  --help, -h    Print this help.');
 }
 

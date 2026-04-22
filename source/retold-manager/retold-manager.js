@@ -2,20 +2,21 @@
 /**
  * Retold Manager -- Entry point
  *
- *   npx manager               -> blessed terminal UI (default)
- *   npx manager --web         -> Orator web server on 127.0.0.1:44444,
- *                                auto-opens the browser
- *   npx manager --web --port 5555
- *   npx manager --web --no-open
+ *   npx manager               -> Orator web server on 127.0.0.1:44444,
+ *                                auto-opens the browser (default)
+ *   npx manager --port 5555
+ *   npx manager --no-open
+ *   npx manager --terminal    -> blessed terminal UI
+ *   npx manager --web         -> explicit web mode (same as default)
  *
  * The dispatch happens before anything else loads so that the blessed
  * setup (which takes over the terminal) is only reached in TUI mode.
  */
 
 const tmpArgs = process.argv.slice(2);
-const tmpWebMode = tmpArgs.indexOf('--web') !== -1;
+const tmpTerminalMode = tmpArgs.indexOf('--terminal') !== -1 || tmpArgs.indexOf('--tui') !== -1;
 
-if (tmpWebMode)
+if (!tmpTerminalMode)
 {
 	require('./retold-manager-web.js');
 	return;

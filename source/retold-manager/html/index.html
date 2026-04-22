@@ -11,6 +11,10 @@
 		<h1>Retold Manager</h1>
 		<span id="RM-HealthBadge" class="badge">connecting...</span>
 		<div style="margin-left:auto;display:flex;gap:8px">
+			<button class="action primary" id="RM-OpsStatus"    title="Run modules/Status.sh across every module">📊 Status</button>
+			<button class="action primary" id="RM-OpsUpdate"    title="Run modules/Update.sh across every module">⟲ Update</button>
+			<button class="action primary" id="RM-OpsCheckout"  title="Run modules/Checkout.sh across every module">⎋ Checkout</button>
+			<span style="width:1px;background:var(--color-border);margin:0 4px"></span>
 			<button class="action" id="RM-LogToggle">📜 Log</button>
 			<button class="action" id="RM-ManifestToggle">⚙ Manifest</button>
 		</div>
