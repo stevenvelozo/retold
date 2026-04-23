@@ -2,6 +2,89 @@
 
 Reference for building views, providers, and applications with the Pict framework. Every module under `modules/pict/` should follow these patterns.
 
+## **DO NOT USE JAVASCRIPT CONFIRMATION AND ALERT BOXES — USE `pict-section-modal` INSTEAD**
+
+Native `window.confirm()`, `window.alert()`, and `window.prompt()` are banned in Pict-based applications. They block the UI thread, can't be styled, can't be keyboard-navigated consistently across browsers, aren't testable with the same infrastructure as the rest of the app, and look jarring next to the product's own design system.
+
+Replace them with the host application's `pict-section-modal` view. Its canonical API lives at `modules/pict/pict-section-modal/source/Pict-Section-Modal.js`.
+
+### `.confirm(message, options)` → `Promise<boolean>`
+
+Simplest replacement for native `confirm()`. Returns `true` if the user confirmed, `false` if they cancelled or dismissed.
+
+```javascript
+let tmpModal = this.pict.views['Pict-Section-Modal'];
+tmpModal.confirm('This cannot be undone.',
+    {
+        title:        'Delete draft?',
+        confirmLabel: 'Delete',
+        cancelLabel:  'Cancel',
+        dangerous:    true
+    }).then((pOk) =>
+    {
+        if (!pOk) return;
+        // proceed with the action
+    });
+```
+
+Use `dangerous: true` for destructive actions (delete, overwrite, clear). Use `.doubleConfirm(message, {confirmPhrase: 'DELETE'})` if you want typed-phrase gating for severe actions (e.g. dropping a weights file).
+
+### `.show(options)` → `Promise<string|null>`
+
+Low-level API for custom content. Resolves to the clicked button's `Hash`, or `null` if the dialog was closed via the overlay or close button. Use this for **alert** replacements, **prompts** (via an embedded `<input>`), or any multi-button dialog.
+
+**Alert (blocking info/error):**
+```javascript
+tmpModal.show({
+    title:   'Upload failed',
+    content: '<p>Server returned <code>413 Payload Too Large</code>.</p>',
+    buttons: [ { Hash: 'ok', Label: 'OK', Style: 'primary' } ]
+});
+```
+
+**Prompt (text input):**
+```javascript
+tmpModal.show({
+    title:   'New note',
+    content:
+        '<p>Filename (no extension):</p>' +
+        '<input type="text" id="pict-prompt-input" class="pict-input" autofocus>',
+    buttons: [
+        { Hash: 'cancel', Label: 'Cancel' },
+        { Hash: 'ok',     Label: 'Create', Style: 'primary' }
+    ]
+}).then((pChoice) =>
+{
+    if (pChoice !== 'ok') return;
+    let tmpValue = (document.getElementById('pict-prompt-input') || {}).value || '';
+    tmpValue = tmpValue.trim();
+    if (!tmpValue) return;
+    // proceed with tmpValue
+});
+```
+
+**Button shape:** `{ Hash: <id>, Label: <text>, Style?: 'primary' | 'danger' }`. Only one `Style` slot per button; default styling is neutral. Order of the array is left-to-right in the dialog.
+
+### `.toast(message, options)`
+
+Non-blocking notification. No promise, returns a `{dismiss}` handle. Prefer this for success messages and non-critical errors that don't require acknowledgement.
+
+```javascript
+tmpModal.toast('Draft saved',             { type: 'success' });
+tmpModal.toast('Could not reach server',  { type: 'error', duration: 6000 });
+```
+
+### Anti-patterns to reject in code review
+
+| Wrong | Right |
+|---|---|
+| `if (confirm('...'))` | `modal.confirm('...', {...}).then((ok) => ok && ...)` |
+| `alert('done')` | `modal.toast('done', {type: 'success'})` for info; `modal.show({...})` for errors requiring acknowledgement |
+| `let x = prompt('...')` | `modal.show({content: '<input id="...">', buttons: [...]})` + read the input in the `.then()` |
+| `window.confirm(...)` / `window.alert(...)` / `window.prompt(...)` | All four of the above |
+
+If you need a pattern the modal doesn't support (e.g. multi-field forms, dropdowns, async loading indicators), extend `pict-section-modal` rather than falling back to native popups.
+
 ## CSS
 
 All CSS lives in the view or provider configuration and is registered through the Pict CSS cascade (`Pict-CSS.js`). The cascade deduplicates by hash and sorts by priority before injecting into a single `<style>` element.
