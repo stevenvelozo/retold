@@ -1101,6 +1101,17 @@
 					]
 				},
 				{
+					"Name": "ultravisor-file-stream",
+					"Path": "modules/apps/ultravisor-file-stream",
+					"Description": "File-streaming primitives for ultravisor: chunked write at offset with sha256-verified atomic finalize, buffered read, directory-tree hashing. Zero runtime dependencies — consumed by the ultravisor hub's chunked-write task type and by any beacon client that needs to ship multi-GB files across the mesh.",
+					"GitHub": "https://github.com/stevenvelozo/ultravisor-file-stream",
+					"Documentation": "https://stevenvelozo.github.io/ultravisor-file-stream/",
+					"RelatedModules": [
+						"ultravisor",
+						"ultravisor-beacon"
+					]
+				},
+				{
 					"Name": "ultravisor-lab",
 					"Path": "modules/apps/ultravisor-lab",
 					"Description": "Web-based orchestration and monitoring for dockerized DB engines, retold-databeacons, Ultravisor, and Facto instances",
