@@ -102,6 +102,7 @@ const _ViewConfiguration =
 		<dt>ahead / behind</dt><dd>{~D:Record.Git.AheadBehind~}</dd>
 		<dt>dirty</dt><dd>{~D:Record.Git.DirtyText~}</dd>
 	</dl>
+	{~D:Record.GitFilesBlock~}
 </div>
 
 {~D:Record.RetoldDepsSection~}
@@ -225,10 +226,12 @@ class ManagerModuleWorkspaceView extends libPictView
 					AheadBehind: (tmpGit.Ahead || 0) + ' / ' + (tmpGit.Behind || 0),
 					DirtyText:   tmpGit.Dirty ? 'yes' : 'no',
 				};
+			tmpRecord.GitFilesBlock = this._renderGitFilesBlock(tmpGit.Files || []);
 		}
 		else
 		{
 			tmpRecord.Git = { Branch: '—', AheadBehind: '—', DirtyText: '—' };
+			tmpRecord.GitFilesBlock = '';
 		}
 
 		// Dependency tables (server already split retold vs external)
@@ -239,6 +242,28 @@ class ManagerModuleWorkspaceView extends libPictView
 		tmpRecord.ExternalDevDepsSection = this._renderDepSection('External dev dependencies',tmpCat.ExternalDevDeps || [], false);
 
 		return tmpRecord;
+	}
+
+	_renderGitFilesBlock(pFiles)
+	{
+		if (!pFiles.length) { return ''; }
+		let tmpHtml = '<div style="margin-top:8px">';
+		for (let i = 0; i < pFiles.length; i++)
+		{
+			let tmpFile = pFiles[i];
+			let tmpIsUntracked = (tmpFile.Status === '??');
+			tmpHtml += '<div class="git-file">'
+				+ '<span class="st">' + this._escape(tmpFile.Status.trim() || '··') + '</span>'
+				+ this._escape(tmpFile.Path);
+			if (tmpIsUntracked)
+			{
+				tmpHtml += ' <button class="git-add-file" data-op="git-add-one" data-path="'
+					+ this._escape(tmpFile.Path) + '">+ add</button>';
+			}
+			tmpHtml += '</div>';
+		}
+		tmpHtml += '</div>';
+		return tmpHtml;
 	}
 
 	_renderDepSection(pLabel, pDeps, pIsRetold)
@@ -296,8 +321,9 @@ class ManagerModuleWorkspaceView extends libPictView
 			{
 				tmpButtons[i].addEventListener('click', (pEvent) =>
 					{
-						let tmpOp = pEvent.currentTarget.getAttribute('data-op');
-						this.runAction(tmpOp);
+						let tmpOp   = pEvent.currentTarget.getAttribute('data-op');
+						let tmpPath = pEvent.currentTarget.getAttribute('data-path');
+						this.runAction(tmpOp, tmpPath);
 					});
 			}
 		}
@@ -310,7 +336,7 @@ class ManagerModuleWorkspaceView extends libPictView
 	//  Action dispatch
 	// ─────────────────────────────────────────────
 
-	runAction(pOp)
+	runAction(pOp, pPath)
 	{
 		let tmpDetail = this.pict.AppData.Manager.SelectedModuleDetail;
 		if (!tmpDetail || !tmpDetail.Manifest) { return; }
@@ -325,6 +351,7 @@ class ManagerModuleWorkspaceView extends libPictView
 			case 'build':   return tmpApi.runModuleOperation(tmpName, 'npm', ['run', 'build'], 'npm run build');
 			case 'diff':    return this.pict.views['Manager-Modal-Diff'].open(tmpName);
 			case 'git-add': return tmpApi.gitAddAll(tmpName);
+			case 'git-add-one': return pPath ? tmpApi.gitAddPaths(tmpName, [pPath]) : null;
 			case 'pull':    return tmpApi.runModuleOperation(tmpName, 'git', ['pull'], 'git pull');
 			case 'push':    return tmpApi.runModuleOperation(tmpName, 'git', ['push'], 'git push');
 			case 'bump-patch': return this._bumpWithGuard('patch');

@@ -163,18 +163,36 @@ class RippleGraph
 	 */
 	getTransitiveConsumers(pRoot, pOptions)
 	{
+		return this.getTransitiveConsumersOfAll([pRoot], pOptions);
+	}
+
+	/**
+	 * Multi-source variant: transitive consumers of any root in pRoots, with
+	 * all roots pre-marked as visited so they never appear in the result. Used
+	 * by buildPlan when the user selects multiple sibling producers (e.g. the
+	 * meadow-connection-* set).
+	 *
+	 * @param {string[]} pRoots
+	 * @returns {string[]} module names, not including any of pRoots
+	 */
+	getTransitiveConsumersOfAll(pRoots, pOptions)
+	{
 		let tmpOptions = pOptions || {};
 		let tmpIncludeDev = (tmpOptions.IncludeDev !== false);
 		let tmpStopAtApps = !!tmpOptions.StopAtApps;
 
 		let tmpGraph = this.build();
 		let tmpVisited = new Set();
-		// Pre-mark the root so any back-edge through a dep cycle (e.g., fable-log
-		// → pict-section-content for docs, and pict-section-content's own
-		// transitive consumers loop back to fable-log) doesn't re-add the root
-		// to the result and break the topological order downstream.
-		tmpVisited.add(pRoot);
-		let tmpQueue = [pRoot];
+		let tmpQueue = [];
+		// Pre-mark every root so back-edges through a dep cycle (e.g., fable-log
+		// → pict-section-content for docs, looping back to fable-log) don't
+		// re-add a root to the result and break the topological order
+		// downstream.
+		for (let i = 0; i < pRoots.length; i++)
+		{
+			tmpVisited.add(pRoots[i]);
+			tmpQueue.push(pRoots[i]);
+		}
 		let tmpResult = [];
 
 		while (tmpQueue.length > 0)
@@ -306,48 +324,61 @@ class RippleGraph
 	}
 
 	/**
-	 * Build a full ripple plan rooted at pRoot.
+	 * Build a full ripple plan rooted at one or more selected producers.
 	 *
 	 * @param {object} pOptions
-	 * @param {string} pOptions.Root         Root module name
-	 * @param {string} pOptions.TargetVersion  The version the root will be published as
-	 *                                         (client picks based on package.json inspection)
-	 * @param {string} [pOptions.RangePrefix='^'] Range prefix for consumers
-	 * @param {string} [pOptions.ConsumerBumpKind='patch'] patch|minor|major
-	 * @param {boolean} [pOptions.IncludeDev=false]  devDep consumers reliably
+	 * @param {string[]} [pOptions.Roots]    Selected producer module names. May
+	 *   contain a single name (legacy single-root) or many siblings (e.g. the
+	 *   meadow-connection-* set). At least one of Roots / Root must be set.
+	 * @param {string}  [pOptions.Root]      Legacy single-root field; treated
+	 *   as Roots:[Root] when Roots is not provided.
+	 * @param {string}  [pOptions.RangePrefix='^']      Range prefix for consumers
+	 * @param {string}  [pOptions.ProducerBumpKind='patch'] Bump kind for the
+	 *   `bump-if-needed` action on producer steps. Only applied when local
+	 *   version is not already ahead of npm.
+	 * @param {string}  [pOptions.ConsumerBumpKind='patch'] patch|minor|major
+	 * @param {boolean} [pOptions.IncludeDev=false] devDep consumers reliably
 	 *   introduce cycles (test harnesses) so defaulted OFF.
-	 * @param {boolean} [pOptions.StopAtApps=false]
+	 * @param {boolean} [pOptions.StopAtApps=true]
 	 * @param {boolean} [pOptions.RunInstall=true]
-	 * @param {boolean} [pOptions.RunTest=false]
+	 * @param {boolean} [pOptions.RunTest=true]
+	 * @param {boolean} [pOptions.RunPush=true]
 	 * @param {boolean} [pOptions.BringRetoldDepsForward=false] When true, each
 	 *   consumer step begins with an `ncu-retold` action: `npx npm-check-updates
-	 *   -u --filter <ecosystem>`. This pulls forward *every* retold dep on the
-	 *   consumer, not just the ones in the ripple's dep cone. The subsequent
-	 *   update-dep actions still run and use on-disk authoritative versions
-	 *   for deps in the cone, so ncu and update-dep compose cleanly.
+	 *   -u --filter <ecosystem>`.
 	 * @returns {object} plan
 	 */
 	buildPlan(pOptions)
 	{
 		let tmpOptions = pOptions || {};
-		let tmpRoot = tmpOptions.Root;
-		if (!tmpRoot) { throw new Error('buildPlan requires Root'); }
 
-		let tmpTargetVersion = tmpOptions.TargetVersion;
-		if (!tmpTargetVersion)
+		// Accept Roots[] (preferred) or fall back to legacy single Root.
+		let tmpRoots;
+		if (Array.isArray(tmpOptions.Roots) && tmpOptions.Roots.length > 0)
 		{
-			throw new Error('buildPlan requires TargetVersion — the version Root will be published as');
+			tmpRoots = tmpOptions.Roots.slice();
 		}
+		else if (tmpOptions.Root)
+		{
+			tmpRoots = [tmpOptions.Root];
+		}
+		else
+		{
+			throw new Error('buildPlan requires Roots (string[]) or Root (string)');
+		}
+		// De-dup defensively.
+		tmpRoots = Array.from(new Set(tmpRoots));
+		let tmpRootSet = new Set(tmpRoots);
+
 		let tmpRangePrefix = tmpOptions.RangePrefix !== undefined ? tmpOptions.RangePrefix : '^';
-		let tmpNewRange = tmpRangePrefix + tmpTargetVersion;
 		let tmpConsumerBumpKind = tmpOptions.ConsumerBumpKind || 'patch';
+		let tmpProducerBumpKind = tmpOptions.ProducerBumpKind || 'patch';
 		// IncludeDev defaults to false — devDep cycles (test harnesses)
 		// reliably trip the topo fallback, so opt-in only.
 		let tmpIncludeDev = (tmpOptions.IncludeDev === true);
-		// StopAtApps, RunInstall, RunTest all default to TRUE (Steven's
-		// preferred workflow — stay out of retold-remote/retold-databeacon
-		// on a typical ripple, refresh lockfiles, and run tests before each
-		// consumer publish).
+		// StopAtApps, RunInstall, RunTest, RunPush all default to TRUE
+		// (Steven's preferred workflow — stay out of retold-remote/
+		// retold-databeacon, refresh lockfiles, and test/push by default).
 		let tmpStopAtApps = (tmpOptions.StopAtApps !== false);
 		let tmpRunInstall = (tmpOptions.RunInstall !== false);
 		let tmpRunTest = (tmpOptions.RunTest !== false);
@@ -355,60 +386,41 @@ class RippleGraph
 		let tmpBringForward = !!tmpOptions.BringRetoldDepsForward;
 
 		let tmpGraph = this.build();
-		if (!tmpGraph.Nodes.has(tmpRoot))
+		for (let i = 0; i < tmpRoots.length; i++)
 		{
-			throw new Error('Root "' + tmpRoot + '" is not in the ecosystem.');
+			if (!tmpGraph.Nodes.has(tmpRoots[i]))
+			{
+				throw new Error('Root "' + tmpRoots[i] + '" is not in the ecosystem.');
+			}
 		}
 
-		let tmpTransitive = this.getTransitiveConsumers(tmpRoot,
+		// Cone = Roots ∪ transitive consumers of any Root (roots pre-marked
+		// so they never appear in the consumer expansion).
+		let tmpTransitive = this.getTransitiveConsumersOfAll(tmpRoots,
 			{
 				IncludeDev: tmpIncludeDev,
 				StopAtApps: tmpStopAtApps,
 			});
-		// Sort CONSUMERS only — root is always step 0 (we're publishing it
-		// first, after which the consumers can update their range and
-		// propagate). Including the root in the topo set means any back-edge
-		// (e.g., the fable-log → pict-section-content doc cycle) creates a
-		// cycle that breaks Kahn's.
-		let tmpConsumerOrder = this.topoSort(tmpTransitive,
-			{
-				IncludeDevSections: tmpIncludeDev,
-			});
+		let tmpCone = tmpRoots.concat(tmpTransitive);
 
-		// Build steps
+		// Topo-sort the entire cone (roots + consumers together). Producers
+		// land first because they have no in-cone dependencies; if a Root
+		// happens to depend on another Root, the topo sort orders them
+		// correctly. Per-step kind is decided below from tmpRootSet.
+		let tmpOrder = this.topoSort(tmpCone, { IncludeDevSections: tmpIncludeDev });
+
 		let tmpSteps = [];
-		let tmpCommitMessageTemplate = 'bump ' + tmpRoot + '@' + tmpNewRange;
+		let tmpEarlierSet = new Set();
 
-		// Step 0: producer. Preflight ensures the root's tree is clean before
-		// publishing; commit-final sweeps up any artifacts the publish process
-		// regenerated (built bundles, package-lock churn); push sends the new
-		// commits (and any prior local-only ones) to origin so the module
-		// stops being "dirty" in the sidebar scan.
-		let tmpProducerActions = [
-			{ Op: 'preflight-clean-tree' },
-			{ Op: 'publish' },
-			{ Op: 'commit-final', MessageTemplate: 'NPM Version Bump and publish to <version>' },
-		];
-		if (tmpRunPush) { tmpProducerActions.push({ Op: 'push' }); }
-		tmpSteps.push(
-			{
-				Order: 0,
-				Module: tmpRoot,
-				Group: tmpGraph.Nodes.get(tmpRoot).Group,
-				Kind: 'producer',
-				Actions: tmpProducerActions,
-			});
-
-		// Subsequent steps: consumers in topo order. Each consumer needs to
-		// update every in-subset dep that is being republished (the root, plus
-		// any earlier consumer step). The actual range is resolved at runtime
-		// by the executor, reading the dep's current package.json — so the
-		// cascading new versions propagate correctly through the chain.
-		let tmpEarlierSet = new Set([tmpRoot]);
-		for (let i = 0; i < tmpConsumerOrder.length; i++)
+		for (let i = 0; i < tmpOrder.length; i++)
 		{
-			let tmpName = tmpConsumerOrder[i];
+			let tmpName = tmpOrder[i];
+			let tmpIsRoot = tmpRootSet.has(tmpName);
 
+			// Gather in-cone deps that come before this node in topo order.
+			// For most siblings this is empty; for a Root that depends on
+			// another Root (rare), or for any consumer (always non-empty),
+			// this drives the update-dep actions.
 			let tmpDeps = tmpGraph.DependenciesOf.get(tmpName) || [];
 			let tmpUpdateActions = [];
 			for (let j = 0; j < tmpDeps.length; j++)
@@ -423,49 +435,74 @@ class RippleGraph
 						Dep: tmpDep.To,
 						// The actual concrete Range is filled by the executor
 						// at runtime by reading dep's current local version.
-						// Plan time: store only the prefix and the OldRange
-						// for human-readable diff.
 						RangePrefix: tmpRangePrefix,
 						Section: tmpDep.Section,
 						OldRange: tmpDep.Range,
 					});
 			}
 
-			if (tmpUpdateActions.length === 0) { continue; } // no actionable update edges (e.g. only devDep when excluded)
-
 			let tmpActions = [];
-			// FIRST: preflight-clean-tree. If the consumer has any uncommitted
-			// state before the ripple starts touching it, halt so Steven can
-			// resolve it manually (ripple only handles ready-to-go modules).
-			tmpActions.push({ Op: 'preflight-clean-tree' });
+			let tmpKind;
 
-			// Opt-in "bring all retold deps forward" step runs before the
-			// authoritative update-dep actions. ncu writes npm-registry-latest
-			// ranges; update-dep then overwrites the in-cone deps with the
-			// just-published on-disk version. Both mutations end up in the
-			// same commit below.
-			if (tmpBringForward)
+			if (tmpIsRoot)
 			{
-				tmpActions.push({ Op: 'ncu-retold' });
+				tmpKind = 'producer';
+				// Preflight ensures the producer's tree is clean before any
+				// modification — same guarantee the old single-root flow had.
+				tmpActions.push({ Op: 'preflight-clean-tree' });
+
+				// Rare case: a Root that depends on another in-cone module
+				// (e.g. user picked fable + fable-log). Treat the dep prep
+				// like a consumer step's, but still finish with the producer
+				// bump-if-needed semantics.
+				if (tmpUpdateActions.length > 0)
+				{
+					if (tmpBringForward) { tmpActions.push({ Op: 'ncu-retold' }); }
+					tmpActions = tmpActions.concat(tmpUpdateActions);
+					if (tmpRunInstall) { tmpActions.push({ Op: 'install' }); }
+					if (tmpRunTest)    { tmpActions.push({ Op: 'test' }); }
+					tmpActions.push({ Op: 'commit', MessageTemplate: 'bump <deps>' });
+				}
+
+				// bump-if-needed: at runtime, compare local vs npm. If local
+				// is already ahead (the user pre-bumped), skip the bump and
+				// proceed to publish. If equal, run `npm version <kind>`.
+				// If local is behind npm, fail the ripple.
+				tmpActions.push({ Op: 'bump-if-needed', Kind: tmpProducerBumpKind });
+				tmpActions.push({ Op: 'publish' });
+				// commit-final sweeps the bump (if it ran) and any artifacts
+				// the publish process regenerated (built bundles, lockfile).
+				tmpActions.push({ Op: 'commit-final', MessageTemplate: 'NPM Version Bump and publish to <version>' });
+				if (tmpRunPush) { tmpActions.push({ Op: 'push' }); }
 			}
-			tmpActions = tmpActions.concat(tmpUpdateActions);
-			if (tmpRunInstall) { tmpActions.push({ Op: 'install' }); }
-			if (tmpRunTest)    { tmpActions.push({ Op: 'test' }); }
-			tmpActions.push({ Op: 'commit',  MessageTemplate: 'bump <deps>' });
-			tmpActions.push({ Op: 'bump',    Kind: tmpConsumerBumpKind });
-			tmpActions.push({ Op: 'publish' });
-			// LAST: commit-final sweeps up the version bump + any built files
-			// the publish process generated (dist bundles, lockfile churn).
-			tmpActions.push({ Op: 'commit-final', MessageTemplate: 'NPM Version Bump and publish to <version>' });
-			// Finally, push so the module is no longer ahead-by-N.
-			if (tmpRunPush) { tmpActions.push({ Op: 'push' }); }
+			else
+			{
+				tmpKind = 'consumer';
+				// Defensive: a non-root in the cone reached us only via
+				// consumer-of expansion, so it MUST have an in-cone dep. If
+				// somehow it doesn't (e.g. all its in-cone deps are devDep
+				// when devDeps are excluded), drop the step rather than
+				// emit a meaningless publish.
+				if (tmpUpdateActions.length === 0) { continue; }
+
+				tmpActions.push({ Op: 'preflight-clean-tree' });
+				if (tmpBringForward) { tmpActions.push({ Op: 'ncu-retold' }); }
+				tmpActions = tmpActions.concat(tmpUpdateActions);
+				if (tmpRunInstall) { tmpActions.push({ Op: 'install' }); }
+				if (tmpRunTest)    { tmpActions.push({ Op: 'test' }); }
+				tmpActions.push({ Op: 'commit',  MessageTemplate: 'bump <deps>' });
+				tmpActions.push({ Op: 'bump',    Kind: tmpConsumerBumpKind });
+				tmpActions.push({ Op: 'publish' });
+				tmpActions.push({ Op: 'commit-final', MessageTemplate: 'NPM Version Bump and publish to <version>' });
+				if (tmpRunPush) { tmpActions.push({ Op: 'push' }); }
+			}
 
 			tmpSteps.push(
 				{
 					Order: tmpSteps.length,
 					Module: tmpName,
 					Group: tmpGraph.Nodes.get(tmpName).Group,
-					Kind: 'consumer',
+					Kind: tmpKind,
 					Actions: tmpActions,
 				});
 
@@ -477,9 +514,24 @@ class RippleGraph
 		let tmpPlanId = 'rplan_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
 		return {
 			PlanId: tmpPlanId,
-			Root: tmpRoot,
-			TargetVersion: tmpTargetVersion,
-			Options: { RangePrefix: tmpRangePrefix, ConsumerBumpKind: tmpConsumerBumpKind, IncludeDev: tmpIncludeDev, StopAtApps: tmpStopAtApps, RunInstall: tmpRunInstall, RunTest: tmpRunTest, RunPush: tmpRunPush, BringRetoldDepsForward: tmpBringForward },
+			Roots: tmpRoots.slice(),
+			// Back-compat for any view code reading the legacy single-root field.
+			Root: tmpRoots[0],
+			// TargetVersion no longer drives planning (resolved at runtime via
+			// bump-if-needed + on-disk reads). Echoed for back-compat display.
+			TargetVersion: tmpOptions.TargetVersion || null,
+			Options:
+				{
+					RangePrefix: tmpRangePrefix,
+					ConsumerBumpKind: tmpConsumerBumpKind,
+					ProducerBumpKind: tmpProducerBumpKind,
+					IncludeDev: tmpIncludeDev,
+					StopAtApps: tmpStopAtApps,
+					RunInstall: tmpRunInstall,
+					RunTest: tmpRunTest,
+					RunPush: tmpRunPush,
+					BringRetoldDepsForward: tmpBringForward,
+				},
 			GeneratedAt: new Date().toISOString(),
 			Graph:
 				{

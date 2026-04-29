@@ -182,6 +182,11 @@ class ManagerAPIProvider extends libPictProvider
 		return this.post('/modules/' + encodeURIComponent(pModuleName) + '/operations/git-add',
 			{ All: true });
 	}
+	gitAddPaths(pModuleName, pPaths)
+	{
+		return this.post('/modules/' + encodeURIComponent(pModuleName) + '/operations/git-add',
+			{ Paths: pPaths });
+	}
 
 	// Publish preview + publish
 	loadPublishPreview(pModuleName)

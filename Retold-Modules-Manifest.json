@@ -586,12 +586,29 @@
 					]
 				},
 				{
+					"Name": "pict-editor-timeline",
+					"Path": "modules/pict/pict-editor-timeline",
+					"Description": "Pict visual timeline editor for building multi-beat video storyboards. Add, reorder, and configure cuts with text prompts, durations, and optional start/end frame image slots. Exports clean JSON consumable by any downstream video generation system.",
+					"GitHub": "https://github.com/stevenvelozo/pict-editor-timeline",
+					"Documentation": "https://stevenvelozo.github.io/pict-editor-timeline/",
+					"RelatedModules": [
+						"pict",
+						"pict-view"
+					]
+				},
+				{
 					"Name": "pict-meadow-connection-manager",
 					"Path": "modules/pict/pict-meadow-connection-manager",
-					"Description": "Browser-safe Pict provider for meadow database connection configuration. No server-side database driver dependencies.",
+					"Description": "Browser-safe Pict provider + list/detail views for managing named meadow database connections. Delegates form rendering to pict-section-connection-form so the per-provider field schemas come from one canonical source.",
 					"GitHub": "https://github.com/stevenvelozo/pict-meadow-connection-manager",
 					"Documentation": "https://stevenvelozo.github.io/pict-meadow-connection-manager/",
-					"RelatedModules": []
+					"RelatedModules": [
+						"pict",
+						"pict-provider",
+						"pict-view",
+						"pict-section-connection-form",
+						"meadow-connection-manager"
+					]
 				},
 				{
 					"Name": "pict-nonlinearconfig",
@@ -628,6 +645,18 @@
 					]
 				},
 				{
+					"Name": "pict-provider-vocabulary",
+					"Path": "modules/pict/pict-provider-vocabulary",
+					"Description": "Pict provider for vocabulary/glossary term management — holds a term index, provides a resolver callback for pict-section-content's parseMarkdown auto-linking, and wires popover hover handlers on rendered terms. Works with any term source: filesystem, database, or API.",
+					"GitHub": "https://github.com/stevenvelozo/pict-provider-vocabulary",
+					"Documentation": "https://stevenvelozo.github.io/pict-provider-vocabulary/",
+					"RelatedModules": [
+						"pict",
+						"pict-provider",
+						"pict-section-content"
+					]
+				},
+				{
 					"Name": "pict-router",
 					"Path": "modules/pict/pict-router",
 					"Description": "Hash-based URL routing via Navigo with template string route functions for Pict applications",
@@ -647,6 +676,19 @@
 					"RelatedModules": [
 						"pict",
 						"pict-view"
+					]
+				},
+				{
+					"Name": "pict-section-connection-form",
+					"Path": "modules/pict/pict-section-connection-form",
+					"Description": "Schema-driven Pict view that renders a Meadow connection form. Consumes the form schemas exported by each meadow-connection-* module and aggregated server-side via meadow-connection-manager.getAllProviderFormSchemas().",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-connection-form",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-connection-form/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-meadow-connection-manager",
+						"meadow-connection-manager"
 					]
 				},
 				{
@@ -803,6 +845,18 @@
 					"RelatedModules": [
 						"pict",
 						"pict-view"
+					]
+				},
+				{
+					"Name": "pict-section-usermanagement",
+					"Path": "modules/pict/pict-section-usermanagement",
+					"Description": "Pict user-management section — login, current-user badge, user list/edit, password change. Backed by orator-authentication's session routes plus the auth-beacon /Users CRUD surface.",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-usermanagement",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-usermanagement/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"orator-authentication"
 					]
 				},
 				{
@@ -1101,6 +1155,17 @@
 					]
 				},
 				{
+					"Name": "ultravisor-auth-beacon",
+					"Path": "modules/apps/ultravisor-auth-beacon",
+					"Description": "Optional Ultravisor beacon that advertises the Authentication capability — login, session validation, beacon-join admission. Pluggable AuthProvider for custom backends (LDAP, OAuth, custom DBs).",
+					"GitHub": "https://github.com/stevenvelozo/ultravisor-auth-beacon",
+					"Documentation": "https://stevenvelozo.github.io/ultravisor-auth-beacon/",
+					"RelatedModules": [
+						"ultravisor",
+						"ultravisor-beacon"
+					]
+				},
+				{
 					"Name": "ultravisor-file-stream",
 					"Path": "modules/apps/ultravisor-file-stream",
 					"Description": "File-streaming primitives for ultravisor: chunked write at offset with sha256-verified atomic finalize, buffered read, directory-tree hashing. Zero runtime dependencies — consumed by the ultravisor hub's chunked-write task type and by any beacon client that needs to ship multi-GB files across the mesh.",
@@ -1121,6 +1186,28 @@
 						"ultravisor",
 						"retold-databeacon",
 						"retold-facto"
+					]
+				},
+				{
+					"Name": "ultravisor-manifest-beacon",
+					"Path": "modules/apps/ultravisor-manifest-beacon",
+					"Description": "Optional Ultravisor beacon that durably persists operation execution manifests — the per-run snapshots the hub builds before, during, and after execution. Pluggable ManifestStoreProvider for custom backends (SQLite, Postgres, S3, etc.).",
+					"GitHub": "https://github.com/stevenvelozo/ultravisor-manifest-beacon",
+					"Documentation": "https://stevenvelozo.github.io/ultravisor-manifest-beacon/",
+					"RelatedModules": [
+						"ultravisor",
+						"ultravisor-beacon"
+					]
+				},
+				{
+					"Name": "ultravisor-queue-beacon",
+					"Path": "modules/apps/ultravisor-queue-beacon",
+					"Description": "Optional Ultravisor beacon that durably persists the work queue: enqueues, status transitions, attempt outcomes, and the per-item event log. Pluggable QueuePersistenceProvider for custom backends (SQLite, Postgres, S3, etc.).",
+					"GitHub": "https://github.com/stevenvelozo/ultravisor-queue-beacon",
+					"Documentation": "https://stevenvelozo.github.io/ultravisor-queue-beacon/",
+					"RelatedModules": [
+						"ultravisor",
+						"ultravisor-beacon"
 					]
 				},
 				{

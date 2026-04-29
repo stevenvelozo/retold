@@ -185,6 +185,17 @@ Templates:
 | `{~D:AppData.X.Y~}` | Data value at absolute AppData address |
 | `{~P~}` | The global pict reference (for onclick handlers) |
 | `{~D:Record.ViewHash~}` | The view's Hash (for referencing itself in handlers) |
+| `{~T:TemplateHash:Address~}` | Render `TemplateHash` once with the data at `Address` |
+| `{~TS:TemplateHash:Address~}` | Render `TemplateHash` for **each** item in the array at `Address` and concatenate the results |
+| `{~NE:Address^content~}` | Output `content` literally when the value at `Address` is truthy. The content is parsed (so further template tags resolve). Note the **`^` separator**, not `:`. |
+| `{~TIfAbs:TemplateHash:DataAddress:LeftAddress^Op^RightValue~}` | Render `TemplateHash` (with data at `DataAddress`) only when the comparison passes. Operators: `===`, `==`, `!==`, `!=`, `<`, `>`, `<=`, `>=`, `TRUE`, `FALSE`, `LNGT`, `LNLT`. |
+| `{~Join:Address:Separator~}` | Join array values with separator |
+| `{~JSV:Address~}` | Pretty-print the value at `Address` as JSON (for debug panels) |
+| `{~Digits:Address:N~}` / `{~Dollars:Address~}` | Numeric formatting filters |
+
+`TS` is the workhorse for lists. The address can be **`Record.X`** (relative) or **`AppData.X.Y`** (absolute) — pict's `Pict-Template-DataWithAbsoluteFallback` resolves both. Inside the iterated child template, the per-item record is the new `Record`, and `AppData.*` still works for cross-cutting state.
+
+For simple "render this if a flag is set" use `{~NE:~}` — its content is parsed so it can contain other template tags. Reach for `{~TIfAbs:~}` only when you need a real comparison (numeric thresholds, string equality against a sentinel, etc.).
 
 ### Parsing templates at runtime
 
@@ -194,12 +205,83 @@ let tmpHTML = this.pict.parseTemplateByHash('MyWidget-Row-Template', tmpRecord);
 this.pict.ContentAssignment.assignContent('#MyWidget-List', tmpHTML);
 ```
 
+### **Don't hand-roll iteration. Use `{~TS:...~}`.**
+
+Easy way to spot the smell: a `_buildXxxxHTML(pState)` method, a `for` loop that calls `parseTemplateByHash()` once per item and concatenates, and a parent template with a single `{~D:State.XxxxHTML~}` placeholder. The framework already does the loop — let it.
+
+```javascript
+// ❌ Wrong — hand-rolled iteration in JS
+_buildListHTML(pState)
+{
+    let tmpHtml = '';
+    for (let i = 0; i < pState.Items.length; i++)
+    {
+        tmpHtml += this.pict.parseTemplateByHash('MyWidget-Row-Template', pState.Items[i]);
+    }
+    return tmpHtml;
+}
+// then in onBeforeRender: pState.ListHTML = this._buildListHTML(pState);
+// and in the parent template: {~D:State.ListHTML~}
+
+// ✅ Right — push records into AppData, let the template iterate
+onBeforeRender(pRenderable)
+{
+    this.pict.AppData.MyWidget.Items = this._loadItems();
+    return super.onBeforeRender(pRenderable);
+}
+// and in the parent template: {~TS:MyWidget-Row-Template:AppData.MyWidget.Items~}
+```
+
+The `TS` form has three durable advantages:
+1. **No prerender step.** Adding/removing items doesn't require re-running a build method.
+2. **Single source of truth.** `AppData.MyWidget.Items` is the data; the template is the rendering. Helper methods that compute strings out of state mix the two.
+3. **Empty-state handling is a one-line `{~NotEmpty:...~}` swap** instead of a JS `if` branch around the build call.
+
+### Conditionals — prefer the single-element-array trick
+
+The cleanest and most flexible conditional in pict templates is **a one-or-zero-element array driving a `TS` tag**. Empty array → nothing rendered; one-element → template rendered once with full template-tag support inside.
+
+```javascript
+// onBeforeRender:
+this.pict.AppData.MyFeature.BusySlot = pInProgress ? [pStatusRow] : [];
+this.pict.AppData.MyFeature.IdleSlot = pInProgress ? [] : [pStatusRow];
+```
+
+```html
+<!-- parent template -->
+<div class="action-slot">
+    {~TS:MyFeature-Spinner-Template:AppData.MyFeature.BusySlot~}
+    {~TS:MyFeature-Idle-Template:AppData.MyFeature.IdleSlot~}
+</div>
+```
+
+Inside `MyFeature-Spinner-Template`, the per-record context is `pStatusRow`, so `{~D:Record.X~}` works. `AppData.*` still resolves to the global state.
+
+#### Other conditional tags
+
+- `{~NE:Address^content~}` — emits literal `content` if address is truthy. **Inner template tags are NOT recursively parsed**; this is for plain text/HTML only. Useful for "show this static label when a flag is set."
+- `{~TIfAbs:TemplateHash:DataAddress:LeftAddress^Op^RightValue~}` — render `TemplateHash` if comparison passes. Inner template tags ARE parsed (it's a real template render). Operators that work in practice: `===`, `==`, `!==`, `!=`, `TRUE`, `FALSE`, `<`, `>`, `<=`, `>=`, `LNGT`, `LNLT`. Note: numeric comparisons against literal numbers can be fiddly because the right-hand value is parsed as a string — prefer string comparisons (`Status^===^running`) or boolean operators (`Flag^TRUE^`).
+
+**Avoid the JS-side ternary that produces an HTML string and stuffs it into `Record.SomethingHTML`.** That couples markup to JS and defeats the template engine.
+
 ### Common mistakes
 
 | Wrong | Right |
 |-------|-------|
-| Building HTML via string concatenation in methods | Define templates in `Templates` array, parse with `parseTemplateByHash()` |
+| Building HTML via string concatenation in methods | Define templates in `Templates` array, use `{~TS:~}` / `{~TIA:~}` to compose them |
+| `_buildListHTML(pState)` that loops + `parseTemplateByHash` | `{~TS:Row-Template:AppData.X.Items~}` in the parent template |
+| Computing `Record.XHTML` strings in `onBeforeRender` | Push the data; let `{~TIA:~}` choose the template |
+| Stuffing computed strings into `pState.XxxxHTML` | Push records / values into `AppData`; reference via `{~D:AppData...~}` |
 | Hardcoding `window.pict.views['ViewName']` in onclick strings | Use `{~P~}.views['{~D:Record.ViewHash~}']` in templates |
+| Mutating DOM directly (`document.getElementById(...).innerHTML = ...`) | Trigger a re-render (`this.render()`) so the template engine repaints from `AppData` |
+
+### When `parseTemplateByHash()` is still appropriate
+
+- One-shot rendering into a destination outside the renderable cycle (e.g. injecting a single fragment from a non-Pict callback).
+- Computing a string for an attribute value where a template tag wouldn't work (rare).
+- Tests / debugging utilities.
+
+For everything inside the render cycle, prefer `{~TS:~}` / `{~TIA:~}` / `{~D:~}` and let the framework drive.
 
 ---
 
@@ -326,6 +408,30 @@ let tmpItems = this.pict.AppData.MyFeature.Items;
 this.pict.AppData.MyFeature.SelectedItem = pSlug;
 ```
 
+### **AppData stores data, not HTML.**
+
+A common drift pattern: a view computes display strings or HTML fragments in `onBeforeRender` and stuffs them into `AppData.MyFeature.SomethingHTML` / `Record.XxxxHTML`, then the template just substitutes `{~D:State.XxxxHTML~}`. That collapses the data → template separation back into JS-stringly-typed code.
+
+```javascript
+// ❌ Wrong — HTML in AppData
+this.pict.AppData.Lab.Overview.TeardownControlHTML = pInProgress
+    ? '<span class="lab-spinner"></span>Cleaning…'
+    : '<a class="lab-btn" href="#/system/teardown">Clean</a>';
+
+// ✅ Right — flag in AppData, template chooses
+this.pict.AppData.Lab.Overview.TeardownInProgress = pInProgress;
+// then in the template:
+//   {~TIA:AppData.Lab.Overview.TeardownInProgress:Overview-Teardown-Spinner-Template~}
+//   {~TIA:AppData.Lab.Overview.TeardownIdle:Overview-Teardown-Button-Template~}
+```
+
+Rules of thumb:
+
+- **Numbers, strings, booleans, dates, arrays of records** → AppData.
+- **Computed HTML strings** → not AppData. Either expose the inputs and let templates compose, or define a helper template and reference it with `{~TIA:~}` / `{~TS:~}`.
+- **`Record.XxxxHTML` keys** are the smell — if you find one, replace it with a template that consumes the underlying data directly.
+- **One-shot derived display data is fine** (e.g. a pre-formatted timestamp string) — Pict has formatting filters but a JS-side `tmpStatus.LabelText = pretty(tmpDate)` write to AppData is not a violation. The line is "data the template reads" vs "HTML the template substitutes verbatim."
+
 ---
 
 ## Well-behaved view checklist
@@ -339,7 +445,10 @@ When writing or reviewing a Pict view, verify:
 - [ ] `onAfterRender()` calls `this.pict.CSSMap.injectCSS()`
 - [ ] `onAfterRender()` calls `super.onAfterRender(...)` at the end
 - [ ] DOM access uses `this.pict.ContentAssignment`, not `document.querySelector`
-- [ ] Dynamic HTML uses `parseTemplateByHash()` + `assignContent()`, not string concat + innerHTML
+- [ ] **Iteration uses `{~TS:templateHash:address~}`, not a `_buildXxxxHTML` helper that loops over `parseTemplateByHash`**
+- [ ] **Conditional fragments use `{~TIA:address:templateHash~}` / `{~NotEmpty:~}`, not JS-side ternaries that produce HTML strings**
+- [ ] **No `Record.XxxxHTML` / `AppData.X.YyyyHTML` keys** — AppData stores data, templates render markup
+- [ ] One-shot renders that escape the cycle still use `parseTemplateByHash()` + `assignContent()`, never string concat + `innerHTML`
 - [ ] onclick handlers in templates use `{~P~}.views['{~D:Record.ViewHash~}']`
 - [ ] View state stored in `pict.AppData`, not instance variables
 

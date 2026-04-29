@@ -133,6 +133,38 @@ function readModuleVersion(pModulePath)
 	catch (pError) { return null; }
 }
 
+/**
+ * Compare two semver strings (Major.Minor.Patch[-Prerelease]). Returns
+ * negative / zero / positive (lexicographic comparison rules: prerelease
+ * versions are LOWER than the same MMR without a tag). Returns 0 for
+ * unparseable inputs so callers can short-circuit safely.
+ */
+function compareSemver(pA, pB)
+{
+	let fParse = function (pV)
+	{
+		if (typeof pV !== 'string') { return null; }
+		let tmpMatch = pV.match(/^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?/);
+		if (!tmpMatch) { return null; }
+		return {
+			Major: parseInt(tmpMatch[1], 10),
+			Minor: parseInt(tmpMatch[2], 10),
+			Patch: parseInt(tmpMatch[3], 10),
+			Prerelease: tmpMatch[4] || null,
+		};
+	};
+	let tmpA = fParse(pA);
+	let tmpB = fParse(pB);
+	if (!tmpA || !tmpB) { return 0; }
+	if (tmpA.Major !== tmpB.Major) { return tmpA.Major - tmpB.Major; }
+	if (tmpA.Minor !== tmpB.Minor) { return tmpA.Minor - tmpB.Minor; }
+	if (tmpA.Patch !== tmpB.Patch) { return tmpA.Patch - tmpB.Patch; }
+	if (tmpA.Prerelease && !tmpB.Prerelease) { return -1; }
+	if (!tmpA.Prerelease && tmpB.Prerelease) { return 1; }
+	if (tmpA.Prerelease && tmpB.Prerelease) { return tmpA.Prerelease.localeCompare(tmpB.Prerelease); }
+	return 0;
+}
+
 // ─────────────────────────────────────────────
 //  Executor state
 // ─────────────────────────────────────────────
@@ -402,6 +434,77 @@ async function runAction(pCore, pContext, pEntry, pStep, pAction, pStepIdx)
 					Label: 'npm version ' + tmpKind,
 				});
 			return { Ok: true, Version: readModuleVersion(pEntry.AbsolutePath) };
+		}
+
+		case 'bump-if-needed':
+		{
+			// Producer-step bump: compare local on-disk version vs. what npm
+			// has published. Skip the bump if the user already advanced local;
+			// run it if local matches npm; fail if local is BEHIND npm
+			// (someone/something drifted, surface it before publish).
+			let tmpKind = pAction.Kind || 'patch';
+			let tmpLocal = readModuleVersion(pEntry.AbsolutePath);
+			if (!tmpLocal)
+			{
+				throw new Error('bump-if-needed: could not read local version of ' + pEntry.Name);
+			}
+
+			pCore.Introspector.clearNpmVersionCache();
+			let tmpPublished = null;
+			try
+			{
+				tmpPublished = await pCore.Introspector.fetchPublishedVersion(
+					pEntry.Name, { Timeout: 10000 });
+			}
+			catch (pError) { tmpPublished = null; }
+
+			if (!tmpPublished)
+			{
+				// Never published — the upcoming `npm publish` will create
+				// the first version at whatever's in package.json.
+				return {
+					Ok: true,
+					Bumped: false,
+					Skipped: true,
+					Reason: 'never published; first publish will create v' + tmpLocal,
+					LocalVersion: tmpLocal,
+				};
+			}
+
+			let tmpCmp = compareSemver(tmpLocal, tmpPublished);
+			if (tmpCmp > 0)
+			{
+				return {
+					Ok: true,
+					Bumped: false,
+					Skipped: true,
+					Reason: 'already bumped: local v' + tmpLocal + ' is ahead of npm v' + tmpPublished,
+					LocalVersion: tmpLocal,
+					PublishedVersion: tmpPublished,
+				};
+			}
+			if (tmpCmp < 0)
+			{
+				throw new Error('bump-if-needed: local v' + tmpLocal
+					+ ' is BEHIND npm v' + tmpPublished + ' for ' + pEntry.Name
+					+ '. Resolve manually before re-running the ripple.');
+			}
+
+			// tmpCmp === 0 → run the bump.
+			await runAndAwait(tmpRunner,
+				{
+					Command: 'npm',
+					Args: ['version', tmpKind, '--no-git-tag-version'],
+					Cwd: pEntry.AbsolutePath,
+					Label: 'npm version ' + tmpKind + ' (bump-if-needed)',
+				});
+			return {
+				Ok: true,
+				Bumped: true,
+				FromVersion: tmpLocal,
+				ToVersion: readModuleVersion(pEntry.AbsolutePath),
+				PublishedVersion: tmpPublished,
+			};
 		}
 
 		case 'publish':
@@ -711,34 +814,39 @@ module.exports = function registerRippleRoutes(pCore)
 	pCore.RippleGraph = tmpRippleGraph;
 
 	// ── POST /api/manager/ripple/plan ──
-	// body: { Root, TargetVersion?, ConsumerBumpKind?, RangePrefix?, IncludeDev?, StopAtApps?, RunInstall?, RunTest? }
+	// body: { Roots?: string[], Root?: string, ConsumerBumpKind?, ProducerBumpKind?,
+	//         RangePrefix?, IncludeDev?, StopAtApps?, RunInstall?, RunTest?, RunPush?,
+	//         BringRetoldDepsForward? }
+	// Roots[] is preferred; Root is accepted for back-compat (single-root flow).
 	tmpOrator.serviceServer.doPost('/api/manager/ripple/plan',
 		function (pReq, pRes, pNext)
 		{
 			let tmpBody = pReq.body || {};
-			if (!tmpBody.Root)
+
+			// Normalize to Roots[].
+			let tmpRoots;
+			if (Array.isArray(tmpBody.Roots) && tmpBody.Roots.length > 0)
 			{
-				respondError(pRes, 400, 'BadRequest', 'Root is required.');
+				tmpRoots = tmpBody.Roots.slice();
+			}
+			else if (tmpBody.Root)
+			{
+				tmpRoots = [tmpBody.Root];
+			}
+			else
+			{
+				respondError(pRes, 400, 'BadRequest', 'Roots[] (or Root) is required.');
 				return pNext();
 			}
 
-			let tmpEntry = tmpCatalog.getModule(tmpBody.Root);
-			if (!tmpEntry)
+			// Validate every root exists in the manifest.
+			for (let i = 0; i < tmpRoots.length; i++)
 			{
-				respondError(pRes, 404, 'UnknownModule', 'No module "' + tmpBody.Root + '".');
-				return pNext();
-			}
-
-			let tmpTargetVersion = tmpBody.TargetVersion;
-			if (!tmpTargetVersion)
-			{
-				// Default: the Root's current on-disk version.
-				tmpTargetVersion = readModuleVersion(tmpEntry.AbsolutePath);
-			}
-			if (!tmpTargetVersion)
-			{
-				respondError(pRes, 400, 'BadRequest', 'Could not determine TargetVersion.');
-				return pNext();
+				if (!tmpCatalog.getModule(tmpRoots[i]))
+				{
+					respondError(pRes, 404, 'UnknownModule', 'No module "' + tmpRoots[i] + '".');
+					return pNext();
+				}
 			}
 
 			try
@@ -746,9 +854,9 @@ module.exports = function registerRippleRoutes(pCore)
 				tmpRippleGraph.invalidate();
 				let tmpPlan = tmpRippleGraph.buildPlan(
 					{
-						Root: tmpEntry.Name,
-						TargetVersion: tmpTargetVersion,
+						Roots: tmpRoots,
 						ConsumerBumpKind: tmpBody.ConsumerBumpKind || 'patch',
+						ProducerBumpKind: tmpBody.ProducerBumpKind || 'patch',
 						RangePrefix: tmpBody.RangePrefix !== undefined ? tmpBody.RangePrefix : '^',
 						IncludeDev: tmpBody.IncludeDev,
 						StopAtApps: tmpBody.StopAtApps,

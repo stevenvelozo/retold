@@ -415,11 +415,29 @@ class ManagerRippleView extends libPictView
 		let tmpPlan  = pRipple.Plan;
 		let tmpSteps = pRipple.Steps;
 
+		// Multi-root header: list every selected producer (truncate to 3 +
+		// overflow count, full list available on hover via title attr).
+		let tmpRoots = (Array.isArray(tmpPlan.Roots) && tmpPlan.Roots.length > 0)
+			? tmpPlan.Roots
+			: [tmpPlan.Root];
+		let tmpRootsLabel;
+		if (tmpRoots.length === 1)
+		{
+			tmpRootsLabel = '<span class="target">' + this._escape(tmpRoots[0]) + '</span>';
+		}
+		else
+		{
+			let tmpShown = tmpRoots.slice(0, 3).map((pR) => this._escape(pR)).join(', ');
+			let tmpExtra = (tmpRoots.length > 3) ? (' +' + (tmpRoots.length - 3) + ' more') : '';
+			tmpRootsLabel = '<span class="target" title="' + this._escape(tmpRoots.join(', ')) + '">'
+				+ tmpRoots.length + ' producers: ' + tmpShown + tmpExtra + '</span>';
+		}
+
 		let tmpHtml = '<div class="ripple-plan">';
 		tmpHtml += '<div class="ripple-header">';
-		tmpHtml += '  <span class="title">Ripple: <span class="target">' + this._escape(tmpPlan.Root)
-			+ '</span> to v' + this._escape(tmpPlan.TargetVersion) + '</span>';
-		tmpHtml += '  <span class="meta">' + tmpSteps.length + ' steps · '
+		tmpHtml += '  <span class="title">Ripple: ' + tmpRootsLabel + '</span>';
+		tmpHtml += '  <span class="meta">' + tmpSteps.length + ' steps · producer '
+			+ this._escape(tmpPlan.Options.ProducerBumpKind || 'patch') + ' / consumer '
 			+ this._escape(tmpPlan.Options.ConsumerBumpKind || 'patch') + ' bump</span>';
 		tmpHtml += '</div>';
 
@@ -520,6 +538,7 @@ class ManagerRippleView extends libPictView
 			case 'test':                 return 'npm test';
 			case 'commit':               return 'git commit (deps)';
 			case 'bump':                 return 'bump ' + (pAction.Kind || 'patch');
+			case 'bump-if-needed':       return 'bump if needed (' + (pAction.Kind || 'patch') + ')';
 			case 'publish':              return 'npm publish';
 			case 'commit-final':         return 'git commit (post-publish)';
 			case 'push':                 return 'git push';
