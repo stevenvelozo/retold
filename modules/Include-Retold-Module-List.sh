@@ -13,7 +13,7 @@ repositoriesOrator=("orator" "orator-authentication" "orator-conversion" "orator
 
 repositoriesPict=("cryptbrau" "informary" "pict" "pict-application" "pict-docuserve" "pict-editor-timeline" "pict-meadow-connection-manager" "pict-nonlinearconfig" "pict-panel" "pict-provider" "pict-provider-vocabulary" "pict-router" "pict-section-code" "pict-section-connection-form" "pict-section-content" "pict-section-entitymanagement" "pict-section-equation" "pict-section-flow" "pict-section-form" "pict-section-formeditor" "pict-section-histogram" "pict-section-inlinedocumentation" "pict-section-login" "pict-section-markdowneditor" "pict-section-modal" "pict-section-objecteditor" "pict-section-openseadragon" "pict-section-recordset" "pict-section-tuigrid" "pict-section-usermanagement" "pict-service-commandlineutility" "pict-serviceproviderbase" "pict-sessionmanager" "pict-template" "pict-template-preprocessor" "pict-terminalui" "pict-view")
 
-repositoriesUtility=("cachetrax" "choreographic" "cumulation" "elucidator" "indoctrinate" "manyfest" "manyfest-conversion" "merquerial" "pict-cruisecontrol" "precedent" "quackage" "retold-sample-data")
+repositoriesUtility=("cachetrax" "choreographic" "cumulation" "elucidator" "indoctrinate" "manyfest" "manyfest-conversion" "merquerial" "pict-cruisecontrol" "precedent" "quackage" "retold-sample-data" "retold-sharp")
 
 repositoriesApps=("retold-beacon-host" "retold-content-system" "retold-databeacon" "retold-data-mapper" "retold-facto" "retold-remote" "retold-remote-desktop" "retold-remote-ios" "ultravisor" "ultravisor-auth-beacon" "ultravisor-file-stream" "ultravisor-lab" "ultravisor-manifest-beacon" "ultravisor-queue-beacon" "ultravisor-suite-harness")
 

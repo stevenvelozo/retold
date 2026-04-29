@@ -1056,6 +1056,14 @@
 					"GitHub": "https://github.com/stevenvelozo/retold-sample-data",
 					"Documentation": "https://stevenvelozo.github.io/retold-sample-data/",
 					"RelatedModules": []
+				},
+				{
+					"Name": "retold-sharp",
+					"Path": "modules/utility/retold-sharp",
+					"Description": "Sharp image library wrapper that bypasses sharp's global-libvips detection at install time, so machines with Homebrew or system libvips do not fall into the build-from-source path",
+					"GitHub": "https://github.com/stevenvelozo/retold-sharp",
+					"Documentation": false,
+					"RelatedModules": []
 				}
 			]
 		},
