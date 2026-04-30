@@ -65,16 +65,6 @@
 					]
 				},
 				{
-					"Name": "fable-uuid",
-					"Path": "modules/fable/fable-uuid",
-					"Description": "UUID generator supporting RFC 4122 v4 and configurable random strings",
-					"GitHub": "https://github.com/stevenvelozo/fable-uuid",
-					"Documentation": "https://stevenvelozo.github.io/fable-uuid/",
-					"RelatedModules": [
-						"fable"
-					]
-				},
-				{
 					"Name": "fable-ultravisor-client",
 					"Path": "modules/fable/fable-ultravisor-client",
 					"Description": "HTTP client for the Ultravisor coordinator: authentication, work-item dispatch (JSON and binary-framed streaming), operation triggering",
@@ -84,6 +74,16 @@
 						"fable",
 						"ultravisor",
 						"ultravisor-beacon"
+					]
+				},
+				{
+					"Name": "fable-uuid",
+					"Path": "modules/fable/fable-uuid",
+					"Description": "UUID generator supporting RFC 4122 v4 and configurable random strings",
+					"GitHub": "https://github.com/stevenvelozo/fable-uuid",
+					"Documentation": "https://stevenvelozo.github.io/fable-uuid/",
+					"RelatedModules": [
+						"fable"
 					]
 				},
 				{
@@ -724,6 +724,21 @@
 					"RelatedModules": []
 				},
 				{
+					"Name": "pict-section-filebrowser",
+					"Path": "modules/pict/pict-section-filebrowser",
+					"Description": "Web control for browsing files on the remote server.",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-filebrowser",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-filebrowser",
+					"RelatedModules": [
+						"pict",
+						"retold-remote",
+						"retold-content-system",
+						"meadow-connection-manager",
+						"meadow-integration",
+						"retold-data beacon"
+					]
+				},
+				{	
 					"Name": "pict-section-flow",
 					"Path": "modules/pict/pict-section-flow",
 					"Description": "Flow diagram section for visual workflow and process representations",
