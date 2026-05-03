@@ -4099,10 +4099,11 @@
         loadPublishPreview(pModuleName) {
           return this.get('/modules/' + encodeURIComponent(pModuleName) + '/publish/preview');
         }
-        publishModule(pModuleName, pPreviewHash) {
+        publishModule(pModuleName, pPreviewHash, pWithDocker) {
           return this.post('/modules/' + encodeURIComponent(pModuleName) + '/operations/publish', {
             Confirm: true,
-            PreviewHash: pPreviewHash
+            PreviewHash: pPreviewHash,
+            WithDocker: !!pWithDocker
           });
         }
 
@@ -4840,7 +4841,7 @@
 	<div class="action-group">
 		<div class="action-group-label">publish</div>
 		<div class="action-row">
-			<button class="action success" data-op="publish">publish to npm</button>
+			<button class="action success" data-op="publish" title="Open the publish dialog (npm or npm + Docker image)">publish...</button>
 			<button class="action primary" data-op="ripple">Ripple</button>
 		</div>
 	</div>
@@ -6683,7 +6684,10 @@
 		<div class="modal-actions">
 			<button class="action" onclick="{~P~}.views['Manager-Modal-Publish'].close()">Close</button>
 			<button class="action success" id="RM-PublishSubmit"
-				onclick="{~P~}.views['Manager-Modal-Publish'].submit()" disabled>Publish to npm</button>
+				onclick="{~P~}.views['Manager-Modal-Publish'].submit(false)" disabled>Publish to npm</button>
+			<button class="action success" id="RM-PublishSubmitDocker"
+				onclick="{~P~}.views['Manager-Modal-Publish'].submit(true)" disabled
+				title="Also rebuild + push the GHCR docker image (multi-arch build, several minutes)">Publish + Docker image</button>
 		</div>
 	</div>
 </div>
@@ -6738,22 +6742,33 @@
           this._moduleName = null;
           this.pict.ContentAssignment.assignContent('#RM-ModalRoot', '');
         }
-        submit() {
+        submit(pWithDocker) {
           if (!this._previewHash || !this._ok || !this._moduleName) {
             return;
           }
           let tmpName = this._moduleName;
           let tmpHash = this._previewHash;
+
+          // Disable both submit buttons during the inflight publish so
+          // the user can't double-click into a second concurrent run.
           let tmpBtn = document.getElementById('RM-PublishSubmit');
+          let tmpBtnDocker = document.getElementById('RM-PublishSubmitDocker');
           if (tmpBtn) {
             tmpBtn.disabled = true;
           }
-          this.pict.providers.ManagerAPI.publishModule(tmpName, tmpHash).then(() => {
+          if (tmpBtnDocker) {
+            tmpBtnDocker.disabled = true;
+          }
+          let tmpStatusLabel = pWithDocker ? 'Publishing ' + tmpName + ' + GHCR image...' : 'Publishing ' + tmpName + '...';
+          this.pict.providers.ManagerAPI.publishModule(tmpName, tmpHash, !!pWithDocker).then(() => {
             this.close();
-            this.pict.PictApplication.setStatus('Publishing ' + tmpName + '...');
+            this.pict.PictApplication.setStatus(tmpStatusLabel);
           }, pError => {
             if (tmpBtn) {
               tmpBtn.disabled = false;
+            }
+            if (tmpBtnDocker) {
+              tmpBtnDocker.disabled = false;
             }
             let tmpPanel = document.getElementById('RM-PreviewPanel');
             if (tmpPanel) {
@@ -6766,10 +6781,14 @@
           });
         }
         onAfterRender(pRenderable, pAddress, pRecord, pContent) {
-          // Enable the submit button only once preview says OkToPublish.
+          // Enable both submit buttons only once preview says OkToPublish.
           let tmpBtn = document.getElementById('RM-PublishSubmit');
+          let tmpBtnDocker = document.getElementById('RM-PublishSubmitDocker');
           if (tmpBtn) {
             tmpBtn.disabled = !this._ok;
+          }
+          if (tmpBtnDocker) {
+            tmpBtnDocker.disabled = !this._ok;
           }
           this.pict.CSSMap.injectCSS();
           return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);

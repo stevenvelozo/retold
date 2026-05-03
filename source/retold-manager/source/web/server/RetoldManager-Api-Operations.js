@@ -431,12 +431,21 @@ module.exports = function registerOperationsRoutes(pCore)
 				return pNext();
 			}
 
+			// `WithDocker: true` opts into rebuilding the GHCR image —
+			// runs `npm run publish:docker` (which sets BUILD_DOCKER=1
+			// for the underlying npm publish, so the postpublish hook
+			// in quackage tags + pushes the version → GHCR workflow).
+			// When false / omitted, plain `npm publish` ships to npm
+			// only and skips the multi-arch build cost.
+			let tmpWithDocker = tmpBody.WithDocker === true;
+			let tmpArgs = tmpWithDocker ? ['run', 'publish:docker'] : ['publish'];
+			let tmpLabelPrefix = tmpWithDocker ? 'npm run publish:docker ' : 'npm publish ';
 			let tmpOperationId = tmpRunner.run(
 				{
 					Command: 'npm',
-					Args: ['publish'],
+					Args: tmpArgs,
 					Cwd: tmpEntry.AbsolutePath,
-					Label: 'npm publish ' + tmpStored.Report.Package + '@' + tmpStored.Report.LocalVersion,
+					Label: tmpLabelPrefix + tmpStored.Report.Package + '@' + tmpStored.Report.LocalVersion,
 				});
 
 			// Consumed — the hash is no longer valid for another publish.

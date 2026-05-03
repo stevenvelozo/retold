@@ -690,7 +690,7 @@ class RetoldManagerApp extends libPictApplication
 		this._screen.on('keypress', tmpConfirmHandler);
 	}
 
-	_runPublish()
+	_runPublish(pWithDocker)
 	{
 		if (this._awaitingConfirmation) { return; }
 
@@ -707,18 +707,22 @@ class RetoldManagerApp extends libPictApplication
 			return;
 		}
 
+		let tmpHeaderLabel = pWithDocker
+			? 'Pre-publish validation (npm + docker image)'
+			: 'Pre-publish validation';
+
 		// Clear and write the "we're validating" header so the user sees
 		// instant feedback while the async validation runs.
 		this._terminalOutput.setContent('');
-		this._terminalOutput.log('{bold}{yellow-fg}Pre-publish validation{/yellow-fg}{/bold}');
+		this._terminalOutput.log(`{bold}{yellow-fg}${tmpHeaderLabel}{/yellow-fg}{/bold}`);
 		this._terminalOutput.log('');
 		this._terminalOutput.log('{gray-fg}  running npm queries (parallel)...{/gray-fg}');
-		this._updateStatus('Pre-publish validation running...');
+		this._updateStatus(`${tmpHeaderLabel} running...`);
 		this._screen.render();
 
 		if (this.pict.log)
 		{
-			this.pict.log.info(`PUBLISH  Pre-publish validation for ${tmpModulePath}`);
+			this.pict.log.info(`PUBLISH  ${tmpHeaderLabel} for ${tmpModulePath}`);
 		}
 
 		let tmpModuleName = libPath.basename(tmpModulePath);
@@ -726,7 +730,7 @@ class RetoldManagerApp extends libPictApplication
 		this._prePublishValidator.validate(tmpModuleName).then(
 			(pReport) =>
 			{
-				this._onPrePublishReport(pReport, tmpModulePath, tmpModuleName);
+				this._onPrePublishReport(pReport, tmpModulePath, tmpModuleName, pWithDocker);
 			},
 			(pError) =>
 			{
@@ -741,8 +745,13 @@ class RetoldManagerApp extends libPictApplication
 	 * Consume a PrePublishValidator report, render it into the blessed
 	 * widget (byte-identical to the pre-refactor output), and either
 	 * abort or prompt for Y/N confirmation.
+	 *
+	 * pWithDocker — when true, the eventual `npm publish` runs as
+	 * `npm run publish:docker` (which sets BUILD_DOCKER=1 to opt the
+	 * postpublish hook into pushing the version tag → GHCR build).
+	 * When false (the default), pushes to npm only.
 	 */
-	_onPrePublishReport(pReport, pModulePath, pModuleName)
+	_onPrePublishReport(pReport, pModulePath, pModuleName, pWithDocker)
 	{
 		// Clear the "running..." placeholder and render the final report
 		this._terminalOutput.setContent('');
@@ -853,7 +862,14 @@ class RetoldManagerApp extends libPictApplication
 			this._terminalOutput.log(`  {bold}${pReport.Package}{/bold}  v${pReport.LocalVersion}  {gray-fg}(first publish){/gray-fg}`);
 		}
 		this._terminalOutput.log('');
-		this._terminalOutput.log('{bold}{yellow-fg}Publish to npm?  [Y] yes  [N] no{/yellow-fg}{/bold}');
+		let tmpPromptLabel = pWithDocker
+			? 'Publish to npm AND build docker image?  [Y] yes  [N] no'
+			: 'Publish to npm?  [Y] yes  [N] no';
+		this._terminalOutput.log(`{bold}{yellow-fg}${tmpPromptLabel}{/yellow-fg}{/bold}`);
+		if (pWithDocker)
+		{
+			this._terminalOutput.log('{gray-fg}  (multi-arch GHCR build will start ~5 min after publish){/gray-fg}');
+		}
 		this._updateStatus('Publish? Y/N');
 		this._awaitingConfirmation = true;
 		this._screen.render();
@@ -867,16 +883,26 @@ class RetoldManagerApp extends libPictApplication
 			if (pCh === 'y' || pCh === 'Y')
 			{
 				tmpSelf._terminalOutput.log('');
-				tmpSelf._terminalOutput.log('{green-fg}{bold}Publishing...{/bold}{/green-fg}');
+				tmpSelf._terminalOutput.log(pWithDocker
+					? '{green-fg}{bold}Publishing (npm + docker)...{/bold}{/green-fg}'
+					: '{green-fg}{bold}Publishing (npm only)...{/bold}{/green-fg}');
 				tmpSelf._terminalOutput.log('');
 				tmpSelf._screen.render();
 
 				if (tmpSelf.pict.log)
 				{
-					tmpSelf.pict.log.info(`PUBLISH  Confirmed -- publishing ${pReport.Package} v${pReport.LocalVersion}`);
+					let tmpFlavor = pWithDocker ? 'with docker' : 'npm only';
+					tmpSelf.pict.log.info(`PUBLISH  Confirmed -- publishing ${pReport.Package} v${pReport.LocalVersion} (${tmpFlavor})`);
 				}
 
-				tmpSelf.processRunner.run('npm', ['publish'], pModulePath, null, { append: true });
+				// `publish:docker` is the npm script that wraps the
+				// publish in `BUILD_DOCKER=1` so the package's
+				// postpublish hook tags + pushes the version (which
+				// triggers the GHCR workflow). Plain `npm publish`
+				// leaves BUILD_DOCKER unset and the postpublish hook
+				// no-ops the tag step.
+				let tmpArgs = pWithDocker ? ['run', 'publish:docker'] : ['publish'];
+				tmpSelf.processRunner.run('npm', tmpArgs, pModulePath, null, { append: true });
 			}
 			else
 			{
@@ -941,7 +967,7 @@ class RetoldManagerApp extends libPictApplication
 		this._terminalOutput.log('{bold}GIT{/bold}');
 		this._terminalOutput.log('  {cyan-fg}[d]{/cyan-fg} diff            {cyan-fg}[a]{/cyan-fg} add -A         {cyan-fg}[o]{/cyan-fg} commit         {cyan-fg}[p]{/cyan-fg} pull          {cyan-fg}[u]{/cyan-fg} push');
 		this._terminalOutput.log('{bold}Software{/bold}');
-		this._terminalOutput.log('  {cyan-fg}[!]{/cyan-fg} publish         {cyan-fg}[x]{/cyan-fg} kill running process');
+		this._terminalOutput.log('  {cyan-fg}[!]{/cyan-fg} publish (npm)   {cyan-fg}[D]{/cyan-fg} publish + docker image   {cyan-fg}[x]{/cyan-fg} kill running process');
 		this._terminalOutput.log('');
 		this._terminalOutput.log('{bold}All Modules:{/bold}');
 		this._terminalOutput.log('  {cyan-fg}[s]{/cyan-fg} Status.sh       {cyan-fg}[r]{/cyan-fg} Update.sh      {cyan-fg}[c]{/cyan-fg} Checkout.sh');
@@ -1249,7 +1275,7 @@ class RetoldManagerApp extends libPictApplication
 					`{gray-fg}NPM{/gray-fg} [i]nstall [t]est t[y]pes [b]uild [n]cu [N] ncu -u`
 					+ `    {gray-fg}Bump{/gray-fg} [v] patch`
 					+ `    {gray-fg}GIT{/gray-fg} [d]iff [a]dd c[o]mmit [p]ull p[u]sh`
-					+ `    {gray-fg}Software{/gray-fg} [!] publish`;
+					+ `    {gray-fg}Software{/gray-fg} [!] publish [D] publish+docker`;
 				tmpHeaderWidget.setContent(
 					`{bold} Retold Manager{/bold}  |  {cyan-fg}${tmpTargetModule}{/cyan-fg}  |  ${tmpGroups}\n`
 					+ ` [x] kill  ${tmpNavKeys}`
@@ -1407,7 +1433,8 @@ class RetoldManagerApp extends libPictApplication
 		});
 		pScreen.key(['p'], () => { this._runModuleOperation('git', ['pull']); });
 		pScreen.key(['u'], () => { this._runModuleOperation('git', ['push']); });
-		pScreen.key(['!'], () => { this._runPublish(); });
+		pScreen.key(['!'], () => { this._runPublish(false); });
+		pScreen.key(['D'], () => { this._runPublish(true); });
 		// [a] — stage every modification/new file (git add -A). Commit via [o]
 		// after. Needed because `git commit -a` doesn't pick up untracked files.
 		pScreen.key(['a'], () => { this._runModuleOperation('git', ['add', '-A']); });

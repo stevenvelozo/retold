@@ -79,7 +79,7 @@ const _ViewConfiguration =
 	<div class="action-group">
 		<div class="action-group-label">publish</div>
 		<div class="action-row">
-			<button class="action success" data-op="publish">publish to npm</button>
+			<button class="action success" data-op="publish" title="Open the publish dialog (npm or npm + Docker image)">publish...</button>
 			<button class="action primary" data-op="ripple">Ripple</button>
 		</div>
 	</div>

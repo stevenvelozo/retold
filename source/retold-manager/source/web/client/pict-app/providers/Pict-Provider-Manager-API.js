@@ -193,10 +193,10 @@ class ManagerAPIProvider extends libPictProvider
 	{
 		return this.get('/modules/' + encodeURIComponent(pModuleName) + '/publish/preview');
 	}
-	publishModule(pModuleName, pPreviewHash)
+	publishModule(pModuleName, pPreviewHash, pWithDocker)
 	{
 		return this.post('/modules/' + encodeURIComponent(pModuleName) + '/operations/publish',
-			{ Confirm: true, PreviewHash: pPreviewHash });
+			{ Confirm: true, PreviewHash: pPreviewHash, WithDocker: !!pWithDocker });
 	}
 
 	// npm-check-updates
