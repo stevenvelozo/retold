@@ -29,6 +29,11 @@
         "pict-docuserve": "^0.1.5"
     },
     "dependencies": {
+        "@recogito/annotorious-better-polygon": "^0.2.0",
+        "@recogito/annotorious-openseadragon": "^2.7.19",
+        "@recogito/annotorious-selector-pack": "^0.6.1",
+        "pict-section-formeditor": "^1.0.13",
+        "pict-section-objecteditor": "^1.0.1",
         "quackage": "^1.1.2",
         "retold-content-system": "^1.0.21"
     }

@@ -30,13 +30,13 @@ const _ViewConfiguration =
 
 		#RM-Workspace
 		{
+			position: relative;
 			display: flex;
 			flex-direction: column;
 			min-height: 0;
 			overflow-y: auto;
 		}
-		#RM-Workspace-Content    { flex: 0 0 auto; }
-		#RM-OutputPanelContainer { flex: 0 0 auto; margin-top: auto; }
+		#RM-Workspace-Content { flex: 1 1 auto; min-height: 0; }
 	`,
 
 	Templates:
@@ -49,7 +49,6 @@ const _ViewConfiguration =
 	<aside id="RM-Sidebar"></aside>
 	<section id="RM-Workspace">
 		<div id="RM-Workspace-Content"></div>
-		<div id="RM-OutputPanelContainer"></div>
 	</section>
 </main>
 <footer id="RM-StatusBar"></footer>
@@ -82,9 +81,10 @@ class ManagerLayoutView extends libPictView
 		this.pict.views['Manager-TopBar'].render();
 		this.pict.views['Manager-Sidebar'].render();
 		this.pict.views['Manager-StatusBar'].render();
-		this.pict.views['Manager-OutputPanel'].render();
 
 		// Default workspace content — the router will override on resolve().
+		// (The output panel renders inside the module workspace template, so
+		// we don't kick it off here at the layout level.)
 		this.pict.views['Manager-Home'].render();
 
 		this.pict.CSSMap.injectCSS();

@@ -2425,6 +2425,2083 @@
       "pict-provider": 7
     }],
     9: [function (require, module, exports) {
+      /**
+       * Pict-Modal-Confirm
+       *
+       * Builds confirm and double-confirm dialog DOM, returns Promises.
+       */
+      class PictModalConfirm {
+        constructor(pModal) {
+          this._modal = pModal;
+        }
+
+        /**
+         * Show a single-step confirmation dialog.
+         *
+         * @param {string} pMessage - The confirmation message
+         * @param {object} [pOptions] - Options (title, confirmLabel, cancelLabel, dangerous)
+         * @returns {Promise<boolean>}
+         */
+        confirm(pMessage, pOptions) {
+          let tmpOptions = Object.assign({}, this._modal.options.DefaultConfirmOptions, pOptions);
+          return new Promise(fResolve => {
+            let tmpDialog = this._buildDialog(tmpOptions.title, pMessage, fResolve, tmpOptions);
+            this._showDialog(tmpDialog, fResolve);
+          });
+        }
+
+        /**
+         * Show a two-step confirmation dialog.
+         *
+         * If confirmPhrase is provided, user must type it to enable the confirm button.
+         * Otherwise, first click changes button text, second click confirms.
+         *
+         * @param {string} pMessage - The confirmation message
+         * @param {object} [pOptions] - Options (title, confirmPhrase, phrasePrompt, confirmLabel, cancelLabel)
+         * @returns {Promise<boolean>}
+         */
+        doubleConfirm(pMessage, pOptions) {
+          let tmpOptions = Object.assign({}, this._modal.options.DefaultDoubleConfirmOptions, pOptions);
+          return new Promise(fResolve => {
+            let tmpDialog = this._buildDoubleConfirmDialog(tmpOptions.title, pMessage, fResolve, tmpOptions);
+            this._showDialog(tmpDialog, fResolve);
+          });
+        }
+
+        /**
+         * Build a standard confirm dialog element.
+         *
+         * @param {string} pTitle
+         * @param {string} pMessage
+         * @param {function} fResolve - Promise resolver
+         * @param {object} pOptions
+         * @returns {HTMLElement}
+         */
+        _buildDialog(pTitle, pMessage, fResolve, pOptions) {
+          let tmpId = this._modal._nextId();
+          let tmpBtnStyle = pOptions.dangerous ? 'danger' : 'primary';
+          let tmpDialog = document.createElement('div');
+          tmpDialog.className = 'pict-modal-dialog';
+          if (pOptions.unbounded) {
+            tmpDialog.className += ' pict-modal-dialog--unbounded';
+          }
+          tmpDialog.id = 'pict-modal-' + tmpId;
+          tmpDialog.setAttribute('role', 'dialog');
+          tmpDialog.setAttribute('aria-modal', 'true');
+          tmpDialog.style.width = '420px';
+          tmpDialog.innerHTML = '<div class="pict-modal-dialog-header">' + '<span class="pict-modal-dialog-title">' + this._escapeHTML(pTitle) + '</span>' + '<button class="pict-modal-dialog-close" aria-label="Close">&times;</button>' + '</div>' + '<div class="pict-modal-dialog-body">' + '<p>' + this._escapeHTML(pMessage) + '</p>' + '</div>' + '<div class="pict-modal-dialog-footer">' + '<button class="pict-modal-btn" data-action="cancel">' + this._escapeHTML(pOptions.cancelLabel) + '</button>' + '<button class="pict-modal-btn pict-modal-btn--' + tmpBtnStyle + '" data-action="confirm">' + this._escapeHTML(pOptions.confirmLabel) + '</button>' + '</div>';
+          let tmpCloseBtn = tmpDialog.querySelector('.pict-modal-dialog-close');
+          let tmpCancelBtn = tmpDialog.querySelector('[data-action="cancel"]');
+          let tmpConfirmBtn = tmpDialog.querySelector('[data-action="confirm"]');
+          let tmpDismiss = pResult => {
+            this._dismissDialog(tmpDialog, pResult, fResolve);
+          };
+          tmpCloseBtn.addEventListener('click', () => {
+            tmpDismiss(false);
+          });
+          tmpCancelBtn.addEventListener('click', () => {
+            tmpDismiss(false);
+          });
+          tmpConfirmBtn.addEventListener('click', () => {
+            tmpDismiss(true);
+          });
+          tmpDialog._dismiss = tmpDismiss;
+          tmpDialog._focusTarget = tmpCancelBtn;
+          return tmpDialog;
+        }
+
+        /**
+         * Build a double-confirm dialog element.
+         *
+         * @param {string} pTitle
+         * @param {string} pMessage
+         * @param {function} fResolve - Promise resolver
+         * @param {object} pOptions
+         * @returns {HTMLElement}
+         */
+        _buildDoubleConfirmDialog(pTitle, pMessage, fResolve, pOptions) {
+          let tmpId = this._modal._nextId();
+          let tmpHasPhrase = typeof pOptions.confirmPhrase === 'string' && pOptions.confirmPhrase.length > 0;
+          let tmpDialog = document.createElement('div');
+          tmpDialog.className = 'pict-modal-dialog';
+          if (pOptions.unbounded) {
+            tmpDialog.className += ' pict-modal-dialog--unbounded';
+          }
+          tmpDialog.id = 'pict-modal-' + tmpId;
+          tmpDialog.setAttribute('role', 'dialog');
+          tmpDialog.setAttribute('aria-modal', 'true');
+          tmpDialog.style.width = '420px';
+          let tmpBodyContent = '<p>' + this._escapeHTML(pMessage) + '</p>';
+          if (tmpHasPhrase) {
+            let tmpPromptText = pOptions.phrasePrompt.replace('{phrase}', pOptions.confirmPhrase);
+            tmpBodyContent += '<div class="pict-modal-confirm-prompt">' + this._escapeHTML(tmpPromptText) + '</div>' + '<input type="text" class="pict-modal-confirm-input" autocomplete="off" spellcheck="false" />';
+          }
+          tmpDialog.innerHTML = '<div class="pict-modal-dialog-header">' + '<span class="pict-modal-dialog-title">' + this._escapeHTML(pTitle) + '</span>' + '<button class="pict-modal-dialog-close" aria-label="Close">&times;</button>' + '</div>' + '<div class="pict-modal-dialog-body">' + tmpBodyContent + '</div>' + '<div class="pict-modal-dialog-footer">' + '<button class="pict-modal-btn" data-action="cancel">' + this._escapeHTML(pOptions.cancelLabel) + '</button>' + '<button class="pict-modal-btn pict-modal-btn--danger" data-action="confirm" disabled>' + this._escapeHTML(pOptions.confirmLabel) + '</button>' + '</div>';
+          let tmpCloseBtn = tmpDialog.querySelector('.pict-modal-dialog-close');
+          let tmpCancelBtn = tmpDialog.querySelector('[data-action="cancel"]');
+          let tmpConfirmBtn = tmpDialog.querySelector('[data-action="confirm"]');
+          let tmpDismiss = pResult => {
+            this._dismissDialog(tmpDialog, pResult, fResolve);
+          };
+          tmpCloseBtn.addEventListener('click', () => {
+            tmpDismiss(false);
+          });
+          tmpCancelBtn.addEventListener('click', () => {
+            tmpDismiss(false);
+          });
+          if (tmpHasPhrase) {
+            // Phrase-based: enable confirm button when input matches
+            let tmpInput = tmpDialog.querySelector('.pict-modal-confirm-input');
+            tmpInput.addEventListener('input', () => {
+              tmpConfirmBtn.disabled = tmpInput.value !== pOptions.confirmPhrase;
+            });
+            tmpConfirmBtn.addEventListener('click', () => {
+              if (!tmpConfirmBtn.disabled) {
+                tmpDismiss(true);
+              }
+            });
+            tmpDialog._focusTarget = tmpInput;
+          } else {
+            // Two-click: first click changes label, second click confirms
+            let tmpClickCount = 0;
+            let tmpOriginalLabel = pOptions.confirmLabel;
+            tmpConfirmBtn.disabled = false;
+            tmpConfirmBtn.addEventListener('click', () => {
+              tmpClickCount++;
+              if (tmpClickCount === 1) {
+                tmpConfirmBtn.textContent = 'Click again to confirm';
+              } else {
+                tmpDismiss(true);
+              }
+            });
+            tmpDialog._focusTarget = tmpCancelBtn;
+          }
+          tmpDialog._dismiss = tmpDismiss;
+          return tmpDialog;
+        }
+
+        /**
+         * Show a dialog element: append to body, show overlay, animate in.
+         *
+         * @param {HTMLElement} pDialog
+         * @param {function} fResolve - Promise resolver (for overlay click dismiss)
+         */
+        _showDialog(pDialog, fResolve) {
+          let tmpModalEntry = {
+            element: pDialog,
+            dismiss: pDialog._dismiss,
+            type: 'confirm'
+          };
+
+          // Show overlay
+          let tmpOverlayClickHandler = null;
+          if (this._modal.options.OverlayClickDismisses) {
+            tmpOverlayClickHandler = () => {
+              pDialog._dismiss(false);
+            };
+          }
+          this._modal._overlay.show(tmpOverlayClickHandler);
+
+          // Append to body
+          document.body.appendChild(pDialog);
+
+          // Track active modal
+          this._modal._activeModals.push(tmpModalEntry);
+
+          // Animate in
+          void pDialog.offsetHeight;
+          pDialog.classList.add('pict-modal-visible');
+
+          // Focus
+          if (pDialog._focusTarget) {
+            pDialog._focusTarget.focus();
+          }
+
+          // Keyboard handler
+          pDialog._keyHandler = pEvent => {
+            if (pEvent.key === 'Escape') {
+              pDialog._dismiss(false);
+            }
+          };
+          document.addEventListener('keydown', pDialog._keyHandler);
+        }
+
+        /**
+         * Dismiss a dialog: animate out, remove from DOM, hide overlay.
+         *
+         * @param {HTMLElement} pDialog
+         * @param {*} pResult - Value to resolve the promise with
+         * @param {function} fResolve - Promise resolver
+         */
+        _dismissDialog(pDialog, pResult, fResolve) {
+          // Prevent double-dismiss
+          if (pDialog._dismissed) {
+            return;
+          }
+          pDialog._dismissed = true;
+
+          // Remove keyboard handler
+          if (pDialog._keyHandler) {
+            document.removeEventListener('keydown', pDialog._keyHandler);
+          }
+
+          // Animate out
+          pDialog.classList.remove('pict-modal-visible');
+
+          // Remove from active modals
+          this._modal._activeModals = this._modal._activeModals.filter(pEntry => {
+            return pEntry.element !== pDialog;
+          });
+
+          // Update overlay click handler to point to new topmost modal
+          if (this._modal._activeModals.length > 0) {
+            let tmpTopModal = this._modal._activeModals[this._modal._activeModals.length - 1];
+            this._modal._overlay.updateClickHandler(this._modal.options.OverlayClickDismisses ? tmpTopModal.dismiss : null);
+          }
+
+          // Hide overlay
+          this._modal._overlay.hide();
+
+          // Remove from DOM after transition
+          setTimeout(() => {
+            if (pDialog.parentNode) {
+              pDialog.parentNode.removeChild(pDialog);
+            }
+          }, 220);
+
+          // Resolve promise
+          fResolve(pResult);
+        }
+
+        /**
+         * Escape HTML special characters.
+         *
+         * @param {string} pText
+         * @returns {string}
+         */
+        _escapeHTML(pText) {
+          if (typeof pText !== 'string') {
+            return '';
+          }
+          return pText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+      }
+      module.exports = PictModalConfirm;
+    }, {}],
+    10: [function (require, module, exports) {
+      /**
+       * Pict-Modal-Overlay
+       *
+       * Manages a shared backdrop overlay element appended to document.body.
+       * Reference-counted — created on first modal open, removed when last closes.
+       */
+      class PictModalOverlay {
+        constructor(pModal) {
+          this._modal = pModal;
+          this._element = null;
+          this._refCount = 0;
+        }
+
+        /**
+         * Show the overlay (incrementing reference count).
+         * Creates the DOM element on first call.
+         *
+         * @param {function} [fOnClick] - Optional click handler (e.g. dismiss topmost modal)
+         */
+        show(fOnClick) {
+          this._refCount++;
+          if (!this._element) {
+            this._element = document.createElement('div');
+            this._element.className = 'pict-modal-overlay';
+            document.body.appendChild(this._element);
+
+            // Force reflow so the transition animates
+            void this._element.offsetHeight;
+            this._element.classList.add('pict-modal-visible');
+          }
+          if (fOnClick) {
+            // Store the latest click handler (for the topmost modal)
+            this._currentClickHandler = fOnClick;
+            this._element.onclick = pEvent => {
+              if (pEvent.target === this._element && this._currentClickHandler) {
+                this._currentClickHandler();
+              }
+            };
+          }
+        }
+
+        /**
+         * Update the overlay click handler (e.g. when topmost modal changes).
+         *
+         * @param {function} [fOnClick] - New click handler
+         */
+        updateClickHandler(fOnClick) {
+          this._currentClickHandler = fOnClick || null;
+        }
+
+        /**
+         * Hide the overlay (decrementing reference count).
+         * Removes the DOM element when reference count reaches zero.
+         */
+        hide() {
+          this._refCount--;
+          if (this._refCount <= 0) {
+            this._refCount = 0;
+            if (this._element) {
+              this._element.classList.remove('pict-modal-visible');
+              let tmpElement = this._element;
+              // Remove after transition
+              setTimeout(() => {
+                if (tmpElement.parentNode) {
+                  tmpElement.parentNode.removeChild(tmpElement);
+                }
+              }, 220);
+              this._element = null;
+              this._currentClickHandler = null;
+            }
+          }
+        }
+
+        /**
+         * Force-remove the overlay regardless of reference count.
+         */
+        destroy() {
+          this._refCount = 0;
+          if (this._element && this._element.parentNode) {
+            this._element.parentNode.removeChild(this._element);
+          }
+          this._element = null;
+          this._currentClickHandler = null;
+        }
+      }
+      module.exports = PictModalOverlay;
+    }, {}],
+    11: [function (require, module, exports) {
+      /**
+       * Pict-Modal-Panel
+       *
+       * Adds resizable and collapsible panel behavior to any DOM element.
+       * Follows the handler composition pattern used by the other modal
+       * handlers (confirm, window, toast, tooltip).
+       *
+       * Usage:
+       *   let handle = modal.panel('#my-panel', { position: 'right', width: 340 });
+       *   handle.toggle();
+       *   handle.destroy();
+       */
+      class PictModalPanel {
+        constructor(pModal) {
+          this._modal = pModal;
+          this._panels = [];
+        }
+
+        /**
+         * Attach resizable/collapsible panel behavior to an element.
+         *
+         * @param {string} pTargetSelector - CSS selector for the panel element
+         * @param {object} [pOptions] - Panel options
+         * @returns {{ collapse, expand, toggle, setWidth, destroy }} Panel handle
+         */
+        create(pTargetSelector, pOptions) {
+          let tmpDefaults = this._modal && this._modal.options && this._modal.options.DefaultPanelOptions || {};
+          let tmpOptions = Object.assign({}, {
+            position: 'right',
+            width: 340,
+            minWidth: 200,
+            maxWidth: 600,
+            collapsible: true,
+            collapsed: false,
+            persist: false,
+            persistKey: '',
+            onResize: null,
+            onToggle: null
+          }, tmpDefaults, pOptions);
+          if (typeof document === 'undefined') return this._nullHandle();
+          let tmpTarget = document.querySelector(pTargetSelector);
+          if (!tmpTarget) return this._nullHandle();
+          let tmpId = this._modal._nextId();
+          let tmpIsRight = tmpOptions.position === 'right';
+          let tmpIsCollapsed = false;
+          let tmpCurrentWidth = tmpOptions.width;
+          let tmpDestroyed = false;
+
+          // Restore persisted state
+          if (tmpOptions.persist && tmpOptions.persistKey) {
+            try {
+              let tmpStored = localStorage.getItem('pict-panel-' + tmpOptions.persistKey);
+              if (tmpStored) {
+                let tmpParsed = JSON.parse(tmpStored);
+                if (typeof tmpParsed.width === 'number') tmpCurrentWidth = tmpParsed.width;
+                if (typeof tmpParsed.collapsed === 'boolean') tmpOptions.collapsed = tmpParsed.collapsed;
+              }
+            } catch (e) {/* ignore */}
+          }
+
+          // Apply classes and initial width
+          tmpTarget.classList.add('pict-panel');
+          tmpTarget.classList.add(tmpIsRight ? 'pict-panel-right' : 'pict-panel-left');
+          tmpTarget.style.width = tmpCurrentWidth + 'px';
+
+          // Remove display:none if present — panel uses width collapse instead
+          if (tmpTarget.style.display === 'none') {
+            tmpTarget.style.display = '';
+          }
+
+          // ── Create the edge container ───────────────────────
+          let tmpEdge = document.createElement('div');
+          tmpEdge.className = 'pict-panel-edge ' + (tmpIsRight ? 'pict-panel-edge-right' : 'pict-panel-edge-left');
+
+          // Resize handle
+          let tmpResize = document.createElement('div');
+          tmpResize.className = 'pict-panel-resize';
+          tmpEdge.appendChild(tmpResize);
+
+          // Collapse tab (chevron SVG)
+          let tmpTab = null;
+          if (tmpOptions.collapsible) {
+            tmpTab = document.createElement('div');
+            tmpTab.className = 'pict-panel-tab';
+            tmpTab.title = 'Toggle panel';
+            tmpEdge.appendChild(tmpTab);
+          }
+
+          // Insert edge as a sibling so it is not clipped by the
+          // panel's own overflow (e.g. overflow-y: auto for scrolling).
+          // Right panels: edge goes BEFORE the panel (left side).
+          // Left panels: edge goes AFTER the panel (right side).
+          if (tmpTarget.parentNode) {
+            if (tmpIsRight) {
+              tmpTarget.parentNode.insertBefore(tmpEdge, tmpTarget);
+            } else {
+              tmpTarget.parentNode.insertBefore(tmpEdge, tmpTarget.nextSibling);
+            }
+          } else {
+            tmpTarget.insertBefore(tmpEdge, tmpTarget.firstChild);
+          }
+
+          // ── Chevron SVG helper ──────────────────────────────
+          let tmpChevronRight = '<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,3 11,8 6,13"/></svg>';
+          let tmpChevronLeft = '<svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="10,3 5,8 10,13"/></svg>';
+          let tmpUpdateChevron = () => {
+            if (!tmpTab) return;
+            if (tmpIsRight) {
+              tmpTab.innerHTML = tmpIsCollapsed ? tmpChevronLeft : tmpChevronRight;
+            } else {
+              tmpTab.innerHTML = tmpIsCollapsed ? tmpChevronRight : tmpChevronLeft;
+            }
+          };
+
+          // ── Persist helper ──────────────────────────────────
+          let tmpPersist = () => {
+            if (!tmpOptions.persist || !tmpOptions.persistKey) return;
+            try {
+              localStorage.setItem('pict-panel-' + tmpOptions.persistKey, JSON.stringify({
+                width: tmpCurrentWidth,
+                collapsed: tmpIsCollapsed
+              }));
+            } catch (e) {/* ignore */}
+          };
+
+          // ── Collapse / expand ───────────────────────────────
+          let tmpCollapse = () => {
+            if (tmpIsCollapsed || tmpDestroyed) return;
+            tmpIsCollapsed = true;
+            tmpTarget.classList.add('pict-panel-collapsed');
+            tmpEdge.classList.add('pict-panel-edge-collapsed');
+            tmpUpdateChevron();
+            tmpPersist();
+            if (typeof tmpOptions.onToggle === 'function') tmpOptions.onToggle(true);
+          };
+          let tmpExpand = () => {
+            if (!tmpIsCollapsed || tmpDestroyed) return;
+            tmpIsCollapsed = false;
+            tmpEdge.classList.remove('pict-panel-edge-collapsed');
+            tmpTarget.classList.remove('pict-panel-collapsed');
+            tmpTarget.style.width = tmpCurrentWidth + 'px';
+            tmpUpdateChevron();
+            tmpPersist();
+            if (typeof tmpOptions.onToggle === 'function') tmpOptions.onToggle(false);
+          };
+          let tmpToggle = () => {
+            if (tmpIsCollapsed) tmpExpand();else tmpCollapse();
+          };
+          let tmpSetWidth = pWidth => {
+            if (tmpDestroyed) return;
+            let tmpWidth = Math.max(tmpOptions.minWidth, Math.min(tmpOptions.maxWidth, pWidth));
+            tmpCurrentWidth = tmpWidth;
+            if (!tmpIsCollapsed) {
+              tmpTarget.style.width = tmpWidth + 'px';
+            }
+            tmpPersist();
+            if (typeof tmpOptions.onResize === 'function') tmpOptions.onResize(tmpWidth);
+          };
+
+          // ── Tab click ───────────────────────────────────────
+          if (tmpTab) {
+            tmpTab.addEventListener('click', pEvent => {
+              pEvent.stopPropagation();
+              tmpToggle();
+            });
+          }
+
+          // ── Resize drag ─────────────────────────────────────
+          let tmpOnMouseDown = pEvent => {
+            if (tmpIsCollapsed) return;
+            pEvent.preventDefault();
+            let tmpStartX = pEvent.clientX;
+            let tmpStartWidth = tmpTarget.offsetWidth;
+            tmpResize.classList.add('dragging');
+            tmpTarget.style.transition = 'none';
+            document.body.style.userSelect = 'none';
+            document.body.style.cursor = 'col-resize';
+            let tmpOnMouseMove = pMoveEvent => {
+              let tmpDelta = tmpIsRight ? tmpStartX - pMoveEvent.clientX : pMoveEvent.clientX - tmpStartX;
+              let tmpNewWidth = Math.max(tmpOptions.minWidth, Math.min(tmpOptions.maxWidth, tmpStartWidth + tmpDelta));
+              tmpTarget.style.width = tmpNewWidth + 'px';
+            };
+            let tmpOnMouseUp = pUpEvent => {
+              document.removeEventListener('mousemove', tmpOnMouseMove);
+              document.removeEventListener('mouseup', tmpOnMouseUp);
+              tmpResize.classList.remove('dragging');
+              tmpTarget.style.transition = '';
+              document.body.style.userSelect = '';
+              document.body.style.cursor = '';
+
+              // Capture the final width
+              tmpCurrentWidth = tmpTarget.offsetWidth;
+              tmpPersist();
+              if (typeof tmpOptions.onResize === 'function') tmpOptions.onResize(tmpCurrentWidth);
+            };
+            document.addEventListener('mousemove', tmpOnMouseMove);
+            document.addEventListener('mouseup', tmpOnMouseUp);
+          };
+          tmpResize.addEventListener('mousedown', tmpOnMouseDown);
+
+          // ── Initial state ───────────────────────────────────
+          tmpUpdateChevron();
+          if (tmpOptions.collapsed) {
+            tmpIsCollapsed = true;
+            tmpTarget.classList.add('pict-panel-collapsed');
+            tmpEdge.classList.add('pict-panel-edge-collapsed');
+            tmpUpdateChevron();
+          }
+
+          // ── Destroy ─────────────────────────────────────────
+          let tmpDestroy = () => {
+            if (tmpDestroyed) return;
+            tmpDestroyed = true;
+            tmpResize.removeEventListener('mousedown', tmpOnMouseDown);
+            if (tmpEdge.parentNode) tmpEdge.remove();
+            tmpTarget.classList.remove('pict-panel', 'pict-panel-right', 'pict-panel-left', 'pict-panel-collapsed');
+            tmpTarget.style.width = '';
+            tmpTarget.style.transition = '';
+            let tmpIdx = this._panels.indexOf(tmpHandle);
+            if (tmpIdx >= 0) this._panels.splice(tmpIdx, 1);
+          };
+
+          // ── Return handle ───────────────────────────────────
+          let tmpHandle = {
+            id: tmpId,
+            collapse: tmpCollapse,
+            expand: tmpExpand,
+            toggle: tmpToggle,
+            setWidth: tmpSetWidth,
+            destroy: tmpDestroy
+          };
+          this._panels.push(tmpHandle);
+          return tmpHandle;
+        }
+
+        /**
+         * Return a no-op handle for server-side or missing-element cases.
+         */
+        _nullHandle() {
+          return {
+            id: 0,
+            collapse: () => {},
+            expand: () => {},
+            toggle: () => {},
+            setWidth: () => {},
+            destroy: () => {}
+          };
+        }
+
+        /**
+         * Destroy all active panels.
+         */
+        destroyAll() {
+          let tmpPanels = this._panels.slice();
+          for (let i = 0; i < tmpPanels.length; i++) {
+            tmpPanels[i].destroy();
+          }
+        }
+      }
+      module.exports = PictModalPanel;
+    }, {}],
+    12: [function (require, module, exports) {
+      /**
+       * Pict-Modal-Toast
+       *
+       * Manages toast notification elements with auto-dismiss and stacking.
+       */
+      class PictModalToast {
+        constructor(pModal) {
+          this._modal = pModal;
+          this._containers = {};
+        }
+
+        /**
+         * Show a toast notification.
+         *
+         * @param {string} pMessage - Toast message text
+         * @param {object} [pOptions] - Options (type, duration, position, dismissible)
+         * @returns {{ dismiss: function }} Handle with dismiss method
+         */
+        toast(pMessage, pOptions) {
+          let tmpOptions = Object.assign({}, this._modal.options.DefaultToastOptions, pOptions);
+          let tmpContainer = this._getContainer(tmpOptions.position);
+          let tmpId = this._modal._nextId();
+          let tmpToast = document.createElement('div');
+          tmpToast.className = 'pict-modal-toast pict-modal-toast--' + tmpOptions.type;
+          tmpToast.id = 'pict-modal-toast-' + tmpId;
+          let tmpContent = '<span class="pict-modal-toast-message">' + this._escapeHTML(pMessage) + '</span>';
+          if (tmpOptions.dismissible) {
+            tmpContent += '<button class="pict-modal-toast-dismiss" aria-label="Dismiss">&times;</button>';
+          }
+          tmpToast.innerHTML = tmpContent;
+
+          // Create handle
+          let tmpDismissed = false;
+          let tmpTimeoutHandle = null;
+          let tmpDismiss = () => {
+            if (tmpDismissed) {
+              return;
+            }
+            tmpDismissed = true;
+            if (tmpTimeoutHandle) {
+              clearTimeout(tmpTimeoutHandle);
+            }
+
+            // Exit animation
+            tmpToast.classList.remove('pict-modal-visible');
+            tmpToast.classList.add('pict-modal-toast-exit');
+
+            // Remove from active list
+            this._modal._activeToasts = this._modal._activeToasts.filter(pEntry => {
+              return pEntry.element !== tmpToast;
+            });
+
+            // Remove from DOM after transition
+            setTimeout(() => {
+              if (tmpToast.parentNode) {
+                tmpToast.parentNode.removeChild(tmpToast);
+              }
+              this._cleanupContainer(tmpOptions.position);
+            }, 220);
+          };
+          let tmpHandle = {
+            dismiss: tmpDismiss
+          };
+
+          // Wire dismiss button
+          if (tmpOptions.dismissible) {
+            let tmpDismissBtn = tmpToast.querySelector('.pict-modal-toast-dismiss');
+            if (tmpDismissBtn) {
+              tmpDismissBtn.addEventListener('click', tmpDismiss);
+            }
+          }
+
+          // Append to container
+          tmpContainer.appendChild(tmpToast);
+
+          // Track
+          let tmpEntry = {
+            element: tmpToast,
+            dismiss: tmpDismiss,
+            handle: tmpHandle
+          };
+          this._modal._activeToasts.push(tmpEntry);
+
+          // Animate in
+          void tmpToast.offsetHeight;
+          tmpToast.classList.add('pict-modal-visible');
+
+          // Auto-dismiss
+          if (tmpOptions.duration > 0) {
+            tmpTimeoutHandle = setTimeout(tmpDismiss, tmpOptions.duration);
+          }
+          return tmpHandle;
+        }
+
+        /**
+         * Get or create a toast container for the given position.
+         *
+         * @param {string} pPosition - Position key (e.g. 'top-right')
+         * @returns {HTMLElement}
+         */
+        _getContainer(pPosition) {
+          if (this._containers[pPosition]) {
+            return this._containers[pPosition];
+          }
+          let tmpContainer = document.createElement('div');
+          tmpContainer.className = 'pict-modal-toast-container pict-modal-toast-container--' + pPosition;
+          document.body.appendChild(tmpContainer);
+          this._containers[pPosition] = tmpContainer;
+          return tmpContainer;
+        }
+
+        /**
+         * Remove a container if it has no more toasts.
+         *
+         * @param {string} pPosition
+         */
+        _cleanupContainer(pPosition) {
+          let tmpContainer = this._containers[pPosition];
+          if (tmpContainer && tmpContainer.children.length === 0) {
+            if (tmpContainer.parentNode) {
+              tmpContainer.parentNode.removeChild(tmpContainer);
+            }
+            delete this._containers[pPosition];
+          }
+        }
+
+        /**
+         * Dismiss all active toasts.
+         */
+        dismissAll() {
+          let tmpToasts = this._modal._activeToasts.slice();
+          for (let i = 0; i < tmpToasts.length; i++) {
+            tmpToasts[i].dismiss();
+          }
+        }
+
+        /**
+         * Destroy all containers.
+         */
+        destroy() {
+          this.dismissAll();
+          let tmpPositions = Object.keys(this._containers);
+          for (let i = 0; i < tmpPositions.length; i++) {
+            let tmpContainer = this._containers[tmpPositions[i]];
+            if (tmpContainer && tmpContainer.parentNode) {
+              tmpContainer.parentNode.removeChild(tmpContainer);
+            }
+          }
+          this._containers = {};
+        }
+
+        /**
+         * Escape HTML special characters.
+         *
+         * @param {string} pText
+         * @returns {string}
+         */
+        _escapeHTML(pText) {
+          if (typeof pText !== 'string') {
+            return '';
+          }
+          return pText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+      }
+      module.exports = PictModalToast;
+    }, {}],
+    13: [function (require, module, exports) {
+      /**
+       * Pict-Modal-Tooltip
+       *
+       * Manages simple text and rich HTML tooltips with positioning and auto-flip.
+       */
+      class PictModalTooltip {
+        constructor(pModal) {
+          this._modal = pModal;
+        }
+
+        /**
+         * Attach a simple text tooltip to an element.
+         *
+         * @param {HTMLElement} pElement - Target element
+         * @param {string} pText - Tooltip text
+         * @param {object} [pOptions] - Options (position, delay, maxWidth)
+         * @returns {{ destroy: function }} Handle to remove the tooltip
+         */
+        tooltip(pElement, pText, pOptions) {
+          let tmpOptions = Object.assign({}, this._modal.options.DefaultTooltipOptions, pOptions);
+          return this._attachTooltip(pElement, pText, false, tmpOptions);
+        }
+
+        /**
+         * Attach a rich HTML tooltip to an element.
+         *
+         * @param {HTMLElement} pElement - Target element
+         * @param {string} pHTMLContent - HTML content for the tooltip
+         * @param {object} [pOptions] - Options (position, delay, maxWidth, interactive)
+         * @returns {{ destroy: function }} Handle to remove the tooltip
+         */
+        richTooltip(pElement, pHTMLContent, pOptions) {
+          let tmpOptions = Object.assign({}, this._modal.options.DefaultTooltipOptions, pOptions);
+          return this._attachTooltip(pElement, pHTMLContent, true, tmpOptions);
+        }
+
+        /**
+         * Internal: attach tooltip event listeners to an element.
+         *
+         * @param {HTMLElement} pElement
+         * @param {string} pContent
+         * @param {boolean} pIsHTML
+         * @param {object} pOptions
+         * @returns {{ destroy: function }}
+         */
+        _attachTooltip(pElement, pContent, pIsHTML, pOptions) {
+          let tmpTooltipElement = null;
+          let tmpShowTimeout = null;
+          let tmpHideTimeout = null;
+          let tmpDestroyed = false;
+          let tmpId = this._modal._nextId();
+          let tmpShow = () => {
+            if (tmpDestroyed || tmpTooltipElement) {
+              return;
+            }
+            tmpTooltipElement = document.createElement('div');
+            tmpTooltipElement.className = 'pict-modal-tooltip pict-modal-tooltip--' + pOptions.position;
+            tmpTooltipElement.id = 'pict-modal-tooltip-' + tmpId;
+            tmpTooltipElement.setAttribute('role', 'tooltip');
+            tmpTooltipElement.style.maxWidth = pOptions.maxWidth;
+            if (pOptions.interactive) {
+              tmpTooltipElement.classList.add('pict-modal-tooltip-interactive');
+            }
+
+            // Arrow
+            let tmpArrow = document.createElement('div');
+            tmpArrow.className = 'pict-modal-tooltip-arrow';
+
+            // Content
+            let tmpContentDiv = document.createElement('div');
+            if (pIsHTML) {
+              tmpContentDiv.innerHTML = pContent;
+            } else {
+              tmpContentDiv.textContent = pContent;
+            }
+            tmpTooltipElement.appendChild(tmpArrow);
+            tmpTooltipElement.appendChild(tmpContentDiv);
+            document.body.appendChild(tmpTooltipElement);
+
+            // Set aria-describedby on target
+            pElement.setAttribute('aria-describedby', tmpTooltipElement.id);
+
+            // Position
+            this._positionTooltip(tmpTooltipElement, pElement, pOptions.position);
+
+            // Animate in
+            void tmpTooltipElement.offsetHeight;
+            tmpTooltipElement.classList.add('pict-modal-visible');
+
+            // Track
+            this._modal._activeTooltips.push({
+              element: tmpTooltipElement,
+              targetElement: pElement,
+              destroy: tmpDestroy
+            });
+
+            // For interactive tooltips, allow hovering over the tooltip itself
+            if (pOptions.interactive && tmpTooltipElement) {
+              tmpTooltipElement.addEventListener('mouseenter', () => {
+                if (tmpHideTimeout) {
+                  clearTimeout(tmpHideTimeout);
+                  tmpHideTimeout = null;
+                }
+              });
+              tmpTooltipElement.addEventListener('mouseleave', () => {
+                tmpHide();
+              });
+            }
+          };
+          let tmpHide = () => {
+            if (!tmpTooltipElement) {
+              return;
+            }
+            tmpTooltipElement.classList.remove('pict-modal-visible');
+            let tmpEl = tmpTooltipElement;
+            tmpTooltipElement = null;
+
+            // Remove aria
+            pElement.removeAttribute('aria-describedby');
+
+            // Remove from tracking
+            this._modal._activeTooltips = this._modal._activeTooltips.filter(pEntry => {
+              return pEntry.element !== tmpEl;
+            });
+            setTimeout(() => {
+              if (tmpEl.parentNode) {
+                tmpEl.parentNode.removeChild(tmpEl);
+              }
+            }, 220);
+          };
+          let tmpOnMouseEnter = () => {
+            if (tmpHideTimeout) {
+              clearTimeout(tmpHideTimeout);
+              tmpHideTimeout = null;
+            }
+            tmpShowTimeout = setTimeout(tmpShow, pOptions.delay);
+          };
+          let tmpOnMouseLeave = () => {
+            if (tmpShowTimeout) {
+              clearTimeout(tmpShowTimeout);
+              tmpShowTimeout = null;
+            }
+            // Small delay before hiding to allow moving to interactive tooltip
+            if (pOptions.interactive) {
+              tmpHideTimeout = setTimeout(tmpHide, 100);
+            } else {
+              tmpHide();
+            }
+          };
+          let tmpOnFocusIn = () => {
+            tmpShowTimeout = setTimeout(tmpShow, pOptions.delay);
+          };
+          let tmpOnFocusOut = () => {
+            if (tmpShowTimeout) {
+              clearTimeout(tmpShowTimeout);
+              tmpShowTimeout = null;
+            }
+            tmpHide();
+          };
+
+          // Attach listeners
+          pElement.addEventListener('mouseenter', tmpOnMouseEnter);
+          pElement.addEventListener('mouseleave', tmpOnMouseLeave);
+          pElement.addEventListener('focusin', tmpOnFocusIn);
+          pElement.addEventListener('focusout', tmpOnFocusOut);
+          let tmpDestroy = () => {
+            if (tmpDestroyed) {
+              return;
+            }
+            tmpDestroyed = true;
+            if (tmpShowTimeout) {
+              clearTimeout(tmpShowTimeout);
+            }
+            if (tmpHideTimeout) {
+              clearTimeout(tmpHideTimeout);
+            }
+            tmpHide();
+            pElement.removeEventListener('mouseenter', tmpOnMouseEnter);
+            pElement.removeEventListener('mouseleave', tmpOnMouseLeave);
+            pElement.removeEventListener('focusin', tmpOnFocusIn);
+            pElement.removeEventListener('focusout', tmpOnFocusOut);
+          };
+          return {
+            destroy: tmpDestroy
+          };
+        }
+
+        /**
+         * Position a tooltip element relative to the target element.
+         * Flips direction if the tooltip would overflow the viewport.
+         *
+         * @param {HTMLElement} pTooltip
+         * @param {HTMLElement} pTarget
+         * @param {string} pPosition - 'top', 'bottom', 'left', 'right'
+         */
+        _positionTooltip(pTooltip, pTarget, pPosition) {
+          let tmpTargetRect = pTarget.getBoundingClientRect();
+          let tmpTooltipRect = pTooltip.getBoundingClientRect();
+          let tmpGap = 8;
+          let tmpPosition = pPosition;
+
+          // Flip if needed
+          if (tmpPosition === 'top' && tmpTargetRect.top < tmpTooltipRect.height + tmpGap) {
+            tmpPosition = 'bottom';
+          } else if (tmpPosition === 'bottom' && window.innerHeight - tmpTargetRect.bottom < tmpTooltipRect.height + tmpGap) {
+            tmpPosition = 'top';
+          } else if (tmpPosition === 'left' && tmpTargetRect.left < tmpTooltipRect.width + tmpGap) {
+            tmpPosition = 'right';
+          } else if (tmpPosition === 'right' && window.innerWidth - tmpTargetRect.right < tmpTooltipRect.width + tmpGap) {
+            tmpPosition = 'left';
+          }
+
+          // Update class for arrow direction
+          pTooltip.className = pTooltip.className.replace(/pict-modal-tooltip--\w+/, 'pict-modal-tooltip--' + tmpPosition);
+          let tmpTop = 0;
+          let tmpLeft = 0;
+          switch (tmpPosition) {
+            case 'top':
+              tmpTop = tmpTargetRect.top - tmpTooltipRect.height - tmpGap;
+              tmpLeft = tmpTargetRect.left + tmpTargetRect.width / 2 - tmpTooltipRect.width / 2;
+              break;
+            case 'bottom':
+              tmpTop = tmpTargetRect.bottom + tmpGap;
+              tmpLeft = tmpTargetRect.left + tmpTargetRect.width / 2 - tmpTooltipRect.width / 2;
+              break;
+            case 'left':
+              tmpTop = tmpTargetRect.top + tmpTargetRect.height / 2 - tmpTooltipRect.height / 2;
+              tmpLeft = tmpTargetRect.left - tmpTooltipRect.width - tmpGap;
+              break;
+            case 'right':
+              tmpTop = tmpTargetRect.top + tmpTargetRect.height / 2 - tmpTooltipRect.height / 2;
+              tmpLeft = tmpTargetRect.right + tmpGap;
+              break;
+          }
+
+          // Clamp to viewport
+          tmpLeft = Math.max(4, Math.min(tmpLeft, window.innerWidth - tmpTooltipRect.width - 4));
+          tmpTop = Math.max(4, Math.min(tmpTop, window.innerHeight - tmpTooltipRect.height - 4));
+          pTooltip.style.top = tmpTop + 'px';
+          pTooltip.style.left = tmpLeft + 'px';
+        }
+
+        /**
+         * Dismiss all active tooltips.
+         */
+        dismissAll() {
+          let tmpTooltips = this._modal._activeTooltips.slice();
+          for (let i = 0; i < tmpTooltips.length; i++) {
+            tmpTooltips[i].destroy();
+          }
+        }
+      }
+      module.exports = PictModalTooltip;
+    }, {}],
+    14: [function (require, module, exports) {
+      /**
+       * Pict-Modal-Window
+       *
+       * Builds custom floating modal windows with arbitrary content and buttons.
+       */
+      class PictModalWindow {
+        constructor(pModal) {
+          this._modal = pModal;
+        }
+
+        /**
+         * Show a custom modal window.
+         *
+         * @param {object} [pOptions] - Options
+         * @param {string} [pOptions.title] - Dialog title
+         * @param {string} [pOptions.content] - HTML content for the body
+         * @param {Array} [pOptions.buttons] - Array of { Hash, Label, Style }
+         * @param {boolean} [pOptions.closeable] - Whether the close button and overlay dismiss are enabled
+         * @param {string} [pOptions.width] - CSS width value
+         * @param {boolean} [pOptions.unbounded] - If true, removes the default 90vh/90vw viewport cap. The dialog will grow with its content and may extend beyond the viewport.
+         * @param {function} [pOptions.onOpen] - Called after dialog is shown, receives dialog element
+         * @param {function} [pOptions.onClose] - Called after dialog is dismissed
+         * @returns {Promise<string|null>} Resolves with clicked button Hash, or null on close
+         */
+        show(pOptions) {
+          let tmpOptions = Object.assign({}, this._modal.options.DefaultModalOptions, pOptions);
+          return new Promise(fResolve => {
+            let tmpDialog = this._buildDialog(tmpOptions, fResolve);
+            this._showDialog(tmpDialog, tmpOptions, fResolve);
+          });
+        }
+
+        /**
+         * Build the modal dialog element.
+         *
+         * @param {object} pOptions
+         * @param {function} fResolve
+         * @returns {HTMLElement}
+         */
+        _buildDialog(pOptions, fResolve) {
+          let tmpId = this._modal._nextId();
+          let tmpDialog = document.createElement('div');
+          tmpDialog.className = 'pict-modal-dialog';
+          if (pOptions.unbounded) {
+            tmpDialog.className += ' pict-modal-dialog--unbounded';
+          }
+          tmpDialog.id = 'pict-modal-' + tmpId;
+          tmpDialog.setAttribute('role', 'dialog');
+          tmpDialog.setAttribute('aria-modal', 'true');
+          tmpDialog.style.width = pOptions.width;
+
+          // Header
+          let tmpHeaderHTML = '';
+          if (pOptions.title || pOptions.closeable) {
+            tmpHeaderHTML = '<div class="pict-modal-dialog-header">';
+            tmpHeaderHTML += '<span class="pict-modal-dialog-title">' + this._escapeHTML(pOptions.title) + '</span>';
+            if (pOptions.closeable) {
+              tmpHeaderHTML += '<button class="pict-modal-dialog-close" aria-label="Close">&times;</button>';
+            }
+            tmpHeaderHTML += '</div>';
+          }
+
+          // Body
+          let tmpBodyHTML = '<div class="pict-modal-dialog-body">' + (pOptions.content || '') + '</div>';
+
+          // Footer with buttons
+          let tmpFooterHTML = '';
+          if (pOptions.buttons && pOptions.buttons.length > 0) {
+            tmpFooterHTML = '<div class="pict-modal-dialog-footer">';
+            for (let i = 0; i < pOptions.buttons.length; i++) {
+              let tmpButton = pOptions.buttons[i];
+              let tmpBtnClass = 'pict-modal-btn';
+              if (tmpButton.Style) {
+                tmpBtnClass += ' pict-modal-btn--' + tmpButton.Style;
+              }
+              tmpFooterHTML += '<button class="' + tmpBtnClass + '" data-hash="' + this._escapeHTML(tmpButton.Hash) + '">' + this._escapeHTML(tmpButton.Label) + '</button>';
+            }
+            tmpFooterHTML += '</div>';
+          }
+          tmpDialog.innerHTML = tmpHeaderHTML + tmpBodyHTML + tmpFooterHTML;
+          let tmpDismiss = pResult => {
+            this._dismissDialog(tmpDialog, pResult, fResolve, pOptions);
+          };
+
+          // Wire close button
+          if (pOptions.closeable) {
+            let tmpCloseBtn = tmpDialog.querySelector('.pict-modal-dialog-close');
+            if (tmpCloseBtn) {
+              tmpCloseBtn.addEventListener('click', () => {
+                tmpDismiss(null);
+              });
+            }
+          }
+
+          // Wire action buttons
+          let tmpActionButtons = tmpDialog.querySelectorAll('[data-hash]');
+          for (let i = 0; i < tmpActionButtons.length; i++) {
+            let tmpBtn = tmpActionButtons[i];
+            tmpBtn.addEventListener('click', () => {
+              tmpDismiss(tmpBtn.getAttribute('data-hash'));
+            });
+          }
+          tmpDialog._dismiss = tmpDismiss;
+          return tmpDialog;
+        }
+
+        /**
+         * Show the dialog: append to body, show overlay, animate in.
+         *
+         * @param {HTMLElement} pDialog
+         * @param {object} pOptions
+         * @param {function} fResolve
+         */
+        _showDialog(pDialog, pOptions, fResolve) {
+          let tmpModalEntry = {
+            element: pDialog,
+            dismiss: pDialog._dismiss,
+            type: 'window'
+          };
+
+          // Show overlay
+          let tmpOverlayClickHandler = null;
+          if (this._modal.options.OverlayClickDismisses && pOptions.closeable) {
+            tmpOverlayClickHandler = () => {
+              pDialog._dismiss(null);
+            };
+          }
+          this._modal._overlay.show(tmpOverlayClickHandler);
+
+          // Append to body
+          document.body.appendChild(pDialog);
+
+          // Track
+          this._modal._activeModals.push(tmpModalEntry);
+
+          // Animate in
+          void pDialog.offsetHeight;
+          pDialog.classList.add('pict-modal-visible');
+
+          // Focus first button or close button
+          let tmpFocusTarget = pDialog.querySelector('.pict-modal-btn') || pDialog.querySelector('.pict-modal-dialog-close');
+          if (tmpFocusTarget) {
+            tmpFocusTarget.focus();
+          }
+
+          // Keyboard handler
+          pDialog._keyHandler = pEvent => {
+            if (pEvent.key === 'Escape' && pOptions.closeable) {
+              pDialog._dismiss(null);
+            }
+          };
+          document.addEventListener('keydown', pDialog._keyHandler);
+
+          // onOpen callback
+          if (typeof pOptions.onOpen === 'function') {
+            pOptions.onOpen(pDialog);
+          }
+        }
+
+        /**
+         * Dismiss the dialog: animate out, remove from DOM, hide overlay.
+         *
+         * @param {HTMLElement} pDialog
+         * @param {*} pResult
+         * @param {function} fResolve
+         * @param {object} pOptions
+         */
+        _dismissDialog(pDialog, pResult, fResolve, pOptions) {
+          if (pDialog._dismissed) {
+            return;
+          }
+          pDialog._dismissed = true;
+          if (pDialog._keyHandler) {
+            document.removeEventListener('keydown', pDialog._keyHandler);
+          }
+          pDialog.classList.remove('pict-modal-visible');
+          this._modal._activeModals = this._modal._activeModals.filter(pEntry => {
+            return pEntry.element !== pDialog;
+          });
+          if (this._modal._activeModals.length > 0) {
+            let tmpTopModal = this._modal._activeModals[this._modal._activeModals.length - 1];
+            this._modal._overlay.updateClickHandler(this._modal.options.OverlayClickDismisses ? tmpTopModal.dismiss : null);
+          }
+          this._modal._overlay.hide();
+          setTimeout(() => {
+            if (pDialog.parentNode) {
+              pDialog.parentNode.removeChild(pDialog);
+            }
+          }, 220);
+          if (typeof pOptions.onClose === 'function') {
+            pOptions.onClose(pResult);
+          }
+          fResolve(pResult);
+        }
+
+        /**
+         * Escape HTML special characters.
+         *
+         * @param {string} pText
+         * @returns {string}
+         */
+        _escapeHTML(pText) {
+          if (typeof pText !== 'string') {
+            return '';
+          }
+          return pText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+      }
+      module.exports = PictModalWindow;
+    }, {}],
+    15: [function (require, module, exports) {
+      module.exports = {
+        "AutoInitialize": true,
+        "AutoRender": false,
+        "AutoSolveWithApp": false,
+        "ViewIdentifier": "Pict-Section-Modal",
+        "OverlayClickDismisses": true,
+        "DefaultConfirmOptions": {
+          "title": "Confirm",
+          "confirmLabel": "OK",
+          "cancelLabel": "Cancel",
+          "dangerous": false,
+          "unbounded": false
+        },
+        "DefaultDoubleConfirmOptions": {
+          "title": "Are you sure?",
+          "confirmLabel": "Confirm",
+          "cancelLabel": "Cancel",
+          "phrasePrompt": "Type \"{phrase}\" to confirm:",
+          "confirmPhrase": "",
+          "unbounded": false
+        },
+        "DefaultModalOptions": {
+          "title": "",
+          "content": "",
+          "buttons": [],
+          "closeable": true,
+          "width": "480px",
+          "unbounded": false
+        },
+        "DefaultTooltipOptions": {
+          "position": "top",
+          "delay": 200,
+          "maxWidth": "300px",
+          "interactive": false
+        },
+        "DefaultToastOptions": {
+          "type": "info",
+          "duration": 3000,
+          "position": "top-right",
+          "dismissible": true
+        },
+        "DefaultPanelOptions": {
+          "position": "right",
+          "width": 340,
+          "minWidth": 200,
+          "maxWidth": 600,
+          "collapsible": true,
+          "collapsed": false,
+          "persist": false,
+          "persistKey": ""
+        },
+        "Templates": [],
+        "Renderables": [],
+        "CSS": /*css*/`
+/* pict-section-modal */
+.pict-modal-root
+{
+	/* Overlay */
+	--pict-modal-overlay-bg: rgba(0, 0, 0, 0.5);
+
+	/* Dialog */
+	--pict-modal-bg: #ffffff;
+	--pict-modal-fg: #1a1a1a;
+	--pict-modal-border: #e0e0e0;
+	--pict-modal-border-radius: 8px;
+	--pict-modal-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+	--pict-modal-header-bg: #f5f5f5;
+	--pict-modal-header-fg: #1a1a1a;
+	--pict-modal-header-border: #e0e0e0;
+
+	/* Buttons */
+	--pict-modal-btn-bg: #e0e0e0;
+	--pict-modal-btn-fg: #1a1a1a;
+	--pict-modal-btn-hover-bg: #d0d0d0;
+	--pict-modal-btn-primary-bg: #2563eb;
+	--pict-modal-btn-primary-fg: #ffffff;
+	--pict-modal-btn-primary-hover-bg: #1d4ed8;
+	--pict-modal-btn-danger-bg: #dc2626;
+	--pict-modal-btn-danger-fg: #ffffff;
+	--pict-modal-btn-danger-hover-bg: #b91c1c;
+	--pict-modal-btn-border-radius: 4px;
+
+	/* Toast */
+	--pict-modal-toast-bg: #333333;
+	--pict-modal-toast-fg: #ffffff;
+	--pict-modal-toast-success-bg: #16a34a;
+	--pict-modal-toast-warning-bg: #d97706;
+	--pict-modal-toast-error-bg: #dc2626;
+	--pict-modal-toast-info-bg: #2563eb;
+	--pict-modal-toast-border-radius: 6px;
+	--pict-modal-toast-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+
+	/* Tooltip */
+	--pict-modal-tooltip-bg: #1a1a1a;
+	--pict-modal-tooltip-fg: #ffffff;
+	--pict-modal-tooltip-border-radius: 4px;
+	--pict-modal-tooltip-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+	/* Typography */
+	--pict-modal-font-family: system-ui, -apple-system, sans-serif;
+	--pict-modal-font-size: 14px;
+	--pict-modal-title-font-size: 16px;
+
+	/* Animation */
+	--pict-modal-transition-duration: 200ms;
+}
+
+/* Overlay */
+.pict-modal-overlay
+{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	background: var(--pict-modal-overlay-bg);
+	opacity: 0;
+	transition: opacity var(--pict-modal-transition-duration) ease;
+}
+
+.pict-modal-overlay.pict-modal-visible
+{
+	opacity: 1;
+}
+
+/* Dialog */
+.pict-modal-dialog
+{
+	position: fixed;
+	z-index: 1010;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) translateY(-20px);
+	opacity: 0;
+	transition: opacity var(--pict-modal-transition-duration) ease,
+	            transform var(--pict-modal-transition-duration) ease;
+
+	max-width: 90vw;
+	max-height: 90vh;
+	display: flex;
+	flex-direction: column;
+
+	background: var(--pict-modal-bg);
+	color: var(--pict-modal-fg);
+	border: 1px solid var(--pict-modal-border);
+	border-radius: var(--pict-modal-border-radius);
+	box-shadow: var(--pict-modal-shadow);
+	font-family: var(--pict-modal-font-family);
+	font-size: var(--pict-modal-font-size);
+}
+
+.pict-modal-dialog.pict-modal-visible
+{
+	opacity: 1;
+	transform: translate(-50%, -50%) translateY(0);
+}
+
+/* Unbounded modifier — lets callers opt out of the 90vh/90vw viewport cap.
+   Use with caution: content taller than the viewport will push buttons
+   below the fold. */
+.pict-modal-dialog.pict-modal-dialog--unbounded
+{
+	max-height: none;
+	max-width: none;
+}
+
+.pict-modal-dialog-header
+{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px 16px;
+	background: var(--pict-modal-header-bg);
+	color: var(--pict-modal-header-fg);
+	border-bottom: 1px solid var(--pict-modal-header-border);
+	border-radius: var(--pict-modal-border-radius) var(--pict-modal-border-radius) 0 0;
+}
+
+.pict-modal-dialog-title
+{
+	font-size: var(--pict-modal-title-font-size);
+	font-weight: 600;
+}
+
+.pict-modal-dialog-close
+{
+	background: none;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+	color: var(--pict-modal-fg);
+	padding: 0 4px;
+	line-height: 1;
+	opacity: 0.6;
+}
+
+.pict-modal-dialog-close:hover
+{
+	opacity: 1;
+}
+
+.pict-modal-dialog-body
+{
+	padding: 16px;
+	overflow-y: auto;
+	flex: 1;
+}
+
+.pict-modal-dialog-footer
+{
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	padding: 12px 16px;
+	border-top: 1px solid var(--pict-modal-border);
+}
+
+/* Buttons */
+.pict-modal-btn
+{
+	padding: 8px 16px;
+	border: none;
+	border-radius: var(--pict-modal-btn-border-radius);
+	font-family: var(--pict-modal-font-family);
+	font-size: var(--pict-modal-font-size);
+	cursor: pointer;
+	background: var(--pict-modal-btn-bg);
+	color: var(--pict-modal-btn-fg);
+	transition: background var(--pict-modal-transition-duration) ease;
+}
+
+.pict-modal-btn:hover
+{
+	background: var(--pict-modal-btn-hover-bg);
+}
+
+.pict-modal-btn:disabled
+{
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.pict-modal-btn--primary
+{
+	background: var(--pict-modal-btn-primary-bg);
+	color: var(--pict-modal-btn-primary-fg);
+}
+
+.pict-modal-btn--primary:hover
+{
+	background: var(--pict-modal-btn-primary-hover-bg);
+}
+
+.pict-modal-btn--danger
+{
+	background: var(--pict-modal-btn-danger-bg);
+	color: var(--pict-modal-btn-danger-fg);
+}
+
+.pict-modal-btn--danger:hover
+{
+	background: var(--pict-modal-btn-danger-hover-bg);
+}
+
+/* Double confirm input */
+.pict-modal-confirm-input
+{
+	width: 100%;
+	padding: 8px 12px;
+	margin-top: 12px;
+	border: 1px solid var(--pict-modal-border);
+	border-radius: var(--pict-modal-btn-border-radius);
+	font-family: var(--pict-modal-font-family);
+	font-size: var(--pict-modal-font-size);
+	box-sizing: border-box;
+}
+
+.pict-modal-confirm-input:focus
+{
+	outline: 2px solid var(--pict-modal-btn-primary-bg);
+	outline-offset: -1px;
+}
+
+.pict-modal-confirm-prompt
+{
+	margin-top: 12px;
+	font-size: 13px;
+	color: var(--pict-modal-fg);
+	opacity: 0.7;
+}
+
+/* Toast container */
+.pict-modal-toast-container
+{
+	position: fixed;
+	z-index: 1030;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	pointer-events: none;
+	max-width: 400px;
+}
+
+.pict-modal-toast-container--top-right
+{
+	top: 16px;
+	right: 16px;
+}
+
+.pict-modal-toast-container--top-left
+{
+	top: 16px;
+	left: 16px;
+}
+
+.pict-modal-toast-container--bottom-right
+{
+	bottom: 16px;
+	right: 16px;
+}
+
+.pict-modal-toast-container--bottom-left
+{
+	bottom: 16px;
+	left: 16px;
+}
+
+.pict-modal-toast-container--top-center
+{
+	top: 16px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.pict-modal-toast-container--bottom-center
+{
+	bottom: 16px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+/* Toast */
+.pict-modal-toast
+{
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 12px 16px;
+	border-radius: var(--pict-modal-toast-border-radius);
+	box-shadow: var(--pict-modal-toast-shadow);
+	font-family: var(--pict-modal-font-family);
+	font-size: var(--pict-modal-font-size);
+	background: var(--pict-modal-toast-bg);
+	color: var(--pict-modal-toast-fg);
+	pointer-events: auto;
+	opacity: 0;
+	transform: translateX(100%);
+	transition: opacity var(--pict-modal-transition-duration) ease,
+	            transform var(--pict-modal-transition-duration) ease;
+}
+
+.pict-modal-toast.pict-modal-visible
+{
+	opacity: 1;
+	transform: translateX(0);
+}
+
+.pict-modal-toast.pict-modal-toast-exit
+{
+	opacity: 0;
+	transform: translateX(100%);
+}
+
+.pict-modal-toast--info
+{
+	background: var(--pict-modal-toast-info-bg);
+}
+
+.pict-modal-toast--success
+{
+	background: var(--pict-modal-toast-success-bg);
+}
+
+.pict-modal-toast--warning
+{
+	background: var(--pict-modal-toast-warning-bg);
+}
+
+.pict-modal-toast--error
+{
+	background: var(--pict-modal-toast-error-bg);
+}
+
+.pict-modal-toast-message
+{
+	flex: 1;
+}
+
+.pict-modal-toast-dismiss
+{
+	background: none;
+	border: none;
+	color: inherit;
+	font-size: 18px;
+	cursor: pointer;
+	padding: 0 2px;
+	line-height: 1;
+	opacity: 0.7;
+}
+
+.pict-modal-toast-dismiss:hover
+{
+	opacity: 1;
+}
+
+/* Tooltip */
+.pict-modal-tooltip
+{
+	position: fixed;
+	z-index: 1020;
+	padding: 6px 10px;
+	border-radius: var(--pict-modal-tooltip-border-radius);
+	box-shadow: var(--pict-modal-tooltip-shadow);
+	background: var(--pict-modal-tooltip-bg);
+	color: var(--pict-modal-tooltip-fg);
+	font-family: var(--pict-modal-font-family);
+	font-size: 13px;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity var(--pict-modal-transition-duration) ease;
+	white-space: normal;
+	word-wrap: break-word;
+}
+
+.pict-modal-tooltip.pict-modal-tooltip-interactive
+{
+	pointer-events: auto;
+}
+
+.pict-modal-tooltip.pict-modal-visible
+{
+	opacity: 1;
+}
+
+.pict-modal-tooltip-arrow
+{
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	background: var(--pict-modal-tooltip-bg);
+	transform: rotate(45deg);
+}
+
+.pict-modal-tooltip--top .pict-modal-tooltip-arrow
+{
+	bottom: -4px;
+	left: 50%;
+	margin-left: -4px;
+}
+
+.pict-modal-tooltip--bottom .pict-modal-tooltip-arrow
+{
+	top: -4px;
+	left: 50%;
+	margin-left: -4px;
+}
+
+.pict-modal-tooltip--left .pict-modal-tooltip-arrow
+{
+	right: -4px;
+	top: 50%;
+	margin-top: -4px;
+}
+
+.pict-modal-tooltip--right .pict-modal-tooltip-arrow
+{
+	left: -4px;
+	top: 50%;
+	margin-top: -4px;
+}
+
+/* ── Resizable / Collapsible Panels ──────────────── */
+.pict-panel
+{
+	position: relative;
+	transition: width 0.2s ease;
+	flex-shrink: 0;
+	overflow: visible;
+}
+.pict-panel-collapsed
+{
+	width: 0 !important;
+	min-width: 0 !important;
+	overflow: visible;
+}
+.pict-panel-collapsed > *:not(.pict-panel-edge)
+{
+	display: none;
+}
+
+/* Edge container — zero-width flex sibling of the panel.
+   Sits next to the panel in the flex layout; children
+   use absolute positioning to overlap the panel boundary. */
+.pict-panel-edge
+{
+	position: relative;
+	width: 0;
+	flex-shrink: 0;
+	z-index: 50;
+	overflow: visible;
+}
+
+/* Resize handle — thin strip on the panel boundary */
+.pict-panel-resize
+{
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 4px;
+	cursor: col-resize;
+	background: transparent;
+	transition: background 0.15s, width 0.15s;
+}
+.pict-panel-edge-right .pict-panel-resize
+{
+	right: 0;
+	border-right: 1px solid var(--pict-panel-border, #DDD6CA);
+}
+.pict-panel-edge-left .pict-panel-resize
+{
+	left: 0;
+	border-left: 1px solid var(--pict-panel-border, #DDD6CA);
+}
+.pict-panel-resize:hover,
+.pict-panel-edge:hover .pict-panel-resize
+{
+	width: 5px;
+	background: var(--pict-panel-accent, #2E7D74);
+	opacity: 0.5;
+}
+.pict-panel-resize.dragging
+{
+	width: 5px;
+	background: var(--pict-panel-accent, #2E7D74);
+	opacity: 1;
+	transition: none;
+}
+.pict-panel-edge-collapsed .pict-panel-resize
+{
+	display: none;
+}
+
+/* Collapse tab — tucked sliver at rest, slides out on hover */
+.pict-panel-tab
+{
+	position: absolute;
+	top: 8px;
+	width: 8px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	background: var(--pict-panel-border, #DDD6CA);
+	border: 1px solid var(--pict-panel-border, #DDD6CA);
+	cursor: pointer;
+	color: var(--pict-panel-fg, #8A7F72);
+	font-size: 10px;
+	line-height: 1;
+	opacity: 0.5;
+	transition: opacity 0.25s, width 0.2s ease, height 0.2s ease, left 0.2s ease, right 0.2s ease, background 0.2s;
+	z-index: 51;
+}
+.pict-panel-edge:hover .pict-panel-tab,
+.pict-panel-tab:hover
+{
+	width: 20px;
+	height: 32px;
+	opacity: 1;
+	overflow: visible;
+	background: var(--pict-panel-bg, #FAF8F4);
+}
+/* Right panel: tab to the left of the edge */
+.pict-panel-edge-right .pict-panel-tab
+{
+	right: 0;
+	border-right: none;
+	border-radius: 4px 0 0 4px;
+}
+.pict-panel-edge-right:hover .pict-panel-tab,
+.pict-panel-edge-right .pict-panel-tab:hover
+{
+	right: 0;
+}
+/* Left panel: tab to the right of the edge */
+.pict-panel-edge-left .pict-panel-tab
+{
+	left: 0;
+	border-left: none;
+	border-radius: 0 4px 4px 0;
+}
+.pict-panel-edge-left:hover .pict-panel-tab,
+.pict-panel-edge-left .pict-panel-tab:hover
+{
+	left: 0;
+}
+/* When collapsed — more visible */
+.pict-panel-edge-collapsed .pict-panel-tab
+{
+	width: 10px;
+	height: 28px;
+	opacity: 0.6;
+}
+.pict-panel-edge-collapsed .pict-panel-tab:hover,
+.pict-panel-edge-collapsed:hover .pict-panel-tab
+{
+	width: 20px;
+	height: 32px;
+	opacity: 1;
+	overflow: visible;
+	background: var(--pict-panel-bg, #FAF8F4);
+}
+`
+      };
+    }, {}],
+    16: [function (require, module, exports) {
+      const libPictViewClass = require('pict-view');
+      const libPictModalOverlay = require('./Pict-Modal-Overlay.js');
+      const libPictModalConfirm = require('./Pict-Modal-Confirm.js');
+      const libPictModalWindow = require('./Pict-Modal-Window.js');
+      const libPictModalToast = require('./Pict-Modal-Toast.js');
+      const libPictModalTooltip = require('./Pict-Modal-Tooltip.js');
+      const libPictModalPanel = require('./Pict-Modal-Panel.js');
+      const _DefaultConfiguration = require('./Pict-Section-Modal-DefaultConfiguration.js');
+      class PictSectionModal extends libPictViewClass {
+        constructor(pFable, pOptions, pServiceHash) {
+          let tmpOptions = Object.assign({}, _DefaultConfiguration, pOptions);
+          super(pFable, tmpOptions, pServiceHash);
+          this._activeModals = [];
+          this._activeTooltips = [];
+          this._activeToasts = [];
+          this._idCounter = 0;
+          this._overlay = new libPictModalOverlay(this);
+          this._confirm = new libPictModalConfirm(this);
+          this._window = new libPictModalWindow(this);
+          this._toast = new libPictModalToast(this);
+          this._tooltip = new libPictModalTooltip(this);
+          this._panel = new libPictModalPanel(this);
+        }
+        onBeforeInitialize() {
+          super.onBeforeInitialize();
+
+          // Ensure the root class is on the body for CSS variable scoping
+          if (typeof document !== 'undefined' && document.body) {
+            if (!document.body.classList.contains('pict-modal-root')) {
+              document.body.classList.add('pict-modal-root');
+            }
+          }
+          return super.onBeforeInitialize();
+        }
+
+        /**
+         * Generate a unique ID for DOM elements.
+         *
+         * @returns {number}
+         */
+        _nextId() {
+          this._idCounter++;
+          return this._idCounter;
+        }
+
+        // -- Confirm API --
+
+        /**
+         * Show a confirmation dialog.
+         *
+         * @param {string} pMessage - The confirmation message
+         * @param {object} [pOptions] - Options { title, confirmLabel, cancelLabel, dangerous }
+         * @returns {Promise<boolean>}
+         */
+        confirm(pMessage, pOptions) {
+          return this._confirm.confirm(pMessage, pOptions);
+        }
+
+        /**
+         * Show a two-step confirmation dialog.
+         *
+         * If confirmPhrase is set, the user must type it to enable the confirm button.
+         * If no confirmPhrase, the first click changes the button text and the second click confirms.
+         *
+         * @param {string} pMessage - The confirmation message
+         * @param {object} [pOptions] - Options { title, confirmPhrase, phrasePrompt, confirmLabel, cancelLabel }
+         * @returns {Promise<boolean>}
+         */
+        doubleConfirm(pMessage, pOptions) {
+          return this._confirm.doubleConfirm(pMessage, pOptions);
+        }
+
+        // -- Modal Window API --
+
+        /**
+         * Show a custom modal window.
+         *
+         * @param {object} [pOptions] - Options { title, content, buttons, closeable, width, onOpen, onClose }
+         * @returns {Promise<string|null>} Resolves with the clicked button Hash, or null on close
+         */
+        show(pOptions) {
+          return this._window.show(pOptions);
+        }
+
+        // -- Tooltip API --
+
+        /**
+         * Attach a simple text tooltip to an element.
+         *
+         * @param {HTMLElement} pElement - Target element
+         * @param {string} pText - Tooltip text
+         * @param {object} [pOptions] - Options { position, delay, maxWidth }
+         * @returns {{ destroy: function }}
+         */
+        tooltip(pElement, pText, pOptions) {
+          return this._tooltip.tooltip(pElement, pText, pOptions);
+        }
+
+        /**
+         * Attach a rich HTML tooltip to an element.
+         *
+         * @param {HTMLElement} pElement - Target element
+         * @param {string} pHTMLContent - HTML content
+         * @param {object} [pOptions] - Options { position, delay, maxWidth, interactive }
+         * @returns {{ destroy: function }}
+         */
+        richTooltip(pElement, pHTMLContent, pOptions) {
+          return this._tooltip.richTooltip(pElement, pHTMLContent, pOptions);
+        }
+
+        // -- Toast API --
+
+        /**
+         * Show a toast notification.
+         *
+         * @param {string} pMessage - Toast message
+         * @param {object} [pOptions] - Options { type, duration, position, dismissible }
+         * @returns {{ dismiss: function }}
+         */
+        toast(pMessage, pOptions) {
+          return this._toast.toast(pMessage, pOptions);
+        }
+
+        // -- Panel API --
+
+        /**
+         * Attach resizable/collapsible panel behavior to a DOM element.
+         *
+         * @param {string} pTargetSelector - CSS selector for the panel element
+         * @param {object} [pOptions] - Options { position, width, minWidth, maxWidth, collapsible, collapsed, persist, persistKey, onResize, onToggle }
+         * @returns {{ collapse, expand, toggle, setWidth, destroy }} Panel handle
+         */
+        panel(pTargetSelector, pOptions) {
+          return this._panel.create(pTargetSelector, pOptions);
+        }
+
+        // -- Cleanup API --
+
+        /**
+         * Dismiss all open modals.
+         */
+        dismissModals() {
+          let tmpModals = this._activeModals.slice();
+          for (let i = tmpModals.length - 1; i >= 0; i--) {
+            tmpModals[i].dismiss(null);
+          }
+        }
+
+        /**
+         * Dismiss all active tooltips.
+         */
+        dismissTooltips() {
+          this._tooltip.dismissAll();
+        }
+
+        /**
+         * Dismiss all active toasts.
+         */
+        dismissToasts() {
+          this._toast.dismissAll();
+        }
+
+        /**
+         * Dismiss everything: modals, tooltips, and toasts.
+         */
+        dismissAll() {
+          this.dismissModals();
+          this.dismissTooltips();
+          this.dismissToasts();
+        }
+
+        /**
+         * Clean up all DOM elements when the view is destroyed.
+         */
+        /**
+         * Destroy all active panels.
+         */
+        destroyPanels() {
+          this._panel.destroyAll();
+        }
+        destroy() {
+          this.dismissAll();
+          this.destroyPanels();
+          this._overlay.destroy();
+          this._toast.destroy();
+          if (typeof super.destroy === 'function') {
+            return super.destroy();
+          }
+        }
+      }
+      module.exports = PictSectionModal;
+      module.exports.default_configuration = _DefaultConfiguration;
+    }, {
+      "./Pict-Modal-Confirm.js": 9,
+      "./Pict-Modal-Overlay.js": 10,
+      "./Pict-Modal-Panel.js": 11,
+      "./Pict-Modal-Toast.js": 12,
+      "./Pict-Modal-Tooltip.js": 13,
+      "./Pict-Modal-Window.js": 14,
+      "./Pict-Section-Modal-DefaultConfiguration.js": 15,
+      "pict-view": 18
+    }],
+    17: [function (require, module, exports) {
       module.exports = {
         "name": "pict-view",
         "version": "1.0.68",
@@ -2478,7 +4555,7 @@
         }
       };
     }, {}],
-    10: [function (require, module, exports) {
+    18: [function (require, module, exports) {
       const libFableServiceBase = require('fable-serviceproviderbase');
       const libPackage = require('../package.json');
       const defaultPictViewSettings = {
@@ -3665,10 +5742,10 @@
       }
       module.exports = PictView;
     }, {
-      "../package.json": 9,
+      "../package.json": 17,
       "fable-serviceproviderbase": 2
     }],
-    11: [function (require, module, exports) {
+    19: [function (require, module, exports) {
       module.exports = {
         "Name": "Retold Manager",
         "Hash": "RetoldManager",
@@ -3683,9 +5760,10 @@
         }
       };
     }, {}],
-    12: [function (require, module, exports) {
+    20: [function (require, module, exports) {
       const libPictApplication = require('pict-application');
       const libPictRouter = require('pict-router');
+      const libPictSectionModal = require('pict-section-modal');
 
       // Providers (business logic, no UI)
       const libProviderApi = require('./providers/Pict-Provider-Manager-API.js');
@@ -3697,6 +5775,7 @@
       const libViewSidebar = require('./views/PictView-Manager-Sidebar.js');
       const libViewStatusBar = require('./views/PictView-Manager-StatusBar.js');
       const libViewOutputPanel = require('./views/PictView-Manager-OutputPanel.js');
+      const libViewLogModal = require('./views/PictView-Manager-LogModal.js');
 
       // Content views (swapped by the router)
       const libViewHome = require('./views/PictView-Manager-Home.js');
@@ -3734,11 +5813,15 @@
           this.pict.addView('Manager-StatusBar', libViewStatusBar.default_configuration, libViewStatusBar);
           this.pict.addView('Manager-OutputPanel', libViewOutputPanel.default_configuration, libViewOutputPanel);
 
+          // Modal section view (toasts, confirms, custom dialogs).
+          this.pict.addView('Pict-Section-Modal', {}, libPictSectionModal);
+
           // Content views
           this.pict.addView('Manager-Home', libViewHome.default_configuration, libViewHome);
           this.pict.addView('Manager-ModuleWorkspace', libViewModuleWorkspace.default_configuration, libViewModuleWorkspace);
           this.pict.addView('Manager-ManifestEditor', libViewManifestEditor.default_configuration, libViewManifestEditor);
           this.pict.addView('Manager-LogViewer', libViewLogViewer.default_configuration, libViewLogViewer);
+          this.pict.addView('Manager-LogModal', libViewLogModal.default_configuration, libViewLogModal);
           this.pict.addView('Manager-OpsRunner', libViewOpsRunner.default_configuration, libViewOpsRunner);
           this.pict.addView('Manager-Ripple', libViewRipple.default_configuration, libViewRipple);
 
@@ -3766,7 +5849,8 @@
             // { Fable: [...], Meadow: [...], ... }
             Filter: {
               Query: '',
-              DirtyOnly: false
+              DirtyOnly: false,
+              SortByTime: false
             },
             Scan: {
               Results: {},
@@ -3787,8 +5871,11 @@
               // 'idle' | 'running' | 'success' | 'error'
               HeaderText: 'idle'
             },
-            OpsScript: null // 'status' | 'update' | 'checkout' — when on /Ops/:script
+            OpsScript: null,
+            // 'status' | 'update' | 'checkout' — when on /Ops/:script
+            RecentModules: [] // ordered MRU list, persisted to localStorage
           };
+          this._loadRecentModules();
 
           // Parameterized routes are registered from JS so the handler gets the
           // navigo match object directly — template `:param` expressions don't
@@ -3851,13 +5938,49 @@
         }
         showModule(pName) {
           this.pict.AppData.Manager.SelectedModule = pName;
+          this._touchRecentModule(pName);
           this.pict.views['Manager-ModuleWorkspace'].loadModule(pName);
           this.setActiveRoute('Module:' + pName);
         }
         showOps(pScript) {
           this.pict.AppData.Manager.OpsScript = pScript;
+          // OpsRunner now opens the streaming log modal rather than swapping the
+          // workspace content area, so the user keeps their current context.
           this.pict.views['Manager-OpsRunner'].runScript(pScript);
           this.setActiveRoute('Ops:' + pScript);
+        }
+
+        // ─────────────────────────────────────────────
+        //  Recent-module MRU (drives the "Sort by time" filter)
+        // ─────────────────────────────────────────────
+
+        _loadRecentModules() {
+          try {
+            let tmpRaw = window.localStorage.getItem('rm:recent:modules');
+            if (!tmpRaw) {
+              return;
+            }
+            let tmpList = JSON.parse(tmpRaw);
+            if (Array.isArray(tmpList)) {
+              this.pict.AppData.Manager.RecentModules = tmpList.filter(pName => typeof pName === 'string').slice(0, 100);
+            }
+          } catch (e) {/* ignore */}
+        }
+        _touchRecentModule(pName) {
+          if (!pName) {
+            return;
+          }
+          let tmpList = this.pict.AppData.Manager.RecentModules || [];
+          // Move-to-front, dedupe, cap at 100.
+          tmpList = [pName].concat(tmpList.filter(pN => pN !== pName)).slice(0, 100);
+          this.pict.AppData.Manager.RecentModules = tmpList;
+          try {
+            window.localStorage.setItem('rm:recent:modules', JSON.stringify(tmpList));
+          } catch (e) {/* quota */}
+          // Re-render the sidebar so "Sort by time" reflects the new ordering.
+          if (this.pict.views['Manager-Sidebar']) {
+            this.pict.views['Manager-Sidebar'].render();
+          }
         }
         setActiveRoute(pRoute) {
           this.pict.AppData.Manager.CurrentRoute = pRoute;
@@ -3881,31 +6004,33 @@
       module.exports = RetoldManagerApplication;
       module.exports.default_configuration = require('./Pict-Application-RetoldManager-Configuration.json');
     }, {
-      "./Pict-Application-RetoldManager-Configuration.json": 11,
-      "./providers/Pict-Provider-Manager-API.js": 14,
-      "./providers/Pict-Provider-Manager-OperationsWS.js": 15,
-      "./providers/PictRouter-RetoldManager-Configuration.json": 16,
-      "./views/PictView-Manager-Home.js": 17,
-      "./views/PictView-Manager-Layout.js": 18,
-      "./views/PictView-Manager-LogViewer.js": 19,
-      "./views/PictView-Manager-ManifestEditor.js": 20,
-      "./views/PictView-Manager-ModuleWorkspace.js": 21,
-      "./views/PictView-Manager-OpsRunner.js": 22,
-      "./views/PictView-Manager-OutputPanel.js": 23,
-      "./views/PictView-Manager-Ripple.js": 24,
-      "./views/PictView-Manager-Sidebar.js": 25,
-      "./views/PictView-Manager-StatusBar.js": 26,
-      "./views/PictView-Manager-TopBar.js": 27,
-      "./views/modals/PictView-Manager-Modal-Commit.js": 28,
-      "./views/modals/PictView-Manager-Modal-Diff.js": 29,
-      "./views/modals/PictView-Manager-Modal-EditModule.js": 30,
-      "./views/modals/PictView-Manager-Modal-Ncu.js": 31,
-      "./views/modals/PictView-Manager-Modal-Publish.js": 32,
-      "./views/modals/PictView-Manager-Modal-RipplePlan.js": 33,
+      "./Pict-Application-RetoldManager-Configuration.json": 19,
+      "./providers/Pict-Provider-Manager-API.js": 22,
+      "./providers/Pict-Provider-Manager-OperationsWS.js": 23,
+      "./providers/PictRouter-RetoldManager-Configuration.json": 24,
+      "./views/PictView-Manager-Home.js": 25,
+      "./views/PictView-Manager-Layout.js": 26,
+      "./views/PictView-Manager-LogModal.js": 27,
+      "./views/PictView-Manager-LogViewer.js": 28,
+      "./views/PictView-Manager-ManifestEditor.js": 29,
+      "./views/PictView-Manager-ModuleWorkspace.js": 30,
+      "./views/PictView-Manager-OpsRunner.js": 31,
+      "./views/PictView-Manager-OutputPanel.js": 32,
+      "./views/PictView-Manager-Ripple.js": 33,
+      "./views/PictView-Manager-Sidebar.js": 34,
+      "./views/PictView-Manager-StatusBar.js": 35,
+      "./views/PictView-Manager-TopBar.js": 36,
+      "./views/modals/PictView-Manager-Modal-Commit.js": 37,
+      "./views/modals/PictView-Manager-Modal-Diff.js": 38,
+      "./views/modals/PictView-Manager-Modal-EditModule.js": 39,
+      "./views/modals/PictView-Manager-Modal-Ncu.js": 40,
+      "./views/modals/PictView-Manager-Modal-Publish.js": 41,
+      "./views/modals/PictView-Manager-Modal-RipplePlan.js": 42,
       "pict-application": 5,
-      "pict-router": 8
+      "pict-router": 8,
+      "pict-section-modal": 16
     }],
-    13: [function (require, module, exports) {
+    21: [function (require, module, exports) {
       module.exports = {
         RetoldManagerApplication: require('./Pict-Application-RetoldManager.js')
       };
@@ -3913,9 +6038,9 @@
         window.RetoldManagerApplication = module.exports.RetoldManagerApplication;
       }
     }, {
-      "./Pict-Application-RetoldManager.js": 12
+      "./Pict-Application-RetoldManager.js": 20
     }],
-    14: [function (require, module, exports) {
+    22: [function (require, module, exports) {
       const libPictProvider = require('pict-provider');
       const API_BASE = '/api/manager';
       const _Configuration = {
@@ -4174,7 +6299,7 @@
     }, {
       "pict-provider": 7
     }],
-    15: [function (require, module, exports) {
+    23: [function (require, module, exports) {
       const libPictProvider = require('pict-provider');
       const WS_PATH = '/ws/manager/operations';
       const RECONNECT_DELAY_MS = 2500;
@@ -4250,6 +6375,7 @@
           if (!tmpOp) {
             return;
           }
+          let tmpComplete = false;
           switch (pFrame.Type) {
             case 'hello':
               // server handshake; nothing to do
@@ -4258,7 +6384,12 @@
               tmpOp.OperationId = pFrame.OperationId;
               tmpOp.HeaderState = 'running';
               tmpOp.HeaderText = pFrame.CommandString || pFrame.OperationId;
-              tmpOp.Lines = [];
+              // Preserve the optimistic Lines / Scope set by the initiator
+              // (so the user immediately sees the cmd they kicked off, even
+              // if the WS is a beat behind the HTTP response).
+              if (!tmpOp.Lines) {
+                tmpOp.Lines = [];
+              }
               tmpOp.Lines.push({
                 Class: 'cmd',
                 Text: '$ ' + (pFrame.CommandString || '')
@@ -4306,6 +6437,7 @@
                   Text: 'exit ' + pFrame.ExitCode + (pFrame.Duration ? '  (' + pFrame.Duration + ')' : '')
                 });
               }
+              tmpComplete = true;
               break;
             case 'error':
               tmpOp.HeaderState = 'error';
@@ -4314,6 +6446,7 @@
                 Class: 'error',
                 Text: 'Error: ' + (pFrame.Error || 'unknown')
               });
+              tmpComplete = true;
               break;
             case 'cancelled':
               tmpOp.HeaderState = 'error';
@@ -4322,12 +6455,38 @@
                 Class: 'error',
                 Text: 'Cancelled'
               });
+              tmpComplete = true;
               break;
             default:
               return;
           }
-          if (this.pict.views['Manager-OutputPanel']) {
-            this.pict.views['Manager-OutputPanel'].render();
+
+          // Stdout frames are the hot path during noisy ops — append-only +
+          // rAF coalescing keeps the renderer from quadratically rebuilding
+          // the whole log on every line. Lifecycle frames (start/complete/
+          // error/cancelled) reset the shell template.
+          let tmpHotPath = pFrame.Type === 'stdout' || pFrame.Type === 'progress';
+          let tmpPanel = this.pict.views['Manager-OutputPanel'];
+          if (tmpPanel) {
+            if (tmpHotPath && typeof tmpPanel.scheduleAppend === 'function') {
+              tmpPanel.scheduleAppend();
+            } else {
+              tmpPanel.render();
+            }
+          }
+          // Live log modal (open during cross-module ops or when the user
+          // explicitly requested the live view). renderFrame is rAF-batched.
+          if (this.pict.views['Manager-LogModal']) {
+            this.pict.views['Manager-LogModal'].renderFrame();
+          }
+
+          // On completion of a module-scoped op, reload the module detail so the
+          // dirty-files list, package version, and dep ranges reflect reality.
+          if (tmpComplete && tmpOp.Scope === 'module' && tmpOp.ModuleName) {
+            let tmpWs = this.pict.views['Manager-ModuleWorkspace'];
+            if (tmpWs && this.pict.AppData.Manager.SelectedModule === tmpOp.ModuleName && typeof tmpWs.refreshDetail === 'function') {
+              tmpWs.refreshDetail();
+            }
           }
         }
       }
@@ -4336,7 +6495,7 @@
     }, {
       "pict-provider": 7
     }],
-    16: [function (require, module, exports) {
+    24: [function (require, module, exports) {
       module.exports = {
         "ProviderIdentifier": "Pict-Router",
         "AutoInitialize": true,
@@ -4356,7 +6515,7 @@
         }]
       };
     }, {}],
-    17: [function (require, module, exports) {
+    25: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-Home',
@@ -4392,9 +6551,9 @@
       module.exports = ManagerHomeView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    18: [function (require, module, exports) {
+    26: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-Layout',
@@ -4422,13 +6581,13 @@
 
 		#RM-Workspace
 		{
+			position: relative;
 			display: flex;
 			flex-direction: column;
 			min-height: 0;
 			overflow-y: auto;
 		}
-		#RM-Workspace-Content    { flex: 0 0 auto; }
-		#RM-OutputPanelContainer { flex: 0 0 auto; margin-top: auto; }
+		#RM-Workspace-Content { flex: 1 1 auto; min-height: 0; }
 	`,
         Templates: [{
           Hash: 'Manager-Layout-Shell-Template',
@@ -4438,7 +6597,6 @@
 	<aside id="RM-Sidebar"></aside>
 	<section id="RM-Workspace">
 		<div id="RM-Workspace-Content"></div>
-		<div id="RM-OutputPanelContainer"></div>
 	</section>
 </main>
 <footer id="RM-StatusBar"></footer>
@@ -4461,9 +6619,10 @@
           this.pict.views['Manager-TopBar'].render();
           this.pict.views['Manager-Sidebar'].render();
           this.pict.views['Manager-StatusBar'].render();
-          this.pict.views['Manager-OutputPanel'].render();
 
           // Default workspace content — the router will override on resolve().
+          // (The output panel renders inside the module workspace template, so
+          // we don't kick it off here at the layout level.)
           this.pict.views['Manager-Home'].render();
           this.pict.CSSMap.injectCSS();
           return super.onAfterRender(pRenderable, pRenderDestinationAddress, pRecord, pContent);
@@ -4472,9 +6631,364 @@
       module.exports = ManagerLayoutView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    19: [function (require, module, exports) {
+    27: [function (require, module, exports) {
+      const libPictView = require('pict-view');
+
+      /**
+       * Manager-LogModal
+       *
+       * A pict-section-modal-backed log viewer with a fullscreen toggle.
+       *
+       * Two modes:
+       *   openForLogFile()  - reads /api/manager/log on demand with a refresh button.
+       *   openForOperation(pLabel) - streams live frames from AppData.Manager.ActiveOperation
+       *                              into the modal body until completion.
+       *
+       * Exposes a single dialog at a time. Re-opening swaps the content.
+       */
+
+      const _ViewConfiguration = {
+        ViewIdentifier: 'Manager-LogModal',
+        AutoRender: false,
+        CSS: /*css*/`
+		.rm-log-modal-body
+		{
+			background: #05070a;
+			color: #c9d1d9;
+			font-family: var(--font-mono);
+			font-size: 12px;
+			line-height: 1.4;
+			padding: 12px;
+			margin: 0;
+			border-radius: 6px;
+			border: 1px solid var(--color-border);
+			height: 60vh;
+			max-height: 70vh;
+			overflow: auto;
+			white-space: pre-wrap;
+			word-break: break-word;
+		}
+		.rm-log-modal-body.empty { color: var(--color-muted); font-style: italic; }
+		.rm-log-modal-body .line { display: block; }
+		.rm-log-modal-body .line.cmd     { color: var(--color-accent); font-weight: 600; }
+		.rm-log-modal-body .line.meta    { color: var(--color-muted); }
+		.rm-log-modal-body .line.stderr  { color: var(--color-danger); }
+		.rm-log-modal-body .line.success { color: var(--color-success); font-weight: 600; }
+		.rm-log-modal-body .line.error   { color: var(--color-danger); font-weight: 600; }
+		.rm-log-modal-toolbar
+		{
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin: 0 0 8px;
+			font-family: var(--font-mono);
+			font-size: 11.5px;
+			color: var(--color-muted);
+		}
+		.rm-log-modal-toolbar .spacer { flex: 1 1 auto; }
+		.rm-log-modal-toolbar button
+		{
+			font-family: var(--font-mono);
+			font-size: 11.5px;
+			background: transparent;
+			color: var(--color-text);
+			border: 1px solid var(--color-border);
+			padding: 3px 10px;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		.rm-log-modal-toolbar button:hover { border-color: var(--color-accent); color: var(--color-accent); }
+		.rm-log-modal-toolbar .live-dot
+		{
+			display: inline-block;
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: var(--color-muted);
+		}
+		.rm-log-modal-toolbar.running .live-dot { background: var(--color-accent); animation: pulse 1s infinite; }
+		.rm-log-modal-toolbar.success .live-dot { background: var(--color-success); }
+		.rm-log-modal-toolbar.error   .live-dot { background: var(--color-danger); }
+
+		/* Fullscreen takeover - applies to the pict-modal-dialog when toggled */
+		.pict-modal-dialog.rm-log-modal-fullscreen
+		{
+			width: 100vw !important;
+			max-width: 100vw !important;
+			height: 100vh;
+			max-height: 100vh !important;
+			top: 0;
+			left: 0;
+			transform: none !important;
+			border-radius: 0;
+		}
+		.pict-modal-dialog.rm-log-modal-fullscreen .rm-log-modal-body
+		{
+			height: calc(100vh - 130px);
+			max-height: none;
+		}
+	`
+      };
+      class ManagerLogModalView extends libPictView {
+        constructor(pFable, pOptions, pServiceHash) {
+          super(pFable, pOptions, pServiceHash);
+          this._mode = null; // 'logfile' | 'operation' | null
+          this._dialog = null; // current pict-modal-dialog element
+          this._dismissDialog = null; // function to dismiss the current dialog
+          this._headerLabel = '';
+          this._renderedUpTo = 0; // append cursor for live mode
+          this._lastOpId = null;
+          this._rafPending = false;
+        }
+
+        // ─────────────────────────────────────────────
+        //  Public API
+        // ─────────────────────────────────────────────
+
+        openForLogFile() {
+          this._mode = 'logfile';
+          this._headerLabel = 'Operation log';
+          this._openShell();
+          this.refreshLogFile(500);
+        }
+        openForOperation(pLabel) {
+          this._mode = 'operation';
+          this._headerLabel = pLabel || 'Live operation';
+          this._renderedUpTo = 0;
+          this._lastOpId = null;
+          this._openShell();
+          this.renderFrame();
+        }
+
+        // Called from OperationsWS provider whenever ActiveOperation updates. We
+        // coalesce many frame events into one paint via requestAnimationFrame so
+        // a flood of stdout (e.g. a noisy publish) doesn't pile up DOM work.
+        renderFrame() {
+          if (this._mode !== 'operation' || !this._dialog) {
+            return;
+          }
+          if (this._rafPending) {
+            return;
+          }
+          this._rafPending = true;
+          let tmpSelf = this;
+          let tmpRaf = typeof window !== 'undefined' && window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function (pCb) {
+            return setTimeout(pCb, 16);
+          };
+          tmpRaf(function () {
+            tmpSelf._rafPending = false;
+            if (tmpSelf._mode !== 'operation' || !tmpSelf._dialog) {
+              return;
+            }
+            let tmpOp = tmpSelf.pict.AppData.Manager.ActiveOperation;
+            tmpSelf._paintOperationBody(tmpOp);
+            tmpSelf._paintOperationToolbar(tmpOp);
+          });
+        }
+        close() {
+          if (this._dismissDialog) {
+            let tmpDismiss = this._dismissDialog;
+            this._dismissDialog = null;
+            tmpDismiss(null);
+          }
+          this._dialog = null;
+          this._mode = null;
+        }
+        refreshLogFile(pTail) {
+          if (this._mode !== 'logfile' || !this._dialog) {
+            return;
+          }
+          let tmpToolbar = this._dialog.querySelector('.rm-log-modal-toolbar .meta-text');
+          let tmpBody = this._dialog.querySelector('.rm-log-modal-body');
+          if (tmpToolbar) {
+            tmpToolbar.textContent = 'loading...';
+          }
+          if (tmpBody) {
+            tmpBody.textContent = 'fetching...';
+            tmpBody.classList.add('empty');
+          }
+          this.pict.providers.ManagerAPI.get('/log?tail=' + (pTail || 500)).then(pBody => {
+            if (this._mode !== 'logfile' || !this._dialog) {
+              return;
+            }
+            if (tmpToolbar) {
+              tmpToolbar.textContent = pBody.Exists ? pBody.Path + ' — last ' + pBody.Lines.length + ' / ' + pBody.Total + ' lines' : pBody.Path + ' — (no log yet)';
+            }
+            if (tmpBody) {
+              let tmpText = (pBody.Lines || []).join('\n');
+              tmpBody.textContent = tmpText || '(empty)';
+              if (tmpText) {
+                tmpBody.classList.remove('empty');
+              }
+              tmpBody.scrollTop = tmpBody.scrollHeight;
+            }
+          }, pError => {
+            if (tmpBody) {
+              tmpBody.textContent = 'Error loading log: ' + pError.message;
+              tmpBody.classList.add('empty');
+            }
+          });
+        }
+
+        // ─────────────────────────────────────────────
+        //  Dialog plumbing
+        // ─────────────────────────────────────────────
+
+        _openShell() {
+          // Close any existing dialog first so we don't stack them.
+          if (this._dismissDialog) {
+            this._dismissDialog(null);
+            this._dismissDialog = null;
+            this._dialog = null;
+          }
+          let tmpModal = this.pict.views['Pict-Section-Modal'];
+          if (!tmpModal) {
+            this.pict.log.error('pict-section-modal view not registered');
+            return;
+          }
+          let tmpToolbarHtml = this._mode === 'logfile' ? this._logFileToolbar() : this._operationToolbar();
+          let tmpContent = tmpToolbarHtml + '<pre class="rm-log-modal-body empty">(no output yet)</pre>';
+          tmpModal.show({
+            title: this._headerLabel,
+            content: tmpContent,
+            width: '900px',
+            closeable: true,
+            buttons: [],
+            onOpen: pDialog => {
+              this._dialog = pDialog;
+              this._dismissDialog = pDialog._dismiss;
+              this._wireToolbar(pDialog);
+            },
+            onClose: () => {
+              this._dialog = null;
+              this._dismissDialog = null;
+              this._mode = null;
+            }
+          });
+        }
+        _logFileToolbar() {
+          return '' + '<div class="rm-log-modal-toolbar">' + '  <span class="meta-text">loading...</span>' + '  <span class="spacer"></span>' + '  <button data-rm-log-action="refresh-500">Refresh (500)</button>' + '  <button data-rm-log-action="refresh-2000">Last 2000</button>' + '  <button data-rm-log-action="fullscreen">Fullscreen</button>' + '</div>';
+        }
+        _operationToolbar() {
+          return '' + '<div class="rm-log-modal-toolbar">' + '  <span class="live-dot"></span>' + '  <span class="meta-text">starting...</span>' + '  <span class="spacer"></span>' + '  <button data-rm-log-action="cancel">Cancel</button>' + '  <button data-rm-log-action="fullscreen">Fullscreen</button>' + '</div>';
+        }
+        _wireToolbar(pDialog) {
+          let tmpButtons = pDialog.querySelectorAll('[data-rm-log-action]');
+          for (let i = 0; i < tmpButtons.length; i++) {
+            let tmpBtn = tmpButtons[i];
+            tmpBtn.addEventListener('click', pEvent => {
+              let tmpAction = pEvent.currentTarget.getAttribute('data-rm-log-action');
+              this._handleToolbarAction(tmpAction, pEvent.currentTarget);
+            });
+          }
+        }
+        _handleToolbarAction(pAction, pButton) {
+          switch (pAction) {
+            case 'refresh-500':
+              this.refreshLogFile(500);
+              break;
+            case 'refresh-2000':
+              this.refreshLogFile(2000);
+              break;
+            case 'fullscreen':
+              if (!this._dialog) {
+                return;
+              }
+              let tmpFullscreen = this._dialog.classList.toggle('rm-log-modal-fullscreen');
+              if (pButton) {
+                pButton.textContent = tmpFullscreen ? 'Exit fullscreen' : 'Fullscreen';
+              }
+              break;
+            case 'cancel':
+              let tmpOp = this.pict.AppData.Manager.ActiveOperation;
+              if (tmpOp.OperationId && tmpOp.HeaderState === 'running') {
+                this.pict.providers.ManagerAPI.cancelOperation(tmpOp.OperationId);
+              }
+              break;
+          }
+        }
+        _paintOperationBody(pOp) {
+          if (!this._dialog) {
+            return;
+          }
+          let tmpBody = this._dialog.querySelector('.rm-log-modal-body');
+          if (!tmpBody) {
+            return;
+          }
+          let tmpLines = pOp && pOp.Lines ? pOp.Lines : [];
+
+          // Operation switched out from under us — wipe and start fresh.
+          let tmpOpId = pOp ? pOp.OperationId : null;
+          if (tmpOpId !== this._lastOpId) {
+            this._lastOpId = tmpOpId;
+            this._renderedUpTo = 0;
+            tmpBody.innerHTML = '';
+          }
+          if (tmpLines.length === 0) {
+            if (this._renderedUpTo === 0) {
+              tmpBody.textContent = '(no output yet)';
+              tmpBody.classList.add('empty');
+            }
+            return;
+          }
+          tmpBody.classList.remove('empty');
+
+          // Append-only: only build DOM for new lines since the last paint.
+          if (this._renderedUpTo === 0) {
+            tmpBody.innerHTML = '';
+          }
+          let tmpFrag = document.createDocumentFragment();
+          for (let i = this._renderedUpTo; i < tmpLines.length; i++) {
+            let tmpLine = tmpLines[i];
+            let tmpSpan = document.createElement('span');
+            tmpSpan.className = tmpLine.Class ? 'line ' + tmpLine.Class : 'line';
+            tmpSpan.textContent = tmpLine.Text;
+            tmpFrag.appendChild(tmpSpan);
+          }
+          tmpBody.appendChild(tmpFrag);
+          this._renderedUpTo = tmpLines.length;
+          let tmpAtBottom = tmpBody.scrollHeight - tmpBody.scrollTop - tmpBody.clientHeight < 80;
+          if (tmpAtBottom) {
+            tmpBody.scrollTop = tmpBody.scrollHeight;
+          }
+        }
+        _paintOperationToolbar(pOp) {
+          if (!this._dialog) {
+            return;
+          }
+          let tmpToolbar = this._dialog.querySelector('.rm-log-modal-toolbar');
+          if (!tmpToolbar) {
+            return;
+          }
+          tmpToolbar.classList.remove('running', 'success', 'error');
+          if (pOp.HeaderState) {
+            tmpToolbar.classList.add(pOp.HeaderState);
+          }
+          let tmpText = tmpToolbar.querySelector('.meta-text');
+          if (tmpText) {
+            tmpText.textContent = pOp.HeaderText || pOp.HeaderState || 'idle';
+          }
+          let tmpCancel = tmpToolbar.querySelector('[data-rm-log-action="cancel"]');
+          if (tmpCancel) {
+            tmpCancel.disabled = pOp.HeaderState !== 'running';
+          }
+        }
+        _escape(pText) {
+          let tmpS = String(pText == null ? '' : pText);
+          return tmpS.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+        _escapeAttr(pText) {
+          return this._escape(pText);
+        }
+      }
+      module.exports = ManagerLogModalView;
+      module.exports.default_configuration = _ViewConfiguration;
+    }, {
+      "pict-view": 18
+    }],
+    28: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-LogViewer',
@@ -4560,9 +7074,9 @@
       module.exports = ManagerLogViewerView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    20: [function (require, module, exports) {
+    29: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-ManifestEditor',
@@ -4766,9 +7280,9 @@
       module.exports = ManagerManifestEditorView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    21: [function (require, module, exports) {
+    30: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-ModuleWorkspace',
@@ -4792,6 +7306,11 @@
         }, {
           Hash: 'Manager-ModuleWorkspace-Content-Template',
           Template: /*html*/`
+<div id="RM-Mod-InfoBox" class="module-info-box collapsed"
+	onclick="{~P~}.views['Manager-ModuleWorkspace'].toggleInfoBox()">
+	{~D:Record.InfoBoxBody~}
+</div>
+
 <div class="workspace-header">
 	<span class="module-name">{~D:Record.Manifest.Name~}</span>
 	{~D:Record.PackageVersionBadge~}
@@ -4847,30 +7366,17 @@
 	</div>
 </div>
 
-<div class="workspace-section">
-	<h3>Package</h3>
-	<dl class="kv">
-		<dt>name</dt><dd>{~D:Record.Pkg.Name~}</dd>
-		<dt>version</dt><dd>{~D:Record.Pkg.Version~}</dd>
-		<dt>dependencies</dt><dd>{~D:Record.Pkg.DepsCount~}</dd>
-		<dt>devDependencies</dt><dd>{~D:Record.Pkg.DevDepsCount~}</dd>
-	</dl>
-</div>
+<!-- Live operation log for this module's most recent action -->
+<div id="RM-OutputPanelContainer"></div>
 
-<div class="workspace-section">
-	<h3>Git status</h3>
-	<dl class="kv">
-		<dt>branch</dt><dd>{~D:Record.Git.Branch~}</dd>
-		<dt>ahead / behind</dt><dd>{~D:Record.Git.AheadBehind~}</dd>
-		<dt>dirty</dt><dd>{~D:Record.Git.DirtyText~}</dd>
-	</dl>
-	{~D:Record.GitFilesBlock~}
-</div>
+<div id="RM-Mod-FilesArea">{~D:Record.GitFilesSection~}</div>
 
-{~D:Record.RetoldDepsSection~}
-{~D:Record.ExternalDepsSection~}
-{~D:Record.RetoldDevDepsSection~}
-{~D:Record.ExternalDevDepsSection~}
+<div id="RM-Mod-DepsArea">
+	{~D:Record.RetoldDepsSection~}
+	{~D:Record.ExternalDepsSection~}
+	{~D:Record.RetoldDevDepsSection~}
+	{~D:Record.ExternalDevDepsSection~}
+</div>
 `
         }],
         Renderables: [{
@@ -4884,6 +7390,7 @@
         constructor(pFable, pOptions, pServiceHash) {
           super(pFable, pOptions, pServiceHash);
           this._boundName = null;
+          this._infoBoxCollapsed = true;
         }
 
         // External entry: the app routes /Module/:name here and calls loadModule.
@@ -4897,19 +7404,11 @@
           this.pict.ContentAssignment.assignContent('#RM-Workspace-Content', tmpLoading);
           this.pict.PictApplication.setStatus('Loading ' + pName + '...');
           this.pict.providers.ManagerAPI.loadModuleDetail(pName).then(pDetail => {
-            // If the user navigated away, drop the result.
             if (this._boundName !== pName) {
               return;
             }
             this.pict.AppData.Manager.SelectedModuleDetail = pDetail;
-            // Populate the record address BEFORE triggering render(); pict-view
-            // fetches the record from DefaultTemplateRecordAddress up-front, so
-            // the data must be in place when render() starts.
-            if (!this.pict.AppData.Manager.ViewRecord) {
-              this.pict.AppData.Manager.ViewRecord = {};
-            }
-            this.pict.AppData.Manager.ViewRecord.ModuleWorkspace = this._computeViewRecord();
-            this.render();
+            this._renderFromDetail();
             this.pict.PictApplication.setStatus('Ready. ' + pName + '.');
           }, pError => {
             if (this._boundName !== pName) {
@@ -4923,13 +7422,68 @@
             this.pict.PictApplication.setStatus('Error loading ' + pName + '.');
           });
         }
+
+        // Refresh the detail in the background and patch the dynamic sections of
+        // the workspace (info box + deps + git files) without disturbing the
+        // inline output panel. Used after a module-scoped operation completes so
+        // stale data (like uncommitted files that just got committed) updates.
+        refreshDetail() {
+          if (!this._boundName) {
+            return;
+          }
+          let tmpName = this._boundName;
+          this.pict.providers.ManagerAPI.loadModuleDetail(tmpName).then(pDetail => {
+            if (this._boundName !== tmpName) {
+              return;
+            }
+            this.pict.AppData.Manager.SelectedModuleDetail = pDetail;
+            this._patchDynamicSections();
+          }, () => {/* swallow — not fatal */});
+        }
+        _renderFromDetail() {
+          if (!this.pict.AppData.Manager.ViewRecord) {
+            this.pict.AppData.Manager.ViewRecord = {};
+          }
+          this.pict.AppData.Manager.ViewRecord.ModuleWorkspace = this._computeViewRecord();
+          this.render();
+        }
+
+        // Replace just the info-box body and the deps area in place. Keeps the
+        // output panel intact (its DOM container survives because we don't touch
+        // #RM-OutputPanelContainer).
+        _patchDynamicSections() {
+          let tmpRecord = this._computeViewRecord();
+          this.pict.AppData.Manager.ViewRecord.ModuleWorkspace = tmpRecord;
+          let tmpInfo = document.getElementById('RM-Mod-InfoBox');
+          if (tmpInfo) {
+            tmpInfo.innerHTML = tmpRecord.InfoBoxBody;
+          }
+          let tmpFiles = document.getElementById('RM-Mod-FilesArea');
+          if (tmpFiles) {
+            tmpFiles.innerHTML = tmpRecord.GitFilesSection;
+          }
+          let tmpDeps = document.getElementById('RM-Mod-DepsArea');
+          if (tmpDeps) {
+            tmpDeps.innerHTML = '' + tmpRecord.RetoldDepsSection + tmpRecord.ExternalDepsSection + tmpRecord.RetoldDevDepsSection + tmpRecord.ExternalDevDepsSection;
+          }
+          this._wireFileButtons();
+        }
+        toggleInfoBox() {
+          let tmpEl = document.getElementById('RM-Mod-InfoBox');
+          if (!tmpEl) {
+            return;
+          }
+          this._infoBoxCollapsed = !this._infoBoxCollapsed;
+          tmpEl.classList.toggle('collapsed', this._infoBoxCollapsed);
+        }
         _computeViewRecord() {
           let tmpDetail = this.pict.AppData.Manager.SelectedModuleDetail;
           if (!tmpDetail || !tmpDetail.Manifest) {
             return {
               Manifest: {
                 Name: '(none)'
-              }
+              },
+              InfoBoxBody: ''
             };
           }
           let tmpManifest = tmpDetail.Manifest;
@@ -4945,30 +7499,10 @@
           tmpRecord.DocsLink = tmpManifest.Documentation ? '<a href="' + this._escape(tmpManifest.Documentation) + '" target="_blank">Docs</a>' : '';
           tmpRecord.DescriptionBlock = tmpManifest.Description ? '<p style="color:var(--color-muted);margin-top:0">' + this._escape(tmpManifest.Description) + '</p>' : '';
 
-          // Package summary block
-          tmpRecord.Pkg = {
-            Name: tmpPkg && tmpPkg.Name ? tmpPkg.Name : '—',
-            Version: tmpPkg && tmpPkg.Version ? tmpPkg.Version : '—',
-            DepsCount: tmpPkg && tmpPkg.Dependencies ? Object.keys(tmpPkg.Dependencies).length : 0,
-            DevDepsCount: tmpPkg && tmpPkg.DevDependencies ? Object.keys(tmpPkg.DevDependencies).length : 0
-          };
-
-          // Git status block
-          if (tmpGit) {
-            tmpRecord.Git = {
-              Branch: tmpGit.Branch || '—',
-              AheadBehind: (tmpGit.Ahead || 0) + ' / ' + (tmpGit.Behind || 0),
-              DirtyText: tmpGit.Dirty ? 'yes' : 'no'
-            };
-            tmpRecord.GitFilesBlock = this._renderGitFilesBlock(tmpGit.Files || []);
-          } else {
-            tmpRecord.Git = {
-              Branch: '—',
-              AheadBehind: '—',
-              DirtyText: '—'
-            };
-            tmpRecord.GitFilesBlock = '';
-          }
+          // Floating info-box body (Package + Git status summary).
+          tmpRecord.InfoBoxBody = this._renderInfoBoxBody(tmpManifest, tmpPkg, tmpGit);
+          // Inline changed-files block (lives above the deps section).
+          tmpRecord.GitFilesSection = this._renderInlineFilesSection(tmpGit);
 
           // Dependency tables (server already split retold vs external)
           let tmpCat = tmpDetail.CategorizedDeps || {};
@@ -4978,13 +7512,42 @@
           tmpRecord.ExternalDevDepsSection = this._renderDepSection('External dev dependencies', tmpCat.ExternalDevDeps || [], false);
           return tmpRecord;
         }
-        _renderGitFilesBlock(pFiles) {
-          if (!pFiles.length) {
+        _renderInfoBoxBody(pManifest, pPkg, pGit) {
+          let tmpVersion = pPkg && pPkg.Version ? 'v' + pPkg.Version : '';
+          let tmpBranch = pGit && pGit.Branch ? pGit.Branch : '';
+          let tmpDirty = pGit && pGit.Dirty ? '●' : '';
+
+          // Header is always shown (drives both the collapsed and expanded forms).
+          let tmpHtml = '' + '<div class="info-header">' + '<span class="ib-name">' + this._escape(pManifest.Name) + '</span>' + (tmpVersion ? '<span class="ib-version">' + this._escape(tmpVersion) + '</span>' : '') + (tmpBranch ? '<span class="ib-branch">' + this._escape(tmpBranch) + '</span>' : '') + (tmpDirty ? '<span class="ib-dirty" title="Uncommitted changes">' + tmpDirty + '</span>' : '') + '<span class="ib-toggle"></span>' + '</div>';
+
+          // Expanded body — package and git details.
+          tmpHtml += '<div class="info-body" onclick="event.stopPropagation()">';
+          tmpHtml += '<div class="ib-section"><h4>Package</h4><dl class="kv">';
+          tmpHtml += '<dt>name</dt><dd>' + this._escape(pPkg && pPkg.Name || '—') + '</dd>';
+          tmpHtml += '<dt>version</dt><dd>' + this._escape(pPkg && pPkg.Version || '—') + '</dd>';
+          tmpHtml += '<dt>dependencies</dt><dd>' + (pPkg && pPkg.Dependencies ? Object.keys(pPkg.Dependencies).length : 0) + '</dd>';
+          tmpHtml += '<dt>devDependencies</dt><dd>' + (pPkg && pPkg.DevDependencies ? Object.keys(pPkg.DevDependencies).length : 0) + '</dd>';
+          tmpHtml += '</dl></div>';
+          tmpHtml += '<div class="ib-section"><h4>Git status</h4><dl class="kv">';
+          tmpHtml += '<dt>branch</dt><dd>' + this._escape(pGit && pGit.Branch || '—') + '</dd>';
+          tmpHtml += '<dt>ahead / behind</dt><dd>' + (pGit && pGit.Ahead || 0) + ' / ' + (pGit && pGit.Behind || 0) + '</dd>';
+          tmpHtml += '<dt>dirty</dt><dd>' + (pGit && pGit.Dirty ? 'yes' : 'no') + '</dd>';
+          tmpHtml += '</dl>';
+          tmpHtml += '</div>';
+          tmpHtml += '</div>';
+          return tmpHtml;
+        }
+
+        // Inline list of changed files (above the deps tables). Renders nothing
+        // when the working tree is clean.
+        _renderInlineFilesSection(pGit) {
+          let tmpFiles = pGit && pGit.Files || [];
+          if (!tmpFiles.length) {
             return '';
           }
-          let tmpHtml = '<div style="margin-top:8px">';
-          for (let i = 0; i < pFiles.length; i++) {
-            let tmpFile = pFiles[i];
+          let tmpHtml = '<div class="workspace-section"><h3>Changed files (' + tmpFiles.length + ')</h3>';
+          for (let i = 0; i < tmpFiles.length; i++) {
+            let tmpFile = tmpFiles[i];
             let tmpIsUntracked = tmpFile.Status === '??';
             tmpHtml += '<div class="git-file">' + '<span class="st">' + this._escape(tmpFile.Status.trim() || '··') + '</span>' + this._escape(tmpFile.Path);
             if (tmpIsUntracked) {
@@ -5012,13 +7575,24 @@
               if (tmpDep.Documentation) {
                 tmpLinks += '<a href="' + this._escape(tmpDep.Documentation) + '" target="_blank" title="Docs">docs</a>';
               }
+            } else if (tmpDep.Repository) {
+              // External deps: surface the repo URL that was harvested from
+              // node_modules/<pkg>/package.json on the server.
+              tmpLinks += '<a href="' + this._escape(tmpDep.Repository) + '" target="_blank" title="Repository">repo</a>';
             }
             if (tmpDep.Npm) {
               tmpLinks += '<a href="' + this._escape(tmpDep.Npm) + '" target="_blank" title="npm">npm</a>';
             }
             let tmpNameCls = pIsRetold ? 'dep-name retold' : 'dep-name';
+            let tmpNameCell;
+            if (pIsRetold) {
+              // Click-through to the dep's workspace.
+              tmpNameCell = '<a class="dep-name-link" href="#/Module/' + encodeURIComponent(tmpDep.Name) + '" title="Open ' + this._escape(tmpDep.Name) + '">' + this._escape(tmpDep.Name) + '</a>';
+            } else {
+              tmpNameCell = this._escape(tmpDep.Name);
+            }
             tmpHtml += '<tr>';
-            tmpHtml += '<td class="' + tmpNameCls + '">' + this._escape(tmpDep.Name) + '</td>';
+            tmpHtml += '<td class="' + tmpNameCls + '">' + tmpNameCell + '</td>';
             tmpHtml += '<td class="dep-range">' + this._escape(tmpDep.Range) + '</td>';
             tmpHtml += '<td class="dep-links">' + tmpLinks + '</td>';
             tmpHtml += '</tr>';
@@ -5037,17 +7611,38 @@
           // Wire action-bar buttons. Buttons without data-op are ignored.
           let tmpWorkspace = document.getElementById('RM-Workspace');
           if (tmpWorkspace) {
-            let tmpButtons = tmpWorkspace.querySelectorAll('button[data-op]');
+            let tmpButtons = tmpWorkspace.querySelectorAll('.action-groups button[data-op]');
             for (let i = 0; i < tmpButtons.length; i++) {
               tmpButtons[i].addEventListener('click', pEvent => {
                 let tmpOp = pEvent.currentTarget.getAttribute('data-op');
-                let tmpPath = pEvent.currentTarget.getAttribute('data-path');
-                this.runAction(tmpOp, tmpPath);
+                this.runAction(tmpOp, null);
               });
             }
           }
+          this._wireFileButtons();
+
+          // Re-render the output panel into the freshly created anchor so any
+          // in-flight operation lines stay visible after a refresh.
+          if (this.pict.views['Manager-OutputPanel']) {
+            this.pict.views['Manager-OutputPanel'].render();
+          }
           this.pict.CSSMap.injectCSS();
           return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
+        }
+
+        // Wire up the per-file "+ add" buttons in the inline changed-files block.
+        _wireFileButtons() {
+          let tmpFiles = document.getElementById('RM-Mod-FilesArea');
+          if (!tmpFiles) {
+            return;
+          }
+          let tmpButtons = tmpFiles.querySelectorAll('button[data-op="git-add-one"]');
+          for (let i = 0; i < tmpButtons.length; i++) {
+            tmpButtons[i].addEventListener('click', pEvent => {
+              let tmpPath = pEvent.currentTarget.getAttribute('data-path');
+              this.runAction('git-add-one', tmpPath);
+            });
+          }
         }
 
         // ─────────────────────────────────────────────
@@ -5061,24 +7656,49 @@
           }
           let tmpName = tmpDetail.Manifest.Name;
           let tmpApi = this.pict.providers.ManagerAPI;
+
+          // Stamp the active operation so the WS layer can route its frames to
+          // the inline output panel (vs. the cross-module modal).
+          let tmpStartScopedOp = pLabel => {
+            this.pict.AppData.Manager.ActiveOperation = {
+              OperationId: null,
+              CommandTag: null,
+              Lines: [],
+              HeaderState: 'running',
+              HeaderText: pLabel,
+              Scope: 'module',
+              ModuleName: tmpName
+            };
+            if (this.pict.views['Manager-OutputPanel']) {
+              this.pict.views['Manager-OutputPanel'].render();
+            }
+          };
           switch (pOp) {
             case 'install':
+              tmpStartScopedOp('npm install');
               return tmpApi.runModuleOperation(tmpName, 'npm', ['install'], 'npm install');
             case 'test':
+              tmpStartScopedOp('npm test');
               return tmpApi.runModuleOperation(tmpName, 'npm', ['test'], 'npm test');
             case 'types':
+              tmpStartScopedOp('npm run types');
               return tmpApi.runModuleOperation(tmpName, 'npm', ['run', 'types'], 'npm run types');
             case 'build':
+              tmpStartScopedOp('npm run build');
               return tmpApi.runModuleOperation(tmpName, 'npm', ['run', 'build'], 'npm run build');
             case 'diff':
               return this.pict.views['Manager-Modal-Diff'].open(tmpName);
             case 'git-add':
+              tmpStartScopedOp('git add -A');
               return tmpApi.gitAddAll(tmpName);
             case 'git-add-one':
+              tmpStartScopedOp('git add ' + (pPath || ''));
               return pPath ? tmpApi.gitAddPaths(tmpName, [pPath]) : null;
             case 'pull':
+              tmpStartScopedOp('git pull');
               return tmpApi.runModuleOperation(tmpName, 'git', ['pull'], 'git pull');
             case 'push':
+              tmpStartScopedOp('git push');
               return tmpApi.runModuleOperation(tmpName, 'git', ['push'], 'git push');
             case 'bump-patch':
               return this._bumpWithGuard('patch');
@@ -5118,6 +7738,19 @@
             if (tmpLocal) {
               let tmpNext = this._projectBump(tmpLocal, pKind);
               tmpPkg.Version = tmpNext.Major + '.' + tmpNext.Minor + '.' + tmpNext.Patch;
+            }
+            // Stamp the operation for inline output + post-completion refresh.
+            this.pict.AppData.Manager.ActiveOperation = {
+              OperationId: null,
+              CommandTag: null,
+              Lines: [],
+              HeaderState: 'running',
+              HeaderText: 'npm version ' + pKind,
+              Scope: 'module',
+              ModuleName: tmpName
+            };
+            if (this.pict.views['Manager-OutputPanel']) {
+              this.pict.views['Manager-OutputPanel'].render();
             }
             return this.pict.providers.ManagerAPI.bumpVersion(tmpName, pKind);
           };
@@ -5197,81 +7830,80 @@
       module.exports = ManagerModuleWorkspaceView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    22: [function (require, module, exports) {
+    31: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const SCRIPT_LABELS = {
         status: 'Status.sh',
         update: 'Update.sh',
         checkout: 'Checkout.sh'
       };
+
+      /**
+       * Manager-OpsRunner
+       *
+       * Cross-module ops (Status / Update / Checkout) used to swap the workspace
+       * content area to a placeholder while output streamed into the bottom panel.
+       * Now we keep the user where they were and surface the output through the
+       * pict-section-modal-backed log viewer (Manager-LogModal). The route still
+       * exists so deep links work.
+       */
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-OpsRunner',
-        DefaultRenderable: 'Manager-OpsRunner-Content',
-        DefaultDestinationAddress: '#RM-Workspace-Content',
-        DefaultTemplateRecordAddress: 'AppData.Manager.ViewRecord.OpsRunner',
-        AutoRender: false,
-        Templates: [{
-          Hash: 'Manager-OpsRunner-Template',
-          Template: /*html*/`
-<div class="placeholder">
-	<h2>All modules &mdash; {~D:Record.Label~}</h2>
-	<p>Running <code>modules/{~D:Record.Label~}</code> across every module. Output streams in the panel below.</p>
-</div>
-`
-        }],
-        Renderables: [{
-          RenderableHash: 'Manager-OpsRunner-Content',
-          TemplateHash: 'Manager-OpsRunner-Template',
-          DestinationAddress: '#RM-Workspace-Content',
-          RenderMethod: 'replace'
-        }]
+        AutoRender: false
       };
       class ManagerOpsRunnerView extends libPictView {
         constructor(pFable, pOptions, pServiceHash) {
           super(pFable, pOptions, pServiceHash);
-          this._lastScript = null;
         }
-
-        // Called by the application's showOps(pScript) when /Ops/:script resolves.
         runScript(pScript) {
-          if (!SCRIPT_LABELS[pScript]) {
+          let tmpLabel = SCRIPT_LABELS[pScript];
+          if (!tmpLabel) {
             this.pict.PictApplication.setStatus('Unknown ops script: ' + pScript);
             return;
           }
-          this._lastScript = pScript;
-          this.pict.AppData.Manager.SelectedModule = null;
-          if (!this.pict.AppData.Manager.ViewRecord) {
-            this.pict.AppData.Manager.ViewRecord = {};
-          }
-          this.pict.AppData.Manager.ViewRecord.OpsRunner = {
-            Label: SCRIPT_LABELS[pScript]
+
+          // Mark the operation scope so OperationsWS can route frames correctly.
+          this.pict.AppData.Manager.ActiveOperation = {
+            OperationId: null,
+            CommandTag: null,
+            Lines: [],
+            HeaderState: 'running',
+            HeaderText: 'Starting ' + tmpLabel + '...',
+            Scope: 'all'
           };
-          this.render();
-          this.pict.PictApplication.setStatus('Running ' + SCRIPT_LABELS[pScript] + '...');
+
+          // Open the log modal so the user can watch the stream.
+          let tmpLogModal = this.pict.views['Manager-LogModal'];
+          if (tmpLogModal) {
+            tmpLogModal.openForOperation('All modules — ' + tmpLabel);
+          }
+          this.pict.PictApplication.setStatus('Running ' + tmpLabel + '...');
           this.pict.providers.ManagerAPI.runAllModulesScript(pScript).then(pResp => {
-            this.pict.PictApplication.setStatus('Started ' + SCRIPT_LABELS[pScript] + ' (' + pResp.OperationId + ')');
+            this.pict.PictApplication.setStatus('Started ' + tmpLabel + ' (' + pResp.OperationId + ')');
           }, pError => {
-            this.pict.PictApplication.setStatus(SCRIPT_LABELS[pScript] + ' failed to start: ' + pError.message);
+            this.pict.PictApplication.setStatus(tmpLabel + ' failed to start: ' + pError.message);
           });
-        }
-
-        // Record is populated in runScript() before render() fires (pict-view
-        // reads from the record address up-front, before onBeforeRender).
-
-        onAfterRender(pRenderable, pAddress, pRecord, pContent) {
-          this.pict.CSSMap.injectCSS();
-          return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
         }
       }
       module.exports = ManagerOpsRunnerView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    23: [function (require, module, exports) {
+    32: [function (require, module, exports) {
       const libPictView = require('pict-view');
+
+      /**
+       * Manager-OutputPanel
+       *
+       * Renders the active module-scoped operation log as an inline panel inside
+       * the module workspace template (anchor: #RM-OutputPanelContainer). Hidden
+       * if there's no operation to show. Cross-module ops surface in the
+       * pict-section-modal log viewer instead, but we still mirror them here when
+       * a module workspace is open so the user has a record either way.
+       */
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-OutputPanel',
         DefaultRenderable: 'Manager-OutputPanel-Shell',
@@ -5287,8 +7919,13 @@
 			<span class="live-dot"></span>
 			<span id="RM-OutputHeaderText">{~D:Record.ActiveOperation.HeaderText~}</span>
 		</span>
-		<button class="action danger" id="RM-CancelButton"
-			onclick="{~P~}.views['Manager-OutputPanel'].cancel()">Cancel</button>
+		<span>
+			<button class="action" id="RM-PopOutButton"
+				title="Open this log in a fullscreen modal"
+				onclick="{~P~}.views['Manager-LogModal'].openForOperation('Operation log')">pop out</button>
+			<button class="action danger" id="RM-CancelButton"
+				onclick="{~P~}.views['Manager-OutputPanel'].cancel()">Cancel</button>
+		</span>
 	</div>
 	<div id="RM-Output"></div>
 </div>
@@ -5304,19 +7941,124 @@
       class ManagerOutputPanelView extends libPictView {
         constructor(pFable, pOptions, pServiceHash) {
           super(pFable, pOptions, pServiceHash);
-          this._shellRendered = false;
+          this._renderedUpTo = 0; // index of next un-rendered line in tmpOp.Lines
+          this._lastBodyEl = null; // the #RM-Output element we appended into
+          this._rafPending = false; // coalesce multiple frame events into one paint
+          this._lastOpId = null; // detect operation switches (reset cursor)
         }
         onBeforeRender() {
           return this.pict.AppData.Manager;
         }
-        onAfterRender(pRenderable, pAddress, pRecord, pContent) {
-          this._shellRendered = true;
-          let tmpOp = this.pict.AppData.Manager.ActiveOperation;
 
-          // Header state → CSS class
+        // External callers (OperationsWS, ModuleWorkspace) call render() — that
+        // triggers the shell template, then onAfterRender wires up the DOM. For
+        // per-frame stdout updates we instead use scheduleAppend(), which
+        // performs an append-only DOM mutation on the next animation frame.
+        scheduleAppend() {
+          if (this._rafPending) {
+            return;
+          }
+          this._rafPending = true;
+          let tmpSelf = this;
+          let tmpRaf = typeof window !== 'undefined' && window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function (pCb) {
+            return setTimeout(pCb, 16);
+          };
+          tmpRaf(function () {
+            tmpSelf._rafPending = false;
+            tmpSelf._appendNewLines();
+          });
+        }
+        _appendNewLines() {
+          let tmpAnchor = document.getElementById('RM-OutputPanelContainer');
+          if (!tmpAnchor) {
+            return;
+          }
+          let tmpOp = this.pict.AppData.Manager.ActiveOperation || {};
+          let tmpSelected = this.pict.AppData.Manager.SelectedModule;
+          let tmpInScope = tmpOp.Scope === 'module' && tmpOp.ModuleName && tmpOp.ModuleName === tmpSelected;
+          if (!tmpInScope) {
+            return;
+          }
+
+          // New operation? Force a full reset/render via the shell template.
+          if (tmpOp.OperationId !== this._lastOpId) {
+            this._renderedUpTo = 0;
+            this._lastOpId = tmpOp.OperationId;
+            this._lastBodyEl = null;
+            this.render();
+            return;
+          }
+          let tmpBody = this._lastBodyEl || document.getElementById('RM-Output');
+          if (!tmpBody) {
+            this.render();
+            return;
+          }
+          this._lastBodyEl = tmpBody;
+
+          // Update header (cheap).
           let tmpHeader = document.getElementById('RM-OutputHeader');
           if (tmpHeader) {
-            tmpHeader.className = ''; // reset
+            tmpHeader.className = '';
+            if (tmpOp.HeaderState) {
+              tmpHeader.classList.add(tmpOp.HeaderState);
+            }
+          }
+          let tmpHeaderText = document.getElementById('RM-OutputHeaderText');
+          if (tmpHeaderText && tmpOp.HeaderText) {
+            tmpHeaderText.textContent = tmpOp.HeaderText;
+          }
+          let tmpCancel = document.getElementById('RM-CancelButton');
+          if (tmpCancel) {
+            tmpCancel.disabled = tmpOp.HeaderState !== 'running';
+          }
+          let tmpLines = tmpOp.Lines || [];
+          let tmpStart = this._renderedUpTo;
+          if (tmpStart >= tmpLines.length) {
+            return;
+          }
+
+          // Build the new lines as a DocumentFragment so the browser does one
+          // reflow regardless of how many lines we just received.
+          let tmpFrag = document.createDocumentFragment();
+          for (let i = tmpStart; i < tmpLines.length; i++) {
+            let tmpLine = tmpLines[i];
+            let tmpDiv = document.createElement('div');
+            tmpDiv.className = tmpLine.Class ? 'line ' + tmpLine.Class : 'line';
+            tmpDiv.textContent = tmpLine.Text;
+            tmpFrag.appendChild(tmpDiv);
+          }
+          tmpBody.appendChild(tmpFrag);
+          this._renderedUpTo = tmpLines.length;
+
+          // Auto-scroll only if the user is already pinned to the bottom (within
+          // 60px), so they can scroll back to read history without being yanked
+          // down on every new line.
+          let tmpAtBottom = tmpBody.scrollHeight - tmpBody.scrollTop - tmpBody.clientHeight < 60;
+          if (tmpAtBottom) {
+            tmpBody.scrollTop = tmpBody.scrollHeight;
+          }
+        }
+        onAfterRender(pRenderable, pAddress, pRecord, pContent) {
+          // Reset the append cursor — we're about to repaint the shell from
+          // scratch, so subsequent appends should resume from line 0.
+          this._renderedUpTo = 0;
+          this._lastBodyEl = null;
+          let tmpAnchor = document.getElementById('RM-OutputPanelContainer');
+          if (!tmpAnchor) {
+            return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
+          }
+          let tmpOp = this.pict.AppData.Manager.ActiveOperation || {};
+          let tmpSelected = this.pict.AppData.Manager.SelectedModule;
+          let tmpInScope = tmpOp.Scope === 'module' && tmpOp.ModuleName && tmpOp.ModuleName === tmpSelected;
+          let tmpHasContent = tmpInScope && (tmpOp.Lines && tmpOp.Lines.length > 0 || tmpOp.HeaderState && tmpOp.HeaderState !== 'idle');
+          tmpAnchor.style.display = tmpHasContent ? '' : 'none';
+          if (!tmpHasContent) {
+            return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
+          }
+          this._lastOpId = tmpOp.OperationId;
+          let tmpHeader = document.getElementById('RM-OutputHeader');
+          if (tmpHeader) {
+            tmpHeader.className = '';
             if (tmpOp.HeaderState) {
               tmpHeader.classList.add(tmpOp.HeaderState);
             }
@@ -5325,20 +8067,22 @@
           if (tmpCancel) {
             tmpCancel.disabled = tmpOp.HeaderState !== 'running';
           }
-
-          // Body: render all current lines. Cheap for <~5k lines; if this grows
-          // we can switch to append-only DOM ops keyed by an index counter.
           let tmpBody = document.getElementById('RM-Output');
           if (tmpBody) {
-            let tmpHtml = '';
+            let tmpFrag = document.createDocumentFragment();
             let tmpLines = tmpOp.Lines || [];
             for (let i = 0; i < tmpLines.length; i++) {
               let tmpLine = tmpLines[i];
-              let tmpClass = tmpLine.Class ? ' class="' + this._escape(tmpLine.Class) + '"' : '';
-              tmpHtml += '<div' + tmpClass + '>' + this._escape(tmpLine.Text) + '</div>';
+              let tmpDiv = document.createElement('div');
+              tmpDiv.className = tmpLine.Class ? 'line ' + tmpLine.Class : 'line';
+              tmpDiv.textContent = tmpLine.Text;
+              tmpFrag.appendChild(tmpDiv);
             }
-            tmpBody.innerHTML = tmpHtml;
+            tmpBody.innerHTML = '';
+            tmpBody.appendChild(tmpFrag);
             tmpBody.scrollTop = tmpBody.scrollHeight;
+            this._lastBodyEl = tmpBody;
+            this._renderedUpTo = tmpLines.length;
           }
           this.pict.CSSMap.injectCSS();
           return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
@@ -5362,9 +8106,9 @@
       module.exports = ManagerOutputPanelView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    24: [function (require, module, exports) {
+    33: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-Ripple',
@@ -5868,9 +8612,9 @@
       module.exports = ManagerRippleView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    25: [function (require, module, exports) {
+    34: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-Sidebar',
@@ -5905,6 +8649,11 @@
 		<input type="checkbox" id="RM-DirtyOnly"
 			onchange="{~P~}.views['Manager-Sidebar'].setDirtyOnly(this.checked)">
 		Dirty only
+	</label>
+	<label class="sidebar-checkbox">
+		<input type="checkbox" id="RM-SortByTime"
+			onchange="{~P~}.views['Manager-Sidebar'].setSortByTime(this.checked)">
+		Sort by time
 		<span id="RM-ScanMeta"></span>
 	</label>
 </div>
@@ -5923,6 +8672,7 @@
       const GROUP_ORDER = ['Fable', 'Meadow', 'Orator', 'Pict', 'Utility', 'Apps'];
       const LS_KEY_FILTER = 'rm:filter:query';
       const LS_KEY_DIRTY_ONLY = 'rm:filter:dirtyOnly';
+      const LS_KEY_SORT_BY_TIME = 'rm:filter:sortByTime';
       const LS_KEY_SCAN = 'rm:scan:results';
       const LS_KEY_SCAN_WHEN = 'rm:scan:when';
       function lsGet(pKey) {
@@ -5949,6 +8699,7 @@
             let tmpState = this.pict.AppData.Manager;
             tmpState.Filter.Query = lsGet(LS_KEY_FILTER) || '';
             tmpState.Filter.DirtyOnly = lsGet(LS_KEY_DIRTY_ONLY) === '1';
+            tmpState.Filter.SortByTime = lsGet(LS_KEY_SORT_BY_TIME) === '1';
             try {
               let tmpCached = lsGet(LS_KEY_SCAN);
               if (tmpCached) {
@@ -5966,6 +8717,10 @@
           if (tmpDirty) {
             tmpDirty.checked = !!this.pict.AppData.Manager.Filter.DirtyOnly;
           }
+          let tmpSort = document.getElementById('RM-SortByTime');
+          if (tmpSort) {
+            tmpSort.checked = !!this.pict.AppData.Manager.Filter.SortByTime;
+          }
           this._renderModuleList();
           this._renderScanMeta();
           this.pict.CSSMap.injectCSS();
@@ -5975,9 +8730,58 @@
           let tmpState = this.pict.AppData.Manager;
           let tmpQuery = (tmpState.Filter.Query || '').toLowerCase();
           let tmpDirtyOnly = tmpState.Filter.DirtyOnly;
+          let tmpSortTime = tmpState.Filter.SortByTime;
           let tmpScan = tmpState.Scan.Results || {};
           let tmpSelected = tmpState.SelectedModule;
           let tmpGroups = tmpState.ModulesByGroup || {};
+
+          // Sort-by-time renders one flat list ordered by RecentModules; modules
+          // not yet visited fall to the bottom in their normal alpha order.
+          if (tmpSortTime) {
+            let tmpAll = tmpState.Modules || [];
+            let tmpRecent = tmpState.RecentModules || [];
+            let tmpOrder = {};
+            for (let i = 0; i < tmpRecent.length; i++) {
+              tmpOrder[tmpRecent[i]] = i;
+            }
+            let tmpFiltered = [];
+            for (let i = 0; i < tmpAll.length; i++) {
+              let tmpMod = tmpAll[i];
+              if (tmpQuery && tmpMod.Name.toLowerCase().indexOf(tmpQuery) === -1) {
+                continue;
+              }
+              let tmpScanEntry = tmpScan[tmpMod.Name];
+              if (tmpDirtyOnly && !(tmpScanEntry && tmpScanEntry.Dirty)) {
+                continue;
+              }
+              tmpFiltered.push(tmpMod);
+            }
+            tmpFiltered.sort(function (pA, pB) {
+              let tmpAi = pA.Name in tmpOrder ? tmpOrder[pA.Name] : Infinity;
+              let tmpBi = pB.Name in tmpOrder ? tmpOrder[pB.Name] : Infinity;
+              if (tmpAi !== tmpBi) {
+                return tmpAi - tmpBi;
+              }
+              return pA.Name.localeCompare(pB.Name);
+            });
+            if (tmpFiltered.length === 0) {
+              this.pict.ContentAssignment.assignContent('#RM-ModuleList', '<p class="loading">No modules match the filter.</p>');
+              return;
+            }
+            let tmpHtml = '<div class="group">';
+            tmpHtml += '<div class="group-header">Recently used</div>';
+            for (let i = 0; i < tmpFiltered.length; i++) {
+              let tmpMod = tmpFiltered[i];
+              let tmpSelectedClass = tmpSelected === tmpMod.Name ? ' selected' : '';
+              let tmpScanEntry = tmpScan[tmpMod.Name];
+              let tmpDirtyBadge = tmpScanEntry && tmpScanEntry.Dirty ? ' <span class="dirty-badge" title="Uncommitted changes"></span>' : '';
+              let tmpUnvisited = !(tmpMod.Name in tmpOrder);
+              tmpHtml += '<a class="module-row' + tmpSelectedClass + (tmpUnvisited ? ' unvisited' : '') + '" ' + 'href="#/Module/' + encodeURIComponent(tmpMod.Name) + '">' + this._escape(tmpMod.Name) + tmpDirtyBadge + '</a>';
+            }
+            tmpHtml += '</div>';
+            this.pict.ContentAssignment.assignContent('#RM-ModuleList', tmpHtml);
+            return;
+          }
           let tmpHtml = '';
           let tmpAnyShown = false;
           for (let i = 0; i < GROUP_ORDER.length; i++) {
@@ -6036,6 +8840,12 @@
           if (tmpChecked && Object.keys(this.pict.AppData.Manager.Scan.Results || {}).length === 0) {
             this.triggerScan();
           }
+          this._renderModuleList();
+        }
+        setSortByTime(pChecked) {
+          let tmpChecked = !!pChecked;
+          this.pict.AppData.Manager.Filter.SortByTime = tmpChecked;
+          lsSet(LS_KEY_SORT_BY_TIME, tmpChecked ? '1' : '0');
           this._renderModuleList();
         }
         triggerScan() {
@@ -6105,9 +8915,9 @@
       module.exports = ManagerSidebarView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    26: [function (require, module, exports) {
+    35: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-StatusBar',
@@ -6143,9 +8953,9 @@
       module.exports = ManagerStatusBarView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    27: [function (require, module, exports) {
+    36: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-TopBar',
@@ -6166,7 +8976,7 @@
 	<button class="action primary" title="Run modules/Checkout.sh across every module"
 		onclick="{~P~}.PictApplication.navigateTo('/Ops/checkout')">Checkout</button>
 	<span style="width:1px;background:var(--color-border);margin:0 4px"></span>
-	<button class="action" onclick="{~P~}.PictApplication.navigateTo('/Log')">Log</button>
+	<button class="action" onclick="{~P~}.views['Manager-LogModal'].openForLogFile()">Log</button>
 	<button class="action" onclick="{~P~}.PictApplication.navigateTo('/Manifest')">Manifest</button>
 </div>
 `
@@ -6196,9 +9006,9 @@
       module.exports = ManagerTopBarView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    28: [function (require, module, exports) {
+    37: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-Modal-Commit',
@@ -6266,6 +9076,21 @@
           }
           let tmpName = this._moduleName;
           this.close();
+
+          // Stamp the active operation so the WS layer routes frames into the
+          // inline panel and refreshes the workspace on completion.
+          this.pict.AppData.Manager.ActiveOperation = {
+            OperationId: null,
+            CommandTag: null,
+            Lines: [],
+            HeaderState: 'running',
+            HeaderText: 'git commit',
+            Scope: 'module',
+            ModuleName: tmpName
+          };
+          if (this.pict.views['Manager-OutputPanel']) {
+            this.pict.views['Manager-OutputPanel'].render();
+          }
           this.pict.providers.ManagerAPI.commitModule(tmpName, tmpMessage).then(() => {
             this.pict.PictApplication.setStatus('Commit started for ' + tmpName + '.');
           }, pError => {
@@ -6280,9 +9105,9 @@
       module.exports = ManagerModalCommitView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    29: [function (require, module, exports) {
+    38: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-Modal-Diff',
@@ -6451,9 +9276,9 @@
       module.exports = ManagerModalDiffView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    30: [function (require, module, exports) {
+    39: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-Modal-EditModule',
@@ -6576,9 +9401,9 @@
       module.exports = ManagerModalEditModuleView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    31: [function (require, module, exports) {
+    40: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-Modal-Ncu',
@@ -6649,6 +9474,21 @@
           }
           let tmpName = this._moduleName;
           this.close();
+
+          // Stamp the active op so the inline output panel surfaces this run
+          // (otherwise the panel stays hidden because Scope/ModuleName is unset).
+          this.pict.AppData.Manager.ActiveOperation = {
+            OperationId: null,
+            CommandTag: null,
+            Lines: [],
+            HeaderState: 'running',
+            HeaderText: pApply ? 'ncu -u + npm install' : 'ncu',
+            Scope: 'module',
+            ModuleName: tmpName
+          };
+          if (this.pict.views['Manager-OutputPanel']) {
+            this.pict.views['Manager-OutputPanel'].render();
+          }
           this.pict.providers.ManagerAPI.runNcu(tmpName, pApply, tmpScope).then(() => {
             this.pict.PictApplication.setStatus('ncu ' + (pApply ? 'apply' : 'check') + ' started.');
           }, pError => {
@@ -6663,9 +9503,9 @@
       module.exports = ManagerModalNcuView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    32: [function (require, module, exports) {
+    41: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-Modal-Publish',
@@ -6859,9 +9699,9 @@
       module.exports = ManagerModalPublishView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }],
-    33: [function (require, module, exports) {
+    42: [function (require, module, exports) {
       const libPictView = require('pict-view');
       const _ViewConfiguration = {
         ViewIdentifier: 'Manager-Modal-RipplePlan',
@@ -7233,8 +10073,8 @@
       module.exports = ManagerModalRipplePlanView;
       module.exports.default_configuration = _ViewConfiguration;
     }, {
-      "pict-view": 10
+      "pict-view": 18
     }]
-  }, {}, [13])(13);
+  }, {}, [21])(21);
 });
 //# sourceMappingURL=retold-manager.js.map

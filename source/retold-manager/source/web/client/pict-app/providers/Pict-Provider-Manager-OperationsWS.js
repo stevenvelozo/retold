@@ -88,6 +88,8 @@ class ManagerOperationsWSProvider extends libPictProvider
 		let tmpOp = this.pict.AppData.Manager.ActiveOperation;
 		if (!tmpOp) { return; }
 
+		let tmpComplete = false;
+
 		switch (pFrame.Type)
 		{
 			case 'hello':
@@ -98,7 +100,10 @@ class ManagerOperationsWSProvider extends libPictProvider
 				tmpOp.OperationId = pFrame.OperationId;
 				tmpOp.HeaderState = 'running';
 				tmpOp.HeaderText  = pFrame.CommandString || pFrame.OperationId;
-				tmpOp.Lines = [];
+				// Preserve the optimistic Lines / Scope set by the initiator
+				// (so the user immediately sees the cmd they kicked off, even
+				// if the WS is a beat behind the HTTP response).
+				if (!tmpOp.Lines) { tmpOp.Lines = []; }
 				tmpOp.Lines.push({ Class: 'cmd',  Text: '$ ' + (pFrame.CommandString || '') });
 				if (pFrame.Cwd)   { tmpOp.Lines.push({ Class: 'meta', Text: '  cwd: ' + pFrame.Cwd }); }
 				if (pFrame.Label) { tmpOp.Lines.push({ Class: 'meta', Text: '  ' + pFrame.Label }); }
@@ -139,25 +144,59 @@ class ManagerOperationsWSProvider extends libPictProvider
 								+ (pFrame.Duration ? '  (' + pFrame.Duration + ')' : ''),
 						});
 				}
+				tmpComplete = true;
 				break;
 
 			case 'error':
 				tmpOp.HeaderState = 'error';
 				tmpOp.HeaderText  = 'Error';
 				tmpOp.Lines.push({ Class: 'error', Text: 'Error: ' + (pFrame.Error || 'unknown') });
+				tmpComplete = true;
 				break;
 
 			case 'cancelled':
 				tmpOp.HeaderState = 'error';
 				tmpOp.HeaderText  = 'Cancelled';
 				tmpOp.Lines.push({ Class: 'error', Text: 'Cancelled' });
+				tmpComplete = true;
 				break;
 
 			default:
 				return;
 		}
 
-		if (this.pict.views['Manager-OutputPanel']) { this.pict.views['Manager-OutputPanel'].render(); }
+		// Stdout frames are the hot path during noisy ops — append-only +
+		// rAF coalescing keeps the renderer from quadratically rebuilding
+		// the whole log on every line. Lifecycle frames (start/complete/
+		// error/cancelled) reset the shell template.
+		let tmpHotPath = (pFrame.Type === 'stdout' || pFrame.Type === 'progress');
+		let tmpPanel = this.pict.views['Manager-OutputPanel'];
+		if (tmpPanel)
+		{
+			if (tmpHotPath && typeof tmpPanel.scheduleAppend === 'function')
+			{
+				tmpPanel.scheduleAppend();
+			}
+			else
+			{
+				tmpPanel.render();
+			}
+		}
+		// Live log modal (open during cross-module ops or when the user
+		// explicitly requested the live view). renderFrame is rAF-batched.
+		if (this.pict.views['Manager-LogModal']) { this.pict.views['Manager-LogModal'].renderFrame(); }
+
+		// On completion of a module-scoped op, reload the module detail so the
+		// dirty-files list, package version, and dep ranges reflect reality.
+		if (tmpComplete && tmpOp.Scope === 'module' && tmpOp.ModuleName)
+		{
+			let tmpWs = this.pict.views['Manager-ModuleWorkspace'];
+			if (tmpWs && this.pict.AppData.Manager.SelectedModule === tmpOp.ModuleName
+				&& typeof tmpWs.refreshDetail === 'function')
+			{
+				tmpWs.refreshDetail();
+			}
+		}
 	}
 }
 

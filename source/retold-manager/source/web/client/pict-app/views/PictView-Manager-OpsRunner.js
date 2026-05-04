@@ -7,38 +7,20 @@ const SCRIPT_LABELS =
 		checkout: 'Checkout.sh',
 	};
 
+/**
+ * Manager-OpsRunner
+ *
+ * Cross-module ops (Status / Update / Checkout) used to swap the workspace
+ * content area to a placeholder while output streamed into the bottom panel.
+ * Now we keep the user where they were and surface the output through the
+ * pict-section-modal-backed log viewer (Manager-LogModal). The route still
+ * exists so deep links work.
+ */
 const _ViewConfiguration =
 {
 	ViewIdentifier: 'Manager-OpsRunner',
 
-	DefaultRenderable:            'Manager-OpsRunner-Content',
-	DefaultDestinationAddress:    '#RM-Workspace-Content',
-	DefaultTemplateRecordAddress: 'AppData.Manager.ViewRecord.OpsRunner',
-
 	AutoRender: false,
-
-	Templates:
-	[
-		{
-			Hash: 'Manager-OpsRunner-Template',
-			Template: /*html*/`
-<div class="placeholder">
-	<h2>All modules &mdash; {~D:Record.Label~}</h2>
-	<p>Running <code>modules/{~D:Record.Label~}</code> across every module. Output streams in the panel below.</p>
-</div>
-`
-		}
-	],
-
-	Renderables:
-	[
-		{
-			RenderableHash:     'Manager-OpsRunner-Content',
-			TemplateHash:       'Manager-OpsRunner-Template',
-			DestinationAddress: '#RM-Workspace-Content',
-			RenderMethod:       'replace',
-		}
-	]
 };
 
 class ManagerOpsRunnerView extends libPictView
@@ -46,39 +28,39 @@ class ManagerOpsRunnerView extends libPictView
 	constructor(pFable, pOptions, pServiceHash)
 	{
 		super(pFable, pOptions, pServiceHash);
-		this._lastScript = null;
 	}
 
-	// Called by the application's showOps(pScript) when /Ops/:script resolves.
 	runScript(pScript)
 	{
-		if (!SCRIPT_LABELS[pScript])
+		let tmpLabel = SCRIPT_LABELS[pScript];
+		if (!tmpLabel)
 		{
 			this.pict.PictApplication.setStatus('Unknown ops script: ' + pScript);
 			return;
 		}
-		this._lastScript = pScript;
-		this.pict.AppData.Manager.SelectedModule = null;
-		if (!this.pict.AppData.Manager.ViewRecord) { this.pict.AppData.Manager.ViewRecord = {}; }
-		this.pict.AppData.Manager.ViewRecord.OpsRunner = { Label: SCRIPT_LABELS[pScript] };
-		this.render();
 
-		this.pict.PictApplication.setStatus('Running ' + SCRIPT_LABELS[pScript] + '...');
+		// Mark the operation scope so OperationsWS can route frames correctly.
+		this.pict.AppData.Manager.ActiveOperation =
+			{
+				OperationId: null,
+				CommandTag:  null,
+				Lines:       [],
+				HeaderState: 'running',
+				HeaderText:  'Starting ' + tmpLabel + '...',
+				Scope:       'all',
+			};
+
+		// Open the log modal so the user can watch the stream.
+		let tmpLogModal = this.pict.views['Manager-LogModal'];
+		if (tmpLogModal) { tmpLogModal.openForOperation('All modules — ' + tmpLabel); }
+
+		this.pict.PictApplication.setStatus('Running ' + tmpLabel + '...');
 		this.pict.providers.ManagerAPI.runAllModulesScript(pScript).then(
-			(pResp) => { this.pict.PictApplication.setStatus('Started ' + SCRIPT_LABELS[pScript] + ' (' + pResp.OperationId + ')'); },
+			(pResp) => { this.pict.PictApplication.setStatus('Started ' + tmpLabel + ' (' + pResp.OperationId + ')'); },
 			(pError) =>
 			{
-				this.pict.PictApplication.setStatus(SCRIPT_LABELS[pScript] + ' failed to start: ' + pError.message);
+				this.pict.PictApplication.setStatus(tmpLabel + ' failed to start: ' + pError.message);
 			});
-	}
-
-	// Record is populated in runScript() before render() fires (pict-view
-	// reads from the record address up-front, before onBeforeRender).
-
-	onAfterRender(pRenderable, pAddress, pRecord, pContent)
-	{
-		this.pict.CSSMap.injectCSS();
-		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
 	}
 }
 

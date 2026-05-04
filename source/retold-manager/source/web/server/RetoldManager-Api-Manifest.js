@@ -18,12 +18,51 @@
  *     Group metadata only (for sidebar rendering).
  */
 
+const libPath = require('path');
+const libFs = require('fs');
+
+/**
+ * Read repository URL from an installed dependency's package.json. Returns
+ * null if the dep isn't installed or doesn't declare a repository. Normalizes
+ * common forms (string, { url }, "github:user/repo", "git+https://...") to
+ * a browser-friendly https URL.
+ */
+function readDepRepositoryUrl(pHostModulePath, pDepName)
+{
+	if (!pHostModulePath) { return null; }
+	let tmpDepPkgPath = libPath.join(pHostModulePath, 'node_modules', pDepName, 'package.json');
+	let tmpRaw;
+	try { tmpRaw = libFs.readFileSync(tmpDepPkgPath, 'utf8'); }
+	catch (e) { return null; }
+	let tmpPkg;
+	try { tmpPkg = JSON.parse(tmpRaw); }
+	catch (e) { return null; }
+	let tmpRepo = tmpPkg.repository;
+	if (!tmpRepo) { return null; }
+	let tmpUrl = (typeof tmpRepo === 'string') ? tmpRepo : tmpRepo.url;
+	if (!tmpUrl || typeof tmpUrl !== 'string') { return null; }
+	// "github:user/repo" shorthand
+	let tmpShort = tmpUrl.match(/^github:([^/]+)\/(.+)$/);
+	if (tmpShort) { return 'https://github.com/' + tmpShort[1] + '/' + tmpShort[2].replace(/\.git$/, ''); }
+	// strip "git+" prefix
+	tmpUrl = tmpUrl.replace(/^git\+/, '');
+	// "git://", "git@github.com:user/repo.git" → https
+	let tmpSsh = tmpUrl.match(/^git@([^:]+):(.+?)(?:\.git)?$/);
+	if (tmpSsh) { return 'https://' + tmpSsh[1] + '/' + tmpSsh[2]; }
+	tmpUrl = tmpUrl.replace(/^git:\/\//, 'https://');
+	tmpUrl = tmpUrl.replace(/\.git$/, '');
+	if (tmpUrl.startsWith('http://') || tmpUrl.startsWith('https://')) { return tmpUrl; }
+	return null;
+}
+
 /**
  * Split a package's deps/devDeps into four buckets: retold deps, external
  * deps, retold devDeps, external devDeps. Each entry has Name, Range, Npm
- * link, and (for retold) GitHub + Docs links from the manifest.
+ * link, and (for retold) GitHub + Docs links from the manifest. External
+ * deps also get a Repository URL when one can be read from the installed
+ * package.json.
  */
-function categorizeDeps(pPkg, pEcosystem, pCatalog)
+function categorizeDeps(pPkg, pEcosystem, pCatalog, pHostModulePath)
 {
 	function buildList(pDepsObj, pSection)
 	{
@@ -47,6 +86,7 @@ function categorizeDeps(pPkg, pEcosystem, pCatalog)
 			else
 			{
 				tmpBase.Retold = false;
+				tmpBase.Repository = readDepRepositoryUrl(pHostModulePath, tmpName);
 				tmpExternal.push(tmpBase);
 			}
 		}
@@ -196,7 +236,7 @@ module.exports = function registerManifestRoutes(pCore)
 			if (tmpPkg)
 			{
 				let tmpEcosystem = new Set(tmpCatalog.getAllModuleNames());
-				tmpCategorized = categorizeDeps(tmpPkg, tmpEcosystem, tmpCatalog);
+				tmpCategorized = categorizeDeps(tmpPkg, tmpEcosystem, tmpCatalog, tmpEntry.AbsolutePath);
 			}
 
 			// Fetch the currently published npm version so the client can offer

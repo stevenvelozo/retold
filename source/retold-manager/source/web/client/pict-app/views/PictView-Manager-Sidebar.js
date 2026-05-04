@@ -40,6 +40,11 @@ const _ViewConfiguration =
 		<input type="checkbox" id="RM-DirtyOnly"
 			onchange="{~P~}.views['Manager-Sidebar'].setDirtyOnly(this.checked)">
 		Dirty only
+	</label>
+	<label class="sidebar-checkbox">
+		<input type="checkbox" id="RM-SortByTime"
+			onchange="{~P~}.views['Manager-Sidebar'].setSortByTime(this.checked)">
+		Sort by time
 		<span id="RM-ScanMeta"></span>
 	</label>
 </div>
@@ -63,10 +68,11 @@ const _ViewConfiguration =
 
 const GROUP_ORDER = ['Fable', 'Meadow', 'Orator', 'Pict', 'Utility', 'Apps'];
 
-const LS_KEY_FILTER     = 'rm:filter:query';
-const LS_KEY_DIRTY_ONLY = 'rm:filter:dirtyOnly';
-const LS_KEY_SCAN       = 'rm:scan:results';
-const LS_KEY_SCAN_WHEN  = 'rm:scan:when';
+const LS_KEY_FILTER       = 'rm:filter:query';
+const LS_KEY_DIRTY_ONLY   = 'rm:filter:dirtyOnly';
+const LS_KEY_SORT_BY_TIME = 'rm:filter:sortByTime';
+const LS_KEY_SCAN         = 'rm:scan:results';
+const LS_KEY_SCAN_WHEN    = 'rm:scan:when';
 
 function lsGet(pKey) { try { return window.localStorage.getItem(pKey); } catch (e) { return null; } }
 function lsSet(pKey, pValue) { try { window.localStorage.setItem(pKey, pValue); } catch (e) { /* quota */ } }
@@ -86,8 +92,9 @@ class ManagerSidebarView extends libPictView
 		{
 			this._restoredFromStorage = true;
 			let tmpState = this.pict.AppData.Manager;
-			tmpState.Filter.Query     = lsGet(LS_KEY_FILTER) || '';
-			tmpState.Filter.DirtyOnly = lsGet(LS_KEY_DIRTY_ONLY) === '1';
+			tmpState.Filter.Query      = lsGet(LS_KEY_FILTER) || '';
+			tmpState.Filter.DirtyOnly  = lsGet(LS_KEY_DIRTY_ONLY) === '1';
+			tmpState.Filter.SortByTime = lsGet(LS_KEY_SORT_BY_TIME) === '1';
 			try
 			{
 				let tmpCached = lsGet(LS_KEY_SCAN);
@@ -103,6 +110,8 @@ class ManagerSidebarView extends libPictView
 	{
 		let tmpDirty = document.getElementById('RM-DirtyOnly');
 		if (tmpDirty) { tmpDirty.checked = !!this.pict.AppData.Manager.Filter.DirtyOnly; }
+		let tmpSort  = document.getElementById('RM-SortByTime');
+		if (tmpSort)  { tmpSort.checked  = !!this.pict.AppData.Manager.Filter.SortByTime; }
 
 		this._renderModuleList();
 		this._renderScanMeta();
@@ -112,12 +121,65 @@ class ManagerSidebarView extends libPictView
 
 	_renderModuleList()
 	{
-		let tmpState    = this.pict.AppData.Manager;
-		let tmpQuery    = (tmpState.Filter.Query || '').toLowerCase();
+		let tmpState     = this.pict.AppData.Manager;
+		let tmpQuery     = (tmpState.Filter.Query || '').toLowerCase();
 		let tmpDirtyOnly = tmpState.Filter.DirtyOnly;
-		let tmpScan     = tmpState.Scan.Results || {};
-		let tmpSelected = tmpState.SelectedModule;
-		let tmpGroups   = tmpState.ModulesByGroup || {};
+		let tmpSortTime  = tmpState.Filter.SortByTime;
+		let tmpScan      = tmpState.Scan.Results || {};
+		let tmpSelected  = tmpState.SelectedModule;
+		let tmpGroups    = tmpState.ModulesByGroup || {};
+
+		// Sort-by-time renders one flat list ordered by RecentModules; modules
+		// not yet visited fall to the bottom in their normal alpha order.
+		if (tmpSortTime)
+		{
+			let tmpAll = tmpState.Modules || [];
+			let tmpRecent = tmpState.RecentModules || [];
+			let tmpOrder = {};
+			for (let i = 0; i < tmpRecent.length; i++) { tmpOrder[tmpRecent[i]] = i; }
+
+			let tmpFiltered = [];
+			for (let i = 0; i < tmpAll.length; i++)
+			{
+				let tmpMod = tmpAll[i];
+				if (tmpQuery && tmpMod.Name.toLowerCase().indexOf(tmpQuery) === -1) { continue; }
+				let tmpScanEntry = tmpScan[tmpMod.Name];
+				if (tmpDirtyOnly && !(tmpScanEntry && tmpScanEntry.Dirty)) { continue; }
+				tmpFiltered.push(tmpMod);
+			}
+			tmpFiltered.sort(function (pA, pB)
+				{
+					let tmpAi = (pA.Name in tmpOrder) ? tmpOrder[pA.Name] : Infinity;
+					let tmpBi = (pB.Name in tmpOrder) ? tmpOrder[pB.Name] : Infinity;
+					if (tmpAi !== tmpBi) { return tmpAi - tmpBi; }
+					return pA.Name.localeCompare(pB.Name);
+				});
+
+			if (tmpFiltered.length === 0)
+			{
+				this.pict.ContentAssignment.assignContent('#RM-ModuleList',
+					'<p class="loading">No modules match the filter.</p>');
+				return;
+			}
+
+			let tmpHtml = '<div class="group">';
+			tmpHtml += '<div class="group-header">Recently used</div>';
+			for (let i = 0; i < tmpFiltered.length; i++)
+			{
+				let tmpMod = tmpFiltered[i];
+				let tmpSelectedClass = (tmpSelected === tmpMod.Name) ? ' selected' : '';
+				let tmpScanEntry = tmpScan[tmpMod.Name];
+				let tmpDirtyBadge = tmpScanEntry && tmpScanEntry.Dirty
+					? ' <span class="dirty-badge" title="Uncommitted changes"></span>' : '';
+				let tmpUnvisited = !(tmpMod.Name in tmpOrder);
+				tmpHtml += '<a class="module-row' + tmpSelectedClass + (tmpUnvisited ? ' unvisited' : '') + '" '
+					+ 'href="#/Module/' + encodeURIComponent(tmpMod.Name) + '">'
+					+ this._escape(tmpMod.Name) + tmpDirtyBadge + '</a>';
+			}
+			tmpHtml += '</div>';
+			this.pict.ContentAssignment.assignContent('#RM-ModuleList', tmpHtml);
+			return;
+		}
 
 		let tmpHtml = '';
 		let tmpAnyShown = false;
@@ -191,6 +253,14 @@ class ManagerSidebarView extends libPictView
 		{
 			this.triggerScan();
 		}
+		this._renderModuleList();
+	}
+
+	setSortByTime(pChecked)
+	{
+		let tmpChecked = !!pChecked;
+		this.pict.AppData.Manager.Filter.SortByTime = tmpChecked;
+		lsSet(LS_KEY_SORT_BY_TIME, tmpChecked ? '1' : '0');
 		this._renderModuleList();
 	}
 

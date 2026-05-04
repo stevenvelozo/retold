@@ -645,6 +645,19 @@
 					]
 				},
 				{
+					"Name": "pict-provider-theme",
+					"Path": "modules/pict/pict-provider-theme",
+					"Description": "Runtime theme manager for Pict applications: register theme bundles (token maps + CSS + SVG + image assets), apply at runtime via injected CSS custom properties, support dark/light/system modes via a class on <html>, plus a quack theme-build command that compiles unrolled theme folders to single self-contained JSON bundles. Stateless — host applications own theme persistence.",
+					"GitHub": "https://github.com/stevenvelozo/pict-provider-theme",
+					"Documentation": "https://stevenvelozo.github.io/pict-provider-theme/",
+					"RelatedModules": [
+						"pict",
+						"pict-provider",
+						"pict-template",
+						"quackage"
+					]
+				},
+				{
 					"Name": "pict-provider-vocabulary",
 					"Path": "modules/pict/pict-provider-vocabulary",
 					"Description": "Pict provider for vocabulary/glossary term management — holds a term index, provides a resolver callback for pict-section-content's parseMarkdown auto-linking, and wires popover hover handlers on rendered terms. Works with any term source: filesystem, database, or API.",

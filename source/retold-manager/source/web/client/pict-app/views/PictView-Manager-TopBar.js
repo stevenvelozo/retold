@@ -25,7 +25,7 @@ const _ViewConfiguration =
 	<button class="action primary" title="Run modules/Checkout.sh across every module"
 		onclick="{~P~}.PictApplication.navigateTo('/Ops/checkout')">Checkout</button>
 	<span style="width:1px;background:var(--color-border);margin:0 4px"></span>
-	<button class="action" onclick="{~P~}.PictApplication.navigateTo('/Log')">Log</button>
+	<button class="action" onclick="{~P~}.views['Manager-LogModal'].openForLogFile()">Log</button>
 	<button class="action" onclick="{~P~}.PictApplication.navigateTo('/Manifest')">Manifest</button>
 </div>
 `

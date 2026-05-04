@@ -77,6 +77,21 @@ class ManagerModalCommitView extends libPictView
 
 		let tmpName = this._moduleName;
 		this.close();
+
+		// Stamp the active operation so the WS layer routes frames into the
+		// inline panel and refreshes the workspace on completion.
+		this.pict.AppData.Manager.ActiveOperation =
+			{
+				OperationId: null,
+				CommandTag:  null,
+				Lines:       [],
+				HeaderState: 'running',
+				HeaderText:  'git commit',
+				Scope:       'module',
+				ModuleName:  tmpName,
+			};
+		if (this.pict.views['Manager-OutputPanel']) { this.pict.views['Manager-OutputPanel'].render(); }
+
 		this.pict.providers.ManagerAPI.commitModule(tmpName, tmpMessage).then(
 			() => { this.pict.PictApplication.setStatus('Commit started for ' + tmpName + '.'); },
 			(pError) => { this.pict.PictApplication.setStatus('Commit failed: ' + pError.message); });

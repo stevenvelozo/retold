@@ -1,5 +1,6 @@
 const libPictApplication = require('pict-application');
 const libPictRouter = require('pict-router');
+const libPictSectionModal = require('pict-section-modal');
 
 // Providers (business logic, no UI)
 const libProviderApi = require('./providers/Pict-Provider-Manager-API.js');
@@ -11,6 +12,7 @@ const libViewTopBar     = require('./views/PictView-Manager-TopBar.js');
 const libViewSidebar    = require('./views/PictView-Manager-Sidebar.js');
 const libViewStatusBar  = require('./views/PictView-Manager-StatusBar.js');
 const libViewOutputPanel = require('./views/PictView-Manager-OutputPanel.js');
+const libViewLogModal    = require('./views/PictView-Manager-LogModal.js');
 
 // Content views (swapped by the router)
 const libViewHome            = require('./views/PictView-Manager-Home.js');
@@ -52,11 +54,15 @@ class RetoldManagerApplication extends libPictApplication
 		this.pict.addView('Manager-StatusBar',   libViewStatusBar.default_configuration,   libViewStatusBar);
 		this.pict.addView('Manager-OutputPanel', libViewOutputPanel.default_configuration, libViewOutputPanel);
 
+		// Modal section view (toasts, confirms, custom dialogs).
+		this.pict.addView('Pict-Section-Modal', {}, libPictSectionModal);
+
 		// Content views
 		this.pict.addView('Manager-Home',            libViewHome.default_configuration,            libViewHome);
 		this.pict.addView('Manager-ModuleWorkspace', libViewModuleWorkspace.default_configuration, libViewModuleWorkspace);
 		this.pict.addView('Manager-ManifestEditor',  libViewManifestEditor.default_configuration,  libViewManifestEditor);
 		this.pict.addView('Manager-LogViewer',       libViewLogViewer.default_configuration,       libViewLogViewer);
+		this.pict.addView('Manager-LogModal',        libViewLogModal.default_configuration,        libViewLogModal);
 		this.pict.addView('Manager-OpsRunner',       libViewOpsRunner.default_configuration,       libViewOpsRunner);
 		this.pict.addView('Manager-Ripple',          libViewRipple.default_configuration,          libViewRipple);
 
@@ -83,6 +89,7 @@ class RetoldManagerApplication extends libPictApplication
 			{
 				Query: '',
 				DirtyOnly: false,
+				SortByTime: false,
 			},
 			Scan:
 			{
@@ -101,7 +108,10 @@ class RetoldManagerApplication extends libPictApplication
 				HeaderText:  'idle',
 			},
 			OpsScript: null,               // 'status' | 'update' | 'checkout' — when on /Ops/:script
+			RecentModules: [],             // ordered MRU list, persisted to localStorage
 		};
+
+		this._loadRecentModules();
 
 		// Parameterized routes are registered from JS so the handler gets the
 		// navigo match object directly — template `:param` expressions don't
@@ -175,6 +185,7 @@ class RetoldManagerApplication extends libPictApplication
 	showModule(pName)
 	{
 		this.pict.AppData.Manager.SelectedModule = pName;
+		this._touchRecentModule(pName);
 		this.pict.views['Manager-ModuleWorkspace'].loadModule(pName);
 		this.setActiveRoute('Module:' + pName);
 	}
@@ -182,8 +193,43 @@ class RetoldManagerApplication extends libPictApplication
 	showOps(pScript)
 	{
 		this.pict.AppData.Manager.OpsScript = pScript;
+		// OpsRunner now opens the streaming log modal rather than swapping the
+		// workspace content area, so the user keeps their current context.
 		this.pict.views['Manager-OpsRunner'].runScript(pScript);
 		this.setActiveRoute('Ops:' + pScript);
+	}
+
+	// ─────────────────────────────────────────────
+	//  Recent-module MRU (drives the "Sort by time" filter)
+	// ─────────────────────────────────────────────
+
+	_loadRecentModules()
+	{
+		try
+		{
+			let tmpRaw = window.localStorage.getItem('rm:recent:modules');
+			if (!tmpRaw) { return; }
+			let tmpList = JSON.parse(tmpRaw);
+			if (Array.isArray(tmpList))
+			{
+				this.pict.AppData.Manager.RecentModules = tmpList.filter(
+					(pName) => typeof pName === 'string').slice(0, 100);
+			}
+		}
+		catch (e) { /* ignore */ }
+	}
+
+	_touchRecentModule(pName)
+	{
+		if (!pName) { return; }
+		let tmpList = this.pict.AppData.Manager.RecentModules || [];
+		// Move-to-front, dedupe, cap at 100.
+		tmpList = [pName].concat(tmpList.filter((pN) => pN !== pName)).slice(0, 100);
+		this.pict.AppData.Manager.RecentModules = tmpList;
+		try { window.localStorage.setItem('rm:recent:modules', JSON.stringify(tmpList)); }
+		catch (e) { /* quota */ }
+		// Re-render the sidebar so "Sort by time" reflects the new ordering.
+		if (this.pict.views['Manager-Sidebar']) { this.pict.views['Manager-Sidebar'].render(); }
 	}
 
 	setActiveRoute(pRoute)
