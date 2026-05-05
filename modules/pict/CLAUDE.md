@@ -192,6 +192,7 @@ Templates:
 | `{~Join:Address:Separator~}` | Join array values with separator |
 | `{~JSV:Address~}` | Pretty-print the value at `Address` as JSON (for debug panels) |
 | `{~Digits:Address:N~}` / `{~Dollars:Address~}` | Numeric formatting filters |
+| `{~E:Entity^IDOrAddress^TemplateHash~}` / `{~Entity:…~}` | **Asynchronously** fetches a Meadow entity and renders `TemplateHash` against the resulting record. See "Entity rendering" below. |
 
 `TS` is the workhorse for lists. The address can be **`Record.X`** (relative) or **`AppData.X.Y`** (absolute) — pict's `Pict-Template-DataWithAbsoluteFallback` resolves both. Inside the iterated child template, the per-item record is the new `Record`, and `AppData.*` still works for cross-cutting state.
 
@@ -274,6 +275,106 @@ Inside `MyFeature-Spinner-Template`, the per-record context is `pStatusRow`, so 
 | Stuffing computed strings into `pState.XxxxHTML` | Push records / values into `AppData`; reference via `{~D:AppData...~}` |
 | Hardcoding `window.pict.views['ViewName']` in onclick strings | Use `{~P~}.views['{~D:Record.ViewHash~}']` in templates |
 | Mutating DOM directly (`document.getElementById(...).innerHTML = ...`) | Trigger a re-render (`this.render()`) so the template engine repaints from `AppData` |
+
+## **Don't use `addEventListener` — use inline handlers**
+
+`addEventListener('click', …)`, `addEventListener('input', …)`, etc. are banned in Pict views. Use inline DOM handlers (`onclick=`, `oninput=`, `onchange=`, `onkeydown=`) on the element itself, in the template HTML.
+
+**Why:**
+- Templates re-render frequently (after `render()`, after `renderAsync()`, after data changes). Each re-render writes new HTML into the destination element and the old DOM nodes are thrown away. Any listeners attached via `addEventListener` go with them — silently. Buttons stop working with no error.
+- Event delegation on a parent (`parentElement.addEventListener('click', ...)` + `data-action` attributes + `closest()`) papers over the leak but adds a layer of indirection that's invisible from the markup, and still breaks if the parent itself gets re-rendered.
+- Inline handlers live in the markup the template engine emits, so they survive every re-render automatically. They also make it trivially obvious from the template what each control does.
+
+```javascript
+// ❌ Wrong — listener gets thrown away on the next render()
+onAfterRender(pRenderable)
+{
+    super.onAfterRender(pRenderable);
+    document.getElementById('SaveButton').addEventListener('click', () =>
+    {
+        this.save();
+    });
+}
+
+// ✅ Right — onclick lives in the template HTML, survives re-renders
+Templates:
+[{
+    Hash: 'MyView-Container',
+    Template: /*html*/`
+        <button onclick="_Pict.views.MyView.save()">Save</button>
+        <input id="MyView-Filter" oninput="_Pict.views.MyView.applyFilter(this.value)" />
+        <select onchange="_Pict.views.MyView.pickItem(parseInt(this.value, 10))">…</select>`
+}]
+```
+
+**Reach the view from inline handlers via `_Pict.views.<ViewIdentifier>.method(args)`.** Pass `this` for the originating element and `event` for the DOM event when you need them: `onclick="_Pict.views.X.removeRow(${id}, this)"`.
+
+**For dynamically-rendered rows:** put the `onclick=` directly in the row template — every row carries its own handler, no delegation needed. The template engine is the right tool for "render this element with this behaviour for each item in this list."
+
+**Anti-patterns to reject in code review:**
+
+| Wrong | Right |
+|---|---|
+| `someElement.addEventListener('click', cb)` in `onAfterRender` | `<button onclick="_Pict.views.X.method()">…</button>` in the template |
+| `parent.addEventListener('click', e => closest('[data-action]'))` (delegation) | Per-element inline `onclick` in the row template |
+| `input.addEventListener('input', cb)` in `onAfterRender` | `<input oninput="_Pict.views.X.method(this.value)" />` |
+| `select.addEventListener('change', cb)` | `<select onchange="_Pict.views.X.method(this.value)">…</select>` |
+| `input.addEventListener('keydown', e => e.key === 'Enter' && …)` | `<input onkeydown="if (event.key === 'Enter') { event.preventDefault(); _Pict.views.X.method(); }" />` |
+
+**Legitimate exceptions** (rare, document why with a comment):
+- Browser-level events that don't have an inline equivalent at the element level: `iframe.addEventListener('load', …)` on a programmatically-created iframe, `window.addEventListener('message', …)`, `MutationObserver` callbacks, etc.
+- Third-party libraries the view embeds (e.g. CodeJar / dropzone) that expose their own listener API.
+
+If you find yourself reaching for `addEventListener('click' | 'input' | 'change' | 'keydown')` in a view's `onAfterRender`, the answer is "put the handler in the template instead."
+
+### Entity rendering — `{~E:Entity^ID^TemplateHash~}`
+
+Provided by `pict/source/templates/Pict-Template-Entity.js` and registered automatically when you instantiate a Pict app. Fetches a Meadow entity via `pict.EntityProvider.getEntity(entity, id, callback)` (which is cachetrax-cached, so repeated lookups for the same `(entity, id)` resolve from memory) and renders an inner template against the fetched record.
+
+```
+{~E:Project^Record.Value.IDProject^Project-Inline-Link~}
+{~Entity:User^123^User-Initials~}
+```
+
+**Three `^`-separated parts:**
+1. **Entity name** — the Meadow entity (`Project`, `User`, `ReportNamedInstance`, …).
+2. **ID-or-address** — either a literal numeric ID (`32730`) **or** a `{~D:~}`-style address that resolves to one (`Record.Value.IDProject`, `AppData.SelectedProjectID`, …). Numeric strings are parsed; non-numeric strings are resolved through the current data scope.
+3. **Inner template hash** — the template to render once the entity has been fetched. Inside that template, `Record.X` refers to fields on the fetched entity itself, while `AppData.*` still resolves the global app state.
+
+**Async, not sync.** `{~E:~}` only works inside an asynchronous render — `pict.parseTemplateByHashAsync(...)`, `view.renderAsync(...)`, or any template tree being walked through one of those entry points. The provider's synchronous `render()` deliberately logs an error and returns `''` because there is no way to perform a network fetch without yielding. Inside a `{~TS:~}` / `{~TVS:~}` row, that just means: kick the whole render off via `renderAsync()` rather than the sync `render()` — the iteration cooperates.
+
+**Typical pattern — entity-aware row cell:**
+
+```javascript
+// In your view configuration:
+Templates:
+[
+    {
+        Hash: 'Project-Inline-Link',
+        Template: /*html*/`
+            <a href="{~D:AppData.FieldbookBase~}#/project/{~D:Record.IDProject~}"
+               target="_blank" rel="noopener">
+                {~D:Record.Name~}
+            </a>`
+    },
+    {
+        Hash: 'DocList-Row-Template',
+        Template: /*html*/`
+            <tr>
+                <td>{~D:Record.Value.IDDocument~}</td>
+                <td>{~D:Record.Value.Name~}</td>
+                <!-- The entity render fetches the Project once per IDProject and caches. -->
+                <td>{~E:Project^Record.Value.IDProject^Project-Inline-Link~}</td>
+            </tr>`
+    }
+]
+```
+
+Then iterate normally with `{~TVS:DocList-Row-Template:AppData.DocumentsList~}` inside a parent template, and call `view.renderAsync(...)` (which `pict-view` calls by default for any view configured with renderables) — the cell renders empty briefly, then fills in once the Meadow fetch resolves.
+
+**Don't pre-resolve names yourself.** If you find yourself building a `_ProjectNameLookup` map and stamping `_ProjectName` onto every record before render, you're doing the entity provider's job badly: no caching across views, no de-duplication of in-flight requests, and you have to remember to keep the map fresh. Use `{~E:~}` instead and let the provider handle it.
+
+**Authoritative source for the address format:** `pict/source/templates/Pict-Template-Entity.js`.
 
 ### When `parseTemplateByHash()` is still appropriate
 
@@ -491,3 +592,62 @@ Host applications register the provider and view separately:
 pict.addProvider('MyModule', libMyModule.default_configuration, libMyModule);
 pict.addView('MyModule-View', libMyModule.MyView.default_configuration, libMyModule.MyView);
 ```
+
+---
+
+## Quack browser bundles — naming convention
+
+`npx quack build` (via `quackage`) produces a browserified UMD bundle from the package's `main` entry. The bundle's filename and global name are **derived from `package.json`**, so getting them right matters or the HTML can't load the app:
+
+| Field | Source | Example |
+|-------|--------|---------|
+| Bundle filename | `<package.json#name>.min.js` (and `.js` unminified) | `name: "document_browser_example"` → `document_browser_example.min.js` |
+| Standalone global | PascalCase of `package.json#name` | `document_browser_example` → `window.DocumentBrowserExample` |
+| Output folder | `./dist/` | `dist/document_browser_example.min.js` |
+
+The defaults live in `retold/modules/utility/quackage/source/Default-Quackage-Configuration.json` (`LibraryMinifiedFileName`, `LibraryObjectName`).
+
+### Writing the HTML shell
+
+**Real applications: always serve Pict locally, with the version pinned in `package.json`.** Production code must not depend on a CDN — it pulls in whatever happens to be latest, can disappear, and breaks reproducibility. Copy it from `node_modules`:
+
+```html
+<script src="./pict.min.js"></script>
+<script src="./<package_name>.min.js"></script>
+<script>
+    Pict.safeOnDocumentReady(() =>
+    {
+        Pict.safeLoadPictApplication(window.<PascalCasePackageName>, 1);
+    });
+</script>
+```
+
+```json
+"dependencies": { "pict": "1.0.361" },
+"copyFiles": [
+    { "from": "./html/*",                   "to": "./dist/" },
+    { "from": "./node_modules/pict/dist/*", "to": "./dist/" }
+]
+```
+
+**`example_applications/` only — CDN is acceptable** for tiny demos that do not need version pinning and want a one-line `copyFiles`:
+
+```html
+<!-- example_applications only — never in a real app -->
+<script src="https://cdn.jsdelivr.net/npm/pict@1/dist/pict.min.js"></script>
+<script src="./<package_name>.min.js"></script>
+```
+
+```json
+"copyFiles": [
+    { "from": "./html/*", "to": "./dist/" }
+]
+```
+
+### Easy traps
+
+- **Long package names produce long bundle names.** `web-headlight-document-render-example-document-browser` becomes `web-headlight-document-render-example-document-browser.min.js`. Pick short snake_case names like `document_browser_example`.
+- **Hyphens vs underscores.** Both legal, but `PascalCaseIdentifier` collapses delimiters consistently — `pict-section-code` → `PictSectionCode`, `code_display_example` → `CodeDisplayExample`.
+- **The `<script src>` must match the actual bundle name.** A `404` here is silent in the console (browser just doesn't load it) and the form falls back to default browser behaviour — submits look like reloads, no JS runs, no errors. If clicking a button reloads the page, check the network tab for a missing bundle first.
+- **`window.<Global>` won't exist if you forgot the `<script>` tag for the bundle.** `Pict.safeLoadPictApplication(undefined, 1)` is silently a no-op.
+- **Always reach the application from views via `this.pict.PictApplication`.** Don't stash it on `window`; the framework already exposes it.
