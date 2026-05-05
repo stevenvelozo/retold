@@ -186,6 +186,18 @@
 					"RelatedModules": []
 				},
 				{
+					"Name": "meadow-connection-meadow-endpoints",
+					"Path": "modules/meadow/meadow-connection-meadow-endpoints",
+					"Description": "Meadow connection that fronts a remote meadow-endpoints REST API as a meadow data source. Pairs with the in-meadow Meadow-Provider-MeadowEndpoints; enables retold-databeacon and other consumers to point at the Headlight Platform API (or any meadow-endpoints server), with customer scoping enforced by the upstream session.",
+					"GitHub": "https://github.com/stevenvelozo/meadow-connection-meadow-endpoints",
+					"Documentation": "https://stevenvelozo.github.io/meadow-connection-meadow-endpoints/",
+					"RelatedModules": [
+						"meadow",
+						"meadow-endpoints",
+						"meadow-connection-manager"
+					]
+				},
+				{
 					"Name": "meadow-connection-mongodb",
 					"Path": "modules/meadow/meadow-connection-mongodb",
 					"Description": "MongoDB document database connection provider for Meadow",

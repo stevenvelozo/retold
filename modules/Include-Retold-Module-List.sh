@@ -7,7 +7,7 @@ echo "### Building list of modules..."
 
 repositoriesFable=("fable" "fable-log" "fable-log-logger-bunyan" "fable-serviceproviderbase" "fable-settings" "fable-ultravisor-client" "fable-uuid" "ultravisor-beacon" "ultravisor-beacon-capability")
 
-repositoriesMeadow=("bibliograph" "bibliograph-storage-meadow" "foxhound" "meadow" "meadow-connection-dgraph" "meadow-connection-manager" "meadow-connection-mongodb" "meadow-connection-mssql" "meadow-connection-mysql" "meadow-connection-postgresql" "meadow-connection-rocksdb" "meadow-connection-retold-databeacon" "meadow-connection-solr" "meadow-connection-sqlite" "meadow-connection-sqlite-browser" "meadow-endpoints" "meadow-graph-client" "meadow-integration" "meadow-migrationmanager" "meadow-provider-offline" "parime" "retold-data-service" "retold-harness" "retold-harness-consistency-proxy" "stricture")
+repositoriesMeadow=("bibliograph" "bibliograph-storage-meadow" "foxhound" "meadow" "meadow-connection-dgraph" "meadow-connection-manager" "meadow-connection-meadow-endpoints" "meadow-connection-mongodb" "meadow-connection-mssql" "meadow-connection-mysql" "meadow-connection-postgresql" "meadow-connection-rocksdb" "meadow-connection-retold-databeacon" "meadow-connection-solr" "meadow-connection-sqlite" "meadow-connection-sqlite-browser" "meadow-endpoints" "meadow-graph-client" "meadow-integration" "meadow-migrationmanager" "meadow-provider-offline" "parime" "retold-data-service" "retold-harness" "retold-harness-consistency-proxy" "stricture")
 
 repositoriesOrator=("orator" "orator-authentication" "orator-conversion" "orator-endpoint" "orator-http-proxy" "orator-serviceserver-base" "orator-serviceserver-restify" "orator-ssl-proxy" "orator-static-server" "tidings")
 
