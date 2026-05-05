@@ -1225,28 +1225,6 @@
 					]
 				},
 				{
-					"Name": "ultravisor-manifest-beacon",
-					"Path": "modules/apps/ultravisor-manifest-beacon",
-					"Description": "Optional Ultravisor beacon that durably persists operation execution manifests — the per-run snapshots the hub builds before, during, and after execution. Pluggable ManifestStoreProvider for custom backends (SQLite, Postgres, S3, etc.).",
-					"GitHub": "https://github.com/stevenvelozo/ultravisor-manifest-beacon",
-					"Documentation": "https://stevenvelozo.github.io/ultravisor-manifest-beacon/",
-					"RelatedModules": [
-						"ultravisor",
-						"ultravisor-beacon"
-					]
-				},
-				{
-					"Name": "ultravisor-queue-beacon",
-					"Path": "modules/apps/ultravisor-queue-beacon",
-					"Description": "Optional Ultravisor beacon that durably persists the work queue: enqueues, status transitions, attempt outcomes, and the per-item event log. Pluggable QueuePersistenceProvider for custom backends (SQLite, Postgres, S3, etc.).",
-					"GitHub": "https://github.com/stevenvelozo/ultravisor-queue-beacon",
-					"Documentation": "https://stevenvelozo.github.io/ultravisor-queue-beacon/",
-					"RelatedModules": [
-						"ultravisor",
-						"ultravisor-beacon"
-					]
-				},
-				{
 					"Name": "ultravisor-suite-harness",
 					"Path": "modules/apps/ultravisor-suite-harness",
 					"Description": "End-to-end test harness for the Ultravisor/Facto pipeline with blessed terminal UI",

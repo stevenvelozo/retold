@@ -15,6 +15,6 @@ repositoriesPict=("cryptbrau" "informary" "pict" "pict-application" "pict-docuse
 
 repositoriesUtility=("cachetrax" "choreographic" "cumulation" "elucidator" "indoctrinate" "manyfest" "manyfest-conversion" "merquerial" "pict-cruisecontrol" "precedent" "quackage" "retold-sample-data" "retold-sharp")
 
-repositoriesApps=("retold-beacon-host" "retold-content-system" "retold-databeacon" "retold-data-mapper" "retold-facto" "retold-remote" "retold-remote-desktop" "retold-remote-ios" "ultravisor" "ultravisor-auth-beacon" "ultravisor-file-stream" "ultravisor-lab" "ultravisor-manifest-beacon" "ultravisor-queue-beacon" "ultravisor-suite-harness")
+repositoriesApps=("retold-beacon-host" "retold-content-system" "retold-databeacon" "retold-data-mapper" "retold-facto" "retold-remote" "retold-remote-desktop" "retold-remote-ios" "ultravisor" "ultravisor-auth-beacon" "ultravisor-file-stream" "ultravisor-lab" "ultravisor-suite-harness")
 
 echo "### ... Module lists built!"
