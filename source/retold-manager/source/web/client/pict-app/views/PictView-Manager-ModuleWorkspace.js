@@ -51,41 +51,32 @@ const _ViewConfiguration =
 	<div class="action-group">
 		<div class="action-group-label">npm</div>
 		<div class="action-row">
-			<button class="action" data-op="install">install</button>
+			<button class="action" data-op="ncu">ncu</button>
 			<button class="action" data-op="test">test</button>
-			<button class="action" data-op="types">types</button>
-			<button class="action" data-op="build">build</button>
+			<button class="action action-more" data-overflow="npm" aria-label="More npm actions" title="More npm actions">{~D:Record.CaretIcon~}</button>
 		</div>
 	</div>
 	<div class="action-group">
 		<div class="action-group-label">version</div>
 		<div class="action-row">
 			<button class="action" data-op="bump-patch">+ patch</button>
-			<button class="action" data-op="bump-minor">+ minor</button>
-			<button class="action" data-op="bump-major">+ major</button>
+			<button class="action action-more" data-overflow="version" aria-label="More version actions" title="More version actions">{~D:Record.CaretIcon~}</button>
 		</div>
 	</div>
 	<div class="action-group">
 		<div class="action-group-label">git</div>
 		<div class="action-row">
-			<button class="action" data-op="diff">diff</button>
 			<button class="action" data-op="git-add">add -A</button>
+			<button class="action" data-op="diff">diff</button>
 			<button class="action" data-op="commit">commit</button>
-			<button class="action" data-op="pull">pull</button>
 			<button class="action" data-op="push">push</button>
-		</div>
-	</div>
-	<div class="action-group">
-		<div class="action-group-label">npm extras</div>
-		<div class="action-row">
-			<button class="action" data-op="ncu">ncu...</button>
+			<button class="action action-more" data-overflow="git" aria-label="More git actions" title="More git actions">{~D:Record.CaretIcon~}</button>
 		</div>
 	</div>
 	<div class="action-group">
 		<div class="action-group-label">publish</div>
 		<div class="action-row">
-			<button class="action success" data-op="publish" title="Open the publish dialog (npm or npm + Docker image)">publish...</button>
-			<button class="action primary" data-op="ripple">Ripple</button>
+			<button class="action success" data-op="publish" title="Open the publish dialog (npm, npm + Docker image, or plan a ripple from here)">publish</button>
 		</div>
 	</div>
 </div>
@@ -259,6 +250,8 @@ class ManagerModuleWorkspaceView extends libPictView
 		tmpRecord.InfoBoxBody = this._renderInfoBoxBody(tmpManifest, tmpPkg, tmpGit);
 		// Inline changed-files block (lives above the deps section).
 		tmpRecord.GitFilesSection = this._renderInlineFilesSection(tmpGit);
+		// Inline caret icon shared by all "more actions" triggers.
+		tmpRecord.CaretIcon = '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 		// Dependency tables (server already split retold vs external)
 		let tmpCat = tmpDetail.CategorizedDeps || {};
@@ -339,7 +332,7 @@ class ManagerModuleWorkspaceView extends libPictView
 	{
 		if (!pDeps.length) { return ''; }
 
-		let tmpHtml = '<div class="workspace-section">';
+		let tmpHtml = '<div class="workspace-section dep-section">';
 		tmpHtml += '<h3>' + this._escape(pLabel) + ' (' + pDeps.length + ')</h3>';
 		tmpHtml += '<table class="dep-table"><tbody>';
 		for (let i = 0; i < pDeps.length; i++)
@@ -413,6 +406,16 @@ class ManagerModuleWorkspaceView extends libPictView
 						this.runAction(tmpOp, null);
 					});
 			}
+			let tmpOverflow = tmpWorkspace.querySelectorAll('.action-groups button[data-overflow]');
+			for (let i = 0; i < tmpOverflow.length; i++)
+			{
+				tmpOverflow[i].addEventListener('click', (pEvent) =>
+					{
+						pEvent.stopPropagation();
+						let tmpGroup = pEvent.currentTarget.getAttribute('data-overflow');
+						this._openOverflow(tmpGroup, pEvent.currentTarget);
+					});
+			}
 		}
 		this._wireFileButtons();
 
@@ -425,6 +428,53 @@ class ManagerModuleWorkspaceView extends libPictView
 
 		this.pict.CSSMap.injectCSS();
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
+	}
+
+	// Open the "more actions" dropdown for a given action group. Items per
+	// group are kept here (next to the inline buttons in the template) so
+	// the dispatch table is in one place.
+	_openOverflow(pGroup, pAnchor)
+	{
+		let tmpModal = this.pict.views['Pict-Section-Modal'];
+		if (!tmpModal) { return; }
+
+		let tmpItems = [];
+		switch (pGroup)
+		{
+			case 'npm':
+				tmpItems =
+				[
+					{ Hash: 'install', Label: 'install' },
+					{ Hash: 'types',   Label: 'types' },
+					{ Hash: 'build',   Label: 'build' },
+				];
+				break;
+			case 'version':
+				tmpItems =
+				[
+					{ Hash: 'bump-minor', Label: '+ minor' },
+					{ Hash: 'bump-major', Label: '+ major' },
+				];
+				break;
+			case 'git':
+				tmpItems =
+				[
+					{ Hash: 'pull', Label: 'pull' },
+				];
+				break;
+			default:
+				return;
+		}
+
+		tmpModal.dropdown(pAnchor,
+			{
+				align: 'right',
+				className: 'rm-overflow-menu',
+				items: tmpItems,
+			}).then((pChoice) =>
+			{
+				if (pChoice && pChoice.Hash) { this.runAction(pChoice.Hash, null); }
+			});
 	}
 
 	// Wire up the per-file "+ add" buttons in the inline changed-files block.

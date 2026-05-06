@@ -27,7 +27,7 @@
 		"pict": "^1.0.345",
 		"pict-application": "^1.0.28",
 		"pict-router": "^1.0.9",
-		"pict-section-modal": "^0.0.5",
+		"pict-section-modal": "^0.0.6",
 		"pict-terminalui": "^0.0.2",
 		"pict-view": "^1.0.64",
 		"ws": "^8.20.0"

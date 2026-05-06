@@ -141,6 +141,12 @@ class PrePublishValidator
 		tmpReport.Package = tmpPkg.name || pName;
 		tmpReport.LocalVersion = tmpPkg.version || '0.0.0';
 
+		// Whether this module supports the optional Docker (GHCR) publish
+		// flow: detected by the presence of an `npm run publish:docker`
+		// script in package.json, which the publish op invokes when the
+		// caller passes WithDocker=true.
+		tmpReport.SupportsDocker = !!(tmpPkg.scripts && tmpPkg.scripts['publish:docker']);
+
 		// Fetch the currently published version
 		tmpReport.PublishedVersion = this.introspector.fetchPublishedVersionSync(tmpReport.Package,
 			{

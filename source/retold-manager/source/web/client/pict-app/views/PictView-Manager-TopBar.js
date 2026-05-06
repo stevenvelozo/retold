@@ -24,6 +24,8 @@ const _ViewConfiguration =
 		onclick="{~P~}.PictApplication.navigateTo('/Ops/update')">Update</button>
 	<button class="action primary" title="Run modules/Checkout.sh across every module"
 		onclick="{~P~}.PictApplication.navigateTo('/Ops/checkout')">Checkout</button>
+	<button class="action primary" title="Plan a ripple publish (no starting module required — pick producers in the planner)"
+		onclick="{~P~}.views['Manager-Modal-RipplePlan'].open(null)">Ripple</button>
 	<span style="width:1px;background:var(--color-border);margin:0 4px"></span>
 	<button class="action" onclick="{~P~}.views['Manager-LogModal'].openForLogFile()">Log</button>
 	<button class="action" onclick="{~P~}.PictApplication.navigateTo('/Manifest')">Manifest</button>

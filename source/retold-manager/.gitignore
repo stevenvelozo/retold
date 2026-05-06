@@ -1,0 +1,6 @@
+# Only the minified web bundle is committed (production runtime). The
+# unminified bundle and the source maps are build outputs — regenerate
+# them locally with `npx quack build` when you actually need to debug
+# the manager itself with original-source mappings.
+web-application/retold-manager.js
+web-application/*.map

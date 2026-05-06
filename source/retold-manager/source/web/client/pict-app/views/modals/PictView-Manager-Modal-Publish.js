@@ -22,6 +22,9 @@ const _ViewConfiguration =
 		<div class="preview-panel" id="RM-PreviewPanel">{~D:Record.PreviewHtml~}</div>
 		<div class="modal-actions">
 			<button class="action" onclick="{~P~}.views['Manager-Modal-Publish'].close()">Close</button>
+			<button class="action primary"
+				onclick="{~P~}.views['Manager-Modal-Publish'].planRipple()"
+				title="Plan a ripple publish starting from this module (closes this dialog and opens the ripple planner with this module pre-selected)">Plan ripple...</button>
 			<button class="action success" id="RM-PublishSubmit"
 				onclick="{~P~}.views['Manager-Modal-Publish'].submit(false)" disabled>Publish to npm</button>
 			<button class="action success" id="RM-PublishSubmitDocker"
@@ -57,6 +60,7 @@ class ManagerModalPublishView extends libPictView
 		this._moduleName = pModuleName;
 		this._previewHash = null;
 		this._ok = false;
+		this._supportsDocker = false;
 
 		this._writeRecord(
 			{
@@ -72,6 +76,7 @@ class ManagerModalPublishView extends libPictView
 				if (this._moduleName !== pModuleName) { return; }
 				this._previewHash = pReport.PreviewHash;
 				this._ok = !!pReport.OkToPublish;
+				this._supportsDocker = !!pReport.SupportsDocker;
 				this._writeRecord(
 					{
 						ModuleName: pModuleName,
@@ -100,6 +105,17 @@ class ManagerModalPublishView extends libPictView
 	{
 		this._moduleName = null;
 		this.pict.ContentAssignment.assignContent('#RM-ModalRoot', '');
+	}
+
+	// Hand off to the ripple planner with this module pre-selected as the
+	// originating producer. We close ourselves first so the ripple modal
+	// owns #RM-ModalRoot — they share that single mount point.
+	planRipple()
+	{
+		let tmpName = this._moduleName;
+		this.close();
+		let tmpRipple = this.pict.views['Manager-Modal-RipplePlan'];
+		if (tmpRipple) { tmpRipple.open(tmpName); }
 	}
 
 	submit(pWithDocker)
@@ -144,11 +160,28 @@ class ManagerModalPublishView extends libPictView
 
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)
 	{
-		// Enable both submit buttons only once preview says OkToPublish.
+		// Enable npm publish only once preview says OkToPublish.
 		let tmpBtn       = document.getElementById('RM-PublishSubmit');
 		let tmpBtnDocker = document.getElementById('RM-PublishSubmitDocker');
-		if (tmpBtn)       { tmpBtn.disabled       = !this._ok; }
-		if (tmpBtnDocker) { tmpBtnDocker.disabled = !this._ok; }
+		if (tmpBtn) { tmpBtn.disabled = !this._ok; }
+		// Docker variant additionally requires the module to declare an
+		// `npm run publish:docker` script. Surface the reason in the title
+		// attribute so the user understands why the button is disabled.
+		if (tmpBtnDocker)
+		{
+			let tmpDockerOk = this._ok && this._supportsDocker;
+			tmpBtnDocker.disabled = !tmpDockerOk;
+			if (!this._supportsDocker)
+			{
+				tmpBtnDocker.classList.add('action-unavailable');
+				tmpBtnDocker.title = 'This module\'s package.json does not define an "npm run publish:docker" script, so a Docker image build is not available.';
+			}
+			else
+			{
+				tmpBtnDocker.classList.remove('action-unavailable');
+				tmpBtnDocker.title = 'Also rebuild + push the GHCR docker image (multi-arch build, several minutes)';
+			}
+		}
 		this.pict.CSSMap.injectCSS();
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
 	}

@@ -386,24 +386,70 @@ body
 .kv dt { color: var(--color-muted); }
 .kv dd { margin: 0; }
 
+/* ── Dependency sections ───────────────────────────────
+   Subtle tinted container so the four dep tiers (retold deps, external
+   deps, retold devDeps, external devDeps) read as distinct grouped
+   blocks without the visual weight of an outlined card. */
+.workspace-section.dep-section
+{
+	background: rgba(255, 255, 255, 0.025);
+	border: 1px solid rgba(255, 255, 255, 0.04);
+	border-radius: 6px;
+	padding: 10px 12px;
+	margin: 12px 0;
+}
+
+.workspace-section.dep-section h3
+{
+	margin: 0 0 6px;
+}
+
 /* ── Dependency tables ─────────────────────────────────── */
 .dep-table
 {
 	width: 100%;
-	border-collapse: collapse;
+	table-layout: fixed; /* lock column widths so all four tiers line up */
+	border-collapse: separate;
+	border-spacing: 0;
 	font-family: var(--font-mono);
 	font-size: 12px;
 }
 
+/* Three-column layout, identical across every dep tier:
+     name  → flex-fills the available space
+     range → fixed-width column for "^x.y.z" / "x - y" ranges
+     links → fixed-width column for the gh/docs/npm/repo chips */
+.dep-table .dep-name  { width: auto; }
+.dep-table .dep-range { width: 110px; }
+.dep-table .dep-links { width: 160px; }
+
 .dep-table td
 {
-	padding: 3px 10px 3px 0;
+	padding: 4px 10px 4px 6px;
 	vertical-align: baseline;
 }
+
+/* Row hover — subtle tint that spans the full row for at-a-glance scanning. */
+.dep-table tbody tr
+{
+	transition: background-color 80ms ease;
+}
+
+.dep-table tbody tr:hover
+{
+	background: rgba(255, 255, 255, 0.04);
+}
+
+/* Round the row's edges by rounding the first/last cells of the row,
+   since border-collapse: separate is in play. */
+.dep-table tbody tr td:first-child { border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+.dep-table tbody tr td:last-child  { border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
 
 .dep-table .dep-name
 {
 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 	color: var(--color-muted);
 }
 
@@ -423,6 +469,7 @@ body
 .dep-table .dep-links
 {
 	white-space: nowrap;
+	text-align: right;
 }
 
 .dep-table .dep-links a
@@ -433,7 +480,7 @@ body
 	padding: 1px 5px;
 	border: 1px solid var(--color-border);
 	border-radius: 4px;
-	margin-right: 4px;
+	margin-left: 4px;
 }
 
 .dep-table .dep-links a:hover
@@ -1111,8 +1158,97 @@ body
 {
 	display: flex;
 	flex-wrap: wrap;
+	align-items: center;
 	gap: 8px;
 	margin: 8px 0 16px;
+}
+
+/* "More actions" caret — sits flush against the last visible button in
+   each group; colored to match the group's accent so the overflow menu
+   feels related to the buttons rather than a generic disclosure. */
+button.action.action-more
+{
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px 6px;
+	min-width: 26px;
+	color: var(--color-accent);
+	border-color: rgba(47, 129, 247, 0.45);
+}
+
+button.action.action-more:hover
+{
+	color: var(--color-accent);
+	border-color: var(--color-accent);
+	background: rgba(47, 129, 247, 0.10);
+}
+
+button.action.action-more svg
+{
+	width: 12px;
+	height: 12px;
+	display: block;
+}
+
+/* Dark theme override for pict-section-modal popups (log modal, dropdowns,
+   and any future custom dialogs we open). The library injects its own
+   `.pict-modal-root { ... }` block via the PICT-CSS <style> tag, which
+   the browser places AFTER our stylesheet — so we need higher specificity
+   (body.pict-modal-root) to win the cascade against the light defaults. */
+body.pict-modal-root
+{
+	--pict-modal-bg:                 var(--color-panel);
+	--pict-modal-fg:                 var(--color-text);
+	--pict-modal-border:             var(--color-border);
+	--pict-modal-shadow:             0 6px 24px rgba(0, 0, 0, 0.6);
+	--pict-modal-header-bg:          var(--color-panel-alt);
+	--pict-modal-header-fg:          var(--color-text);
+	--pict-modal-header-border:      var(--color-border);
+
+	--pict-modal-btn-bg:             var(--color-panel-alt);
+	--pict-modal-btn-fg:             var(--color-text);
+	--pict-modal-btn-hover-bg:       rgba(47, 129, 247, 0.12);
+	--pict-modal-btn-primary-bg:     var(--color-accent);
+	--pict-modal-btn-primary-fg:     #ffffff;
+	--pict-modal-btn-primary-hover-bg: #1f6feb;
+	--pict-modal-btn-danger-bg:      var(--color-danger);
+	--pict-modal-btn-danger-fg:      #ffffff;
+	--pict-modal-btn-danger-hover-bg:#da3633;
+
+	--pict-modal-dropdown-bg:                 var(--color-panel);
+	--pict-modal-dropdown-fg:                 var(--color-text);
+	--pict-modal-dropdown-border:             var(--color-border);
+	--pict-modal-dropdown-shadow:             0 6px 24px rgba(0, 0, 0, 0.55);
+	--pict-modal-dropdown-item-hover-bg:      rgba(47, 129, 247, 0.14);
+	--pict-modal-dropdown-item-hover-fg:      var(--color-text);
+	--pict-modal-dropdown-item-disabled-fg:   var(--color-muted);
+	--pict-modal-dropdown-separator:          var(--color-border);
+	--pict-modal-dropdown-header-fg:          var(--color-muted);
+	--pict-modal-dropdown-primary-fg:         var(--color-accent);
+	--pict-modal-dropdown-danger-fg:          var(--color-danger);
+
+	--pict-modal-tooltip-bg:         var(--color-panel-alt);
+	--pict-modal-tooltip-fg:         var(--color-text);
+}
+
+/* Manager overflow menus use the mono action font so they read as a
+   continuation of the action group's buttons. */
+.pict-modal-dropdown.rm-overflow-menu .pict-modal-dropdown-item
+{
+	font-family: var(--font-mono);
+	font-size: 12px;
+}
+
+/* Action button disabled-because-unsupported (e.g. publish + docker on a
+   module without `npm run publish:docker`). Reads the same as :disabled
+   but keeps the button reachable for hover so the title attribute can
+   explain why. */
+button.action.action-unavailable[disabled]
+{
+	opacity: 0.45;
+	cursor: help;
+	pointer-events: auto;
 }
 
 button.action
