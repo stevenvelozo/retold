@@ -115,7 +115,13 @@ function rangeCoversVersion(pRange, pLatest)
  */
 function parsePorcelain(pRaw)
 {
-	let tmpResult = { Branch: '', Ahead: 0, Behind: 0, Files: [], Dirty: false };
+	let tmpResult =
+		{
+			Branch: '', Ahead: 0, Behind: 0, Files: [],
+			Dirty: false,
+			HasStaged: false,    // index-side change (something is `git add`-ed)
+			HasUnstaged: false,  // working-tree-side change or untracked file
+		};
 	if (!pRaw) { return tmpResult; }
 
 	let tmpLines = pRaw.split('\n');
@@ -136,9 +142,25 @@ function parsePorcelain(pRaw)
 		}
 		else
 		{
+			// Two-char porcelain code: XY where X = index, Y = working tree.
+			// Untracked files come through as "??". Anything other than space
+			// (or '?') in the index slot means staged; anything other than
+			// space in the worktree slot — or the whole "??" — means unstaged.
 			let tmpStatusCode = tmpLine.slice(0, 2);
 			let tmpFile = tmpLine.slice(3);
 			tmpResult.Files.push({ Status: tmpStatusCode, Path: tmpFile });
+
+			let tmpIndexCh = tmpStatusCode.charAt(0);
+			let tmpTreeCh  = tmpStatusCode.charAt(1);
+			if (tmpStatusCode === '??')
+			{
+				tmpResult.HasUnstaged = true;
+			}
+			else
+			{
+				if (tmpIndexCh !== ' ' && tmpIndexCh !== '?') { tmpResult.HasStaged = true; }
+				if (tmpTreeCh  !== ' ' && tmpTreeCh  !== '?') { tmpResult.HasUnstaged = true; }
+			}
 		}
 	}
 	tmpResult.Dirty = tmpResult.Files.length > 0;

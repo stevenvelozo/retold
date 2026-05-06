@@ -189,6 +189,8 @@ module.exports = function registerManifestRoutes(pCore)
 							tmpTrimmed[tmpNames[i]] =
 								{
 									Dirty: tmpR.Dirty,
+									HasStaged: !!tmpR.HasStaged,
+									HasUnstaged: !!tmpR.HasUnstaged,
 									FileCount: tmpR.Files.length,
 									Branch: tmpR.Branch,
 									Ahead: tmpR.Ahead,

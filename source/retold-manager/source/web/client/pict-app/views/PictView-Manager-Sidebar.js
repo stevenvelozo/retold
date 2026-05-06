@@ -17,10 +17,15 @@ const _ViewConfiguration =
 			width: 7px;
 			height: 7px;
 			border-radius: 50%;
-			background: var(--color-warning);
+			background: var(--color-warning); /* legacy fallback */
 			margin-left: 6px;
 			vertical-align: middle;
 		}
+		/* State-coded variants — picked by the most upstream pending step:
+		     unstaged (orange) → staged (cyan) → unpushed (blue). */
+		.dirty-badge.dirty-badge--unstaged { background: var(--color-warning); }
+		.dirty-badge.dirty-badge--staged   { background: #4cc9d4; }
+		.dirty-badge.dirty-badge--unpushed { background: var(--color-accent); }
 	`,
 
 	Templates:
@@ -76,6 +81,58 @@ const LS_KEY_SCAN_WHEN    = 'rm:scan:when';
 
 function lsGet(pKey) { try { return window.localStorage.getItem(pKey); } catch (e) { return null; } }
 function lsSet(pKey, pValue) { try { window.localStorage.setItem(pKey, pValue); } catch (e) { /* quota */ } }
+
+// A module is "dirty" for sidebar purposes when EITHER it has uncommitted
+// changes in the working tree OR it has commits ahead of the upstream that
+// haven't been pushed yet — both states mean "you have local work that
+// hasn't reached the remote." Returns false for missing/error entries.
+function isDirty(pScanEntry)
+{
+	if (!pScanEntry) { return false; }
+	if (pScanEntry.Dirty) { return true; }
+	if ((pScanEntry.Ahead || 0) > 0) { return true; }
+	return false;
+}
+
+// Classify the *most upstream pending step* so the badge color reflects
+// what the user needs to do next. Priority: stage → commit → push.
+//   'unstaged' (orange) — there are working-tree changes / untracked files
+//                         that haven't been `git add`-ed yet.
+//   'staged'   (cyan)   — files are in the index but not yet committed.
+//   'unpushed' (blue)   — clean tree, but commits are ahead of upstream.
+//   null               — nothing to do.
+function dirtyState(pScanEntry)
+{
+	if (!pScanEntry) { return null; }
+	if (pScanEntry.HasUnstaged)        { return 'unstaged'; }
+	if (pScanEntry.HasStaged)          { return 'staged'; }
+	if ((pScanEntry.Ahead || 0) > 0)   { return 'unpushed'; }
+	// Older scan payloads (cached pre-upgrade) only carry Dirty: fall back
+	// so the badge still appears, just without the staged/unstaged split.
+	if (pScanEntry.Dirty)              { return 'unstaged'; }
+	return null;
+}
+
+// Tooltip text for the dirty badge — distinguishes uncommitted changes
+// from unpushed commits so the user knows what they need to do.
+function dirtyTooltip(pScanEntry)
+{
+	if (!pScanEntry) { return ''; }
+	let tmpParts = [];
+	if (pScanEntry.HasUnstaged) { tmpParts.push('Unstaged changes'); }
+	if (pScanEntry.HasStaged)   { tmpParts.push('Staged (uncommitted)'); }
+	// Pre-upgrade fallback (no HasStaged/HasUnstaged) — surface generic dirty.
+	if (!pScanEntry.HasUnstaged && !pScanEntry.HasStaged && pScanEntry.Dirty)
+	{
+		tmpParts.push('Uncommitted changes');
+	}
+	let tmpAhead = pScanEntry.Ahead || 0;
+	if (tmpAhead > 0)
+	{
+		tmpParts.push(tmpAhead + ' unpushed commit' + (tmpAhead === 1 ? '' : 's'));
+	}
+	return tmpParts.join(' · ');
+}
 
 class ManagerSidebarView extends libPictView
 {
@@ -144,7 +201,7 @@ class ManagerSidebarView extends libPictView
 				let tmpMod = tmpAll[i];
 				if (tmpQuery && tmpMod.Name.toLowerCase().indexOf(tmpQuery) === -1) { continue; }
 				let tmpScanEntry = tmpScan[tmpMod.Name];
-				if (tmpDirtyOnly && !(tmpScanEntry && tmpScanEntry.Dirty)) { continue; }
+				if (tmpDirtyOnly && !isDirty(tmpScanEntry)) { continue; }
 				tmpFiltered.push(tmpMod);
 			}
 			tmpFiltered.sort(function (pA, pB)
@@ -169,8 +226,10 @@ class ManagerSidebarView extends libPictView
 				let tmpMod = tmpFiltered[i];
 				let tmpSelectedClass = (tmpSelected === tmpMod.Name) ? ' selected' : '';
 				let tmpScanEntry = tmpScan[tmpMod.Name];
-				let tmpDirtyBadge = tmpScanEntry && tmpScanEntry.Dirty
-					? ' <span class="dirty-badge" title="Uncommitted changes"></span>' : '';
+				let tmpState = dirtyState(tmpScanEntry);
+				let tmpDirtyBadge = tmpState
+					? ' <span class="dirty-badge dirty-badge--' + tmpState + '" title="'
+						+ this._escape(dirtyTooltip(tmpScanEntry)) + '"></span>' : '';
 				let tmpUnvisited = !(tmpMod.Name in tmpOrder);
 				tmpHtml += '<a class="module-row' + tmpSelectedClass + (tmpUnvisited ? ' unvisited' : '') + '" '
 					+ 'href="#/Module/' + encodeURIComponent(tmpMod.Name) + '">'
@@ -196,7 +255,7 @@ class ManagerSidebarView extends libPictView
 				let tmpMod = tmpList[j];
 				if (tmpQuery && tmpMod.Name.toLowerCase().indexOf(tmpQuery) === -1) { continue; }
 				let tmpScanEntry = tmpScan[tmpMod.Name];
-				if (tmpDirtyOnly && !(tmpScanEntry && tmpScanEntry.Dirty)) { continue; }
+				if (tmpDirtyOnly && !isDirty(tmpScanEntry)) { continue; }
 				tmpRows.push(tmpMod);
 			}
 			if (tmpRows.length === 0) { continue; }
@@ -210,8 +269,10 @@ class ManagerSidebarView extends libPictView
 				let tmpMod = tmpRows[j];
 				let tmpSelectedClass = (tmpSelected === tmpMod.Name) ? ' selected' : '';
 				let tmpScanEntry = tmpScan[tmpMod.Name];
-				let tmpDirtyBadge = tmpScanEntry && tmpScanEntry.Dirty
-					? ' <span class="dirty-badge" title="Uncommitted changes"></span>' : '';
+				let tmpState = dirtyState(tmpScanEntry);
+				let tmpDirtyBadge = tmpState
+					? ' <span class="dirty-badge dirty-badge--' + tmpState + '" title="'
+						+ this._escape(dirtyTooltip(tmpScanEntry)) + '"></span>' : '';
 				tmpHtml += '<a class="module-row' + tmpSelectedClass + '" '
 					+ 'href="#/Module/' + encodeURIComponent(tmpMod.Name) + '">'
 					+ this._escape(tmpMod.Name) + tmpDirtyBadge + '</a>';
@@ -304,7 +365,7 @@ class ManagerSidebarView extends libPictView
 		if (tmpState.Running) { tmpEl.textContent = 'scanning…'; return; }
 		if (!tmpState.When)   { tmpEl.textContent = ''; return; }
 		let tmpNames = Object.keys(tmpState.Results || {});
-		let tmpDirty = tmpNames.filter((pN) => tmpState.Results[pN].Dirty).length;
+		let tmpDirty = tmpNames.filter((pN) => isDirty(tmpState.Results[pN])).length;
 		let tmpWhen  = new Date(tmpState.When);
 		let tmpAge   = Math.max(0, Math.floor((Date.now() - tmpWhen.getTime()) / 1000));
 		let tmpAgeStr;

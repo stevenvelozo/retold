@@ -267,7 +267,27 @@ class ManagerModuleWorkspaceView extends libPictView
 	{
 		let tmpVersion = (pPkg && pPkg.Version) ? 'v' + pPkg.Version : '';
 		let tmpBranch  = (pGit && pGit.Branch)  ? pGit.Branch : '';
-		let tmpDirty   = (pGit && pGit.Dirty)   ? '●' : '';
+		// Color the dot by the most upstream pending step (matches the sidebar
+		// badge convention): unstaged > staged > unpushed.
+		let tmpAhead = (pGit && pGit.Ahead) || 0;
+		let tmpHasStaged   = !!(pGit && pGit.HasStaged);
+		let tmpHasUnstaged = !!(pGit && pGit.HasUnstaged);
+		let tmpDirtyState = null;
+		if      (tmpHasUnstaged) { tmpDirtyState = 'unstaged'; }
+		else if (tmpHasStaged)   { tmpDirtyState = 'staged'; }
+		else if (tmpAhead > 0)   { tmpDirtyState = 'unpushed'; }
+		else if (pGit && pGit.Dirty) { tmpDirtyState = 'unstaged'; } // pre-upgrade fallback
+
+		let tmpDirtyTip = '';
+		if (tmpDirtyState)
+		{
+			let tmpParts = [];
+			if (tmpHasUnstaged) { tmpParts.push('Unstaged changes'); }
+			if (tmpHasStaged)   { tmpParts.push('Staged (uncommitted)'); }
+			if (!tmpHasUnstaged && !tmpHasStaged && pGit && pGit.Dirty) { tmpParts.push('Uncommitted changes'); }
+			if (tmpAhead > 0) { tmpParts.push(tmpAhead + ' unpushed commit' + (tmpAhead === 1 ? '' : 's')); }
+			tmpDirtyTip = tmpParts.join(' · ');
+		}
 
 		// Header is always shown (drives both the collapsed and expanded forms).
 		let tmpHtml = ''
@@ -275,7 +295,10 @@ class ManagerModuleWorkspaceView extends libPictView
 			+ '<span class="ib-name">' + this._escape(pManifest.Name) + '</span>'
 			+ (tmpVersion ? '<span class="ib-version">' + this._escape(tmpVersion) + '</span>' : '')
 			+ (tmpBranch  ? '<span class="ib-branch">' + this._escape(tmpBranch) + '</span>'   : '')
-			+ (tmpDirty   ? '<span class="ib-dirty" title="Uncommitted changes">' + tmpDirty + '</span>' : '')
+			+ (tmpDirtyState
+				? '<span class="ib-dirty ib-dirty--' + tmpDirtyState + '" title="'
+					+ this._escape(tmpDirtyTip) + '">●</span>'
+				: '')
 			+ '<span class="ib-toggle"></span>'
 			+ '</div>';
 
