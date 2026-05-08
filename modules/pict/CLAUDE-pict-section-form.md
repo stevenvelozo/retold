@@ -1,0 +1,184 @@
+# pict-section-form
+
+Form/dashboard rendering library for Pict applications. Manifests describe descriptors; the section-form metacontroller renders inputs (text, select, chart, etc.) into sections and groups based on a `PictForm` sub-property on each descriptor.
+
+This is a working-knowledge reference for adding inputs/charts/forms in the host app. Pair it with [CLAUDE.md](CLAUDE.md) (general Pict patterns) and [CLAUDE-pict-section-recordset.md](CLAUDE-pict-section-recordset.md) (which transitively uses this library).
+
+## Where things live
+
+| Path | What it is |
+|---|---|
+| `pict-section-form/source/Pict-Section-Form.js` | Main service entry point |
+| `pict-section-form/source/providers/inputs/` | Per-`InputType` providers — Chart, Select, ReadOnly, AutofillTriggerGroup, etc. |
+| `pict-section-form/source/providers/layouts/` | Section/group layout providers |
+| `pict-section-form/source/providers/dynamictemplates/Pict-DynamicTemplates-DefaultFormTemplates.js` | The HTML emitted for each `InputType` (e.g. `CANVAS-FOR-{RawHTMLID}` for charts) |
+| `pict-section-form/example_applications/complex_table/` | **The reference example.** Working chart demos, solver expressions, recipe-style manifest |
+| `pict-section-form/example_applications/complex_table/Complex-Tabular-Application.js` | Full descriptor catalog incl. multiple chart shapes |
+
+When in doubt: read `complex_table/Complex-Tabular-Application.js` and copy a descriptor that's close to what you want.
+
+## Descriptor shape (the unit of work)
+
+Every input is a descriptor. Common shape:
+
+```js
+"DescriptorKey":
+{
+    Name: "Display Name",
+    Hash: "DescriptorKey",       // must match the object key
+    DataType: "String",          // String, PreciseNumber, Number, Object, Boolean, ...
+    Default: "",                 // optional initial value
+    PictForm:
+    {
+        Section: "SectionA",     // visual grouping (top-level)
+        Group:   "GroupA",       // sub-grouping within a section
+        Row:     1,              // row within the group
+        Width:   3,              // 12-column grid; this cell occupies 3 cols
+        InputType: "Text",       // dispatch key — selects which input provider renders this
+        // ...InputType-specific properties below
+    }
+}
+```
+
+`Descriptors` is an object keyed by descriptor key. Manifests passed to the recordset's `manifestDefinitions` AND form configurations both use this shape — same descriptor catalog, two consumers.
+
+## InputType cheat sheet
+
+The dispatch key `PictForm.InputType` selects which provider renders the cell. Each provider lives at `source/providers/inputs/Pict-Provider-Input-<Type>.js`.
+
+| InputType | Use for | Notable extra properties |
+|---|---|---|
+| `Text` / `String` | Free text | `MaxLength`, `Placeholder` |
+| `TextArea` | Multi-line text | `Rows` |
+| `Number` / `PreciseNumber` | Numeric inputs | `Min`, `Max`, `Step` |
+| `Boolean` / `Checkbox` | Boolean toggle | — |
+| `Option` | Single-select dropdown | `SelectOptions`, `SelectOptionsPickList`, `Providers` (e.g. `Pict-Input-Select`) |
+| `MultiOption` | Multi-select | `SelectOptions` |
+| `Date` / `DateTime` | Date pickers | `DateFormat` |
+| `ReadOnly` | Computed display value | `ValueSolver` (see Solvers below) |
+| `Chart` | Chart.js visualization | See "Charts" section |
+| `TabGroupSelector` / `TabSectionSelector` | UI tab switchers | `TabGroupSet`, `TabGroupNames` |
+| `EntityBundleRequest` | Triggers a bundle refresh on change | `AutofillTriggerGroup` |
+
+The exhaustive list lives in the `inputs/` directory — `ls retold/modules/pict/pict-section-form/source/providers/inputs/` to scan.
+
+## Charts (`InputType: "Chart"`)
+
+The chart input is a Chart.js v4 wrapper. **`window.Chart` must be loaded** before pict initializes the input — host apps add `<script src="./chart.umd.js">` to their HTML and copy `chart.js/dist/chart.umd*` in their build's copyFiles step.
+
+The input provider is at [pict-section-form/source/providers/inputs/Pict-Provider-Input-Chart.js](pict-section-form/source/providers/inputs/Pict-Provider-Input-Chart.js). It emits a hidden config input + a canvas:
+
+```html
+<input type="hidden" id="CONFIG-FOR-{RawHTMLID}" value="">
+<canvas id="CANVAS-FOR-{RawHTMLID}"></canvas>
+```
+
+Then `onInputInitialize` instantiates `new window.Chart(canvas, config)` and stores the instance in `currentChartObjects`. `onDataMarshalToForm` re-runs the solver and updates the chart's `data` only when the JSON-stringified data has changed.
+
+### Chart descriptor shapes
+
+**Static data (raw):**
+
+```js
+"MyStaticBarChart":
+{
+    Name: "Sales by Region",
+    Hash: "MyStaticBarChart",
+    DataType: "Object",
+    PictForm:
+    {
+        Section: "Charts", Group: "Sales", Row: 1, Width: 6,
+        InputType: "Chart",
+        ChartType: "polarArea",                 // 'bar' | 'line' | 'pie' | 'polarArea' | 'doughnut' | 'radar'
+        ChartLabelsRaw:   ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
+        ChartDatasetsRaw: [{
+            label: 'My First Dataset',
+            data: [11, 16, 7, 3, 14],
+            backgroundColor: ['rgb(255, 99, 132)', 'rgb(75, 192, 192)', /* ... */]
+        }],
+        ChartConfigCorePrototypeRaw:
+        {
+            // Full Chart.js options passthrough — anything in here lands on the
+            // `new Chart(canvas, …)` config object. Use it for axes, plugins,
+            // legend position, tooltips, etc.
+            options: { scales: { y: { beginAtZero: true } }, plugins: { legend: { position: 'top' } } }
+        }
+    }
+}
+```
+
+**Dynamic data (solver-driven):**
+
+```js
+"DynamicCaloriesChart":
+{
+    Name: "Calories by Fruit",
+    Hash: "DynamicCaloriesChart",
+    DataType: "Object",
+    PictForm:
+    {
+        Section: "Charts", Group: "Stats", Row: 2, Width: 6,
+        InputType: "Chart",
+        ChartType: "bar",
+        ChartLabelsSolver:    `objectkeystoarray(aggregationhistogrambyobject(FruitGrid, "name", "nutritions.calories"))`,
+        ChartDatasetsSolvers:
+        [
+            { Label: 'Calories', DataSolver: `objectvaluestoarray(aggregationhistogrambyobject(FruitGrid, "name", "nutritions.calories"))` }
+        ]
+    }
+}
+```
+
+`ChartLabelsSolver` returns an array of labels. Each entry in `ChartDatasetsSolvers` defines one series — `Label` is the legend text and `DataSolver` returns the array of numbers for that series. You can mix multiple datasets to render stacked/grouped charts.
+
+### Verified solver helpers
+
+The chart provider evaluates solver strings through the manyfest expression engine. These are the helpers I've seen used in the wild (in `complex_table`):
+
+| Helper | Returns | Example |
+|---|---|---|
+| `aggregationhistogrambyobject(arrayAddress, keyField, valueField)` | object: `{ keyValue: aggregatedNumber }` | aggregates `valueField` into buckets keyed by `keyField` |
+| `objectkeystoarray(obj)` | array of keys | turns the histogram into chart labels |
+| `objectvaluestoarray(obj)` | array of values | turns the histogram into chart series data |
+
+The first arg of `aggregationhistogrambyobject` is **a manifest data address** (e.g. `FruitGrid` references the data at the address `FruitGrid` on the form scope; `Records` references the recordset's records when this manifest is consumed by pict-section-recordset). Quote string args with double quotes.
+
+If you need other helpers, grep `pict-section-form` and `manyfest` for `addExpression` / `addCustomFunction` to see what's registered. Don't invent helper names — verify they exist before relying on them.
+
+### Chart lifecycle quirks
+
+- The chart is instantiated **once** in `onInputInitialize` and reused on subsequent data changes. Don't expect `addEventListener` on the canvas to be called on every render — the canvas DOM node is stable across renders.
+- If `window.Chart` is not loaded at init time, the provider logs a warning and does **not** retry. Make sure the script tag is present and ordered before the app's bundle.
+- Updating the chart calls `chart.update()` only when the JSON-stringified `data` differs from the previously-applied data. Mutating the data object in place won't trigger an update; replace it.
+
+## Solvers and `ValueSolver`
+
+For non-chart descriptors, `ValueSolver` (on `PictForm`) computes a value from form/recordset data. Used heavily for KPI tiles and computed display fields. The solver expression evaluates against the same manyfest scope that templates render against — typically the record / row / form data.
+
+```js
+"TotalKPI":
+{
+    Hash: "TotalKPI", Name: "Total", DataType: "PreciseNumber",
+    PictForm:
+    {
+        Section: "KPIs", Group: "Summary", Row: 1, Width: 3,
+        InputType: "ReadOnly",
+        ValueSolver: `sum(SomeArrayAddress, "fieldName")`
+    }
+}
+```
+
+Same caveat: verify the helper exists before relying on it.
+
+## Layout: Sections, Groups, Rows, Widths
+
+`PictForm.Section`, `Group`, `Row`, `Width` (1–12, Bulma column units) wire descriptors into the form's visual layout. The metacontroller groups descriptors by section → group → row → width-ordered cells.
+
+Tabs are first-class: `InputType: "TabSectionSelector"` with `TabSectionSet` / `TabSectionNames` produces clickable tabs that swap which sections are visible. `complex_table` uses both `TabGroupSelector` and `TabSectionSelector`.
+
+## When you're stuck
+
+1. `complex_table/Complex-Tabular-Application.js` — descriptors for charts, lookups, autofills, multi-select, computed values. **First place to look.**
+2. The HTML template emitted for any input lives in [Pict-DynamicTemplates-DefaultFormTemplates.js](pict-section-form/source/providers/dynamictemplates/Pict-DynamicTemplates-DefaultFormTemplates.js) — search for `CANVAS-FOR`, `INPUT-FOR`, etc. to see exactly what DOM gets generated for each `InputType`.
+3. The provider source under `source/providers/inputs/Pict-Provider-Input-<Type>.js` — every InputType has one. Read its `onInputInitialize` and `onDataMarshalToForm` to understand the lifecycle.
+4. **Don't fabricate solver helper names.** If `aggregationhistogrambyobject` isn't enough, grep manyfest's expression registrations or compose simpler helpers.
