@@ -51,6 +51,7 @@ const _ViewConfiguration =
 
 	Templates:
 	[
+		// ── Empty state when no plan is pending ───────────────────
 		{
 			Hash: 'Manager-Ripple-Empty-Template',
 			Template: /*html*/`
@@ -60,10 +61,112 @@ const _ViewConfiguration =
 </div>
 `
 		},
+
+		// ── Top-level: dispatches to either the Empty or the
+		//    populated planner template based on a single-element
+		//    array slot in AppData. Same conditional pattern as the
+		//    rest of the manager.
 		{
 			Hash: 'Manager-Ripple-Content-Template',
-			Template: /*html*/`{~D:Record.Html~}`
-		}
+			Template: /*html*/`{~TS:Manager-Ripple-Empty-Template:Record.EmptySlot~}{~TS:Manager-Ripple-Plan-Template:Record.PlanSlot~}`
+		},
+
+		// ── Plan view with header + control row + timeline ────────
+		{
+			Hash: 'Manager-Ripple-Plan-Template',
+			Template: /*html*/`
+<div class="ripple-plan">
+	<div class="ripple-header">
+		<span class="title">Ripple: {~TS:Manager-Ripple-RootSingle-Template:Record.RootSingleSlot~}{~TS:Manager-Ripple-RootMulti-Template:Record.RootMultiSlot~}</span>
+		<span class="meta">{~D:Record.StepCount~} steps · producer {~D:Record.ProducerBumpKind~} / consumer {~D:Record.ConsumerBumpKind~} bump</span>
+	</div>
+	<div class="action-row" style="margin-bottom:12px">
+		{~TS:Manager-Ripple-StartBtn-Template:Record.StartBtnSlot~}
+		{~TS:Manager-Ripple-CancelBtn-Template:Record.CancelBtnSlot~}
+		<button class="action" onclick="_Pict.views['Manager-Ripple'].handleAction('ripple-exit')">Back to workspace</button>
+	</div>
+	<div class="ripple-timeline">
+		{~TS:Manager-Ripple-Step-Template:Record.Steps~}
+	</div>
+</div>
+`
+		},
+		{
+			Hash: 'Manager-Ripple-RootSingle-Template',
+			Template: /*html*/`<span class="target">{~D:Record.Name~}</span>`
+		},
+		{
+			Hash: 'Manager-Ripple-RootMulti-Template',
+			Template: /*html*/`<span class="target" title="{~D:Record.AllTitle~}">{~D:Record.Count~} producers: {~D:Record.Shown~}{~D:Record.ExtraSuffix~}</span>`
+		},
+		{
+			Hash: 'Manager-Ripple-StartBtn-Template',
+			Template: /*html*/`<button class="action primary" onclick="_Pict.views['Manager-Ripple'].handleAction('ripple-start')">Start ripple</button>`
+		},
+		{
+			Hash: 'Manager-Ripple-CancelBtn-Template',
+			Template: /*html*/`<button class="action danger" onclick="_Pict.views['Manager-Ripple'].handleAction('ripple-cancel')">Cancel ripple</button>`
+		},
+
+		// ── One step row ──────────────────────────────────────────
+		{
+			Hash: 'Manager-Ripple-Step-Template',
+			Template: /*html*/`
+<div class="ripple-step {~D:Record.Status~}" data-order="{~D:Record.Order~}">
+	<div class="step-row">
+		<span class="step-order">{~D:Record.OrderLabel~}.</span>
+		<span class="step-module">{~D:Record.Module~}</span>
+		<span class="step-kind">{~D:Record.KindLabel~}</span>
+		<span class="step-status">{~D:Record.StatusLabel~}</span>
+	</div>
+	<div class="step-actions">
+		{~TS:Manager-Ripple-ActionChip-Template:Record.Actions~}
+	</div>
+	{~TS:Manager-Ripple-Approve-Template:Record.ApproveSlot~}
+	{~TS:Manager-Ripple-Output-Template:Record.OutputSlot~}
+</div>
+`
+		},
+		{
+			Hash: 'Manager-Ripple-ActionChip-Template',
+			Template: /*html*/`<span class="step-action {~D:Record.State~}">{~D:Record.Label~}</span>`
+		},
+		{
+			Hash: 'Manager-Ripple-Approve-Template',
+			Template: /*html*/`
+<div class="step-approve">
+	<span class="hint">Publish confirmation required — {~D:Record.Package~} v{~D:Record.LocalVersion~}</span>
+	{~TS:Manager-Ripple-Approve-Btn-Template:Record.BtnSlot~}
+	{~TS:Manager-Ripple-Approve-Block-Template:Record.BlockSlot~}
+</div>
+`
+		},
+		{
+			Hash: 'Manager-Ripple-Approve-Btn-Template',
+			Template: /*html*/`<button class="action success" onclick="_Pict.views['Manager-Ripple'].handleAction('ripple-approve', {~D:Record.Order~})">Approve &amp; publish</button>`
+		},
+		{
+			Hash: 'Manager-Ripple-Approve-Block-Template',
+			Template: /*html*/`<span style="color:var(--color-danger)">Pre-publish validation failed; ripple will halt.</span>`
+		},
+		{
+			Hash: 'Manager-Ripple-Output-Template',
+			Template: /*html*/`
+<div class="step-output {~D:Record.OpenClass~}">
+	<button class="step-output-toggle" onclick="_Pict.views['Manager-Ripple'].handleAction('ripple-toggle-output', {~D:Record.Order~})">{~D:Record.ToggleLabel~} output ({~D:Record.LineCount~} lines)</button>
+	<pre class="step-output-body">{~TS:Manager-Ripple-Output-Empty-Template:Record.EmptySlot~}{~TS:Manager-Ripple-Output-Line-Template:Record.Lines~}</pre>
+</div>
+`
+		},
+		{
+			Hash: 'Manager-Ripple-Output-Empty-Template',
+			Template: /*html*/`<span class="line meta">(no output yet)</span>`
+		},
+		{
+			Hash: 'Manager-Ripple-Output-Line-Template',
+			Template: /*html*/`<span class="line {~D:Record.Class~}">{~D:Record.Text~}</span>
+`
+		},
 	],
 
 	Renderables:
@@ -100,8 +203,7 @@ class ManagerRippleView extends libPictView
 		let tmpPlan = this.pict.AppData.Manager.RipplePlan;
 		if (!tmpPlan)
 		{
-			// No plan pending — show the empty state.
-			this._writeRecord({ Html: this.pict.parseTemplateByHash('Manager-Ripple-Empty-Template', {}) });
+			this._writeRecord(this._buildEmptyRecord());
 			this.render();
 			return;
 		}
@@ -138,9 +240,21 @@ class ManagerRippleView extends libPictView
 
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)
 	{
-		this._wireButtons();
 		this.pict.CSSMap.injectCSS();
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
+	}
+
+	// Public — invoked from inline onclick handlers in the timeline.
+	handleAction(pAct, pOrder)
+	{
+		switch (pAct)
+		{
+			case 'ripple-start':         return this.startRipple();
+			case 'ripple-cancel':        return this.cancelRipple();
+			case 'ripple-exit':          return this.exitRipple();
+			case 'ripple-approve':       return this.approveStep(parseInt(pOrder, 10));
+			case 'ripple-toggle-output': return this.toggleOutput(parseInt(pOrder, 10));
+		}
 	}
 
 	// ─────────────────────────────────────────────
@@ -163,13 +277,13 @@ class ManagerRippleView extends libPictView
 			{
 				case 'stdout':
 					this._appendStepOutput(tmpIdx, (pFrame.Channel === 'stderr') ? 'stderr' : '', pFrame.Text);
-					this._renderStepOutput(tmpIdx);
+					this._refresh();
 					return;
 				case 'progress':
 					if (pFrame.Message)
 					{
 						this._appendStepOutput(tmpIdx, 'meta', '... ' + pFrame.Message);
-						this._renderStepOutput(tmpIdx);
+						this._refresh();
 					}
 					return;
 				case 'complete':
@@ -178,11 +292,11 @@ class ManagerRippleView extends libPictView
 						pFrame.ExitCode === 0
 							? ('done' + (pFrame.Duration ? ' ' + pFrame.Duration : ''))
 							: ('exit ' + pFrame.ExitCode + (pFrame.Duration ? ' (' + pFrame.Duration + ')' : '')));
-					this._renderStepOutput(tmpIdx);
+					this._refresh();
 					return;
 				case 'error':
 					this._appendStepOutput(tmpIdx, 'error', 'error: ' + (pFrame.Error || 'unknown'));
-					this._renderStepOutput(tmpIdx);
+					this._refresh();
 					return;
 			}
 			return;
@@ -323,7 +437,8 @@ class ManagerRippleView extends libPictView
 	}
 
 	// ─────────────────────────────────────────────
-	//  Rendering internals
+	//  Rendering — pure data shaping. The templates above own all
+	//  the markup; this method just produces the records they iterate.
 	// ─────────────────────────────────────────────
 
 	_refresh()
@@ -331,41 +446,149 @@ class ManagerRippleView extends libPictView
 		let tmpRipple = this.pict.AppData.Manager.ActiveRipple;
 		if (!tmpRipple)
 		{
-			this._writeRecord({ Html: this.pict.parseTemplateByHash('Manager-Ripple-Empty-Template', {}) });
+			this._writeRecord(this._buildEmptyRecord());
 			this.render();
 			return;
 		}
-		this._writeRecord({ Html: this._buildHtml(tmpRipple) });
+		this._writeRecord(this._buildPlanRecord(tmpRipple));
 		this.render();
+	}
+
+	_buildEmptyRecord()
+	{
+		return { EmptySlot: [{}], PlanSlot: [] };
+	}
+
+	_buildPlanRecord(pRipple)
+	{
+		let tmpPlan  = pRipple.Plan;
+		let tmpSteps = pRipple.Steps;
+
+		// Multi-root header: list every selected producer (truncate to 3 +
+		// overflow count, full list available on hover via title attr).
+		let tmpRoots = (Array.isArray(tmpPlan.Roots) && tmpPlan.Roots.length > 0)
+			? tmpPlan.Roots
+			: [tmpPlan.Root];
+		let tmpRootSingleSlot = [];
+		let tmpRootMultiSlot  = [];
+		if (tmpRoots.length === 1)
+		{
+			tmpRootSingleSlot.push({ Name: tmpRoots[0] });
+		}
+		else
+		{
+			let tmpShown = tmpRoots.slice(0, 3).join(', ');
+			let tmpExtraSuffix = (tmpRoots.length > 3) ? (' +' + (tmpRoots.length - 3) + ' more') : '';
+			tmpRootMultiSlot.push({
+				Count:        tmpRoots.length,
+				Shown:        tmpShown,
+				ExtraSuffix:  tmpExtraSuffix,
+				AllTitle:     tmpRoots.join(', '),
+			});
+		}
+
+		let tmpStartBtnSlot  = (pRipple.Status === 'draft') ? [{}] : [];
+		let tmpCancelBtnSlot = (pRipple.Status === 'running' || pRipple.Status === 'paused' || pRipple.Status === 'starting') ? [{}] : [];
+
+		let tmpStepRecords = [];
+		for (let i = 0; i < tmpSteps.length; i++)
+		{
+			tmpStepRecords.push(this._buildStepRecord(tmpSteps[i], tmpPlan.Steps[i]));
+		}
+
+		return {
+			EmptySlot:        [],
+			PlanSlot:
+			[{
+				StepCount:        tmpSteps.length,
+				ProducerBumpKind: tmpPlan.Options.ProducerBumpKind || 'patch',
+				ConsumerBumpKind: tmpPlan.Options.ConsumerBumpKind || 'patch',
+
+				RootSingleSlot:   tmpRootSingleSlot,
+				RootMultiSlot:    tmpRootMultiSlot,
+
+				StartBtnSlot:     tmpStartBtnSlot,
+				CancelBtnSlot:    tmpCancelBtnSlot,
+
+				Steps:            tmpStepRecords,
+			}],
+		};
+	}
+
+	_buildStepRecord(pState, pPlanStep)
+	{
+		let tmpStatusText = STATUS_LABEL[pState.Status] || pState.Status;
+
+		// Action chips inside this step.
+		let tmpActionRecords = [];
+		for (let i = 0; i < pPlanStep.Actions.length; i++)
+		{
+			tmpActionRecords.push({
+				State: pState.ActionStates[i] || 'pending',
+				Label: this._formatActionLabel(pPlanStep.Actions[i]),
+			});
+		}
+
+		// Approve block (paused + report present).
+		let tmpApproveSlot = [];
+		if (pState.Status === 'paused' && pState.PauseReport)
+		{
+			let tmpReport = pState.PauseReport;
+			tmpApproveSlot.push({
+				Package:      tmpReport.Package,
+				LocalVersion: tmpReport.LocalVersion,
+				Order:        pState.Order,
+				BtnSlot:      tmpReport.OkToPublish ? [{ Order: pState.Order }] : [],
+				BlockSlot:    tmpReport.OkToPublish ? [] : [{}],
+			});
+		}
+
+		// Output block (when there's anything to show or the step is currently running).
+		let tmpOutputSlot = [];
+		if ((pState.Output && pState.Output.length > 0) || pState.Status === 'running')
+		{
+			let tmpAutoExpand = (pState.Status === 'running' || pState.Status === 'failed' || pState.ShowOutput);
+			let tmpLines      = pState.Output || [];
+
+			let tmpLineRecords = [];
+			for (let i = 0; i < tmpLines.length; i++)
+			{
+				let tmpLine = tmpLines[i];
+				let tmpCls = '';
+				if (tmpLine.Kind === 'stderr') { tmpCls = 'stderr'; }
+				else if (tmpLine.Kind === 'meta' || tmpLine.Kind === 'action') { tmpCls = 'meta'; }
+				else if (tmpLine.Kind === 'success') { tmpCls = 'success'; }
+				else if (tmpLine.Kind === 'error')   { tmpCls = 'error'; }
+				tmpLineRecords.push({ Class: tmpCls, Text: tmpLine.Text });
+			}
+
+			tmpOutputSlot.push({
+				Order:        pState.Order,
+				OpenClass:    tmpAutoExpand ? 'open' : '',
+				ToggleLabel:  tmpAutoExpand ? '[hide]' : '[show]',
+				LineCount:    tmpLines.length,
+				EmptySlot:    tmpLines.length === 0 ? [{}] : [],
+				Lines:        tmpLineRecords,
+			});
+		}
+
+		return {
+			Order:        pState.Order,
+			OrderLabel:   pState.Order + 1,
+			Module:       pState.Module,
+			KindLabel:    pPlanStep.Kind + ' · ' + pPlanStep.Group,
+			Status:       pState.Status,
+			StatusLabel:  tmpStatusText,
+			Actions:      tmpActionRecords,
+			ApproveSlot:  tmpApproveSlot,
+			OutputSlot:   tmpOutputSlot,
+		};
 	}
 
 	_writeRecord(pRecord)
 	{
 		if (!this.pict.AppData.Manager.ViewRecord) { this.pict.AppData.Manager.ViewRecord = {}; }
 		this.pict.AppData.Manager.ViewRecord.Ripple = pRecord;
-	}
-
-	_wireButtons()
-	{
-		let tmpWs = document.getElementById('RM-Workspace');
-		if (!tmpWs) { return; }
-		let tmpButtons = tmpWs.querySelectorAll('button[data-act]');
-		for (let i = 0; i < tmpButtons.length; i++)
-		{
-			tmpButtons[i].addEventListener('click', (pEvent) =>
-				{
-					let tmpAct   = pEvent.currentTarget.getAttribute('data-act');
-					let tmpOrder = pEvent.currentTarget.getAttribute('data-order');
-					switch (tmpAct)
-					{
-						case 'ripple-start':         return this.startRipple();
-						case 'ripple-cancel':        return this.cancelRipple();
-						case 'ripple-exit':          return this.exitRipple();
-						case 'ripple-approve':       return this.approveStep(parseInt(tmpOrder, 10));
-						case 'ripple-toggle-output': return this.toggleOutput(parseInt(tmpOrder, 10));
-					}
-				});
-		}
 	}
 
 	_appendStepOutput(pStepOrder, pKind, pText)
@@ -379,146 +602,6 @@ class ManagerRippleView extends libPictView
 		{
 			tmpStep.Output.splice(0, tmpStep.Output.length - 2000);
 		}
-	}
-
-	_renderStepOutput(pStepOrder)
-	{
-		let tmpRipple = this.pict.AppData.Manager.ActiveRipple;
-		if (!tmpRipple) { return; }
-		let tmpStep = tmpRipple.Steps[pStepOrder];
-		if (!tmpStep) { return; }
-		let tmpPanel = document.querySelector('.ripple-step[data-order="' + pStepOrder + '"] .step-output-body');
-		if (!tmpPanel) { return; }
-		tmpPanel.innerHTML = this._renderStepOutputLines(tmpStep);
-		tmpPanel.scrollTop = tmpPanel.scrollHeight;
-	}
-
-	_renderStepOutputLines(pStep)
-	{
-		if (!pStep.Output || pStep.Output.length === 0) { return '<span class="line meta">(no output yet)</span>'; }
-		let tmpParts = [];
-		for (let i = 0; i < pStep.Output.length; i++)
-		{
-			let tmpLine = pStep.Output[i];
-			let tmpCls = 'line';
-			if (tmpLine.Kind === 'stderr') { tmpCls += ' stderr'; }
-			else if (tmpLine.Kind === 'meta' || tmpLine.Kind === 'action') { tmpCls += ' meta'; }
-			else if (tmpLine.Kind === 'success') { tmpCls += ' success'; }
-			else if (tmpLine.Kind === 'error')   { tmpCls += ' error'; }
-			tmpParts.push('<span class="' + tmpCls + '">' + this._escape(tmpLine.Text) + '</span>');
-		}
-		return tmpParts.join('\n');
-	}
-
-	_buildHtml(pRipple)
-	{
-		let tmpPlan  = pRipple.Plan;
-		let tmpSteps = pRipple.Steps;
-
-		// Multi-root header: list every selected producer (truncate to 3 +
-		// overflow count, full list available on hover via title attr).
-		let tmpRoots = (Array.isArray(tmpPlan.Roots) && tmpPlan.Roots.length > 0)
-			? tmpPlan.Roots
-			: [tmpPlan.Root];
-		let tmpRootsLabel;
-		if (tmpRoots.length === 1)
-		{
-			tmpRootsLabel = '<span class="target">' + this._escape(tmpRoots[0]) + '</span>';
-		}
-		else
-		{
-			let tmpShown = tmpRoots.slice(0, 3).map((pR) => this._escape(pR)).join(', ');
-			let tmpExtra = (tmpRoots.length > 3) ? (' +' + (tmpRoots.length - 3) + ' more') : '';
-			tmpRootsLabel = '<span class="target" title="' + this._escape(tmpRoots.join(', ')) + '">'
-				+ tmpRoots.length + ' producers: ' + tmpShown + tmpExtra + '</span>';
-		}
-
-		let tmpHtml = '<div class="ripple-plan">';
-		tmpHtml += '<div class="ripple-header">';
-		tmpHtml += '  <span class="title">Ripple: ' + tmpRootsLabel + '</span>';
-		tmpHtml += '  <span class="meta">' + tmpSteps.length + ' steps · producer '
-			+ this._escape(tmpPlan.Options.ProducerBumpKind || 'patch') + ' / consumer '
-			+ this._escape(tmpPlan.Options.ConsumerBumpKind || 'patch') + ' bump</span>';
-		tmpHtml += '</div>';
-
-		tmpHtml += '<div class="action-row" style="margin-bottom:12px">';
-		if (pRipple.Status === 'draft')
-		{
-			tmpHtml += '<button class="action primary" data-act="ripple-start">Start ripple</button>';
-		}
-		if (pRipple.Status === 'running' || pRipple.Status === 'paused' || pRipple.Status === 'starting')
-		{
-			tmpHtml += '<button class="action danger" data-act="ripple-cancel">Cancel ripple</button>';
-		}
-		tmpHtml += '<button class="action" data-act="ripple-exit">Back to workspace</button>';
-		tmpHtml += '</div>';
-
-		tmpHtml += '<div class="ripple-timeline">';
-		for (let i = 0; i < tmpSteps.length; i++)
-		{
-			tmpHtml += this._renderStep(tmpSteps[i], tmpPlan.Steps[i]);
-		}
-		tmpHtml += '</div>';
-		tmpHtml += '</div>';
-
-		return tmpHtml;
-	}
-
-	_renderStep(pState, pPlanStep)
-	{
-		let tmpStatusText = STATUS_LABEL[pState.Status] || pState.Status;
-
-		let tmpHtml = '<div class="ripple-step ' + pState.Status + '" data-order="' + pState.Order + '">';
-		tmpHtml += '  <div class="step-row">';
-		tmpHtml += '    <span class="step-order">' + (pState.Order + 1) + '.</span>';
-		tmpHtml += '    <span class="step-module">' + this._escape(pState.Module) + '</span>';
-		tmpHtml += '    <span class="step-kind">' + this._escape(pPlanStep.Kind) + ' · ' + this._escape(pPlanStep.Group) + '</span>';
-		tmpHtml += '    <span class="step-status">' + this._escape(tmpStatusText) + '</span>';
-		tmpHtml += '  </div>';
-
-		tmpHtml += '  <div class="step-actions">';
-		for (let i = 0; i < pPlanStep.Actions.length; i++)
-		{
-			let tmpAction = pPlanStep.Actions[i];
-			let tmpState  = pState.ActionStates[i] || 'pending';
-			tmpHtml += '<span class="step-action ' + tmpState + '">' + this._escape(this._formatActionLabel(tmpAction)) + '</span>';
-		}
-		tmpHtml += '  </div>';
-
-		if (pState.Status === 'paused' && pState.PauseReport)
-		{
-			let tmpReport = pState.PauseReport;
-			tmpHtml += '  <div class="step-approve">';
-			tmpHtml += '    <span class="hint">Publish confirmation required — '
-				+ this._escape(tmpReport.Package) + ' v'
-				+ this._escape(tmpReport.LocalVersion) + '</span>';
-			if (tmpReport.OkToPublish)
-			{
-				tmpHtml += '    <button class="action success" data-act="ripple-approve" data-order="'
-					+ pState.Order + '">Approve & publish</button>';
-			}
-			else
-			{
-				tmpHtml += '    <span style="color:var(--color-danger)">Pre-publish validation failed; ripple will halt.</span>';
-			}
-			tmpHtml += '  </div>';
-		}
-
-		let tmpAutoExpand = (pState.Status === 'running' || pState.Status === 'failed' || pState.ShowOutput);
-		if ((pState.Output && pState.Output.length > 0) || pState.Status === 'running')
-		{
-			tmpHtml += '  <div class="step-output' + (tmpAutoExpand ? ' open' : '') + '">';
-			tmpHtml += '    <button class="step-output-toggle" data-act="ripple-toggle-output" data-order="'
-				+ pState.Order + '">'
-				+ (tmpAutoExpand ? '[hide]' : '[show]') + ' output ('
-				+ (pState.Output ? pState.Output.length : 0) + ' lines)'
-				+ '</button>';
-			tmpHtml += '    <pre class="step-output-body">' + this._renderStepOutputLines(pState) + '</pre>';
-			tmpHtml += '  </div>';
-		}
-
-		tmpHtml += '</div>';
-		return tmpHtml;
 	}
 
 	_formatActionLabel(pAction)
@@ -544,17 +627,6 @@ class ManagerRippleView extends libPictView
 			case 'push':                 return 'git push';
 			default:                     return pAction.Op;
 		}
-	}
-
-	_escape(pText)
-	{
-		let tmpS = String(pText == null ? '' : pText);
-		return tmpS
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;')
-			.replace(/'/g, '&#39;');
 	}
 }
 

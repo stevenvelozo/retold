@@ -19,6 +19,7 @@
  */
 
 const libPath = require('path');
+const libFS = require('fs');
 
 const libFable = require('fable');
 const libOrator = require('orator');
@@ -210,8 +211,48 @@ function setupRetoldManagerServer(pOptions, fCallback)
 				null,
 				buildRuntimeCDNFallbackMap());
 
-			// Root → html/index.html. Registered last so the specific routes above win.
-			tmpOrator.addStaticRoute(`${tmpSourceRoot}/html/`, 'index.html');
+			// Root → html/index.html, served via a dynamic handler that
+			// rewrites every <script src="app/*.js"> and <link href="css/*.css">
+			// to append a `?v=<mtime>` cache-buster. Without this browsers can
+			// keep serving a stale bundle for hours after a rebuild — we
+			// publish a new bundle on every iteration during development, so
+			// stale caches are how "I changed the code but nothing changed
+			// in the browser" happens.
+			let tmpIndexPath = libPath.join(`${tmpSourceRoot}/html/`, 'index.html');
+			let tmpAppRoot   = `${tmpSourceRoot}/web-application/`;
+			let tmpCssRoot   = `${tmpSourceRoot}/css/`;
+			let tmpFingerprint = function (pAbsPath)
+				{
+					try { return Math.floor(libFS.statSync(pAbsPath).mtimeMs); }
+					catch (pErr) { return Date.now(); }
+				};
+			tmpOrator.serviceServer.doGet('/', function (pReq, pRes, pNext)
+				{
+					libFS.readFile(tmpIndexPath, 'utf8', function (pReadErr, pHTML)
+					{
+						if (pReadErr)
+						{
+							pRes.send(500, { Message: 'Failed to read index.html' });
+							return pNext();
+						}
+						let tmpRewritten = pHTML
+							.replace(/(src=["'])app\/([^"']+\.js)(["'])/g, function (pMatch, pPre, pFile, pPost)
+								{
+									let tmpV = tmpFingerprint(libPath.join(tmpAppRoot, pFile));
+									return pPre + 'app/' + pFile + '?v=' + tmpV + pPost;
+								})
+							.replace(/(href=["'])css\/([^"']+\.css)(["'])/g, function (pMatch, pPre, pFile, pPost)
+								{
+									let tmpV = tmpFingerprint(libPath.join(tmpCssRoot, pFile));
+									return pPre + 'css/' + pFile + '?v=' + tmpV + pPost;
+								});
+						pRes.setHeader('Content-Type', 'text/html; charset=utf-8');
+						pRes.setHeader('Cache-Control', 'no-cache, must-revalidate');
+						pRes.write(tmpRewritten);
+						pRes.end();
+						return pNext();
+					});
+				});
 
 			// ─────────────────────────────────────────────
 			//  Listen — bypass orator.startService() so we can pass a host.

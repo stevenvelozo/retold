@@ -12,29 +12,107 @@ const _ViewConfiguration =
 
 	Templates:
 	[
+		// ── Modal shell ───────────────────────────────────────────
 		{
 			Hash: 'Manager-Modal-Publish-Template',
 			Template: /*html*/`
-<div class="modal-backdrop" onclick="if(event.target===this){window._Pict.views['Manager-Modal-Publish'].close();}">
+<div class="modal-backdrop" onclick="if(event.target===this){_Pict.views['Manager-Modal-Publish'].close();}">
 	<div class="modal" style="min-width:640px">
 		<h3>Publish &mdash; {~D:Record.ModuleName~}</h3>
 		<p style="color:var(--color-muted);font-size:12px;margin:0 0 6px">{~D:Record.SubTitle~}</p>
-		<div class="preview-panel" id="RM-PreviewPanel">{~D:Record.PreviewHtml~}</div>
+		<div class="preview-panel" id="RM-PreviewPanel">
+			{~TS:Manager-Modal-Publish-Loading-Template:Record.LoadingSlot~}
+			{~TS:Manager-Modal-Publish-Error-Template:Record.ErrorSlot~}
+			{~TS:Manager-Modal-Publish-Preview-Template:Record.PreviewSlot~}
+		</div>
 		<div class="modal-actions">
-			<button class="action" onclick="{~P~}.views['Manager-Modal-Publish'].close()">Close</button>
+			<button class="action" onclick="_Pict.views['Manager-Modal-Publish'].close()">Close</button>
 			<button class="action primary"
-				onclick="{~P~}.views['Manager-Modal-Publish'].planRipple()"
+				onclick="_Pict.views['Manager-Modal-Publish'].planRipple()"
 				title="Plan a ripple publish starting from this module (closes this dialog and opens the ripple planner with this module pre-selected)">Plan ripple...</button>
 			<button class="action success" id="RM-PublishSubmit"
-				onclick="{~P~}.views['Manager-Modal-Publish'].submit(false)" disabled>Publish to npm</button>
+				onclick="_Pict.views['Manager-Modal-Publish'].submit(false)" disabled>Publish to npm</button>
 			<button class="action success" id="RM-PublishSubmitDocker"
-				onclick="{~P~}.views['Manager-Modal-Publish'].submit(true)" disabled
+				onclick="_Pict.views['Manager-Modal-Publish'].submit(true)" disabled
 				title="Also rebuild + push the GHCR docker image (multi-arch build, several minutes)">Publish + Docker image</button>
 		</div>
 	</div>
 </div>
 `
-		}
+		},
+
+		// ── States ─────────────────────────────────────────────────
+		{
+			Hash: 'Manager-Modal-Publish-Loading-Template',
+			Template: /*html*/`<em>{~D:Record.Message~}</em>`
+		},
+		{
+			Hash: 'Manager-Modal-Publish-Error-Template',
+			Template: /*html*/`<span style="color:var(--color-danger)">Preview failed: {~D:Record.Message~}</span>`
+		},
+
+		// ── Preview report (verdict + sections) ───────────────────
+		{
+			Hash: 'Manager-Modal-Publish-Preview-Template',
+			Template: /*html*/`
+<span class="preview-verdict {~D:Record.VerdictClass~}">{~D:Record.VerdictLabel~}</span><br>
+<strong>Package:</strong> {~D:Record.Package~}<br>
+<strong>Local:</strong> v{~D:Record.LocalVersion~}<br>
+{~TS:Manager-Modal-Publish-NpmYes-Template:Record.NpmYesSlot~}{~TS:Manager-Modal-Publish-NpmNo-Template:Record.NpmNoSlot~}
+{~TS:Manager-Modal-Publish-Problems-Template:Record.ProblemsSlot~}
+{~TS:Manager-Modal-Publish-Deps-Template:Record.DepsSlot~}
+{~TS:Manager-Modal-Publish-Commits-Template:Record.CommitsSlot~}
+{~TS:Manager-Modal-Publish-SubmitError-Template:Record.SubmitErrorSlot~}
+`
+		},
+		{
+			Hash: 'Manager-Modal-Publish-NpmYes-Template',
+			Template: /*html*/`<strong>npm:</strong> v{~D:Record.Version~}<br>`
+		},
+		{
+			Hash: 'Manager-Modal-Publish-NpmNo-Template',
+			Template: /*html*/`<strong>npm:</strong> <em>(not yet published)</em><br>`
+		},
+		{
+			Hash: 'Manager-Modal-Publish-Problems-Template',
+			Template: /*html*/`
+<div style="margin-top:8px"><strong>Problems:</strong>
+	{~TS:Manager-Modal-Publish-ProblemRow-Template:Record.Items~}
+</div>
+`
+		},
+		{
+			Hash: 'Manager-Modal-Publish-ProblemRow-Template',
+			Template: /*html*/`<div class="dep {~D:Record.Cls~}">{~D:Record.Message~}</div>`
+		},
+		{
+			Hash: 'Manager-Modal-Publish-Deps-Template',
+			Template: /*html*/`
+<div style="margin-top:8px"><strong>Ecosystem deps ({~D:Record.Count~}):</strong>
+	{~TS:Manager-Modal-Publish-DepRow-Template:Record.Items~}
+</div>
+`
+		},
+		{
+			Hash: 'Manager-Modal-Publish-DepRow-Template',
+			Template: /*html*/`<div class="dep {~D:Record.Cls~}">{~D:Record.Mark~} {~D:Record.Name~}  {~D:Record.Range~}  {~D:Record.Suffix~}</div>`
+		},
+		{
+			Hash: 'Manager-Modal-Publish-Commits-Template',
+			Template: /*html*/`
+<div style="margin-top:8px"><strong>Recent commits:</strong>
+	{~TS:Manager-Modal-Publish-CommitRow-Template:Record.Items~}
+</div>
+`
+		},
+		{
+			Hash: 'Manager-Modal-Publish-CommitRow-Template',
+			Template: /*html*/`<div class="dep link">{~D:Record.Hash~} {~D:Record.Subject~}</div>`
+		},
+		{
+			Hash: 'Manager-Modal-Publish-SubmitError-Template',
+			Template: /*html*/`<div style="margin-top:8px;color:var(--color-danger)">{~D:Record.Message~}</div>`
+		},
 	],
 
 	Renderables:
@@ -53,6 +131,7 @@ class ManagerModalPublishView extends libPictView
 	constructor(pFable, pOptions, pServiceHash)
 	{
 		super(pFable, pOptions, pServiceHash);
+		this._submitErrorMessage = null;
 	}
 
 	open(pModuleName)
@@ -61,12 +140,15 @@ class ManagerModalPublishView extends libPictView
 		this._previewHash = null;
 		this._ok = false;
 		this._supportsDocker = false;
+		this._submitErrorMessage = null;
 
 		this._writeRecord(
 			{
 				ModuleName: pModuleName,
-				SubTitle: 'Loading pre-publish validation...',
-				PreviewHtml: '<em>running npm queries (parallel)...</em>',
+				SubTitle:   'Loading pre-publish validation...',
+				LoadingSlot: [{ Message: 'running npm queries (parallel)...' }],
+				ErrorSlot:   [],
+				PreviewSlot: [],
 			});
 		this.render();
 
@@ -83,7 +165,9 @@ class ManagerModalPublishView extends libPictView
 						SubTitle: pReport.OkToPublish
 							? 'All pre-publish checks passed — review below, then confirm.'
 							: 'Pre-publish validation blocked this publish. See below.',
-						PreviewHtml: this._renderPreview(pReport),
+						LoadingSlot: [],
+						ErrorSlot:   [],
+						PreviewSlot: [this._buildPreviewRecord(pReport)],
 					});
 				this.render();
 			},
@@ -94,8 +178,9 @@ class ManagerModalPublishView extends libPictView
 					{
 						ModuleName: pModuleName,
 						SubTitle: 'Preview failed.',
-						PreviewHtml: '<span style="color:var(--color-danger)">Preview failed: '
-							+ this._escape(pError.message) + '</span>',
+						LoadingSlot: [],
+						ErrorSlot:   [{ Message: pError.message }],
+						PreviewSlot: [],
 					});
 				this.render();
 			});
@@ -145,15 +230,15 @@ class ManagerModalPublishView extends libPictView
 			{
 				if (tmpBtn)       { tmpBtn.disabled = false; }
 				if (tmpBtnDocker) { tmpBtnDocker.disabled = false; }
-				let tmpPanel = document.getElementById('RM-PreviewPanel');
-				if (tmpPanel)
+				this._submitErrorMessage = 'error: '
+					+ (pError.Info && pError.Info.Error ? pError.Info.Error + ': ' : '')
+					+ pError.message;
+				// Re-shape the existing record with the new error slot.
+				let tmpRec = this.pict.AppData.Manager.ViewRecord.PublishModal;
+				if (tmpRec && tmpRec.PreviewSlot && tmpRec.PreviewSlot.length)
 				{
-					let tmpLine = document.createElement('div');
-					tmpLine.style.marginTop = '8px';
-					tmpLine.style.color = 'var(--color-danger)';
-					tmpLine.textContent = 'error: ' + (pError.Info && pError.Info.Error ? pError.Info.Error + ': ' : '')
-						+ pError.message;
-					tmpPanel.appendChild(tmpLine);
+					tmpRec.PreviewSlot[0].SubmitErrorSlot = [{ Message: this._submitErrorMessage }];
+					this.render();
 				}
 			});
 	}
@@ -194,77 +279,77 @@ class ManagerModalPublishView extends libPictView
 		this.pict.AppData.Manager.ViewRecord.PublishModal = pRecord;
 	}
 
-	_renderPreview(pReport)
+	_buildPreviewRecord(pReport)
 	{
-		let tmpHtml = '';
-		let tmpVerdict = pReport.OkToPublish
-			? '<span class="preview-verdict ok">Ready to publish</span>'
-			: '<span class="preview-verdict block">Not publishable</span>';
-		tmpHtml += tmpVerdict + '<br>';
-		tmpHtml += '<strong>Package:</strong> ' + this._escape(pReport.Package) + '<br>';
-		tmpHtml += '<strong>Local:</strong> v' + this._escape(pReport.LocalVersion) + '<br>';
-		tmpHtml += pReport.PublishedVersion
-			? '<strong>npm:</strong> v' + this._escape(pReport.PublishedVersion) + '<br>'
-			: '<strong>npm:</strong> <em>(not yet published)</em><br>';
+		let tmpVerdictClass = pReport.OkToPublish ? 'ok' : 'block';
+		let tmpVerdictLabel = pReport.OkToPublish ? 'Ready to publish' : 'Not publishable';
 
+		let tmpProblemsSlot = [];
 		if (pReport.Problems && pReport.Problems.length > 0)
 		{
-			tmpHtml += '<div style="margin-top:8px"><strong>Problems:</strong>';
+			let tmpItems = [];
 			for (let i = 0; i < pReport.Problems.length; i++)
 			{
 				let tmpP = pReport.Problems[i];
-				let tmpCls = tmpP.Severity === 'error' ? 'stale' : 'warn';
-				tmpHtml += '<div class="dep ' + tmpCls + '">' + this._escape(tmpP.Message) + '</div>';
+				tmpItems.push({
+					Cls:     tmpP.Severity === 'error' ? 'stale' : 'warn',
+					Message: tmpP.Message,
+				});
 			}
-			tmpHtml += '</div>';
+			tmpProblemsSlot = [{ Items: tmpItems }];
 		}
 
+		let tmpDepsSlot = [];
 		if (pReport.EcosystemDeps && pReport.EcosystemDeps.length > 0)
 		{
-			tmpHtml += '<div style="margin-top:8px"><strong>Ecosystem deps ('
-				+ pReport.EcosystemDeps.length + '):</strong>';
+			let tmpItems = [];
 			for (let i = 0; i < pReport.EcosystemDeps.length; i++)
 			{
 				let tmpD = pReport.EcosystemDeps[i];
-				let tmpCls, tmpMark;
-				if (tmpD.LocalLink)          { tmpCls = 'link';  tmpMark = 'link'; }
-				else if (tmpD.Error)         { tmpCls = 'warn';  tmpMark = 'warn'; }
-				else if (tmpD.CoversLatest)  { tmpCls = 'ok';    tmpMark = 'ok'; }
-				else                         { tmpCls = 'stale'; tmpMark = 'stale'; }
+				let tmpCls;
+				let tmpMark;
+				if (tmpD.LocalLink)         { tmpCls = 'link';  tmpMark = 'link'; }
+				else if (tmpD.Error)        { tmpCls = 'warn';  tmpMark = 'warn'; }
+				else if (tmpD.CoversLatest) { tmpCls = 'ok';    tmpMark = 'ok'; }
+				else                        { tmpCls = 'stale'; tmpMark = 'stale'; }
 				let tmpSuffix = tmpD.LocalLink
 					? '(local link)'
 					: (tmpD.Error ? '(could not fetch from npm)' : ('latest: ' + (tmpD.LatestOnNpm || '—')));
-				tmpHtml += '<div class="dep ' + tmpCls + '">'
-					+ tmpMark + ' ' + this._escape(tmpD.Name)
-					+ '  ' + this._escape(tmpD.Range)
-					+ '  ' + tmpSuffix + '</div>';
+				tmpItems.push({
+					Cls:    tmpCls,
+					Mark:   tmpMark,
+					Name:   tmpD.Name,
+					Range:  tmpD.Range,
+					Suffix: tmpSuffix,
+				});
 			}
-			tmpHtml += '</div>';
+			tmpDepsSlot = [{ Count: pReport.EcosystemDeps.length, Items: tmpItems }];
 		}
 
+		let tmpCommitsSlot = [];
 		if (pReport.CommitsSincePublish && pReport.CommitsSincePublish.length > 0)
 		{
-			tmpHtml += '<div style="margin-top:8px"><strong>Recent commits:</strong>';
+			let tmpItems = [];
 			for (let i = 0; i < pReport.CommitsSincePublish.length; i++)
 			{
 				let tmpC = pReport.CommitsSincePublish[i];
-				tmpHtml += '<div class="dep link">' + this._escape(tmpC.Hash) + ' ' + this._escape(tmpC.Subject) + '</div>';
+				tmpItems.push({ Hash: tmpC.Hash, Subject: tmpC.Subject });
 			}
-			tmpHtml += '</div>';
+			tmpCommitsSlot = [{ Items: tmpItems }];
 		}
 
-		return tmpHtml;
-	}
-
-	_escape(pText)
-	{
-		let tmpS = String(pText == null ? '' : pText);
-		return tmpS
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;')
-			.replace(/'/g, '&#39;');
+		return {
+			VerdictClass:  tmpVerdictClass,
+			VerdictLabel:  tmpVerdictLabel,
+			Package:       pReport.Package,
+			LocalVersion:  pReport.LocalVersion,
+			NpmYesSlot:    pReport.PublishedVersion ? [{ Version: pReport.PublishedVersion }] : [],
+			NpmNoSlot:     pReport.PublishedVersion ? [] : [{}],
+			ProblemsSlot:  tmpProblemsSlot,
+			DepsSlot:      tmpDepsSlot,
+			CommitsSlot:   tmpCommitsSlot,
+			SubmitErrorSlot: this._submitErrorMessage ? [{ Message: this._submitErrorMessage }] : [],
+		};
 	}
 }
 

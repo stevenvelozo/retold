@@ -1,6 +1,9 @@
 const libPictApplication = require('pict-application');
 const libPictRouter = require('pict-router');
 const libPictSectionModal = require('pict-section-modal');
+const libPictSectionTheme = require('pict-section-theme');
+
+const libRetoldManagerBrand = require('./RetoldManager-Brand.js');
 
 // Providers (business logic, no UI)
 const libProviderApi = require('./providers/Pict-Provider-Manager-API.js');
@@ -13,6 +16,7 @@ const libViewSidebar    = require('./views/PictView-Manager-Sidebar.js');
 const libViewStatusBar  = require('./views/PictView-Manager-StatusBar.js');
 const libViewOutputPanel = require('./views/PictView-Manager-OutputPanel.js');
 const libViewLogModal    = require('./views/PictView-Manager-LogModal.js');
+const libViewLogBar      = require('./views/PictView-Manager-LogBar.js');
 
 // Content views (swapped by the router)
 const libViewHome            = require('./views/PictView-Manager-Home.js');
@@ -57,12 +61,28 @@ class RetoldManagerApplication extends libPictApplication
 		// Modal section view (toasts, confirms, custom dialogs).
 		this.pict.addView('Pict-Section-Modal', {}, libPictSectionModal);
 
+		// Theme section — registers the Theme provider, the bundled theme
+		// catalog, the picker / mode-toggle / topbar-button views, and
+		// applies the retold-manager theme at boot. We skip the BrandStrip
+		// view because the brand is rendered INLINE into the topbar panel
+		// (via Manager-TopBar reading Theme.Brand.getActive()) — that
+		// merge eliminates the dual-nav stacked look. Brand colors are
+		// still emitted as --brand-color-* CSS vars for any view to pick up.
+		libPictSectionTheme.install(this.pict,
+		{
+			ApplyDefault: 'retold-manager',
+			DefaultMode:  'system',
+			Brand:        libRetoldManagerBrand,
+			Views:        ['Picker', 'ModeToggle', 'ScaleSelect', 'Button']
+		});
+
 		// Content views
 		this.pict.addView('Manager-Home',            libViewHome.default_configuration,            libViewHome);
 		this.pict.addView('Manager-ModuleWorkspace', libViewModuleWorkspace.default_configuration, libViewModuleWorkspace);
 		this.pict.addView('Manager-ManifestEditor',  libViewManifestEditor.default_configuration,  libViewManifestEditor);
 		this.pict.addView('Manager-LogViewer',       libViewLogViewer.default_configuration,       libViewLogViewer);
 		this.pict.addView('Manager-LogModal',        libViewLogModal.default_configuration,        libViewLogModal);
+		this.pict.addView('Manager-LogBar',          libViewLogBar.default_configuration,          libViewLogBar);
 		this.pict.addView('Manager-OpsRunner',       libViewOpsRunner.default_configuration,       libViewOpsRunner);
 		this.pict.addView('Manager-Ripple',          libViewRipple.default_configuration,          libViewRipple);
 
@@ -109,6 +129,7 @@ class RetoldManagerApplication extends libPictApplication
 			},
 			OpsScript: null,               // 'status' | 'update' | 'checkout' — when on /Ops/:script
 			RecentModules: [],             // ordered MRU list, persisted to localStorage
+			ActionHistory: [],             // last N completed/running actions; powers the Log panel's Actions tab
 		};
 
 		this._loadRecentModules();

@@ -15,7 +15,7 @@ const _ViewConfiguration =
 		{
 			Hash: 'Manager-Modal-Ncu-Template',
 			Template: /*html*/`
-<div class="modal-backdrop" onclick="if(event.target===this){window._Pict.views['Manager-Modal-Ncu'].close();}">
+<div class="modal-backdrop" onclick="if(event.target===this){_Pict.views['Manager-Modal-Ncu'].close();}">
 	<div class="modal" style="min-width:520px">
 		<h3>npm-check-updates &mdash; {~D:Record.ModuleName~}</h3>
 		<p style="color:var(--color-muted);font-size:12px;margin:0 0 12px">
@@ -35,9 +35,9 @@ const _ViewConfiguration =
 			</div>
 		</div>
 		<div class="modal-actions">
-			<button class="action" onclick="{~P~}.views['Manager-Modal-Ncu'].close()">Cancel</button>
-			<button class="action primary" onclick="{~P~}.views['Manager-Modal-Ncu'].submit(false)">Check</button>
-			<button class="action success" onclick="{~P~}.views['Manager-Modal-Ncu'].submit(true)">Apply (update + install)</button>
+			<button class="action" onclick="_Pict.views['Manager-Modal-Ncu'].close()">Cancel</button>
+			<button class="action primary" onclick="_Pict.views['Manager-Modal-Ncu'].submit(false)">Check</button>
+			<button class="action success" onclick="_Pict.views['Manager-Modal-Ncu'].submit(true)">Apply (update + install)</button>
 		</div>
 	</div>
 </div>

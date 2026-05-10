@@ -83,7 +83,7 @@ const _ViewConfiguration =
 		{
 			Hash: 'Manager-Modal-RipplePlan-Template',
 			Template: /*html*/`
-<div class="modal-backdrop ripple-plan-modal" onclick="if(event.target===this){window._Pict.views['Manager-Modal-RipplePlan'].close();}">
+<div class="modal-backdrop ripple-plan-modal" onclick="if(event.target===this){_Pict.views['Manager-Modal-RipplePlan'].close();}">
 	<div class="modal" style="min-width:680px;max-width:820px">
 		<h3>Plan ripple</h3>
 		<p class="subtle" style="color:var(--color-muted);font-size:12px;margin:0 0 8px">
@@ -95,13 +95,15 @@ const _ViewConfiguration =
 		<div class="selection-summary">
 			<span><span class="count" id="RM-R-SelectionCount">0</span> selected</span>
 			<span class="quick-actions">
-				<button id="RM-R-PickSiblings" type="button"
-					title="Select every module sharing the originating module's hyphen prefix"></button>
-				<button onclick="{~P~}.views['Manager-Modal-RipplePlan'].clearSelection()" type="button">clear all</button>
+				{~TS:Manager-Modal-RipplePlan-SiblingsBtn-Template:Record.SiblingsBtnSlot~}
+				<button onclick="_Pict.views['Manager-Modal-RipplePlan'].clearSelection()" type="button">clear all</button>
 			</span>
 		</div>
 
-		<div class="producer-list" id="RM-R-ProducerList">{~D:Record.ProducersHtml~}</div>
+		<div class="producer-list" id="RM-R-ProducerList">
+			{~TS:Manager-Modal-RipplePlan-Empty-Template:Record.EmptySlot~}
+			{~TS:Manager-Modal-RipplePlan-Group-Template:Record.Groups~}
+		</div>
 
 		<div class="form-row compact"><label>Range prefix</label>
 			<input type="text" id="RM-R-Prefix" value="^"></div>
@@ -128,15 +130,60 @@ const _ViewConfiguration =
 				(<code>ncu -u --filter &lt;retold&gt;</code> before each consumer step)
 			</span></div>
 
-		<div id="RM-R-Result" style="margin-top:12px"></div>
+		<div id="RM-R-Result" style="margin-top:12px">
+			{~TS:Manager-Modal-RipplePlan-Result-Computing-Template:Record.ResultComputingSlot~}
+			{~TS:Manager-Modal-RipplePlan-Result-Error-Template:Record.ResultErrorSlot~}
+		</div>
 		<div class="modal-actions">
-			<button class="action" onclick="{~P~}.views['Manager-Modal-RipplePlan'].close()">Cancel</button>
-			<button class="action primary" onclick="{~P~}.views['Manager-Modal-RipplePlan'].submit()">Compute plan</button>
+			<button class="action" onclick="_Pict.views['Manager-Modal-RipplePlan'].close()">Cancel</button>
+			<button class="action primary" onclick="_Pict.views['Manager-Modal-RipplePlan'].submit()">Compute plan</button>
 		</div>
 	</div>
 </div>
 `
-		}
+		},
+		{
+			Hash: 'Manager-Modal-RipplePlan-SiblingsBtn-Template',
+			Template: /*html*/`<button type="button" title="Select every module sharing the originating module's hyphen prefix" onclick="_Pict.views['Manager-Modal-RipplePlan'].selectSiblings()">+ select {~D:Record.Prefix~}-* siblings</button>`
+		},
+		{
+			Hash: 'Manager-Modal-RipplePlan-Empty-Template',
+			Template: /*html*/`<div style="color:var(--color-muted);font-style:italic">{~D:Record.Message~}</div>`
+		},
+		{
+			Hash: 'Manager-Modal-RipplePlan-Group-Template',
+			Template: /*html*/`
+<div class="producer-group">
+	<div class="producer-group-header">
+		<span class="producer-group-name">{~D:Record.Name~} ({~D:Record.Count~})</span>
+		<span class="producer-group-actions">
+			<button type="button" onclick="_Pict.views['Manager-Modal-RipplePlan']._setGroupChecked('{~D:Record.NameJs~}', true)">all</button>
+			<button type="button" onclick="_Pict.views['Manager-Modal-RipplePlan']._setGroupChecked('{~D:Record.NameJs~}', false)">none</button>
+		</span>
+	</div>
+	{~TS:Manager-Modal-RipplePlan-Row-Template:Record.Rows~}
+</div>
+`
+		},
+		{
+			Hash: 'Manager-Modal-RipplePlan-Row-Template',
+			Template: /*html*/`
+<div class="producer-row {~D:Record.RowClass~}">
+	<label for="{~D:Record.Id~}">
+		<input type="checkbox" id="{~D:Record.Id~}" data-module="{~D:Record.Name~}" data-group="{~D:Record.GroupName~}" {~D:Record.CheckedAttr~} onchange="_Pict.views['Manager-Modal-RipplePlan']._refreshSelectionCount()">
+		<span class="producer-name">{~D:Record.Name~}</span>
+	</label>
+</div>
+`
+		},
+		{
+			Hash: 'Manager-Modal-RipplePlan-Result-Computing-Template',
+			Template: /*html*/`<em>computing plan...</em>`
+		},
+		{
+			Hash: 'Manager-Modal-RipplePlan-Result-Error-Template',
+			Template: /*html*/`<div style="color:var(--color-danger)">{~D:Record.Message~}</div>`
+		},
 	],
 
 	Renderables:
@@ -155,6 +202,13 @@ const _ViewConfiguration =
 // the cone leaves, not the seeds.
 const GROUP_ORDER = ['Fable', 'Meadow', 'Orator', 'Pict', 'Utility', 'Apps'];
 
+function jsString(pText)
+{
+	return String(pText == null ? '' : pText)
+		.replace(/\\/g, '\\\\')
+		.replace(/'/g, "\\'");
+}
+
 class ManagerModalRipplePlanView extends libPictView
 {
 	constructor(pFable, pOptions, pServiceHash)
@@ -162,19 +216,16 @@ class ManagerModalRipplePlanView extends libPictView
 		super(pFable, pOptions, pServiceHash);
 		this._origin = null;
 		this._siblingPrefix = null;
+		this._resultState = null;   // null | 'computing' | { Error: '...' }
 	}
 
 	open(pOriginatingModule)
 	{
 		this._origin = pOriginatingModule;
 		this._siblingPrefix = this._computeSiblingPrefix(pOriginatingModule);
+		this._resultState = null;
 
-		if (!this.pict.AppData.Manager.ViewRecord) { this.pict.AppData.Manager.ViewRecord = {}; }
-		this.pict.AppData.Manager.ViewRecord.RipplePlanModal =
-			{
-				Origin: pOriginatingModule,
-				ProducersHtml: this._buildProducerListHtml(pOriginatingModule),
-			};
+		this._writeRecord();
 		this.render();
 	}
 
@@ -186,46 +237,8 @@ class ManagerModalRipplePlanView extends libPictView
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)
 	{
 		this.pict.CSSMap.injectCSS();
-
-		// Wire the dynamic "select <prefix>-* siblings" button. Hide it if
-		// the originating module has no meaningful sibling prefix
-		// (e.g. single-segment names like "fable").
-		let tmpSiblingBtn = document.getElementById('RM-R-PickSiblings');
-		if (tmpSiblingBtn)
-		{
-			if (this._siblingPrefix)
-			{
-				tmpSiblingBtn.textContent = '+ select ' + this._siblingPrefix + '-* siblings';
-				tmpSiblingBtn.style.display = '';
-				tmpSiblingBtn.onclick = () => this.selectSiblings();
-			}
-			else
-			{
-				tmpSiblingBtn.style.display = 'none';
-			}
-		}
-
-		// Wire per-group "all / none" buttons.
-		let tmpGroupBtns = document.querySelectorAll('.producer-group-actions button[data-group]');
-		for (let i = 0; i < tmpGroupBtns.length; i++)
-		{
-			tmpGroupBtns[i].onclick = (pEvent) =>
-				{
-					let tmpBtn = pEvent.currentTarget;
-					let tmpGroup = tmpBtn.getAttribute('data-group');
-					let tmpAct   = tmpBtn.getAttribute('data-act');
-					this._setGroupChecked(tmpGroup, tmpAct === 'all');
-				};
-		}
-
-		// Wire checkboxes to refresh the count display.
-		let tmpChecks = document.querySelectorAll('#RM-R-ProducerList input[type="checkbox"][data-module]');
-		for (let i = 0; i < tmpChecks.length; i++)
-		{
-			tmpChecks[i].addEventListener('change', () => this._refreshSelectionCount());
-		}
+		// Re-sync the live selection count from the actual checkbox state.
 		this._refreshSelectionCount();
-
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
 	}
 
@@ -262,15 +275,12 @@ class ManagerModalRipplePlanView extends libPictView
 	submit()
 	{
 		let tmpRoots = this._collectSelectedRoots();
-		let tmpResult = document.getElementById('RM-R-Result');
 
 		if (tmpRoots.length === 0)
 		{
-			if (tmpResult)
-			{
-				tmpResult.innerHTML = '<div style="color:var(--color-danger)">'
-					+ 'Select at least one producer module.</div>';
-			}
+			this._resultState = { Error: 'Select at least one producer module.' };
+			this._writeRecord();
+			this.render();
 			return;
 		}
 
@@ -288,7 +298,9 @@ class ManagerModalRipplePlanView extends libPictView
 				BringRetoldDepsForward: document.getElementById('RM-R-BringForward').checked,
 			};
 
-		if (tmpResult) { tmpResult.innerHTML = '<em>computing plan...</em>'; }
+		this._resultState = 'computing';
+		this._writeRecord();
+		this.render();
 
 		this.pict.providers.ManagerAPI.planRipple(tmpOpts).then(
 			(pPlan) =>
@@ -299,29 +311,13 @@ class ManagerModalRipplePlanView extends libPictView
 			},
 			(pError) =>
 			{
-				if (tmpResult)
-				{
-					tmpResult.innerHTML = '<div style="color:var(--color-danger)">Plan failed: '
-						+ this._escape(pError.message) + '</div>';
-				}
+				this._resultState = { Error: 'Plan failed: ' + pError.message };
+				this._writeRecord();
+				this.render();
 			});
 	}
 
-	// ─────────────────────────────────────────────
-	//  Internals
-	// ─────────────────────────────────────────────
-
-	_collectSelectedRoots()
-	{
-		let tmpResult = [];
-		let tmpChecks = document.querySelectorAll('#RM-R-ProducerList input[type="checkbox"][data-module]:checked');
-		for (let i = 0; i < tmpChecks.length; i++)
-		{
-			tmpResult.push(tmpChecks[i].getAttribute('data-module'));
-		}
-		return tmpResult;
-	}
-
+	// Public — called from inline handlers in the group-header all/none buttons.
 	_setGroupChecked(pGroup, pChecked)
 	{
 		let tmpChecks = document.querySelectorAll(
@@ -340,6 +336,21 @@ class ManagerModalRipplePlanView extends libPictView
 		if (tmpEl) { tmpEl.textContent = String(tmpCount); }
 	}
 
+	// ─────────────────────────────────────────────
+	//  Internals
+	// ─────────────────────────────────────────────
+
+	_collectSelectedRoots()
+	{
+		let tmpResult = [];
+		let tmpChecks = document.querySelectorAll('#RM-R-ProducerList input[type="checkbox"][data-module]:checked');
+		for (let i = 0; i < tmpChecks.length; i++)
+		{
+			tmpResult.push(tmpChecks[i].getAttribute('data-module'));
+		}
+		return tmpResult;
+	}
+
 	/**
 	 * Sibling prefix is everything except the last hyphen segment. For
 	 * "meadow-connection-mongodb" → "meadow-connection". For single-segment
@@ -353,85 +364,89 @@ class ManagerModalRipplePlanView extends libPictView
 		return tmpParts.slice(0, -1).join('-');
 	}
 
-	_buildProducerListHtml(pOrigin)
+	// ─────────────────────────────────────────────
+	//  Data shaping
+	// ─────────────────────────────────────────────
+
+	_writeRecord()
 	{
-		// AppData.Manager.Modules is loaded by ManagerAPI.loadModules() at
-		// app startup. If it's somehow missing, render a placeholder.
-		let tmpModules = (this.pict.AppData.Manager && this.pict.AppData.Manager.Modules) || [];
-		if (tmpModules.length === 0)
-		{
-			return '<div style="color:var(--color-muted);font-style:italic">'
-				+ '(modules not yet loaded — close and reopen this dialog)</div>';
-		}
-
-		// Group by .Group, ordered to match RippleGraph's GROUP_ORDER.
-		let tmpByGroup = {};
-		for (let i = 0; i < tmpModules.length; i++)
-		{
-			let tmpM = tmpModules[i];
-			let tmpG = tmpM.Group || 'Other';
-			if (!tmpByGroup[tmpG]) { tmpByGroup[tmpG] = []; }
-			tmpByGroup[tmpG].push(tmpM);
-		}
-
-		let tmpGroupNames = Object.keys(tmpByGroup);
-		tmpGroupNames.sort((pA, pB) =>
-			{
-				let tmpIa = GROUP_ORDER.indexOf(pA);
-				let tmpIb = GROUP_ORDER.indexOf(pB);
-				if (tmpIa === -1) { tmpIa = GROUP_ORDER.length; }
-				if (tmpIb === -1) { tmpIb = GROUP_ORDER.length; }
-				if (tmpIa !== tmpIb) { return tmpIa - tmpIb; }
-				return pA.localeCompare(pB);
-			});
-
-		let tmpHtml = '';
-		for (let i = 0; i < tmpGroupNames.length; i++)
-		{
-			let tmpGroup = tmpGroupNames[i];
-			let tmpEntries = tmpByGroup[tmpGroup].slice().sort((pA, pB) => pA.Name.localeCompare(pB.Name));
-
-			tmpHtml += '<div class="producer-group">';
-			tmpHtml += '  <div class="producer-group-header">';
-			tmpHtml += '    <span class="producer-group-name">' + this._escape(tmpGroup)
-				+ ' (' + tmpEntries.length + ')</span>';
-			tmpHtml += '    <span class="producer-group-actions">';
-			tmpHtml += '      <button type="button" data-group="' + this._escape(tmpGroup) + '" data-act="all">all</button>';
-			tmpHtml += '      <button type="button" data-group="' + this._escape(tmpGroup) + '" data-act="none">none</button>';
-			tmpHtml += '    </span>';
-			tmpHtml += '  </div>';
-
-			for (let j = 0; j < tmpEntries.length; j++)
-			{
-				let tmpEntry = tmpEntries[j];
-				let tmpIsOrigin = (tmpEntry.Name === pOrigin);
-				let tmpId = 'RM-R-Mod-' + tmpEntry.Name.replace(/[^A-Za-z0-9_-]/g, '_');
-				tmpHtml += '<div class="producer-row' + (tmpIsOrigin ? ' is-origin' : '') + '">';
-				tmpHtml += '  <label for="' + tmpId + '">';
-				tmpHtml += '    <input type="checkbox" id="' + tmpId + '"'
-					+ ' data-module="' + this._escape(tmpEntry.Name) + '"'
-					+ ' data-group="' + this._escape(tmpGroup) + '"'
-					+ (tmpIsOrigin ? ' checked' : '') + '>';
-				tmpHtml += '    <span class="producer-name">' + this._escape(tmpEntry.Name) + '</span>';
-				tmpHtml += '  </label>';
-				tmpHtml += '</div>';
-			}
-
-			tmpHtml += '</div>';
-		}
-
-		return tmpHtml;
+		if (!this.pict.AppData.Manager.ViewRecord) { this.pict.AppData.Manager.ViewRecord = {}; }
+		this.pict.AppData.Manager.ViewRecord.RipplePlanModal = this._buildRecord();
 	}
 
-	_escape(pText)
+	_buildRecord()
 	{
-		let tmpS = String(pText == null ? '' : pText);
-		return tmpS
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;')
-			.replace(/'/g, '&#39;');
+		let tmpModules = (this.pict.AppData.Manager && this.pict.AppData.Manager.Modules) || [];
+
+		let tmpEmptySlot = [];
+		let tmpGroups   = [];
+
+		if (tmpModules.length === 0)
+		{
+			tmpEmptySlot.push({ Message: '(modules not yet loaded — close and reopen this dialog)' });
+		}
+		else
+		{
+			let tmpByGroup = {};
+			for (let i = 0; i < tmpModules.length; i++)
+			{
+				let tmpM = tmpModules[i];
+				let tmpG = tmpM.Group || 'Other';
+				if (!tmpByGroup[tmpG]) { tmpByGroup[tmpG] = []; }
+				tmpByGroup[tmpG].push(tmpM);
+			}
+
+			let tmpGroupNames = Object.keys(tmpByGroup);
+			tmpGroupNames.sort((pA, pB) =>
+				{
+					let tmpIa = GROUP_ORDER.indexOf(pA);
+					let tmpIb = GROUP_ORDER.indexOf(pB);
+					if (tmpIa === -1) { tmpIa = GROUP_ORDER.length; }
+					if (tmpIb === -1) { tmpIb = GROUP_ORDER.length; }
+					if (tmpIa !== tmpIb) { return tmpIa - tmpIb; }
+					return pA.localeCompare(pB);
+				});
+
+			for (let i = 0; i < tmpGroupNames.length; i++)
+			{
+				let tmpGroupName = tmpGroupNames[i];
+				let tmpEntries = tmpByGroup[tmpGroupName].slice().sort((pA, pB) => pA.Name.localeCompare(pB.Name));
+
+				let tmpRows = [];
+				for (let j = 0; j < tmpEntries.length; j++)
+				{
+					let tmpEntry = tmpEntries[j];
+					let tmpIsOrigin = (tmpEntry.Name === this._origin);
+					tmpRows.push({
+						Name:        tmpEntry.Name,
+						GroupName:   tmpGroupName,
+						Id:          'RM-R-Mod-' + tmpEntry.Name.replace(/[^A-Za-z0-9_-]/g, '_'),
+						RowClass:    tmpIsOrigin ? 'is-origin' : '',
+						CheckedAttr: tmpIsOrigin ? 'checked' : '',
+					});
+				}
+
+				tmpGroups.push({
+					Name:    tmpGroupName,
+					NameJs:  jsString(tmpGroupName),
+					Count:   tmpEntries.length,
+					Rows:    tmpRows,
+				});
+			}
+		}
+
+		let tmpResultComputingSlot = (this._resultState === 'computing') ? [{}] : [];
+		let tmpResultErrorSlot     = (this._resultState && this._resultState.Error)
+			? [{ Message: this._resultState.Error }] : [];
+
+		return {
+			Origin:              this._origin,
+			SiblingsBtnSlot:     this._siblingPrefix ? [{ Prefix: this._siblingPrefix }] : [],
+			EmptySlot:           tmpEmptySlot,
+			Groups:              tmpGroups,
+			ResultComputingSlot: tmpResultComputingSlot,
+			ResultErrorSlot:     tmpResultErrorSlot,
+		};
 	}
 }
 

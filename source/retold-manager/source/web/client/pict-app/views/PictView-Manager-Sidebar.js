@@ -5,7 +5,7 @@ const _ViewConfiguration =
 	ViewIdentifier: 'Manager-Sidebar',
 
 	DefaultRenderable:            'Manager-Sidebar-Shell',
-	DefaultDestinationAddress:    '#RM-Sidebar',
+	DefaultDestinationAddress:    '#RM-Sidebar-Content',
 	DefaultTemplateRecordAddress: 'AppData.Manager',
 
 	AutoRender: false,
@@ -37,26 +37,48 @@ const _ViewConfiguration =
 	<div class="sidebar-search-row">
 		<input type="search" id="RM-SidebarSearch" placeholder="Filter modules..."
 			value="{~D:Record.Filter.Query~}"
-			oninput="{~P~}.views['Manager-Sidebar'].setFilter(this.value)">
+			oninput="_Pict.views['Manager-Sidebar'].setFilter(this.value)">
 		<button id="RM-ScanButton" title="Scan all modules for changes"
-			onclick="{~P~}.views['Manager-Sidebar'].triggerScan()">Scan</button>
+			onclick="_Pict.views['Manager-Sidebar'].triggerScan()">Scan</button>
 	</div>
 	<label class="sidebar-checkbox">
 		<input type="checkbox" id="RM-DirtyOnly"
-			onchange="{~P~}.views['Manager-Sidebar'].setDirtyOnly(this.checked)">
+			onchange="_Pict.views['Manager-Sidebar'].setDirtyOnly(this.checked)">
 		Dirty only
 	</label>
 	<label class="sidebar-checkbox">
 		<input type="checkbox" id="RM-SortByTime"
-			onchange="{~P~}.views['Manager-Sidebar'].setSortByTime(this.checked)">
+			onchange="_Pict.views['Manager-Sidebar'].setSortByTime(this.checked)">
 		Sort by time
-		<span id="RM-ScanMeta"></span>
+		<span id="RM-ScanMeta">{~D:Record.SidebarMeta.ScanMetaText~}</span>
 	</label>
 </div>
 <nav id="RM-ModuleList">
-	<p class="loading">Loading modules...</p>
+	{~TS:Manager-Sidebar-Empty-Template:Record.SidebarMeta.EmptySlot~}
+	{~TS:Manager-Sidebar-Group-Template:Record.SidebarMeta.Groups~}
 </nav>
 `
+		},
+		{
+			Hash: 'Manager-Sidebar-Empty-Template',
+			Template: /*html*/`<p class="loading">{~D:Record.Message~}</p>`
+		},
+		{
+			Hash: 'Manager-Sidebar-Group-Template',
+			Template: /*html*/`
+<div class="group">
+	<div class="group-header">{~D:Record.Title~}</div>
+	{~TS:Manager-Sidebar-Row-Template:Record.Rows~}
+</div>
+`
+		},
+		{
+			Hash: 'Manager-Sidebar-Row-Template',
+			Template: /*html*/`<a class="{~D:Record.RowClass~}" href="#/Module/{~D:Record.NameUrlEncoded~}">{~D:Record.Name~}{~TS:Manager-Sidebar-DirtyBadge-Template:Record.DirtySlot~}</a>`
+		},
+		{
+			Hash: 'Manager-Sidebar-DirtyBadge-Template',
+			Template: /*html*/` <span class="dirty-badge dirty-badge--{~D:Record.State~}" title="{~D:Record.Tooltip~}"></span>`
 		}
 	],
 
@@ -65,7 +87,7 @@ const _ViewConfiguration =
 		{
 			RenderableHash:     'Manager-Sidebar-Shell',
 			TemplateHash:       'Manager-Sidebar-Shell-Template',
-			DestinationAddress: '#RM-Sidebar',
+			DestinationAddress: '#RM-Sidebar-Content',
 			RenderMethod:       'replace',
 		}
 	]
@@ -107,21 +129,16 @@ function dirtyState(pScanEntry)
 	if (pScanEntry.HasUnstaged)        { return 'unstaged'; }
 	if (pScanEntry.HasStaged)          { return 'staged'; }
 	if ((pScanEntry.Ahead || 0) > 0)   { return 'unpushed'; }
-	// Older scan payloads (cached pre-upgrade) only carry Dirty: fall back
-	// so the badge still appears, just without the staged/unstaged split.
 	if (pScanEntry.Dirty)              { return 'unstaged'; }
 	return null;
 }
 
-// Tooltip text for the dirty badge — distinguishes uncommitted changes
-// from unpushed commits so the user knows what they need to do.
 function dirtyTooltip(pScanEntry)
 {
 	if (!pScanEntry) { return ''; }
 	let tmpParts = [];
 	if (pScanEntry.HasUnstaged) { tmpParts.push('Unstaged changes'); }
 	if (pScanEntry.HasStaged)   { tmpParts.push('Staged (uncommitted)'); }
-	// Pre-upgrade fallback (no HasStaged/HasUnstaged) — surface generic dirty.
 	if (!pScanEntry.HasUnstaged && !pScanEntry.HasStaged && pScanEntry.Dirty)
 	{
 		tmpParts.push('Uncommitted changes');
@@ -160,6 +177,10 @@ class ManagerSidebarView extends libPictView
 			catch (e) { tmpState.Scan.Results = {}; }
 			tmpState.Scan.When = lsGet(LS_KEY_SCAN_WHEN) || null;
 		}
+
+		// Materialize the per-render derived data the templates iterate.
+		this.pict.AppData.Manager.SidebarMeta = this._buildSidebarMeta();
+
 		return this.pict.AppData.Manager;
 	}
 
@@ -170,13 +191,16 @@ class ManagerSidebarView extends libPictView
 		let tmpSort  = document.getElementById('RM-SortByTime');
 		if (tmpSort)  { tmpSort.checked  = !!this.pict.AppData.Manager.Filter.SortByTime; }
 
-		this._renderModuleList();
-		this._renderScanMeta();
 		this.pict.CSSMap.injectCSS();
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
 	}
 
-	_renderModuleList()
+	// ─────────────────────────────────────────────
+	//  Data shaping — single place that walks the modules / scan
+	//  results and produces what the templates iterate. No HTML.
+	// ─────────────────────────────────────────────
+
+	_buildSidebarMeta()
 	{
 		let tmpState     = this.pict.AppData.Manager;
 		let tmpQuery     = (tmpState.Filter.Query || '').toLowerCase();
@@ -184,10 +208,11 @@ class ManagerSidebarView extends libPictView
 		let tmpSortTime  = tmpState.Filter.SortByTime;
 		let tmpScan      = tmpState.Scan.Results || {};
 		let tmpSelected  = tmpState.SelectedModule;
-		let tmpGroups    = tmpState.ModulesByGroup || {};
+		let tmpGroupsBy  = tmpState.ModulesByGroup || {};
 
-		// Sort-by-time renders one flat list ordered by RecentModules; modules
-		// not yet visited fall to the bottom in their normal alpha order.
+		let tmpScanText = this._buildScanMetaText(tmpState.Scan);
+
+		// Sort-by-time renders one flat list ordered by RecentModules.
 		if (tmpSortTime)
 		{
 			let tmpAll = tmpState.Modules || [];
@@ -214,41 +239,35 @@ class ManagerSidebarView extends libPictView
 
 			if (tmpFiltered.length === 0)
 			{
-				this.pict.ContentAssignment.assignContent('#RM-ModuleList',
-					'<p class="loading">No modules match the filter.</p>');
-				return;
+				return {
+					ScanMetaText: tmpScanText,
+					EmptySlot:    [{ Message: 'No modules match the filter.' }],
+					Groups:       [],
+				};
 			}
 
-			let tmpHtml = '<div class="group">';
-			tmpHtml += '<div class="group-header">Recently used</div>';
+			let tmpRows = [];
 			for (let i = 0; i < tmpFiltered.length; i++)
 			{
 				let tmpMod = tmpFiltered[i];
-				let tmpSelectedClass = (tmpSelected === tmpMod.Name) ? ' selected' : '';
-				let tmpScanEntry = tmpScan[tmpMod.Name];
-				let tmpState = dirtyState(tmpScanEntry);
-				let tmpDirtyBadge = tmpState
-					? ' <span class="dirty-badge dirty-badge--' + tmpState + '" title="'
-						+ this._escape(dirtyTooltip(tmpScanEntry)) + '"></span>' : '';
 				let tmpUnvisited = !(tmpMod.Name in tmpOrder);
-				tmpHtml += '<a class="module-row' + tmpSelectedClass + (tmpUnvisited ? ' unvisited' : '') + '" '
-					+ 'href="#/Module/' + encodeURIComponent(tmpMod.Name) + '">'
-					+ this._escape(tmpMod.Name) + tmpDirtyBadge + '</a>';
+				tmpRows.push(this._buildRow(tmpMod, tmpScan[tmpMod.Name], tmpSelected, tmpUnvisited));
 			}
-			tmpHtml += '</div>';
-			this.pict.ContentAssignment.assignContent('#RM-ModuleList', tmpHtml);
-			return;
+
+			return {
+				ScanMetaText: tmpScanText,
+				EmptySlot:    [],
+				Groups:       [{ Title: 'Recently used', Rows: tmpRows }],
+			};
 		}
 
-		let tmpHtml = '';
-		let tmpAnyShown = false;
-
+		// Default: group-by-category view.
+		let tmpGroups = [];
 		for (let i = 0; i < GROUP_ORDER.length; i++)
 		{
-			let tmpGroup = GROUP_ORDER[i];
-			let tmpList  = tmpGroups[tmpGroup] || [];
+			let tmpGroupName = GROUP_ORDER[i];
+			let tmpList      = tmpGroupsBy[tmpGroupName] || [];
 
-			// Filter rows
 			let tmpRows = [];
 			for (let j = 0; j < tmpList.length; j++)
 			{
@@ -256,40 +275,61 @@ class ManagerSidebarView extends libPictView
 				if (tmpQuery && tmpMod.Name.toLowerCase().indexOf(tmpQuery) === -1) { continue; }
 				let tmpScanEntry = tmpScan[tmpMod.Name];
 				if (tmpDirtyOnly && !isDirty(tmpScanEntry)) { continue; }
-				tmpRows.push(tmpMod);
+				tmpRows.push(this._buildRow(tmpMod, tmpScanEntry, tmpSelected, false));
 			}
 			if (tmpRows.length === 0) { continue; }
 
-			tmpAnyShown = true;
-			tmpHtml += '<div class="group">';
-			tmpHtml += '<div class="group-header">' + this._escape(tmpGroup) + '</div>';
-
-			for (let j = 0; j < tmpRows.length; j++)
-			{
-				let tmpMod = tmpRows[j];
-				let tmpSelectedClass = (tmpSelected === tmpMod.Name) ? ' selected' : '';
-				let tmpScanEntry = tmpScan[tmpMod.Name];
-				let tmpState = dirtyState(tmpScanEntry);
-				let tmpDirtyBadge = tmpState
-					? ' <span class="dirty-badge dirty-badge--' + tmpState + '" title="'
-						+ this._escape(dirtyTooltip(tmpScanEntry)) + '"></span>' : '';
-				tmpHtml += '<a class="module-row' + tmpSelectedClass + '" '
-					+ 'href="#/Module/' + encodeURIComponent(tmpMod.Name) + '">'
-					+ this._escape(tmpMod.Name) + tmpDirtyBadge + '</a>';
-			}
-
-			tmpHtml += '</div>';
+			tmpGroups.push({ Title: tmpGroupName, Rows: tmpRows });
 		}
 
-		if (!tmpAnyShown)
+		if (tmpGroups.length === 0)
 		{
-			tmpHtml = '<p class="loading">'
-				+ (tmpDirtyOnly ? 'No dirty modules (click Scan to re-scan).'
-					: (tmpQuery ? 'No modules match the filter.' : 'Loading modules...'))
-				+ '</p>';
+			let tmpMessage = tmpDirtyOnly
+				? 'No dirty modules (click Scan to re-scan).'
+				: (tmpQuery ? 'No modules match the filter.' : 'Loading modules...');
+			return {
+				ScanMetaText: tmpScanText,
+				EmptySlot:    [{ Message: tmpMessage }],
+				Groups:       [],
+			};
 		}
 
-		this.pict.ContentAssignment.assignContent('#RM-ModuleList', tmpHtml);
+		return {
+			ScanMetaText: tmpScanText,
+			EmptySlot:    [],
+			Groups:       tmpGroups,
+		};
+	}
+
+	_buildRow(pMod, pScanEntry, pSelected, pUnvisited)
+	{
+		let tmpRowClass = 'module-row';
+		if (pSelected === pMod.Name) { tmpRowClass += ' selected'; }
+		if (pUnvisited)              { tmpRowClass += ' unvisited'; }
+
+		let tmpState = dirtyState(pScanEntry);
+		return {
+			Name:           pMod.Name,
+			NameUrlEncoded: encodeURIComponent(pMod.Name || ''),
+			RowClass:       tmpRowClass,
+			DirtySlot:      tmpState ? [{ State: tmpState, Tooltip: dirtyTooltip(pScanEntry) }] : [],
+		};
+	}
+
+	_buildScanMetaText(pScanState)
+	{
+		if (!pScanState) { return ''; }
+		if (pScanState.Running) { return 'scanning…'; }
+		if (!pScanState.When)   { return ''; }
+		let tmpNames = Object.keys(pScanState.Results || {});
+		let tmpDirty = tmpNames.filter((pN) => isDirty(pScanState.Results[pN])).length;
+		let tmpWhen  = new Date(pScanState.When);
+		let tmpAge   = Math.max(0, Math.floor((Date.now() - tmpWhen.getTime()) / 1000));
+		let tmpAgeStr;
+		if      (tmpAge < 60)   { tmpAgeStr = tmpAge + 's ago'; }
+		else if (tmpAge < 3600) { tmpAgeStr = Math.floor(tmpAge / 60) + 'm ago'; }
+		else                    { tmpAgeStr = Math.floor(tmpAge / 3600) + 'h ago'; }
+		return tmpDirty + ' dirty · ' + tmpAgeStr;
 	}
 
 	// ─────────────────────────────────────────────
@@ -301,7 +341,7 @@ class ManagerSidebarView extends libPictView
 		let tmpQ = pValue || '';
 		this.pict.AppData.Manager.Filter.Query = tmpQ;
 		lsSet(LS_KEY_FILTER, tmpQ);
-		this._renderModuleList();
+		this.render();
 	}
 
 	setDirtyOnly(pChecked)
@@ -314,7 +354,7 @@ class ManagerSidebarView extends libPictView
 		{
 			this.triggerScan();
 		}
-		this._renderModuleList();
+		this.render();
 	}
 
 	setSortByTime(pChecked)
@@ -322,17 +362,14 @@ class ManagerSidebarView extends libPictView
 		let tmpChecked = !!pChecked;
 		this.pict.AppData.Manager.Filter.SortByTime = tmpChecked;
 		lsSet(LS_KEY_SORT_BY_TIME, tmpChecked ? '1' : '0');
-		this._renderModuleList();
+		this.render();
 	}
 
 	triggerScan()
 	{
 		let tmpState = this.pict.AppData.Manager;
 		tmpState.Scan.Running = true;
-		this._renderScanMeta();
-
-		let tmpBtn = document.getElementById('RM-ScanButton');
-		if (tmpBtn) { tmpBtn.classList.add('scanning'); tmpBtn.disabled = true; }
+		this.render();
 
 		this.pict.PictApplication.setStatus('Scanning all modules...');
 
@@ -350,40 +387,8 @@ class ManagerSidebarView extends libPictView
 		).then(() =>
 			{
 				tmpState.Scan.Running = false;
-				let tmpBtn2 = document.getElementById('RM-ScanButton');
-				if (tmpBtn2) { tmpBtn2.classList.remove('scanning'); tmpBtn2.disabled = false; }
-				this._renderScanMeta();
-				this._renderModuleList();
+				this.render();
 			});
-	}
-
-	_renderScanMeta()
-	{
-		let tmpEl = document.getElementById('RM-ScanMeta');
-		if (!tmpEl) { return; }
-		let tmpState = this.pict.AppData.Manager.Scan;
-		if (tmpState.Running) { tmpEl.textContent = 'scanning…'; return; }
-		if (!tmpState.When)   { tmpEl.textContent = ''; return; }
-		let tmpNames = Object.keys(tmpState.Results || {});
-		let tmpDirty = tmpNames.filter((pN) => isDirty(tmpState.Results[pN])).length;
-		let tmpWhen  = new Date(tmpState.When);
-		let tmpAge   = Math.max(0, Math.floor((Date.now() - tmpWhen.getTime()) / 1000));
-		let tmpAgeStr;
-		if      (tmpAge < 60)   { tmpAgeStr = tmpAge + 's ago'; }
-		else if (tmpAge < 3600) { tmpAgeStr = Math.floor(tmpAge / 60) + 'm ago'; }
-		else                    { tmpAgeStr = Math.floor(tmpAge / 3600) + 'h ago'; }
-		tmpEl.textContent = tmpDirty + ' dirty · ' + tmpAgeStr;
-	}
-
-	_escape(pText)
-	{
-		let tmpS = String(pText == null ? '' : pText);
-		return tmpS
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;')
-			.replace(/'/g, '&#39;');
 	}
 }
 

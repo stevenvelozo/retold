@@ -15,7 +15,7 @@ const _ViewConfiguration =
 		{
 			Hash: 'Manager-Modal-Commit-Template',
 			Template: /*html*/`
-<div class="modal-backdrop" onclick="if(event.target===this){window._Pict.views['Manager-Modal-Commit'].close();}">
+<div class="modal-backdrop" onclick="if(event.target===this){_Pict.views['Manager-Modal-Commit'].close();}">
 	<div class="modal">
 		<h3>Commit &mdash; {~D:Record.ModuleName~}</h3>
 		<p style="color:var(--color-muted);font-size:12px;margin:0 0 10px">
@@ -23,8 +23,8 @@ const _ViewConfiguration =
 		</p>
 		<textarea id="RM-CommitMessage" placeholder="Commit message"></textarea>
 		<div class="modal-actions">
-			<button class="action" onclick="{~P~}.views['Manager-Modal-Commit'].close()">Cancel</button>
-			<button class="action primary" onclick="{~P~}.views['Manager-Modal-Commit'].submit()">Commit</button>
+			<button class="action" onclick="_Pict.views['Manager-Modal-Commit'].close()">Cancel</button>
+			<button class="action primary" onclick="_Pict.views['Manager-Modal-Commit'].submit()">Commit</button>
 		</div>
 	</div>
 </div>

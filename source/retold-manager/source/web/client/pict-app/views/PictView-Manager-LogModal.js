@@ -237,7 +237,8 @@ class ManagerLogModalView extends libPictView
 				{
 					this._dialog = pDialog;
 					this._dismissDialog = pDialog._dismiss;
-					this._wireToolbar(pDialog);
+					// Toolbar buttons use inline onclick handlers — no
+					// per-render JS wiring needed.
 				},
 				onClose: () =>
 				{
@@ -254,9 +255,9 @@ class ManagerLogModalView extends libPictView
 			+ '<div class="rm-log-modal-toolbar">'
 			+ '  <span class="meta-text">loading...</span>'
 			+ '  <span class="spacer"></span>'
-			+ '  <button data-rm-log-action="refresh-500">Refresh (500)</button>'
-			+ '  <button data-rm-log-action="refresh-2000">Last 2000</button>'
-			+ '  <button data-rm-log-action="fullscreen">Fullscreen</button>'
+			+ '  <button onclick="_Pict.views[\'Manager-LogModal\'].handleToolbarAction(\'refresh-500\', this)">Refresh (500)</button>'
+			+ '  <button onclick="_Pict.views[\'Manager-LogModal\'].handleToolbarAction(\'refresh-2000\', this)">Last 2000</button>'
+			+ '  <button onclick="_Pict.views[\'Manager-LogModal\'].handleToolbarAction(\'fullscreen\', this)">Fullscreen</button>'
 			+ '</div>';
 	}
 
@@ -267,26 +268,13 @@ class ManagerLogModalView extends libPictView
 			+ '  <span class="live-dot"></span>'
 			+ '  <span class="meta-text">starting...</span>'
 			+ '  <span class="spacer"></span>'
-			+ '  <button data-rm-log-action="cancel">Cancel</button>'
-			+ '  <button data-rm-log-action="fullscreen">Fullscreen</button>'
+			+ '  <button onclick="_Pict.views[\'Manager-LogModal\'].handleToolbarAction(\'cancel\', this)">Cancel</button>'
+			+ '  <button onclick="_Pict.views[\'Manager-LogModal\'].handleToolbarAction(\'fullscreen\', this)">Fullscreen</button>'
 			+ '</div>';
 	}
 
-	_wireToolbar(pDialog)
-	{
-		let tmpButtons = pDialog.querySelectorAll('[data-rm-log-action]');
-		for (let i = 0; i < tmpButtons.length; i++)
-		{
-			let tmpBtn = tmpButtons[i];
-			tmpBtn.addEventListener('click', (pEvent) =>
-				{
-					let tmpAction = pEvent.currentTarget.getAttribute('data-rm-log-action');
-					this._handleToolbarAction(tmpAction, pEvent.currentTarget);
-				});
-		}
-	}
-
-	_handleToolbarAction(pAction, pButton)
+	// Public — invoked from inline onclick handlers in the toolbars above.
+	handleToolbarAction(pAction, pButton)
 	{
 		switch (pAction)
 		{

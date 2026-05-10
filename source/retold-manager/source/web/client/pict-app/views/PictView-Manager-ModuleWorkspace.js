@@ -1,5 +1,11 @@
 const libPictView = require('pict-view');
 
+// Caret SVG injected into the action-group "more" buttons. Static
+// markup, not data-derived — kept as a literal so the templates that
+// reference it stay tag-free.
+const CARET_SVG = '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false">'
+	+ '<path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
 const _ViewConfiguration =
 {
 	ViewIdentifier: 'Manager-ModuleWorkspace',
@@ -12,6 +18,7 @@ const _ViewConfiguration =
 
 	Templates:
 	[
+		// ── Loading / error placeholders ──────────────────────────
 		{
 			Hash: 'Manager-ModuleWorkspace-Loading-Template',
 			Template: /*html*/`
@@ -27,73 +34,220 @@ const _ViewConfiguration =
 </div>
 `
 		},
+
+		// ── Top-level workspace shell ─────────────────────────────
 		{
 			Hash: 'Manager-ModuleWorkspace-Content-Template',
 			Template: /*html*/`
 <div id="RM-Mod-InfoBox" class="module-info-box collapsed"
-	onclick="{~P~}.views['Manager-ModuleWorkspace'].toggleInfoBox()">
-	{~D:Record.InfoBoxBody~}
+	onclick="_Pict.views['Manager-ModuleWorkspace'].toggleInfoBox()">
+	{~T:Manager-ModuleWorkspace-InfoBox-Template:Record~}
 </div>
 
 <div class="workspace-header">
 	<span class="module-name">{~D:Record.Manifest.Name~}</span>
-	{~D:Record.PackageVersionBadge~}
-	{~D:Record.GitBranchBadge~}
+	{~TS:Manager-ModuleWorkspace-VersionBadge-Template:Record.VersionBadgeSlot~}
+	{~TS:Manager-ModuleWorkspace-BranchBadge-Template:Record.BranchBadgeSlot~}
 	<div class="workspace-header-right">
-		{~D:Record.GitHubLink~}
-		{~D:Record.NpmLink~}
-		{~D:Record.DocsLink~}
+		{~TS:Manager-ModuleWorkspace-GitHubLink-Template:Record.GitHubLinkSlot~}
+		{~TS:Manager-ModuleWorkspace-NpmLink-Template:Record.NpmLinkSlot~}
+		{~TS:Manager-ModuleWorkspace-DocsLink-Template:Record.DocsLinkSlot~}
 	</div>
 </div>
-{~D:Record.DescriptionBlock~}
+{~TS:Manager-ModuleWorkspace-Description-Template:Record.DescriptionSlot~}
 
 <div class="action-groups">
 	<div class="action-group">
 		<div class="action-group-label">npm</div>
 		<div class="action-row">
-			<button class="action" data-op="ncu">ncu</button>
-			<button class="action" data-op="test">test</button>
-			<button class="action action-more" data-overflow="npm" aria-label="More npm actions" title="More npm actions">{~D:Record.CaretIcon~}</button>
+			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('ncu', null)">ncu</button>
+			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('test', null)">test</button>
+			<button class="action action-more" aria-label="More npm actions" title="More npm actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('npm', this); event.stopPropagation();">{~D:Record.CaretIcon~}</button>
 		</div>
 	</div>
 	<div class="action-group">
 		<div class="action-group-label">version</div>
 		<div class="action-row">
-			<button class="action" data-op="bump-patch">+ patch</button>
-			<button class="action action-more" data-overflow="version" aria-label="More version actions" title="More version actions">{~D:Record.CaretIcon~}</button>
+			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('bump-patch', null)">+ patch</button>
+			<button class="action action-more" aria-label="More version actions" title="More version actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('version', this); event.stopPropagation();">{~D:Record.CaretIcon~}</button>
 		</div>
 	</div>
 	<div class="action-group">
 		<div class="action-group-label">git</div>
 		<div class="action-row">
-			<button class="action" data-op="git-add">add -A</button>
-			<button class="action" data-op="diff">diff</button>
-			<button class="action" data-op="commit">commit</button>
-			<button class="action" data-op="push">push</button>
-			<button class="action action-more" data-overflow="git" aria-label="More git actions" title="More git actions">{~D:Record.CaretIcon~}</button>
+			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('git-add', null)">add -A</button>
+			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('diff', null)">diff</button>
+			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('commit', null)">commit</button>
+			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('push', null)">push</button>
+			<button class="action action-more" aria-label="More git actions" title="More git actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('git', this); event.stopPropagation();">{~D:Record.CaretIcon~}</button>
 		</div>
 	</div>
 	<div class="action-group">
 		<div class="action-group-label">publish</div>
 		<div class="action-row">
-			<button class="action success" data-op="publish" title="Open the publish dialog (npm, npm + Docker image, or plan a ripple from here)">publish</button>
+			<button class="action success" title="Open the publish dialog (npm, npm + Docker image, or plan a ripple from here)" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('publish', null)">publish</button>
 		</div>
 	</div>
 </div>
 
-<!-- Live operation log for this module's most recent action -->
-<div id="RM-OutputPanelContainer"></div>
-
-<div id="RM-Mod-FilesArea">{~D:Record.GitFilesSection~}</div>
+<div id="RM-Mod-FilesArea">
+	{~TS:Manager-ModuleWorkspace-ChangedFiles-Template:Record.ChangedFilesSlot~}
+</div>
 
 <div id="RM-Mod-DepsArea">
-	{~D:Record.RetoldDepsSection~}
-	{~D:Record.ExternalDepsSection~}
-	{~D:Record.RetoldDevDepsSection~}
-	{~D:Record.ExternalDevDepsSection~}
+	{~TS:Manager-ModuleWorkspace-DepSection-Template:Record.RetoldDepsSlot~}
+	{~TS:Manager-ModuleWorkspace-DepSection-Template:Record.ExternalDepsSlot~}
+	{~TS:Manager-ModuleWorkspace-DepSection-Template:Record.RetoldDevDepsSlot~}
+	{~TS:Manager-ModuleWorkspace-DepSection-Template:Record.ExternalDevDepsSlot~}
 </div>
 `
-		}
+		},
+
+		// ── Header badges + links (single-element-array conditionals) ──
+		{
+			Hash: 'Manager-ModuleWorkspace-VersionBadge-Template',
+			Template: /*html*/`<span class="module-version">v{~D:Record.Version~}</span>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-BranchBadge-Template',
+			Template: /*html*/`<span class="module-branch">{~D:Record.Branch~}</span>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-GitHubLink-Template',
+			Template: /*html*/`<a href="{~D:Record.Url~}" target="_blank">GitHub</a>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-NpmLink-Template',
+			Template: /*html*/`<a href="{~D:Record.Url~}" target="_blank">npm</a>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-DocsLink-Template',
+			Template: /*html*/`<a href="{~D:Record.Url~}" target="_blank">Docs</a>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-Description-Template',
+			Template: /*html*/`<p style="color:var(--color-muted);margin-top:0">{~D:Record.Description~}</p>`
+		},
+
+		// ── Floating info box (header + collapsible body) ─────────
+		{
+			Hash: 'Manager-ModuleWorkspace-InfoBox-Template',
+			Template: /*html*/`
+<div class="info-header">
+	<span class="ib-name">{~D:Record.Manifest.Name~}</span>
+	{~TS:Manager-ModuleWorkspace-InfoBox-Version-Template:Record.InfoBox.VersionSlot~}
+	{~TS:Manager-ModuleWorkspace-InfoBox-Branch-Template:Record.InfoBox.BranchSlot~}
+	{~TS:Manager-ModuleWorkspace-InfoBox-AheadBehind-Template:Record.InfoBox.AheadBehindSlot~}
+	{~TS:Manager-ModuleWorkspace-InfoBox-Dirty-Template:Record.InfoBox.DirtySlot~}
+	<span class="ib-toggle"></span>
+</div>
+<div class="info-body" onclick="event.stopPropagation()">
+	<div class="ib-section">
+		<h4>Package</h4>
+		<dl class="kv">
+			<dt>name</dt><dd>{~D:Record.InfoBox.PkgName~}</dd>
+			<dt>version</dt><dd>{~D:Record.InfoBox.PkgVersion~}</dd>
+			<dt>dependencies</dt><dd>{~D:Record.InfoBox.DepsCount~}</dd>
+			<dt>devDependencies</dt><dd>{~D:Record.InfoBox.DevDepsCount~}</dd>
+		</dl>
+	</div>
+	<div class="ib-section">
+		<h4>Git status</h4>
+		<dl class="kv">
+			<dt>branch</dt><dd>{~D:Record.InfoBox.GitBranch~}</dd>
+			<dt>ahead / behind</dt><dd>{~D:Record.InfoBox.AheadBehind~}</dd>
+			<dt>dirty</dt><dd>{~D:Record.InfoBox.DirtyLabel~}</dd>
+		</dl>
+	</div>
+</div>
+`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-InfoBox-Version-Template',
+			Template: /*html*/`<span class="ib-version">v{~D:Record.Version~}</span>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-InfoBox-Branch-Template',
+			Template: /*html*/`<span class="ib-branch">{~D:Record.Branch~}</span>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-InfoBox-AheadBehind-Template',
+			Template: /*html*/`<span class="ib-aheadbehind" title="{~D:Record.Tooltip~}"><span class="ib-ahead">{~D:Record.Ahead~}</span> / <span class="ib-behind">{~D:Record.Behind~}</span></span>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-InfoBox-Dirty-Template',
+			Template: /*html*/`<span class="ib-dirty ib-dirty--{~D:Record.State~}" title="{~D:Record.Tooltip~}">●</span>`
+		},
+
+		// ── Changed files block ───────────────────────────────────
+		{
+			Hash: 'Manager-ModuleWorkspace-ChangedFiles-Template',
+			Template: /*html*/`
+<div class="workspace-section">
+	<h3>Changed files ({~D:Record.Count~})</h3>
+	{~TS:Manager-ModuleWorkspace-ChangedFile-Row-Template:Record.Files~}
+</div>
+`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-ChangedFile-Row-Template',
+			Template: /*html*/`
+<div class="git-file">
+	<span class="st">{~D:Record.StatusLabel~}</span>{~D:Record.Path~}{~TS:Manager-ModuleWorkspace-ChangedFile-AddBtn-Template:Record.AddBtnSlot~}
+</div>
+`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-ChangedFile-AddBtn-Template',
+			Template: /*html*/` <button class="git-add-file" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('git-add-one', '{~D:Record.JsPath~}')">+ add</button>`
+		},
+
+		// ── Dependency sections ───────────────────────────────────
+		{
+			Hash: 'Manager-ModuleWorkspace-DepSection-Template',
+			Template: /*html*/`
+<div class="workspace-section dep-section">
+	<h3>{~D:Record.Label~} ({~D:Record.Count~})</h3>
+	<table class="dep-table"><tbody>
+		{~TS:Manager-ModuleWorkspace-DepRow-Template:Record.Deps~}
+	</tbody></table>
+</div>
+`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-DepRow-Template',
+			Template: /*html*/`
+<tr>
+	<td class="{~D:Record.NameClass~}">{~TS:Manager-ModuleWorkspace-DepName-Link-Template:Record.NameLinkSlot~}{~TS:Manager-ModuleWorkspace-DepName-Plain-Template:Record.NamePlainSlot~}</td>
+	<td class="dep-range">{~D:Record.Range~}</td>
+	<td class="dep-links">{~TS:Manager-ModuleWorkspace-DepLink-Gh-Template:Record.GhSlot~}{~TS:Manager-ModuleWorkspace-DepLink-Docs-Template:Record.DocsSlot~}{~TS:Manager-ModuleWorkspace-DepLink-Repo-Template:Record.RepoSlot~}{~TS:Manager-ModuleWorkspace-DepLink-Npm-Template:Record.NpmSlot~}</td>
+</tr>
+`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-DepName-Link-Template',
+			Template: /*html*/`<a class="dep-name-link" href="#/Module/{~D:Record.NameUrlEncoded~}" title="Open {~D:Record.Name~}">{~D:Record.Name~}</a>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-DepName-Plain-Template',
+			Template: /*html*/`{~D:Record.Name~}`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-DepLink-Gh-Template',
+			Template: /*html*/`<a href="{~D:Record.Url~}" target="_blank" title="GitHub">gh</a>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-DepLink-Docs-Template',
+			Template: /*html*/`<a href="{~D:Record.Url~}" target="_blank" title="Docs">docs</a>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-DepLink-Repo-Template',
+			Template: /*html*/`<a href="{~D:Record.Url~}" target="_blank" title="Repository">repo</a>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-DepLink-Npm-Template',
+			Template: /*html*/`<a href="{~D:Record.Url~}" target="_blank" title="npm">npm</a>`
+		},
 	],
 
 	Renderables:
@@ -147,10 +301,9 @@ class ManagerModuleWorkspaceView extends libPictView
 			});
 	}
 
-	// Refresh the detail in the background and patch the dynamic sections of
-	// the workspace (info box + deps + git files) without disturbing the
-	// inline output panel. Used after a module-scoped operation completes so
-	// stale data (like uncommitted files that just got committed) updates.
+	// Refresh the detail in the background and re-render the workspace.
+	// Used after a module-scoped operation completes so stale data (like
+	// uncommitted files that just got committed) updates.
 	refreshDetail()
 	{
 		if (!this._boundName) { return; }
@@ -160,7 +313,7 @@ class ManagerModuleWorkspaceView extends libPictView
 			{
 				if (this._boundName !== tmpName) { return; }
 				this.pict.AppData.Manager.SelectedModuleDetail = pDetail;
-				this._patchDynamicSections();
+				this._renderFromDetail();
 			},
 			() => { /* swallow — not fatal */ });
 	}
@@ -172,33 +325,6 @@ class ManagerModuleWorkspaceView extends libPictView
 		this.render();
 	}
 
-	// Replace just the info-box body and the deps area in place. Keeps the
-	// output panel intact (its DOM container survives because we don't touch
-	// #RM-OutputPanelContainer).
-	_patchDynamicSections()
-	{
-		let tmpRecord = this._computeViewRecord();
-		this.pict.AppData.Manager.ViewRecord.ModuleWorkspace = tmpRecord;
-
-		let tmpInfo = document.getElementById('RM-Mod-InfoBox');
-		if (tmpInfo) { tmpInfo.innerHTML = tmpRecord.InfoBoxBody; }
-
-		let tmpFiles = document.getElementById('RM-Mod-FilesArea');
-		if (tmpFiles) { tmpFiles.innerHTML = tmpRecord.GitFilesSection; }
-
-		let tmpDeps = document.getElementById('RM-Mod-DepsArea');
-		if (tmpDeps)
-		{
-			tmpDeps.innerHTML = ''
-				+ tmpRecord.RetoldDepsSection
-				+ tmpRecord.ExternalDepsSection
-				+ tmpRecord.RetoldDevDepsSection
-				+ tmpRecord.ExternalDevDepsSection;
-		}
-
-		this._wireFileButtons();
-	}
-
 	toggleInfoBox()
 	{
 		let tmpEl = document.getElementById('RM-Mod-InfoBox');
@@ -207,76 +333,85 @@ class ManagerModuleWorkspaceView extends libPictView
 		tmpEl.classList.toggle('collapsed', this._infoBoxCollapsed);
 	}
 
+	// ─────────────────────────────────────────────
+	//  Data shaping for the templates — this is the only place that
+	//  walks the API payload. Everything below is plain data; the
+	//  templates above own all the markup.
+	// ─────────────────────────────────────────────
+
 	_computeViewRecord()
 	{
 		let tmpDetail = this.pict.AppData.Manager.SelectedModuleDetail;
 		if (!tmpDetail || !tmpDetail.Manifest)
 		{
-			return { Manifest: { Name: '(none)' }, InfoBoxBody: '' };
+			return this._emptyRecord();
 		}
 
 		let tmpManifest = tmpDetail.Manifest;
-		let tmpPkg  = tmpDetail.Package;
-		let tmpGit  = tmpDetail.GitStatus;
+		let tmpPkg  = tmpDetail.Package  || {};
+		let tmpGit  = tmpDetail.GitStatus || {};
 
-		let tmpRecord = { Manifest: tmpManifest };
+		let tmpRecord =
+		{
+			Manifest:        tmpManifest,
+			CaretIcon:       CARET_SVG,
 
-		tmpRecord.PackageVersionBadge = (tmpPkg && tmpPkg.Version)
-			? '<span class="module-version">v' + this._escape(tmpPkg.Version) + '</span>'
-			: '';
+			VersionBadgeSlot: tmpPkg.Version ? [{ Version: tmpPkg.Version }] : [],
+			BranchBadgeSlot:  tmpGit.Branch  ? [{ Branch: tmpGit.Branch }]   : [],
+			GitHubLinkSlot:   tmpManifest.GitHub        ? [{ Url: tmpManifest.GitHub }]        : [],
+			NpmLinkSlot:      tmpPkg.Name               ? [{ Url: 'https://www.npmjs.com/package/' + encodeURIComponent(tmpPkg.Name) }] : [],
+			DocsLinkSlot:     tmpManifest.Documentation ? [{ Url: tmpManifest.Documentation }] : [],
+			DescriptionSlot:  tmpManifest.Description   ? [{ Description: tmpManifest.Description }] : [],
 
-		tmpRecord.GitBranchBadge = (tmpGit && tmpGit.Branch)
-			? '<span class="module-branch">' + this._escape(tmpGit.Branch) + '</span>'
-			: '';
+			InfoBox:          this._buildInfoBoxData(tmpManifest, tmpPkg, tmpGit),
 
-		tmpRecord.GitHubLink = tmpManifest.GitHub
-			? '<a href="' + this._escape(tmpManifest.GitHub) + '" target="_blank">GitHub</a>'
-			: '';
+			ChangedFilesSlot: this._buildChangedFilesSlot(tmpGit),
 
-		tmpRecord.NpmLink = (tmpPkg && tmpPkg.Name)
-			? '<a href="https://www.npmjs.com/package/' + encodeURIComponent(tmpPkg.Name)
-				+ '" target="_blank">npm</a>'
-			: '';
-
-		tmpRecord.DocsLink = tmpManifest.Documentation
-			? '<a href="' + this._escape(tmpManifest.Documentation) + '" target="_blank">Docs</a>'
-			: '';
-
-		tmpRecord.DescriptionBlock = tmpManifest.Description
-			? '<p style="color:var(--color-muted);margin-top:0">' + this._escape(tmpManifest.Description) + '</p>'
-			: '';
-
-		// Floating info-box body (Package + Git status summary).
-		tmpRecord.InfoBoxBody = this._renderInfoBoxBody(tmpManifest, tmpPkg, tmpGit);
-		// Inline changed-files block (lives above the deps section).
-		tmpRecord.GitFilesSection = this._renderInlineFilesSection(tmpGit);
-		// Inline caret icon shared by all "more actions" triggers.
-		tmpRecord.CaretIcon = '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-
-		// Dependency tables (server already split retold vs external)
-		let tmpCat = tmpDetail.CategorizedDeps || {};
-		tmpRecord.RetoldDepsSection      = this._renderDepSection('Retold dependencies',      tmpCat.RetoldDeps || [],      true);
-		tmpRecord.ExternalDepsSection    = this._renderDepSection('External dependencies',    tmpCat.ExternalDeps || [],    false);
-		tmpRecord.RetoldDevDepsSection   = this._renderDepSection('Retold dev dependencies',  tmpCat.RetoldDevDeps || [],   true);
-		tmpRecord.ExternalDevDepsSection = this._renderDepSection('External dev dependencies',tmpCat.ExternalDevDeps || [], false);
+			RetoldDepsSlot:      this._buildDepSlot('Retold dependencies',       (tmpDetail.CategorizedDeps || {}).RetoldDeps,      true),
+			ExternalDepsSlot:    this._buildDepSlot('External dependencies',     (tmpDetail.CategorizedDeps || {}).ExternalDeps,    false),
+			RetoldDevDepsSlot:   this._buildDepSlot('Retold dev dependencies',   (tmpDetail.CategorizedDeps || {}).RetoldDevDeps,   true),
+			ExternalDevDepsSlot: this._buildDepSlot('External dev dependencies', (tmpDetail.CategorizedDeps || {}).ExternalDevDeps, false),
+		};
 
 		return tmpRecord;
 	}
 
-	_renderInfoBoxBody(pManifest, pPkg, pGit)
+	_emptyRecord()
 	{
-		let tmpVersion = (pPkg && pPkg.Version) ? 'v' + pPkg.Version : '';
-		let tmpBranch  = (pGit && pGit.Branch)  ? pGit.Branch : '';
+		return {
+			Manifest:           { Name: '(none)' },
+			CaretIcon:          CARET_SVG,
+			VersionBadgeSlot:   [],
+			BranchBadgeSlot:    [],
+			GitHubLinkSlot:     [],
+			NpmLinkSlot:        [],
+			DocsLinkSlot:       [],
+			DescriptionSlot:    [],
+			InfoBox:            { Manifest: { Name: '(none)' }, VersionSlot: [], BranchSlot: [], AheadBehindSlot: [], DirtySlot: [],
+				PkgName: '—', PkgVersion: '—', DepsCount: 0, DevDepsCount: 0,
+				GitBranch: '—', AheadBehind: '0 / 0', DirtyLabel: 'no' },
+			ChangedFilesSlot:    [],
+			RetoldDepsSlot:      [],
+			ExternalDepsSlot:    [],
+			RetoldDevDepsSlot:   [],
+			ExternalDevDepsSlot: [],
+		};
+	}
+
+	_buildInfoBoxData(pManifest, pPkg, pGit)
+	{
+		let tmpAhead  = pGit.Ahead  || 0;
+		let tmpBehind = pGit.Behind || 0;
+		let tmpHasStaged   = !!pGit.HasStaged;
+		let tmpHasUnstaged = !!pGit.HasUnstaged;
+
 		// Color the dot by the most upstream pending step (matches the sidebar
 		// badge convention): unstaged > staged > unpushed.
-		let tmpAhead = (pGit && pGit.Ahead) || 0;
-		let tmpHasStaged   = !!(pGit && pGit.HasStaged);
-		let tmpHasUnstaged = !!(pGit && pGit.HasUnstaged);
 		let tmpDirtyState = null;
 		if      (tmpHasUnstaged) { tmpDirtyState = 'unstaged'; }
 		else if (tmpHasStaged)   { tmpDirtyState = 'staged'; }
 		else if (tmpAhead > 0)   { tmpDirtyState = 'unpushed'; }
-		else if (pGit && pGit.Dirty) { tmpDirtyState = 'unstaged'; } // pre-upgrade fallback
+		else if (pGit.Dirty)     { tmpDirtyState = 'unstaged'; } // pre-upgrade fallback
 
 		let tmpDirtyTip = '';
 		if (tmpDirtyState)
@@ -284,170 +419,94 @@ class ManagerModuleWorkspaceView extends libPictView
 			let tmpParts = [];
 			if (tmpHasUnstaged) { tmpParts.push('Unstaged changes'); }
 			if (tmpHasStaged)   { tmpParts.push('Staged (uncommitted)'); }
-			if (!tmpHasUnstaged && !tmpHasStaged && pGit && pGit.Dirty) { tmpParts.push('Uncommitted changes'); }
+			if (!tmpHasUnstaged && !tmpHasStaged && pGit.Dirty) { tmpParts.push('Uncommitted changes'); }
 			if (tmpAhead > 0) { tmpParts.push(tmpAhead + ' unpushed commit' + (tmpAhead === 1 ? '' : 's')); }
 			tmpDirtyTip = tmpParts.join(' · ');
 		}
 
-		// Header is always shown (drives both the collapsed and expanded forms).
-		let tmpHtml = ''
-			+ '<div class="info-header">'
-			+ '<span class="ib-name">' + this._escape(pManifest.Name) + '</span>'
-			+ (tmpVersion ? '<span class="ib-version">' + this._escape(tmpVersion) + '</span>' : '')
-			+ (tmpBranch  ? '<span class="ib-branch">' + this._escape(tmpBranch) + '</span>'   : '')
-			+ (tmpDirtyState
-				? '<span class="ib-dirty ib-dirty--' + tmpDirtyState + '" title="'
-					+ this._escape(tmpDirtyTip) + '">●</span>'
-				: '')
-			+ '<span class="ib-toggle"></span>'
-			+ '</div>';
+		// Surface the ahead / behind counts in the collapsed header so the
+		// user can spot "needs push" / "behind upstream" at a glance. Only
+		// rendered when we actually have git data — branchless modules
+		// (orphan workdirs, fresh clones without an upstream) suppress the
+		// pill since "0 / 0" is misleading there.
+		let tmpAheadBehindSlot = pGit.Branch
+			? [{
+				Ahead:   tmpAhead,
+				Behind:  tmpBehind,
+				Tooltip: tmpAhead + ' commit' + (tmpAhead === 1 ? '' : 's') + ' ahead, '
+					+ tmpBehind + ' commit' + (tmpBehind === 1 ? '' : 's') + ' behind upstream',
+			}]
+			: [];
 
-		// Expanded body — package and git details.
-		tmpHtml += '<div class="info-body" onclick="event.stopPropagation()">';
+		return {
+			Manifest:        pManifest,
+			VersionSlot:     pPkg.Version ? [{ Version: pPkg.Version }] : [],
+			BranchSlot:      pGit.Branch  ? [{ Branch: pGit.Branch }]   : [],
+			AheadBehindSlot: tmpAheadBehindSlot,
+			DirtySlot:       tmpDirtyState ? [{ State: tmpDirtyState, Tooltip: tmpDirtyTip }] : [],
 
-		tmpHtml += '<div class="ib-section"><h4>Package</h4><dl class="kv">';
-		tmpHtml += '<dt>name</dt><dd>' + this._escape((pPkg && pPkg.Name) || '—') + '</dd>';
-		tmpHtml += '<dt>version</dt><dd>' + this._escape((pPkg && pPkg.Version) || '—') + '</dd>';
-		tmpHtml += '<dt>dependencies</dt><dd>'
-			+ (pPkg && pPkg.Dependencies ? Object.keys(pPkg.Dependencies).length : 0) + '</dd>';
-		tmpHtml += '<dt>devDependencies</dt><dd>'
-			+ (pPkg && pPkg.DevDependencies ? Object.keys(pPkg.DevDependencies).length : 0) + '</dd>';
-		tmpHtml += '</dl></div>';
+			PkgName:        pPkg.Name    || '—',
+			PkgVersion:     pPkg.Version || '—',
+			DepsCount:      pPkg.Dependencies    ? Object.keys(pPkg.Dependencies).length    : 0,
+			DevDepsCount:   pPkg.DevDependencies ? Object.keys(pPkg.DevDependencies).length : 0,
 
-		tmpHtml += '<div class="ib-section"><h4>Git status</h4><dl class="kv">';
-		tmpHtml += '<dt>branch</dt><dd>' + this._escape((pGit && pGit.Branch) || '—') + '</dd>';
-		tmpHtml += '<dt>ahead / behind</dt><dd>'
-			+ ((pGit && pGit.Ahead) || 0) + ' / ' + ((pGit && pGit.Behind) || 0) + '</dd>';
-		tmpHtml += '<dt>dirty</dt><dd>' + (pGit && pGit.Dirty ? 'yes' : 'no') + '</dd>';
-		tmpHtml += '</dl>';
-		tmpHtml += '</div>';
-
-		tmpHtml += '</div>';
-		return tmpHtml;
+			GitBranch:   pGit.Branch || '—',
+			AheadBehind: tmpAhead + ' / ' + tmpBehind,
+			DirtyLabel:  pGit.Dirty ? 'yes' : 'no',
+		};
 	}
 
-	// Inline list of changed files (above the deps tables). Renders nothing
-	// when the working tree is clean.
-	_renderInlineFilesSection(pGit)
+	_buildChangedFilesSlot(pGit)
 	{
 		let tmpFiles = (pGit && pGit.Files) || [];
-		if (!tmpFiles.length) { return ''; }
-		let tmpHtml = '<div class="workspace-section"><h3>Changed files (' + tmpFiles.length + ')</h3>';
+		if (!tmpFiles.length) { return []; }
+
+		let tmpRows = [];
 		for (let i = 0; i < tmpFiles.length; i++)
 		{
 			let tmpFile = tmpFiles[i];
+			let tmpStatusTrim = (tmpFile.Status || '').trim() || '··';
 			let tmpIsUntracked = (tmpFile.Status === '??');
-			tmpHtml += '<div class="git-file">'
-				+ '<span class="st">' + this._escape(tmpFile.Status.trim() || '··') + '</span>'
-				+ this._escape(tmpFile.Path);
-			if (tmpIsUntracked)
-			{
-				tmpHtml += ' <button class="git-add-file" data-op="git-add-one" data-path="'
-					+ this._escape(tmpFile.Path) + '">+ add</button>';
-			}
-			tmpHtml += '</div>';
+			let tmpJsPath = (tmpFile.Path || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+			tmpRows.push({
+				StatusLabel:  tmpStatusTrim,
+				Path:         tmpFile.Path,
+				JsPath:       tmpJsPath,
+				AddBtnSlot:   tmpIsUntracked ? [{ JsPath: tmpJsPath }] : [],
+			});
 		}
-		tmpHtml += '</div>';
-		return tmpHtml;
+		return [{ Count: tmpFiles.length, Files: tmpRows }];
 	}
 
-	_renderDepSection(pLabel, pDeps, pIsRetold)
+	_buildDepSlot(pLabel, pDeps, pIsRetold)
 	{
-		if (!pDeps.length) { return ''; }
+		let tmpList = pDeps || [];
+		if (!tmpList.length) { return []; }
 
-		let tmpHtml = '<div class="workspace-section dep-section">';
-		tmpHtml += '<h3>' + this._escape(pLabel) + ' (' + pDeps.length + ')</h3>';
-		tmpHtml += '<table class="dep-table"><tbody>';
-		for (let i = 0; i < pDeps.length; i++)
+		let tmpRows = [];
+		for (let i = 0; i < tmpList.length; i++)
 		{
-			let tmpDep  = pDeps[i];
-			let tmpLinks = '';
-			if (pIsRetold)
-			{
-				if (tmpDep.GitHub)
-				{
-					tmpLinks += '<a href="' + this._escape(tmpDep.GitHub) + '" target="_blank" title="GitHub">gh</a>';
-				}
-				if (tmpDep.Documentation)
-				{
-					tmpLinks += '<a href="' + this._escape(tmpDep.Documentation) + '" target="_blank" title="Docs">docs</a>';
-				}
-			}
-			else if (tmpDep.Repository)
-			{
-				// External deps: surface the repo URL that was harvested from
-				// node_modules/<pkg>/package.json on the server.
-				tmpLinks += '<a href="' + this._escape(tmpDep.Repository) + '" target="_blank" title="Repository">repo</a>';
-			}
-			if (tmpDep.Npm)
-			{
-				tmpLinks += '<a href="' + this._escape(tmpDep.Npm) + '" target="_blank" title="npm">npm</a>';
-			}
-
-			let tmpNameCls = pIsRetold ? 'dep-name retold' : 'dep-name';
-			let tmpNameCell;
-			if (pIsRetold)
-			{
-				// Click-through to the dep's workspace.
-				tmpNameCell = '<a class="dep-name-link" href="#/Module/'
-					+ encodeURIComponent(tmpDep.Name) + '" title="Open ' + this._escape(tmpDep.Name) + '">'
-					+ this._escape(tmpDep.Name) + '</a>';
-			}
-			else
-			{
-				tmpNameCell = this._escape(tmpDep.Name);
-			}
-
-			tmpHtml += '<tr>';
-			tmpHtml += '<td class="' + tmpNameCls + '">' + tmpNameCell + '</td>';
-			tmpHtml += '<td class="dep-range">' + this._escape(tmpDep.Range) + '</td>';
-			tmpHtml += '<td class="dep-links">' + tmpLinks + '</td>';
-			tmpHtml += '</tr>';
+			let tmpDep = tmpList[i];
+			tmpRows.push({
+				Name:            tmpDep.Name,
+				Range:           tmpDep.Range,
+				NameUrlEncoded:  encodeURIComponent(tmpDep.Name || ''),
+				NameClass:       pIsRetold ? 'dep-name retold' : 'dep-name',
+				NameLinkSlot:    pIsRetold ? [{ Name: tmpDep.Name, NameUrlEncoded: encodeURIComponent(tmpDep.Name || '') }] : [],
+				NamePlainSlot:   pIsRetold ? [] : [{ Name: tmpDep.Name }],
+				GhSlot:          (pIsRetold && tmpDep.GitHub)        ? [{ Url: tmpDep.GitHub }]        : [],
+				DocsSlot:        (pIsRetold && tmpDep.Documentation) ? [{ Url: tmpDep.Documentation }] : [],
+				RepoSlot:        (!pIsRetold && tmpDep.Repository)   ? [{ Url: tmpDep.Repository }]    : [],
+				NpmSlot:         tmpDep.Npm                          ? [{ Url: tmpDep.Npm }]           : [],
+			});
 		}
-		tmpHtml += '</tbody></table>';
-		tmpHtml += '</div>';
-		return tmpHtml;
+		return [{ Label: pLabel, Count: tmpRows.length, Deps: tmpRows }];
 	}
-
-	// Note: onBeforeRender is NOT the place to populate the record address —
-	// pict-view reads from that address before onBeforeRender fires. See
-	// loadModule() and runAction() for where ViewRecord.ModuleWorkspace gets
-	// refreshed ahead of render().
 
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)
 	{
-		// Wire action-bar buttons. Buttons without data-op are ignored.
-		let tmpWorkspace = document.getElementById('RM-Workspace');
-		if (tmpWorkspace)
-		{
-			let tmpButtons = tmpWorkspace.querySelectorAll('.action-groups button[data-op]');
-			for (let i = 0; i < tmpButtons.length; i++)
-			{
-				tmpButtons[i].addEventListener('click', (pEvent) =>
-					{
-						let tmpOp = pEvent.currentTarget.getAttribute('data-op');
-						this.runAction(tmpOp, null);
-					});
-			}
-			let tmpOverflow = tmpWorkspace.querySelectorAll('.action-groups button[data-overflow]');
-			for (let i = 0; i < tmpOverflow.length; i++)
-			{
-				tmpOverflow[i].addEventListener('click', (pEvent) =>
-					{
-						pEvent.stopPropagation();
-						let tmpGroup = pEvent.currentTarget.getAttribute('data-overflow');
-						this._openOverflow(tmpGroup, pEvent.currentTarget);
-					});
-			}
-		}
-		this._wireFileButtons();
-
-		// Re-render the output panel into the freshly created anchor so any
-		// in-flight operation lines stay visible after a refresh.
-		if (this.pict.views['Manager-OutputPanel'])
-		{
-			this.pict.views['Manager-OutputPanel'].render();
-		}
+		// All buttons live in the templates with inline `onclick=_Pict.views[...].method(...)`
+		// handlers that survive every re-render. No JS-side wiring here.
 
 		this.pict.CSSMap.injectCSS();
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
@@ -500,22 +559,6 @@ class ManagerModuleWorkspaceView extends libPictView
 			});
 	}
 
-	// Wire up the per-file "+ add" buttons in the inline changed-files block.
-	_wireFileButtons()
-	{
-		let tmpFiles = document.getElementById('RM-Mod-FilesArea');
-		if (!tmpFiles) { return; }
-		let tmpButtons = tmpFiles.querySelectorAll('button[data-op="git-add-one"]');
-		for (let i = 0; i < tmpButtons.length; i++)
-		{
-			tmpButtons[i].addEventListener('click', (pEvent) =>
-				{
-					let tmpPath = pEvent.currentTarget.getAttribute('data-path');
-					this.runAction('git-add-one', tmpPath);
-				});
-		}
-	}
-
 	// ─────────────────────────────────────────────
 	//  Action dispatch
 	// ─────────────────────────────────────────────
@@ -527,8 +570,6 @@ class ManagerModuleWorkspaceView extends libPictView
 		let tmpName = tmpDetail.Manifest.Name;
 		let tmpApi  = this.pict.providers.ManagerAPI;
 
-		// Stamp the active operation so the WS layer can route its frames to
-		// the inline output panel (vs. the cross-module modal).
 		let tmpStartScopedOp = (pLabel) =>
 		{
 			this.pict.AppData.Manager.ActiveOperation =
@@ -541,9 +582,10 @@ class ManagerModuleWorkspaceView extends libPictView
 					Scope:       'module',
 					ModuleName:  tmpName,
 				};
-			if (this.pict.views['Manager-OutputPanel'])
+			let tmpLayout = this.pict.views['Manager-Layout'];
+			if (tmpLayout && typeof tmpLayout.popLogPanel === 'function')
 			{
-				this.pict.views['Manager-OutputPanel'].render();
+				tmpLayout.popLogPanel();
 			}
 		};
 
@@ -593,7 +635,6 @@ class ManagerModuleWorkspaceView extends libPictView
 				let tmpNext = this._projectBump(tmpLocal, pKind);
 				tmpPkg.Version = tmpNext.Major + '.' + tmpNext.Minor + '.' + tmpNext.Patch;
 			}
-			// Stamp the operation for inline output + post-completion refresh.
 			this.pict.AppData.Manager.ActiveOperation =
 				{
 					OperationId: null,
@@ -604,7 +645,11 @@ class ManagerModuleWorkspaceView extends libPictView
 					Scope:       'module',
 					ModuleName:  tmpName,
 				};
-			if (this.pict.views['Manager-OutputPanel']) { this.pict.views['Manager-OutputPanel'].render(); }
+			let tmpLayout = this.pict.views['Manager-Layout'];
+			if (tmpLayout && typeof tmpLayout.popLogPanel === 'function')
+			{
+				tmpLayout.popLogPanel();
+			}
 			return this.pict.providers.ManagerAPI.bumpVersion(tmpName, pKind);
 		};
 
@@ -618,26 +663,34 @@ class ManagerModuleWorkspaceView extends libPictView
 		// If nothing is published yet, any bump is fine.
 		if (!tmpPub) { return tmpProceed(); }
 
-		let tmpProjected       = this._projectBump(tmpLocal, pKind);   // where local lands after the click
-		let tmpExpectedFromPub = this._projectBump(tmpPub, pKind);     // where a fresh bump from npm would land
+		let tmpProjected       = this._projectBump(tmpLocal, pKind);
+		let tmpExpectedFromPub = this._projectBump(tmpPub, pKind);
 
 		// Sequential from the *published* baseline → safe, no prompt.
 		if (this._eqSemver(tmpProjected, tmpExpectedFromPub)) { return tmpProceed(); }
 
-		// Not sequential from npm → we're about to create a gap. Name the
-		// skipped version explicitly in the prompt.
 		let tmpProjectedStr = tmpProjected.Major + '.' + tmpProjected.Minor + '.' + tmpProjected.Patch;
 		let tmpExpectedStr  = tmpExpectedFromPub.Major + '.' + tmpExpectedFromPub.Minor + '.' + tmpExpectedFromPub.Patch;
 
 		let tmpMessage =
 			'npm has v' + tmpPkg.PublishedVersion + '; local is v' + tmpPkg.Version + '.'
-			+ '\n\nClicking "' + pKind + '" would set local to v' + tmpProjectedStr + ','
+			+ ' Clicking "' + pKind + '" would set local to v' + tmpProjectedStr + ','
 			+ ' but a ' + pKind + ' bump from npm would land on v' + tmpExpectedStr + '.'
-			+ '\n\nYou are about to skip v' + tmpExpectedStr + ' (which is not published).'
-			+ '\n\nContinue with ' + pKind + ' bump?';
+			+ ' You are about to skip v' + tmpExpectedStr + ' (which is not published).';
 
-		if (!window.confirm(tmpMessage)) { return; }
-		return tmpProceed();
+		let tmpModal = this.pict.views['Pict-Section-Modal'];
+		if (!tmpModal || typeof tmpModal.confirm !== 'function')
+		{
+			this.pict.PictApplication.setStatus('Skip-version guard cannot prompt; aborting bump.');
+			return;
+		}
+		return tmpModal.confirm(tmpMessage,
+			{
+				title:        'Skip version v' + tmpExpectedStr + '?',
+				confirmLabel: 'Bump to v' + tmpProjectedStr,
+				cancelLabel:  'Cancel',
+				dangerous:    true
+			}).then((pOk) => { if (pOk) { tmpProceed(); } });
 	}
 
 	_parseSemver(pVersion)
@@ -663,17 +716,6 @@ class ManagerModuleWorkspaceView extends libPictView
 	_eqSemver(pA, pB)
 	{
 		return pA.Major === pB.Major && pA.Minor === pB.Minor && pA.Patch === pB.Patch;
-	}
-
-	_escape(pText)
-	{
-		let tmpS = String(pText == null ? '' : pText);
-		return tmpS
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;')
-			.replace(/'/g, '&#39;');
 	}
 }
 

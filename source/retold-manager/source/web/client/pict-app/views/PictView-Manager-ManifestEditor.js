@@ -12,6 +12,7 @@ const _ViewConfiguration =
 
 	Templates:
 	[
+		// ── Top-level shell ───────────────────────────────────────
 		{
 			Hash: 'Manager-ManifestEditor-Template',
 			Template: /*html*/`
@@ -19,10 +20,74 @@ const _ViewConfiguration =
 	<h2>Manifest editor <span class="audit-badge {~D:Record.AuditClass~}" id="RM-AuditBadge">{~D:Record.AuditLabel~}</span></h2>
 	<p class="subtle">Edits save directly to <code>Retold-Modules-Manifest.json</code>.
 	Every change rewrites the file atomically (tmp + rename) and the sidebar re-syncs.</p>
-	<div id="RM-ManifestGroups">{~D:Record.GroupsHtml~}</div>
+	<div id="RM-ManifestGroups">
+		{~TS:Manager-ManifestEditor-Loading-Template:Record.LoadingSlot~}
+		{~TS:Manager-ManifestEditor-Group-Template:Record.Groups~}
+	</div>
 </div>
 `
-		}
+		},
+		{
+			Hash: 'Manager-ManifestEditor-Loading-Template',
+			Template: /*html*/`<p class="loading">{~D:Record.Message~}</p>`
+		},
+
+		// ── Per-group card ────────────────────────────────────────
+		{
+			Hash: 'Manager-ManifestEditor-Group-Template',
+			Template: /*html*/`
+<div class="group-card">
+	<div class="group-card-header">
+		<span class="name">{~D:Record.Name~}</span>
+		<span class="desc">{~D:Record.Description~}</span>
+		<button class="action" onclick="_Pict.views['Manager-ManifestEditor'].handleButton('add-module', '{~D:Record.NameJs~}', null)">+ Add module</button>
+	</div>
+	<table class="module-table">
+		<thead><tr>
+			<th style="width:28%">Name</th>
+			<th style="width:44%">Description</th>
+			<th>Status</th>
+			<th></th>
+		</tr></thead>
+		<tbody>
+			{~TS:Manager-ManifestEditor-Module-Template:Record.Modules~}
+			{~TS:Manager-ManifestEditor-DiskOnly-Template:Record.DiskOnly~}
+		</tbody>
+	</table>
+</div>
+`
+		},
+
+		// ── Module row (manifest entry, possibly orphaned) ────────
+		{
+			Hash: 'Manager-ManifestEditor-Module-Template',
+			Template: /*html*/`
+<tr class="{~D:Record.RowClass~}">
+	<td>{~D:Record.Name~}</td>
+	<td>{~D:Record.Description~}</td>
+	<td>{~D:Record.StatusLabel~}</td>
+	<td class="actions">
+		<button onclick="_Pict.views['Manager-ManifestEditor'].handleButton('edit-module', null, '{~D:Record.NameJs~}')">edit</button>
+		<button class="danger" onclick="_Pict.views['Manager-ManifestEditor'].handleButton('delete-module', null, '{~D:Record.NameJs~}')">delete</button>
+	</td>
+</tr>
+`
+		},
+
+		// ── Disk-only row (present on disk but not in manifest) ──
+		{
+			Hash: 'Manager-ManifestEditor-DiskOnly-Template',
+			Template: /*html*/`
+<tr class="orphan">
+	<td><em>{~D:Record.Name~}</em></td>
+	<td><em>not in manifest (present on disk)</em></td>
+	<td>disk-only</td>
+	<td class="actions">
+		<button onclick="_Pict.views['Manager-ManifestEditor'].handleButton('add-from-disk', '{~D:Record.GroupNameJs~}', '{~D:Record.NameJs~}')">+ add to manifest</button>
+	</td>
+</tr>
+`
+		},
 	],
 
 	Renderables:
@@ -35,6 +100,13 @@ const _ViewConfiguration =
 		}
 	]
 };
+
+function jsString(pText)
+{
+	return String(pText == null ? '' : pText)
+		.replace(/\\/g, '\\\\')
+		.replace(/'/g, "\\'");
+}
 
 class ManagerManifestEditorView extends libPictView
 {
@@ -49,9 +121,10 @@ class ManagerManifestEditorView extends libPictView
 	reload()
 	{
 		this._writeRecord({
-			AuditClass: '',
-			AuditLabel: 'auditing...',
-			GroupsHtml: '<p class="loading">Loading manifest...</p>',
+			AuditClass:  '',
+			AuditLabel:  'auditing...',
+			LoadingSlot: [{ Message: 'Loading manifest...' }],
+			Groups:      [],
 		});
 		this.render();
 
@@ -74,10 +147,10 @@ class ManagerManifestEditorView extends libPictView
 			(pError) =>
 			{
 				this._writeRecord({
-					AuditClass: 'drift',
-					AuditLabel: 'load failed',
-					GroupsHtml: '<p class="loading">Error loading manifest: '
-						+ this._escape(pError.message) + '</p>',
+					AuditClass:  'drift',
+					AuditLabel:  'load failed',
+					LoadingSlot: [{ Message: 'Error loading manifest: ' + pError.message }],
+					Groups:      [],
 				});
 				this.render();
 				this.pict.PictApplication.setStatus('Manifest load failed.');
@@ -86,29 +159,14 @@ class ManagerManifestEditorView extends libPictView
 
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)
 	{
-		this._wireButtons();
 		this.pict.CSSMap.injectCSS();
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
 	}
 
 	// ─────────────────────────────────────────────
 
-	_wireButtons()
-	{
-		let tmpButtons = document.querySelectorAll('#RM-ManifestGroups button[data-act]');
-		for (let i = 0; i < tmpButtons.length; i++)
-		{
-			tmpButtons[i].addEventListener('click', (pEvent) =>
-				{
-					let tmpAct   = pEvent.currentTarget.getAttribute('data-act');
-					let tmpGroup = pEvent.currentTarget.getAttribute('data-group');
-					let tmpName  = pEvent.currentTarget.getAttribute('data-name');
-					this._handleButton(tmpAct, tmpGroup, tmpName);
-				});
-		}
-	}
-
-	_handleButton(pAct, pGroup, pName)
+	// Public — invoked from the inline onclick handlers in the templates above.
+	handleButton(pAct, pGroup, pName)
 	{
 		let tmpEditView = this.pict.views['Manager-Modal-EditModule'];
 		if (!tmpEditView) { return; }
@@ -128,18 +186,44 @@ class ManagerManifestEditorView extends libPictView
 				tmpEditView.open({ GroupName: pGroup, SeedName: pName });
 				return;
 			case 'delete-module':
-				if (!window.confirm('Remove "' + pName + '" from the manifest?\n\nThe module directory on disk is NOT touched — only the manifest entry is removed.'))
+			{
+				let tmpModal = this.pict.views['Pict-Section-Modal'];
+				if (!tmpModal || typeof tmpModal.confirm !== 'function')
 				{
+					this.pict.PictApplication.setStatus('Cannot prompt for confirmation; aborting delete.');
 					return;
 				}
-				this.pict.providers.ManagerAPI.deleteManifestModule(pName).then(
-					() =>
+				tmpModal.confirm(
+					'Remove "' + pName + '" from the manifest? '
+					+ 'The module directory on disk is NOT touched — only the manifest entry is removed.',
 					{
-						this.reload();
-						this.pict.providers.ManagerAPI.loadModules();
-					},
-					(pError) => { window.alert('Delete failed: ' + pError.message); });
+						title:        'Remove from manifest?',
+						confirmLabel: 'Remove',
+						cancelLabel:  'Cancel',
+						dangerous:    true
+					}).then((pOk) =>
+					{
+						if (!pOk) { return; }
+						this.pict.providers.ManagerAPI.deleteManifestModule(pName).then(
+							() =>
+							{
+								this.reload();
+								this.pict.providers.ManagerAPI.loadModules();
+							},
+							(pError) =>
+							{
+								if (typeof tmpModal.toast === 'function')
+								{
+									tmpModal.toast('Delete failed: ' + pError.message, { type: 'error', duration: 6000 });
+								}
+								else
+								{
+									this.pict.PictApplication.setStatus('Delete failed: ' + pError.message);
+								}
+							});
+					});
 				return;
+			}
 		}
 	}
 
@@ -166,6 +250,11 @@ class ManagerManifestEditorView extends libPictView
 		this.pict.AppData.Manager.ViewRecord.ManifestEditor = pRecord;
 	}
 
+	// ─────────────────────────────────────────────
+	//  Data shaping — only place that walks the audit + manifest
+	//  payloads. Templates above own all the markup.
+	// ─────────────────────────────────────────────
+
 	_buildRecord()
 	{
 		let tmpAudit = this._audit;
@@ -175,89 +264,60 @@ class ManagerManifestEditorView extends libPictView
 			: 'drift: ' + tmpAudit.Drift.ManifestMissing + ' missing, '
 				+ tmpAudit.Drift.ManifestOrphaned + ' orphaned';
 
-		return {
-			AuditClass: tmpAuditClass,
-			AuditLabel: tmpAuditLabel,
-			GroupsHtml: this._renderGroups(),
-		};
-	}
-
-	_renderGroups()
-	{
 		let tmpAuditByGroup = {};
-		for (let i = 0; i < this._audit.Groups.length; i++)
+		for (let i = 0; i < tmpAudit.Groups.length; i++)
 		{
-			tmpAuditByGroup[this._audit.Groups[i].Name] = this._audit.Groups[i];
+			tmpAuditByGroup[tmpAudit.Groups[i].Name] = tmpAudit.Groups[i];
 		}
 
-		let tmpHtml = '';
+		let tmpGroups = [];
 		for (let i = 0; i < this._manifest.Groups.length; i++)
 		{
 			let tmpGroup      = this._manifest.Groups[i];
 			let tmpGroupAudit = tmpAuditByGroup[tmpGroup.Name] || { ManifestMissing: [], ManifestOrphaned: [] };
 			let tmpOrphanSet  = new Set(tmpGroupAudit.ManifestOrphaned);
+			let tmpGroupNameJs = jsString(tmpGroup.Name);
 
-			tmpHtml += '<div class="group-card">';
-			tmpHtml += '  <div class="group-card-header">';
-			tmpHtml += '    <span class="name">' + this._escape(tmpGroup.Name) + '</span>';
-			tmpHtml += '    <span class="desc">' + this._escape(tmpGroup.Description || '') + '</span>';
-			tmpHtml += '    <button class="action" data-act="add-module" data-group="'
-				+ this._escape(tmpGroup.Name) + '">+ Add module</button>';
-			tmpHtml += '  </div>';
-
-			tmpHtml += '<table class="module-table">';
-			tmpHtml += '<thead><tr>'
-				+ '<th style="width:28%">Name</th>'
-				+ '<th style="width:44%">Description</th>'
-				+ '<th>Status</th>'
-				+ '<th></th>'
-				+ '</tr></thead><tbody>';
-
+			let tmpModules = [];
 			for (let j = 0; j < tmpGroup.Modules.length; j++)
 			{
 				let tmpModule   = tmpGroup.Modules[j];
 				let tmpIsOrphan = tmpOrphanSet.has(tmpModule.Name);
-				tmpHtml += '<tr' + (tmpIsOrphan ? ' class="orphan"' : '') + '>';
-				tmpHtml += '<td>' + this._escape(tmpModule.Name) + '</td>';
-				tmpHtml += '<td>' + this._escape(tmpModule.Description || '') + '</td>';
-				tmpHtml += '<td>' + (tmpIsOrphan ? 'missing on disk' : '—') + '</td>';
-				tmpHtml += '<td class="actions">'
-					+ '<button data-act="edit-module" data-name="' + this._escape(tmpModule.Name) + '">edit</button>'
-					+ '<button class="danger" data-act="delete-module" data-name="'
-					+ this._escape(tmpModule.Name) + '">delete</button>'
-					+ '</td>';
-				tmpHtml += '</tr>';
+				tmpModules.push({
+					Name:        tmpModule.Name,
+					NameJs:      jsString(tmpModule.Name),
+					Description: tmpModule.Description || '',
+					RowClass:    tmpIsOrphan ? 'orphan' : '',
+					StatusLabel: tmpIsOrphan ? 'missing on disk' : '—',
+				});
 			}
 
+			let tmpDiskOnly = [];
 			for (let j = 0; j < tmpGroupAudit.ManifestMissing.length; j++)
 			{
-				let tmpDiskOnly = tmpGroupAudit.ManifestMissing[j];
-				tmpHtml += '<tr class="orphan">';
-				tmpHtml += '<td><em>' + this._escape(tmpDiskOnly) + '</em></td>';
-				tmpHtml += '<td><em>not in manifest (present on disk)</em></td>';
-				tmpHtml += '<td>disk-only</td>';
-				tmpHtml += '<td class="actions">'
-					+ '<button data-act="add-from-disk" data-group="' + this._escape(tmpGroup.Name)
-					+ '" data-name="' + this._escape(tmpDiskOnly) + '">+ add to manifest</button>'
-					+ '</td>';
-				tmpHtml += '</tr>';
+				let tmpName = tmpGroupAudit.ManifestMissing[j];
+				tmpDiskOnly.push({
+					Name:        tmpName,
+					NameJs:      jsString(tmpName),
+					GroupNameJs: tmpGroupNameJs,
+				});
 			}
 
-			tmpHtml += '</tbody></table>';
-			tmpHtml += '</div>';
+			tmpGroups.push({
+				Name:        tmpGroup.Name,
+				NameJs:      tmpGroupNameJs,
+				Description: tmpGroup.Description || '',
+				Modules:     tmpModules,
+				DiskOnly:    tmpDiskOnly,
+			});
 		}
-		return tmpHtml;
-	}
 
-	_escape(pText)
-	{
-		let tmpS = String(pText == null ? '' : pText);
-		return tmpS
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;')
-			.replace(/'/g, '&#39;');
+		return {
+			AuditClass:  tmpAuditClass,
+			AuditLabel:  tmpAuditLabel,
+			LoadingSlot: [],
+			Groups:      tmpGroups,
+		};
 	}
 }
 

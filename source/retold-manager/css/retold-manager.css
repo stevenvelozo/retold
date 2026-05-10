@@ -6,26 +6,40 @@
  * individual views will ship their own scoped classes as they land.
  */
 
+/*
+ * The legacy --color-* names this stylesheet uses everywhere are now
+ * THIN PROXIES over the --theme-color-* tokens emitted by
+ * pict-section-theme / pict-provider-theme. The hex literals are kept
+ * as fallbacks so the app still renders correctly when no theme is
+ * registered (terminal-only mode, mid-boot, theme provider failure).
+ *
+ * To re-skin the app: pick another theme from the topbar theme button.
+ * To switch light/dark: use the same button's mode toggle. The css below
+ * does not need to change for either.
+ *
+ * Most non-retold-manager catalog themes use Brand.Primary; some use
+ * Brand.Accent. The chained var() resolution below honors either.
+ */
 :root
 {
-	--color-bg:        #0e1116;
-	--color-panel:     #161b22;
-	--color-panel-alt: #1c2128;
-	--color-border:    #30363d;
-	--color-accent:    #2f81f7;
-	--color-accent-dim:#1f6feb;
-	--color-text:      #e6edf3;
-	--color-muted:     #8b949e;
-	--color-success:   #3fb950;
-	--color-danger:    #f85149;
-	--color-warning:   #d29922;
+	--color-bg:        var(--theme-color-background-primary, #0e1116);
+	--color-panel:     var(--theme-color-background-panel, #161b22);
+	--color-panel-alt: var(--theme-color-background-panelalt, var(--theme-color-background-tertiary, #1c2128));
+	--color-border:    var(--theme-color-border-default, #30363d);
+	--color-accent:    var(--theme-color-brand-primary, var(--theme-color-brand-accent, #2f81f7));
+	--color-accent-dim:var(--theme-color-brand-primaryhover, var(--theme-color-brand-accenthover, #1f6feb));
+	--color-text:      var(--theme-color-text-primary, #e6edf3);
+	--color-muted:     var(--theme-color-text-muted, #8b949e);
+	--color-success:   var(--theme-color-status-success, #3fb950);
+	--color-danger:    var(--theme-color-status-danger, var(--theme-color-status-error, #f85149));
+	--color-warning:   var(--theme-color-status-warning, #d29922);
 
-	--sidebar-width:   280px;
-	--topbar-height:   44px;
-	--statusbar-height:28px;
+	--sidebar-width:   var(--theme-layout-sidebarwidth,    280px);
+	--topbar-height:   var(--theme-layout-topbarheight,    44px);
+	--statusbar-height:var(--theme-layout-statusbarheight, 28px);
 
-	--font-sans:       -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", sans-serif;
-	--font-mono:       ui-monospace, "SF Mono", Menlo, Monaco, "Courier New", monospace;
+	--font-sans:       var(--theme-typography-family-sans, -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", sans-serif);
+	--font-mono:       var(--theme-typography-family-mono, ui-monospace, "SF Mono", Menlo, Monaco, "Courier New", monospace);
 }
 
 *
@@ -559,6 +573,19 @@ body
 .module-info-box .ib-name    { font-weight: 600; color: var(--color-text); flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .module-info-box .ib-version { color: var(--color-muted); }
 .module-info-box .ib-branch  { color: var(--color-accent); font-size: 11px; }
+.module-info-box .ib-aheadbehind
+{
+	color: var(--color-muted);
+	font-size: 11px;
+	font-variant-numeric: tabular-nums;
+	/* Keep the "1 / 0" pill on a single line — the parent flex header
+	   is only ~320px wide and was wrapping the slash + behind count
+	   to a second row when the module name + branch ate the row. */
+	white-space: nowrap;
+	flex: 0 0 auto;
+}
+.module-info-box .ib-aheadbehind .ib-ahead  { color: var(--color-accent); }
+.module-info-box .ib-aheadbehind .ib-behind { color: var(--color-warning); }
 .module-info-box .ib-dirty   { color: var(--color-warning); font-weight: 700; } /* legacy fallback */
 .module-info-box .ib-dirty.ib-dirty--unstaged { color: var(--color-warning); }
 .module-info-box .ib-dirty.ib-dirty--staged   { color: #4cc9d4; }

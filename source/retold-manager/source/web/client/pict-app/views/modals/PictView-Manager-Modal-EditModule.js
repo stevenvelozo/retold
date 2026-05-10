@@ -15,7 +15,7 @@ const _ViewConfiguration =
 		{
 			Hash: 'Manager-Modal-EditModule-Template',
 			Template: /*html*/`
-<div class="modal-backdrop" onclick="if(event.target===this){window._Pict.views['Manager-Modal-EditModule'].close();}">
+<div class="modal-backdrop" onclick="if(event.target===this){_Pict.views['Manager-Modal-EditModule'].close();}">
 	<div class="modal" style="min-width:640px;max-width:760px">
 		<h3>{~D:Record.Title~}</h3>
 		<div class="form-row"><label>Name</label>
@@ -31,8 +31,8 @@ const _ViewConfiguration =
 		<div class="form-row"><label>Related</label>
 			<input type="text" id="RM-E-Related" value="{~D:Record.RelatedString~}" placeholder="comma-separated module names"></div>
 		<div class="modal-actions">
-			<button class="action" onclick="{~P~}.views['Manager-Modal-EditModule'].close()">Cancel</button>
-			<button class="action primary" onclick="{~P~}.views['Manager-Modal-EditModule'].save()">{~D:Record.SaveLabel~}</button>
+			<button class="action" onclick="_Pict.views['Manager-Modal-EditModule'].close()">Cancel</button>
+			<button class="action primary" onclick="_Pict.views['Manager-Modal-EditModule'].save()">{~D:Record.SaveLabel~}</button>
 		</div>
 	</div>
 </div>
@@ -117,7 +117,7 @@ class ManagerModalEditModuleView extends libPictView
 
 		if (!tmpPayload.Name)
 		{
-			window.alert('Name is required.');
+			this._toast('Name is required.', 'error');
 			return;
 		}
 
@@ -147,8 +147,21 @@ class ManagerModalEditModuleView extends libPictView
 			},
 			(pError) =>
 			{
-				window.alert('Save failed: ' + pError.message);
+				this._toast('Save failed: ' + pError.message, 'error');
 			});
+	}
+
+	// Surface a transient error via pict-section-modal.toast, falling back
+	// to the status bar when the modal view isn't loaded.
+	_toast(pMessage, pType)
+	{
+		let tmpModal = this.pict.views['Pict-Section-Modal'];
+		if (tmpModal && typeof tmpModal.toast === 'function')
+		{
+			tmpModal.toast(pMessage, { type: pType || 'error', duration: 6000 });
+			return;
+		}
+		this.pict.PictApplication.setStatus(pMessage);
 	}
 
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)

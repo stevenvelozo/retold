@@ -15,23 +15,44 @@ const _ViewConfiguration =
 		{
 			Hash: 'Manager-Modal-Diff-Template',
 			Template: /*html*/`
-<div class="modal-backdrop diff-modal" onclick="if(event.target===this){window._Pict.views['Manager-Modal-Diff'].close();}">
+<div class="modal-backdrop diff-modal" onclick="if(event.target===this){_Pict.views['Manager-Modal-Diff'].close();}">
 	<div class="modal">
 		<div class="diff-panel diff-panel-modal">
 			<div class="diff-header">
 				<span><strong>Diff &mdash; {~D:Record.ModuleName~}</strong>
 					<span class="subtle" id="RM-DiffModalSummary" style="margin-left:8px">{~D:Record.Summary~}</span></span>
 				<span class="diff-header-actions">
-					<button onclick="{~P~}.views['Manager-Modal-Diff'].refresh()">refresh</button>
-					<button onclick="{~P~}.views['Manager-Modal-Diff'].close()">close</button>
+					<button onclick="_Pict.views['Manager-Modal-Diff'].refresh()">refresh</button>
+					<button onclick="_Pict.views['Manager-Modal-Diff'].close()">close</button>
 				</span>
 			</div>
-			<div class="diff-body" id="RM-DiffModalBody">{~D:Record.BodyHtml~}</div>
+			<div class="diff-body" id="RM-DiffModalBody">
+				{~TS:Manager-Modal-Diff-Loading-Template:Record.LoadingSlot~}
+				{~TS:Manager-Modal-Diff-Empty-Template:Record.EmptySlot~}
+				{~TS:Manager-Modal-Diff-Error-Template:Record.ErrorSlot~}
+				{~TS:Manager-Modal-Diff-Line-Template:Record.Lines~}
+			</div>
 		</div>
 	</div>
 </div>
 `
-		}
+		},
+		{
+			Hash: 'Manager-Modal-Diff-Loading-Template',
+			Template: /*html*/`<div class="diff-line meta">{~D:Record.Message~}</div>`
+		},
+		{
+			Hash: 'Manager-Modal-Diff-Empty-Template',
+			Template: /*html*/`<div class="diff-line none">No changes (excluding dist/).</div>`
+		},
+		{
+			Hash: 'Manager-Modal-Diff-Error-Template',
+			Template: /*html*/`<div class="diff-line del">Diff fetch failed: {~D:Record.Message~}</div>`
+		},
+		{
+			Hash: 'Manager-Modal-Diff-Line-Template',
+			Template: /*html*/`<div class="diff-line {~D:Record.Cls~}">{~D:Record.Text~}</div>`
+		},
 	],
 
 	Renderables:
@@ -59,13 +80,18 @@ class ManagerModalDiffView extends libPictView
 		this._moduleName = pModuleName;
 		this._writeRecord(
 			{
-				ModuleName: pModuleName,
-				Summary: 'loading diff...',
-				BodyHtml: '<div class="diff-line meta">fetching ' + this._escape(pModuleName) + ' diff...</div>',
+				ModuleName:  pModuleName,
+				Summary:     'loading diff...',
+				LoadingSlot: [{ Message: 'fetching ' + pModuleName + ' diff...' }],
+				EmptySlot:   [],
+				ErrorSlot:   [],
+				Lines:       [],
 			});
 		this.render();
 		this._loadDiff();
 
+		// Window-level keydown is the documented exception in modules/pict/CLAUDE.md
+		// (no element-level inline equivalent for "Escape from anywhere").
 		this._keyHandler = (pEvent) => { if (pEvent.key === 'Escape') { this.close(); } };
 		document.addEventListener('keydown', this._keyHandler);
 	}
@@ -80,10 +106,16 @@ class ManagerModalDiffView extends libPictView
 	refresh()
 	{
 		if (!this._moduleName) { return; }
-		let tmpBody = document.getElementById('RM-DiffModalBody');
-		let tmpSummary = document.getElementById('RM-DiffModalSummary');
-		if (tmpBody)    { tmpBody.innerHTML = '<div class="diff-line meta">fetching...</div>'; }
-		if (tmpSummary) { tmpSummary.textContent = 'loading...'; }
+		let tmpRec = this.pict.AppData.Manager.ViewRecord.DiffModal;
+		if (tmpRec)
+		{
+			tmpRec.Summary = 'loading...';
+			tmpRec.LoadingSlot = [{ Message: 'fetching...' }];
+			tmpRec.EmptySlot   = [];
+			tmpRec.ErrorSlot   = [];
+			tmpRec.Lines       = [];
+			this.render();
+		}
 		this._loadDiff();
 	}
 
@@ -101,47 +133,50 @@ class ManagerModalDiffView extends libPictView
 		this.pict.providers.ManagerAPI.fetchGitDiffText(tmpName).then(
 			(pText) =>
 			{
-				// If the user closed or switched modules, drop the stale result.
 				if (this._moduleName !== tmpName) { return; }
 				this._paintDiff(pText);
 			},
 			(pError) =>
 			{
 				if (this._moduleName !== tmpName) { return; }
-				let tmpBody = document.getElementById('RM-DiffModalBody');
-				let tmpSummary = document.getElementById('RM-DiffModalSummary');
-				if (tmpBody)
-				{
-					tmpBody.innerHTML = '<div class="diff-line del">Diff fetch failed: '
-						+ this._escape(pError.message) + '</div>';
-				}
-				if (tmpSummary) { tmpSummary.textContent = 'error'; }
+				this._writeRecord({
+					ModuleName:  tmpName,
+					Summary:     'error',
+					LoadingSlot: [],
+					EmptySlot:   [],
+					ErrorSlot:   [{ Message: pError.message }],
+					Lines:       [],
+				});
+				this.render();
 			});
 	}
 
 	_paintDiff(pText)
 	{
-		let tmpBody    = document.getElementById('RM-DiffModalBody');
-		let tmpSummary = document.getElementById('RM-DiffModalSummary');
-		if (!tmpBody) { return; }
-
 		if (!pText || pText.trim().length === 0)
 		{
-			tmpBody.innerHTML = '<div class="diff-line none">No changes (excluding dist/).</div>';
-			if (tmpSummary) { tmpSummary.textContent = 'clean'; }
+			this._writeRecord({
+				ModuleName:  this._moduleName,
+				Summary:     'clean',
+				LoadingSlot: [],
+				EmptySlot:   [{}],
+				ErrorSlot:   [],
+				Lines:       [],
+			});
+			this.render();
 			return;
 		}
 
-		let tmpLines = pText.split('\n');
-		let tmpParts = [];
+		let tmpRawLines = pText.split('\n');
+		let tmpLineRecords = [];
 		let tmpFiles = 0;
 		let tmpAdds  = 0;
 		let tmpDels  = 0;
 
-		for (let i = 0; i < tmpLines.length; i++)
+		for (let i = 0; i < tmpRawLines.length; i++)
 		{
-			let tmpLine = tmpLines[i];
-			if (tmpLine.length === 0 && i === tmpLines.length - 1) { continue; }
+			let tmpLine = tmpRawLines[i];
+			if (tmpLine.length === 0 && i === tmpRawLines.length - 1) { continue; }
 
 			let tmpCls;
 			if (tmpLine.startsWith('diff --git'))
@@ -178,32 +213,27 @@ class ManagerModalDiffView extends libPictView
 				tmpCls = '';
 			}
 
-			tmpParts.push('<div class="diff-line ' + tmpCls + '">' + this._escape(tmpLine) + '</div>');
+			tmpLineRecords.push({ Cls: tmpCls, Text: tmpLine });
 		}
 
-		tmpBody.innerHTML = tmpParts.join('');
-		if (tmpSummary)
-		{
-			tmpSummary.textContent = tmpFiles + (tmpFiles === 1 ? ' file, ' : ' files, ')
-				+ '+' + tmpAdds + ', -' + tmpDels;
-		}
+		let tmpSummary = tmpFiles + (tmpFiles === 1 ? ' file, ' : ' files, ')
+			+ '+' + tmpAdds + ', -' + tmpDels;
+
+		this._writeRecord({
+			ModuleName:  this._moduleName,
+			Summary:     tmpSummary,
+			LoadingSlot: [],
+			EmptySlot:   [],
+			ErrorSlot:   [],
+			Lines:       tmpLineRecords,
+		});
+		this.render();
 	}
 
 	_writeRecord(pRecord)
 	{
 		if (!this.pict.AppData.Manager.ViewRecord) { this.pict.AppData.Manager.ViewRecord = {}; }
 		this.pict.AppData.Manager.ViewRecord.DiffModal = pRecord;
-	}
-
-	_escape(pText)
-	{
-		let tmpS = String(pText == null ? '' : pText);
-		return tmpS
-			.replace(/&/g, '&amp;')
-			.replace(/</g, '&lt;')
-			.replace(/>/g, '&gt;')
-			.replace(/"/g, '&quot;')
-			.replace(/'/g, '&#39;');
 	}
 }
 
