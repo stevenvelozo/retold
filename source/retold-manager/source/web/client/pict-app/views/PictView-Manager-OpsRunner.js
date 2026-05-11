@@ -11,10 +11,14 @@ const SCRIPT_LABELS =
  * Manager-OpsRunner
  *
  * Cross-module ops (Status / Update / Checkout) used to swap the workspace
- * content area to a placeholder while output streamed into the bottom panel.
- * Now we keep the user where they were and surface the output through the
- * pict-section-modal-backed log viewer (Manager-LogModal). The route still
- * exists so deep links work.
+ * content area, then briefly used a pict-section-modal log viewer. Now
+ * they share the same plumbing as every other action — frames stream into
+ * the persistent Log panel's Actions tab, and we just pop the panel open
+ * so the user can watch.
+ *
+ * The `/Ops/:script` route still exists so deep links + the topbar
+ * navigateTo() calls work, but the route handler invokes runScript() and
+ * does not swap the workspace view.
  */
 const _ViewConfiguration =
 {
@@ -39,20 +43,30 @@ class ManagerOpsRunnerView extends libPictView
 			return;
 		}
 
-		// Mark the operation scope so OperationsWS can route frames correctly.
+		// Stamp the active operation so the WS provider routes its frames
+		// into AppData.Manager.ActiveOperation + pushes a history entry.
+		// Same shape ModuleWorkspace uses, just with Scope: 'all' and no
+		// ModuleName — the LogBar's Actions tab renders any history entry
+		// regardless of scope.
 		this.pict.AppData.Manager.ActiveOperation =
 			{
 				OperationId: null,
 				CommandTag:  null,
 				Lines:       [],
 				HeaderState: 'running',
-				HeaderText:  'Starting ' + tmpLabel + '...',
+				HeaderText:  tmpLabel,
 				Scope:       'all',
+				ModuleName:  null,
 			};
 
-		// Open the log modal so the user can watch the stream.
-		let tmpLogModal = this.pict.views['Manager-LogModal'];
-		if (tmpLogModal) { tmpLogModal.openForOperation('All modules — ' + tmpLabel); }
+		// Pop the persistent Log panel — single shared codepath used by
+		// every action button. The Actions tab auto-switches and auto-
+		// expands the new entry as soon as the WS 'start' frame arrives.
+		let tmpLayout = this.pict.views['Manager-Layout'];
+		if (tmpLayout && typeof tmpLayout.popLogPanel === 'function')
+		{
+			tmpLayout.popLogPanel();
+		}
 
 		this.pict.PictApplication.setStatus('Running ' + tmpLabel + '...');
 		this.pict.providers.ManagerAPI.runAllModulesScript(pScript).then(

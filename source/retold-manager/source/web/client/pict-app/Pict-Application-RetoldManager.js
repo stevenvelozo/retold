@@ -33,7 +33,8 @@ const libModalNcu         = require('./views/modals/PictView-Manager-Modal-Ncu.j
 const libModalPublish     = require('./views/modals/PictView-Manager-Modal-Publish.js');
 const libModalEditModule  = require('./views/modals/PictView-Manager-Modal-EditModule.js');
 const libModalRipplePlan  = require('./views/modals/PictView-Manager-Modal-RipplePlan.js');
-const libModalDiff        = require('./views/modals/PictView-Manager-Modal-Diff.js');
+const libModalDiff         = require('./views/modals/PictView-Manager-Modal-Diff.js');
+const libModalActionDetail = require('./views/modals/PictView-Manager-Modal-ActionDetail.js');
 
 class RetoldManagerApplication extends libPictApplication
 {
@@ -118,7 +119,8 @@ class RetoldManagerApplication extends libPictApplication
 		this.pict.addView('Manager-Modal-Publish',    libModalPublish.default_configuration,    libModalPublish);
 		this.pict.addView('Manager-Modal-EditModule', libModalEditModule.default_configuration, libModalEditModule);
 		this.pict.addView('Manager-Modal-RipplePlan', libModalRipplePlan.default_configuration, libModalRipplePlan);
-		this.pict.addView('Manager-Modal-Diff',       libModalDiff.default_configuration,       libModalDiff);
+		this.pict.addView('Manager-Modal-Diff',          libModalDiff.default_configuration,          libModalDiff);
+		this.pict.addView('Manager-Modal-ActionDetail',  libModalActionDetail.default_configuration,  libModalActionDetail);
 	}
 
 	onAfterInitializeAsync(fCallback)

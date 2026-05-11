@@ -23,6 +23,7 @@ const _ViewConfiguration =
 					<span class="subtle" id="RM-DiffModalSummary" style="margin-left:8px">{~D:Record.Summary~}</span></span>
 				<span class="diff-header-actions">
 					<button onclick="_Pict.views['Manager-Modal-Diff'].refresh()">refresh</button>
+					<button id="RM-DiffModal-Fullscreen" onclick="_Pict.views['Manager-Modal-Diff'].toggleFullscreen(this)">Fullscreen</button>
 					<button onclick="_Pict.views['Manager-Modal-Diff'].close()">close</button>
 				</span>
 			</div>
@@ -73,11 +74,13 @@ class ManagerModalDiffView extends libPictView
 		super(pFable, pOptions, pServiceHash);
 		this._moduleName = null;
 		this._keyHandler = null;
+		this._fullscreen = false;
 	}
 
 	open(pModuleName)
 	{
 		this._moduleName = pModuleName;
+		this._fullscreen = false;
 		this._writeRecord(
 			{
 				ModuleName:  pModuleName,
@@ -100,6 +103,7 @@ class ManagerModalDiffView extends libPictView
 	{
 		if (this._keyHandler) { document.removeEventListener('keydown', this._keyHandler); this._keyHandler = null; }
 		this._moduleName = null;
+		this._fullscreen = false;
 		this.pict.ContentAssignment.assignContent('#RM-ModalRoot', '');
 	}
 
@@ -119,8 +123,26 @@ class ManagerModalDiffView extends libPictView
 		this._loadDiff();
 	}
 
+	toggleFullscreen(pButton)
+	{
+		this._fullscreen = !this._fullscreen;
+		let tmpRoot = document.querySelector('#RM-ModalRoot .modal-backdrop.diff-modal');
+		if (tmpRoot) { tmpRoot.classList.toggle('diff-modal-fullscreen', this._fullscreen); }
+		if (pButton) { pButton.textContent = this._fullscreen ? 'Exit fullscreen' : 'Fullscreen'; }
+	}
+
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)
 	{
+		// Re-applies the fullscreen class after a render (refresh() paints
+		// loading/empty/error states by re-rendering), otherwise the user's
+		// fullscreen toggle would visually reset on every refresh.
+		if (this._fullscreen)
+		{
+			let tmpRoot = document.querySelector('#RM-ModalRoot .modal-backdrop.diff-modal');
+			if (tmpRoot) { tmpRoot.classList.add('diff-modal-fullscreen'); }
+			let tmpBtn = document.getElementById('RM-DiffModal-Fullscreen');
+			if (tmpBtn) { tmpBtn.textContent = 'Exit fullscreen'; }
+		}
 		this.pict.CSSMap.injectCSS();
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
 	}

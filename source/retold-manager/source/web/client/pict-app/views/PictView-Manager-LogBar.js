@@ -176,30 +176,59 @@ const _ViewConfiguration =
 			border-bottom: 1px solid var(--color-border);
 		}
 		.rm-logbar-action-entry:last-child { border-bottom: 0; }
+		/* The header is a row with two buttons: the wide toggle and a
+		   small "↗ open" affordance that pops the action-detail modal.
+		   We can't nest <button> inside <button>, so the header is a
+		   div containing two siblings. */
 		.rm-logbar-action-header
+		{
+			display: flex;
+			align-items: stretch;
+			border-left: 3px solid transparent;
+		}
+		.rm-logbar-action-entry.is-running    > .rm-logbar-action-header { border-left-color: var(--color-warning); }
+		.rm-logbar-action-entry.is-success    > .rm-logbar-action-header { border-left-color: var(--color-success); }
+		.rm-logbar-action-entry.is-error      > .rm-logbar-action-header { border-left-color: var(--color-danger); }
+		.rm-logbar-action-entry.is-cancelled  > .rm-logbar-action-header { border-left-color: var(--color-muted); }
+
+		.rm-logbar-action-toggle
 		{
 			display: flex;
 			align-items: center;
 			gap: 8px;
-			width: 100%;
+			flex: 1 1 auto;
+			min-width: 0;
 			padding: 6px 10px;
 			background: transparent;
 			border: 0;
-			border-left: 3px solid transparent;
 			color: var(--color-text);
 			font: inherit;
 			font-size: 12px;
 			text-align: left;
 			cursor: pointer;
 		}
-		.rm-logbar-action-header:hover
+		.rm-logbar-action-toggle:hover
 		{
 			background: var(--color-panel-alt);
 		}
-		.rm-logbar-action-entry.is-running    > .rm-logbar-action-header { border-left-color: var(--color-warning); }
-		.rm-logbar-action-entry.is-success    > .rm-logbar-action-header { border-left-color: var(--color-success); }
-		.rm-logbar-action-entry.is-error      > .rm-logbar-action-header { border-left-color: var(--color-danger); }
-		.rm-logbar-action-entry.is-cancelled  > .rm-logbar-action-header { border-left-color: var(--color-muted); }
+		.rm-logbar-action-open
+		{
+			flex: 0 0 auto;
+			padding: 0 10px;
+			background: transparent;
+			border: 0;
+			border-left: 1px solid transparent;
+			color: var(--color-muted);
+			font: inherit;
+			font-size: 13px;
+			cursor: pointer;
+		}
+		.rm-logbar-action-open:hover
+		{
+			color: var(--brand-color-primary-mode, var(--color-accent));
+			border-left-color: var(--color-border);
+			background: var(--color-panel-alt);
+		}
 
 		.rm-logbar-action-chevron
 		{
@@ -211,7 +240,7 @@ const _ViewConfiguration =
 			flex: 0 0 auto;
 			color: var(--color-muted);
 		}
-		.rm-logbar-action-entry.is-expanded > .rm-logbar-action-header > .rm-logbar-action-chevron
+		.rm-logbar-action-entry.is-expanded > .rm-logbar-action-header > .rm-logbar-action-toggle > .rm-logbar-action-chevron
 		{
 			transform: rotate(45deg);
 		}
@@ -346,13 +375,16 @@ const _ViewConfiguration =
 			Hash: 'Manager-LogBar-ActionEntry-Template',
 			Template: /*html*/`
 <div class="rm-logbar-action-entry {~D:Record.RootClass~}" data-action-entry="{~D:Record.OperationId~}">
-	<button type="button" class="rm-logbar-action-header" onclick="_Pict.views['Manager-LogBar'].toggleEntry('{~D:Record.OperationIdJs~}');">
-		<span class="rm-logbar-action-chevron"></span>
-		<span class="rm-logbar-action-state"></span>
-		<span class="rm-logbar-action-time" title="{~D:Record.StartedFull~}">{~D:Record.ClockTime~}</span>
-		<span class="rm-logbar-action-label">{~D:Record.Label~}</span>
-		<span class="rm-logbar-action-meta">{~D:Record.MetaText~}</span>
-	</button>
+	<div class="rm-logbar-action-header">
+		<button type="button" class="rm-logbar-action-toggle" onclick="_Pict.views['Manager-LogBar'].toggleEntry('{~D:Record.OperationIdJs~}');">
+			<span class="rm-logbar-action-chevron"></span>
+			<span class="rm-logbar-action-state"></span>
+			<span class="rm-logbar-action-time" title="{~D:Record.StartedFull~}">{~D:Record.ClockTime~}</span>
+			<span class="rm-logbar-action-label">{~D:Record.Label~}</span>
+			<span class="rm-logbar-action-meta">{~D:Record.MetaText~}</span>
+		</button>
+		<button type="button" class="rm-logbar-action-open" title="Open this action in a fullscreen review modal" onclick="_Pict.views['Manager-Modal-ActionDetail'].open('{~D:Record.OperationIdJs~}'); event.stopPropagation();">↗</button>
+	</div>
 	<pre class="rm-logbar-action-body" data-action-body="{~D:Record.OperationId~}">{~TS:Manager-LogBar-EmptyLine-Template:Record.EmptyLineSlot~}{~TS:Manager-LogBar-Line-Template:Record.Lines~}</pre>
 </div>
 `
@@ -534,11 +566,18 @@ class ManagerLogBarView extends libPictView
 		let tmpOpId = tmpOp.OperationId;
 		if (!tmpOpId) return;
 
-		// New op — auto-switch to Actions tab + auto-expand the new entry.
+		// New op — auto-switch to Actions tab. Auto-expand the new entry
+		// while it's running so the user sees output streaming in; if the
+		// op was fast enough that its complete frame arrived before our
+		// first rAF tick (`ncu`, `git pull` when in sync, `git push` when
+		// nothing to push) the state-transition path below never sees a
+		// 'running' → 'success' edge — handle that here by stamping the
+		// last-seen state and collapsing-on-success up front.
 		if (tmpOpId !== this._lastSeenOpId)
 		{
 			this._lastSeenOpId = tmpOpId;
-			this._expandedEntries[tmpOpId] = true;
+			this._lastSeenStateByOp[tmpOpId] = tmpOp.HeaderState;
+			this._expandedEntries[tmpOpId] = (tmpOp.HeaderState === 'success') ? false : true;
 			this._tab = 'actions';
 			this._renderFresh();
 			return;
