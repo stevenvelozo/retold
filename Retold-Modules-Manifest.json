@@ -19,7 +19,8 @@
 						"fable-settings",
 						"fable-log",
 						"fable-uuid"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "fable-log",
@@ -30,7 +31,8 @@
 					"RelatedModules": [
 						"fable",
 						"fable-log-logger-bunyan"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "fable-log-logger-bunyan",
@@ -41,7 +43,8 @@
 					"RelatedModules": [
 						"fable",
 						"fable-log"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "fable-serviceproviderbase",
@@ -52,7 +55,8 @@
 					"RelatedModules": [
 						"fable",
 						"pict-serviceproviderbase"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "fable-settings",
@@ -62,7 +66,8 @@
 					"Documentation": "https://stevenvelozo.github.io/fable-settings/",
 					"RelatedModules": [
 						"fable"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "fable-ultravisor-client",
@@ -74,7 +79,8 @@
 						"fable",
 						"ultravisor",
 						"ultravisor-beacon"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "fable-uuid",
@@ -84,7 +90,8 @@
 					"Documentation": "https://stevenvelozo.github.io/fable-uuid/",
 					"RelatedModules": [
 						"fable"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "ultravisor-beacon",
@@ -92,7 +99,8 @@
 					"Description": "Ultravisor Beacon: lightweight beacon client and Fable service for remote task execution",
 					"GitHub": "https://github.com/stevenvelozo/ultravisor-beacon",
 					"Documentation": "https://stevenvelozo.github.io/ultravisor-beacon/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "ultravisor-beacon-capability",
@@ -100,7 +108,8 @@
 					"Description": "Convention-based base class for building Ultravisor beacon capabilities with minimal boilerplate",
 					"GitHub": "https://github.com/stevenvelozo/ultravisor-beacon-capability",
 					"Documentation": "https://stevenvelozo.github.io/ultravisor-beacon-capability/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				}
 			]
 		},
@@ -118,7 +127,8 @@
 					"RelatedModules": [
 						"fable",
 						"bibliograph-storage-meadow"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "bibliograph-storage-meadow",
@@ -129,7 +139,8 @@
 					"RelatedModules": [
 						"bibliograph",
 						"meadow"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "foxhound",
@@ -143,7 +154,8 @@
 						"meadow-connection-mysql",
 						"meadow-connection-mssql",
 						"meadow-connection-sqlite"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow",
@@ -165,7 +177,8 @@
 						"meadow-connection-solr",
 						"meadow-connection-rocksdb",
 						"meadow-connection-retold-databeacon"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-dgraph",
@@ -175,7 +188,8 @@
 					"Documentation": "https://stevenvelozo.github.io/meadow-connection-dgraph/",
 					"RelatedModules": [
 						"meadow"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-manager",
@@ -183,7 +197,8 @@
 					"Description": "Server-side meadow connection manager. Parses connection configurations and instantiates database providers with graceful fallbacks for missing drivers.",
 					"GitHub": "https://github.com/stevenvelozo/meadow-connection-manager",
 					"Documentation": "https://stevenvelozo.github.io/meadow-connection-manager/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-meadow-endpoints",
@@ -195,7 +210,8 @@
 						"meadow",
 						"meadow-endpoints",
 						"meadow-connection-manager"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-mongodb",
@@ -206,7 +222,8 @@
 					"RelatedModules": [
 						"meadow",
 						"foxhound"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-mssql",
@@ -217,7 +234,8 @@
 					"RelatedModules": [
 						"meadow",
 						"foxhound"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-mysql",
@@ -228,7 +246,8 @@
 					"RelatedModules": [
 						"meadow",
 						"foxhound"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-postgresql",
@@ -239,7 +258,8 @@
 					"RelatedModules": [
 						"meadow",
 						"foxhound"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-rocksdb",
@@ -249,7 +269,8 @@
 					"Documentation": "https://stevenvelozo.github.io/meadow-connection-rocksdb/",
 					"RelatedModules": [
 						"meadow"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-retold-databeacon",
@@ -262,7 +283,8 @@
 						"fable-ultravisor-client",
 						"retold-databeacon",
 						"ultravisor"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-solr",
@@ -272,7 +294,8 @@
 					"Documentation": "https://stevenvelozo.github.io/meadow-connection-solr/",
 					"RelatedModules": [
 						"meadow"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-sqlite",
@@ -283,7 +306,8 @@
 					"RelatedModules": [
 						"meadow",
 						"foxhound"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-connection-sqlite-browser",
@@ -291,7 +315,8 @@
 					"Description": "Meadow SQLite connection provider for the browser (sql.js / WASM)",
 					"GitHub": "https://github.com/stevenvelozo/meadow-connection-sqlite-browser",
 					"Documentation": "https://stevenvelozo.github.io/meadow-connection-sqlite-browser/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-endpoints",
@@ -304,7 +329,8 @@
 						"orator",
 						"stricture",
 						"retold-data-service"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-graph-client",
@@ -315,7 +341,8 @@
 					"RelatedModules": [
 						"meadow",
 						"meadow-endpoints"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-integration",
@@ -326,7 +353,8 @@
 					"RelatedModules": [
 						"meadow",
 						"stricture"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-migrationmanager",
@@ -341,7 +369,8 @@
 						"meadow-connection-mssql",
 						"meadow-connection-sqlite",
 						"meadow-connection-postgresql"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "meadow-provider-offline",
@@ -349,7 +378,8 @@
 					"Description": "Offline-capable Meadow provider with browser-side SQLite and IPC routing.",
 					"GitHub": "https://github.com/stevenvelozo/meadow-provider-offline",
 					"Documentation": "https://stevenvelozo.github.io/meadow-provider-offline/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "parime",
@@ -360,7 +390,8 @@
 					"RelatedModules": [
 						"fable",
 						"meadow"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "retold-data-service",
@@ -374,7 +405,8 @@
 						"meadow-endpoints",
 						"orator",
 						"stricture"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "retold-harness",
@@ -394,7 +426,8 @@
 						"meadow-connection-mongodb",
 						"meadow-connection-dgraph",
 						"meadow-connection-solr"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "retold-harness-consistency-proxy",
@@ -405,7 +438,8 @@
 					"RelatedModules": [
 						"retold-harness",
 						"retold-data-service"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "stricture",
@@ -417,7 +451,8 @@
 						"meadow",
 						"foxhound",
 						"meadow-endpoints"
-					]
+					],
+					"Type": "library"
 				}
 			]
 		},
@@ -438,7 +473,8 @@
 						"orator-static-server",
 						"orator-http-proxy",
 						"meadow-endpoints"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "orator-authentication",
@@ -446,7 +482,8 @@
 					"Description": "Orator server-side cookie-based session authentication with pluggable authenticator and optional OAuth/OIDC support.",
 					"GitHub": "https://github.com/stevenvelozo/orator-authentication",
 					"Documentation": "https://stevenvelozo.github.io/orator-authentication/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "orator-conversion",
@@ -456,7 +493,8 @@
 					"Documentation": "https://stevenvelozo.github.io/orator-conversion/",
 					"RelatedModules": [
 						"orator"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "orator-endpoint",
@@ -467,7 +505,8 @@
 					"RelatedModules": [
 						"orator",
 						"meadow-endpoints"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "orator-http-proxy",
@@ -477,7 +516,8 @@
 					"Documentation": "https://stevenvelozo.github.io/orator-http-proxy/",
 					"RelatedModules": [
 						"orator"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "orator-serviceserver-base",
@@ -488,7 +528,8 @@
 					"RelatedModules": [
 						"orator",
 						"orator-serviceserver-restify"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "orator-serviceserver-restify",
@@ -499,7 +540,8 @@
 					"RelatedModules": [
 						"orator",
 						"orator-serviceserver-base"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "orator-ssl-proxy",
@@ -507,7 +549,8 @@
 					"Description": "SSL-terminating reverse proxy with host-based routing, local CA, and Let's Encrypt support.",
 					"GitHub": "https://github.com/stevenvelozo/orator-ssl-proxy",
 					"Documentation": "https://stevenvelozo.github.io/orator-ssl-proxy/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "orator-static-server",
@@ -517,7 +560,8 @@
 					"Documentation": "https://stevenvelozo.github.io/orator-static-server/",
 					"RelatedModules": [
 						"orator"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "tidings",
@@ -529,7 +573,8 @@
 						"fable",
 						"orator",
 						"precedent"
-					]
+					],
+					"Type": "library"
 				}
 			]
 		},
@@ -546,7 +591,8 @@
 					"Documentation": "https://stevenvelozo.github.io/cryptbrau/",
 					"RelatedModules": [
 						"pict"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "informary",
@@ -556,7 +602,8 @@
 					"Documentation": "https://stevenvelozo.github.io/informary/",
 					"RelatedModules": [
 						"pict-section-form"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict",
@@ -570,7 +617,8 @@
 						"pict-provider",
 						"pict-application",
 						"fable"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-application",
@@ -582,7 +630,8 @@
 						"pict",
 						"pict-view",
 						"pict-router"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-docuserve",
@@ -595,7 +644,8 @@
 						"pict-application",
 						"pict-router",
 						"indoctrinate"
-					]
+					],
+					"Type": "webapp"
 				},
 				{
 					"Name": "pict-editor-timeline",
@@ -606,7 +656,8 @@
 					"RelatedModules": [
 						"pict",
 						"pict-view"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-meadow-connection-manager",
@@ -620,7 +671,8 @@
 						"pict-view",
 						"pict-section-connection-form",
 						"meadow-connection-manager"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-nonlinearconfig",
@@ -632,7 +684,8 @@
 						"pict",
 						"pict-application",
 						"pict-section-form"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-panel",
@@ -643,7 +696,8 @@
 					"RelatedModules": [
 						"pict",
 						"pict-view"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-provider",
@@ -654,7 +708,8 @@
 					"RelatedModules": [
 						"pict",
 						"pict-view"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-provider-theme",
@@ -667,7 +722,8 @@
 						"pict-provider",
 						"pict-template",
 						"quackage"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-provider-vocabulary",
@@ -679,7 +735,8 @@
 						"pict",
 						"pict-provider",
 						"pict-section-content"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-router",
@@ -690,7 +747,8 @@
 					"RelatedModules": [
 						"pict",
 						"pict-application"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-code",
@@ -701,7 +759,8 @@
 					"RelatedModules": [
 						"pict",
 						"pict-view"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-connection-form",
@@ -714,7 +773,8 @@
 						"pict-view",
 						"pict-meadow-connection-manager",
 						"meadow-connection-manager"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-content",
@@ -726,7 +786,8 @@
 						"pict",
 						"pict-view",
 						"pict-section-markdowneditor"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-entitymanagement",
@@ -738,7 +799,8 @@
 						"pict",
 						"pict-section-form",
 						"meadow-endpoints"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-equation",
@@ -746,7 +808,8 @@
 					"Description": "Pict Section for Expression Parser Solve Visualization",
 					"GitHub": "https://github.com/stevenvelozo/pict-section-equation",
 					"Documentation": "https://stevenvelozo.github.io/pict-section-equation/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-filebrowser",
@@ -761,9 +824,10 @@
 						"meadow-connection-manager",
 						"meadow-integration",
 						"retold-data beacon"
-					]
+					],
+					"Type": "library"
 				},
-				{	
+				{
 					"Name": "pict-section-flow",
 					"Path": "modules/pict/pict-section-flow",
 					"Description": "Flow diagram section for visual workflow and process representations",
@@ -772,7 +836,8 @@
 					"RelatedModules": [
 						"pict",
 						"pict-view"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-form",
@@ -786,7 +851,8 @@
 						"pict-provider",
 						"informary",
 						"manyfest"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-formeditor",
@@ -797,7 +863,8 @@
 					"RelatedModules": [
 						"pict",
 						"pict-section-form"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-histogram",
@@ -805,7 +872,8 @@
 					"Description": "Pict histogram section with vertical/horizontal orientation, browser/consoleui/CLI rendering, and interactive selection",
 					"GitHub": "https://github.com/stevenvelozo/pict-section-histogram",
 					"Documentation": "https://stevenvelozo.github.io/pict-section-histogram/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-inlinedocumentation",
@@ -813,7 +881,8 @@
 					"Description": "Pict embeddable inline documentation browser with topic support",
 					"GitHub": "https://github.com/stevenvelozo/pict-section-inlinedocumentation",
 					"Documentation": "https://stevenvelozo.github.io/pict-section-inlinedocumentation/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-login",
@@ -821,7 +890,8 @@
 					"Description": "Pict login section for authentication UIs — works with orator-authentication or any custom backend",
 					"GitHub": "https://github.com/stevenvelozo/pict-section-login",
 					"Documentation": "https://stevenvelozo.github.io/pict-section-login/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-markdowneditor",
@@ -834,7 +904,8 @@
 						"pict-view",
 						"pict-section-content",
 						"pict-application"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-modal",
@@ -842,7 +913,8 @@
 					"Description": "Pict modal section -- confirmations, tooltips, toast notifications, and floating modal windows",
 					"GitHub": "https://github.com/stevenvelozo/pict-section-modal",
 					"Documentation": "https://stevenvelozo.github.io/pict-section-modal/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-objecteditor",
@@ -853,7 +925,8 @@
 					"RelatedModules": [
 						"pict",
 						"pict-view"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-openseadragon",
@@ -861,7 +934,8 @@
 					"Description": "Pict Open Sea Dragon Section",
 					"GitHub": "https://github.com/stevenvelozo/pict-section-openseadragon",
 					"Documentation": "https://stevenvelozo.github.io/pict-section-openseadragon/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-recordset",
@@ -874,7 +948,23 @@
 						"pict-view",
 						"meadow-endpoints",
 						"pict-section-form"
-					]
+					],
+					"Type": "library"
+				},
+				{
+					"Name": "pict-section-theme",
+					"Path": "modules/pict/pict-section-theme",
+					"Description": "Pict section that bundles every Retold-ecosystem theme (retold-default, retold-mono, twilight, cyberpunk, daylight, neo-tokyo, ...) and exposes reusable views -- a theme picker dropdown, a light/dark/system mode toggle, and an embeddable SVG topbar button that pops a theme submenu via pict-section-modal. Also ships the pict-section-theme-brand and pict-section-theme-favicons CLIs for precompute-time brand/favicon generation. Wraps pict-provider-theme.",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-theme",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-theme/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-provider",
+						"pict-provider-theme",
+						"pict-section-modal"
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-tuigrid",
@@ -885,7 +975,8 @@
 					"RelatedModules": [
 						"pict",
 						"pict-view"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-section-usermanagement",
@@ -897,7 +988,8 @@
 						"pict",
 						"pict-view",
 						"orator-authentication"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-service-commandlineutility",
@@ -908,7 +1000,8 @@
 					"RelatedModules": [
 						"pict",
 						"fable"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-serviceproviderbase",
@@ -919,7 +1012,8 @@
 					"RelatedModules": [
 						"pict",
 						"fable-serviceproviderbase"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-sessionmanager",
@@ -930,7 +1024,8 @@
 					"RelatedModules": [
 						"pict",
 						"fable-serviceproviderbase"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-template",
@@ -941,7 +1036,8 @@
 					"RelatedModules": [
 						"pict",
 						"pict-view"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-template-preprocessor",
@@ -949,7 +1045,8 @@
 					"Description": "Pict Template Preprocessor - compiles templates into cached segment arrays and builds expression dependency graphs",
 					"GitHub": "https://github.com/stevenvelozo/pict-template-preprocessor",
 					"Documentation": "https://stevenvelozo.github.io/pict-template-preprocessor/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-terminalui",
@@ -961,7 +1058,8 @@
 						"pict",
 						"pict-view",
 						"pict-application"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-view",
@@ -974,7 +1072,8 @@
 						"pict-template",
 						"pict-provider",
 						"pict-application"
-					]
+					],
+					"Type": "library"
 				}
 			]
 		},
@@ -991,7 +1090,8 @@
 					"Documentation": "https://stevenvelozo.github.io/cachetrax/",
 					"RelatedModules": [
 						"fable"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "choreographic",
@@ -999,7 +1099,8 @@
 					"Description": "Simple framework for single-run scripts.",
 					"GitHub": "https://github.com/stevenvelozo/choreographic",
 					"Documentation": "https://stevenvelozo.github.io/choreographic/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "cumulation",
@@ -1009,7 +1110,8 @@
 					"Documentation": false,
 					"RelatedModules": [
 						"fable"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "elucidator",
@@ -1017,7 +1119,8 @@
 					"Description": "Elucidator solver service and API.",
 					"GitHub": "https://github.com/stevenvelozo/elucidator",
 					"Documentation": "https://stevenvelozo.github.io/elucidator/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "indoctrinate",
@@ -1028,7 +1131,8 @@
 					"RelatedModules": [
 						"pict-docuserve",
 						"quackage"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "manyfest",
@@ -1039,7 +1143,8 @@
 					"RelatedModules": [
 						"fable",
 						"pict-section-form"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "manyfest-conversion",
@@ -1047,7 +1152,8 @@
 					"Description": "Build mapping manyfests from CSVs, then fill PDF forms and XLSX spreadsheets from platform JSON payloads.",
 					"GitHub": "https://github.com/stevenvelozo/manyfest-conversion",
 					"Documentation": "https://stevenvelozo.github.io/manyfest-conversion/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "merquerial",
@@ -1055,7 +1161,8 @@
 					"Description": "Simple dependency-free console query library.",
 					"GitHub": "https://github.com/stevenvelozo/merquerial",
 					"Documentation": "https://stevenvelozo.github.io/merquerial/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "pict-cruisecontrol",
@@ -1066,7 +1173,8 @@
 					"RelatedModules": [
 						"pict",
 						"pict-application"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "precedent",
@@ -1077,7 +1185,8 @@
 					"RelatedModules": [
 						"tidings",
 						"stricture"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "quackage",
@@ -1087,7 +1196,8 @@
 					"Documentation": "https://stevenvelozo.github.io/quackage/",
 					"RelatedModules": [
 						"fable"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "retold-sample-data",
@@ -1095,7 +1205,8 @@
 					"Description": "Sample data and schemas for the Retold bookstore test harness",
 					"GitHub": "https://github.com/stevenvelozo/retold-sample-data",
 					"Documentation": "https://stevenvelozo.github.io/retold-sample-data/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "retold-sharp",
@@ -1103,7 +1214,8 @@
 					"Description": "Sharp image library wrapper that bypasses sharp's global-libvips detection at install time, so machines with Homebrew or system libvips do not fall into the build-from-source path",
 					"GitHub": "https://github.com/stevenvelozo/retold-sharp",
 					"Documentation": false,
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				}
 			]
 		},
@@ -1121,7 +1233,8 @@
 					"RelatedModules": [
 						"ultravisor",
 						"ultravisor-beacon"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "retold-content-system",
@@ -1134,7 +1247,8 @@
 						"meadow",
 						"orator",
 						"pict"
-					]
+					],
+					"Type": "webapp"
 				},
 				{
 					"Name": "retold-databeacon",
@@ -1142,7 +1256,8 @@
 					"Description": "Deployable data beacon service — connect to remote databases, introspect schemas, generate REST endpoints, and expose beacon capabilities to the Ultravisor mesh.",
 					"GitHub": "https://github.com/stevenvelozo/retold-databeacon",
 					"Documentation": "https://stevenvelozo.github.io/retold-databeacon/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "library"
 				},
 				{
 					"Name": "retold-data-mapper",
@@ -1153,7 +1268,8 @@
 					"RelatedModules": [
 						"fable-ultravisor-client",
 						"retold-databeacon"
-					]
+					],
+					"Type": "webapp"
 				},
 				{
 					"Name": "retold-facto",
@@ -1161,7 +1277,8 @@
 					"Description": "Data warehouse and knowledge graph storage for the Retold ecosystem.",
 					"GitHub": "https://github.com/stevenvelozo/retold-facto",
 					"Documentation": "https://stevenvelozo.github.io/retold-facto/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "webapp"
 				},
 				{
 					"Name": "retold-remote",
@@ -1174,7 +1291,8 @@
 						"meadow",
 						"orator",
 						"pict"
-					]
+					],
+					"Type": "webapp"
 				},
 				{
 					"Name": "retold-remote-desktop",
@@ -1182,7 +1300,8 @@
 					"Description": "Native desktop application for retold-remote media browser (Tauri 2.0)",
 					"GitHub": "https://github.com/stevenvelozo/retold-remote-desktop",
 					"Documentation": "https://stevenvelozo.github.io/retold-remote-desktop/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "webapp"
 				},
 				{
 					"Name": "retold-remote-ios",
@@ -1190,7 +1309,8 @@
 					"Description": "Native iOS application for retold-remote media browser (Capacitor 8)",
 					"GitHub": "https://github.com/stevenvelozo/retold-remote-ios",
 					"Documentation": "https://stevenvelozo.github.io/retold-remote-ios/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "webapp"
 				},
 				{
 					"Name": "ultravisor",
@@ -1200,7 +1320,8 @@
 					"Documentation": "https://stevenvelozo.github.io/ultravisor/",
 					"RelatedModules": [
 						"fable"
-					]
+					],
+					"Type": "webapp"
 				},
 				{
 					"Name": "ultravisor-auth-beacon",
@@ -1211,7 +1332,8 @@
 					"RelatedModules": [
 						"ultravisor",
 						"ultravisor-beacon"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "ultravisor-file-stream",
@@ -1222,7 +1344,8 @@
 					"RelatedModules": [
 						"ultravisor",
 						"ultravisor-beacon"
-					]
+					],
+					"Type": "library"
 				},
 				{
 					"Name": "ultravisor-lab",
@@ -1234,7 +1357,8 @@
 						"ultravisor",
 						"retold-databeacon",
 						"retold-facto"
-					]
+					],
+					"Type": "webapp"
 				},
 				{
 					"Name": "ultravisor-suite-harness",
@@ -1242,7 +1366,856 @@
 					"Description": "End-to-end test harness for the Ultravisor/Facto pipeline with blessed terminal UI",
 					"GitHub": "https://github.com/stevenvelozo/ultravisor-suite-harness",
 					"Documentation": "https://stevenvelozo.github.io/ultravisor-suite-harness/",
-					"RelatedModules": []
+					"RelatedModules": [],
+					"Type": "webapp"
+				}
+			]
+		},
+		{
+			"Name": "Tools",
+			"Description": "Standalone repo-level tools shipped alongside the module ecosystem (not part of any individual module).",
+			"Path": "source",
+			"Modules": [
+				{
+					"Name": "retold-manager",
+					"Path": "source/retold-manager",
+					"Description": "Web + CLI manager for the Retold ecosystem — runs operations across modules from a single shell.",
+					"GitHub": null,
+					"Documentation": null,
+					"RelatedModules": [],
+					"Type": "webapp",
+					"Branding": {
+						"Palette": "ocean",
+						"DisplayName": "Retold Manager",
+						"Tagline": "Status, update, ripple-publish across every Retold module"
+					}
+				}
+			]
+		},
+		{
+			"Name": "Examples",
+			"Description": "Runnable example applications under each module's example_applications/ folder. Branded with the carnival palette so the demo set feels like a fairground.",
+			"Path": "modules",
+			"Modules": [
+				{
+					"Name": "fable/data",
+					"DisplayName": "data",
+					"HostModule": "fable",
+					"Path": "modules/fable/fable/example_applications/data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "fable/mathematical_playground",
+					"DisplayName": "mathematical_playground",
+					"HostModule": "fable",
+					"Path": "modules/fable/fable/example_applications/mathematical_playground",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "meadow-graph-client/graph-explorer",
+					"DisplayName": "graph-explorer",
+					"HostModule": "meadow-graph-client",
+					"Path": "modules/meadow/meadow-graph-client/example_applications/graph-explorer",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "orator-authentication/simple_login",
+					"DisplayName": "simple_login",
+					"HostModule": "orator-authentication",
+					"Path": "modules/orator/orator-authentication/example_applications/simple_login",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-application/bookstore_example",
+					"DisplayName": "bookstore_example",
+					"HostModule": "pict-application",
+					"Path": "modules/pict/pict-application/example_applications/bookstore_example",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-application/historic_events_example",
+					"DisplayName": "historic_events_example",
+					"HostModule": "pict-application",
+					"Path": "modules/pict/pict-application/example_applications/historic_events_example",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-application/postcard_example",
+					"DisplayName": "postcard_example",
+					"HostModule": "pict-application",
+					"Path": "modules/pict/pict-application/example_applications/postcard_example",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-application/simple",
+					"DisplayName": "simple",
+					"HostModule": "pict-application",
+					"Path": "modules/pict/pict-application/example_applications/simple",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-docuserve/contacts-app",
+					"DisplayName": "contacts-app",
+					"HostModule": "pict-docuserve",
+					"Path": "modules/pict/pict-docuserve/example_applications/contacts-app",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-docuserve/sports-stats-api",
+					"DisplayName": "sports-stats-api",
+					"HostModule": "pict-docuserve",
+					"Path": "modules/pict/pict-docuserve/example_applications/sports-stats-api",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-docuserve/todo-app",
+					"DisplayName": "todo-app",
+					"HostModule": "pict-docuserve",
+					"Path": "modules/pict/pict-docuserve/example_applications/todo-app",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-meadow-connection-manager/bookstore-connections",
+					"DisplayName": "bookstore-connections",
+					"HostModule": "pict-meadow-connection-manager",
+					"Path": "modules/pict/pict-meadow-connection-manager/example_applications/bookstore-connections",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-panel/complex_table",
+					"DisplayName": "complex_table",
+					"HostModule": "pict-panel",
+					"Path": "modules/pict/pict-panel/example_applications/complex_table",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-panel/math_example_form",
+					"DisplayName": "math_example_form",
+					"HostModule": "pict-panel",
+					"Path": "modules/pict/pict-panel/example_applications/math_example_form",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-provider-theme/.data",
+					"DisplayName": ".data",
+					"HostModule": "pict-provider-theme",
+					"Path": "modules/pict/pict-provider-theme/example_applications/.data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-provider-theme/theme-playground",
+					"DisplayName": "theme-playground",
+					"HostModule": "pict-provider-theme",
+					"Path": "modules/pict/pict-provider-theme/example_applications/theme-playground",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-router/routed_app",
+					"DisplayName": "routed_app",
+					"HostModule": "pict-router",
+					"Path": "modules/pict/pict-router/example_applications/routed_app",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-code/code_display",
+					"DisplayName": "code_display",
+					"HostModule": "pict-section-code",
+					"Path": "modules/pict/pict-section-code/example_applications/code_display",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-code/code_editor",
+					"DisplayName": "code_editor",
+					"HostModule": "pict-section-code",
+					"Path": "modules/pict/pict-section-code/example_applications/code_editor",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-code/multi_file_editor",
+					"DisplayName": "multi_file_editor",
+					"HostModule": "pict-section-code",
+					"Path": "modules/pict/pict-section-code/example_applications/multi_file_editor",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-connection-form/connection_form_demo",
+					"DisplayName": "connection_form_demo",
+					"HostModule": "pict-section-connection-form",
+					"Path": "modules/pict/pict-section-connection-form/example_applications/connection_form_demo",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-content/.data",
+					"DisplayName": ".data",
+					"HostModule": "pict-section-content",
+					"Path": "modules/pict/pict-section-content/example_applications/.data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-content/basic_content",
+					"DisplayName": "basic_content",
+					"HostModule": "pict-section-content",
+					"Path": "modules/pict/pict-section-content/example_applications/basic_content",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-content/content_showcase",
+					"DisplayName": "content_showcase",
+					"HostModule": "pict-section-content",
+					"Path": "modules/pict/pict-section-content/example_applications/content_showcase",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-entitymanagement/postcard_example",
+					"DisplayName": "postcard_example",
+					"HostModule": "pict-section-entitymanagement",
+					"Path": "modules/pict/pict-section-entitymanagement/example_applications/postcard_example",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-entitymanagement/schema",
+					"DisplayName": "schema",
+					"HostModule": "pict-section-entitymanagement",
+					"Path": "modules/pict/pict-section-entitymanagement/example_applications/schema",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-entitymanagement/simple_example",
+					"DisplayName": "simple_example",
+					"HostModule": "pict-section-entitymanagement",
+					"Path": "modules/pict/pict-section-entitymanagement/example_applications/simple_example",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-equation/.data",
+					"DisplayName": ".data",
+					"HostModule": "pict-section-equation",
+					"Path": "modules/pict/pict-section-equation/example_applications/.data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-equation/solve_explorer",
+					"DisplayName": "solve_explorer",
+					"HostModule": "pict-section-equation",
+					"Path": "modules/pict/pict-section-equation/example_applications/solve_explorer",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-flow/.data",
+					"DisplayName": ".data",
+					"HostModule": "pict-section-flow",
+					"Path": "modules/pict/pict-section-flow/example_applications/.data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-flow/simple_cards",
+					"DisplayName": "simple_cards",
+					"HostModule": "pict-section-flow",
+					"Path": "modules/pict/pict-section-flow/example_applications/simple_cards",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/.data",
+					"DisplayName": ".data",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/.data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/authortopia",
+					"DisplayName": "authortopia",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/authortopia",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/change_tracking",
+					"DisplayName": "change_tracking",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/change_tracking",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/complex_table",
+					"DisplayName": "complex_table",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/complex_table",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/complex_tuigrid",
+					"DisplayName": "complex_tuigrid",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/complex_tuigrid",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/debug",
+					"DisplayName": "debug",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/debug",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/dynamic_analysis",
+					"DisplayName": "dynamic_analysis",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/dynamic_analysis",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/gradebook",
+					"DisplayName": "gradebook",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/gradebook",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/manyfest_editor",
+					"DisplayName": "manyfest_editor",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/manyfest_editor",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/ndt_field_test",
+					"DisplayName": "ndt_field_test",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/ndt_field_test",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/postcard_example",
+					"DisplayName": "postcard_example",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/postcard_example",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/scope_mathematics",
+					"DisplayName": "scope_mathematics",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/scope_mathematics",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/simple_distill",
+					"DisplayName": "simple_distill",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/simple_distill",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/simple_form",
+					"DisplayName": "simple_form",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/simple_form",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/simple_table",
+					"DisplayName": "simple_table",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/simple_table",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-form/simple_table_from_object",
+					"DisplayName": "simple_table_from_object",
+					"HostModule": "pict-section-form",
+					"Path": "modules/pict/pict-section-form/example_applications/simple_table_from_object",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-formeditor/.data",
+					"DisplayName": ".data",
+					"HostModule": "pict-section-formeditor",
+					"Path": "modules/pict/pict-section-formeditor/example_applications/.data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-formeditor/form_editor",
+					"DisplayName": "form_editor",
+					"HostModule": "pict-section-formeditor",
+					"Path": "modules/pict/pict-section-formeditor/example_applications/form_editor",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-formeditor/form_editor_flex",
+					"DisplayName": "form_editor_flex",
+					"HostModule": "pict-section-formeditor",
+					"Path": "modules/pict/pict-section-formeditor/example_applications/form_editor_flex",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-histogram/.data",
+					"DisplayName": ".data",
+					"HostModule": "pict-section-histogram",
+					"Path": "modules/pict/pict-section-histogram/example_applications/.data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-histogram/image_histogram",
+					"DisplayName": "image_histogram",
+					"HostModule": "pict-section-histogram",
+					"Path": "modules/pict/pict-section-histogram/example_applications/image_histogram",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-histogram/simple_histogram",
+					"DisplayName": "simple_histogram",
+					"HostModule": "pict-section-histogram",
+					"Path": "modules/pict/pict-section-histogram/example_applications/simple_histogram",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-inlinedocumentation/.data",
+					"DisplayName": ".data",
+					"HostModule": "pict-section-inlinedocumentation",
+					"Path": "modules/pict/pict-section-inlinedocumentation/example_applications/.data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-inlinedocumentation/basic",
+					"DisplayName": "basic",
+					"HostModule": "pict-section-inlinedocumentation",
+					"Path": "modules/pict/pict-section-inlinedocumentation/example_applications/basic",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-inlinedocumentation/bookshop",
+					"DisplayName": "bookshop",
+					"HostModule": "pict-section-inlinedocumentation",
+					"Path": "modules/pict/pict-section-inlinedocumentation/example_applications/bookshop",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-login/custom_login",
+					"DisplayName": "custom_login",
+					"HostModule": "pict-section-login",
+					"Path": "modules/pict/pict-section-login/example_applications/custom_login",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-login/harness_app",
+					"DisplayName": "harness_app",
+					"HostModule": "pict-section-login",
+					"Path": "modules/pict/pict-section-login/example_applications/harness_app",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-login/oauth_login",
+					"DisplayName": "oauth_login",
+					"HostModule": "pict-section-login",
+					"Path": "modules/pict/pict-section-login/example_applications/oauth_login",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-login/orator_login",
+					"DisplayName": "orator_login",
+					"HostModule": "pict-section-login",
+					"Path": "modules/pict/pict-section-login/example_applications/orator_login",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-markdowneditor/.data",
+					"DisplayName": ".data",
+					"HostModule": "pict-section-markdowneditor",
+					"Path": "modules/pict/pict-section-markdowneditor/example_applications/.data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-markdowneditor/book_viewer",
+					"DisplayName": "book_viewer",
+					"HostModule": "pict-section-markdowneditor",
+					"Path": "modules/pict/pict-section-markdowneditor/example_applications/book_viewer",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-markdowneditor/embedded_editor",
+					"DisplayName": "embedded_editor",
+					"HostModule": "pict-section-markdowneditor",
+					"Path": "modules/pict/pict-section-markdowneditor/example_applications/embedded_editor",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-markdowneditor/markdown_editor",
+					"DisplayName": "markdown_editor",
+					"HostModule": "pict-section-markdowneditor",
+					"Path": "modules/pict/pict-section-markdowneditor/example_applications/markdown_editor",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-markdowneditor/server_upload",
+					"DisplayName": "server_upload",
+					"HostModule": "pict-section-markdowneditor",
+					"Path": "modules/pict/pict-section-markdowneditor/example_applications/server_upload",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-modal/.data",
+					"DisplayName": ".data",
+					"HostModule": "pict-section-modal",
+					"Path": "modules/pict/pict-section-modal/example_applications/.data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-modal/bookstore",
+					"DisplayName": "bookstore",
+					"HostModule": "pict-section-modal",
+					"Path": "modules/pict/pict-section-modal/example_applications/bookstore",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-modal/modal_garden",
+					"DisplayName": "modal_garden",
+					"HostModule": "pict-section-modal",
+					"Path": "modules/pict/pict-section-modal/example_applications/modal_garden",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-objecteditor/json_editor",
+					"DisplayName": "json_editor",
+					"HostModule": "pict-section-objecteditor",
+					"Path": "modules/pict/pict-section-objecteditor/example_applications/json_editor",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-openseadragon/photo_example",
+					"DisplayName": "photo_example",
+					"HostModule": "pict-section-openseadragon",
+					"Path": "modules/pict/pict-section-openseadragon/example_applications/photo_example",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-recordset/.data",
+					"DisplayName": ".data",
+					"HostModule": "pict-section-recordset",
+					"Path": "modules/pict/pict-section-recordset/example_applications/.data",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-recordset/bookstore",
+					"DisplayName": "bookstore",
+					"HostModule": "pict-section-recordset",
+					"Path": "modules/pict/pict-section-recordset/example_applications/bookstore",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-recordset/mocks",
+					"DisplayName": "mocks",
+					"HostModule": "pict-section-recordset",
+					"Path": "modules/pict/pict-section-recordset/example_applications/mocks",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-recordset/simple_entity",
+					"DisplayName": "simple_entity",
+					"HostModule": "pict-section-recordset",
+					"Path": "modules/pict/pict-section-recordset/example_applications/simple_entity",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-tuigrid/class_grid",
+					"DisplayName": "class_grid",
+					"HostModule": "pict-section-tuigrid",
+					"Path": "modules/pict/pict-section-tuigrid/example_applications/class_grid",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-tuigrid/inventory_grid",
+					"DisplayName": "inventory_grid",
+					"HostModule": "pict-section-tuigrid",
+					"Path": "modules/pict/pict-section-tuigrid/example_applications/inventory_grid",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-tuigrid/invoice_grid",
+					"DisplayName": "invoice_grid",
+					"HostModule": "pict-section-tuigrid",
+					"Path": "modules/pict/pict-section-tuigrid/example_applications/invoice_grid",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-usermanagement/usermanagement_demo",
+					"DisplayName": "usermanagement_demo",
+					"HostModule": "pict-section-usermanagement",
+					"Path": "modules/pict/pict-section-usermanagement/example_applications/usermanagement_demo",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-view/historic_events_example",
+					"DisplayName": "historic_events_example",
+					"HostModule": "pict-view",
+					"Path": "modules/pict/pict-view/example_applications/historic_events_example",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-view/simple",
+					"DisplayName": "simple",
+					"HostModule": "pict-view",
+					"Path": "modules/pict/pict-view/example_applications/simple",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-cruisecontrol/easy_cruiser",
+					"DisplayName": "easy_cruiser",
+					"HostModule": "pict-cruisecontrol",
+					"Path": "modules/utility/pict-cruisecontrol/example_applications/easy_cruiser",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "retold-sharp/sharp_playground",
+					"DisplayName": "sharp_playground",
+					"HostModule": "retold-sharp",
+					"Path": "modules/utility/retold-sharp/example_applications/sharp_playground",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
 				}
 			]
 		}

@@ -104,12 +104,12 @@ class ManagerAPIProvider extends libPictProvider
 							state: 'ok',
 							text: 'ok ' + (pHealth.ModuleCount || 0) + ' modules',
 						};
-					if (tmpSelf.pict.views['Manager-TopBar']) { tmpSelf.pict.views['Manager-TopBar'].render(); }
+					if (tmpSelf.pict.views['Manager-TopBar-Nav']) { tmpSelf.pict.views['Manager-TopBar-Nav'].render(); }
 				},
 				() =>
 				{
 					tmpSelf.pict.AppData.Manager.Health = { state: 'error', text: 'offline' };
-					if (tmpSelf.pict.views['Manager-TopBar']) { tmpSelf.pict.views['Manager-TopBar'].render(); }
+					if (tmpSelf.pict.views['Manager-TopBar-Nav']) { tmpSelf.pict.views['Manager-TopBar-Nav'].render(); }
 				});
 		};
 		fTick();

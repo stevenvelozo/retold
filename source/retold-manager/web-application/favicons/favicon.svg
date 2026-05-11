@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96">
+		<defs>
+			<clipPath id="fav-retold-manager-light">
+				<path d="M 2 48
+			C 2 18.0222416, 18.0222416 2, 48 2
+			C 77.9777584 2, 94 18.0222416, 94 48
+			C 94 77.9777584, 77.9777584 94, 48 94
+			C 18.0222416 94, 2 77.9777584, 2 48 Z"/>
+			</clipPath>
+		</defs>
+		<path d="M 2 48
+			C 2 18.0222416, 18.0222416 2, 48 2
+			C 77.9777584 2, 94 18.0222416, 94 48
+			C 94 77.9777584, 77.9777584 94, 48 94
+			C 18.0222416 94, 2 77.9777584, 2 48 Z" fill="#2f97b4"/>
+		<g clip-path="url(#fav-retold-manager-light)"><circle cx="48" cy="48" r="36" fill="rgba(255,255,255,0.22)"/></g>
+		<text x="48" y="50" text-anchor="middle" dominant-baseline="central"
+			font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+			font-size="60" font-weight="800"
+			fill="#ffffff" letter-spacing="-1">R</text>
+	</svg>

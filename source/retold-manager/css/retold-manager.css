@@ -51,8 +51,14 @@ html, body
 {
 	margin: 0;
 	padding: 0;
-	height: 100vh;
-	width: 100vw;
+	/* 100% (not 100vh / 100vw) — Theme-Scale applies CSS `zoom` to
+	   <html> for the scale picker, and under non-1.0 zoom the vh / vw
+	   units render against the un-zoomed viewport so the layout
+	   overflows by the scale factor. height: 100% on both html and
+	   body keeps the layout exactly sized to the visible viewport at
+	   every scale. */
+	height: 100%;
+	width: 100%;
 	background: var(--color-bg);
 	color: var(--color-text);
 	font-family: var(--font-sans);
@@ -60,12 +66,15 @@ html, body
 	overflow: hidden;
 }
 
-body
-{
-	display: grid;
-	grid-template-rows: var(--topbar-height) 1fr var(--statusbar-height);
-	grid-template-columns: 1fr;
-}
+/*
+   NOTE: the legacy body grid (topbar / workspace / statusbar) was
+   removed in the shell migration — pict-section-modal's shell() owns
+   all of the panel layout now. Keeping the body as a plain block lets
+   the application container fill the viewport via height: 100% (the
+   shell partitions its own interior). Restoring a body-level grid
+   here would clamp the container into the first grid row, leaving
+   most of the page blank.
+*/
 
 /* ── Top bar ──────────────────────────────────────────── */
 #RM-TopBar
@@ -1519,14 +1528,7 @@ button.action.success:hover
 .preview-panel .dep.warn  { color: var(--color-warning);  }
 
 /* ── Status bar ───────────────────────────────────────── */
-#RM-StatusBar
-{
-	display: flex;
-	align-items: center;
-	padding: 0 14px;
-	font-family: var(--font-mono);
-	font-size: 11.5px;
-	background: var(--color-panel);
-	border-top: 1px solid var(--color-border);
-	color: var(--color-muted);
-}
+/* Legacy #RM-StatusBar styling removed — the status bar now renders
+   into the Theme-BottomBar shared chrome (#Theme-BottomBar-Status),
+   which ships its own typography / layout rules from
+   pict-section-theme. */

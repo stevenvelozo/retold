@@ -5,12 +5,18 @@
  * with N panels per side + a center. The shell handles collapse /
  * resize chrome and persists state to localStorage per-host.
  *
+ * The top + bottom panels host the shared chrome that ships with
+ * pict-section-theme — Theme-TopBar (brand + nav + user-area + theme
+ * button) and Theme-BottomBar (status + info + actions). This view's
+ * job is just to position the panels; the shared views handle their
+ * own content. The Theme-Section provider in the application bootstrap
+ * tells those views which Manager-* slot views to mount.
+ *
  * Panel layout (in registration order — shell stacks each side from
  * the edge inward):
  *
  *   ┌────────────────────────────────────────────────────────────┐
- *   │ #RM-TopPanel-Content  (top, fixed)                         │
- *   │ — combined brand + topbar in one row, no dual-nav look —   │
+ *   │ #Theme-TopBar  (top, fixed) — shared chrome                │
  *   ├──────────┬─────────────────────────────────────────────────┤
  *   │ #RM-Side │ #RM-Workspace-Content   (center)                │
  *   │ -bar     │                                                 │
@@ -19,7 +25,7 @@
  *   │ resiz-   │                                                 │
  *   │ able)    │                                                 │
  *   ├──────────┴─────────────────────────────────────────────────┤
- *   │ #RM-StatusPanel-Content  (bottom, fixed)                   │
+ *   │ #Theme-BottomBar  (bottom, fixed) — shared chrome          │
  *   └────────────────────────────────────────────────────────────┘
  *
  * #RM-ModalRoot is appended outside the shell so dialogs / dropdowns
@@ -38,9 +44,14 @@ const _ViewConfiguration =
 	AutoRender: false,
 
 	CSS: /*css*/`
+		/* height: 100% (not 100vh) — Theme-Scale applies CSS zoom on
+		   <html>; under non-100% scale, vh units render against the
+		   un-zoomed viewport and push the bottom bar off-screen.
+		   100% cascades through html→body→container and stays in
+		   sync with the visible viewport at any scale. */
 		#RetoldManager-Application-Container
 		{
-			height: 100vh;
+			height: 100%;
 			min-height: 0;
 			overflow: hidden;
 		}
@@ -119,11 +130,13 @@ class ManagerLayoutView extends libPictView
 
 		// Cascade — re-renders into the existing destination ids the
 		// shell created. These views render templates into
-		// #RM-TopPanel-Content / #RM-Sidebar-Content / etc.
-		// Manager-TopBar / Sidebar / StatusBar / LogBar are all bound
-		// to their panels via `ContentView: <hash>` in addPanel — the
-		// shell renders them automatically at panel creation and on
-		// every expand transition, so no manual cascade is needed
+		// #Theme-TopBar / #RM-Sidebar-Content / #Theme-BottomBar / etc.
+		// Theme-TopBar / Sidebar / Theme-BottomBar / LogBar are all
+		// bound to their panels via `ContentView: <hash>` in addPanel —
+		// the shell renders them automatically at panel creation and
+		// on every expand transition. The shared chrome views in turn
+		// auto-mount the Manager-* slot views supplied via
+		// Theme-Section's ViewOptions, so no manual cascade is needed
 		// here. Manager-Home is the workspace content (router-driven)
 		// and remains the one explicit render at boot.
 		this.pict.views['Manager-Home'].render();
@@ -152,34 +165,41 @@ class ManagerLayoutView extends libPictView
 			PersistenceKey: 'retold-manager'
 		});
 
-		// Top — combined brand + topbar row. Fixed: not collapsible
-		// (always visible). Height tuned to fit a single-line row of
-		// brand wordmark + action buttons + theme button.
+		// Top — shared chrome: Theme-TopBar fills it with brand mark,
+		// the host-supplied NavView (Manager-TopBar-Nav), the
+		// host-supplied UserView (Manager-TopBar-User), and the theme
+		// button. Fixed: not collapsible (always visible). Height tuned
+		// to fit a single-line row.
 		this._shell.addPanel(
 		{
 			Hash: 'topbar',
 			Side: 'top',
 			Mode: 'fixed',
 			Size: 56,
-			ContentDestinationId: 'RM-TopPanel-Content',
-			ContentView: 'Manager-TopBar'
+			ContentDestinationId: 'Theme-TopBar',
+			ContentView: 'Theme-TopBar'
 		});
 
-		// Bottom — status bar. Fixed at 28px (matches the original
-		// retold-manager.css `--statusbar-height` so the chrome density
-		// stays compact). MinSize override needed because the shell's
-		// default MinSize (40) would otherwise clamp it back up.
-		// Added FIRST among bottom panels so the shell's "first-added =
-		// at the edge" rule places it at the absolute viewport bottom.
+		// Bottom — shared chrome: Theme-BottomBar fills it with the
+		// host-supplied StatusView (Manager-StatusBar) on the left, plus
+		// info / actions slots on the right (unused for now). Sized at
+		// 32px to give the status text comfortable vertical breathing
+		// room around the centred line — the Theme-BottomBar view is
+		// configured with the matching Height in the Theme-Section
+		// provider's ViewOptions so the chrome and the panel agree on
+		// the row size. MinSize override needed because the shell's
+		// default MinSize (40) would otherwise clamp it back up. Added
+		// FIRST among bottom panels so the shell's "first-added = at
+		// the edge" rule places it at the absolute viewport bottom.
 		this._shell.addPanel(
 		{
 			Hash: 'statusbar',
 			Side: 'bottom',
 			Mode: 'fixed',
-			Size: 28,
+			Size: 32,
 			MinSize: 20,
-			ContentDestinationId: 'RM-StatusBar',
-			ContentView: 'Manager-StatusBar'
+			ContentDestinationId: 'Theme-BottomBar',
+			ContentView: 'Theme-BottomBar'
 		});
 
 		// Bottom — log bar. Resizable + collapsible. Sits ABOVE the
@@ -187,8 +207,8 @@ class ManagerLayoutView extends libPictView
 		// output that used to live in a modal. The topbar Log button
 		// toggles its collapsed state via Manager-Layout.getLogPanel()
 		// (see _Pict.views['Manager-Layout'].getLogPanel().toggle()
-		// in PictView-Manager-TopBar.js). Default height + collapsed
-		// state are persisted across reloads by the shell.
+		// in PictView-Manager-TopBar-User.js). Default height +
+		// collapsed state are persisted across reloads by the shell.
 		// Bottom — log bar. Resizable + collapsible. The shell's
 		// ContentView binding handles auto-render at create + on every
 		// expand transition; we only need OnExpand for the bonus
@@ -213,6 +233,15 @@ class ManagerLayoutView extends libPictView
 		// ContentView binding tells the shell to auto-render the
 		// Manager-Sidebar view at creation + on every expand — no
 		// per-panel render() bookkeeping in the cascade below.
+		// ResponsiveDrawer: 900 — below the same breakpoint used by
+		// Theme-TopBar's CompactBreakpoint, the sidebar flips from a
+		// docked left column into a top drawer above the workspace
+		// (flex-direction column on the middle row). The user can
+		// collapse the drawer (height → 0, just the tab visible) to
+		// give the workspace full height, then re-expand. Mirrors
+		// retold-remote's content-editor-sidebar responsive pattern.
+		// DrawerHeight defaults to 33vh which feels right for a
+		// module browser at tablet widths.
 		this._shell.addPanel(
 		{
 			Hash: 'sidebar',
@@ -223,7 +252,8 @@ class ManagerLayoutView extends libPictView
 			MaxSize: 480,
 			Title: 'Modules',
 			ContentDestinationId: 'RM-Sidebar-Content',
-			ContentView: 'Manager-Sidebar'
+			ContentView: 'Manager-Sidebar',
+			ResponsiveDrawer: 900
 		});
 
 		// Center — the workspace area. We mount the legacy nested

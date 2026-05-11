@@ -10,13 +10,14 @@ const libProviderApi = require('./providers/Pict-Provider-Manager-API.js');
 const libProviderOperationsWS = require('./providers/Pict-Provider-Manager-OperationsWS.js');
 
 // Shell views (always present)
-const libViewLayout     = require('./views/PictView-Manager-Layout.js');
-const libViewTopBar     = require('./views/PictView-Manager-TopBar.js');
-const libViewSidebar    = require('./views/PictView-Manager-Sidebar.js');
-const libViewStatusBar  = require('./views/PictView-Manager-StatusBar.js');
-const libViewOutputPanel = require('./views/PictView-Manager-OutputPanel.js');
-const libViewLogModal    = require('./views/PictView-Manager-LogModal.js');
-const libViewLogBar      = require('./views/PictView-Manager-LogBar.js');
+const libViewLayout       = require('./views/PictView-Manager-Layout.js');
+const libViewTopBarNav    = require('./views/PictView-Manager-TopBar-Nav.js');
+const libViewTopBarUser   = require('./views/PictView-Manager-TopBar-User.js');
+const libViewSidebar      = require('./views/PictView-Manager-Sidebar.js');
+const libViewStatusBar    = require('./views/PictView-Manager-StatusBar.js');
+const libViewOutputPanel  = require('./views/PictView-Manager-OutputPanel.js');
+const libViewLogModal     = require('./views/PictView-Manager-LogModal.js');
+const libViewLogBar       = require('./views/PictView-Manager-LogBar.js');
 
 // Content views (swapped by the router)
 const libViewHome            = require('./views/PictView-Manager-Home.js');
@@ -52,29 +53,54 @@ class RetoldManagerApplication extends libPictApplication
 			require('./providers/PictRouter-RetoldManager-Configuration.json'), libPictRouter);
 
 		// Shell views
-		this.pict.addView('Manager-Layout',      libViewLayout.default_configuration,      libViewLayout);
-		this.pict.addView('Manager-TopBar',      libViewTopBar.default_configuration,      libViewTopBar);
-		this.pict.addView('Manager-Sidebar',     libViewSidebar.default_configuration,     libViewSidebar);
-		this.pict.addView('Manager-StatusBar',   libViewStatusBar.default_configuration,   libViewStatusBar);
-		this.pict.addView('Manager-OutputPanel', libViewOutputPanel.default_configuration, libViewOutputPanel);
+		this.pict.addView('Manager-Layout',        libViewLayout.default_configuration,       libViewLayout);
+		this.pict.addView('Manager-TopBar-Nav',    libViewTopBarNav.default_configuration,    libViewTopBarNav);
+		this.pict.addView('Manager-TopBar-User',   libViewTopBarUser.default_configuration,   libViewTopBarUser);
+		this.pict.addView('Manager-Sidebar',       libViewSidebar.default_configuration,      libViewSidebar);
+		this.pict.addView('Manager-StatusBar',     libViewStatusBar.default_configuration,    libViewStatusBar);
+		this.pict.addView('Manager-OutputPanel',   libViewOutputPanel.default_configuration,  libViewOutputPanel);
 
 		// Modal section view (toasts, confirms, custom dialogs).
 		this.pict.addView('Pict-Section-Modal', {}, libPictSectionModal);
 
-		// Theme section — registers the Theme provider, the bundled theme
-		// catalog, the picker / mode-toggle / topbar-button views, and
-		// applies the retold-manager theme at boot. We skip the BrandStrip
-		// view because the brand is rendered INLINE into the topbar panel
-		// (via Manager-TopBar reading Theme.Brand.getActive()) — that
-		// merge eliminates the dual-nav stacked look. Brand colors are
-		// still emitted as --brand-color-* CSS vars for any view to pick up.
-		libPictSectionTheme.install(this.pict,
+		// Theme section — added as a Pict provider, self-bootstraps
+		// inside its constructor. That single addProvider call:
+		//   - Registers the underlying pict-provider-theme runtime
+		//   - Pushes every theme from the runtime registry (bundled
+		//     starter set + anything host code added via Catalog.register)
+		//   - Adds the picker / mode-toggle / scale-select / topbar-button
+		//     views to pict.views[...]
+		//   - Adds the shared chrome views (TopBar / BottomBar) with the
+		//     host-supplied slot views wired in via ViewOptions
+		//   - Applies retold-default in system mode at scale 1.0 — unless
+		//     localStorage has a saved user pick, which wins
+		//   - Wires the Brand block so --brand-color-* CSS vars are set
+		//
+		// TopBar's NavView slot gets Manager-TopBar-Nav (health badge +
+		// Status/Update/Checkout/Ripple buttons); UserView gets
+		// Manager-TopBar-User (Log toggle + Manifest button). BottomBar's
+		// StatusView gets Manager-StatusBar.
+		this.pict.addProvider('Theme-Section',
 		{
-			ApplyDefault: 'retold-manager',
+			ApplyDefault: 'retold-default',
 			DefaultMode:  'system',
+			DefaultScale: 1.0,
 			Brand:        libRetoldManagerBrand,
-			Views:        ['Picker', 'ModeToggle', 'ScaleSelect', 'Button']
-		});
+			// Picker/ModeToggle/ScaleSelect drive the popup, Button is
+			// the topbar trigger, BrandMark is the brand mark Theme-TopBar
+			// auto-mounts. TopBar / BottomBar are the standard chrome rows
+			// pict-section-theme provides — the host fills the empty slots
+			// via NavView / UserView / StatusView in ViewOptions below.
+			Views: ['Picker', 'ModeToggle', 'ScaleSelect', 'Button', 'BrandMark', 'TopBar', 'BottomBar'],
+			ViewOptions:
+			{
+				// Heights match the panel Sizes in Manager-Layout's
+				// addPanel() calls — chrome and shell stay in sync so
+				// align-items: center has the right room to centre into.
+				TopBar:    { NavView: 'Manager-TopBar-Nav', UserView: 'Manager-TopBar-User', Height: 56 },
+				BottomBar: { StatusView: 'Manager-StatusBar', Height: 32 }
+			}
+		}, libPictSectionTheme);
 
 		// Content views
 		this.pict.addView('Manager-Home',            libViewHome.default_configuration,            libViewHome);
@@ -258,9 +284,12 @@ class RetoldManagerApplication extends libPictApplication
 		this.pict.AppData.Manager.CurrentRoute = pRoute;
 
 		// Re-render sidebar so the selected module row highlights correctly,
-		// and the top bar so the active toggle styling updates.
-		if (this.pict.views['Manager-Sidebar'])   { this.pict.views['Manager-Sidebar'].render(); }
-		if (this.pict.views['Manager-TopBar'])    { this.pict.views['Manager-TopBar'].render(); }
+		// and the topbar nav so the health badge / active toggle styling
+		// reflects the new state. The shared Theme-TopBar chrome itself
+		// doesn't need a re-render (its template is data-free) — only the
+		// Manager-TopBar-Nav slot view does.
+		if (this.pict.views['Manager-Sidebar'])         { this.pict.views['Manager-Sidebar'].render(); }
+		if (this.pict.views['Manager-TopBar-Nav'])      { this.pict.views['Manager-TopBar-Nav'].render(); }
 	}
 
 	setStatus(pMessage)

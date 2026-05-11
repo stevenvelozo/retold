@@ -1,48 +1,42 @@
 /**
  * RetoldManager-Brand — the application's wordmark / signature.
  *
- * Passed to pict-section-theme.install({ Brand: ... }) at boot. Drives
- * the BrandStrip view below the topbar (two stripes + icon + name) and
- * exposes --brand-color-* CSS variables that themes / app CSS can
- * reference for accents.
+ * Passed to pict-section-theme as the `Brand` block on the Theme-Section
+ * provider. Drives:
+ *   - The Theme-Brand-Mark view in the topbar (icon + name)
+ *   - --brand-color-* CSS variables that themes / app CSS reference
+ *   - The Favicon / FaviconDark SVGs available via libThemeBrand
  *
- * Colors chosen to harmonise with the retold-manager dark + light
- * palettes (which lean GitHub-blue) without clashing on either side.
+ * The brand is precomputed at build time. Source of truth lives in
+ * `Retold-Modules-Manifest.json` under this module's `Branding.Palette`
+ * field; the `pict-section-theme-brand` CLI generates the deterministic
+ * logo + colors and writes them into our `package.json` under
+ * `retold.brand`. This file then just hands that block to Theme-Section.
  *
- * Icon is an inline SVG so it themes via currentColor and ships in the
- * bundle (no extra HTTP request).
+ * To change the look:
+ *
+ *   1. Edit the Branding block in Retold-Modules-Manifest.json (palette,
+ *      DisplayName, Tagline).
+ *   2. Run `npm run brand` to regenerate package.json + favicon files.
+ *   3. Run `npx quack build` to rebuild the bundle.
+ *
+ * Curated palette keys: mix, default, desert, ocean, forest, synthwave,
+ * twilight, cosmos, carnival.
+ *
+ * Why precompute? It keeps the LogoGenerator dependency out of the
+ * runtime bundle (smaller download), the brand becomes auditable in
+ * source control (every change shows up as a package.json diff), and
+ * any tool that reads package.json can introspect the brand without
+ * needing to evaluate JS.
  */
 
-const _RETOLD_MANAGER_ICON_SVG = ''
-	// Stylised "R-M" mark: an R with a small bracket beneath, drawn in
-	// line-art so it scales cleanly and inherits brand color via currentColor.
-	+ '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"'
-	+ ' stroke="currentColor" stroke-width="2" stroke-linecap="round"'
-	+ ' stroke-linejoin="round" aria-hidden="true">'
-	+ '<path d="M5 4h7a4 4 0 0 1 0 8H7"/>'
-	+ '<path d="M7 12l5 8"/>'
-	+ '<path d="M5 4v16"/>'
-	+ '<path d="M16 16l3 4 3-4"/>'
-	+ '</svg>';
+// Path: source/web/client/pict-app/ → up 4 to retold-manager/.
+const tmpPackage = require('../../../../package.json');
 
-module.exports =
+if (!tmpPackage.retold || !tmpPackage.retold.brand)
 {
-	Hash: 'retold-manager',
-	Name: 'Retold Manager',
-	Tagline: 'Status, update, ripple-publish across every Retold module',
-	Icon: _RETOLD_MANAGER_ICON_SVG,
-	IconType: 'svg',
-	Colors:
-	{
-		// GitHub-issue-blue for primary, warm orange-coral for secondary.
-		// Both have light + dark variants tuned so the brand stripe stays
-		// vivid on either backdrop and the H1/H2 underlines from
-		// retold-default/retold-mono read cleanly.
-		Primary:        '#2f81f7',
-		Secondary:      '#ff8a3d',
-		PrimaryLight:   '#0969da',
-		PrimaryDark:    '#58a6ff',
-		SecondaryLight: '#cc5a14',
-		SecondaryDark:  '#ffa869'
-	}
-};
+	throw new Error('retold-manager: package.json is missing retold.brand — '
+		+ 'run `npm run brand` (which calls pict-section-theme-brand) before building');
+}
+
+module.exports = tmpPackage.retold.brand;
