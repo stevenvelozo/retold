@@ -1,10 +1,8 @@
 const libPictView = require('pict-view');
 
-// Caret SVG injected into the action-group "more" buttons. Static
-// markup, not data-derived — kept as a literal so the templates that
-// reference it stay tag-free.
-const CARET_SVG = '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false">'
-	+ '<path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+// Caret glyph for the action-group "more" buttons comes from pict's
+// built-in icon registry via {~I:ChevronDown~} in the templates below.
+// No hand-rolled inline SVG, no per-record CaretIcon data binding.
 
 const _ViewConfiguration =
 {
@@ -62,14 +60,14 @@ const _ViewConfiguration =
 		<div class="action-row">
 			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('ncu', null)">ncu</button>
 			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('test', null)">test</button>
-			<button class="action action-more" aria-label="More npm actions" title="More npm actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('npm', this); event.stopPropagation();">{~D:Record.CaretIcon~}</button>
+			<button class="action action-more" aria-label="More npm actions" title="More npm actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('npm', this); event.stopPropagation();">{~I:ChevronDown~}</button>
 		</div>
 	</div>
 	<div class="action-group">
 		<div class="action-group-label">version</div>
 		<div class="action-row">
 			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('bump-patch', null)">+ patch</button>
-			<button class="action action-more" aria-label="More version actions" title="More version actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('version', this); event.stopPropagation();">{~D:Record.CaretIcon~}</button>
+			<button class="action action-more" aria-label="More version actions" title="More version actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('version', this); event.stopPropagation();">{~I:ChevronDown~}</button>
 		</div>
 	</div>
 	<div class="action-group">
@@ -79,7 +77,7 @@ const _ViewConfiguration =
 			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('diff', null)">diff</button>
 			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('commit', null)">commit</button>
 			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('push', null)">push</button>
-			<button class="action action-more" aria-label="More git actions" title="More git actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('git', this); event.stopPropagation();">{~D:Record.CaretIcon~}</button>
+			<button class="action action-more" aria-label="More git actions" title="More git actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('git', this); event.stopPropagation();">{~I:ChevronDown~}</button>
 		</div>
 	</div>
 	<div class="action-group">
@@ -354,7 +352,6 @@ class ManagerModuleWorkspaceView extends libPictView
 		let tmpRecord =
 		{
 			Manifest:        tmpManifest,
-			CaretIcon:       CARET_SVG,
 
 			VersionBadgeSlot: tmpPkg.Version ? [{ Version: tmpPkg.Version }] : [],
 			BranchBadgeSlot:  tmpGit.Branch  ? [{ Branch: tmpGit.Branch }]   : [],
@@ -380,7 +377,6 @@ class ManagerModuleWorkspaceView extends libPictView
 	{
 		return {
 			Manifest:           { Name: '(none)' },
-			CaretIcon:          CARET_SVG,
 			VersionBadgeSlot:   [],
 			BranchBadgeSlot:    [],
 			GitHubLinkSlot:     [],

@@ -386,6 +386,133 @@ For everything inside the render cycle, prefer `{~TS:~}` / `{~TIA:~}` / `{~D:~}`
 
 ---
 
+## **Don't hand-roll SVG icons — use the built-in icon registry**
+
+Pict ships a built-in icon provider (`pict.providers.Icon`) and a template tag (`{~Icon:~}` / `{~I:~}`) for emitting themable SVG glyphs. **Use these instead of inlining `<svg>` markup in views or templates.** Inline SVGs duplicate paint logic across modules, ignore theme tokens, and rot whenever the design language shifts.
+
+### Template tag
+
+```html
+<button onclick="...">
+    {~I:Save~}
+    Save
+</button>
+
+<!-- Variant via colon -->
+{~Icon:Folder:Filled~}
+{~I:File:Filled~}
+
+<!-- Short alias for terser markup -->
+{~I:Settings~}
+```
+
+The tag emits `<span class="pict-icon"><svg viewBox="0 0 24 24" ...>...</svg></span>`. The SVG uses `currentColor` for paint, so it follows the parent element's text color (which is theme-driven). Size is `1em × 1em` — set `font-size` on the parent to scale.
+
+### JS API
+
+```javascript
+pict.icon('Home');                                  // default variant
+pict.icon('Folder', { variant: 'Filled' });
+pict.icon('Save',   { size: 20, class: 'mr-1' });   // size override + extra class
+pict.icon('Close',  { ariaLabel: 'Dismiss dialog' }); // flips role=img + aria-label
+```
+
+### Sizing — `font-size` drives everything
+
+The icon's inner `<svg>` is `1em × 1em` per pict-core's built-in CSS:
+
+```css
+.pict-icon       { display: inline-flex; vertical-align: -0.125em; }
+.pict-icon svg   { width: 1em; height: 1em; display: block; }
+```
+
+So **`font-size` on the parent scales the icon**. Three ways to set it, in order of preference:
+
+```html
+<!-- 1. Inherit from parent's font-size. Best for icons inside buttons / text
+        runs — they scale with the surrounding text automatically. -->
+<button style="font-size: 14px">{~I:Save~} Save</button>
+
+<!-- 2. Set on a wrapper class targeting a specific UI region. Best when
+        you have many icons in the same spot and want them all uniform. -->
+<style>.my-toolbar .pict-icon { font-size: 18px; }</style>
+
+<!-- 3. Per-call inline override via the JS API. Best for one-offs. -->
+<span>${pict.icon('Settings', { size: 20 })}</span>
+```
+
+Never write `width="16" height="16"` on the SVG itself — the registry strips those at registration so the `1em` sizing wins.
+
+### Registering your own icons (section modules)
+
+Section providers extend the base set during their own initialization, so consumers can use `{~I:YourIcon~}` after registering the section's provider:
+
+```javascript
+// In your section's provider constructor:
+constructor(pFable, pOptions, pServiceHash)
+{
+    super(pFable, pOptions, pServiceHash);
+    if (this.pict && this.pict.providers && this.pict.providers.Icon)
+    {
+        this.pict.providers.Icon.registerSet({
+            Outline: {
+                YourCustomGlyph:     '<svg viewBox="0 0 24 24" ...>...</svg>',
+                AnotherCustomGlyph:  '<svg viewBox="0 0 24 24" ...>...</svg>'
+            },
+            Filled: {
+                YourCustomGlyph:     '<svg viewBox="0 0 24 24" ...>...</svg>'
+            }
+        });
+    }
+}
+```
+
+**First registration sets the per-name default variant** — so `registerSet({ Outline: { Foo: ... }, Filled: { Foo: ... } })` makes `Outline` the default for `Foo`. `{~I:Foo~}` resolves to Outline; `{~I:Foo:Filled~}` is explicit.
+
+### Naming convention
+
+- **PascalCase canonical names** — `FileFolder`, `ChevronDown`, `ExternalLink`.
+- **Aliases are built in** for common alternates — `Gear` → `Settings`, `House` → `Home`, `X` → `Close`, `Hamburger` → `Menu`. Don't add aliases for your own icons in section modules; pick a canonical name and stick with it.
+- **Namespace section-specific glyphs that overlap with core names.** pict-section-filebrowser ships its own warm-beige `Folder`/`File`/`FileText`/`Home` variants — these are registered as `FileBrowserFolder`, `FileBrowserFile`, `FileBrowserFileText`, `FileBrowserHome` so installing the section doesn't silently re-skin every `{~I:Folder~}` reference elsewhere in the app. File-type-specific names (`FilePdf`, `FileImage`, `FileCode`, ...) don't clash with anything in core, so those go in unprefixed.
+
+### Multi-color icons + theme tokens
+
+The base set is monoline `currentColor`. Section modules can register multi-color glyphs that use CSS custom-property paint:
+
+```javascript
+const _Colors = {
+    Outline: 'var(--theme-color-icon-outline, var(--theme-color-text-primary,    #3D3229))',
+    Accent:  'var(--theme-color-icon-accent,  var(--theme-color-brand-primary,   #2E7D74))',
+    Folder:  'var(--theme-color-icon-folder,  var(--theme-color-background-tertiary, #EAE3D8))'
+};
+const _Folder = '<svg viewBox="0 0 24 24" fill="none">'
+    + '<path d="..." fill="' + _Colors.Folder + '" stroke="' + _Colors.Outline + '" stroke-width="1.8"/>'
+    + '</svg>';
+```
+
+SVG presentation attributes (`fill="..."`, `stroke="..."`) accept `var()` substitutions in modern browsers. The pattern: every paint value is a `var(--theme-color-icon-*, var(--theme-color-*, #fallback))` chain — themes that define the icon-specific token win, themes that only define the generic token still get the right color family, hosts without a theme provider get the hand-picked hex. Apps switching themes recolor the icon without re-rendering. **pict-section-filebrowser's `_Colors` palette is the canonical example** — read it before designing a new multi-color icon set.
+
+### Base set shipped with Pict
+
+`Folder`, `FolderOpen`, `File`, `FileText`, `Spreadsheet`, `Image`, `Code`, `Chevron{Up/Down/Left/Right}`, `Arrow{Up/Down/Left/Right}`, `Save`, `Close`, `Check`, `Plus`, `Minus`, `Edit`, `Trash`, `Copy`, `Share`, `Search`, `Refresh`, `Download`, `Upload`, `Link`, `ExternalLink`, `Info`, `Warning`, `Error`, `Success`, `Home`, `Settings`, `Menu`, `More`, `Eye`, `EyeOff`, `Lock`, `User`, `Help`.
+
+Outline variant available for all. Filled variant for closed-shape icons where the filled visual is meaningfully distinct (Folder, FolderOpen, File, FileText, Spreadsheet, Home, Settings, Trash, User, Lock, Info, Warning).
+
+### Anti-patterns to reject in code review
+
+| Wrong | Right |
+|---|---|
+| `<svg viewBox="0 0 24 24" stroke="currentColor">...</svg>` inlined in a template or view | `{~I:Name~}` (template) or `pict.icon('Name')` (JS) |
+| Hardcoded hex colors in icon `fill=` or `stroke=` attributes | `currentColor` — let theme cascade drive color |
+| `width="16" height="16"` on the SVG itself | No width/height on SVG; control via `font-size` on parent |
+| Emoji glyphs (`📁` `🏠`) used as UI icons | A themable SVG from the registry |
+| Unicode arrow characters (`▼ ▶ ▸`) used as toggle indicators | `{~I:ChevronDown~}` etc. |
+| Per-module icon palette objects with hardcoded hex values | Use theme tokens (`var(--theme-color-icon-*)`); the registry already does this |
+
+Inline SVG is acceptable only for genuinely **bespoke** illustrative content (a brand mark, a hand-tuned multi-color illustration, an empty-state graphic) — not for everyday UI glyphs. If you find yourself writing `<svg viewBox="0 0 24 24" stroke="currentColor">` more than once in the same module, the second one belongs in the registry.
+
+---
+
 ## Renderables
 
 A renderable connects a template to a DOM destination. Define them in the configuration's `Renderables` array. The framework's `render()` method processes them.
