@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-04-10T17:43:43.660Z",
+	"Generated": "2026-05-14T10:59:47.047Z",
 	"GitHubOrg": "stevenvelozo",
 	"DefaultBranch": "master",
 	"Groups": [
@@ -145,11 +145,16 @@
 									"Path": "services/progress-tracker-set.md"
 								}
 							]
+						},
+						{
+							"Title": "Code Playground",
+							"Path": "playground.md"
 						}
 					],
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -157,6 +162,7 @@
 						"architecture.md",
 						"css/docuserve.css",
 						"index.html",
+						"playground.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
 						"services/README.md",
@@ -361,11 +367,16 @@
 									"Path": "advanced-usage.md"
 								}
 							]
+						},
+						{
+							"Title": "Code Playground",
+							"Path": "playground.md"
 						}
 					],
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -377,6 +388,7 @@
 						"custom-providers.md",
 						"getting-started.md",
 						"index.html",
+						"playground.md",
 						"providers.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
@@ -428,6 +440,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -494,6 +507,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -556,11 +570,16 @@
 									"Path": "fable/fable-uuid/README.md"
 								}
 							]
+						},
+						{
+							"Title": "Code Playground",
+							"Path": "playground.md"
 						}
 					],
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -569,9 +588,20 @@
 						"css/docuserve.css",
 						"environment-variables.md",
 						"index.html",
+						"playground.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
+				},
+				{
+					"Name": "fable-ultravisor-client",
+					"Repo": "fable-ultravisor-client",
+					"Group": "fable",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "fable-uuid",
@@ -623,11 +653,16 @@
 									"Path": "changelog.md"
 								}
 							]
+						},
+						{
+							"Title": "Code Playground",
+							"Path": "playground.md"
 						}
 					],
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -638,6 +673,7 @@
 						"contributing.md",
 						"css/docuserve.css",
 						"index.html",
+						"playground.md",
 						"resources.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
@@ -738,6 +774,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -880,6 +917,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -1104,6 +1142,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -1300,6 +1339,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -1523,6 +1563,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -1811,6 +1852,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -1988,6 +2030,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -2021,12 +2064,23 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_brand.json",
 						"_version.json",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
+				},
+				{
+					"Name": "meadow-connection-meadow-endpoints",
+					"Repo": "meadow-connection-meadow-endpoints",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "meadow-connection-mongodb",
@@ -2164,6 +2218,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -2307,6 +2362,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -2443,6 +2499,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -2601,6 +2658,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -2622,6 +2680,16 @@
 						"retold-keyword-index.json",
 						"schema.md"
 					]
+				},
+				{
+					"Name": "meadow-connection-retold-databeacon",
+					"Repo": "meadow-connection-retold-databeacon",
+					"Group": "meadow",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "meadow-connection-rocksdb",
@@ -2728,6 +2796,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -2887,6 +2956,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -3038,6 +3108,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -3192,6 +3263,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -3346,6 +3418,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_sidebar.md",
 						"_version.json",
 						"crud/README.md",
@@ -3464,6 +3537,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -3790,6 +3864,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -3943,6 +4018,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -4157,6 +4233,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -4263,6 +4340,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -4387,6 +4465,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -4544,6 +4623,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -4716,6 +4796,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -4773,11 +4854,9 @@
 						"MicroDDL-Syntax.md",
 						"README.md",
 						"Stricture-Legacy-Compiler.md",
-						"_version.json",
+						"_brand.json",
 						"css/docuserve.css",
-						"index.html",
-						"retold-catalog.json",
-						"retold-keyword-index.json"
+						"index.html"
 					]
 				}
 			]
@@ -4859,6 +4938,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -4977,6 +5057,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -5062,6 +5143,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -5089,6 +5171,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_brand.json",
 						"_version.json",
 						"css/docuserve.css",
 						"index.html",
@@ -5130,6 +5213,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -5139,6 +5223,53 @@
 						"index.html",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
+					]
+				},
+				{
+					"Name": "orator-serviceserver-base",
+					"Repo": "orator-serviceserver-base",
+					"Group": "orator",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Creating a Custom Server",
+									"Path": "custom-server.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								},
+								{
+									"Title": "Template Method Pattern",
+									"Path": "template-method.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_brand.json",
+						"_sidebar.md",
+						"api-reference.md",
+						"cover.md",
+						"custom-server.md",
+						"index.html",
+						"template-method.md"
 					]
 				},
 				{
@@ -5183,6 +5314,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -5297,6 +5429,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -5360,6 +5493,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -5435,6 +5569,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -5506,6 +5641,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -5550,6 +5686,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -5689,6 +5826,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -5774,6 +5912,7 @@
 						"EXAMPLES.md",
 						"GETTING_STARTED.md",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -5842,6 +5981,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -5849,7 +5989,6 @@
 						"architecture.md",
 						"configuration.md",
 						"content-authoring.md",
-						"css/docuserve.css",
 						"deployment.md",
 						"diagrams.md",
 						"example_applications/contacts-app/README.md",
@@ -5886,11 +6025,14 @@
 						"example_applications/todo-app/quick-start.md",
 						"example_applications/todo-app/tags.md",
 						"example_applications/todo-app/tasks.md",
+						"fable-playground.md",
 						"index.html",
 						"latex.md",
+						"pict-docuserve.min.js",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
 						"README.md",
+						"_brand.json",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
@@ -5901,6 +6043,7 @@
 						"quick-start.md",
 						"relationships.md",
 						"README.md",
+						"_brand.json",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
@@ -5914,6 +6057,7 @@
 						"standings.md",
 						"websocket.md",
 						"README.md",
+						"_brand.json",
 						"_sidebar.md",
 						"_topbar.md",
 						"api.md",
@@ -5931,6 +6075,18 @@
 					]
 				},
 				{
+					"Name": "pict-editor-timeline",
+					"Repo": "pict-editor-timeline",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": [
+						"_brand.json"
+					]
+				},
+				{
 					"Name": "pict-meadow-connection-manager",
 					"Repo": "pict-meadow-connection-manager",
 					"Group": "pict",
@@ -5940,6 +6096,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_brand.json",
 						"_version.json",
 						"css/docuserve.css",
 						"index.html",
@@ -5958,6 +6115,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_version.json",
 						"css/docuserve.css",
 						"index.html",
@@ -6040,6 +6198,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -6118,6 +6277,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -6128,6 +6288,28 @@
 						"lifecycle.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
+					]
+				},
+				{
+					"Name": "pict-provider-theme",
+					"Repo": "pict-provider-theme",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "pict-provider-vocabulary",
+					"Repo": "pict-provider-vocabulary",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": [
+						"_brand.json"
 					]
 				},
 				{
@@ -6189,6 +6371,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -6199,6 +6382,16 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
+				},
+				{
+					"Name": "pict-section-clone",
+					"Repo": "pict-section-clone",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "pict-section-code",
@@ -6276,6 +6469,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -6289,6 +6483,16 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
+				},
+				{
+					"Name": "pict-section-connection-form",
+					"Repo": "pict-section-connection-form",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "pict-section-content",
@@ -6361,6 +6565,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -6375,6 +6580,16 @@
 					]
 				},
 				{
+					"Name": "pict-section-dashboard",
+					"Repo": "pict-section-dashboard",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
 					"Name": "pict-section-entitymanagement",
 					"Repo": "pict-section-entitymanagement",
 					"Group": "pict",
@@ -6384,6 +6599,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_brand.json",
 						"_version.json",
 						"css/docuserve.css",
 						"index.html",
@@ -6401,7 +6617,73 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_brand.json",
 						"_version.json",
+						"css/docuserve.css",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
+				},
+				{
+					"Name": "pict-section-filebrowser",
+					"Repo": "pict-section-filebrowser",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": true,
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "Configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Providers",
+									"Path": "Providers.md"
+								},
+								{
+									"Title": "Views",
+									"Path": "Views.md"
+								},
+								{
+									"Title": "Layouts",
+									"Path": "Layouts.md"
+								},
+								{
+									"Title": "Icons",
+									"Path": "Icons.md"
+								}
+							]
+						},
+						{
+							"Title": "Service",
+							"Children": [
+								{
+									"Title": "REST API",
+									"Path": "REST_API.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_brand.json",
+						"_sidebar.md",
+						"_topbar.md",
+						"cover.md",
 						"css/docuserve.css",
 						"index.html",
 						"retold-catalog.json",
@@ -6430,6 +6712,10 @@
 								{
 									"Title": "Custom Styling",
 									"Path": "Custom-Styling.md"
+								},
+								{
+									"Title": "Theme Integration",
+									"Path": "Theme_Integration.md"
 								}
 							]
 						},
@@ -6576,6 +6862,8 @@
 						"Implementation_Reference.md",
 						"Layout_Persistence.md",
 						"README.md",
+						"Theme_Integration.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -6781,6 +7069,7 @@
 						"README.md",
 						"Solvers.md",
 						"Templates.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -6959,6 +7248,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -7116,307 +7406,7 @@
 						"user-docs/solveroperators/multiply.md",
 						"user-docs/solveroperators/nullcoalesce.md",
 						"user-docs/solveroperators/setconcat.md",
-						"user-docs/solveroperators/subtract.md",
-						"Getting-Started.md",
-						"Groups.md",
-						"Inputs.md",
-						"Sections.md",
-						"Shortcuts.md",
-						"Solver-Expression-Walkthrough.md",
-						"Solver-Expressions-Advanced.md",
-						"Solver-Functions.md",
-						"Solvers.md",
-						"ToC.md",
-						"pict_documentation_topics.json",
-						"solverfunctions/abs.md",
-						"solverfunctions/aggregationhistogram.md",
-						"solverfunctions/aggregationhistogrambyobject.md",
-						"solverfunctions/arrayconcat.md",
-						"solverfunctions/avg.md",
-						"solverfunctions/bucketset.md",
-						"solverfunctions/ceil.md",
-						"solverfunctions/cleanvaluearray.md",
-						"solverfunctions/cleanvalueobject.md",
-						"solverfunctions/colorgroupbackground.md",
-						"solverfunctions/colorinputbackground.md",
-						"solverfunctions/colorinputbackgroundtabular.md",
-						"solverfunctions/colorsectionbackground.md",
-						"solverfunctions/compare.md",
-						"solverfunctions/concat.md",
-						"solverfunctions/concatraw.md",
-						"solverfunctions/cos.md",
-						"solverfunctions/count.md",
-						"solverfunctions/countset.md",
-						"solverfunctions/countsetelements.md",
-						"solverfunctions/createarrayfromabsolutevalues.md",
-						"solverfunctions/createvalueobjectbyhashes.md",
-						"solverfunctions/cumulativesummation.md",
-						"solverfunctions/dateadddays.md",
-						"solverfunctions/dateaddhours.md",
-						"solverfunctions/dateaddmilliseconds.md",
-						"solverfunctions/dateaddminutes.md",
-						"solverfunctions/dateaddmonths.md",
-						"solverfunctions/dateaddseconds.md",
-						"solverfunctions/dateaddweeks.md",
-						"solverfunctions/dateaddyears.md",
-						"solverfunctions/datedaydifference.md",
-						"solverfunctions/datefromparts.md",
-						"solverfunctions/datehourdifference.md",
-						"solverfunctions/datemathadd.md",
-						"solverfunctions/datemilliseconddifference.md",
-						"solverfunctions/dateminutedifference.md",
-						"solverfunctions/datemonthdifference.md",
-						"solverfunctions/dateseconddifference.md",
-						"solverfunctions/dateweekdifference.md",
-						"solverfunctions/dateyeardifference.md",
-						"solverfunctions/differencearrays.md",
-						"solverfunctions/disablesolverordinal.md",
-						"solverfunctions/distributionhistogram.md",
-						"solverfunctions/distributionhistogrambyobject.md",
-						"solverfunctions/enablesolverordinal.md",
-						"solverfunctions/entryinset.md",
-						"solverfunctions/euler.md",
-						"solverfunctions/exp.md",
-						"solverfunctions/findfirstvaluebyexactmatch.md",
-						"solverfunctions/findfirstvaluebystringincludes.md",
-						"solverfunctions/flatten.md",
-						"solverfunctions/floor.md",
-						"solverfunctions/gaussianelimination.md",
-						"solverfunctions/generatearrayofobjectsfromsets.md",
-						"solverfunctions/generatehtmlhexcolor.md",
-						"solverfunctions/getvalue.md",
-						"solverfunctions/getvaluearray.md",
-						"solverfunctions/getvalueobject.md",
-						"solverfunctions/hidesections.md",
-						"solverfunctions/if.md",
-						"solverfunctions/intercept.md",
-						"solverfunctions/iterativeseries.md",
-						"solverfunctions/join.md",
-						"solverfunctions/joinraw.md",
-						"solverfunctions/largestinset.md",
-						"solverfunctions/leastsquares.md",
-						"solverfunctions/linest.md",
-						"solverfunctions/log.md",
-						"solverfunctions/logvalues.md",
-						"solverfunctions/match.md",
-						"solverfunctions/matrixinverse.md",
-						"solverfunctions/matrixmultiply.md",
-						"solverfunctions/matrixtranspose.md",
-						"solverfunctions/matrixvectormultiply.md",
-						"solverfunctions/max.md",
-						"solverfunctions/mean.md",
-						"solverfunctions/median.md",
-						"solverfunctions/min.md",
-						"solverfunctions/mode.md",
-						"solverfunctions/objectkeystoarray.md",
-						"solverfunctions/objectvaluessortbyexternalobjectarray.md",
-						"solverfunctions/objectvaluestoarray.md",
-						"solverfunctions/percent.md",
-						"solverfunctions/pi.md",
-						"solverfunctions/polynomialregression.md",
-						"solverfunctions/predict.md",
-						"solverfunctions/rad.md",
-						"solverfunctions/randomfloat.md",
-						"solverfunctions/randomfloatbetween.md",
-						"solverfunctions/randomfloatupto.md",
-						"solverfunctions/randominteger.md",
-						"solverfunctions/randomintegerbetween.md",
-						"solverfunctions/randomintegerupto.md",
-						"solverfunctions/refreshtabularsection.md",
-						"solverfunctions/resolvehtmlentities.md",
-						"solverfunctions/round.md",
-						"solverfunctions/runsolvers.md",
-						"solverfunctions/setconcatenate.md",
-						"solverfunctions/setgroupvisibility.md",
-						"solverfunctions/setsectionvisibility.md",
-						"solverfunctions/setsolverordinalenabled.md",
-						"solverfunctions/settabularrowlength.md",
-						"solverfunctions/setvalue.md",
-						"solverfunctions/showsections.md",
-						"solverfunctions/sin.md",
-						"solverfunctions/slice.md",
-						"solverfunctions/slope.md",
-						"solverfunctions/smallestinset.md",
-						"solverfunctions/sortarray.md",
-						"solverfunctions/sorthistogram.md",
-						"solverfunctions/sorthistogrambykeys.md",
-						"solverfunctions/sortset.md",
-						"solverfunctions/sqrt.md",
-						"solverfunctions/stdev.md",
-						"solverfunctions/stdeva.md",
-						"solverfunctions/stdevp.md",
-						"solverfunctions/stringcountsegments.md",
-						"solverfunctions/stringgetsegments.md",
-						"solverfunctions/subtractingsummation.md",
-						"solverfunctions/sum.md",
-						"solverfunctions/tan.md",
-						"solverfunctions/tofixed.md",
-						"solverfunctions/unionarrays.md",
-						"solverfunctions/uniquearray.md",
-						"solverfunctions/var.md",
-						"solverfunctions/vara.md",
-						"solverfunctions/varp.md",
-						"solverfunctions/when.md",
-						"solveroperators/add.md",
-						"solveroperators/assign.md",
-						"solveroperators/divide.md",
-						"solveroperators/exponent.md",
-						"solveroperators/expressionbegin.md",
-						"solveroperators/modulus.md",
-						"solveroperators/multiply.md",
-						"solveroperators/nullcoalesce.md",
-						"solveroperators/setconcat.md",
-						"solveroperators/subtract.md",
-						"Getting-Started.md",
-						"Groups.md",
-						"Inputs.md",
-						"Sections.md",
-						"Shortcuts.md",
-						"Solver-Expression-Walkthrough.md",
-						"Solver-Expressions-Advanced.md",
-						"Solver-Functions.md",
-						"Solvers.md",
-						"ToC.md",
-						"pict_documentation_topics.json",
-						"solverfunctions/abs.md",
-						"solverfunctions/aggregationhistogram.md",
-						"solverfunctions/aggregationhistogrambyobject.md",
-						"solverfunctions/arrayconcat.md",
-						"solverfunctions/avg.md",
-						"solverfunctions/bucketset.md",
-						"solverfunctions/ceil.md",
-						"solverfunctions/cleanvaluearray.md",
-						"solverfunctions/cleanvalueobject.md",
-						"solverfunctions/colorgroupbackground.md",
-						"solverfunctions/colorinputbackground.md",
-						"solverfunctions/colorinputbackgroundtabular.md",
-						"solverfunctions/colorsectionbackground.md",
-						"solverfunctions/compare.md",
-						"solverfunctions/concat.md",
-						"solverfunctions/concatraw.md",
-						"solverfunctions/cos.md",
-						"solverfunctions/count.md",
-						"solverfunctions/countset.md",
-						"solverfunctions/countsetelements.md",
-						"solverfunctions/createarrayfromabsolutevalues.md",
-						"solverfunctions/createvalueobjectbyhashes.md",
-						"solverfunctions/cumulativesummation.md",
-						"solverfunctions/dateadddays.md",
-						"solverfunctions/dateaddhours.md",
-						"solverfunctions/dateaddmilliseconds.md",
-						"solverfunctions/dateaddminutes.md",
-						"solverfunctions/dateaddmonths.md",
-						"solverfunctions/dateaddseconds.md",
-						"solverfunctions/dateaddweeks.md",
-						"solverfunctions/dateaddyears.md",
-						"solverfunctions/datedaydifference.md",
-						"solverfunctions/datefromparts.md",
-						"solverfunctions/datehourdifference.md",
-						"solverfunctions/datemathadd.md",
-						"solverfunctions/datemilliseconddifference.md",
-						"solverfunctions/dateminutedifference.md",
-						"solverfunctions/datemonthdifference.md",
-						"solverfunctions/dateseconddifference.md",
-						"solverfunctions/dateweekdifference.md",
-						"solverfunctions/dateyeardifference.md",
-						"solverfunctions/differencearrays.md",
-						"solverfunctions/disablesolverordinal.md",
-						"solverfunctions/distributionhistogram.md",
-						"solverfunctions/distributionhistogrambyobject.md",
-						"solverfunctions/enablesolverordinal.md",
-						"solverfunctions/entryinset.md",
-						"solverfunctions/euler.md",
-						"solverfunctions/exp.md",
-						"solverfunctions/findfirstvaluebyexactmatch.md",
-						"solverfunctions/findfirstvaluebystringincludes.md",
-						"solverfunctions/flatten.md",
-						"solverfunctions/floor.md",
-						"solverfunctions/gaussianelimination.md",
-						"solverfunctions/generatearrayofobjectsfromsets.md",
-						"solverfunctions/generatehtmlhexcolor.md",
-						"solverfunctions/getvalue.md",
-						"solverfunctions/getvaluearray.md",
-						"solverfunctions/getvalueobject.md",
-						"solverfunctions/hidesections.md",
-						"solverfunctions/if.md",
-						"solverfunctions/intercept.md",
-						"solverfunctions/iterativeseries.md",
-						"solverfunctions/join.md",
-						"solverfunctions/joinraw.md",
-						"solverfunctions/largestinset.md",
-						"solverfunctions/leastsquares.md",
-						"solverfunctions/linest.md",
-						"solverfunctions/log.md",
-						"solverfunctions/logvalues.md",
-						"solverfunctions/match.md",
-						"solverfunctions/matrixinverse.md",
-						"solverfunctions/matrixmultiply.md",
-						"solverfunctions/matrixtranspose.md",
-						"solverfunctions/matrixvectormultiply.md",
-						"solverfunctions/max.md",
-						"solverfunctions/mean.md",
-						"solverfunctions/median.md",
-						"solverfunctions/min.md",
-						"solverfunctions/mode.md",
-						"solverfunctions/objectkeystoarray.md",
-						"solverfunctions/objectvaluessortbyexternalobjectarray.md",
-						"solverfunctions/objectvaluestoarray.md",
-						"solverfunctions/percent.md",
-						"solverfunctions/pi.md",
-						"solverfunctions/polynomialregression.md",
-						"solverfunctions/predict.md",
-						"solverfunctions/rad.md",
-						"solverfunctions/randomfloat.md",
-						"solverfunctions/randomfloatbetween.md",
-						"solverfunctions/randomfloatupto.md",
-						"solverfunctions/randominteger.md",
-						"solverfunctions/randomintegerbetween.md",
-						"solverfunctions/randomintegerupto.md",
-						"solverfunctions/refreshtabularsection.md",
-						"solverfunctions/resolvehtmlentities.md",
-						"solverfunctions/round.md",
-						"solverfunctions/runsolvers.md",
-						"solverfunctions/setconcatenate.md",
-						"solverfunctions/setgroupvisibility.md",
-						"solverfunctions/setsectionvisibility.md",
-						"solverfunctions/setsolverordinalenabled.md",
-						"solverfunctions/settabularrowlength.md",
-						"solverfunctions/setvalue.md",
-						"solverfunctions/showsections.md",
-						"solverfunctions/sin.md",
-						"solverfunctions/slice.md",
-						"solverfunctions/slope.md",
-						"solverfunctions/smallestinset.md",
-						"solverfunctions/sortarray.md",
-						"solverfunctions/sorthistogram.md",
-						"solverfunctions/sorthistogrambykeys.md",
-						"solverfunctions/sortset.md",
-						"solverfunctions/sqrt.md",
-						"solverfunctions/stdev.md",
-						"solverfunctions/stdeva.md",
-						"solverfunctions/stdevp.md",
-						"solverfunctions/stringcountsegments.md",
-						"solverfunctions/stringgetsegments.md",
-						"solverfunctions/subtractingsummation.md",
-						"solverfunctions/sum.md",
-						"solverfunctions/tan.md",
-						"solverfunctions/tofixed.md",
-						"solverfunctions/unionarrays.md",
-						"solverfunctions/uniquearray.md",
-						"solverfunctions/var.md",
-						"solverfunctions/vara.md",
-						"solverfunctions/varp.md",
-						"solverfunctions/when.md",
-						"solveroperators/add.md",
-						"solveroperators/assign.md",
-						"solveroperators/divide.md",
-						"solveroperators/exponent.md",
-						"solveroperators/expressionbegin.md",
-						"solveroperators/modulus.md",
-						"solveroperators/multiply.md",
-						"solveroperators/nullcoalesce.md",
-						"solveroperators/setconcat.md",
-						"solveroperators/subtract.md"
+						"user-docs/solveroperators/subtract.md"
 					]
 				},
 				{
@@ -7535,6 +7525,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -7596,6 +7587,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -7614,6 +7606,7 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json",
 						"README.md",
+						"_brand.json",
 						"_sidebar.md",
 						"_topics.json",
 						"advanced-topics.md",
@@ -7625,6 +7618,7 @@
 						"search-filter.md",
 						"store.md",
 						"welcome.md",
+						"_brand.json",
 						"_sidebar.md",
 						"book-detail.md",
 						"book-list.md",
@@ -7725,6 +7719,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -7742,6 +7737,16 @@
 						"router-integration.md",
 						"templates-and-styling.md"
 					]
+				},
+				{
+					"Name": "pict-section-mapping",
+					"Repo": "pict-section-mapping",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "pict-section-markdowneditor",
@@ -7835,6 +7840,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_sidebar.md",
 						"_topbar.md",
 						"_version.json",
@@ -7976,6 +7982,7 @@
 						"Implementation_Reference.md",
 						"Quick_Start.md",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -8010,6 +8017,7 @@
 						"Styling-and-Themes.md",
 						"Usage-Pict-Application.md",
 						"Usage-Plain-JavaScript.md",
+						"_brand.json",
 						"_version.json",
 						"css/docuserve.css",
 						"index.html",
@@ -8092,6 +8100,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -8107,6 +8116,16 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
+				},
+				{
+					"Name": "pict-section-operation",
+					"Repo": "pict-section-operation",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "pict-section-recordset",
@@ -8172,6 +8191,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -8187,6 +8207,16 @@
 						"views/list/README.md",
 						"views/read/README.md"
 					]
+				},
+				{
+					"Name": "pict-section-theme",
+					"Repo": "pict-section-theme",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "pict-section-tuigrid",
@@ -8251,6 +8281,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -8262,6 +8293,16 @@
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
+				},
+				{
+					"Name": "pict-section-usermanagement",
+					"Repo": "pict-section-usermanagement",
+					"Group": "pict",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "pict-service-commandlineutility",
@@ -8306,6 +8347,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -8356,6 +8398,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -8464,6 +8507,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -8559,6 +8603,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -8681,6 +8726,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -8844,6 +8890,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -8950,6 +8997,7 @@
 						"Pict View Renderables.md",
 						"Pict-Views.md",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -9010,6 +9058,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -9032,6 +9081,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_brand.json",
 						"_version.json",
 						"css/docuserve.css",
 						"index.html",
@@ -9049,6 +9099,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_brand.json",
 						"_version.json",
 						"css/docuserve.css",
 						"index.html",
@@ -9066,6 +9117,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_brand.json",
 						"_version.json",
 						"css/docuserve.css",
 						"index.html",
@@ -9111,6 +9163,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -9248,6 +9301,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
@@ -9399,6 +9453,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -9453,6 +9508,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_brand.json",
 						"_version.json",
 						"css/docuserve.css",
 						"index.html",
@@ -9470,6 +9526,7 @@
 					"Sidebar": [],
 					"DocFiles": [
 						".nojekyll",
+						"_brand.json",
 						"_version.json",
 						"css/docuserve.css",
 						"index.html",
@@ -9541,6 +9598,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -9690,6 +9748,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -9813,6 +9872,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -9835,6 +9895,16 @@
 						"seed-data.md",
 						"using-with-meadow.md"
 					]
+				},
+				{
+					"Name": "retold-sharp",
+					"Repo": "retold-sharp",
+					"Group": "utility",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				}
 			]
 		},
@@ -9843,6 +9913,16 @@
 			"Key": "apps",
 			"Description": "",
 			"Modules": [
+				{
+					"Name": "retold-beacon-host",
+					"Repo": "retold-beacon-host",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
 				{
 					"Name": "retold-content-system",
 					"Repo": "retold-content-system",
@@ -9937,23 +10017,35 @@
 						}
 					],
 					"DocFiles": [
-						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
-						"_version.json",
 						"api-reference.md",
 						"architecture.md",
 						"cli-reference.md",
 						"code-snippets.md",
 						"configuration.md",
-						"css/docuserve.css",
 						"index.html",
 						"persistence-hooks.md",
 						"quickstart.md",
-						"retold-catalog.json",
 						"retold-keyword-index.json"
+					]
+				},
+				{
+					"Name": "retold-data-mapper",
+					"Repo": "retold-data-mapper",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": [
+						"Dockerized-Example-Data.md",
+						"PLAN-PHASE-2B-Operation-Types.md",
+						"PROMPT-PHASE-2B.md",
+						"_brand.json"
 					]
 				},
 				{
@@ -10052,6 +10144,7 @@
 						".nojekyll",
 						"JSDocOutput.json",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -10186,6 +10279,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -10204,6 +10298,45 @@
 						"subsystems/recordset.md",
 						"ultravisor-integration.md"
 					]
+				},
+				{
+					"Name": "retold-labs",
+					"Repo": "retold-labs",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": [
+						"_brand.json",
+						"architecture/per-variant-conversion.md",
+						"architecture/worker-manager.md",
+						"experiments/Gotchas.md",
+						"experiments/Performance-Gotchas.md",
+						"experiments/README.md",
+						"queue-followups/01-queue-ui.md",
+						"queue-followups/02-phase-recorder-runid.md",
+						"research/apple-silicon-diffusers-memory.md",
+						"research/colorization-pipeline-fixes.md",
+						"research/diffusers-low-cpu-mem-usage.md",
+						"research/imagenet-normalization.md",
+						"research/modelscope-pipeline-abstraction.md",
+						"research/ultravisor-queueing-handoff.md",
+						"research/video-diffusion-architecture.md",
+						"research/weight-normalization-and-channel-balancing.md",
+						"smoke-tests.md",
+						"tier-b-capability-plan.md"
+					]
+				},
+				{
+					"Name": "retold-labs-worker",
+					"Repo": "retold-labs-worker",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "retold-remote",
@@ -10297,6 +10430,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
@@ -10338,6 +10472,16 @@
 						"video-explorer.md",
 						"video-viewer.md"
 					]
+				},
+				{
+					"Name": "retold-synth-databeacon",
+					"Repo": "retold-synth-databeacon",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
 				},
 				{
 					"Name": "ultravisor",
@@ -10418,6 +10562,10 @@
 								{
 									"Title": "Manifests",
 									"Path": "features/manifests.md"
+								},
+								{
+									"Title": "Persistence via DataBeacon (planned)",
+									"Path": "features/persistence-via-databeacon.md"
 								}
 							]
 						},
@@ -10492,11 +10640,13 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
 						"_version.json",
 						"architecture.md",
+						"client-integration.md",
 						"css/docuserve.css",
 						"features/api.md",
 						"features/beacon-authentication.md",
@@ -10510,6 +10660,7 @@
 						"features/llm.md",
 						"features/manifests.md",
 						"features/operations.md",
+						"features/persistence-via-databeacon.md",
 						"features/platform-cards.md",
 						"features/reachability-matrix.md",
 						"features/scheduling.md",
@@ -10526,6 +10677,8 @@
 						"features/universal-addressing.md",
 						"index.html",
 						"overview.md",
+						"queue-followups/03-config-migration.md",
+						"queue-followups/04-direct-dispatch-phase-emission.md",
 						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
@@ -10534,7 +10687,9 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"architecture.md",
+						"client-integration.md",
 						"css/docuserve.css",
 						"features/api.md",
 						"features/beacon-authentication.md",
@@ -10548,6 +10703,7 @@
 						"features/llm.md",
 						"features/manifests.md",
 						"features/operations.md",
+						"features/persistence-via-databeacon.md",
 						"features/platform-cards.md",
 						"features/reachability-matrix.md",
 						"features/scheduling.md",
@@ -10564,6 +10720,8 @@
 						"features/universal-addressing.md",
 						"index.html",
 						"overview.md",
+						"queue-followups/03-config-migration.md",
+						"queue-followups/04-direct-dispatch-phase-emission.md",
 						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
@@ -10609,6 +10767,39 @@
 						"card-help/value-input.md",
 						"card-help/write-file.md",
 						"card-help/write-json.md"
+					]
+				},
+				{
+					"Name": "ultravisor-auth-beacon",
+					"Repo": "ultravisor-auth-beacon",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "ultravisor-file-stream",
+					"Repo": "ultravisor-file-stream",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": false,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": []
+				},
+				{
+					"Name": "ultravisor-lab",
+					"Repo": "ultravisor-lab",
+					"Group": "apps",
+					"Branch": "master",
+					"HasDocs": true,
+					"HasCover": false,
+					"Sidebar": [],
+					"DocFiles": [
+						"Plan-Dockerized-Beacons.md",
+						"_brand.json"
 					]
 				},
 				{
@@ -10698,6 +10889,7 @@
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
