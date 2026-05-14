@@ -21,6 +21,78 @@
 const libPath = require('path');
 const libFS = require('fs');
 
+// ─────────────────────────────────────────────
+//  Dependency preflight
+//
+//  retold-manager's deps live in the umbrella retold/package.json, not
+//  here in source/. Node's module resolution walks up from this file
+//  and finds them at retold/node_modules/ — but only if `npm install`
+//  has been run at the retold root. If it hasn't (fresh clone) or the
+//  install is stale (older orator shadowing the newly-listed version),
+//  the rest of this file blows up several frames deep with a cryptic
+//  `TypeError: addStaticRouteWithFallbacks is not a function` style
+//  error. Fail fast here with a message that names the actual fix
+//  instead of leaving the user to decode a stack trace.
+// ─────────────────────────────────────────────
+(function preflightDeps()
+{
+	let tmpHowToFix =
+		'  From the retold repo root, run:\n'
+		+ '\n'
+		+ '    npm install\n'
+		+ '\n'
+		+ '  Then re-run `npx manager`. If the install at the repo root is\n'
+		+ '  stale, blow away the cached install first:\n'
+		+ '\n'
+		+ '    rm -rf node_modules package-lock.json && npm install';
+
+	function tmpDie(pMessage)
+	{
+		process.stderr.write('\n[retold-manager] ' + pMessage + '\n\n' + tmpHowToFix + '\n\n');
+		process.exit(1);
+	}
+
+	// Each check: try to load the module, then (optionally) probe for a
+	// signature method that was added in the minimum-required version.
+	// FeatureMethod-less entries only catch the MODULE_NOT_FOUND case.
+	let tmpChecks =
+	[
+		{ Name: 'orator', FeatureMethod: 'addStaticRouteWithFallbacks', FeatureNote: '(added in orator@6.1)' },
+		{ Name: 'orator-serviceserver-restify' },
+		{ Name: 'fable' },
+		{ Name: 'pict' }
+	];
+
+	for (let i = 0; i < tmpChecks.length; i++)
+	{
+		let tmpCheck = tmpChecks[i];
+		let tmpModule;
+		try
+		{
+			tmpModule = require(tmpCheck.Name);
+		}
+		catch (pError)
+		{
+			if (pError && pError.code === 'MODULE_NOT_FOUND')
+			{
+				tmpDie('required dependency `' + tmpCheck.Name + '` is not installed — '
+					+ 'retold-manager\'s deps live in the umbrella `retold/package.json`.');
+			}
+			throw pError;
+		}
+		if (tmpCheck.FeatureMethod)
+		{
+			let tmpProto = tmpModule && tmpModule.prototype;
+			if (!tmpProto || typeof tmpProto[tmpCheck.FeatureMethod] !== 'function')
+			{
+				tmpDie('`' + tmpCheck.Name + '` is installed but missing the `' + tmpCheck.FeatureMethod
+					+ '` method ' + (tmpCheck.FeatureNote ? tmpCheck.FeatureNote + ' ' : '')
+					+ '— a stale older copy is probably shadowing the newer version listed in `retold/package.json`.');
+			}
+		}
+	}
+})();
+
 const libFable = require('fable');
 const libOrator = require('orator');
 const libOratorServiceServerRestify = require('orator-serviceserver-restify');
