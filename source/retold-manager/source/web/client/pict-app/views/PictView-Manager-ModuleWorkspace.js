@@ -84,6 +84,7 @@ const _ViewConfiguration =
 		<div class="action-group-label">publish</div>
 		<div class="action-row">
 			<button class="action success" title="Open the publish dialog (npm, npm + Docker image, or plan a ripple from here)" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('publish', null)">publish</button>
+			<button class="action action-more" aria-label="More publish actions" title="More publish actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('publish', this); event.stopPropagation();">{~I:ChevronDown~}</button>
 		</div>
 	</div>
 </div>
@@ -540,6 +541,14 @@ class ManagerModuleWorkspaceView extends libPictView
 					{ Hash: 'pull', Label: 'pull' },
 				];
 				break;
+			case 'publish':
+				tmpItems =
+				[
+					{ Hash: 'serve-docs',          Label: 'serve docs locally' },
+					{ Hash: 'edit-content',        Label: 'edit docs locally'  },
+					{ Hash: 'build-serve-examples', Label: 'build and serve examples' },
+				];
+				break;
 			default:
 				return;
 		}
@@ -603,9 +612,202 @@ class ManagerModuleWorkspaceView extends libPictView
 			case 'ncu':        return this.pict.views['Manager-Modal-Ncu'].open(tmpName);
 			case 'publish':    return this.pict.views['Manager-Modal-Publish'].open(tmpName);
 			case 'ripple':     return this.pict.views['Manager-Modal-RipplePlan'].open(tmpName);
+			case 'serve-docs':           return this._startDocserve(tmpName);
+			case 'edit-content':         return this._startContentEditor(tmpName);
+			case 'build-serve-examples': return this._startExamples(tmpName);
 			default:
 				this.pict.PictApplication.setStatus('Action not yet wired: ' + pOp);
 		}
+	}
+
+	// ─────────────────────────────────────────────
+	//  Local docuserve spawn — kicks off a fresh pict-docuserve dev
+	//  server (fixed port 43210) pointed at the selected module, then
+	//  opens it in a new tab.  Single-instance: the backend supervisor
+	//  kills any in-flight serve when this fires for a different
+	//  module, so switching contexts is a one-click flow.
+	// ─────────────────────────────────────────────
+
+	// Run a supervisor-launch as a first-class action: the publish overflow
+	// menu items "serve local docs" and "edit content" now flow through
+	// the same ActiveOperation / ActionHistory machinery as build/test/
+	// publish so the launch is visible in the persistent log bar with a
+	// running -> success/error lifecycle.
+	//
+	// pParams = { Label, CommandLine, ModuleName, ApiCall, SuccessText, FailText }
+	// ApiCall is a 0-arg fn returning a Promise<state>.
+	_launchAsAction(pParams)
+	{
+		let tmpOpId  = 'launch_' + Date.now().toString(36) + '_' + Math.floor(Math.random() * 1e6).toString(36);
+		let tmpLines = [
+			{ Class: 'cmd',  Text: '$ ' + pParams.CommandLine },
+			{ Class: 'meta', Text: '  ' + pParams.Label }
+		];
+		let tmpOp =
+			{
+				OperationId: tmpOpId,
+				CommandTag:  'launch',
+				Lines:       tmpLines,
+				HeaderState: 'running',
+				HeaderText:  pParams.Label,
+				Scope:       'module',
+				ModuleName:  pParams.ModuleName
+			};
+		this.pict.AppData.Manager.ActiveOperation = tmpOp;
+
+		let tmpManager = this.pict.AppData.Manager;
+		if (!tmpManager.ActionHistory) { tmpManager.ActionHistory = []; }
+		tmpManager.ActionHistory.unshift(
+			{
+				OperationId: tmpOpId,
+				Label:       pParams.Label,
+				ModuleName:  pParams.ModuleName,
+				Scope:       'module',
+				StartedAt:   new Date().toISOString(),
+				EndedAt:     null,
+				State:       'running',
+				Lines:       tmpLines
+			});
+
+		let tmpLayout = this.pict.views['Manager-Layout'];
+		if (tmpLayout && typeof tmpLayout.popLogPanel === 'function') { tmpLayout.popLogPanel(); }
+		let tmpLogBar = this.pict.views['Manager-LogBar'];
+		if (tmpLogBar && typeof tmpLogBar.scheduleAppend === 'function') { tmpLogBar.scheduleAppend(); }
+
+		let finalize = (pState, pErr) =>
+			{
+				if (pErr)
+				{
+					tmpLines.push({ Class: 'error', Text: pParams.FailText(pErr) });
+					tmpOp.HeaderState = 'error';
+					tmpOp.HeaderText  = pParams.Label + ' — failed';
+				}
+				else
+				{
+					tmpLines.push({ Class: 'success', Text: pParams.SuccessText(pState) });
+					tmpOp.HeaderState = 'success';
+					tmpOp.HeaderText  = pParams.Label + ' — running';
+				}
+				for (let i = 0; i < tmpManager.ActionHistory.length; i++)
+				{
+					if (tmpManager.ActionHistory[i].OperationId === tmpOpId)
+					{
+						tmpManager.ActionHistory[i].State   = tmpOp.HeaderState;
+						tmpManager.ActionHistory[i].EndedAt = new Date().toISOString();
+						break;
+					}
+				}
+				if (tmpLogBar && typeof tmpLogBar.scheduleAppend === 'function') { tmpLogBar.scheduleAppend(); }
+			};
+
+		return pParams.ApiCall().then(
+			(pState) => { finalize(pState, null); return pState; },
+			(pErr)   => { finalize(null,   pErr);  throw pErr; });
+	}
+
+	_startDocserve(pModuleName)
+	{
+		let tmpApi = this.pict.providers.ManagerAPI;
+		this.pict.PictApplication.setStatus('Starting local docuserve for ' + pModuleName + '...');
+		return this._launchAsAction(
+			{
+				Label:       'documentation preview: ' + pModuleName,
+				CommandLine: 'docuserve serve ' + pModuleName + ' --port 43210',
+				ModuleName:  pModuleName,
+				ApiCall:     () => tmpApi.docserveStart(pModuleName),
+				SuccessText: (pState) => 'Listening at ' + pState.URL,
+				FailText:    (pErr)   => 'docuserve failed: ' + (pErr && pErr.message ? pErr.message : pErr)
+			}).then((pState) =>
+		{
+			if (pState && pState.Running)
+			{
+				this.pict.AppData.Manager.DocServe = pState;
+				let tmpNav = this.pict.views['Manager-TopBar-Nav'];
+				if (tmpNav && typeof tmpNav.render === 'function') { tmpNav.render(); }
+				this.pict.PictApplication.setStatus('docuserve running on ' + pState.URL);
+				if (typeof window !== 'undefined' && pState.URL)
+				{
+					window.open(pState.URL, '_blank', 'noopener');
+				}
+			}
+			else
+			{
+				this.pict.PictApplication.setStatus('docuserve did not start.');
+			}
+		}, (pError) =>
+		{
+			this.pict.PictApplication.setStatus('docuserve failed: ' + (pError && pError.message ? pError.message : pError));
+		});
+	}
+
+	_startContentEditor(pModuleName)
+	{
+		let tmpApi = this.pict.providers.ManagerAPI;
+		this.pict.PictApplication.setStatus('Starting content editor for ' + pModuleName + '...');
+		return this._launchAsAction(
+			{
+				Label:       'documentation edit: ' + pModuleName,
+				CommandLine: 'retold-content-system serve ' + pModuleName + '/docs --port 43211',
+				ModuleName:  pModuleName,
+				ApiCall:     () => tmpApi.contentEditorStart(pModuleName),
+				SuccessText: (pState) => 'Listening at ' + pState.URL,
+				FailText:    (pErr)   => 'content editor failed: ' + (pErr && pErr.message ? pErr.message : pErr)
+			}).then((pState) =>
+		{
+			if (pState && pState.Running)
+			{
+				this.pict.AppData.Manager.ContentEditor = pState;
+				let tmpNav = this.pict.views['Manager-TopBar-Nav'];
+				if (tmpNav && typeof tmpNav.render === 'function') { tmpNav.render(); }
+				this.pict.PictApplication.setStatus('content editor running on ' + pState.URL);
+				if (typeof window !== 'undefined' && pState.URL)
+				{
+					window.open(pState.URL, '_blank', 'noopener');
+				}
+			}
+			else
+			{
+				this.pict.PictApplication.setStatus('content editor did not start.');
+			}
+		}, (pError) =>
+		{
+			this.pict.PictApplication.setStatus('content editor failed: ' + (pError && pError.message ? pError.message : pError));
+		});
+	}
+
+	_startExamples(pModuleName)
+	{
+		let tmpApi = this.pict.providers.ManagerAPI;
+		this.pict.PictApplication.setStatus('Building examples for ' + pModuleName + ' (this may take a minute)...');
+		return this._launchAsAction(
+			{
+				Label:       'build & serve examples: ' + pModuleName,
+				CommandLine: 'npm install && npx quack examples --port 43212',
+				ModuleName:  pModuleName,
+				ApiCall:     () => tmpApi.examplesStart(pModuleName),
+				SuccessText: (pState) => 'Listening at ' + pState.URL + ' (phase: ' + (pState.Phase || 'running') + ')',
+				FailText:    (pErr)   => 'examples failed: ' + (pErr && pErr.message ? pErr.message : pErr)
+			}).then((pState) =>
+		{
+			if (pState && pState.Running)
+			{
+				this.pict.AppData.Manager.Examples = pState;
+				let tmpNav = this.pict.views['Manager-TopBar-Nav'];
+				if (tmpNav && typeof tmpNav.render === 'function') { tmpNav.render(); }
+				this.pict.PictApplication.setStatus('examples running on ' + pState.URL);
+				if (typeof window !== 'undefined' && pState.URL)
+				{
+					window.open(pState.URL, '_blank', 'noopener');
+				}
+			}
+			else
+			{
+				this.pict.PictApplication.setStatus('examples did not start.');
+			}
+		}, (pError) =>
+		{
+			this.pict.PictApplication.setStatus('examples failed: ' + (pError && pError.message ? pError.message : pError));
+		});
 	}
 
 	// ─────────────────────────────────────────────

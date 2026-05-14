@@ -38,6 +38,27 @@ const libRoutesManifest = require('./RetoldManager-Api-Manifest.js');
 const libRoutesManifestEdit = require('./RetoldManager-Api-ManifestEdit.js');
 const libRoutesOperations = require('./RetoldManager-Api-Operations.js');
 const libRoutesRipple = require('./RetoldManager-Api-Ripple.js');
+const libRoutesDocserve = require('./RetoldManager-Api-Docserve.js');
+const libRoutesContentEditor = require('./RetoldManager-Api-ContentEditor.js');
+const libRoutesExamples = require('./RetoldManager-Api-Examples.js');
+const libRoutesFiles = require('./RetoldManager-Api-Files.js');
+
+// Docserve supervisor — owns the long-running pict-docuserve child
+// process spawned via the manager UI's "serve local docs" action.
+const libDocserveSupervisor = require('../../core/Manager-Core-DocserveSupervisor.js');
+
+// Content editor supervisor — sibling of docserve; spawns
+// retold-content-system pointed at a module's docs/ folder so authors
+// can edit markdown right from the manager UI.  Distinct port (43211)
+// so the two supervisors can run side by side: view in docuserve, edit
+// in content-system, simultaneously.
+const libContentEditorSupervisor = require('../../core/Manager-Core-ContentEditorSupervisor.js');
+
+// Examples supervisor — sibling of docserve / content-editor;  runs
+// `npm install` + `npx quack examples` to build and serve a module's
+// example_applications/ folder.  Fixed port 43212 so all three local
+// servers can coexist.
+const libExamplesSupervisor = require('../../core/Manager-Core-ExamplesSupervisor.js');
 
 // WebSocket pub/sub + stream bridge from ProcessRunner events → WS frames.
 const libOperationBroadcaster = require('./Manager-OperationBroadcaster.js');
@@ -113,6 +134,9 @@ function setupRetoldManagerServer(pOptions, fCallback)
 			log: tmpFable.log,
 		});
 	let tmpProcessRunner = new libCoreProcessRunner({ log: tmpFable.log });
+	let tmpDocserveSupervisor = new libDocserveSupervisor({ log: tmpFable.log });
+	let tmpContentEditorSupervisor = new libContentEditorSupervisor({ log: tmpFable.log });
+	let tmpExamplesSupervisor = new libExamplesSupervisor({ log: tmpFable.log });
 
 	// Durable on-disk log of every operation + ripple event. Rolls daily.
 	let tmpOperationLogger = new libOperationLogger(
@@ -133,16 +157,19 @@ function setupRetoldManagerServer(pOptions, fCallback)
 	// Give route modules a single Core bag so they don't need 5 imports each.
 	let tmpCore =
 		{
-			Fable:          tmpFable,
-			Orator:         tmpOrator,
-			ModuleCatalog:  libModuleCatalog,
-			Introspector:   tmpIntrospector,
-			Validator:      tmpValidator,
-			ProcessRunner:  tmpProcessRunner,
-			CommitComposer: libCommitComposer,
-			Broadcaster:    tmpBroadcaster,
-			StreamBridge:   tmpStreamBridge,
-			Logger:         tmpOperationLogger,
+			Fable:                   tmpFable,
+			Orator:                  tmpOrator,
+			ModuleCatalog:           libModuleCatalog,
+			Introspector:            tmpIntrospector,
+			Validator:               tmpValidator,
+			ProcessRunner:           tmpProcessRunner,
+			DocserveSupervisor:      tmpDocserveSupervisor,
+			ContentEditorSupervisor: tmpContentEditorSupervisor,
+			ExamplesSupervisor:      tmpExamplesSupervisor,
+			CommitComposer:          libCommitComposer,
+			Broadcaster:             tmpBroadcaster,
+			StreamBridge:            tmpStreamBridge,
+			Logger:                  tmpOperationLogger,
 		};
 
 	// ─────────────────────────────────────────────
@@ -175,6 +202,10 @@ function setupRetoldManagerServer(pOptions, fCallback)
 			libRoutesManifestEdit(tmpCore);
 			libRoutesOperations(tmpCore);
 			libRoutesRipple(tmpCore);
+			libRoutesDocserve(tmpCore);
+			libRoutesContentEditor(tmpCore);
+			libRoutesExamples(tmpCore);
+			libRoutesFiles(tmpCore);
 
 			// Healthcheck for quick scripted probing
 			tmpOrator.serviceServer.doGet('/api/manager/health', function (pReq, pRes, pNext)

@@ -1498,7 +1498,10 @@ button.action.success:hover
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	z-index: 100;
+	/* Sit above the LogBar / FileViewer fullscreen overlays
+	   (z-index: 9000) so modals are always reachable even when
+	   another surface is maximized. */
+	z-index: 10000;
 }
 
 .modal

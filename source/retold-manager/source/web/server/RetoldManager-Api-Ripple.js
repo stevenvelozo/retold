@@ -370,18 +370,32 @@ async function runAction(pCore, pContext, pEntry, pStep, pAction, pStepIdx)
 
 		case 'ncu-retold':
 		{
-			// Pull ALL retold ecosystem deps forward to their latest npm
-			// versions. Complements update-dep (which handles the in-cone deps
-			// authoritatively from on-disk). Uses --filter so only ecosystem
-			// modules get touched — any unrelated deps (restify, ws, etc) are
-			// left alone.
-			let tmpEcosystem = tmpCatalog.getAllModuleNames();
+			// Pull retold ecosystem deps forward by default; when the
+			// flat planner sets Scope='all', omit the --filter so every
+			// dependency gets considered.  Complements update-dep
+			// (which handles the in-cone deps authoritatively from
+			// on-disk) — unrelated deps (restify, ws, etc) are left
+			// alone unless Scope='all'.
+			let tmpScope = pAction.Scope || 'retold';
+			let tmpArgs;
+			let tmpLabel;
+			if (tmpScope === 'all')
+			{
+				tmpArgs = ['npm-check-updates', '-u'];
+				tmpLabel = 'ncu -u (all)';
+			}
+			else
+			{
+				let tmpEcosystem = tmpCatalog.getAllModuleNames();
+				tmpArgs = ['npm-check-updates', '-u', '--filter', tmpEcosystem.join(',')];
+				tmpLabel = 'ncu -u (retold)';
+			}
 			await runAndAwait(tmpRunner,
 				{
 					Command: 'npx',
-					Args: ['npm-check-updates', '-u', '--filter', tmpEcosystem.join(',')],
+					Args: tmpArgs,
 					Cwd: pEntry.AbsolutePath,
-					Label: 'ncu -u (retold)',
+					Label: tmpLabel,
 				});
 			return { Ok: true };
 		}
@@ -814,14 +828,54 @@ module.exports = function registerRippleRoutes(pCore)
 	pCore.RippleGraph = tmpRippleGraph;
 
 	// ── POST /api/manager/ripple/plan ──
-	// body: { Roots?: string[], Root?: string, ConsumerBumpKind?, ProducerBumpKind?,
-	//         RangePrefix?, IncludeDev?, StopAtApps?, RunInstall?, RunTest?, RunPush?,
-	//         BringRetoldDepsForward? }
-	// Roots[] is preferred; Root is accepted for back-compat (single-root flow).
+	// Graph mode (default):
+	//   body: { Roots?: string[], Root?: string, ConsumerBumpKind?, ProducerBumpKind?,
+	//           RangePrefix?, IncludeDev?, StopAtApps?, RunInstall?, RunTest?, RunPush?,
+	//           BringRetoldDepsForward? }
+	// Flat mode (bulk-apply ops, no topo ordering):
+	//   body: { Mode: 'flat', Modules: string[],
+	//           Operations: { Ncu, NcuScope, Bump, BumpKind, Commit, CommitMessage,
+	//                          Push, Publish } }
 	tmpOrator.serviceServer.doPost('/api/manager/ripple/plan',
 		function (pReq, pRes, pNext)
 		{
 			let tmpBody = pReq.body || {};
+
+			// Flat mode short-circuit: validate Modules + delegate to
+			// the planner.  No Roots required.
+			if (tmpBody.Mode === 'flat')
+			{
+				let tmpModules = Array.isArray(tmpBody.Modules) ? tmpBody.Modules : [];
+				if (tmpModules.length === 0)
+				{
+					respondError(pRes, 400, 'BadRequest', 'flat-mode plan requires Modules[].');
+					return pNext();
+				}
+				for (let i = 0; i < tmpModules.length; i++)
+				{
+					if (!tmpCatalog.getModule(tmpModules[i]))
+					{
+						respondError(pRes, 404, 'UnknownModule', 'No module "' + tmpModules[i] + '".');
+						return pNext();
+					}
+				}
+				try
+				{
+					tmpRippleGraph.invalidate();
+					let tmpPlan = tmpRippleGraph.buildPlan(
+						{
+							Mode:       'flat',
+							Modules:    tmpModules,
+							Operations: tmpBody.Operations || {}
+						});
+					pRes.send(tmpPlan);
+				}
+				catch (pError)
+				{
+					respondError(pRes, 400, 'PlanFailed', pError.message);
+				}
+				return pNext();
+			}
 
 			// Normalize to Roots[].
 			let tmpRoots;

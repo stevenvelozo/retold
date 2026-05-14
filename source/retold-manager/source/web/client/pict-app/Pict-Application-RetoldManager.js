@@ -2,6 +2,9 @@ const libPictApplication = require('pict-application');
 const libPictRouter = require('pict-router');
 const libPictSectionModal = require('pict-section-modal');
 const libPictSectionTheme = require('pict-section-theme');
+const libPictSectionContent = require('pict-section-content');
+const libPictSectionFileBrowser = require('pict-section-filebrowser');
+const libPictSectionFileBrowserListDetail = require('pict-section-filebrowser/source/views/Pict-View-FileBrowser-ListDetail.js');
 
 const libRetoldManagerBrand = require('./RetoldManager-Brand.js');
 
@@ -18,6 +21,7 @@ const libViewStatusBar    = require('./views/PictView-Manager-StatusBar.js');
 const libViewOutputPanel  = require('./views/PictView-Manager-OutputPanel.js');
 const libViewLogModal     = require('./views/PictView-Manager-LogModal.js');
 const libViewLogBar       = require('./views/PictView-Manager-LogBar.js');
+const libViewFileViewer   = require('./views/PictView-Manager-FileViewer.js');
 
 // Content views (swapped by the router)
 const libViewHome            = require('./views/PictView-Manager-Home.js');
@@ -60,9 +64,43 @@ class RetoldManagerApplication extends libPictApplication
 		this.pict.addView('Manager-Sidebar',       libViewSidebar.default_configuration,      libViewSidebar);
 		this.pict.addView('Manager-StatusBar',     libViewStatusBar.default_configuration,    libViewStatusBar);
 		this.pict.addView('Manager-OutputPanel',   libViewOutputPanel.default_configuration,  libViewOutputPanel);
+		this.pict.addView('Manager-FileViewer',    libViewFileViewer.default_configuration,   libViewFileViewer);
 
 		// Modal section view (toasts, confirms, custom dialogs).
 		this.pict.addView('Pict-Section-Modal', {}, libPictSectionModal);
+
+		// Content viewer: a Pict-Content view + provider pair from
+		// pict-section-content.  Used by Manager-FileViewer to render
+		// markdown (parseMarkdown → displayContent) and to syntax-
+		// highlight source files inside fenced code blocks.
+		this.pict.addProvider('Pict-Content',
+			libPictSectionContent.PictContentProvider.default_configuration,
+			libPictSectionContent.PictContentProvider);
+		this.pict.addView('Pict-Content',
+			libPictSectionContent.default_configuration, libPictSectionContent);
+
+		// File browser — registered with its default `list-only` layout
+		// override so the section's compact (single-pane) mode is what
+		// renders into the sidebar's Files tab.  The section's
+		// constructor auto-registers its five sibling providers
+		// (Browse/List/View/Layout/Icons), so we only need to register
+		// the outer shell view + the ListDetail sub-view that fills the
+		// list pane.  Rendered into #RM-Sidebar-FilesPane-Mount.
+		let tmpFBConfig = Object.assign({},
+			JSON.parse(JSON.stringify(libPictSectionFileBrowser.default_configuration)),
+			{
+				DefaultDestinationAddress: '#RM-Sidebar-FilesPane-Mount',
+				AutoRender: false
+			});
+		// Default Layout to list-only so the section ships compact
+		// inside the sidebar without the host having to flip it after
+		// init.  RootLocation stays at '/' — we render relative paths.
+		tmpFBConfig.DefaultState = Object.assign({}, tmpFBConfig.DefaultState || {},
+			{ Layout: 'list-only' });
+		this.pict.addView('Pict-FileBrowser', tmpFBConfig, libPictSectionFileBrowser);
+		this.pict.addView('Pict-FileBrowser-ListDetail',
+			libPictSectionFileBrowserListDetail.default_configuration,
+			libPictSectionFileBrowserListDetail);
 
 		// Theme section — added as a Pict provider, self-bootstraps
 		// inside its constructor. That single addProvider call:
@@ -125,6 +163,17 @@ class RetoldManagerApplication extends libPictApplication
 
 	onAfterInitializeAsync(fCallback)
 	{
+		// Belt-and-braces alias so any pict-section module that assumes
+		// the lowercase `pict` global (instead of going through the
+		// canonical {~P~} template tag or this.pict.browserAddress)
+		// still finds the running pict instance.  We expose `_Pict` by
+		// default; this also exposes `pict` for inline-handler
+		// compatibility.
+		if (typeof window !== 'undefined' && !window.pict)
+		{
+			window.pict = this.pict;
+		}
+
 		// Single source of truth for all UI state.
 		this.pict.AppData.Manager =
 		{
@@ -138,6 +187,7 @@ class RetoldManagerApplication extends libPictApplication
 				Query: '',
 				DirtyOnly: false,
 				SortByTime: false,
+				IncludeExamples: false,        // hide manifest Type='example' entries by default
 			},
 			Scan:
 			{
@@ -158,6 +208,40 @@ class RetoldManagerApplication extends libPictApplication
 			OpsScript: null,               // 'status' | 'update' | 'checkout' — when on /Ops/:script
 			RecentModules: [],             // ordered MRU list, persisted to localStorage
 			ActionHistory: [],             // last N completed/running actions; powers the Log panel's Actions tab
+			DocServe:
+			{
+				Running:    false,
+				ModuleName: null,
+				ModulePath: null,
+				Port:       43210,
+				URL:        null,
+				Pid:        null,
+				StartedAt:  null,
+			},
+			ContentEditor:
+			{
+				Running:     false,
+				ModuleName:  null,
+				ModulePath:  null,
+				ContentPath: null,
+				Port:        43211,
+				URL:         null,
+				Pid:         null,
+				StartedAt:   null,
+			},
+			Examples:
+			{
+				Running:      false,
+				Phase:        'idle',     // 'idle' | 'installing' | 'building' | 'running' | 'failed'
+				ModuleName:   null,
+				ModulePath:   null,
+				ExamplesPath: null,
+				Port:         43212,
+				URL:          null,
+				Pid:          null,
+				StartedAt:    null,
+				LastError:    null,
+			},
 		};
 
 		this._loadRecentModules();
@@ -188,6 +272,42 @@ class RetoldManagerApplication extends libPictApplication
 		this.pict.providers.ManagerAPI.loadModules();
 		this.pict.providers.ManagerAPI.pollHealth();
 		this.pict.providers.ManagerOperationsWS.connect();
+
+		// Reconcile the docserve chip with the supervisor's actual state
+		// in case a docuserve is already running from a previous page
+		// load.  AppData was just initialized as "not running"; the
+		// supervisor on the backend may know otherwise.
+		this.pict.providers.ManagerAPI.docserveStatus().then((pState) =>
+		{
+			if (pState && typeof pState === 'object')
+			{
+				this.pict.AppData.Manager.DocServe = pState;
+				let tmpNav = this.pict.views['Manager-TopBar-Nav'];
+				if (tmpNav && typeof tmpNav.render === 'function') { tmpNav.render(); }
+			}
+		}).catch(() => { /* manager may not have docserve route yet — silent */ });
+
+		// Same boot-time reconcile for the content editor supervisor.
+		this.pict.providers.ManagerAPI.contentEditorStatus().then((pState) =>
+		{
+			if (pState && typeof pState === 'object')
+			{
+				this.pict.AppData.Manager.ContentEditor = pState;
+				let tmpNav = this.pict.views['Manager-TopBar-Nav'];
+				if (tmpNav && typeof tmpNav.render === 'function') { tmpNav.render(); }
+			}
+		}).catch(() => { /* silent */ });
+
+		// Same boot-time reconcile for the examples supervisor.
+		this.pict.providers.ManagerAPI.examplesStatus().then((pState) =>
+		{
+			if (pState && typeof pState === 'object')
+			{
+				this.pict.AppData.Manager.Examples = pState;
+				let tmpNav = this.pict.views['Manager-TopBar-Nav'];
+				if (tmpNav && typeof tmpNav.render === 'function') { tmpNav.render(); }
+			}
+		}).catch(() => { /* silent */ });
 
 		return super.onAfterInitializeAsync(fCallback);
 	}
@@ -237,6 +357,18 @@ class RetoldManagerApplication extends libPictApplication
 		this._touchRecentModule(pName);
 		this.pict.views['Manager-ModuleWorkspace'].loadModule(pName);
 		this.setActiveRoute('Module:' + pName);
+		// Refresh the topbar so the active-module pill picks up the
+		// new selection without waiting for a router navigation event.
+		let tmpNav = this.pict.views['Manager-TopBar-Nav'];
+		if (tmpNav && typeof tmpNav.render === 'function') { tmpNav.render(); }
+		// If the sidebar is sitting on the Files tab, swap its file
+		// listing over to the new module — otherwise the user would
+		// have to click off and back to refresh.
+		let tmpSidebar = this.pict.views['Manager-Sidebar'];
+		if (tmpSidebar && tmpSidebar._tab === 'files' && typeof tmpSidebar._syncFilesTab === 'function')
+		{
+			tmpSidebar._syncFilesTab();
+		}
 	}
 
 	showOps(pScript)

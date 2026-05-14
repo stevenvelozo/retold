@@ -101,11 +101,25 @@ class ManifestLoader
 			for (let j = 0; j < tmpModules.length; j++)
 			{
 				let tmpModule = tmpModules[j];
+				// AbsolutePath: prefer the manifest entry's own `Path`
+				// (resolved relative to the repo root) so non-standard
+				// module locations like `source/retold-manager` work.
+				// Falls back to the legacy `modules/<group>/<name>`
+				// convention when Path is absent.
+				let tmpAbs;
+				if (typeof tmpModule.Path === 'string' && tmpModule.Path.length > 0)
+				{
+					tmpAbs = libPath.resolve(this.repoRoot, tmpModule.Path);
+				}
+				else
+				{
+					tmpAbs = libPath.join(this.modulesPath, tmpDiskName, tmpModule.Name);
+				}
 				let tmpEntry = Object.assign({}, tmpModule,
 					{
 						GroupName: tmpGroup.Name,
 						GroupDiskName: tmpDiskName,
-						AbsolutePath: libPath.join(this.modulesPath, tmpDiskName, tmpModule.Name),
+						AbsolutePath: tmpAbs,
 					});
 				this.moduleByName.set(tmpModule.Name, tmpEntry);
 				this.ecosystemNames.add(tmpModule.Name);

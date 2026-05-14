@@ -109,6 +109,54 @@ function rangeCoversVersion(pRange, pLatest)
 }
 
 /**
+ * Categorize a repo-relative path into one of the four scan categories:
+ *
+ *   Source         — source/**
+ *   Tests          — test/**
+ *   Documentation  — docs/**
+ *   Tooling        — everything else (build configs, package.json, etc.)
+ *
+ * Path-prefix only; we don't try to be clever about extensions.  This
+ * is a coarse summary so the user can tell at a glance whether a
+ * dirty repo is "100 lines of doc churn" or "300 lines of new code"
+ * before bundling commits into a ripple.
+ */
+function _scanCategoryForPath(pPath)
+{
+	if (!pPath) { return 'Tooling'; }
+	if (pPath === 'source' || pPath.startsWith('source/')) { return 'Source'; }
+	if (pPath === 'test'   || pPath.startsWith('test/'))   { return 'Tests'; }
+	if (pPath === 'docs'   || pPath.startsWith('docs/'))   { return 'Documentation'; }
+	return 'Tooling';
+}
+
+function _emptyChangeBucket()
+{
+	return { Files: 0, Added: 0, Removed: 0 };
+}
+
+function _emptyChangeReport()
+{
+	return {
+		Source:        _emptyChangeBucket(),
+		Tests:         _emptyChangeBucket(),
+		Documentation: _emptyChangeBucket(),
+		Tooling:       _emptyChangeBucket(),
+		Total:         _emptyChangeBucket()
+	};
+}
+
+function _addToBucket(pReport, pCategory, pFiles, pAdded, pRemoved)
+{
+	pReport[pCategory].Files   += pFiles;
+	pReport[pCategory].Added   += pAdded;
+	pReport[pCategory].Removed += pRemoved;
+	pReport.Total.Files        += pFiles;
+	pReport.Total.Added        += pAdded;
+	pReport.Total.Removed      += pRemoved;
+}
+
+/**
  * Parse the output of `git status --porcelain -b` into the same shape
  * getGitStatus uses. Kept as a module-level helper so the async scan path
  * can share it without going through the sync execGit.
@@ -721,6 +769,88 @@ class ModuleIntrospector
 		let tmpResult = {};
 		let tmpQueue = tmpNames.slice();
 
+		function execAt(pCmd, pCwd)
+		{
+			return new Promise(function (pResolve)
+				{
+					let tmpOpts = { encoding: 'utf8', cwd: pCwd, timeout: tmpTimeout, maxBuffer: 4 * 1024 * 1024 };
+					libChildProcess.exec(pCmd, tmpOpts,
+						function (pError, pStdout)
+						{
+							pResolve({ Error: pError, Stdout: pError ? '' : (pStdout || '') });
+						});
+				});
+		}
+
+		// Categorized line-count rollup: tracked changes from
+		// `git diff --numstat HEAD` give +Added/-Removed per file;
+		// untracked files from `git ls-files --others --exclude-standard`
+		// don't have a baseline so we count their lines as Added (the
+		// user's "300 new lines of javascript" case in a new file looks
+		// the same to them as a 300-line addition to an existing file).
+		function gatherChanges(pCwd)
+		{
+			let tmpReport = _emptyChangeReport();
+			return execAt('git diff --numstat HEAD', pCwd).then(function (pNumstat)
+				{
+					if (!pNumstat.Error && pNumstat.Stdout)
+					{
+						let tmpLines = pNumstat.Stdout.split('\n');
+						for (let i = 0; i < tmpLines.length; i++)
+						{
+							let tmpLine = tmpLines[i];
+							if (!tmpLine) { continue; }
+							// "ADDED\tREMOVED\tPATH" — binary files use "-" for both.
+							let tmpParts = tmpLine.split('\t');
+							if (tmpParts.length < 3) { continue; }
+							let tmpAdded   = (tmpParts[0] === '-') ? 0 : parseInt(tmpParts[0], 10) || 0;
+							let tmpRemoved = (tmpParts[1] === '-') ? 0 : parseInt(tmpParts[1], 10) || 0;
+							let tmpPath    = tmpParts.slice(2).join('\t');
+							let tmpCat     = _scanCategoryForPath(tmpPath);
+							_addToBucket(tmpReport, tmpCat, 1, tmpAdded, tmpRemoved);
+						}
+					}
+					return execAt('git ls-files --others --exclude-standard', pCwd);
+				})
+				.then(function (pUntracked)
+				{
+					if (pUntracked.Error || !pUntracked.Stdout) { return tmpReport; }
+					let tmpUntrackedPaths = pUntracked.Stdout.split('\n').filter((p) => p);
+					if (tmpUntrackedPaths.length === 0) { return tmpReport; }
+
+					// Sum each untracked file's newline count.  wc -l on a
+					// list of files is one shell-out per module (not per
+					// file), so cost stays at one extra process even for
+					// dozens of new files.
+					let tmpPathsArg = tmpUntrackedPaths.map((p) => '"' + p.replace(/"/g, '\\"') + '"').join(' ');
+					return execAt('wc -l ' + tmpPathsArg, pCwd).then(function (pWc)
+						{
+							let tmpLineByPath = {};
+							if (!pWc.Error && pWc.Stdout)
+							{
+								let tmpRows = pWc.Stdout.split('\n');
+								for (let i = 0; i < tmpRows.length; i++)
+								{
+									let tmpRow = tmpRows[i].trim();
+									if (!tmpRow) { continue; }
+									// "  123 path/to/file"   or   " 456 total"
+									let tmpMatch = tmpRow.match(/^(\d+)\s+(.*)$/);
+									if (!tmpMatch) { continue; }
+									if (tmpMatch[2] === 'total') { continue; }
+									tmpLineByPath[tmpMatch[2]] = parseInt(tmpMatch[1], 10) || 0;
+								}
+							}
+							for (let i = 0; i < tmpUntrackedPaths.length; i++)
+							{
+								let tmpPath = tmpUntrackedPaths[i];
+								let tmpLines = tmpLineByPath[tmpPath] || 0;
+								_addToBucket(tmpReport, _scanCategoryForPath(tmpPath), 1, tmpLines, 0);
+							}
+							return tmpReport;
+						});
+				});
+		}
+
 		function runOne(pName)
 		{
 			return new Promise(function (pResolve)
@@ -732,18 +862,33 @@ class ModuleIntrospector
 						tmpResult[pName] = { Error: 'not-in-manifest' };
 						return pResolve();
 					}
-					let tmpOpts = { encoding: 'utf8', cwd: tmpEntry.AbsolutePath, timeout: tmpTimeout, maxBuffer: 4 * 1024 * 1024 };
-					libChildProcess.exec('git status --porcelain -b', tmpOpts,
-						function (pError, pStdout)
+
+					// Local version: synchronous package.json read in the
+					// same worker — no extra round-trip, no network.
+					let tmpPkg = tmpSelf.readPackageJsonFromPath(tmpEntry.AbsolutePath);
+					let tmpLocalVersion = tmpPkg && tmpPkg.version ? tmpPkg.version : null;
+					let tmpPackageName  = tmpPkg && tmpPkg.name    ? tmpPkg.name    : null;
+
+					execAt('git status --porcelain -b', tmpEntry.AbsolutePath).then(function (pStatus)
 						{
-							if (pError)
+							if (pStatus.Error)
 							{
-								tmpResult[pName] = { Error: pError.message || 'git failed' };
+								tmpResult[pName] = { Error: pStatus.Error.message || 'git failed' };
 								return pResolve();
 							}
-							let tmpParsed = parsePorcelain(pStdout);
-							tmpResult[pName] = tmpParsed;
-							pResolve();
+							let tmpParsed = parsePorcelain(pStatus.Stdout);
+							tmpParsed.LocalVersion = tmpLocalVersion;
+							tmpParsed.PackageName  = tmpPackageName;
+							// PublishedVersion + VersionState filled in later
+							// by the published-versions decoration pass.
+							tmpParsed.PublishedVersion = null;
+							tmpParsed.VersionState     = 'unknown';
+							gatherChanges(tmpEntry.AbsolutePath).then(function (pChanges)
+								{
+									tmpParsed.Changes = pChanges;
+									tmpResult[pName] = tmpParsed;
+									pResolve();
+								});
 						});
 				});
 		}
@@ -759,6 +904,112 @@ class ModuleIntrospector
 		for (let i = 0; i < tmpConcurrency; i++) { tmpWorkers.push(pumpWorker()); }
 
 		return Promise.all(tmpWorkers).then(function () { return tmpResult; });
+	}
+
+	/**
+	 * Fetch published npm versions for a list of package names in
+	 * parallel, with a short per-package timeout so a couple of slow
+	 * registries don't drag the whole sweep out.  Returns a map
+	 * `{ packageName -> version|null }`.  Used by the scan flow as a
+	 * non-blocking decoration pass after the local scan returns.
+	 */
+	fetchPublishedVersionsParallel(pPackageNames, pOptions)
+	{
+		let tmpSelf = this;
+		let tmpOptions = pOptions || {};
+		let tmpConcurrency = tmpOptions.Concurrency || 16;
+		let tmpTimeout     = tmpOptions.Timeout     || 3000;
+
+		let tmpNames = pPackageNames.slice();
+		let tmpQueue = tmpNames.slice();
+		let tmpOut   = {};
+
+		function runOne(pName)
+		{
+			return tmpSelf.fetchPublishedVersion(pName, { Timeout: tmpTimeout })
+				.then(function (pVersion) { tmpOut[pName] = pVersion; });
+		}
+
+		function pumpWorker()
+		{
+			let tmpNext = tmpQueue.shift();
+			if (!tmpNext) { return Promise.resolve(); }
+			return runOne(tmpNext).then(pumpWorker);
+		}
+
+		let tmpWorkers = [];
+		for (let i = 0; i < tmpConcurrency; i++) { tmpWorkers.push(pumpWorker()); }
+
+		return Promise.all(tmpWorkers).then(function () { return tmpOut; });
+	}
+
+	/**
+	 * Like fetchPublishedVersionsParallel but also pulls `time.modified`
+	 * so the UI can show "published N days ago".  Same one-shot npm call
+	 * gives us both via `npm view <pkg> version time.modified --json`
+	 * (npm returns a JSON object with literal `version` and `time.modified`
+	 * keys for multi-field views).  Returns a map
+	 * `{ packageName -> { Version, ModifiedAt } }`.
+	 *
+	 * Cache key is shared with fetchPublishedVersion via a small wrapper
+	 * so a later "just the version" call inside the same TTL doesn't
+	 * trigger a refetch.
+	 */
+	fetchPublishedInfoParallel(pPackageNames, pOptions)
+	{
+		let tmpSelf = this;
+		let tmpOptions = pOptions || {};
+		let tmpConcurrency = tmpOptions.Concurrency || 16;
+		let tmpTimeout     = tmpOptions.Timeout     || 3000;
+
+		let tmpQueue = pPackageNames.slice();
+		let tmpOut   = {};
+
+		function runOne(pName)
+		{
+			return new Promise(function (pResolve)
+				{
+					let tmpExecOptions = { encoding: 'utf8', timeout: tmpTimeout };
+					libChildProcess.exec(
+						`npm view ${pName} version time.modified --json`,
+						tmpExecOptions,
+						function (pError, pStdout)
+						{
+							let tmpInfo = { Version: null, ModifiedAt: null };
+							if (!pError && pStdout)
+							{
+								try
+								{
+									let tmpParsed = JSON.parse(pStdout);
+									if (typeof tmpParsed === 'object' && tmpParsed)
+									{
+										tmpInfo.Version    = tmpParsed['version']        || null;
+										tmpInfo.ModifiedAt = tmpParsed['time.modified']  || null;
+									}
+								}
+								catch (pParseError) { /* leave nulls */ }
+							}
+							// Seed the version cache so a follow-up
+							// fetchPublishedVersion call doesn't re-shell.
+							tmpSelf._npmVersionCache.set(pName,
+								{ Version: tmpInfo.Version, FetchedAt: Date.now() });
+							tmpOut[pName] = tmpInfo;
+							pResolve();
+						});
+				});
+		}
+
+		function pumpWorker()
+		{
+			let tmpNext = tmpQueue.shift();
+			if (!tmpNext) { return Promise.resolve(); }
+			return runOne(tmpNext).then(pumpWorker);
+		}
+
+		let tmpWorkers = [];
+		for (let i = 0; i < tmpConcurrency; i++) { tmpWorkers.push(pumpWorker()); }
+
+		return Promise.all(tmpWorkers).then(function () { return tmpOut; });
 	}
 
 	getCommitLogSince(pName, pRef, pOptions)

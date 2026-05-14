@@ -29,6 +29,8 @@
 		"pict": "^1.0.345",
 		"pict-application": "^1.0.28",
 		"pict-router": "^1.0.9",
+		"pict-section-content": "file:../../modules/pict/pict-section-content",
+		"pict-section-filebrowser": "file:../../modules/pict/pict-section-filebrowser",
 		"pict-section-modal": "file:../../modules/pict/pict-section-modal",
 		"pict-section-theme": "file:../../modules/pict/pict-section-theme",
 		"pict-terminalui": "^0.0.2",

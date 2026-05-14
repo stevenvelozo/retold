@@ -11,6 +11,52 @@ const _ViewConfiguration =
 	AutoRender: false,
 
 	CSS: /*css*/`
+		.ripple-plan-modal .rm-flat-module-list {
+			border: 1px solid var(--color-border);
+			border-radius: 4px;
+			background: var(--color-panel-alt);
+			padding: 8px 10px;
+			margin: 4px 0 12px;
+			max-height: 90px;
+			overflow: auto;
+			font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+			font-size: 11px;
+			color: var(--color-muted);
+			line-height: 1.55;
+		}
+		.ripple-plan-modal .rm-flat-ops {
+			margin: 4px 0 8px;
+			border: 1px solid var(--color-border);
+			border-radius: 4px;
+			padding: 8px 12px;
+			background: var(--color-bg);
+		}
+		.ripple-plan-modal .rm-flat-op-row {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin: 6px 0;
+		}
+		.ripple-plan-modal .rm-flat-op-row > label {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			min-width: 220px;
+		}
+		.ripple-plan-modal .rm-flat-op-detail {
+			color: var(--color-muted);
+			font-size: 11px;
+		}
+		.ripple-plan-modal .rm-flat-op-detail select {
+			margin-left: 4px;
+			padding: 2px 6px;
+			background: var(--color-bg);
+			color: var(--color-text);
+			border: 1px solid var(--color-border);
+			border-radius: 3px;
+			font: inherit;
+			font-size: 11px;
+		}
 		.ripple-plan-modal .producer-list {
 			border: 1px solid var(--color-border); border-radius: 4px;
 			background: var(--color-panel-alt); padding: 6px 8px;
@@ -85,50 +131,9 @@ const _ViewConfiguration =
 			Template: /*html*/`
 <div class="modal-backdrop ripple-plan-modal" onclick="if(event.target===this){_Pict.views['Manager-Modal-RipplePlan'].close();}">
 	<div class="modal" style="min-width:680px;max-width:820px">
-		<h3>Plan ripple</h3>
-		<p class="subtle" style="color:var(--color-muted);font-size:12px;margin:0 0 8px">
-			Pick the producer modules to publish. Their transitive consumers will be appended
-			automatically in topological order. Each producer step runs <code>bump-if-needed</code>
-			(skips bump if you already advanced the version) before publishing.
-		</p>
-
-		<div class="selection-summary">
-			<span><span class="count" id="RM-R-SelectionCount">0</span> selected</span>
-			<span class="quick-actions">
-				{~TS:Manager-Modal-RipplePlan-SiblingsBtn-Template:Record.SiblingsBtnSlot~}
-				<button onclick="_Pict.views['Manager-Modal-RipplePlan'].clearSelection()" type="button">clear all</button>
-			</span>
-		</div>
-
-		<div class="producer-list" id="RM-R-ProducerList">
-			{~TS:Manager-Modal-RipplePlan-Empty-Template:Record.EmptySlot~}
-			{~TS:Manager-Modal-RipplePlan-Group-Template:Record.Groups~}
-		</div>
-
-		<div class="form-row compact"><label>Range prefix</label>
-			<input type="text" id="RM-R-Prefix" value="^"></div>
-		<div class="form-row compact"><label>Producer bump (if needed)</label>
-			<input type="text" id="RM-R-ProducerBump" value="patch" placeholder="patch / minor / major"></div>
-		<div class="form-row compact"><label>Consumer bump</label>
-			<input type="text" id="RM-R-Bump" value="patch" placeholder="patch / minor / major"></div>
-		<div class="form-row compact"><label>Include devDeps</label>
-			<input type="checkbox" id="RM-R-IncludeDev" style="width:auto">
-			<span style="font-family:var(--font-sans);color:var(--color-muted);font-size:11px;margin-left:4px">
-				(off by default &mdash; devDep cycles produce fallback ordering)
-			</span></div>
-		<div class="form-row compact"><label>Stop at apps</label>
-			<input type="checkbox" id="RM-R-StopAtApps" checked style="width:auto"></div>
-		<div class="form-row compact"><label>Run npm install</label>
-			<input type="checkbox" id="RM-R-Install" checked style="width:auto"></div>
-		<div class="form-row compact"><label>Run tests</label>
-			<input type="checkbox" id="RM-R-Test" checked style="width:auto"></div>
-		<div class="form-row compact"><label>Push after publish</label>
-			<input type="checkbox" id="RM-R-Push" checked style="width:auto"></div>
-		<div class="form-row compact"><label>Bring retold deps forward</label>
-			<input type="checkbox" id="RM-R-BringForward" style="width:auto">
-			<span style="font-family:var(--font-sans);color:var(--color-muted);font-size:11px;margin-left:4px">
-				(<code>ncu -u --filter &lt;retold&gt;</code> before each consumer step)
-			</span></div>
+		<h3>{~D:Record.Title~}</h3>
+		{~TS:Manager-Modal-RipplePlan-GraphMode-Template:Record.GraphModeSlot~}
+		{~TS:Manager-Modal-RipplePlan-FlatMode-Template:Record.FlatModeSlot~}
 
 		<div id="RM-R-Result" style="margin-top:12px">
 			{~TS:Manager-Modal-RipplePlan-Result-Computing-Template:Record.ResultComputingSlot~}
@@ -138,6 +143,109 @@ const _ViewConfiguration =
 			<button class="action" onclick="_Pict.views['Manager-Modal-RipplePlan'].close()">Cancel</button>
 			<button class="action primary" onclick="_Pict.views['Manager-Modal-RipplePlan'].submit()">Compute plan</button>
 		</div>
+	</div>
+</div>
+`
+		},
+		{
+			Hash: 'Manager-Modal-RipplePlan-GraphMode-Template',
+			Template: /*html*/`
+<p class="subtle" style="color:var(--color-muted);font-size:12px;margin:0 0 8px">
+	Pick the producer modules to publish. Their transitive consumers will be appended
+	automatically in topological order. Each producer step runs <code>bump-if-needed</code>
+	(skips bump if you already advanced the version) before publishing.
+</p>
+
+<div class="selection-summary">
+	<span><span class="count" id="RM-R-SelectionCount">0</span> selected</span>
+	<span class="quick-actions">
+		{~TS:Manager-Modal-RipplePlan-SiblingsBtn-Template:Record.SiblingsBtnSlot~}
+		<button onclick="_Pict.views['Manager-Modal-RipplePlan'].clearSelection()" type="button">clear all</button>
+	</span>
+</div>
+
+<div class="producer-list" id="RM-R-ProducerList">
+	{~TS:Manager-Modal-RipplePlan-Empty-Template:Record.EmptySlot~}
+	{~TS:Manager-Modal-RipplePlan-Group-Template:Record.Groups~}
+</div>
+
+<div class="form-row compact"><label>Range prefix</label>
+	<input type="text" id="RM-R-Prefix" value="^"></div>
+<div class="form-row compact"><label>Producer bump (if needed)</label>
+	<input type="text" id="RM-R-ProducerBump" value="patch" placeholder="patch / minor / major"></div>
+<div class="form-row compact"><label>Consumer bump</label>
+	<input type="text" id="RM-R-Bump" value="patch" placeholder="patch / minor / major"></div>
+<div class="form-row compact"><label>Include devDeps</label>
+	<input type="checkbox" id="RM-R-IncludeDev" style="width:auto">
+	<span style="font-family:var(--font-sans);color:var(--color-muted);font-size:11px;margin-left:4px">
+		(off by default &mdash; devDep cycles produce fallback ordering)
+	</span></div>
+<div class="form-row compact"><label>Stop at apps</label>
+	<input type="checkbox" id="RM-R-StopAtApps" checked style="width:auto"></div>
+<div class="form-row compact"><label>Run npm install</label>
+	<input type="checkbox" id="RM-R-Install" checked style="width:auto"></div>
+<div class="form-row compact"><label>Run tests</label>
+	<input type="checkbox" id="RM-R-Test" checked style="width:auto"></div>
+<div class="form-row compact"><label>Push after publish</label>
+	<input type="checkbox" id="RM-R-Push" checked style="width:auto"></div>
+<div class="form-row compact"><label>Bring retold deps forward</label>
+	<input type="checkbox" id="RM-R-BringForward" style="width:auto">
+	<span style="font-family:var(--font-sans);color:var(--color-muted);font-size:11px;margin-left:4px">
+		(<code>ncu -u --filter &lt;retold&gt;</code> before each consumer step)
+	</span></div>
+`
+		},
+		{
+			Hash: 'Manager-Modal-RipplePlan-FlatMode-Template',
+			Template: /*html*/`
+<p class="subtle" style="color:var(--color-muted);font-size:12px;margin:0 0 8px">
+	Apply the same set of operations to <strong>{~D:Record.ModuleCount~}</strong> selected
+	modules, in arbitrary order (no producer/consumer dependencies). Each module runs the
+	checked operations independently.
+</p>
+
+<div class="selection-summary">
+	<span><span class="count">{~D:Record.ModuleCount~}</span> selected</span>
+</div>
+<div class="rm-flat-module-list">{~D:Record.ModuleListText~}</div>
+
+<div class="rm-flat-ops">
+	<div class="form-row compact rm-flat-op-row">
+		<label><input type="checkbox" id="RM-R-FlatOp-Ncu" style="width:auto"> Run <code>ncu -u</code></label>
+		<span class="rm-flat-op-detail">
+			Scope:
+			<select id="RM-R-FlatOp-NcuScope">
+				<option value="retold" selected>retold (filter @retold/* and known ecosystem)</option>
+				<option value="all">all (every dependency)</option>
+			</select>
+		</span>
+	</div>
+	<div class="form-row compact rm-flat-op-row">
+		<label><input type="checkbox" id="RM-R-FlatOp-Bump" style="width:auto"> Bump version</label>
+		<span class="rm-flat-op-detail">
+			Kind:
+			<select id="RM-R-FlatOp-BumpKind">
+				<option value="patch" selected>patch</option>
+				<option value="minor">minor</option>
+				<option value="major">major</option>
+			</select>
+		</span>
+	</div>
+	<div class="form-row compact rm-flat-op-row">
+		<label><input type="checkbox" id="RM-R-FlatOp-Commit" checked style="width:auto"> Commit changes</label>
+	</div>
+	<div class="form-row compact rm-flat-op-row" id="RM-R-FlatOp-CommitMessageRow">
+		<label>Commit message</label>
+		<input type="text" id="RM-R-FlatOp-CommitMessage" style="flex:1" placeholder="Adding brand json and some gitignore entries." value="{~D:Record.DefaultCommitMessage~}">
+	</div>
+	<div class="form-row compact rm-flat-op-row">
+		<label><input type="checkbox" id="RM-R-FlatOp-Push" style="width:auto"> Push to origin</label>
+	</div>
+	<div class="form-row compact rm-flat-op-row">
+		<label><input type="checkbox" id="RM-R-FlatOp-Publish" style="width:auto"> Publish to npm</label>
+		<span class="rm-flat-op-detail" style="color:var(--color-warning)">
+			pauses for confirmation per module
+		</span>
 	</div>
 </div>
 `
@@ -217,10 +325,22 @@ class ManagerModalRipplePlanView extends libPictView
 		this._origin = null;
 		this._siblingPrefix = null;
 		this._resultState = null;   // null | 'computing' | { Error: '...' }
+		this._mode = 'graph';       // 'graph' (producer-tree planner) | 'flat' (bulk per-module ops)
+		this._flatModules = [];
 	}
 
-	open(pOriginatingModule)
+	// pOriginatingModule: legacy single-arg form — sets the producer-tree
+	//   modal scoped to a starting module.
+	// pOriginatingModule + pOptions.Mode = 'flat' + pOptions.Modules:
+	//   opens the modal in bulk-flat mode, applies the toggled operations
+	//   to each selected module without producer/consumer ordering.
+	open(pOriginatingModule, pOptions)
 	{
+		let tmpOpts = pOptions || {};
+		this._mode = (tmpOpts.Mode === 'flat') ? 'flat' : 'graph';
+		this._flatModules = (this._mode === 'flat' && Array.isArray(tmpOpts.Modules))
+			? tmpOpts.Modules.slice()
+			: [];
 		this._origin = pOriginatingModule;
 		this._siblingPrefix = this._computeSiblingPrefix(pOriginatingModule);
 		this._resultState = null;
@@ -237,8 +357,9 @@ class ManagerModalRipplePlanView extends libPictView
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)
 	{
 		this.pict.CSSMap.injectCSS();
-		// Re-sync the live selection count from the actual checkbox state.
-		this._refreshSelectionCount();
+		// Re-sync the live selection count from the actual checkbox state
+		// (graph mode only — flat mode has no producer checkboxes).
+		if (this._mode !== 'flat') { this._refreshSelectionCount(); }
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
 	}
 
@@ -274,29 +395,17 @@ class ManagerModalRipplePlanView extends libPictView
 
 	submit()
 	{
-		let tmpRoots = this._collectSelectedRoots();
-
-		if (tmpRoots.length === 0)
+		let tmpOpts;
+		if (this._mode === 'flat')
 		{
-			this._resultState = { Error: 'Select at least one producer module.' };
-			this._writeRecord();
-			this.render();
-			return;
+			tmpOpts = this._buildFlatOpts();
+			if (!tmpOpts) { return; }   // _buildFlatOpts set the error state
 		}
-
-		let tmpOpts =
-			{
-				Roots:            tmpRoots,
-				RangePrefix:      document.getElementById('RM-R-Prefix').value.trim() || '^',
-				ConsumerBumpKind: document.getElementById('RM-R-Bump').value.trim() || 'patch',
-				ProducerBumpKind: document.getElementById('RM-R-ProducerBump').value.trim() || 'patch',
-				IncludeDev:       document.getElementById('RM-R-IncludeDev').checked,
-				StopAtApps:       document.getElementById('RM-R-StopAtApps').checked,
-				RunInstall:       document.getElementById('RM-R-Install').checked,
-				RunTest:          document.getElementById('RM-R-Test').checked,
-				RunPush:          document.getElementById('RM-R-Push').checked,
-				BringRetoldDepsForward: document.getElementById('RM-R-BringForward').checked,
-			};
+		else
+		{
+			tmpOpts = this._buildGraphOpts();
+			if (!tmpOpts) { return; }
+		}
 
 		this._resultState = 'computing';
 		this._writeRecord();
@@ -306,8 +415,19 @@ class ManagerModalRipplePlanView extends libPictView
 			(pPlan) =>
 			{
 				this.close();
-				this.pict.AppData.Manager.RipplePlan = pPlan;
+				// Force the Ripple view to pick up the fresh plan: dropping
+				// ActiveRipple makes showFromRoute re-enter from the plan.
+				this.pict.AppData.Manager.ActiveRipple = null;
+				this.pict.AppData.Manager.RipplePlan   = pPlan;
 				this.pict.PictApplication.navigateTo('/Ripple');
+				// If the router is already at /Ripple the navigate above is a
+				// no-op (navigo doesn't refire the handler), so trigger the
+				// view manually. Idempotent if navigateTo did fire.
+				let tmpRippleView = this.pict.views['Manager-Ripple'];
+				if (tmpRippleView && typeof tmpRippleView.showFromRoute === 'function')
+				{
+					tmpRippleView.showFromRoute();
+				}
 			},
 			(pError) =>
 			{
@@ -315,6 +435,78 @@ class ManagerModalRipplePlanView extends libPictView
 				this._writeRecord();
 				this.render();
 			});
+	}
+
+	_buildGraphOpts()
+	{
+		let tmpRoots = this._collectSelectedRoots();
+		if (tmpRoots.length === 0)
+		{
+			this._resultState = { Error: 'Select at least one producer module.' };
+			this._writeRecord();
+			this.render();
+			return null;
+		}
+		return {
+			Roots:            tmpRoots,
+			RangePrefix:      document.getElementById('RM-R-Prefix').value.trim() || '^',
+			ConsumerBumpKind: document.getElementById('RM-R-Bump').value.trim() || 'patch',
+			ProducerBumpKind: document.getElementById('RM-R-ProducerBump').value.trim() || 'patch',
+			IncludeDev:       document.getElementById('RM-R-IncludeDev').checked,
+			StopAtApps:       document.getElementById('RM-R-StopAtApps').checked,
+			RunInstall:       document.getElementById('RM-R-Install').checked,
+			RunTest:          document.getElementById('RM-R-Test').checked,
+			RunPush:          document.getElementById('RM-R-Push').checked,
+			BringRetoldDepsForward: document.getElementById('RM-R-BringForward').checked,
+		};
+	}
+
+	_buildFlatOpts()
+	{
+		if (this._flatModules.length === 0)
+		{
+			this._resultState = { Error: 'No modules selected.' };
+			this._writeRecord();
+			this.render();
+			return null;
+		}
+		let tmpNcu     = document.getElementById('RM-R-FlatOp-Ncu').checked;
+		let tmpNcuScope = document.getElementById('RM-R-FlatOp-NcuScope').value;
+		let tmpBump    = document.getElementById('RM-R-FlatOp-Bump').checked;
+		let tmpBumpKind = document.getElementById('RM-R-FlatOp-BumpKind').value;
+		let tmpCommit  = document.getElementById('RM-R-FlatOp-Commit').checked;
+		let tmpCommitMsg = (document.getElementById('RM-R-FlatOp-CommitMessage').value || '').trim();
+		let tmpPush    = document.getElementById('RM-R-FlatOp-Push').checked;
+		let tmpPublish = document.getElementById('RM-R-FlatOp-Publish').checked;
+
+		if (tmpCommit && !tmpCommitMsg)
+		{
+			this._resultState = { Error: 'Commit is checked — please supply a commit message.' };
+			this._writeRecord();
+			this.render();
+			return null;
+		}
+		if (!tmpNcu && !tmpBump && !tmpCommit && !tmpPush && !tmpPublish)
+		{
+			this._resultState = { Error: 'Pick at least one operation to perform.' };
+			this._writeRecord();
+			this.render();
+			return null;
+		}
+		return {
+			Mode:    'flat',
+			Modules: this._flatModules.slice(),
+			Operations: {
+				Ncu:           tmpNcu,
+				NcuScope:      tmpNcuScope,
+				Bump:          tmpBump,
+				BumpKind:      tmpBumpKind,
+				Commit:        tmpCommit,
+				CommitMessage: tmpCommitMsg,
+				Push:          tmpPush,
+				Publish:       tmpPublish
+			}
+		};
 	}
 
 	// Public — called from inline handlers in the group-header all/none buttons.
@@ -439,8 +631,32 @@ class ManagerModalRipplePlanView extends libPictView
 		let tmpResultErrorSlot     = (this._resultState && this._resultState.Error)
 			? [{ Message: this._resultState.Error }] : [];
 
+		// Mode-gated slots: only one of GraphModeSlot / FlatModeSlot is
+		// populated.  The producer-tree UI lives in the graph slot;
+		// the bulk-ops UI in the flat slot.
+		let tmpIsFlat = this._mode === 'flat';
+		let tmpFlatModuleListText = '';
+		if (tmpIsFlat)
+		{
+			let tmpSample = this._flatModules.slice(0, 12);
+			tmpFlatModuleListText = tmpSample.join(', ')
+				+ (this._flatModules.length > tmpSample.length
+					? ' … (+' + (this._flatModules.length - tmpSample.length) + ' more)' : '');
+		}
+
 		return {
+			Title:               tmpIsFlat
+				? ('Ripple ' + this._flatModules.length + ' selected module' + (this._flatModules.length === 1 ? '' : 's'))
+				: 'Plan ripple',
 			Origin:              this._origin,
+			GraphModeSlot:       tmpIsFlat ? [] : [{}],
+			FlatModeSlot:        tmpIsFlat
+				? [{
+						ModuleCount:          this._flatModules.length,
+						ModuleListText:       tmpFlatModuleListText,
+						DefaultCommitMessage: ''
+					}]
+				: [],
 			SiblingsBtnSlot:     this._siblingPrefix ? [{ Prefix: this._siblingPrefix }] : [],
 			EmptySlot:           tmpEmptySlot,
 			Groups:              tmpGroups,

@@ -352,6 +352,14 @@ class RippleGraph
 	{
 		let tmpOptions = pOptions || {};
 
+		// Flat-mode short-circuit: bulk-apply a fixed action list to a
+		// set of modules with no producer/consumer ordering.  Used by
+		// the "Ripple selected" entry point on the Modules table.
+		if (tmpOptions.Mode === 'flat')
+		{
+			return this._buildFlatPlan(tmpOptions);
+		}
+
 		// Accept Roots[] (preferred) or fall back to legacy single Root.
 		let tmpRoots;
 		if (Array.isArray(tmpOptions.Roots) && tmpOptions.Roots.length > 0)
@@ -541,6 +549,139 @@ class RippleGraph
 							&& tmpAllInvolved.indexOf(pE.To) !== -1),
 				},
 			Steps: tmpSteps,
+		};
+	}
+
+	// ─────────────────────────────────────────────
+	//  Flat (bulk-apply) plan — no producer/consumer ordering.
+	// ─────────────────────────────────────────────
+	//
+	// The "Ripple selected" entry point on the Modules table feeds in
+	// a flat list of modules.  Each module gets a step whose actions
+	// are chosen from a fixed set of toggled operations:
+	//
+	//   - ncu        (`npx npm-check-updates -u [--filter <ecosystem>]`)
+	//   - bump       (`npm version <kind>`)
+	//   - commit     (`git commit -am <user-message>`)
+	//   - push       (`git push`)
+	//   - publish    (`npm publish` — pauses for user confirmation)
+	//
+	// No topo-sort, no dependency walk, no version-range rewriting on
+	// consumers.  Order within a step: ncu → bump → commit → push →
+	// publish (publish last so a failed publish doesn't leave stuff
+	// uncommitted).
+	//
+	// Required options:
+	//   - Mode === 'flat'
+	//   - Modules: string[]
+	//   - Operations: {
+	//       Ncu, NcuScope, Bump, BumpKind, Commit, CommitMessage, Push, Publish
+	//     }
+	_buildFlatPlan(pOptions)
+	{
+		let tmpModules = Array.isArray(pOptions.Modules) ? pOptions.Modules.slice() : [];
+		if (tmpModules.length === 0)
+		{
+			throw new Error('flat-mode buildPlan requires Modules (string[])');
+		}
+		let tmpOps = pOptions.Operations || {};
+
+		// Validate every module is known to the manifest before we
+		// build steps — surface a clean error rather than letting the
+		// executor 404 each one in turn.
+		let tmpGraph = this.build();
+		for (let i = 0; i < tmpModules.length; i++)
+		{
+			if (!tmpGraph.Nodes.has(tmpModules[i]))
+			{
+				throw new Error('Module "' + tmpModules[i] + '" is not in the ecosystem.');
+			}
+		}
+
+		let tmpDoNcu     = !!tmpOps.Ncu;
+		let tmpNcuScope  = (tmpOps.NcuScope === 'all') ? 'all' : 'retold';
+		let tmpDoBump    = !!tmpOps.Bump;
+		let tmpBumpKind  = tmpOps.BumpKind || 'patch';
+		let tmpDoCommit  = !!tmpOps.Commit;
+		let tmpCommitMsg = (tmpOps.CommitMessage || '').trim();
+		let tmpDoPush    = !!tmpOps.Push;
+		let tmpDoPublish = !!tmpOps.Publish;
+
+		if (tmpDoCommit && !tmpCommitMsg)
+		{
+			throw new Error('flat-mode commit requires a non-empty CommitMessage.');
+		}
+		if (!tmpDoNcu && !tmpDoBump && !tmpDoCommit && !tmpDoPush && !tmpDoPublish)
+		{
+			throw new Error('flat-mode plan needs at least one operation toggled on.');
+		}
+
+		let tmpSteps = [];
+		for (let i = 0; i < tmpModules.length; i++)
+		{
+			let tmpName = tmpModules[i];
+			let tmpNode = tmpGraph.Nodes.get(tmpName);
+			let tmpActions = [];
+			if (tmpDoNcu)
+			{
+				tmpActions.push({ Op: 'ncu-retold', Scope: tmpNcuScope });
+			}
+			if (tmpDoBump)
+			{
+				tmpActions.push({ Op: 'bump', Kind: tmpBumpKind });
+			}
+			if (tmpDoCommit)
+			{
+				// commit-final takes MessageTemplate; our message is a
+				// verbatim string (no <version> token) so it passes
+				// through unchanged.
+				tmpActions.push({ Op: 'commit-final', MessageTemplate: tmpCommitMsg });
+			}
+			if (tmpDoPush)
+			{
+				tmpActions.push({ Op: 'push' });
+			}
+			if (tmpDoPublish)
+			{
+				tmpActions.push({ Op: 'publish' });
+			}
+			tmpSteps.push({
+				Order:   i,
+				Module:  tmpName,
+				Group:   tmpNode && tmpNode.Group ? tmpNode.Group : 'Other',
+				Kind:    'flat',
+				Actions: tmpActions
+			});
+		}
+
+		return {
+			PlanId:        'flat-' + Date.now().toString(36),
+			Mode:          'flat',
+			Roots:         tmpModules.slice(),
+			Modules:       tmpModules.slice(),
+			TargetVersion: null,
+			GeneratedAt:   new Date().toISOString(),
+			Options:
+				{
+					Mode:       'flat',
+					Operations:
+						{
+							Ncu:           tmpDoNcu,
+							NcuScope:      tmpNcuScope,
+							Bump:          tmpDoBump,
+							BumpKind:      tmpBumpKind,
+							Commit:        tmpDoCommit,
+							CommitMessage: tmpCommitMsg,
+							Push:          tmpDoPush,
+							Publish:       tmpDoPublish
+						}
+				},
+			Graph:
+				{
+					Nodes: tmpModules.map((pN) => ({ Name: pN, Group: tmpGraph.Nodes.get(pN).Group })),
+					Edges: []
+				},
+			Steps: tmpSteps
 		};
 	}
 }

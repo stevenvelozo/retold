@@ -155,6 +155,12 @@ module.exports = function registerManifestRoutes(pCore)
 						GitHub:         pEntry.GitHub,
 						Documentation:  pEntry.Documentation,
 						RelatedModules: pEntry.RelatedModules || [],
+						// 'library' (real publishable module), 'webapp' (full
+						// application — also a publishable module), or
+						// 'example' (a nested demo app that lives inside a
+						// library's example_applications/ directory and is
+						// NOT a module the user thinks of as "their module").
+						Type:           pEntry.Type || 'library',
 					};
 				});
 			pRes.send(tmpResult);
@@ -174,7 +180,11 @@ module.exports = function registerManifestRoutes(pCore)
 			tmpIntrospector.scanAllModulesAsync({ Concurrency: 12 }).then(
 				function (pResults)
 				{
-					// Trim Files off each result — just need the summary
+					// Trim Files off each result — just need the summary +
+					// the categorized line-count rollup + local version.
+					// Published version is intentionally absent here; the
+					// client makes a second call to /published-versions so
+					// an offline registry doesn't block the local scan.
 					let tmpTrimmed = {};
 					let tmpNames = Object.keys(pResults);
 					for (let i = 0; i < tmpNames.length; i++)
@@ -182,10 +192,15 @@ module.exports = function registerManifestRoutes(pCore)
 						let tmpR = pResults[tmpNames[i]];
 						if (tmpR.Error)
 						{
-							tmpTrimmed[tmpNames[i]] = { Error: tmpR.Error };
+							let tmpEntryForErr = tmpCatalog.getModule(tmpNames[i]);
+							tmpTrimmed[tmpNames[i]] = {
+								Error: tmpR.Error,
+								Type:  (tmpEntryForErr && tmpEntryForErr.Type) || 'library',
+							};
 						}
 						else
 						{
+							let tmpEntryForType = tmpCatalog.getModule(tmpNames[i]);
 							tmpTrimmed[tmpNames[i]] =
 								{
 									Dirty: tmpR.Dirty,
@@ -195,6 +210,12 @@ module.exports = function registerManifestRoutes(pCore)
 									Branch: tmpR.Branch,
 									Ahead: tmpR.Ahead,
 									Behind: tmpR.Behind,
+									LocalVersion:     tmpR.LocalVersion     || null,
+									PackageName:      tmpR.PackageName      || null,
+									PublishedVersion: tmpR.PublishedVersion || null,
+									VersionState:     tmpR.VersionState     || 'unknown',
+									Changes:          tmpR.Changes          || null,
+									Type:             (tmpEntryForType && tmpEntryForType.Type) || 'library',
 								};
 						}
 					}
@@ -211,6 +232,85 @@ module.exports = function registerManifestRoutes(pCore)
 				{
 					pRes.statusCode = 500;
 					pRes.send({ Error: 'ScanFailed', Message: pError.message });
+					return pNext();
+				});
+		});
+
+	// ─────────────────────────────────────────────
+	//  GET /api/manager/modules/published-versions
+	//  Decoration pass after a local scan: parallel `npm view` calls
+	//  with a short per-package timeout so an offline registry can't
+	//  block the UI for "aeons".  Returns a map keyed by MODULE NAME
+	//  (not package name) for direct merge into the client's scan
+	//  results.  Caller can scope to a subset with `?names=a,b,c`.
+	// ─────────────────────────────────────────────
+	tmpOrator.serviceServer.doGet('/api/manager/modules/published-versions',
+		function (pReq, pRes, pNext)
+		{
+			// Restify in this server doesn't register queryParser, so
+			// pReq.query is unreliable.  Parse the raw URL ourselves.
+			let tmpFilter = null;
+			let tmpUrlQuery = (pReq.url || '').split('?')[1] || '';
+			if (tmpUrlQuery)
+			{
+				let tmpParams = new URLSearchParams(tmpUrlQuery);
+				let tmpNames = tmpParams.get('names');
+				if (tmpNames)
+				{
+					tmpFilter = tmpNames.split(',').map((n) => n.trim()).filter((n) => n);
+				}
+			}
+
+			let tmpAllNames = tmpCatalog.getAllModuleNames();
+			let tmpScopedNames = tmpFilter
+				? tmpAllNames.filter((n) => tmpFilter.indexOf(n) >= 0)
+				: tmpAllNames;
+
+			// Map module-name → package-name for the parallel lookup;
+			// modules without a readable package.json are reported as
+			// `null` published-version.
+			let tmpPkgByName = {};
+			let tmpPkgNames  = [];
+			for (let i = 0; i < tmpScopedNames.length; i++)
+			{
+				let tmpModule = tmpScopedNames[i];
+				let tmpPkg = tmpIntrospector.readPackageJson(tmpModule);
+				if (tmpPkg && tmpPkg.name)
+				{
+					tmpPkgByName[tmpModule] = tmpPkg.name;
+					if (tmpPkgNames.indexOf(tmpPkg.name) < 0) { tmpPkgNames.push(tmpPkg.name); }
+				}
+			}
+
+			let tmpStart = Date.now();
+			tmpIntrospector.fetchPublishedInfoParallel(tmpPkgNames, { Concurrency: 16, Timeout: 3000 }).then(
+				function (pInfoByPkg)
+				{
+					let tmpOut = {};
+					for (let i = 0; i < tmpScopedNames.length; i++)
+					{
+						let tmpModule = tmpScopedNames[i];
+						let tmpPkg    = tmpPkgByName[tmpModule] || null;
+						let tmpInfo   = tmpPkg ? (pInfoByPkg[tmpPkg] || null) : null;
+						tmpOut[tmpModule] =
+							{
+								PackageName:      tmpPkg,
+								PublishedVersion: tmpInfo ? (tmpInfo.Version    || null) : null,
+								PublishedAt:      tmpInfo ? (tmpInfo.ModifiedAt || null) : null
+							};
+					}
+					pRes.send(
+						{
+							FetchedAt: new Date().toISOString(),
+							ElapsedMs: Date.now() - tmpStart,
+							Results:   tmpOut
+						});
+					return pNext();
+				},
+				function (pError)
+				{
+					pRes.statusCode = 500;
+					pRes.send({ Error: 'PublishedVersionsFailed', Message: pError.message });
 					return pNext();
 				});
 		});

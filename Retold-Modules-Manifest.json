@@ -11,7 +11,7 @@
 				{
 					"Name": "fable",
 					"Path": "modules/fable/fable",
-					"Description": "Service dependency injection, configuration, and logging library — the foundation of every Retold application",
+					"Description": "Service dependency injection, configuration, and logging library \u2014 the foundation of every Retold application",
 					"GitHub": "https://github.com/stevenvelozo/fable",
 					"Documentation": "https://stevenvelozo.github.io/fable/",
 					"RelatedModules": [
@@ -608,7 +608,7 @@
 				{
 					"Name": "pict",
 					"Path": "modules/pict/pict",
-					"Description": "Non-opinionated MVC module with template expression engine — treats UI as rendered text for browser, terminal, or any output",
+					"Description": "Non-opinionated MVC module with template expression engine \u2014 treats UI as rendered text for browser, terminal, or any output",
 					"GitHub": "https://github.com/stevenvelozo/pict",
 					"Documentation": "https://stevenvelozo.github.io/pict/",
 					"RelatedModules": [
@@ -645,7 +645,12 @@
 						"pict-router",
 						"indoctrinate"
 					],
-					"Type": "webapp"
+					"Type": "webapp",
+					"Branding": {
+						"Palette": "default",
+						"DisplayName": "Pict Docuserve",
+						"Tagline": "A documentation viewer built on Pict"
+					}
 				},
 				{
 					"Name": "pict-editor-timeline",
@@ -714,7 +719,7 @@
 				{
 					"Name": "pict-provider-theme",
 					"Path": "modules/pict/pict-provider-theme",
-					"Description": "Runtime theme manager for Pict applications: register theme bundles (token maps + CSS + SVG + image assets), apply at runtime via injected CSS custom properties, support dark/light/system modes via a class on <html>, plus a quack theme-build command that compiles unrolled theme folders to single self-contained JSON bundles. Stateless — host applications own theme persistence.",
+					"Description": "Runtime theme manager for Pict applications: register theme bundles (token maps + CSS + SVG + image assets), apply at runtime via injected CSS custom properties, support dark/light/system modes via a class on <html>, plus a quack theme-build command that compiles unrolled theme folders to single self-contained JSON bundles. Stateless \u2014 host applications own theme persistence.",
 					"GitHub": "https://github.com/stevenvelozo/pict-provider-theme",
 					"Documentation": "https://stevenvelozo.github.io/pict-provider-theme/",
 					"RelatedModules": [
@@ -728,7 +733,7 @@
 				{
 					"Name": "pict-provider-vocabulary",
 					"Path": "modules/pict/pict-provider-vocabulary",
-					"Description": "Pict provider for vocabulary/glossary term management — holds a term index, provides a resolver callback for pict-section-content's parseMarkdown auto-linking, and wires popover hover handlers on rendered terms. Works with any term source: filesystem, database, or API.",
+					"Description": "Pict provider for vocabulary/glossary term management \u2014 holds a term index, provides a resolver callback for pict-section-content's parseMarkdown auto-linking, and wires popover hover handlers on rendered terms. Works with any term source: filesystem, database, or API.",
 					"GitHub": "https://github.com/stevenvelozo/pict-provider-vocabulary",
 					"Documentation": "https://stevenvelozo.github.io/pict-provider-vocabulary/",
 					"RelatedModules": [
@@ -887,7 +892,7 @@
 				{
 					"Name": "pict-section-login",
 					"Path": "modules/pict/pict-section-login",
-					"Description": "Pict login section for authentication UIs — works with orator-authentication or any custom backend",
+					"Description": "Pict login section for authentication UIs \u2014 works with orator-authentication or any custom backend",
 					"GitHub": "https://github.com/stevenvelozo/pict-section-login",
 					"Documentation": "https://stevenvelozo.github.io/pict-section-login/",
 					"RelatedModules": [],
@@ -981,7 +986,7 @@
 				{
 					"Name": "pict-section-usermanagement",
 					"Path": "modules/pict/pict-section-usermanagement",
-					"Description": "Pict user-management section — login, current-user badge, user list/edit, password change. Backed by orator-authentication's session routes plus the auth-beacon /Users CRUD surface.",
+					"Description": "Pict user-management section \u2014 login, current-user badge, user list/edit, password change. Backed by orator-authentication's session routes plus the auth-beacon /Users CRUD surface.",
 					"GitHub": "https://github.com/stevenvelozo/pict-section-usermanagement",
 					"Documentation": "https://stevenvelozo.github.io/pict-section-usermanagement/",
 					"RelatedModules": [
@@ -1227,7 +1232,7 @@
 				{
 					"Name": "retold-beacon-host",
 					"Path": "modules/apps/retold-beacon-host",
-					"Description": "Generic container host for ultravisor-beacon CapabilityProvider classes published as npm packages — boots an Orator, loads one or more provider modules by name, and registers with a target Ultravisor.",
+					"Description": "Generic container host for ultravisor-beacon CapabilityProvider classes published as npm packages \u2014 boots an Orator, loads one or more provider modules by name, and registers with a target Ultravisor.",
 					"GitHub": "https://github.com/stevenvelozo/retold-beacon-host",
 					"Documentation": false,
 					"RelatedModules": [
@@ -1258,7 +1263,7 @@
 				{
 					"Name": "retold-databeacon",
 					"Path": "modules/apps/retold-databeacon",
-					"Description": "Deployable data beacon service — connect to remote databases, introspect schemas, generate REST endpoints, and expose beacon capabilities to the Ultravisor mesh.",
+					"Description": "Deployable data beacon service \u2014 connect to remote databases, introspect schemas, generate REST endpoints, and expose beacon capabilities to the Ultravisor mesh.",
 					"GitHub": "https://github.com/stevenvelozo/retold-databeacon",
 					"Documentation": "https://stevenvelozo.github.io/retold-databeacon/",
 					"RelatedModules": [],
@@ -1267,7 +1272,7 @@
 				{
 					"Name": "retold-data-mapper",
 					"Path": "modules/apps/retold-data-mapper",
-					"Description": "Cross-beacon schema mapping and data sync — discover remote databeacons on the Ultravisor mesh, define field mappings, and execute batch syncs.",
+					"Description": "Cross-beacon schema mapping and data sync \u2014 discover remote databeacons on the Ultravisor mesh, define field mappings, and execute batch syncs.",
 					"GitHub": "https://github.com/stevenvelozo/retold-data-mapper",
 					"Documentation": "https://stevenvelozo.github.io/retold-data-mapper/",
 					"RelatedModules": [
@@ -1331,7 +1336,7 @@
 				{
 					"Name": "ultravisor-auth-beacon",
 					"Path": "modules/apps/ultravisor-auth-beacon",
-					"Description": "Optional Ultravisor beacon that advertises the Authentication capability — login, session validation, beacon-join admission. Pluggable AuthProvider for custom backends (LDAP, OAuth, custom DBs).",
+					"Description": "Optional Ultravisor beacon that advertises the Authentication capability \u2014 login, session validation, beacon-join admission. Pluggable AuthProvider for custom backends (LDAP, OAuth, custom DBs).",
 					"GitHub": "https://github.com/stevenvelozo/ultravisor-auth-beacon",
 					"Documentation": "https://stevenvelozo.github.io/ultravisor-auth-beacon/",
 					"RelatedModules": [
@@ -1343,7 +1348,7 @@
 				{
 					"Name": "ultravisor-file-stream",
 					"Path": "modules/apps/ultravisor-file-stream",
-					"Description": "File-streaming primitives for ultravisor: chunked write at offset with sha256-verified atomic finalize, buffered read, directory-tree hashing. Zero runtime dependencies — consumed by the ultravisor hub's chunked-write task type and by any beacon client that needs to ship multi-GB files across the mesh.",
+					"Description": "File-streaming primitives for ultravisor: chunked write at offset with sha256-verified atomic finalize, buffered read, directory-tree hashing. Zero runtime dependencies \u2014 consumed by the ultravisor hub's chunked-write task type and by any beacon client that needs to ship multi-GB files across the mesh.",
 					"GitHub": "https://github.com/stevenvelozo/ultravisor-file-stream",
 					"Documentation": "https://stevenvelozo.github.io/ultravisor-file-stream/",
 					"RelatedModules": [
@@ -1384,7 +1389,7 @@
 				{
 					"Name": "retold-manager",
 					"Path": "source/retold-manager",
-					"Description": "Web + CLI manager for the Retold ecosystem — runs operations across modules from a single shell.",
+					"Description": "Web + CLI manager for the Retold ecosystem \u2014 runs operations across modules from a single shell.",
 					"GitHub": null,
 					"Documentation": null,
 					"RelatedModules": [],
@@ -1402,26 +1407,6 @@
 			"Description": "Runnable example applications under each module's example_applications/ folder. Branded with the carnival palette so the demo set feels like a fairground.",
 			"Path": "modules",
 			"Modules": [
-				{
-					"Name": "fable/data",
-					"DisplayName": "data",
-					"HostModule": "fable",
-					"Path": "modules/fable/fable/example_applications/data",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "fable/mathematical_playground",
-					"DisplayName": "mathematical_playground",
-					"HostModule": "fable",
-					"Path": "modules/fable/fable/example_applications/mathematical_playground",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
 				{
 					"Name": "meadow-graph-client/graph-explorer",
 					"DisplayName": "graph-explorer",
@@ -1453,60 +1438,10 @@
 					}
 				},
 				{
-					"Name": "pict-application/historic_events_example",
-					"DisplayName": "historic_events_example",
-					"HostModule": "pict-application",
-					"Path": "modules/pict/pict-application/example_applications/historic_events_example",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
 					"Name": "pict-application/postcard_example",
 					"DisplayName": "postcard_example",
 					"HostModule": "pict-application",
 					"Path": "modules/pict/pict-application/example_applications/postcard_example",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-application/simple",
-					"DisplayName": "simple",
-					"HostModule": "pict-application",
-					"Path": "modules/pict/pict-application/example_applications/simple",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-docuserve/contacts-app",
-					"DisplayName": "contacts-app",
-					"HostModule": "pict-docuserve",
-					"Path": "modules/pict/pict-docuserve/example_applications/contacts-app",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-docuserve/sports-stats-api",
-					"DisplayName": "sports-stats-api",
-					"HostModule": "pict-docuserve",
-					"Path": "modules/pict/pict-docuserve/example_applications/sports-stats-api",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-docuserve/todo-app",
-					"DisplayName": "todo-app",
-					"HostModule": "pict-docuserve",
-					"Path": "modules/pict/pict-docuserve/example_applications/todo-app",
 					"Type": "example",
 					"Branding": {
 						"Palette": "carnival"
@@ -1537,16 +1472,6 @@
 					"DisplayName": "math_example_form",
 					"HostModule": "pict-panel",
 					"Path": "modules/pict/pict-panel/example_applications/math_example_form",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-provider-theme/.data",
-					"DisplayName": ".data",
-					"HostModule": "pict-provider-theme",
-					"Path": "modules/pict/pict-provider-theme/example_applications/.data",
 					"Type": "example",
 					"Branding": {
 						"Palette": "carnival"
@@ -1613,16 +1538,6 @@
 					}
 				},
 				{
-					"Name": "pict-section-content/.data",
-					"DisplayName": ".data",
-					"HostModule": "pict-section-content",
-					"Path": "modules/pict/pict-section-content/example_applications/.data",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
 					"Name": "pict-section-content/basic_content",
 					"DisplayName": "basic_content",
 					"HostModule": "pict-section-content",
@@ -1653,30 +1568,10 @@
 					}
 				},
 				{
-					"Name": "pict-section-entitymanagement/schema",
-					"DisplayName": "schema",
-					"HostModule": "pict-section-entitymanagement",
-					"Path": "modules/pict/pict-section-entitymanagement/example_applications/schema",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
 					"Name": "pict-section-entitymanagement/simple_example",
 					"DisplayName": "simple_example",
 					"HostModule": "pict-section-entitymanagement",
 					"Path": "modules/pict/pict-section-entitymanagement/example_applications/simple_example",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-section-equation/.data",
-					"DisplayName": ".data",
-					"HostModule": "pict-section-equation",
-					"Path": "modules/pict/pict-section-equation/example_applications/.data",
 					"Type": "example",
 					"Branding": {
 						"Palette": "carnival"
@@ -1693,30 +1588,10 @@
 					}
 				},
 				{
-					"Name": "pict-section-flow/.data",
-					"DisplayName": ".data",
-					"HostModule": "pict-section-flow",
-					"Path": "modules/pict/pict-section-flow/example_applications/.data",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
 					"Name": "pict-section-flow/simple_cards",
 					"DisplayName": "simple_cards",
 					"HostModule": "pict-section-flow",
 					"Path": "modules/pict/pict-section-flow/example_applications/simple_cards",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-section-form/.data",
-					"DisplayName": ".data",
-					"HostModule": "pict-section-form",
-					"Path": "modules/pict/pict-section-form/example_applications/.data",
 					"Type": "example",
 					"Branding": {
 						"Palette": "carnival"
@@ -1763,40 +1638,10 @@
 					}
 				},
 				{
-					"Name": "pict-section-form/debug",
-					"DisplayName": "debug",
-					"HostModule": "pict-section-form",
-					"Path": "modules/pict/pict-section-form/example_applications/debug",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
 					"Name": "pict-section-form/dynamic_analysis",
 					"DisplayName": "dynamic_analysis",
 					"HostModule": "pict-section-form",
 					"Path": "modules/pict/pict-section-form/example_applications/dynamic_analysis",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-section-form/gradebook",
-					"DisplayName": "gradebook",
-					"HostModule": "pict-section-form",
-					"Path": "modules/pict/pict-section-form/example_applications/gradebook",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-section-form/manyfest_editor",
-					"DisplayName": "manyfest_editor",
-					"HostModule": "pict-section-form",
-					"Path": "modules/pict/pict-section-form/example_applications/manyfest_editor",
 					"Type": "example",
 					"Branding": {
 						"Palette": "carnival"
@@ -1863,26 +1708,6 @@
 					}
 				},
 				{
-					"Name": "pict-section-form/simple_table_from_object",
-					"DisplayName": "simple_table_from_object",
-					"HostModule": "pict-section-form",
-					"Path": "modules/pict/pict-section-form/example_applications/simple_table_from_object",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-section-formeditor/.data",
-					"DisplayName": ".data",
-					"HostModule": "pict-section-formeditor",
-					"Path": "modules/pict/pict-section-formeditor/example_applications/.data",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
 					"Name": "pict-section-formeditor/form_editor",
 					"DisplayName": "form_editor",
 					"HostModule": "pict-section-formeditor",
@@ -1903,16 +1728,6 @@
 					}
 				},
 				{
-					"Name": "pict-section-histogram/.data",
-					"DisplayName": ".data",
-					"HostModule": "pict-section-histogram",
-					"Path": "modules/pict/pict-section-histogram/example_applications/.data",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
 					"Name": "pict-section-histogram/image_histogram",
 					"DisplayName": "image_histogram",
 					"HostModule": "pict-section-histogram",
@@ -1927,16 +1742,6 @@
 					"DisplayName": "simple_histogram",
 					"HostModule": "pict-section-histogram",
 					"Path": "modules/pict/pict-section-histogram/example_applications/simple_histogram",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-section-inlinedocumentation/.data",
-					"DisplayName": ".data",
-					"HostModule": "pict-section-inlinedocumentation",
-					"Path": "modules/pict/pict-section-inlinedocumentation/example_applications/.data",
 					"Type": "example",
 					"Branding": {
 						"Palette": "carnival"
@@ -2003,16 +1808,6 @@
 					}
 				},
 				{
-					"Name": "pict-section-markdowneditor/.data",
-					"DisplayName": ".data",
-					"HostModule": "pict-section-markdowneditor",
-					"Path": "modules/pict/pict-section-markdowneditor/example_applications/.data",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
 					"Name": "pict-section-markdowneditor/book_viewer",
 					"DisplayName": "book_viewer",
 					"HostModule": "pict-section-markdowneditor",
@@ -2047,16 +1842,6 @@
 					"DisplayName": "server_upload",
 					"HostModule": "pict-section-markdowneditor",
 					"Path": "modules/pict/pict-section-markdowneditor/example_applications/server_upload",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-section-modal/.data",
-					"DisplayName": ".data",
-					"HostModule": "pict-section-modal",
-					"Path": "modules/pict/pict-section-modal/example_applications/.data",
 					"Type": "example",
 					"Branding": {
 						"Palette": "carnival"
@@ -2103,30 +1888,10 @@
 					}
 				},
 				{
-					"Name": "pict-section-recordset/.data",
-					"DisplayName": ".data",
-					"HostModule": "pict-section-recordset",
-					"Path": "modules/pict/pict-section-recordset/example_applications/.data",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
 					"Name": "pict-section-recordset/bookstore",
 					"DisplayName": "bookstore",
 					"HostModule": "pict-section-recordset",
 					"Path": "modules/pict/pict-section-recordset/example_applications/bookstore",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-section-recordset/mocks",
-					"DisplayName": "mocks",
-					"HostModule": "pict-section-recordset",
-					"Path": "modules/pict/pict-section-recordset/example_applications/mocks",
 					"Type": "example",
 					"Branding": {
 						"Palette": "carnival"
@@ -2177,36 +1942,6 @@
 					"DisplayName": "usermanagement_demo",
 					"HostModule": "pict-section-usermanagement",
 					"Path": "modules/pict/pict-section-usermanagement/example_applications/usermanagement_demo",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-view/historic_events_example",
-					"DisplayName": "historic_events_example",
-					"HostModule": "pict-view",
-					"Path": "modules/pict/pict-view/example_applications/historic_events_example",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-view/simple",
-					"DisplayName": "simple",
-					"HostModule": "pict-view",
-					"Path": "modules/pict/pict-view/example_applications/simple",
-					"Type": "example",
-					"Branding": {
-						"Palette": "carnival"
-					}
-				},
-				{
-					"Name": "pict-cruisecontrol/easy_cruiser",
-					"DisplayName": "easy_cruiser",
-					"HostModule": "pict-cruisecontrol",
-					"Path": "modules/utility/pict-cruisecontrol/example_applications/easy_cruiser",
 					"Type": "example",
 					"Branding": {
 						"Palette": "carnival"

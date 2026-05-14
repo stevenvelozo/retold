@@ -169,6 +169,19 @@ class ManagerAPIProvider extends libPictProvider
 		return this.get('/modules/scan');
 	}
 
+	// Decoration pass after a scan: parallel `npm view` lookups with a
+	// short per-package timeout so an offline registry doesn't hold up
+	// the UI.  Returns a map of module name → { PackageName, PublishedVersion }.
+	loadPublishedVersions(pNames)
+	{
+		let tmpPath = '/modules/published-versions';
+		if (pNames && pNames.length > 0)
+		{
+			tmpPath += '?names=' + encodeURIComponent(pNames.join(','));
+		}
+		return this.get(tmpPath);
+	}
+
 	// Commit
 	commitModule(pModuleName, pMessage)
 	{
@@ -218,6 +231,47 @@ class ManagerAPIProvider extends libPictProvider
 	{
 		return this.delete('/manifest/modules/' + encodeURIComponent(pName));
 	}
+
+	// Docserve supervisor — local pict-docuserve dev server (port 43210)
+	// pointed at a given module, used for previewing branding / examples /
+	// doc changes before publish.  Single-instance: starting against a
+	// new module kills the previous serve.
+	docserveStart(pModuleName)
+	{
+		return this.post('/modules/' + encodeURIComponent(pModuleName) + '/docserve/start');
+	}
+	docserveStop()    { return this.post('/docserve/stop'); }
+	docserveStatus()  { return this.get('/docserve/status'); }
+
+	// Content editor supervisor — local retold-content-system editor
+	// (port 43211) pointed at a module's docs/ folder, for editing
+	// markdown content without leaving the manager.  Distinct from
+	// docserve (which is read-only preview) and from publishing.
+	contentEditorStart(pModuleName)
+	{
+		return this.post('/modules/' + encodeURIComponent(pModuleName) + '/content-editor/start');
+	}
+	contentEditorStop()    { return this.post('/content-editor/stop'); }
+	contentEditorStatus()  { return this.get('/content-editor/status'); }
+
+	// Read a single file relative to the monorepo root — used to view
+	// search hits that fall outside any manifested module (top-level
+	// configs, test/, scripts, etc.).
+	loadRepoFile(pRelPath)
+	{
+		return this.get('/repo/file?path=' + encodeURIComponent(pRelPath));
+	}
+
+	// Examples supervisor — `npm install` (if needed) then
+	// `npx quack examples` on port 43212.  Slower to start than
+	// docserve / content-editor because it does a fresh build of every
+	// example application before serving them.
+	examplesStart(pModuleName)
+	{
+		return this.post('/modules/' + encodeURIComponent(pModuleName) + '/examples/start');
+	}
+	examplesStop()    { return this.post('/examples/stop'); }
+	examplesStatus()  { return this.get('/examples/status'); }
 
 	// Ripple
 	planRipple(pOptions)                { return this.post('/ripple/plan', pOptions); }
