@@ -589,11 +589,20 @@ module.exports = function registerOperationsRoutes(pCore)
 		{
 			let tmpId = pReq.params.id;
 			let tmpBuffer = tmpRunner.getBuffer(tmpId);
+			// Surface the recently-recorded terminal result (if any) so a
+			// client that missed the WS lifecycle frame can reconcile its
+			// stuck "running" state without needing the user to refresh.
+			let tmpResult = null;
+			if (pCore.StreamBridge && typeof pCore.StreamBridge.getRecentResult === 'function')
+			{
+				tmpResult = pCore.StreamBridge.getRecentResult(tmpId);
+			}
 			pRes.send(
 				{
 					OperationId: tmpId,
 					Running: tmpRunner.isRunning(tmpId),
 					LineCount: tmpBuffer.length,
+					Result: tmpResult,
 				});
 			return pNext();
 		});

@@ -1331,7 +1331,12 @@
 					"RelatedModules": [
 						"fable"
 					],
-					"Type": "webapp"
+					"Type": "webapp",
+					"Branding": {
+						"Palette": "desert",
+						"DisplayName": "Ultravisor",
+						"Tagline": "Process supervision and workflow automation"
+					}
 				},
 				{
 					"Name": "ultravisor-auth-beacon",

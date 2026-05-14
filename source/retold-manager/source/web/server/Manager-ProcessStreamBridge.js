@@ -25,7 +25,50 @@ class ProcessStreamBridge
 		// Track per-operation metadata for the `complete` frame payload
 		this._meta = new Map();
 
+		// Cache of recently-completed operations keyed by OperationId, so a
+		// client that missed the lifecycle frame (WS hiccup, throttled tab,
+		// late reconnect) can poll `GET /operations/:id` and learn the final
+		// state. Kept for ~5 minutes after completion; older entries are
+		// pruned lazily on insert.
+		this._recentResults = new Map();
+		this._recentResultsTtlMs = 5 * 60 * 1000;
+
 		this._bindEvents();
+	}
+
+	/**
+	 * Returns the recorded result for an operation if it completed within
+	 * the recent-results window; null otherwise. Used by the operation
+	 * status endpoint to surface terminal state to clients that missed
+	 * the lifecycle frame.
+	 */
+	getRecentResult(pOperationId)
+	{
+		let tmpEntry = this._recentResults.get(pOperationId);
+		if (!tmpEntry) { return null; }
+		if (Date.now() - tmpEntry.StoredAt > this._recentResultsTtlMs)
+		{
+			this._recentResults.delete(pOperationId);
+			return null;
+		}
+		return tmpEntry.Result;
+	}
+
+	_rememberResult(pOperationId, pResult)
+	{
+		this._recentResults.set(pOperationId, { StoredAt: Date.now(), Result: pResult });
+		// Lazy prune: keep the map bounded even if no one ever reads it.
+		if (this._recentResults.size > 64)
+		{
+			let tmpNow = Date.now();
+			for (let tmpEntry of this._recentResults)
+			{
+				if (tmpNow - tmpEntry[1].StoredAt > this._recentResultsTtlMs)
+				{
+					this._recentResults.delete(tmpEntry[0]);
+				}
+			}
+		}
 	}
 
 	_bindEvents()
@@ -103,19 +146,36 @@ class ProcessStreamBridge
 					return;
 				}
 
-				tmpSelf.broadcaster.broadcastComplete(pEvent.OperationId,
+				let tmpCompletePayload =
 					{
 						ExitCode: pEvent.ExitCode,
 						ElapsedMs: pEvent.ElapsedMs,
 						Duration: pEvent.Duration,
 						LineCount: pEvent.LineCount,
+					};
+				tmpSelf.broadcaster.broadcastComplete(pEvent.OperationId, tmpCompletePayload);
+				tmpSelf._rememberResult(pEvent.OperationId,
+					{
+						Kind:      'complete',
+						ExitCode:  pEvent.ExitCode,
+						ElapsedMs: pEvent.ElapsedMs,
+						Duration:  pEvent.Duration,
+						LineCount: pEvent.LineCount,
+						EndedAt:   new Date().toISOString(),
 					});
 				tmpSelf._meta.delete(pEvent.OperationId);
 			});
 
 		this.processRunner.on('error', (pEvent) =>
 			{
-				tmpSelf.broadcaster.broadcastError(pEvent.OperationId, pEvent.Message || 'process error');
+				let tmpMessage = pEvent.Message || 'process error';
+				tmpSelf.broadcaster.broadcastError(pEvent.OperationId, tmpMessage);
+				tmpSelf._rememberResult(pEvent.OperationId,
+					{
+						Kind:    'error',
+						Error:   tmpMessage,
+						EndedAt: new Date().toISOString(),
+					});
 				tmpSelf._meta.delete(pEvent.OperationId);
 			});
 	}

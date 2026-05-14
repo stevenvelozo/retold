@@ -3,6 +3,18 @@ const libPictProvider = require('pict-provider');
 const WS_PATH = '/ws/manager/operations';
 const RECONNECT_DELAY_MS = 2500;
 
+// Watchdog reconciliation — when the local state thinks an op is still
+// running, poll the server every WATCHDOG_INTERVAL_MS to check. Server is
+// the source of truth; if it says "not running" we synthesize a complete
+// frame so the UI doesn't stay stuck on an orange spinner forever.
+// Triggered when the browser missed a lifecycle WS frame (tab throttled
+// during npm install, ws blip, OS-level proxy timeout, etc.).
+const WATCHDOG_INTERVAL_MS = 3000;
+// Don't even attempt reconciliation until the op has been "running"
+// client-side for at least this long — gives the genuine 'complete' WS
+// frame a chance to land first on a healthy connection.
+const WATCHDOG_MIN_RUNNING_MS = 4000;
+
 const _Configuration =
 {
 	ProviderIdentifier: 'ManagerOperationsWS',
@@ -24,6 +36,10 @@ class ManagerOperationsWSProvider extends libPictProvider
 
 		this._ws = null;
 		this._reconnectTimer = null;
+		this._watchdogTimer = null;       // setInterval handle for the reconciliation poll
+		this._watchdogActiveOpId = null;  // OperationId the watchdog is currently watching
+		this._watchdogStartedAt = 0;      // timestamp the watchdog started; gates first poll
+		this._watchdogPollInflight = false; // de-dupe overlapping fetches
 	}
 
 	connect()
@@ -117,6 +133,8 @@ class ManagerOperationsWSProvider extends libPictProvider
 				// so live appends during the run are reflected in the
 				// Actions tab without copying.
 				this._pushHistoryEntry(tmpOp, pFrame);
+				// Spin up (or extend) the missed-frame watchdog for this op.
+				this._startWatchdog(pFrame.OperationId);
 				break;
 
 			case 'stdout':
@@ -184,6 +202,8 @@ class ManagerOperationsWSProvider extends libPictProvider
 				State:   tmpOp.HeaderState || 'success',
 				EndedAt: new Date().toISOString()
 			});
+			// Op reached a terminal state — stop the missed-frame poller.
+			this._stopWatchdog();
 		}
 
 		// Stdout frames are the hot path during noisy ops — append-only +
@@ -293,6 +313,125 @@ class ManagerOperationsWSProvider extends libPictProvider
 				return;
 			}
 		}
+	}
+
+	// ─────────────────────────────────────────────
+	//  Missed-frame watchdog
+	//
+	//  The WS protocol has no replay buffer — if a lifecycle frame
+	//  ('progress' between steps, 'complete' at the end) is missed (browser
+	//  tab throttled during a long step, transient WS blip, OS-level proxy
+	//  timeout, etc.) the UI is stranded on an orange spinner forever.
+	//  Multi-step operations like `ncu Apply` (ncu -u → npm install) are
+	//  particularly exposed because there are more frames to miss.
+	//
+	//  Recovery: while we believe an op is running client-side, poll
+	//  `GET /operations/:id` every WATCHDOG_INTERVAL_MS. If the server
+	//  reports Running=false with a recent Result, synthesize the missing
+	//  lifecycle frame ourselves. The Result was stamped by the stream
+	//  bridge with the real ExitCode/Duration, so the synthesized frame
+	//  is indistinguishable from a real one.
+	// ─────────────────────────────────────────────
+
+	_startWatchdog(pOperationId)
+	{
+		// Already watching this op (e.g. step 1 'start' after step 0 'start')
+		// — just refresh the start timestamp so the grace period applies to
+		// the *latest* step, not the first one.
+		if (this._watchdogActiveOpId === pOperationId && this._watchdogTimer)
+		{
+			this._watchdogStartedAt = Date.now();
+			return;
+		}
+		this._stopWatchdog();
+		this._watchdogActiveOpId = pOperationId;
+		this._watchdogStartedAt = Date.now();
+		this._watchdogTimer = setInterval(() => this._watchdogTick(), WATCHDOG_INTERVAL_MS);
+	}
+
+	_stopWatchdog()
+	{
+		if (this._watchdogTimer)
+		{
+			clearInterval(this._watchdogTimer);
+			this._watchdogTimer = null;
+		}
+		this._watchdogActiveOpId = null;
+		this._watchdogStartedAt = 0;
+		this._watchdogPollInflight = false;
+	}
+
+	_watchdogTick()
+	{
+		let tmpOpId = this._watchdogActiveOpId;
+		if (!tmpOpId) { this._stopWatchdog(); return; }
+
+		// If the local state already moved out of 'running' (a normal
+		// 'complete' frame landed between ticks), the start-path will
+		// have called _stopWatchdog. Defensive check just in case.
+		let tmpOp = this.pict.AppData.Manager.ActiveOperation;
+		if (!tmpOp || tmpOp.OperationId !== tmpOpId || tmpOp.HeaderState !== 'running')
+		{
+			this._stopWatchdog();
+			return;
+		}
+
+		// Honour the grace period — don't race the genuine 'complete' frame
+		// on the happy path.
+		if (Date.now() - this._watchdogStartedAt < WATCHDOG_MIN_RUNNING_MS) { return; }
+
+		if (this._watchdogPollInflight) { return; }
+		this._watchdogPollInflight = true;
+
+		let tmpApi = this.pict.providers.ManagerAPI;
+		if (!tmpApi || typeof tmpApi.get !== 'function')
+		{
+			this._watchdogPollInflight = false;
+			return;
+		}
+
+		tmpApi.get('/operations/' + encodeURIComponent(tmpOpId)).then(
+			(pBody) =>
+			{
+				this._watchdogPollInflight = false;
+				// Op might have completed normally while the poll was in flight.
+				if (this._watchdogActiveOpId !== tmpOpId) { return; }
+				let tmpCurrent = this.pict.AppData.Manager.ActiveOperation;
+				if (!tmpCurrent || tmpCurrent.OperationId !== tmpOpId || tmpCurrent.HeaderState !== 'running') { return; }
+
+				if (pBody.Running) { return; } // genuinely still running on the server
+
+				// Server says this op is done. Synthesize the missing
+				// lifecycle frame and feed it back through _handleFrame
+				// so all the regular machinery (history stamp, workspace
+				// refresh, LogBar re-render) runs.
+				let tmpResult = pBody.Result || {};
+				if (tmpResult.Kind === 'error')
+				{
+					this._handleFrame(
+						{
+							Type: 'error',
+							OperationId: tmpOpId,
+							Error: '(recovered) ' + (tmpResult.Error || 'process error'),
+						});
+					return;
+				}
+				this._handleFrame(
+					{
+						Type: 'complete',
+						OperationId: tmpOpId,
+						ExitCode:  typeof tmpResult.ExitCode === 'number' ? tmpResult.ExitCode : 0,
+						ElapsedMs: tmpResult.ElapsedMs,
+						Duration:  tmpResult.Duration,
+						LineCount: tmpResult.LineCount,
+					});
+			},
+			() =>
+			{
+				// Network blip or server hiccup — leave the watchdog
+				// running; we'll retry on the next tick.
+				this._watchdogPollInflight = false;
+			});
 	}
 }
 
