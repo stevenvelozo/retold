@@ -2,16 +2,16 @@
     "name": "retold",
     "version": "4.0.11",
     "description": "The pict and fable node ecosystem.",
-    "main": "source/Retold.cjs",
+    "main": "source/retold-manager.js",
     "bin": {
-        "manager": "./source/retold-manager/retold-manager.js"
+        "manager": "./source/retold-manager.js"
     },
     "scripts": {
-        "start": "node source/Retold.cjs",
+        "start": "node source/retold-manager.js",
         "build-docs": "npx quack prepare-docs ./docs -d ./modules",
         "serve-docs": "npx pict-docuserve serve ./docs -p 3456",
-        "audit": "node source/retold-manager/bin/manifest-audit.js",
-        "rebuild-modules": "node source/retold-manager/bin/manifest-rebuild-shell.js"
+        "audit": "node source/bin/manifest-audit.js",
+        "rebuild-modules": "node source/bin/manifest-rebuild-shell.js"
     },
     "repository": {
         "type": "git",

@@ -21,7 +21,7 @@
 			"category": "internal",
 			"version": "0.0.1",
 			"description": "Terminal UI manager for retold module repositories",
-			"path": "./source/retold-manager",
+			"path": "./source",
 			"ecosystemProductionDependencyCount": 6,
 			"ecosystemDevDependencyCount": 0,
 			"totalExternalDependencyCount": 1,

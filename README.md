@@ -88,8 +88,7 @@ Each module is its own git repo, cloned into a category folder under `modules/`.
 
 ```
 retold/
-├── source/Retold.cjs
-├── test/
+├── source/               # → retold-manager (the web + CLI tool that drives this monorepo)
 ├── docs/                 # Documentation site (pict-docuserve)
 └── modules/
     ├── fable/            # Core ecosystem (6 modules)
@@ -99,6 +98,8 @@ retold/
     ├── utility/          # Build & docs (6 modules)
     └── apps/             # Applications (2 apps)
 ```
+
+> **Note on `source/`.** Unlike the rest of the ecosystem, `retold/source/` is itself a package (the retold-manager — start it with `cd source && npm run web`). It deliberately skips the conventional `<package-root>/source/` nesting because it's the only first-party app the umbrella repo ships. The `CLAUDE.md` next to this README has the full breakdown.
 
 ## Documentation
 

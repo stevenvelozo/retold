@@ -1,0 +1,63 @@
+{
+	"name": "retold-manager",
+	"version": "0.0.1",
+	"description": "Terminal UI and web UI manager for retold module repositories",
+	"main": "retold-manager.js",
+	"bin": {
+		"retold-manager": "./retold-manager.js",
+		"retold-manager-web": "./retold-manager-web.js"
+	},
+	"scripts": {
+		"start": "node retold-manager.js",
+		"web": "node retold-manager-web.js",
+		"terminal": "node retold-manager.js --terminal",
+		"brand": "node node_modules/pict-section-theme/bin/pict-section-theme-brand.js --manifest ../Retold-Modules-Manifest.json --module retold-manager --favicons web-application/favicons",
+		"prebuild": "npm run brand",
+		"build": "npx quack build",
+		"audit": "node bin/manifest-audit.js",
+		"rebuild-shell": "node bin/manifest-rebuild-shell.js",
+		"rebuild-shell-check": "node bin/manifest-rebuild-shell.js --check",
+		"test": "echo \"No tests yet\" && exit 0"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"blessed": "^0.1.81",
+		"fable": "^3.0.232",
+		"fable-serviceproviderbase": "^3.0.16",
+		"orator": "^6.1.0",
+		"orator-serviceserver-restify": "^2.0.10",
+		"pict": "^1.0.345",
+		"pict-application": "^1.0.28",
+		"pict-router": "^1.0.9",
+		"pict-section-content": "^1.0.2",
+		"pict-section-filebrowser": "^1.0.4",
+		"pict-section-modal": "^1.1.1",
+		"pict-section-theme": "^1.0.2",
+		"pict-terminalui": "^0.0.2",
+		"pict-view": "^1.0.64",
+		"ws": "^8.20.0"
+	},
+	"devDependencies": {
+		"quackage": "^1.1.2"
+	},
+	"retold": {
+		"brand": {
+			"Hash": "retold-manager",
+			"Name": "Retold Manager",
+			"Tagline": "Status, update, ripple-publish across every Retold module",
+			"Palette": "ocean",
+			"Icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 96 96\" width=\"96\" height=\"96\">\n\t\t<defs>\n\t\t\t<clipPath id=\"frame-retold-manager-filled-light\">\n\t\t\t\t<path d=\"M 2 48\n\t\t\tC 2 18.0222416, 18.0222416 2, 48 2\n\t\t\tC 77.9777584 2, 94 18.0222416, 94 48\n\t\t\tC 94 77.9777584, 77.9777584 94, 48 94\n\t\t\tC 18.0222416 94, 2 77.9777584, 2 48 Z\"/>\n\t\t\t</clipPath>\n\t\t</defs>\n\t\t<path d=\"M 2 48\n\t\t\tC 2 18.0222416, 18.0222416 2, 48 2\n\t\t\tC 77.9777584 2, 94 18.0222416, 94 48\n\t\t\tC 94 77.9777584, 77.9777584 94, 48 94\n\t\t\tC 18.0222416 94, 2 77.9777584, 2 48 Z\" fill=\"#2f97b4\"/>\n\t\t<g clip-path=\"url(#frame-retold-manager-filled-light)\"><circle cx=\"48\" cy=\"48\" r=\"14\" fill=\"rgba(255,255,255,0.18)\"/><path d=\"M 23.57 27.33 A 32 32 0 0 1 56.95 17.28\" fill=\"none\" stroke=\"rgba(255,255,255,0.18)\" stroke-width=\"6\" stroke-linecap=\"round\"/><path d=\"M 78.11 37.18 A 32 32 0 0 1 70.13 71.11\" fill=\"none\" stroke=\"#e07e40\" stroke-width=\"6\" stroke-linecap=\"round\"/><path d=\"M 42.31 79.49 A 32 32 0 0 1 16.92 55.61\" fill=\"none\" stroke=\"rgba(255,255,255,0.18)\" stroke-width=\"6\" stroke-linecap=\"round\"/></g>\n\t\t<text x=\"48\" y=\"50\" text-anchor=\"middle\" dominant-baseline=\"central\"\n\t\t\tfont-family=\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif\"\n\t\t\tfont-size=\"38\" font-weight=\"600\"\n\t\t\tfill=\"#ffffff\" letter-spacing=\"-1\">RM</text>\n\t</svg>",
+			"IconType": "svg",
+			"Favicon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 96 96\" width=\"96\" height=\"96\">\n\t\t<defs>\n\t\t\t<clipPath id=\"fav-retold-manager-light\">\n\t\t\t\t<path d=\"M 2 48\n\t\t\tC 2 18.0222416, 18.0222416 2, 48 2\n\t\t\tC 77.9777584 2, 94 18.0222416, 94 48\n\t\t\tC 94 77.9777584, 77.9777584 94, 48 94\n\t\t\tC 18.0222416 94, 2 77.9777584, 2 48 Z\"/>\n\t\t\t</clipPath>\n\t\t</defs>\n\t\t<path d=\"M 2 48\n\t\t\tC 2 18.0222416, 18.0222416 2, 48 2\n\t\t\tC 77.9777584 2, 94 18.0222416, 94 48\n\t\t\tC 94 77.9777584, 77.9777584 94, 48 94\n\t\t\tC 18.0222416 94, 2 77.9777584, 2 48 Z\" fill=\"#2f97b4\"/>\n\t\t<g clip-path=\"url(#fav-retold-manager-light)\"><circle cx=\"48\" cy=\"48\" r=\"36\" fill=\"rgba(255,255,255,0.22)\"/></g>\n\t\t<text x=\"48\" y=\"50\" text-anchor=\"middle\" dominant-baseline=\"central\"\n\t\t\tfont-family=\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif\"\n\t\t\tfont-size=\"60\" font-weight=\"800\"\n\t\t\tfill=\"#ffffff\" letter-spacing=\"-1\">R</text>\n\t</svg>",
+			"FaviconDark": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 96 96\" width=\"96\" height=\"96\">\n\t\t<defs>\n\t\t\t<clipPath id=\"fav-retold-manager-dark\">\n\t\t\t\t<path d=\"M 2 48\n\t\t\tC 2 18.0222416, 18.0222416 2, 48 2\n\t\t\tC 77.9777584 2, 94 18.0222416, 94 48\n\t\t\tC 94 77.9777584, 77.9777584 94, 48 94\n\t\t\tC 18.0222416 94, 2 77.9777584, 2 48 Z\"/>\n\t\t\t</clipPath>\n\t\t</defs>\n\t\t<path d=\"M 2 48\n\t\t\tC 2 18.0222416, 18.0222416 2, 48 2\n\t\t\tC 77.9777584 2, 94 18.0222416, 94 48\n\t\t\tC 94 77.9777584, 77.9777584 94, 48 94\n\t\t\tC 18.0222416 94, 2 77.9777584, 2 48 Z\" fill=\"#6dbcd2\"/>\n\t\t<g clip-path=\"url(#fav-retold-manager-dark)\"><circle cx=\"48\" cy=\"48\" r=\"36\" fill=\"rgba(255,255,255,0.22)\"/></g>\n\t\t<text x=\"48\" y=\"50\" text-anchor=\"middle\" dominant-baseline=\"central\"\n\t\t\tfont-family=\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif\"\n\t\t\tfont-size=\"60\" font-weight=\"800\"\n\t\t\tfill=\"#101418\" letter-spacing=\"-1\">R</text>\n\t</svg>",
+			"Colors": {
+				"Primary": "#2f97b4",
+				"Secondary": "#e07e40",
+				"PrimaryLight": "#2f97b4",
+				"PrimaryDark": "#6dbcd2",
+				"SecondaryLight": "#e07e40",
+				"SecondaryDark": "#e9b493"
+			}
+		}
+	}
+}

@@ -19,16 +19,43 @@ Each module is its own git repo cloned into a category folder under `modules/`. 
 
 ```
 retold/
-├── source/Retold.js        # Minimal common service class
-├── test/                    # Root-level tests
+├── Retold-Modules-Manifest.json   # Source of truth for module/group membership
+├── source/                         # → retold-manager package (see below)
 ├── modules/
-│   ├── fable/              # 6 modules
-│   ├── meadow/             # 19 modules
-│   ├── orator/             # 7 modules
-│   ├── pict/               # 22 modules
-│   ├── utility/            # 5 modules
-│   └── apps/               # 3 applications
+│   ├── fable/                     # 6 modules
+│   ├── meadow/                    # 19 modules
+│   ├── orator/                    # 7 modules
+│   ├── pict/                      # 22 modules
+│   ├── utility/                   # 5 modules
+│   └── apps/                      # 3 applications
+└── docs/                           # ecosystem docs (dep graphs, architecture)
 ```
+
+### `source/` is retold-manager — an internal tool with a non-standard layout
+
+`retold/source/` is **not** a generic source folder — it *is* the retold-manager package. The web + CLI tool that drives this pseudo-monorepo (status, update, ripple-publish, dep audit, etc.) is the only first-party software the umbrella repo ships, so it lives directly at `source/` rather than under a `source/retold-manager/` subdir.
+
+```
+retold/source/
+├── package.json              # retold-manager's package.json (name: "retold-manager")
+├── retold-manager.js         # TUI entry — `node retold-manager.js`
+├── retold-manager-web.js     # Web entry — `node retold-manager-web.js`
+├── bin/                      # manifest-audit / -rebuild-shell / -backfill
+├── core/                     # Manager-Core-* services (RippleGraph, ManifestLoader, ProcessRunner, supervisors, …)
+├── tui/, views/              # blessed renderer + TUI views
+├── web/client/, web/server/  # pict-app (client) + Orator routes / WebSocket bridge (server)
+├── css/, html/               # static assets for the web UI
+└── web-application/          # built browser bundle (committed; rebuild with `npx quack build`)
+```
+
+**Why this is different from the modules:** every package under `modules/` follows the standard `<package-root>/source/` convention (`modules/pict/pict-section-modal/source/...`). retold-manager intentionally does **not** — its package root *is* `retold/source/`, so there's no nested `source/source/`. When working in it, treat `retold/source/` as if it were any other package root.
+
+**External tooling that references this layout:**
+- The umbrella `retold/package.json` declares `"bin": { "manager": "./source/retold-manager.js" }` so `npx manager` works from anywhere in the monorepo, and its `audit` / `rebuild-modules` scripts point at `source/bin/*.js`. Its `main` is `source/retold-manager.js`.
+- `.claude/launch.json` — preview-server config (`cd /Users/.../retold/source && node retold-manager-web.js`)
+- `Retold-Modules-Manifest.json` — the `retold-manager` entry has `Path: "source"` (one segment, not `source/retold-manager`)
+- `docs/architecture/dependencies/in-ecosystem-dependency-graph.json` — `"path": "./source"`
+- `__dirname`-based repo-root walks inside the package: `core/*.js` and `web/server/*.js` reach the retold repo root via `__dirname/../..` (two levels), not `../../..`
 
 ## Code Style
 

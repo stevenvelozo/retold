@@ -1393,7 +1393,7 @@
 			"Modules": [
 				{
 					"Name": "retold-manager",
-					"Path": "source/retold-manager",
+					"Path": "source",
 					"Description": "Web + CLI manager for the Retold ecosystem \u2014 runs operations across modules from a single shell.",
 					"GitHub": null,
 					"Documentation": null,
