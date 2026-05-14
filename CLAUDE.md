@@ -52,6 +52,7 @@ retold/source/
 
 **External tooling that references this layout:**
 - The umbrella `retold/package.json` declares `"bin": { "manager": "./source/retold-manager.js" }` so `npx manager` works from anywhere in the monorepo, and its `audit` / `rebuild-modules` scripts point at `source/bin/*.js`. Its `main` is `source/retold-manager.js`.
+- **All of the retold-manager's runtime + dev dependencies live in the umbrella `retold/package.json`**, not in `source/package.json`. Node's module resolution walks up from `source/` and finds them at `retold/node_modules/`, so a single `npm install` at the retold root is enough — there is no separate install step inside `source/`, and `source/node_modules/` should not exist. `source/package.json` is intentionally a dependency-less shim that documents the brand block + per-package scripts (`npm run web`, `npm run build`, `npm run brand`) and the `retold-manager` / `retold-manager-web` bin names. The `//deps` field at the top of `source/package.json` carries this explanation inline.
 - `.claude/launch.json` — preview-server config (`cd /Users/.../retold/source && node retold-manager-web.js`)
 - `Retold-Modules-Manifest.json` — the `retold-manager` entry has `Path: "source"` (one segment, not `source/retold-manager`)
 - `docs/architecture/dependencies/in-ecosystem-dependency-graph.json` — `"path": "./source"`

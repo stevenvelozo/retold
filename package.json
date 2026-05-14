@@ -32,9 +32,24 @@
         "@recogito/annotorious-better-polygon": "^0.2.0",
         "@recogito/annotorious-openseadragon": "^2.7.19",
         "@recogito/annotorious-selector-pack": "^0.6.1",
+        "blessed": "^0.1.81",
+        "fable": "^3.0.232",
+        "fable-serviceproviderbase": "^3.0.16",
+        "orator": "^6.1.0",
+        "orator-serviceserver-restify": "^2.0.10",
+        "pict": "^1.0.345",
+        "pict-application": "^1.0.28",
+        "pict-router": "^1.0.9",
+        "pict-section-content": "^1.0.2",
+        "pict-section-filebrowser": "^1.0.4",
         "pict-section-formeditor": "^1.0.13",
+        "pict-section-modal": "^1.1.1",
         "pict-section-objecteditor": "^1.0.1",
+        "pict-section-theme": "^1.0.2",
+        "pict-terminalui": "^0.0.2",
+        "pict-view": "^1.0.64",
         "quackage": "^1.2.3",
-        "retold-content-system": "^1.0.22"
+        "retold-content-system": "^1.0.22",
+        "ws": "^8.20.0"
     }
 }

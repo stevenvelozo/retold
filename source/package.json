@@ -20,26 +20,7 @@
 		"test": "echo \"No tests yet\" && exit 0"
 	},
 	"license": "MIT",
-	"dependencies": {
-		"blessed": "^0.1.81",
-		"fable": "^3.0.232",
-		"fable-serviceproviderbase": "^3.0.16",
-		"orator": "^6.1.0",
-		"orator-serviceserver-restify": "^2.0.10",
-		"pict": "^1.0.345",
-		"pict-application": "^1.0.28",
-		"pict-router": "^1.0.9",
-		"pict-section-content": "^1.0.2",
-		"pict-section-filebrowser": "^1.0.4",
-		"pict-section-modal": "^1.1.1",
-		"pict-section-theme": "^1.0.2",
-		"pict-terminalui": "^0.0.2",
-		"pict-view": "^1.0.64",
-		"ws": "^8.20.0"
-	},
-	"devDependencies": {
-		"quackage": "^1.1.2"
-	},
+	"//deps": "All runtime + dev dependencies for retold-manager live in the umbrella retold/package.json. Node's module resolution walks up from source/ and finds them at retold/node_modules/, so `npm install` at the retold root is enough — no separate install inside source/.",
 	"retold": {
 		"brand": {
 			"Hash": "retold-manager",
