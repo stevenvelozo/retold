@@ -2,12 +2,12 @@
     "name": "retold",
     "version": "4.0.11",
     "description": "The pict and fable node ecosystem.",
-    "main": "source/retold-manager.js",
+    "main": "source/retold-manager-web.js",
     "bin": {
-        "manager": "./source/retold-manager.js"
+        "manager": "./source/retold-manager-web.js"
     },
     "scripts": {
-        "start": "node source/retold-manager.js",
+        "start": "node source/retold-manager-web.js",
         "build-docs": "npx quack prepare-docs ./docs -d ./modules",
         "serve-docs": "npx pict-docuserve serve ./docs -p 3456",
         "audit": "node source/bin/manifest-audit.js",
@@ -29,10 +29,6 @@
         "pict-docuserve": "^1.2.0"
     },
     "dependencies": {
-        "@recogito/annotorious-better-polygon": "^0.2.0",
-        "@recogito/annotorious-openseadragon": "^2.7.19",
-        "@recogito/annotorious-selector-pack": "^0.6.1",
-        "blessed": "^0.1.81",
         "fable": "^3.0.232",
         "fable-serviceproviderbase": "^3.0.16",
         "orator": "^6.1.0",
@@ -42,14 +38,10 @@
         "pict-router": "^1.0.9",
         "pict-section-content": "^1.0.2",
         "pict-section-filebrowser": "^1.0.4",
-        "pict-section-formeditor": "^1.0.13",
         "pict-section-modal": "^1.1.1",
-        "pict-section-objecteditor": "^1.0.1",
         "pict-section-theme": "^1.0.2",
-        "pict-terminalui": "^0.0.2",
         "pict-view": "^1.0.64",
         "quackage": "^1.2.3",
-        "retold-content-system": "^1.0.22",
         "ws": "^8.20.0"
     }
 }

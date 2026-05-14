@@ -33,20 +33,20 @@ retold/
 
 ### `source/` is retold-manager — an internal tool with a non-standard layout
 
-`retold/source/` is **not** a generic source folder — it *is* the retold-manager package. The web + CLI tool that drives this pseudo-monorepo (status, update, ripple-publish, dep audit, etc.) is the only first-party software the umbrella repo ships, so it lives directly at `source/` rather than under a `source/retold-manager/` subdir.
+`retold/source/` is **not** a generic source folder — it *is* the retold-manager package. The web tool that drives this pseudo-monorepo (status, update, ripple-publish, dep audit, etc.) is the only first-party software the umbrella repo ships, so it lives directly at `source/` rather than under a `source/retold-manager/` subdir.
 
 ```
 retold/source/
 ├── package.json              # retold-manager's package.json (name: "retold-manager")
-├── retold-manager.js         # TUI entry — `node retold-manager.js`
-├── retold-manager-web.js     # Web entry — `node retold-manager-web.js`
+├── retold-manager-web.js     # The entry point — `npx manager` routes here via the umbrella bin block
 ├── bin/                      # manifest-audit / -rebuild-shell / -backfill
 ├── core/                     # Manager-Core-* services (RippleGraph, ManifestLoader, ProcessRunner, supervisors, …)
-├── tui/, views/              # blessed renderer + TUI views
 ├── web/client/, web/server/  # pict-app (client) + Orator routes / WebSocket bridge (server)
 ├── css/, html/               # static assets for the web UI
 └── web-application/          # built browser bundle (committed; rebuild with `npx quack build`)
 ```
+
+A `blessed`-based terminal UI shipped with retold-manager in earlier versions; it was retired so the umbrella dependency tree could be free of 0.x pins. `npx manager --terminal` / `--tui` still parses (no-op), so old muscle-memory invocations don't error out.
 
 **Why this is different from the modules:** every package under `modules/` follows the standard `<package-root>/source/` convention (`modules/pict/pict-section-modal/source/...`). retold-manager intentionally does **not** — its package root *is* `retold/source/`, so there's no nested `source/source/`. When working in it, treat `retold/source/` as if it were any other package root.
 

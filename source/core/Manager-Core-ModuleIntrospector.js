@@ -3,13 +3,12 @@
  *
  * Read-only queries about a single module: package.json, the currently
  * published npm version, git status/diff/log, and a combined ecosystem
- * dependency freshness check. Pulls the inline data-gathering that
- * Retold-Manager-App.js was doing synchronously in `_runPublish` into
- * a reusable service so the TUI, the upcoming web API, and the ripple
- * sequencer can share it.
+ * dependency freshness check. A reusable service shared by the web
+ * REST routes and the ripple sequencer.
  *
  * Both synchronous and Promise-returning variants are exposed where it
- * matters. Synchronous forms preserve today's TUI behavior (where
+ * matters. Synchronous forms preserve the original blocking semantics
+ * call sites were written against (where
  * `_runPublish` blocks on `npm view`); Promise forms let the web server
  * parallelize and respect a caller-supplied timeout without blocking
  * the event loop.

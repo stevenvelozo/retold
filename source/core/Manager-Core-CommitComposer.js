@@ -2,11 +2,11 @@
  * Retold Manager -- Commit Composer
  *
  * Centralizes the "build a safe `git commit` invocation from a
- * human-typed message" logic. The TUI and the upcoming web transport
- * both need this, and the current inline implementation in App.js
- * (shell-escaped single-quote wrap) is fragile.
+ * human-typed message" logic so the commit modal can rely on a
+ * single shell-escape-aware helper.
  *
- * Historical behavior (from Retold-Manager-App.js):
+ * Historical implementation it replaced (since-removed TUI codepath)
+ * looked like this:
  *
  *     let tmpMessage = pValue.trim().replace(/'/g, "'\\''");
  *     processRunner.run('git', ['commit', '-a', '-m', `'${tmpMessage}'`], cwd);
