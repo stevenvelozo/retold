@@ -376,6 +376,15 @@ async function runAction(pCore, pContext, pEntry, pStep, pAction, pStepIdx)
 			// (which handles the in-cone deps authoritatively from
 			// on-disk) — unrelated deps (restify, ws, etc) are left
 			// alone unless Scope='all'.
+			//
+			// After the ncu rewrite we ALSO run `npm install` so the
+			// module's node_modules + package-lock catch up with the
+			// new ranges.  Without this step the rewritten package.json
+			// references versions that aren't on disk — downstream
+			// tooling like `quack prepare-docs` reads from node_modules
+			// and would otherwise still inject the OLD bundle.  Matches
+			// what the per-module "ncu (Apply)" button does via
+			// Operations.js (Apply: true → ncu -u + npm install).
 			let tmpScope = pAction.Scope || 'retold';
 			let tmpArgs;
 			let tmpLabel;
@@ -396,6 +405,13 @@ async function runAction(pCore, pContext, pEntry, pStep, pAction, pStepIdx)
 					Args: tmpArgs,
 					Cwd: pEntry.AbsolutePath,
 					Label: tmpLabel,
+				});
+			await runAndAwait(tmpRunner,
+				{
+					Command: 'npm',
+					Args: ['install'],
+					Cwd: pEntry.AbsolutePath,
+					Label: 'npm install (after ncu -u)',
 				});
 			return { Ok: true };
 		}
