@@ -1302,7 +1302,12 @@
 						"orator",
 						"pict"
 					],
-					"Type": "webapp"
+					"Type": "webapp",
+					"Branding": {
+						"Palette": "twilight",
+						"DisplayName": "Retold Remote",
+						"Tagline": "Browse, view, and curate media on your NAS"
+					}
 				},
 				{
 					"Name": "retold-remote-desktop",
@@ -1373,6 +1378,11 @@
 						"retold-databeacon",
 						"retold-facto"
 					],
+					"Branding": {
+						"Palette": "ocean",
+						"DisplayName": "Ultravisor Lab",
+						"Tagline": "Provision dockerized engines, beacons, and ultravisor instances"
+					},
 					"Type": "webapp"
 				},
 				{
