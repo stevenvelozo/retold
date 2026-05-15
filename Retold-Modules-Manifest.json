@@ -1267,7 +1267,12 @@
 					"GitHub": "https://github.com/stevenvelozo/retold-databeacon",
 					"Documentation": "https://stevenvelozo.github.io/retold-databeacon/",
 					"RelatedModules": [],
-					"Type": "library"
+					"Branding": {
+						"Palette": "ocean",
+						"DisplayName": "DataBeacon",
+						"Tagline": "Connect, introspect, and expose remote databases"
+					},
+					"Type": "webapp"
 				},
 				{
 					"Name": "retold-data-mapper",
