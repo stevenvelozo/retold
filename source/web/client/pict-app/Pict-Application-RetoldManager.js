@@ -111,7 +111,7 @@ class RetoldManagerApplication extends libPictApplication
 		//     views to pict.views[...]
 		//   - Adds the shared chrome views (TopBar / BottomBar) with the
 		//     host-supplied slot views wired in via ViewOptions
-		//   - Applies retold-default in system mode at scale 1.0 — unless
+		//   - Applies pict-default in system mode at scale 1.0 — unless
 		//     localStorage has a saved user pick, which wins
 		//   - Wires the Brand block so --brand-color-* CSS vars are set
 		//
@@ -121,7 +121,7 @@ class RetoldManagerApplication extends libPictApplication
 		// StatusView gets Manager-StatusBar.
 		this.pict.addProvider('Theme-Section',
 		{
-			ApplyDefault: 'retold-default',
+			ApplyDefault: 'pict-default',
 			DefaultMode:  'system',
 			DefaultScale: 1.0,
 			Brand:        libRetoldManagerBrand,

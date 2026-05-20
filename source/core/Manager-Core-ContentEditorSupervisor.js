@@ -30,7 +30,34 @@ const libPath         = require('path');
  */
 
 const DEFAULT_PORT  = 43211;
-const CONTENT_CLI   = libPath.resolve(__dirname, '..', '..', 'modules', 'apps', 'retold-content-system', 'source', 'cli', 'ContentSystem-CLI-Run.js');
+
+// Resolve the retold-content-system CLI lazily so a missing checkout /
+// install fails with a clear message at start() time instead of a silent
+// ENOENT inside the spawned `node`. Tries the npm install first (the
+// umbrella retold/package.json lists retold-content-system as a runtime
+// dep) and falls back to the monorepo checkout for in-repo dev.
+let _cachedCliPath = null;
+function _resolveCliPath()
+{
+	if (_cachedCliPath) { return _cachedCliPath; }
+	let tmpRel = 'source/cli/ContentSystem-CLI-Run.js';
+	try
+	{
+		_cachedCliPath = require.resolve('retold-content-system/' + tmpRel);
+		return _cachedCliPath;
+	}
+	catch (pError) { /* fall through */ }
+	let tmpFallback = libPath.resolve(__dirname, '..', '..', 'modules', 'apps', 'retold-content-system', tmpRel);
+	if (libFs.existsSync(tmpFallback))
+	{
+		_cachedCliPath = tmpFallback;
+		return _cachedCliPath;
+	}
+	let tmpErr = new Error('retold-content-system is not installed and the monorepo checkout at '
+		+ tmpFallback + ' does not exist. Run `npm install` at the retold repo root.');
+	tmpErr.code = 'CONTENT_CLI_MISSING';
+	throw tmpErr;
+}
 
 function _emptyState()
 {
@@ -124,6 +151,20 @@ class ContentEditorSupervisor
 			throw tmpError;
 		}
 
+		// Resolve the CLI path before tearing down the in-flight editor so
+		// a missing dep fails synchronously here instead of as a silent
+		// ENOENT inside the spawned child. Only throw — don't fire
+		// pReadyCallback. The caller's outer try/catch is the surface
+		// point for "couldn't even start"; the callback is reserved for
+		// the "started, then port came up (or timed out)" lifecycle.
+		let tmpCliPath;
+		try { tmpCliPath = _resolveCliPath(); }
+		catch (pResolveError)
+		{
+			this._log.error('ContentEditorSupervisor: ' + pResolveError.message);
+			throw pResolveError;
+		}
+
 		this.stop();
 
 		let tmpChild;
@@ -131,7 +172,7 @@ class ContentEditorSupervisor
 		{
 			tmpChild = libChildProcess.spawn(
 				'node',
-				[CONTENT_CLI, 'serve', tmpContentPath, '-p', String(DEFAULT_PORT)],
+				[tmpCliPath, 'serve', tmpContentPath, '-p', String(DEFAULT_PORT)],
 				{
 					cwd:      pModulePath,
 					stdio:    ['ignore', 'pipe', 'pipe'],

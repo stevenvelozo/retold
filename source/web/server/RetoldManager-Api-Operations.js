@@ -556,6 +556,7 @@ module.exports = function registerOperationsRoutes(pCore)
 	registerAllScript('status',   'Status.sh');
 	registerAllScript('update',   'Update.sh');
 	registerAllScript('checkout', 'Checkout.sh');
+	registerAllScript('install',  'Install.sh');
 
 	// ─────────────────────────────────────────────
 	//  POST /api/manager/system/operations/npm-cache

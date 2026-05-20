@@ -7,6 +7,7 @@ This directory contains all Retold module groups. Each subfolder holds individua
 Shell scripts manage all modules collectively:
 
 - `Checkout.sh` — Clone all module repos from GitHub
+- `Install.sh` — Run `npm install` inside every cloned module so each module is runnable on its own (tests, examples, the per-module dev workflow). Pair this with `Checkout.sh` on a fresh box; the manager's per-module action buttons (`install`, `test`, `build`, `examples`, etc.) all assume each module has its own `node_modules/`.
 - `Status.sh` — Show git status across all modules
 - `Update.sh` — Pull with rebase across all modules
 - `Include-Retold-Module-List.sh` — Central registry defining module arrays per group (sourced by the scripts above)

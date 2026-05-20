@@ -406,7 +406,12 @@
 						"orator",
 						"stricture"
 					],
-					"Type": "library"
+					"Type": "library",
+					"Branding": {
+						"Palette": "ocean",
+						"DisplayName": "Retold Data Service",
+						"Tagline": "Schema-driven data movement and comprehension"
+					}
 				},
 				{
 					"Name": "retold-harness",
@@ -778,6 +783,19 @@
 						"pict-view",
 						"pict-meadow-connection-manager",
 						"meadow-connection-manager"
+					],
+					"Type": "library"
+				},
+				{
+					"Name": "pict-section-claudetransformer",
+					"Path": "modules/pict/pict-section-claudetransformer",
+					"Description": "Reusable Pict viewer for Claude Code /export sessions. Renders the signature time-strip, per-prompt timeline, conversation, tool-call drill-ins, and sub-agent transcripts. Drop-in for any pict-application; ships a standalone browser example under example_applications/standalone.",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-claudetransformer",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-section-modal"
 					],
 					"Type": "library"
 				},
@@ -1230,6 +1248,26 @@
 			"Path": "modules/apps",
 			"Modules": [
 				{
+					"Name": "plansheet",
+					"Path": "modules/apps/plansheet",
+					"Description": "Multi-tenant web app that stores Claude Code /export sessions per user with OAuth + local sign-in, a month/week calendar of uploads, and Parime blob storage. Uses pict-section-claudetransformer to render any individual session.",
+					"GitHub": "https://github.com/stevenvelozo/plansheet",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict-section-claudetransformer",
+						"orator-authentication",
+						"parime",
+						"meadow",
+						"meadow-endpoints"
+					],
+					"Branding": {
+						"Palette": "ocean",
+						"DisplayName": "Plansheet",
+						"Tagline": "Your sessions, organized."
+					},
+					"Type": "webapp"
+				},
+				{
 					"Name": "retold-beacon-host",
 					"Path": "modules/apps/retold-beacon-host",
 					"Description": "Generic container host for ultravisor-beacon CapabilityProvider classes published as npm packages \u2014 boots an Orator, loads one or more provider modules by name, and registers with a target Ultravisor.",
@@ -1293,7 +1331,12 @@
 					"GitHub": "https://github.com/stevenvelozo/retold-facto",
 					"Documentation": "https://stevenvelozo.github.io/retold-facto/",
 					"RelatedModules": [],
-					"Type": "webapp"
+					"Type": "webapp",
+					"Branding": {
+						"Palette": "forest",
+						"DisplayName": "Retold Facto",
+						"Tagline": "Data warehouse and knowledge graph storage"
+					}
 				},
 				{
 					"Name": "retold-remote",
@@ -1474,7 +1517,9 @@
 					"Path": "modules/pict/pict-meadow-connection-manager/example_applications/bookstore-connections",
 					"Type": "example",
 					"Branding": {
-						"Palette": "carnival"
+						"Palette": "carnival",
+						"DisplayName": "Bookstore Connections",
+						"Tagline": "Manage meadow connections for the bookstore demo"
 					}
 				},
 				{

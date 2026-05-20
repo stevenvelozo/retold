@@ -1,6 +1,7 @@
 'use strict';
 
 const libChildProcess = require('child_process');
+const libFs           = require('fs');
 const libNet          = require('net');
 const libPath         = require('path');
 
@@ -35,7 +36,34 @@ const libPath         = require('path');
  */
 
 const DEFAULT_PORT  = 43210;
-const DOCUSERVE_CLI = libPath.resolve(__dirname, '..', '..', 'modules', 'pict', 'pict-docuserve', 'source', 'cli', 'Docuserve-CLI-Run.js');
+
+// Resolve the pict-docuserve CLI lazily so a missing checkout / install
+// fails with a clear message at start() time instead of producing a
+// silent ENOENT inside the spawned `node`. Tries the npm install first
+// (the umbrella retold/package.json lists pict-docuserve as a runtime
+// dep) and falls back to the monorepo checkout for in-repo dev.
+let _cachedCliPath = null;
+function _resolveCliPath()
+{
+	if (_cachedCliPath) { return _cachedCliPath; }
+	let tmpRel = 'source/cli/Docuserve-CLI-Run.js';
+	try
+	{
+		_cachedCliPath = require.resolve('pict-docuserve/' + tmpRel);
+		return _cachedCliPath;
+	}
+	catch (pError) { /* fall through */ }
+	let tmpFallback = libPath.resolve(__dirname, '..', '..', 'modules', 'pict', 'pict-docuserve', tmpRel);
+	if (libFs.existsSync(tmpFallback))
+	{
+		_cachedCliPath = tmpFallback;
+		return _cachedCliPath;
+	}
+	let tmpErr = new Error('pict-docuserve is not installed and the monorepo checkout at '
+		+ tmpFallback + ' does not exist. Run `npm install` at the retold repo root.');
+	tmpErr.code = 'DOCSERVE_CLI_MISSING';
+	throw tmpErr;
+}
 
 function _emptyState()
 {
@@ -124,12 +152,26 @@ class DocserveSupervisor
 		// when nothing is running.
 		this.stop();
 
+		// Resolve the CLI path first so a missing dep fails synchronously
+		// here instead of as a silent ENOENT inside the spawned child.
+		// Only throw — don't fire pReadyCallback. The caller's outer
+		// try/catch is the surface point for "couldn't even start"; the
+		// callback is reserved for the "started, then port came up (or
+		// timed out)" lifecycle that only applies once a child exists.
+		let tmpCliPath;
+		try { tmpCliPath = _resolveCliPath(); }
+		catch (pResolveError)
+		{
+			this._log.error('DocserveSupervisor: ' + pResolveError.message);
+			throw pResolveError;
+		}
+
 		let tmpChild;
 		try
 		{
 			tmpChild = libChildProcess.spawn(
 				'node',
-				[DOCUSERVE_CLI, 'serve', pModulePath, '-p', String(DEFAULT_PORT)],
+				[tmpCliPath, 'serve', pModulePath, '-p', String(DEFAULT_PORT)],
 				{
 					cwd:      pModulePath,
 					stdio:    ['ignore', 'pipe', 'pipe'],

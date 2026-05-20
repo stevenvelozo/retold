@@ -452,6 +452,19 @@ class ManagerSidebarView extends libPictView
 		let tmpEx    = document.getElementById('RM-IncludeExamples');
 		if (tmpEx)    { tmpEx.checked    = !!this.pict.AppData.Manager.Filter.IncludeExamples; }
 
+		// Defensive AppData → input sync. The template's value binding
+		// covers the initial render path, but this guarantees the input
+		// can never desync from AppData on subsequent full renders (tab
+		// switches, future code paths that drive a full render). Guarded
+		// against fighting the user's in-progress typing by only writing
+		// when the input is not currently focused.
+		let tmpSearch = document.getElementById('RM-SidebarSearch');
+		if (tmpSearch && document.activeElement !== tmpSearch)
+		{
+			let tmpExpected = this.pict.AppData.Manager.Filter.Query || '';
+			if (tmpSearch.value !== tmpExpected) { tmpSearch.value = tmpExpected; }
+		}
+
 		// Restore focus on the filter input when a keystroke triggered
 		// this render — without this, every typed character defocuses
 		// the field (the old DOM node is gone and the new one is fresh).
@@ -572,10 +585,11 @@ class ManagerSidebarView extends libPictView
 			if (tmpFiltered.length === 0)
 			{
 				return {
-					ScanMetaText:    tmpScanText,
+					Filter:           tmpState.Filter,
+					ScanMetaText:     tmpScanText,
 					ExamplesMetaText: tmpExamplesMetaText,
-					EmptySlot:       [{ Message: 'No modules match the filter.' }],
-					Groups:          [],
+					EmptySlot:        [{ Message: 'No modules match the filter.' }],
+					Groups:           [],
 				};
 			}
 
@@ -588,6 +602,7 @@ class ManagerSidebarView extends libPictView
 			}
 
 			return {
+				Filter:           tmpState.Filter,
 				ScanMetaText:     tmpScanText,
 				ExamplesMetaText: tmpExamplesMetaText,
 				EmptySlot:        [],
@@ -637,6 +652,7 @@ class ManagerSidebarView extends libPictView
 				? 'No dirty modules (click Scan to re-scan).'
 				: (tmpQuery ? 'No modules match the filter.' : 'Loading modules...');
 			return {
+				Filter:           tmpState.Filter,
 				ScanMetaText:     tmpScanText,
 				ExamplesMetaText: tmpExamplesMetaText,
 				EmptySlot:        [{ Message: tmpMessage }],
@@ -645,6 +661,7 @@ class ManagerSidebarView extends libPictView
 		}
 
 		return {
+			Filter:           tmpState.Filter,
 			ScanMetaText:     tmpScanText,
 			ExamplesMetaText: tmpExamplesMetaText,
 			EmptySlot:        [],
@@ -1049,11 +1066,43 @@ class ManagerSidebarView extends libPictView
 		let tmpQ = pValue || '';
 		this.pict.AppData.Manager.Filter.Query = tmpQ;
 		lsSet(LS_KEY_FILTER, tmpQ);
-		// Tell onAfterRender to re-focus the filter input after the
-		// upcoming render — otherwise each keystroke defocuses the field
-		// because the old <input> DOM node is replaced.
-		this._searchFocusToRestore = true;
-		this.render();
+		// Hot path — only repaint the module list; leave the input,
+		// checkboxes, and surrounding shell DOM untouched. Calling the
+		// full `this.render()` here would tear down and rebuild the
+		// <input> on every keystroke, dropping focus + characters and
+		// making the filter feel twitchy. The DOM input is the source
+		// of truth for its own .value while the user types; AppData is
+		// kept in sync inside this handler.
+		this._repaintModulesPane();
+	}
+
+	// Surgical repaint of just the modules pane (#RM-ModuleList plus the
+	// scan-meta + examples-count text spans). Used by every hot-path
+	// filter handler so the input + checkbox DOM survives untouched.
+	_repaintModulesPane()
+	{
+		let tmpRecord = this._buildModulesPane();
+
+		let tmpHtml = '';
+		for (let i = 0; i < tmpRecord.EmptySlot.length; i++)
+		{
+			tmpHtml += this.pict.parseTemplateByHash(
+				'Manager-Sidebar-Empty-Template', tmpRecord.EmptySlot[i]);
+		}
+		for (let i = 0; i < tmpRecord.Groups.length; i++)
+		{
+			tmpHtml += this.pict.parseTemplateByHash(
+				'Manager-Sidebar-Group-Template', tmpRecord.Groups[i]);
+		}
+		this.pict.ContentAssignment.assignContent('#RM-ModuleList', tmpHtml);
+
+		// The two meta-text spans live inside the toolbar / checkbox
+		// labels, so we update them in place rather than re-rendering
+		// the whole shell.
+		let tmpScanMeta = document.getElementById('RM-ScanMeta');
+		if (tmpScanMeta) { tmpScanMeta.textContent = tmpRecord.ScanMetaText || ''; }
+		let tmpExCount = document.querySelector('.rm-examples-count');
+		if (tmpExCount) { tmpExCount.textContent = tmpRecord.ExamplesMetaText || ''; }
 	}
 
 	switchTab(pTab)
@@ -1135,12 +1184,15 @@ class ManagerSidebarView extends libPictView
 		let tmpChecked = !!pChecked;
 		this.pict.AppData.Manager.Filter.DirtyOnly = tmpChecked;
 		lsSet(LS_KEY_DIRTY_ONLY, tmpChecked ? '1' : '0');
-		// Lazy-scan if the user flips on dirty-only without any cached scan results.
+		// Lazy-scan if the user flips on dirty-only without any cached
+		// scan results. triggerScan() drives its own full render to
+		// flip the scan-button state, so don't double-render here.
 		if (tmpChecked && Object.keys(this.pict.AppData.Manager.Scan.Results || {}).length === 0)
 		{
 			this.triggerScan();
+			return;
 		}
-		this.render();
+		this._repaintModulesPane();
 	}
 
 	setSortByTime(pChecked)
@@ -1148,7 +1200,7 @@ class ManagerSidebarView extends libPictView
 		let tmpChecked = !!pChecked;
 		this.pict.AppData.Manager.Filter.SortByTime = tmpChecked;
 		lsSet(LS_KEY_SORT_BY_TIME, tmpChecked ? '1' : '0');
-		this.render();
+		this._repaintModulesPane();
 	}
 
 	setIncludeExamples(pChecked)
@@ -1163,14 +1215,17 @@ class ManagerSidebarView extends libPictView
 		{
 			tmpLogBar.onIncludeExamplesChanged();
 		}
-		this.render();
+		this._repaintModulesPane();
 	}
 
 	triggerScan()
 	{
 		let tmpState = this.pict.AppData.Manager;
 		tmpState.Scan.Running = true;
-		this.render();
+		// Surgical repaint — flips the meta text to "scanning…" without
+		// tearing down the input or checkboxes (in case the user typed
+		// a filter, then hit Scan).
+		this._repaintModulesPane();
 
 		// Don't auto-switch tabs — the user has asked us to land on
 		// Actions by default and to let them navigate to Modules
@@ -1238,7 +1293,9 @@ class ManagerSidebarView extends libPictView
 		).then(() =>
 			{
 				tmpState.Scan.Running = false;
-				this.render();
+				// Same as the start path — surgical repaint, don't
+				// nuke the input/checkbox DOM.
+				this._repaintModulesPane();
 			});
 	}
 }

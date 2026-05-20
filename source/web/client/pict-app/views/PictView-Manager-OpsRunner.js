@@ -5,6 +5,7 @@ const SCRIPT_LABELS =
 		status:   'Status.sh',
 		update:   'Update.sh',
 		checkout: 'Checkout.sh',
+		install:  'Install.sh',
 	};
 
 /**

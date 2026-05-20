@@ -193,6 +193,9 @@ Templates:
 | `{~JSV:Address~}` | Pretty-print the value at `Address` as JSON (for debug panels) |
 | `{~Digits:Address:N~}` / `{~Dollars:Address~}` | Numeric formatting filters |
 | `{~E:Entity^IDOrAddress^TemplateHash~}` / `{~Entity:…~}` | **Asynchronously** fetches a Meadow entity and renders `TemplateHash` against the resulting record. See "Entity rendering" below. |
+| `{<body>}` | **Inline template literal** — captures `body` verbatim and re-parses it as a template at runtime against the same Record/Context/Scope. Use for one-shot templates that don't justify a named entry in `Templates: [...]`. |
+| `{[Address]}` | **Addressed template** — resolve `Address` to a string and render it as a template against the current Record/Context/Scope. Missing or non-string → warn + render `''`. |
+| `{~F:FunctionAddress:ArgAddress1:ArgAddress2~}` / `{~Function:…~}` | Call the function at `FunctionAddress` with values resolved from each `ArgAddress`. `this` binds to the function's owner. Missing function → warn + render `''`. |
 
 `TS` is the workhorse for lists. The address can be **`Record.X`** (relative) or **`AppData.X.Y`** (absolute) — pict's `Pict-Template-DataWithAbsoluteFallback` resolves both. Inside the iterated child template, the per-item record is the new `Record`, and `AppData.*` still works for cross-cutting state.
 

@@ -177,7 +177,7 @@ registered (see Phase D) but BEFORE the layout view renders.
 ```javascript
 this.pict.addProvider('Theme-Section',
 {
-    ApplyDefault: 'your-app',          // or 'retold-default' to share the ecosystem look
+    ApplyDefault: 'your-app',          // or 'pict-default' to share the ecosystem look
     DefaultMode:  'system',
     DefaultScale: 1.0,
     Brand:        libYourAppBrand,
@@ -558,7 +558,7 @@ Should return nothing meaningful (only commit hashes / comments).
 ## Phase H — (Optional) App-specific theme
 
 If your app has a distinctive palette worth preserving as a selectable
-theme (rather than letting `retold-default` reskin it), bundle it.
+theme (rather than letting `pict-default` reskin it), bundle it.
 
 ### H1. Author the JSON
 
@@ -569,7 +569,7 @@ mirror `retold-content-system.json`. Required pairs:
 - `Modes: { Strategy: 'system'|'single', Default: 'system'|'light'|'dark' }`
 - `Tokens.Color.{Background,Text,Brand,Border,Status,Scrollbar,Selection,Focus,Shadow,Syntax}`
 - `Tokens.Typography.{Family,Size,Weight,LineHeight}` (typography is
-  optional; falls through to retold-default)
+  optional; falls through to pict-default)
 - `Tokens.Layout` — `SidebarWidth`, `TopbarHeight`, `StatusbarHeight`
 - `Brand: { Name, Tagline }`
 

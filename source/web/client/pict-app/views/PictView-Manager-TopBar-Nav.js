@@ -298,6 +298,9 @@ const _ViewConfiguration =
 	<button class="action primary" title="Run modules/Checkout.sh across every module"
 		aria-current="{~D:Record.IsCheckout~}"
 		onclick="{~P~}.PictApplication.navigateTo('/Ops/checkout')">Checkout</button>
+	<button class="action primary" title="Run modules/Install.sh — npm install in every cloned module so each one is runnable on its own"
+		aria-current="{~D:Record.IsInstall~}"
+		onclick="{~P~}.PictApplication.navigateTo('/Ops/install')">Install</button>
 		<button class="action action-more rm-cache-more" aria-label="npm cache utilities"
 			title="npm cache utilities"
 			onclick="_Pict.views['Manager-TopBar-Nav']._openCacheMenu(this); event.stopPropagation();">{~I:ChevronDown~}</button>
@@ -364,6 +367,7 @@ class ManagerTopBarNavView extends libPictView
 		tmpManager.IsStatus   = (tmpScript === 'status')   ? 'page' : '';
 		tmpManager.IsUpdate   = (tmpScript === 'update')   ? 'page' : '';
 		tmpManager.IsCheckout = (tmpScript === 'checkout') ? 'page' : '';
+		tmpManager.IsInstall  = (tmpScript === 'install')  ? 'page' : '';
 		// Active-module pill — shown whenever a module is selected.
 		// Sticks across navigations to /Ops/* routes; clicking it
 		// returns to the module workspace.
