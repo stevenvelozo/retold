@@ -85,23 +85,30 @@ class ManagerModalNcuView extends libPictView
 		let tmpName = this._moduleName;
 		this.close();
 
-		// Stamp the active op so the inline output panel surfaces this run
-		// (otherwise the panel stays hidden because Scope/ModuleName is unset).
-		this.pict.AppData.Manager.ActiveOperation =
+		let tmpLabel = pApply ? 'ncu -u + npm install' : 'ncu';
+		// Route through the operation queue — multi-step ncu apply is
+		// the canonical "I clicked something else by accident while it
+		// was running" trap; queuing the next click rather than letting
+		// it overwrite ActiveOperation is what eliminates the bug.
+		this.pict.providers.ManagerOperationsWS.enqueueOperation(
+			() =>
 			{
-				OperationId: null,
-				CommandTag:  null,
-				Lines:       [],
-				HeaderState: 'running',
-				HeaderText:  pApply ? 'ncu -u + npm install' : 'ncu',
-				Scope:       'module',
-				ModuleName:  tmpName,
-			};
-		if (this.pict.views['Manager-OutputPanel']) { this.pict.views['Manager-OutputPanel'].render(); }
-
-		this.pict.providers.ManagerAPI.runNcu(tmpName, pApply, tmpScope).then(
-			() => { this.pict.PictApplication.setStatus('ncu ' + (pApply ? 'apply' : 'check') + ' started.'); },
-			(pError) => { this.pict.PictApplication.setStatus('NCU failed: ' + pError.message); });
+				this.pict.AppData.Manager.ActiveOperation =
+					{
+						OperationId: null,
+						CommandTag:  null,
+						Lines:       [],
+						HeaderState: 'running',
+						HeaderText:  tmpLabel,
+						Scope:       'module',
+						ModuleName:  tmpName,
+					};
+				if (this.pict.views['Manager-OutputPanel']) { this.pict.views['Manager-OutputPanel'].render(); }
+				return this.pict.providers.ManagerAPI.runNcu(tmpName, pApply, tmpScope).then(
+					() => { this.pict.PictApplication.setStatus('ncu ' + (pApply ? 'apply' : 'check') + ' started.'); },
+					(pError) => { this.pict.PictApplication.setStatus('NCU failed: ' + pError.message); });
+			},
+			{ Label: tmpLabel, ModuleName: tmpName });
 	}
 
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)

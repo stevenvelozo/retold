@@ -40,6 +40,18 @@ class ManagerOperationsWSProvider extends libPictProvider
 		this._watchdogActiveOpId = null;  // OperationId the watchdog is currently watching
 		this._watchdogStartedAt = 0;      // timestamp the watchdog started; gates first poll
 		this._watchdogPollInflight = false; // de-dupe overlapping fetches
+
+		// FIFO queue of operations the user kicked off while another op
+		// was already running. Each entry is { Start, Descriptor }:
+		//   Start      — fn() that performs the full "stamp AppData
+		//                .Manager.ActiveOperation, popLogPanel, call API"
+		//                sequence for one button press
+		//   Descriptor — { Label, ModuleName? } used to render the
+		//                "+N queued" pill in the LogBar
+		// Pumped on every terminal frame (complete/error/cancelled) in
+		// _handleFrame so the next click resumes as soon as the current
+		// op finishes — without the user having to babysit the panel.
+		this._opQueue = [];
 	}
 
 	connect()
@@ -204,6 +216,12 @@ class ManagerOperationsWSProvider extends libPictProvider
 			});
 			// Op reached a terminal state — stop the missed-frame poller.
 			this._stopWatchdog();
+			// Pump any operation the user queued while this one was
+			// running. Deferred to a microtask so the current render
+			// pass settles (the just-finished op gets to paint its
+			// terminal state) before the next op stamps a new
+			// ActiveOperation.
+			this._pumpQueue();
 		}
 
 		// Stdout frames are the hot path during noisy ops — append-only +
@@ -432,6 +450,96 @@ class ManagerOperationsWSProvider extends libPictProvider
 				// running; we'll retry on the next tick.
 				this._watchdogPollInflight = false;
 			});
+	}
+
+	// ─────────────────────────────────────────────
+	//  Operation queue — single chokepoint for "the user clicked an
+	//  action button"
+	//
+	//  Every button that kicks off a server-side operation routes through
+	//  enqueueOperation(startFn, descriptor) instead of stamping
+	//  AppData.Manager.ActiveOperation and posting to the API directly.
+	//  If nothing is running, startFn fires immediately. Otherwise the
+	//  click is queued and runs as soon as the current op reaches a
+	//  terminal frame (complete/error/cancelled in _handleFrame).
+	//
+	//  Without this, a mis-click during a long-running op (ncu apply →
+	//  npm install, ripple, etc.) would stamp a fresh ActiveOperation
+	//  over the running one, then the server's 409 RunnerBusy response
+	//  would arrive too late to undo the stamp — the UI showed two
+	//  overlapping ops, the WS frames from the running op merged into
+	//  the wrong AppData slot, and neither op ever reached a clean
+	//  terminal state in the UI even though both completed on the server.
+	// ─────────────────────────────────────────────
+
+	/**
+	 * Run startFn now if the runner is idle, otherwise enqueue it to
+	 * run after the current op completes. The descriptor (`{ Label,
+	 * ModuleName? }`) is what the LogBar's queued-pill displays.
+	 *
+	 * startFn owns the full "press this button" workflow: stamping
+	 * AppData.Manager.ActiveOperation, popping the LogBar, calling the
+	 * API. The provider just decides when to invoke it.
+	 */
+	enqueueOperation(pStartFn, pDescriptor)
+	{
+		if (typeof pStartFn !== 'function') { return; }
+		let tmpDescriptor = pDescriptor || {};
+		let tmpActive = this.pict.AppData.Manager.ActiveOperation;
+		let tmpBusy = !!(tmpActive && tmpActive.HeaderState === 'running');
+		if (!tmpBusy)
+		{
+			return pStartFn();
+		}
+		this._opQueue.push({ Start: pStartFn, Descriptor: tmpDescriptor });
+		this._publishQueueChanged();
+		let tmpLabel = tmpDescriptor.Label || 'operation';
+		this.pict.PictApplication.setStatus('Queued: ' + tmpLabel
+			+ ' (' + this._opQueue.length + ' waiting — will run when '
+			+ (tmpActive.HeaderText || 'current op') + ' finishes).');
+	}
+
+	/**
+	 * Drop every queued operation without running them. Used by the
+	 * cancel button when the user wants to walk back a chain of
+	 * mis-clicks. Does not touch the currently-running op.
+	 */
+	clearOperationQueue()
+	{
+		if (this._opQueue.length === 0) { return 0; }
+		let tmpCount = this._opQueue.length;
+		this._opQueue.length = 0;
+		this._publishQueueChanged();
+		this.pict.PictApplication.setStatus('Cleared ' + tmpCount + ' queued operation' + (tmpCount === 1 ? '' : 's') + '.');
+		return tmpCount;
+	}
+
+	_publishQueueChanged()
+	{
+		// Expose the queue descriptor list under AppData so the LogBar
+		// (or any other view) can render the queued count without
+		// having to reach into the provider's privates.
+		this.pict.AppData.Manager.OperationQueue = this._opQueue.map((p) => p.Descriptor);
+		let tmpLogBar = this.pict.views['Manager-LogBar'];
+		if (tmpLogBar && typeof tmpLogBar.scheduleAppend === 'function') { tmpLogBar.scheduleAppend(); }
+	}
+
+	_pumpQueue()
+	{
+		if (this._opQueue.length === 0) { return; }
+		let tmpNext = this._opQueue.shift();
+		this._publishQueueChanged();
+		// Defer one tick so the just-completed op's terminal-state
+		// render pass settles (history entry stamped, LogBar repaint)
+		// before the next op stamps a fresh ActiveOperation. Without
+		// this defer the new op's 'start' frame can race the previous
+		// op's complete frame inside the same render cycle.
+		let tmpSelf = this;
+		setTimeout(function ()
+		{
+			try { tmpNext.Start(); }
+			catch (pError) { tmpSelf.pict.PictApplication.setStatus('Queued operation failed to start: ' + (pError && pError.message ? pError.message : pError)); }
+		}, 0);
 	}
 }
 

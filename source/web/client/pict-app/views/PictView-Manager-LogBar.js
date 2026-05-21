@@ -286,6 +286,25 @@ const _ViewConfiguration =
 			font-size: 11px;
 			flex: 0 0 auto;
 		}
+		.rm-logbar-queued-pill
+		{
+			margin-left: 8px;
+			padding: 1px 8px;
+			font-size: 10.5px;
+			font-weight: 600;
+			color: var(--color-warning);
+			background: rgba(208, 156, 22, 0.12);
+			border: 1px solid rgba(208, 156, 22, 0.5);
+			border-radius: 10px;
+			cursor: pointer;
+			flex: 0 0 auto;
+			user-select: none;
+		}
+		.rm-logbar-queued-pill:hover
+		{
+			background: rgba(208, 156, 22, 0.22);
+			border-color: var(--color-warning);
+		}
 		.rm-logbar-action-body
 		{
 			margin: 0;
@@ -671,12 +690,17 @@ const _ViewConfiguration =
 			<span class="rm-logbar-action-time" title="{~D:Record.StartedFull~}">{~D:Record.ClockTime~}</span>
 			<span class="rm-logbar-action-label">{~D:Record.Label~}</span>
 			<span class="rm-logbar-action-meta">{~D:Record.MetaText~}</span>
+			{~TS:Manager-LogBar-QueuedPill-Template:Record.QueuedSlot~}
 		</button>
 		<button type="button" class="rm-logbar-action-open" title="Open this action in a fullscreen review modal" onclick="_Pict.views['Manager-Modal-ActionDetail'].open('{~D:Record.OperationIdJs~}'); event.stopPropagation();">↗</button>
 	</div>
 	<pre class="rm-logbar-action-body" data-action-body="{~D:Record.OperationId~}">{~TS:Manager-LogBar-EmptyLine-Template:Record.EmptyLineSlot~}{~TS:Manager-LogBar-Line-Template:Record.Lines~}</pre>
 </div>
 `
+		},
+		{
+			Hash: 'Manager-LogBar-QueuedPill-Template',
+			Template: /*html*/`<span class="rm-logbar-queued-pill" title="{~D:Record.Tooltip~}" onclick="event.stopPropagation(); _Pict.views['Manager-LogBar'].clearQueue();">+{~D:Record.Count~} queued</span>`
 		},
 		{
 			Hash: 'Manager-LogBar-EmptyLine-Template',
@@ -1811,6 +1835,29 @@ class ManagerLogBarView extends libPictView
 			}
 		}
 
+		// "+N queued" pill — only the currently-running entry surfaces it,
+		// and only when the operation queue (driven by enqueueOperation)
+		// has pending items. Lets users see at a glance that their next
+		// click is waiting in line, and click-to-clear to drop pending
+		// operations without affecting the running one.
+		let tmpQueuedSlot = [];
+		if (pEntry.State === 'running')
+		{
+			let tmpQueue = (this.pict.AppData.Manager && this.pict.AppData.Manager.OperationQueue) || [];
+			if (tmpQueue.length > 0)
+			{
+				let tmpTooltipParts = ['Queued (click to clear):'];
+				for (let i = 0; i < tmpQueue.length; i++)
+				{
+					let tmpQ = tmpQueue[i];
+					tmpTooltipParts.push(
+						'  ' + (i + 1) + '. ' + (tmpQ.Label || 'operation')
+						+ (tmpQ.ModuleName ? ' (' + tmpQ.ModuleName + ')' : ''));
+				}
+				tmpQueuedSlot.push({ Count: tmpQueue.length, Tooltip: tmpTooltipParts.join('\n') });
+			}
+		}
+
 		return {
 			OperationId:   pEntry.OperationId || '',
 			OperationIdJs: this._jsString(pEntry.OperationId || ''),
@@ -1821,7 +1868,16 @@ class ManagerLogBarView extends libPictView
 			MetaText:      this._formatEntryMeta(pEntry),
 			EmptyLineSlot: tmpEmptyLineSlot,
 			Lines:         tmpLineRecords,
+			QueuedSlot:    tmpQueuedSlot,
 		};
+	}
+
+	// Drop every queued operation without touching the currently-running
+	// one. Exposed for the queued-pill click handler.
+	clearQueue()
+	{
+		let tmpProv = this.pict.providers.ManagerOperationsWS;
+		if (tmpProv && typeof tmpProv.clearOperationQueue === 'function') { tmpProv.clearOperationQueue(); }
 	}
 
 	// ─────────────────────────────────────────────

@@ -44,38 +44,42 @@ class ManagerOpsRunnerView extends libPictView
 			return;
 		}
 
-		// Stamp the active operation so the WS provider routes its frames
-		// into AppData.Manager.ActiveOperation + pushes a history entry.
-		// Same shape ModuleWorkspace uses, just with Scope: 'all' and no
-		// ModuleName — the LogBar's Actions tab renders any history entry
-		// regardless of scope.
-		this.pict.AppData.Manager.ActiveOperation =
+		// Route through the operation queue so clicking Status/Update/
+		// Checkout/Install while another op is running parks the click
+		// instead of clobbering ActiveOperation. Same shape ModuleWorkspace
+		// uses, just with Scope: 'all' and no ModuleName — the LogBar's
+		// Actions tab renders any history entry regardless of scope.
+		this.pict.providers.ManagerOperationsWS.enqueueOperation(
+			() =>
 			{
-				OperationId: null,
-				CommandTag:  null,
-				Lines:       [],
-				HeaderState: 'running',
-				HeaderText:  tmpLabel,
-				Scope:       'all',
-				ModuleName:  null,
-			};
-
-		// Pop the persistent Log panel — single shared codepath used by
-		// every action button. The Actions tab auto-switches and auto-
-		// expands the new entry as soon as the WS 'start' frame arrives.
-		let tmpLayout = this.pict.views['Manager-Layout'];
-		if (tmpLayout && typeof tmpLayout.popLogPanel === 'function')
-		{
-			tmpLayout.popLogPanel();
-		}
-
-		this.pict.PictApplication.setStatus('Running ' + tmpLabel + '...');
-		this.pict.providers.ManagerAPI.runAllModulesScript(pScript).then(
-			(pResp) => { this.pict.PictApplication.setStatus('Started ' + tmpLabel + ' (' + pResp.OperationId + ')'); },
-			(pError) =>
-			{
-				this.pict.PictApplication.setStatus(tmpLabel + ' failed to start: ' + pError.message);
-			});
+				this.pict.AppData.Manager.ActiveOperation =
+					{
+						OperationId: null,
+						CommandTag:  null,
+						Lines:       [],
+						HeaderState: 'running',
+						HeaderText:  tmpLabel,
+						Scope:       'all',
+						ModuleName:  null,
+					};
+				// Pop the persistent Log panel — single shared codepath
+				// used by every action button. The Actions tab auto-
+				// switches and auto-expands the new entry as soon as the
+				// WS 'start' frame arrives.
+				let tmpLayout = this.pict.views['Manager-Layout'];
+				if (tmpLayout && typeof tmpLayout.popLogPanel === 'function')
+				{
+					tmpLayout.popLogPanel();
+				}
+				this.pict.PictApplication.setStatus('Running ' + tmpLabel + '...');
+				return this.pict.providers.ManagerAPI.runAllModulesScript(pScript).then(
+					(pResp) => { this.pict.PictApplication.setStatus('Started ' + tmpLabel + ' (' + pResp.OperationId + ')'); },
+					(pError) =>
+					{
+						this.pict.PictApplication.setStatus(tmpLabel + ' failed to start: ' + pError.message);
+					});
+			},
+			{ Label: tmpLabel });
 	}
 }
 

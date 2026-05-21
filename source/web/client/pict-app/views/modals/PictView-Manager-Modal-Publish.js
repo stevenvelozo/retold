@@ -219,8 +219,14 @@ class ManagerModalPublishView extends libPictView
 		let tmpStatusLabel = pWithDocker
 			? 'Publishing ' + tmpName + ' + GHCR image...'
 			: 'Publishing ' + tmpName + '...';
+		let tmpQueueLabel = pWithDocker ? 'publish + docker' : 'publish';
 
-		this.pict.providers.ManagerAPI.publishModule(tmpName, tmpHash, !!pWithDocker).then(
+		// Route through the operation queue. The publish flow doesn't
+		// pre-stamp ActiveOperation (it leans on the server's 'start'
+		// frame for that), but it still needs to wait its turn so the
+		// server doesn't 409 RunnerBusy.
+		this.pict.providers.ManagerOperationsWS.enqueueOperation(
+			() => this.pict.providers.ManagerAPI.publishModule(tmpName, tmpHash, !!pWithDocker).then(
 			() =>
 			{
 				this.close();
@@ -240,7 +246,8 @@ class ManagerModalPublishView extends libPictView
 					tmpRec.PreviewSlot[0].SubmitErrorSlot = [{ Message: this._submitErrorMessage }];
 					this.render();
 				}
-			});
+			}),
+			{ Label: tmpQueueLabel, ModuleName: tmpName });
 	}
 
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)

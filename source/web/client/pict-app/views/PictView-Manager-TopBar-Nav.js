@@ -553,33 +553,34 @@ class ManagerTopBarNavView extends libPictView
 			? 'npm cache clean --force'
 			: 'npm cache verify';
 
-		// Stamp the active op so the WS provider routes its frames into
-		// AppData.Manager.ActiveOperation + pushes an Actions-tab history
-		// entry. Scope 'all' / ModuleName null — this is a global utility,
-		// not tied to any single module.
-		this.pict.AppData.Manager.ActiveOperation =
+		// Route through the operation queue so clicking a cache op while
+		// another op is running parks the click instead of overwriting
+		// ActiveOperation. Scope 'all' / ModuleName null — these are
+		// global utilities, not tied to any single module.
+		this.pict.providers.ManagerOperationsWS.enqueueOperation(
+			() =>
 			{
-				OperationId: null,
-				CommandTag:  null,
-				Lines:       [],
-				HeaderState: 'running',
-				HeaderText:  tmpLabel,
-				Scope:       'all',
-				ModuleName:  null,
-			};
-
-		// Pop the LogBar so the user can watch the stream — same as
-		// every other action button funnels through.
-		let tmpLayout = this.pict.views['Manager-Layout'];
-		if (tmpLayout && typeof tmpLayout.popLogPanel === 'function')
-		{
-			tmpLayout.popLogPanel();
-		}
-
-		this.pict.PictApplication.setStatus('Running ' + tmpLabel + '...');
-		this.pict.providers.ManagerAPI.runNpmCacheOperation(pAction).then(
-			(pResp) => { this.pict.PictApplication.setStatus('Started ' + tmpLabel + ' (' + pResp.OperationId + ')'); },
-			(pError) => { this.pict.PictApplication.setStatus(tmpLabel + ' failed to start: ' + (pError && pError.message ? pError.message : pError)); });
+				this.pict.AppData.Manager.ActiveOperation =
+					{
+						OperationId: null,
+						CommandTag:  null,
+						Lines:       [],
+						HeaderState: 'running',
+						HeaderText:  tmpLabel,
+						Scope:       'all',
+						ModuleName:  null,
+					};
+				let tmpLayout = this.pict.views['Manager-Layout'];
+				if (tmpLayout && typeof tmpLayout.popLogPanel === 'function')
+				{
+					tmpLayout.popLogPanel();
+				}
+				this.pict.PictApplication.setStatus('Running ' + tmpLabel + '...');
+				return this.pict.providers.ManagerAPI.runNpmCacheOperation(pAction).then(
+					(pResp) => { this.pict.PictApplication.setStatus('Started ' + tmpLabel + ' (' + pResp.OperationId + ')'); },
+					(pError) => { this.pict.PictApplication.setStatus(tmpLabel + ' failed to start: ' + (pError && pError.message ? pError.message : pError)); });
+			},
+			{ Label: tmpLabel });
 	}
 }
 

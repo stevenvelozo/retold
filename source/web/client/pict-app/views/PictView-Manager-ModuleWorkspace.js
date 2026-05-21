@@ -595,17 +595,31 @@ class ManagerModuleWorkspaceView extends libPictView
 			}
 		};
 
+		// Single-line helper: build the descriptor + close over the per-action
+		// "stamp + popLogPanel + API call" sequence, then route through the
+		// queue chokepoint. If nothing is running the work fires immediately;
+		// otherwise it parks and runs after the current op completes — see
+		// Pict-Provider-Manager-OperationsWS.enqueueOperation.
+		let tmpEnqueue = (pLabel, pRunFn) =>
+		{
+			this.pict.providers.ManagerOperationsWS.enqueueOperation(
+				() => { tmpStartScopedOp(pLabel); return pRunFn(); },
+				{ Label: pLabel, ModuleName: tmpName });
+		};
+
 		switch (pOp)
 		{
-			case 'install':    tmpStartScopedOp('npm install');         return tmpApi.runModuleOperation(tmpName, 'npm', ['install'], 'npm install');
-			case 'test':       tmpStartScopedOp('npm test');            return tmpApi.runModuleOperation(tmpName, 'npm', ['test'],    'npm test');
-			case 'types':      tmpStartScopedOp('npm run types');       return tmpApi.runModuleOperation(tmpName, 'npm', ['run', 'types'], 'npm run types');
-			case 'build':      tmpStartScopedOp('npm run build');       return tmpApi.runModuleOperation(tmpName, 'npm', ['run', 'build'], 'npm run build');
+			case 'install':    return tmpEnqueue('npm install',     () => tmpApi.runModuleOperation(tmpName, 'npm', ['install'], 'npm install'));
+			case 'test':       return tmpEnqueue('npm test',        () => tmpApi.runModuleOperation(tmpName, 'npm', ['test'],    'npm test'));
+			case 'types':      return tmpEnqueue('npm run types',   () => tmpApi.runModuleOperation(tmpName, 'npm', ['run', 'types'], 'npm run types'));
+			case 'build':      return tmpEnqueue('npm run build',   () => tmpApi.runModuleOperation(tmpName, 'npm', ['run', 'build'], 'npm run build'));
 			case 'diff':       return this.pict.views['Manager-Modal-Diff'].open(tmpName);
-			case 'git-add':    tmpStartScopedOp('git add -A');          return tmpApi.gitAddAll(tmpName);
-			case 'git-add-one': tmpStartScopedOp('git add ' + (pPath || '')); return pPath ? tmpApi.gitAddPaths(tmpName, [pPath]) : null;
-			case 'pull':       tmpStartScopedOp('git pull');            return tmpApi.runModuleOperation(tmpName, 'git', ['pull'], 'git pull');
-			case 'push':       tmpStartScopedOp('git push');            return tmpApi.runModuleOperation(tmpName, 'git', ['push'], 'git push');
+			case 'git-add':    return tmpEnqueue('git add -A',      () => tmpApi.gitAddAll(tmpName));
+			case 'git-add-one': return pPath
+				? tmpEnqueue('git add ' + pPath, () => tmpApi.gitAddPaths(tmpName, [pPath]))
+				: null;
+			case 'pull':       return tmpEnqueue('git pull',        () => tmpApi.runModuleOperation(tmpName, 'git', ['pull'], 'git pull'));
+			case 'push':       return tmpEnqueue('git push',        () => tmpApi.runModuleOperation(tmpName, 'git', ['push'], 'git push'));
 			case 'bump-patch': return this._bumpWithGuard('patch');
 			case 'bump-minor': return this._bumpWithGuard('minor');
 			case 'bump-major': return this._bumpWithGuard('major');
@@ -613,7 +627,7 @@ class ManagerModuleWorkspaceView extends libPictView
 			case 'ncu':        return this.pict.views['Manager-Modal-Ncu'].open(tmpName);
 			case 'publish':    return this.pict.views['Manager-Modal-Publish'].open(tmpName);
 			case 'ripple':     return this.pict.views['Manager-Modal-RipplePlan'].open(tmpName);
-			case 'prepare-docs':         tmpStartScopedOp('npx quack prepare-docs'); return tmpApi.runModuleOperation(tmpName, 'npx', ['quack', 'prepare-docs'], 'npx quack prepare-docs');
+			case 'prepare-docs': return tmpEnqueue('npx quack prepare-docs', () => tmpApi.runModuleOperation(tmpName, 'npx', ['quack', 'prepare-docs'], 'npx quack prepare-docs'));
 			case 'serve-docs':           return this._startDocserve(tmpName);
 			case 'edit-content':         return this._startContentEditor(tmpName);
 			case 'build-serve-examples': return this._startExamples(tmpName);
@@ -826,6 +840,7 @@ class ManagerModuleWorkspaceView extends libPictView
 		let tmpLocal = this._parseSemver(tmpPkg.Version);
 		let tmpPub   = this._parseSemver(tmpPkg.PublishedVersion);
 
+		let tmpLabel = 'npm version ' + pKind;
 		let tmpProceed = () =>
 		{
 			// Optimistically advance local Version so a rapid second click is
@@ -835,22 +850,30 @@ class ManagerModuleWorkspaceView extends libPictView
 				let tmpNext = this._projectBump(tmpLocal, pKind);
 				tmpPkg.Version = tmpNext.Major + '.' + tmpNext.Minor + '.' + tmpNext.Patch;
 			}
-			this.pict.AppData.Manager.ActiveOperation =
+			// Route through the operation queue so a bump click landing
+			// while another op is running (the common ncu-apply + patch
+			// misclick) parks the bump instead of corrupting state.
+			this.pict.providers.ManagerOperationsWS.enqueueOperation(
+				() =>
 				{
-					OperationId: null,
-					CommandTag:  null,
-					Lines:       [],
-					HeaderState: 'running',
-					HeaderText:  'npm version ' + pKind,
-					Scope:       'module',
-					ModuleName:  tmpName,
-				};
-			let tmpLayout = this.pict.views['Manager-Layout'];
-			if (tmpLayout && typeof tmpLayout.popLogPanel === 'function')
-			{
-				tmpLayout.popLogPanel();
-			}
-			return this.pict.providers.ManagerAPI.bumpVersion(tmpName, pKind);
+					this.pict.AppData.Manager.ActiveOperation =
+						{
+							OperationId: null,
+							CommandTag:  null,
+							Lines:       [],
+							HeaderState: 'running',
+							HeaderText:  tmpLabel,
+							Scope:       'module',
+							ModuleName:  tmpName,
+						};
+					let tmpLayout = this.pict.views['Manager-Layout'];
+					if (tmpLayout && typeof tmpLayout.popLogPanel === 'function')
+					{
+						tmpLayout.popLogPanel();
+					}
+					return this.pict.providers.ManagerAPI.bumpVersion(tmpName, pKind);
+				},
+				{ Label: tmpLabel, ModuleName: tmpName });
 		};
 
 		// No guard possible without a parseable local version, or with
