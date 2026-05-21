@@ -47,6 +47,26 @@ const _ViewConfiguration =
 		.step-output .line.meta    { color: var(--color-muted); }
 		.step-output .line.success { color: var(--color-success); }
 		.step-output .line.error   { color: var(--color-danger); }
+
+		.ripple-step.disabled            { opacity: 0.45; border-left-color: var(--color-muted); }
+		.ripple-step.disabled .step-module { text-decoration: line-through; }
+		.step-include { display: flex; align-items: center; gap: 6px; }
+		.step-include label { display: flex; align-items: center; gap: 4px; cursor: pointer;
+			color: var(--color-muted); font-size: 11px; font-family: var(--font-sans); }
+		.step-include input[type="checkbox"] { width: auto; margin: 0; }
+		.step-include .stop-after { background: none; border: 1px solid var(--color-border);
+			border-radius: 3px; padding: 1px 6px; color: var(--color-muted);
+			font-size: 10px; cursor: pointer; }
+		.step-include .stop-after:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+		.ripple-include-bar { display: flex; align-items: center; gap: 8px;
+			color: var(--color-muted); font-size: 11px; margin: 6px 0; }
+		.ripple-include-bar .count { color: var(--color-accent); font-weight: 600; }
+		.ripple-include-bar .actions { display: flex; gap: 4px; margin-left: auto; }
+		.ripple-include-bar button { font-size: 11px; padding: 2px 8px;
+			background: rgba(47,129,247,0.12); color: var(--color-accent);
+			border: 1px solid rgba(47,129,247,0.3); border-radius: 3px; cursor: pointer; }
+		.ripple-include-bar button:hover { background: rgba(47,129,247,0.22); }
 	`,
 
 	Templates:
@@ -82,9 +102,11 @@ const _ViewConfiguration =
 	</div>
 	<div class="action-row" style="margin-bottom:12px">
 		{~TS:Manager-Ripple-StartBtn-Template:Record.StartBtnSlot~}
+		{~TS:Manager-Ripple-RetryBtn-Template:Record.RetryBtnSlot~}
 		{~TS:Manager-Ripple-CancelBtn-Template:Record.CancelBtnSlot~}
 		<button class="action" onclick="_Pict.views['Manager-Ripple'].handleAction('ripple-exit')">Back to workspace</button>
 	</div>
+	{~TS:Manager-Ripple-IncludeBar-Template:Record.IncludeBarSlot~}
 	<div class="ripple-timeline">
 		{~TS:Manager-Ripple-Step-Template:Record.Steps~}
 	</div>
@@ -107,17 +129,44 @@ const _ViewConfiguration =
 			Hash: 'Manager-Ripple-CancelBtn-Template',
 			Template: /*html*/`<button class="action danger" onclick="_Pict.views['Manager-Ripple'].handleAction('ripple-cancel')">Cancel ripple</button>`
 		},
+		{
+			Hash: 'Manager-Ripple-RetryBtn-Template',
+			Template: /*html*/`<button class="action primary" title="Resume execution at the failed action — earlier completed steps are skipped" onclick="_Pict.views['Manager-Ripple'].handleAction('ripple-retry')">Retry from failed step</button>`
+		},
+		{
+			Hash: 'Manager-Ripple-IncludeBar-Template',
+			Template: /*html*/`
+<div class="ripple-include-bar">
+	<span><span class="count">{~D:Record.IncludedCount~}</span> of {~D:Record.TotalCount~} steps included</span>
+	<span class="actions">
+		<button onclick="_Pict.views['Manager-Ripple'].handleAction('ripple-include-all')">include all</button>
+		<button onclick="_Pict.views['Manager-Ripple'].handleAction('ripple-include-none')">clear all</button>
+	</span>
+</div>`
+		},
+		{
+			Hash: 'Manager-Ripple-Step-IncludeToggle-Template',
+			Template: /*html*/`
+<div class="step-include">
+	<label title="Uncheck to skip this step on Start">
+		<input type="checkbox" {~D:Record.CheckedAttr~} onchange="_Pict.views['Manager-Ripple'].handleAction('ripple-toggle-include', {~D:Record.Order~})">
+		<span>include</span>
+	</label>
+	<button type="button" class="stop-after" title="Include up to this step and exclude everything after" onclick="_Pict.views['Manager-Ripple'].handleAction('ripple-include-through', {~D:Record.Order~})">stop after</button>
+</div>`
+		},
 
 		// ── One step row ──────────────────────────────────────────
 		{
 			Hash: 'Manager-Ripple-Step-Template',
 			Template: /*html*/`
-<div class="ripple-step {~D:Record.Status~}" data-order="{~D:Record.Order~}">
+<div class="ripple-step {~D:Record.Status~} {~D:Record.DisabledClass~}" data-order="{~D:Record.Order~}">
 	<div class="step-row">
 		<span class="step-order">{~D:Record.OrderLabel~}.</span>
 		<span class="step-module">{~D:Record.Module~}</span>
 		<span class="step-kind">{~D:Record.KindLabel~}</span>
 		<span class="step-status">{~D:Record.StatusLabel~}</span>
+		{~TS:Manager-Ripple-Step-IncludeToggle-Template:Record.IncludeToggleSlot~}
 	</div>
 	<div class="step-actions">
 		{~TS:Manager-Ripple-ActionChip-Template:Record.Actions~}
@@ -227,6 +276,12 @@ class ManagerRippleView extends libPictView
 						Order: pS.Order,
 						Module: pS.Module,
 						Status: 'pending',
+						// User can uncheck steps before clicking Start to scope
+						// the ripple — useful when they want to publish up to
+						// a known point, test in place, then re-plan from a
+						// clean state. Defaults to true; toggled in draft state
+						// only and frozen once the run starts.
+						Included: true,
 						CurrentAction: -1,
 						ActionStates: pS.Actions.map(() => 'pending'),
 						ActionResults: [],
@@ -249,11 +304,16 @@ class ManagerRippleView extends libPictView
 	{
 		switch (pAct)
 		{
-			case 'ripple-start':         return this.startRipple();
-			case 'ripple-cancel':        return this.cancelRipple();
-			case 'ripple-exit':          return this.exitRipple();
-			case 'ripple-approve':       return this.approveStep(parseInt(pOrder, 10));
-			case 'ripple-toggle-output': return this.toggleOutput(parseInt(pOrder, 10));
+			case 'ripple-start':            return this.startRipple();
+			case 'ripple-retry':            return this.retryRipple();
+			case 'ripple-cancel':           return this.cancelRipple();
+			case 'ripple-exit':             return this.exitRipple();
+			case 'ripple-approve':          return this.approveStep(parseInt(pOrder, 10));
+			case 'ripple-toggle-output':    return this.toggleOutput(parseInt(pOrder, 10));
+			case 'ripple-toggle-include':   return this.toggleStepInclusion(parseInt(pOrder, 10));
+			case 'ripple-include-all':      return this.setAllStepsIncluded(true);
+			case 'ripple-include-none':     return this.setAllStepsIncluded(false);
+			case 'ripple-include-through':  return this.setIncludedThrough(parseInt(pOrder, 10));
 		}
 	}
 
@@ -306,6 +366,24 @@ class ManagerRippleView extends libPictView
 		{
 			case 'ripple-start':
 				tmpRipple.Status = 'running';
+				this._refresh();
+				break;
+			case 'ripple-resume':
+				// Server is restarting from a failed step/action. Clear the
+				// failure markers on the step being resumed; the upcoming
+				// ripple-step-start and ripple-action-start frames will
+				// repaint authoritative state.
+				tmpRipple.Status = 'running';
+				if (typeof pFrame.StartStep === 'number' && tmpRipple.Steps[pFrame.StartStep])
+				{
+					let tmpStep = tmpRipple.Steps[pFrame.StartStep];
+					if (tmpStep.Status === 'failed') { tmpStep.Status = 'pending'; }
+					let tmpResumeAction = (typeof pFrame.StartAction === 'number') ? pFrame.StartAction : 0;
+					for (let i = tmpResumeAction; i < tmpStep.ActionStates.length; i++)
+					{
+						if (tmpStep.ActionStates[i] === 'failed') { tmpStep.ActionStates[i] = 'pending'; }
+					}
+				}
 				this._refresh();
 				break;
 			case 'ripple-step-start':
@@ -372,10 +450,91 @@ class ManagerRippleView extends libPictView
 	//  Action handlers invoked from inline handlers
 	// ─────────────────────────────────────────────
 
+	// Toggle a single step's Included flag (draft state only — the run is
+	// committed once Start fires).
+	toggleStepInclusion(pOrder)
+	{
+		let tmpRipple = this.pict.AppData.Manager.ActiveRipple;
+		if (!tmpRipple || tmpRipple.Status !== 'draft') { return; }
+		let tmpStep = tmpRipple.Steps[pOrder];
+		if (!tmpStep) { return; }
+		tmpStep.Included = (tmpStep.Included === false);
+		this._refresh();
+	}
+
+	// All / none convenience for the header.
+	setAllStepsIncluded(pIncluded)
+	{
+		let tmpRipple = this.pict.AppData.Manager.ActiveRipple;
+		if (!tmpRipple || tmpRipple.Status !== 'draft') { return; }
+		for (let i = 0; i < tmpRipple.Steps.length; i++)
+		{
+			tmpRipple.Steps[i].Included = !!pIncluded;
+		}
+		this._refresh();
+	}
+
+	// "Stop after this step" — include 0..pOrder, exclude everything after.
+	// The per-step caret-style helper next to each row's checkbox.
+	setIncludedThrough(pOrder)
+	{
+		let tmpRipple = this.pict.AppData.Manager.ActiveRipple;
+		if (!tmpRipple || tmpRipple.Status !== 'draft') { return; }
+		for (let i = 0; i < tmpRipple.Steps.length; i++)
+		{
+			tmpRipple.Steps[i].Included = (i <= pOrder);
+		}
+		this._refresh();
+	}
+
 	startRipple()
 	{
 		let tmpRipple = this.pict.AppData.Manager.ActiveRipple;
 		if (!tmpRipple || tmpRipple.Status !== 'draft') { return; }
+
+		// Drop any unchecked steps before running. Server's step/action
+		// indexing is positional — to keep the executor's loops and the
+		// WS frames (ripple-step-start / ripple-action-* / ripple-failed)
+		// pointing at the right rows, re-index Order to a contiguous
+		// 0..N-1 over the included steps.
+		let tmpIncludedIdx = [];
+		for (let i = 0; i < tmpRipple.Steps.length; i++)
+		{
+			if (tmpRipple.Steps[i].Included !== false) { tmpIncludedIdx.push(i); }
+		}
+		if (tmpIncludedIdx.length === 0)
+		{
+			this.pict.PictApplication.setStatus('No steps included — pick at least one before running.');
+			return;
+		}
+
+		if (tmpIncludedIdx.length < tmpRipple.Plan.Steps.length)
+		{
+			let tmpFilteredSteps = tmpIncludedIdx.map((pIdx, pNewIdx) =>
+				Object.assign({}, tmpRipple.Plan.Steps[pIdx], { Order: pNewIdx }));
+			let tmpFilteredPlan = Object.assign({}, tmpRipple.Plan, { Steps: tmpFilteredSteps });
+
+			// Replace both the AppData copy and the ActiveRipple's reference
+			// so showFromRoute (which compares the two) doesn't decide to
+			// re-enter from the unfiltered plan if the user navigates away
+			// and back during the run.
+			this.pict.AppData.Manager.RipplePlan = tmpFilteredPlan;
+			tmpRipple.Plan = tmpFilteredPlan;
+			tmpRipple.Steps = tmpFilteredSteps.map((pS) =>
+				({
+					Order: pS.Order,
+					Module: pS.Module,
+					Status: 'pending',
+					Included: true,
+					CurrentAction: -1,
+					ActionStates: pS.Actions.map(() => 'pending'),
+					ActionResults: [],
+					PauseReport: null,
+					Output: [],
+					ShowOutput: false,
+				}));
+		}
+
 		tmpRipple.Status = 'starting';
 		this._refresh();
 
@@ -383,7 +542,18 @@ class ManagerRippleView extends libPictView
 			(pBody) =>
 			{
 				tmpRipple.RippleId = pBody.RippleId;
-				tmpRipple.Status   = 'running';
+				// The server kicks off the executor before sending its 202,
+				// so WS frames (ripple-start, ripple-step-start, even
+				// ripple-failed on a fast-failing first action like
+				// preflight-clean-tree) routinely beat this HTTP response
+				// back to the client. Only promote to 'running' if we're
+				// still in the pre-frame 'starting' window; otherwise the
+				// frames have already advanced state and we'd clobber a
+				// terminal status ('failed'/'complete'/'cancelled').
+				if (tmpRipple.Status === 'starting')
+				{
+					tmpRipple.Status = 'running';
+				}
 				this._refresh();
 			},
 			(pError) =>
@@ -400,6 +570,49 @@ class ManagerRippleView extends libPictView
 		let tmpRipple = this.pict.AppData.Manager.ActiveRipple;
 		if (!tmpRipple || !tmpRipple.RippleId) { return; }
 		this.pict.providers.ManagerAPI.cancelRipple(tmpRipple.RippleId).catch(() => {});
+	}
+
+	// Resume a failed ripple. Optimistically clears the failed step/action
+	// state so the UI shows "running" right away; the upcoming
+	// ripple-resume + ripple-step-start frames will paint authoritative
+	// state once they arrive. On API error, revert.
+	retryRipple()
+	{
+		let tmpRipple = this.pict.AppData.Manager.ActiveRipple;
+		if (!tmpRipple || !tmpRipple.RippleId) { return; }
+		if (tmpRipple.Status !== 'failed') { return; }
+
+		let tmpFailedIdx = tmpRipple.Steps.findIndex((pS) => pS.Status === 'failed');
+		let tmpFailedActionStates = null;
+		if (tmpFailedIdx >= 0)
+		{
+			let tmpStep = tmpRipple.Steps[tmpFailedIdx];
+			tmpFailedActionStates = tmpStep.ActionStates.slice();
+			tmpStep.Status = 'pending';
+			for (let i = 0; i < tmpStep.ActionStates.length; i++)
+			{
+				if (tmpStep.ActionStates[i] === 'failed') { tmpStep.ActionStates[i] = 'pending'; }
+			}
+		}
+		tmpRipple.Status = 'running';
+		this._refresh();
+
+		this.pict.providers.ManagerAPI.retryRipple(tmpRipple.RippleId).catch(
+			(pError) =>
+			{
+				// Roll back optimistic state on failure.
+				tmpRipple.Status = 'failed';
+				if (tmpFailedIdx >= 0)
+				{
+					tmpRipple.Steps[tmpFailedIdx].Status = 'failed';
+					if (tmpFailedActionStates)
+					{
+						tmpRipple.Steps[tmpFailedIdx].ActionStates = tmpFailedActionStates;
+					}
+				}
+				this._refresh();
+				this.pict.PictApplication.setStatus('Retry failed: ' + pError.message);
+			});
 	}
 
 	exitRipple()
@@ -487,13 +700,28 @@ class ManagerRippleView extends libPictView
 			});
 		}
 
-		let tmpStartBtnSlot  = (pRipple.Status === 'draft') ? [{}] : [];
+		let tmpIsDraft       = (pRipple.Status === 'draft');
+		let tmpStartBtnSlot  = tmpIsDraft ? [{}] : [];
+		let tmpIncludedCount = 0;
+		for (let i = 0; i < tmpSteps.length; i++)
+		{
+			if (tmpSteps[i].Included !== false) { tmpIncludedCount++; }
+		}
+		let tmpIncludeBarSlot = tmpIsDraft
+			? [{ IncludedCount: tmpIncludedCount, TotalCount: tmpSteps.length }]
+			: [];
 		let tmpCancelBtnSlot = (pRipple.Status === 'running' || pRipple.Status === 'paused' || pRipple.Status === 'starting') ? [{}] : [];
+		// Retry surfaces only when the ripple actually started on the
+		// server (RippleId is assigned) and then halted. A start-error
+		// before the server accepted the run leaves RippleId null — there's
+		// no server-side ripple to resume, so re-clicking "Start" is the
+		// right affordance there.
+		let tmpRetryBtnSlot  = (pRipple.Status === 'failed' && pRipple.RippleId) ? [{}] : [];
 
 		let tmpStepRecords = [];
 		for (let i = 0; i < tmpSteps.length; i++)
 		{
-			tmpStepRecords.push(this._buildStepRecord(tmpSteps[i], tmpPlan.Steps[i]));
+			tmpStepRecords.push(this._buildStepRecord(tmpSteps[i], tmpPlan.Steps[i], tmpIsDraft));
 		}
 
 		return {
@@ -508,16 +736,26 @@ class ManagerRippleView extends libPictView
 				RootMultiSlot:    tmpRootMultiSlot,
 
 				StartBtnSlot:     tmpStartBtnSlot,
+				RetryBtnSlot:     tmpRetryBtnSlot,
 				CancelBtnSlot:    tmpCancelBtnSlot,
+				IncludeBarSlot:   tmpIncludeBarSlot,
 
 				Steps:            tmpStepRecords,
 			}],
 		};
 	}
 
-	_buildStepRecord(pState, pPlanStep)
+	_buildStepRecord(pState, pPlanStep, pIsDraft)
 	{
 		let tmpStatusText = STATUS_LABEL[pState.Status] || pState.Status;
+		let tmpIsIncluded = (pState.Included !== false);
+		let tmpIncludeToggleSlot = pIsDraft
+			? [{
+					Order:       pState.Order,
+					CheckedAttr: tmpIsIncluded ? 'checked' : '',
+				}]
+			: [];
+		let tmpDisabledClass = (pIsDraft && !tmpIsIncluded) ? 'disabled' : '';
 
 		// Action chips inside this step.
 		let tmpActionRecords = [];
@@ -573,15 +811,17 @@ class ManagerRippleView extends libPictView
 		}
 
 		return {
-			Order:        pState.Order,
-			OrderLabel:   pState.Order + 1,
-			Module:       pState.Module,
-			KindLabel:    pPlanStep.Kind + ' · ' + pPlanStep.Group,
-			Status:       pState.Status,
-			StatusLabel:  tmpStatusText,
-			Actions:      tmpActionRecords,
-			ApproveSlot:  tmpApproveSlot,
-			OutputSlot:   tmpOutputSlot,
+			Order:              pState.Order,
+			OrderLabel:         pState.Order + 1,
+			Module:             pState.Module,
+			KindLabel:          pPlanStep.Kind + ' · ' + pPlanStep.Group,
+			Status:             pState.Status,
+			StatusLabel:        tmpStatusText,
+			DisabledClass:      tmpDisabledClass,
+			IncludeToggleSlot:  tmpIncludeToggleSlot,
+			Actions:            tmpActionRecords,
+			ApproveSlot:        tmpApproveSlot,
+			OutputSlot:         tmpOutputSlot,
 		};
 	}
 

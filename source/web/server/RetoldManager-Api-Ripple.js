@@ -187,8 +187,16 @@ function rippleSummary(pContext)
 //  Execution loop
 // ─────────────────────────────────────────────
 
-async function executeRipple(pCore, pContext)
+// pStartStep / pStartAction are used by /retry to resume from where a
+// failed run left off — earlier completed steps stay complete, the failed
+// step re-enters the loop at the failed action (anything already done in
+// that step is skipped). Both default to 0 for a fresh run.
+async function executeRipple(pCore, pContext, pStartStep, pStartAction)
 {
+	let tmpStartStep   = (typeof pStartStep   === 'number' && pStartStep   >= 0) ? pStartStep   : 0;
+	let tmpStartAction = (typeof pStartAction === 'number' && pStartAction >= 0) ? pStartAction : 0;
+	let tmpIsResume    = (tmpStartStep > 0) || (tmpStartAction > 0);
+
 	let tmpBroadcaster = pCore.Broadcaster;
 	let tmpRunner = pCore.ProcessRunner;
 	let tmpCatalog = pCore.ModuleCatalog;
@@ -197,16 +205,29 @@ async function executeRipple(pCore, pContext)
 
 	tmpBroadcaster._broadcast(
 		{
-			Type: 'ripple-start',
+			Type: tmpIsResume ? 'ripple-resume' : 'ripple-start',
 			RippleId: pContext.RippleId,
 			Plan: pContext.Plan,
+			StartStep:   tmpStartStep,
+			StartAction: tmpStartAction,
 		});
-	if (tmpLogger) { tmpLogger.rippleStart(pContext.RippleId, pContext.Plan); }
+	if (tmpLogger)
+	{
+		if (tmpIsResume)
+		{
+			tmpLogger.ripple('RESUME ' + pContext.RippleId
+				+ '  step=' + tmpStartStep + '  action=' + tmpStartAction);
+		}
+		else
+		{
+			tmpLogger.rippleStart(pContext.RippleId, pContext.Plan);
+		}
+	}
 
 	pContext.State.Status = 'running';
-	pContext.State.CurrentStep = 0;
+	pContext.State.CurrentStep = tmpStartStep;
 
-	for (let tmpStepIdx = 0; tmpStepIdx < pContext.Plan.Steps.length; tmpStepIdx++)
+	for (let tmpStepIdx = tmpStartStep; tmpStepIdx < pContext.Plan.Steps.length; tmpStepIdx++)
 	{
 		if (pContext.Cancel) { return finalizeRipple(pCore, pContext, 'cancelled'); }
 
@@ -229,7 +250,10 @@ async function executeRipple(pCore, pContext)
 			});
 		if (tmpLogger) { tmpLogger.rippleStep(pContext.RippleId, tmpStep); }
 
-		for (let tmpActionIdx = 0; tmpActionIdx < tmpStep.Actions.length; tmpActionIdx++)
+		// First step of a resume starts at the failed action; everything
+		// else (subsequent steps, fresh starts) walks from 0.
+		let tmpActionStart = (tmpStepIdx === tmpStartStep) ? tmpStartAction : 0;
+		for (let tmpActionIdx = tmpActionStart; tmpActionIdx < tmpStep.Actions.length; tmpActionIdx++)
 		{
 			if (pContext.Cancel) { return finalizeRipple(pCore, pContext, 'cancelled'); }
 
@@ -1066,6 +1090,63 @@ module.exports = function registerRippleRoutes(pCore)
 			// Also kill any in-flight child process associated with this ripple.
 			pCore.ProcessRunner.kill();
 			pRes.send({ RippleId: tmpId, Cancelled: true });
+			return pNext();
+		});
+
+	// ── POST /api/manager/ripple/:id/retry ──
+	// Resumes a failed ripple from the failed step + action. Earlier
+	// completed steps stay complete; the failed action is re-attempted
+	// from scratch and everything after it runs as normal.
+	tmpOrator.serviceServer.doPost('/api/manager/ripple/:id/retry',
+		function (pReq, pRes, pNext)
+		{
+			let tmpId = pReq.params.id;
+			let tmpContext = _ripples.get(tmpId);
+			if (!tmpContext)
+			{
+				respondError(pRes, 404, 'UnknownRipple', 'No ripple "' + tmpId + '".');
+				return pNext();
+			}
+			if (tmpContext.State.Status !== 'failed')
+			{
+				respondError(pRes, 409, 'NotFailed',
+					'Ripple is not in a failed state (currently ' + tmpContext.State.Status + ').');
+				return pNext();
+			}
+			if (pCore.ProcessRunner.isRunning())
+			{
+				respondError(pRes, 409, 'RunnerBusy', 'Another operation is still running.');
+				return pNext();
+			}
+
+			let tmpStartStep   = (typeof tmpContext.State.FailedStep   === 'number' && tmpContext.State.FailedStep   >= 0)
+				? tmpContext.State.FailedStep : 0;
+			let tmpStartAction = (typeof tmpContext.State.FailedAction === 'number' && tmpContext.State.FailedAction >= 0)
+				? tmpContext.State.FailedAction : 0;
+
+			// Reset the failure metadata so executor bookkeeping starts
+			// fresh. The failed step's Status will be flipped back to
+			// 'running' inside the loop; the failed action's chip is
+			// repainted by the upcoming ripple-action-start frame.
+			tmpContext.Cancel = false;
+			tmpContext.EndedAt = null;
+			tmpContext.State.Status = 'starting';
+			tmpContext.State.Error = null;
+			tmpContext.State.FailedStep = null;
+			tmpContext.State.FailedAction = null;
+
+			executeRipple(pCore, tmpContext, tmpStartStep, tmpStartAction).catch(function (pError)
+				{
+					pCore.Fable.log.error('Ripple retry executor surfaced error: ' + pError.message);
+				});
+
+			pRes.statusCode = 202;
+			pRes.send(
+				{
+					RippleId: tmpId,
+					ResumedFromStep: tmpStartStep,
+					ResumedFromAction: tmpStartAction,
+				});
 			return pNext();
 		});
 

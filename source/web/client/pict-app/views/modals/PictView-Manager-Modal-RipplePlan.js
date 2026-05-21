@@ -650,12 +650,27 @@ class ManagerModalRipplePlanView extends libPictView
 					? ' … (+' + (this._flatModules.length - tmpSample.length) + ' more)' : '');
 		}
 
+		// GraphModeSlot is a one-element-array conditional (rendered via {~TS:~}),
+		// so anything the GraphMode template addresses as Record.X must live
+		// INSIDE the slot entry — the inner template's record is the slot
+		// element, not the outer view record. Producer-list data (Groups,
+		// SiblingsBtnSlot, EmptySlot) goes here; the outer-scoped slots
+		// (ResultComputingSlot, ResultErrorSlot) stay at the top level
+		// because they're referenced by the outer template directly.
+		let tmpGraphModeSlot = tmpIsFlat
+			? []
+			: [{
+					SiblingsBtnSlot: this._siblingPrefix ? [{ Prefix: this._siblingPrefix }] : [],
+					EmptySlot:       tmpEmptySlot,
+					Groups:          tmpGroups,
+				}];
+
 		return {
 			Title:               tmpIsFlat
 				? ('Ripple ' + this._flatModules.length + ' selected module' + (this._flatModules.length === 1 ? '' : 's'))
 				: 'Plan ripple',
 			Origin:              this._origin,
-			GraphModeSlot:       tmpIsFlat ? [] : [{}],
+			GraphModeSlot:       tmpGraphModeSlot,
 			FlatModeSlot:        tmpIsFlat
 				? [{
 						ModuleCount:          this._flatModules.length,
@@ -663,9 +678,6 @@ class ManagerModalRipplePlanView extends libPictView
 						DefaultCommitMessage: ''
 					}]
 				: [],
-			SiblingsBtnSlot:     this._siblingPrefix ? [{ Prefix: this._siblingPrefix }] : [],
-			EmptySlot:           tmpEmptySlot,
-			Groups:              tmpGroups,
 			ResultComputingSlot: tmpResultComputingSlot,
 			ResultErrorSlot:     tmpResultErrorSlot,
 		};

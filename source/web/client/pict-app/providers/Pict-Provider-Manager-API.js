@@ -286,6 +286,7 @@ class ManagerAPIProvider extends libPictProvider
 	planRipple(pOptions)                { return this.post('/ripple/plan', pOptions); }
 	runRipple(pPlan)                    { return this.post('/ripple/run', { Plan: pPlan }); }
 	cancelRipple(pRippleId)             { return this.post('/ripple/' + encodeURIComponent(pRippleId) + '/cancel'); }
+	retryRipple(pRippleId)              { return this.post('/ripple/' + encodeURIComponent(pRippleId) + '/retry'); }
 	confirmRippleStep(pRippleId, pStepOrder, pPreviewHash)
 	{
 		return this.post('/ripple/' + encodeURIComponent(pRippleId) + '/confirm',
