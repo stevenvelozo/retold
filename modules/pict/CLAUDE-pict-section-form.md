@@ -176,6 +176,24 @@ Same caveat: verify the helper exists before relying on it.
 
 Tabs are first-class: `InputType: "TabSectionSelector"` with `TabSectionSet` / `TabSectionNames` produces clickable tabs that swap which sections are visible. `complex_table` uses both `TabGroupSelector` and `TabSectionSelector`.
 
+## Tabular recordsets — advanced features
+
+A `Layout: "Tabular"` group renders a `RecordSetAddress` array as a table whose columns come from a `RecordManifest`. Beyond the basics, these **group-level** properties are available. The reference example is `example_applications/gradebook/Gradebook-Application.js`; full docs in `pict-section-form/docs/Layouts.md`.
+
+| Group property | Shape | What it does |
+|---|---|---|
+| `Headers` | `[ [ {Label, ColumnSpan, CSSClass}, … ], … ]` | Extra header rows stacked **above** the prime column-name row. `ColumnSpan` clusters cells; per-row span totals must equal the data-column count. |
+| `RowLabels` | `[ {Name, Template?/RowNumber?/SourceAddress?, Cluster?, CSSClass?}, … ]` | Left-side label columns. `Template` resolves per row with the row record at `Record.Value`, index at `Record.Key`. `Cluster: true` collapses equal consecutive values into one `rowspan` cell. |
+| `DynamicColumns` | `[ {SourceAddress, HashTemplate, NameTemplate, InformaryDataAddressTemplate, HeaderGroupTemplate?, DataType, PictForm, InsertAt?}, … ]` | Generates one column per row of `SourceAddress`. Templates resolve against the **source row**. `HeaderGroupTemplate` auto-adds a clustered super-header row. |
+| `EditingControlsPosition` | `"right"` (default) / `"left"` / `"hidden"` | Where the del/up/down controls go. |
+| `SuppressDefaultColumnHeaderRow` | boolean | Omit the prime column-name row (pair with custom `Headers`). |
+| `RowSelection` / `ColumnSelection` | `true` or `{Enabled, DataAddress, HighlightClass, HeaderLabel}` | Checkbox row/column selection. State is a boolean array stored **in the form data** at `DataAddress` (default `<GroupHash>_RowSelection` / `_ColumnSelection`), so it round-trips with save/load. |
+| `ColumnSorting` | boolean (default off) | Injects a clickable sort-glyph `<span>` (Pict icon registry) into every prime header. Click → asc, click again → desc. Works for static and dynamic columns. |
+
+**`DynamicColumns` is non-destructive** — removing a source row removes the column but leaves the row data at its `InformaryDataAddress` untouched; re-adding restores the column with data intact. This is the key invariant: don't write a "dynamic columns" mechanism that deletes data when a column hides.
+
+**Tabular styling solvers** (see `Solvers.md`): `HighlightTabularRow` / `HighlightTabularColumn` (toggle a CSS class on a `1`/`0` flag) and `ColorTabularRow` / `ColorTabularColumn` (set/clear an inline background). Signature: `(sectionHash, groupHash, rowOrColumnIndex, [color,] flag)`. They are presentational only — re-applied each solve, never touch form data. Selection state + these solvers compose: a solver reads the selection array and drives the highlight.
+
 ## When you're stuck
 
 1. `complex_table/Complex-Tabular-Application.js` — descriptors for charts, lookups, autofills, multi-select, computed values. **First place to look.**
