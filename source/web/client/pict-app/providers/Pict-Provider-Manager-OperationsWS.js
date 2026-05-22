@@ -100,6 +100,15 @@ class ManagerOperationsWSProvider extends libPictProvider
 		// the user can see install/test/publish output inline with the timeline.
 		if (pFrame.Type && pFrame.Type.indexOf('ripple-') === 0)
 		{
+			// Stamp / update a single ActionHistory entry for the whole
+			// ripple so the Actions summary records that the user ran one.
+			// We deliberately don't push per-action entries (would flood
+			// the 10-entry cap and be redundant with the Ripple view's
+			// own per-step drill-down). The synthetic OperationId 'ripple_*'
+			// can't collide with a real op id ('op_*' / 'rex_*') so the
+			// existing _updateHistoryEntry can patch terminal state by id.
+			this._stampRippleHistory(pFrame);
+
 			let tmpRippleView = this.pict.views['Manager-Ripple'];
 			if (tmpRippleView && typeof tmpRippleView.handleFrame === 'function')
 			{
@@ -111,12 +120,23 @@ class ManagerOperationsWSProvider extends libPictProvider
 		let tmpRipple = this.pict.AppData.Manager.ActiveRipple;
 		if (tmpRipple && tmpRipple.Status === 'running')
 		{
+			// All non-ripple-* frames during a running ripple come from
+			// the ripple's INTERNAL action executor (OperationIds prefixed
+			// 'rex_'). The Ripple view is the place those render — per-
+			// step drill-down with per-action output. Mirror them there
+			// and RETURN, so they don't pollute the user-initiated action
+			// history (which would otherwise flood the 10-entry cap with
+			// 'npm install' / 'npm test' / 'git push' rows over and over,
+			// pushing the single ripple summary entry out of view) and
+			// don't get appended to the user's stale ActiveOperation
+			// (which would cross-write the previous op's lines and
+			// terminal state).
 			let tmpRippleView = this.pict.views['Manager-Ripple'];
 			if (tmpRippleView && typeof tmpRippleView.handleFrame === 'function')
 			{
 				tmpRippleView.handleFrame(pFrame);
 			}
-			// Still fall through so the output panel mirrors the frames too.
+			return;
 		}
 
 		let tmpOp = this.pict.AppData.Manager.ActiveOperation;
@@ -331,6 +351,102 @@ class ManagerOperationsWSProvider extends libPictProvider
 				return;
 			}
 		}
+	}
+
+	/**
+	 * Stamp / update a single ActionHistory entry that represents the
+	 * entire ripple run. Called from the ripple-* short-circuit in
+	 * _handleFrame so the Actions summary shows ripples as one entry
+	 * each — not the dozens of internal action frames a ripple emits.
+	 * Synthetic OperationId 'ripple_<id>' keeps it from colliding with
+	 * any real op id, so _updateHistoryEntry can patch terminal state.
+	 */
+	_stampRippleHistory(pFrame)
+	{
+		if (!pFrame || !pFrame.RippleId) { return; }
+		let tmpSyntheticId = 'ripple_' + pFrame.RippleId;
+
+		// 'ripple-start' is the only frame we treat as a fresh entry.
+		// 'ripple-resume' updates the existing entry's state back to
+		// 'running' but doesn't reset its StartedAt.
+		if (pFrame.Type === 'ripple-start')
+		{
+			let tmpRoots = (pFrame.Plan && Array.isArray(pFrame.Plan.Roots)) ? pFrame.Plan.Roots : [];
+			let tmpStepCount = (pFrame.Plan && Array.isArray(pFrame.Plan.Steps)) ? pFrame.Plan.Steps.length : 0;
+			let tmpRootLabel = tmpRoots.length > 3
+				? (tmpRoots.slice(0, 3).join(', ') + ' +' + (tmpRoots.length - 3) + ' more')
+				: tmpRoots.join(', ');
+			let tmpLabel = 'Ripple — ' + (tmpRootLabel || '(empty roots)')
+				+ (tmpStepCount ? ' (' + tmpStepCount + ' steps)' : '');
+
+			let tmpManager = this.pict.AppData.Manager;
+			if (!tmpManager.ActionHistory) { tmpManager.ActionHistory = []; }
+			let tmpHistory = tmpManager.ActionHistory;
+			// If a resumed ripple lands as ripple-start (older server),
+			// reuse the existing entry rather than pushing a duplicate.
+			for (let i = 0; i < tmpHistory.length; i++)
+			{
+				if (tmpHistory[i].OperationId === tmpSyntheticId)
+				{
+					tmpHistory[i].Label   = tmpLabel;
+					tmpHistory[i].State   = 'running';
+					tmpHistory[i].EndedAt = null;
+					return;
+				}
+			}
+			tmpHistory.unshift(
+				{
+					OperationId: tmpSyntheticId,
+					Label:       tmpLabel,
+					ModuleName:  null,
+					Scope:       'ripple',
+					StartedAt:   new Date().toISOString(),
+					EndedAt:     null,
+					State:       'running',
+					Lines:       []
+				});
+			if (tmpHistory.length > ACTION_HISTORY_CAP)
+			{
+				tmpHistory.length = ACTION_HISTORY_CAP;
+			}
+			let tmpLogBar = this.pict.views['Manager-LogBar'];
+			if (tmpLogBar && typeof tmpLogBar.scheduleAppend === 'function') { tmpLogBar.scheduleAppend(); }
+			return;
+		}
+
+		if (pFrame.Type === 'ripple-resume')
+		{
+			this._updateHistoryEntry(tmpSyntheticId, { State: 'running', EndedAt: null });
+			return;
+		}
+
+		// Terminal frames.
+		let tmpTerminal = false;
+		if (pFrame.Type === 'ripple-complete')
+		{
+			this._updateHistoryEntry(tmpSyntheticId, { State: 'success',   EndedAt: new Date().toISOString() });
+			tmpTerminal = true;
+		}
+		else if (pFrame.Type === 'ripple-failed')
+		{
+			this._updateHistoryEntry(tmpSyntheticId, { State: 'error',     EndedAt: new Date().toISOString() });
+			tmpTerminal = true;
+		}
+		else if (pFrame.Type === 'ripple-cancelled')
+		{
+			this._updateHistoryEntry(tmpSyntheticId, { State: 'cancelled', EndedAt: new Date().toISOString() });
+			tmpTerminal = true;
+		}
+
+		let tmpLogBar = this.pict.views['Manager-LogBar'];
+		if (tmpLogBar && typeof tmpLogBar.scheduleAppend === 'function') { tmpLogBar.scheduleAppend(); }
+
+		// Ripple just reached a terminal state — pump the operation queue
+		// so any user click that landed during the ripple now fires. The
+		// 'normal' fall-through path used to do this but ripple frames
+		// now short-circuit at the top of _handleFrame, so we handle the
+		// pump explicitly here.
+		if (tmpTerminal) { this._pumpQueue(); }
 	}
 
 	// ─────────────────────────────────────────────

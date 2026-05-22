@@ -312,7 +312,22 @@ class ManagerModuleWorkspaceView extends libPictView
 			{
 				if (this._boundName !== tmpName) { return; }
 				this.pict.AppData.Manager.SelectedModuleDetail = pDetail;
-				this._renderFromDetail();
+				// Only paint the workspace template when the user is
+				// actually looking at this module. Manager-Ripple
+				// renders into the same `#RM-Workspace-Content` slot
+				// as this view, so re-rendering here while the user is
+				// on /Ripple (or /Home / /Manifest / etc.) clobbers
+				// whatever view owns the slot right now — during a
+				// ripple, that produces a back-and-forth flicker as
+				// the ripple's own re-renders fight ours for the
+				// slot. AppData was already updated above, so the
+				// next time the user navigates back to this module
+				// it'll pick up the fresh detail.
+				let tmpRoute = (this.pict.AppData.Manager && this.pict.AppData.Manager.CurrentRoute) || '';
+				if (tmpRoute === 'Module:' + tmpName)
+				{
+					this._renderFromDetail();
+				}
 			},
 			() => { /* swallow — not fatal */ });
 	}
