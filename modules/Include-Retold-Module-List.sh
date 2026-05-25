@@ -5,16 +5,31 @@
 
 echo "### Building list of modules..."
 
+# Canonical GitHub org for forkable modules. Non-forkable modules use their per-module Owner.
+canonicalOrg="fable-retold"
+
 repositoriesFable=("fable" "fable-log" "fable-log-logger-bunyan" "fable-serviceproviderbase" "fable-settings" "fable-ultravisor-client" "fable-uuid" "ultravisor-beacon" "ultravisor-beacon-capability")
+ownersFable=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "stevenvelozo" "stevenvelozo")
+forkableFable=("1" "1" "1" "1" "1" "1" "1" "0" "0")
 
 repositoriesMeadow=("bibliograph" "bibliograph-storage-meadow" "foxhound" "meadow" "meadow-connection-dgraph" "meadow-connection-manager" "meadow-connection-meadow-endpoints" "meadow-connection-mongodb" "meadow-connection-mssql" "meadow-connection-mysql" "meadow-connection-postgresql" "meadow-connection-rocksdb" "meadow-connection-retold-databeacon" "meadow-connection-solr" "meadow-connection-sqlite" "meadow-connection-sqlite-browser" "meadow-endpoints" "meadow-graph-client" "meadow-integration" "meadow-migrationmanager" "meadow-provider-offline" "parime" "retold-data-service" "retold-harness" "retold-harness-consistency-proxy" "stricture")
+ownersMeadow=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold")
+forkableMeadow=("1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1")
 
 repositoriesOrator=("orator" "orator-authentication" "orator-conversion" "orator-endpoint" "orator-http-proxy" "orator-serviceserver-base" "orator-serviceserver-restify" "orator-ssl-proxy" "orator-static-server" "tidings")
+ownersOrator=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold")
+forkableOrator=("1" "1" "1" "1" "1" "1" "1" "1" "1" "1")
 
-repositoriesPict=("cryptbrau" "informary" "pict" "pict-application" "pict-docuserve" "pict-editor-timeline" "pict-meadow-connection-manager" "pict-nonlinearconfig" "pict-panel" "pict-provider" "pict-provider-theme" "pict-provider-vocabulary" "pict-renderer-graph" "pict-router" "pict-section-code" "pict-section-connection-form" "pict-section-content" "pict-section-entitymanagement" "pict-section-equation" "pict-section-excalidraw" "pict-section-filebrowser" "pict-section-flow" "pict-section-form" "pict-section-formeditor" "pict-section-histogram" "pict-section-inlinedocumentation" "pict-section-login" "pict-section-markdowneditor" "pict-section-modal" "pict-section-objecteditor" "pict-section-openseadragon" "pict-section-recordset" "pict-section-theme" "pict-section-tuigrid" "pict-section-usermanagement" "pict-service-commandlineutility" "pict-serviceproviderbase" "pict-sessionmanager" "pict-template" "pict-template-preprocessor" "pict-terminalui" "pict-view")
+repositoriesPict=("cryptbrau" "informary" "pict" "pict-application" "pict-docuserve" "pict-editor-timeline" "pict-meadow-connection-manager" "pict-nonlinearconfig" "pict-panel" "pict-provider" "pict-provider-theme" "pict-provider-vocabulary" "pict-router" "pict-section-code" "pict-section-connection-form" "pict-section-content" "pict-section-entitymanagement" "pict-section-equation" "pict-section-excalidraw" "pict-section-filebrowser" "pict-section-flow" "pict-section-form" "pict-section-formeditor" "pict-section-histogram" "pict-section-inlinedocumentation" "pict-section-login" "pict-section-markdowneditor" "pict-section-modal" "pict-section-objecteditor" "pict-section-openseadragon" "pict-renderer-graph" "pict-section-recordset" "pict-section-theme" "pict-section-tuigrid" "pict-section-usermanagement" "pict-service-commandlineutility" "pict-serviceproviderbase" "pict-sessionmanager" "pict-template" "pict-template-preprocessor" "pict-terminalui" "pict-view")
+ownersPict=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold")
+forkablePict=("1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1")
 
-repositoriesUtility=("cachetrax" "choreographic" "cumulation" "elucidator" "indoctrinate" "manyfest" "manyfest-conversion" "merquerial" "pict-cruisecontrol" "precedent" "quackage" "retold-sample-data" "retold-sharp")
+repositoriesUtility=("cachetrax" "cumulation" "elucidator" "indoctrinate" "manyfest" "manyfest-conversion" "merquerial" "pict-cruisecontrol" "precedent" "quackage" "retold-sample-data" "retold-sharp")
+ownersUtility=("fable-retold" "fable-retold" "stevenvelozo" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold")
+forkableUtility=("1" "1" "0" "1" "1" "1" "1" "1" "1" "1" "1" "1")
 
 repositoriesApps=("retold-beacon-host" "retold-content-system" "retold-databeacon" "retold-data-mapper" "retold-facto" "retold-remote" "retold-remote-desktop" "retold-remote-ios" "ultravisor" "ultravisor-auth-beacon" "ultravisor-file-stream" "ultravisor-lab" "ultravisor-suite-harness")
+ownersApps=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo")
+forkableApps=("1" "1" "1" "1" "0" "0" "0" "0" "0" "0" "0" "0" "0")
 
 echo "### ... Module lists built!"

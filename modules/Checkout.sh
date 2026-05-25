@@ -4,40 +4,83 @@ echo "### Checking out Retold modules into: [$(pwd)/..."
 . ${BASH_SOURCE%/*}/Include-Retold-Module-List.sh
 
 #
-# This function attempts to checkout a repository from github relative to the current script folder
+# Identify the current GitHub user. Forkable modules will clone from $ME/<repo>;
+# read-only modules clone from their per-module Owner.
+#
+ME=$(gh api user --jq '.login' 2>/dev/null)
+if [ -z "$ME" ]
+then
+	echo "ERROR: cannot determine your GitHub user. Run 'gh auth login' first."
+	exit 1
+fi
+echo "### Cloning as: $ME (canonical org: $canonicalOrg)"
+
+#
+# Clone one repository if not already on disk.
+#   $1 group path (e.g., "fable")
+#   $2 module name
+#   $3 canonical owner (org or personal)
+#   $4 forkable flag ("1" = clone $ME's fork, "0" = clone owner directly)
+#
 check_out_repository()
 {
-#	echo "###--> attempting to check out the repository for $2 in $1"
 	CWD=$(pwd)
-	if [ -d "$CWD/$1/$2" ] 
+	if [ -d "$CWD/$1/$2" ]
 	then
 		echo "     > A $2 source directory already exists in $1.... skipping checkout."
-	elif [ -f "$CWD/$1/$2" ]; then
+		return
+	elif [ -f "$CWD/$1/$2" ]
+	then
 		echo "     > A $2 file already exists in $1... skipping checkout."
+		return
+	fi
+
+	local cloneOwner
+	if [ "$4" = "1" ]
+	then
+		cloneOwner="$ME"
 	else
-		git clone https://github.com/stevenvelozo/$2 ./$1/$2
+		cloneOwner="$3"
+	fi
+
+	if ! git clone https://github.com/${cloneOwner}/${2}.git ./$1/$2
+	then
+		echo "     ! Failed to clone ${cloneOwner}/${2}.  (If forkable, run ./Fork.sh first.)"
+		return
+	fi
+
+	# For forkable modules, point upstream at the canonical owner for PR sync.
+	if [ "$4" = "1" ]
+	then
+		(cd "./$1/$2" && git remote add upstream https://github.com/${3}/${2}.git)
+		echo "     + added upstream remote: ${3}/${2}"
 	fi
 }
 
+#
+# Iterate one group's parallel arrays (names, owners, forkable) and check each out.
+#   $1 group path on disk (e.g., "fable")
+#   $2 shell variable suffix (e.g., "Fable" for repositoriesFable/ownersFable/forkableFable)
+#
 process_repository_set()
 {
-	# Save first argument in a variable
-	local repositorySetName="$1"
-	# Shift all arguments to the left (original $1 gets lost)
-	shift
-	# Collapse all remaining arguments into an array
-	local repositorySetRepositories=("$@") # Rebuild the array with rest of arguments
-	# Enumerate all repository addresses and check them out
-	for repositoryAddress in ${repositorySetRepositories[@]}; do
+	local groupPath="$1"
+	local groupSuffix="$2"
+	eval "local names=(\"\${repositories${groupSuffix}[@]}\")"
+	eval "local owners=(\"\${owners${groupSuffix}[@]}\")"
+	eval "local forkable=(\"\${forkable${groupSuffix}[@]}\")"
+
+	for i in "${!names[@]}"
+	do
 		echo ""
-		echo "#####[ $repositorySetName -> $repositoryAddress ]#####"
-		check_out_repository $repositorySetName $repositoryAddress
+		echo "#####[ $groupPath -> ${names[$i]} ]#####"
+		check_out_repository "$groupPath" "${names[$i]}" "${owners[$i]}" "${forkable[$i]}"
 	done
 }
 
-process_repository_set "fable" "${repositoriesFable[@]}"
-process_repository_set "meadow" "${repositoriesMeadow[@]}"
-process_repository_set "orator" "${repositoriesOrator[@]}"
-process_repository_set "pict" "${repositoriesPict[@]}"
-process_repository_set "utility" "${repositoriesUtility[@]}"
-process_repository_set "apps" "${repositoriesApps[@]}"
+process_repository_set "fable" "Fable"
+process_repository_set "meadow" "Meadow"
+process_repository_set "orator" "Orator"
+process_repository_set "pict" "Pict"
+process_repository_set "utility" "Utility"
+process_repository_set "apps" "Apps"

@@ -44,16 +44,25 @@ function loadManifest()
 {
 	let tmpRaw = libFs.readFileSync(MANIFEST_PATH, 'utf8');
 	let tmpManifest = JSON.parse(tmpRaw);
+	let tmpDefaultOwner = tmpManifest.GitHubOrg || 'fable-retold';
 	let tmpByGroup = {};
 	for (let i = 0; i < tmpManifest.Groups.length; i++)
 	{
 		let tmpGroup = tmpManifest.Groups[i];
-		tmpByGroup[tmpGroup.Name] = tmpGroup.Modules.map(function (pModule) { return pModule.Name; });
+		tmpByGroup[tmpGroup.Name] = tmpGroup.Modules.map(function (pModule)
+		{
+			return {
+				Name: pModule.Name,
+				Owner: pModule.Owner || tmpDefaultOwner,
+				// Modules default to Forkable: true; explicit `false` keeps a module pinned to its owner.
+				Forkable: pModule.Forkable !== false
+			};
+		});
 	}
-	return tmpByGroup;
+	return { CanonicalOrg: tmpDefaultOwner, ByGroup: tmpByGroup };
 }
 
-function renderShell(pByGroup)
+function renderShell(pLoaded)
 {
 	let tmpParts = [];
 	tmpParts.push('#!/bin/bash');
@@ -62,14 +71,21 @@ function renderShell(pByGroup)
 	tmpParts.push('# Source of truth: Retold-Modules-Manifest.json at the repo root.');
 	tmpParts.push('');
 	tmpParts.push('echo "### Building list of modules..."');
+	tmpParts.push('');
+	tmpParts.push('# Canonical GitHub org for forkable modules. Non-forkable modules use their per-module Owner.');
+	tmpParts.push('canonicalOrg="' + pLoaded.CanonicalOrg + '"');
 
 	for (let i = 0; i < GROUPS.length; i++)
 	{
 		let tmpGroup = GROUPS[i];
-		let tmpNames = pByGroup[tmpGroup.ManifestName] || [];
-		let tmpQuoted = tmpNames.map(function (pN) { return '"' + pN + '"'; }).join(' ');
+		let tmpModules = pLoaded.ByGroup[tmpGroup.ManifestName] || [];
+		let tmpNames = tmpModules.map(function (pM) { return '"' + pM.Name + '"'; }).join(' ');
+		let tmpOwners = tmpModules.map(function (pM) { return '"' + pM.Owner + '"'; }).join(' ');
+		let tmpForkable = tmpModules.map(function (pM) { return pM.Forkable ? '"1"' : '"0"'; }).join(' ');
 		tmpParts.push('');
-		tmpParts.push(tmpGroup.ShellVar + '=(' + tmpQuoted + ')');
+		tmpParts.push(tmpGroup.ShellVar + '=(' + tmpNames + ')');
+		tmpParts.push(tmpGroup.ShellVar.replace('repositories', 'owners') + '=(' + tmpOwners + ')');
+		tmpParts.push(tmpGroup.ShellVar.replace('repositories', 'forkable') + '=(' + tmpForkable + ')');
 	}
 
 	tmpParts.push('');
@@ -155,8 +171,8 @@ function main()
 	let tmpCheck = tmpArgs.indexOf('--check') !== -1;
 	let tmpPrint = tmpArgs.indexOf('--print') !== -1;
 
-	let tmpByGroup = loadManifest();
-	let tmpDesired = renderShell(tmpByGroup);
+	let tmpLoaded = loadManifest();
+	let tmpDesired = renderShell(tmpLoaded);
 
 	if (tmpPrint)
 	{
