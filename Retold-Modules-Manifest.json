@@ -835,6 +835,20 @@
 					"Type": "library"
 				},
 				{
+					"Name": "pict-section-excalidraw",
+					"Path": "modules/pict/pict-section-excalidraw",
+					"Description": "Pict view that wraps Excalidraw as an embeddable, themable drawing control. Mirrors the full Excalidraw monorepo under vendor/excalidraw so the control survives upstream drift; supports React-mount and iframe embed modes with the same OnLoad/OnSave/OnChange callback surface.",
+					"GitHub": "https://github.com/stevenvelozo/pict-section-excalidraw",
+					"Documentation": "https://stevenvelozo.github.io/pict-section-excalidraw/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-section-theme",
+						"retold-content-system"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "pict-section-filebrowser",
 					"Path": "modules/pict/pict-section-filebrowser",
 					"Description": "Web control for browsing files on the remote server.",
@@ -958,6 +972,20 @@
 					"GitHub": "https://github.com/stevenvelozo/pict-section-openseadragon",
 					"Documentation": "https://stevenvelozo.github.io/pict-section-openseadragon/",
 					"RelatedModules": [],
+					"Type": "library"
+				},
+				{
+					"Name": "pict-renderer-graph",
+					"Path": "modules/pict/pict-renderer-graph",
+					"Description": "Headless Excalidraw rendering as a fable service. Takes JSON graph descriptions (flow / star / sequence / mindmap / data-dictionary / mermaid) and produces hand-drawn SVG (or PNG) via a pre-warmed Chromium running pict-section-excalidraw's wrapper bundle. Three invocation modes: library, CLI, HTTP.",
+					"GitHub": "https://github.com/stevenvelozo/pict-renderer-graph",
+					"Documentation": "https://stevenvelozo.github.io/pict-renderer-graph/",
+					"RelatedModules": [
+						"pict-section-excalidraw",
+						"fable",
+						"fable-serviceproviderbase",
+						"orator"
+					],
 					"Type": "library"
 				},
 				{
@@ -1627,6 +1655,36 @@
 					"DisplayName": "postcard_example",
 					"HostModule": "pict-section-entitymanagement",
 					"Path": "modules/pict/pict-section-entitymanagement/example_applications/postcard_example",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-excalidraw/full_browser_excalidraw",
+					"DisplayName": "full_browser_excalidraw",
+					"HostModule": "pict-section-excalidraw",
+					"Path": "modules/pict/pict-section-excalidraw/example_applications/full_browser_excalidraw",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-excalidraw/embedded_excalidraw",
+					"DisplayName": "embedded_excalidraw",
+					"HostModule": "pict-section-excalidraw",
+					"Path": "modules/pict/pict-section-excalidraw/example_applications/embedded_excalidraw",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-excalidraw/notebook_studio",
+					"DisplayName": "notebook_studio",
+					"HostModule": "pict-section-excalidraw",
+					"Path": "modules/pict/pict-section-excalidraw/example_applications/notebook_studio",
 					"Type": "example",
 					"Branding": {
 						"Palette": "carnival"
