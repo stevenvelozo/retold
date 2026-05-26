@@ -1,7 +1,7 @@
 {
 	"Generated": "2026-03-01",
 	"Description": "Manifest of all modules in the Retold ecosystem",
-	"GitHubOrg": "stevenvelozo",
+	"GitHubOrg": "fable-retold",
 	"Groups": [
 		{
 			"Name": "Fable",
@@ -11,7 +11,7 @@
 				{
 					"Name": "fable",
 					"Path": "modules/fable/fable",
-					"Description": "Service dependency injection, configuration, and logging library \u2014 the foundation of every Retold application",
+					"Description": "Service dependency injection, configuration, and logging library — the foundation of every Retold application",
 					"GitHub": "https://github.com/stevenvelozo/fable",
 					"Documentation": "https://stevenvelozo.github.io/fable/",
 					"RelatedModules": [
@@ -100,7 +100,9 @@
 					"GitHub": "https://github.com/stevenvelozo/ultravisor-beacon",
 					"Documentation": "https://stevenvelozo.github.io/ultravisor-beacon/",
 					"RelatedModules": [],
-					"Type": "library"
+					"Type": "library",
+					"Owner": "stevenvelozo",
+					"Forkable": false
 				},
 				{
 					"Name": "ultravisor-beacon-capability",
@@ -109,7 +111,9 @@
 					"GitHub": "https://github.com/stevenvelozo/ultravisor-beacon-capability",
 					"Documentation": "https://stevenvelozo.github.io/ultravisor-beacon-capability/",
 					"RelatedModules": [],
-					"Type": "library"
+					"Type": "library",
+					"Owner": "stevenvelozo",
+					"Forkable": false
 				}
 			]
 		},
@@ -613,7 +617,7 @@
 				{
 					"Name": "pict",
 					"Path": "modules/pict/pict",
-					"Description": "Non-opinionated MVC module with template expression engine \u2014 treats UI as rendered text for browser, terminal, or any output",
+					"Description": "Non-opinionated MVC module with template expression engine — treats UI as rendered text for browser, terminal, or any output",
 					"GitHub": "https://github.com/stevenvelozo/pict",
 					"Documentation": "https://stevenvelozo.github.io/pict/",
 					"RelatedModules": [
@@ -724,7 +728,7 @@
 				{
 					"Name": "pict-provider-theme",
 					"Path": "modules/pict/pict-provider-theme",
-					"Description": "Runtime theme manager for Pict applications: register theme bundles (token maps + CSS + SVG + image assets), apply at runtime via injected CSS custom properties, support dark/light/system modes via a class on <html>, plus a quack theme-build command that compiles unrolled theme folders to single self-contained JSON bundles. Stateless \u2014 host applications own theme persistence.",
+					"Description": "Runtime theme manager for Pict applications: register theme bundles (token maps + CSS + SVG + image assets), apply at runtime via injected CSS custom properties, support dark/light/system modes via a class on <html>, plus a quack theme-build command that compiles unrolled theme folders to single self-contained JSON bundles. Stateless — host applications own theme persistence.",
 					"GitHub": "https://github.com/stevenvelozo/pict-provider-theme",
 					"Documentation": "https://stevenvelozo.github.io/pict-provider-theme/",
 					"RelatedModules": [
@@ -738,7 +742,7 @@
 				{
 					"Name": "pict-provider-vocabulary",
 					"Path": "modules/pict/pict-provider-vocabulary",
-					"Description": "Pict provider for vocabulary/glossary term management \u2014 holds a term index, provides a resolver callback for pict-section-content's parseMarkdown auto-linking, and wires popover hover handlers on rendered terms. Works with any term source: filesystem, database, or API.",
+					"Description": "Pict provider for vocabulary/glossary term management — holds a term index, provides a resolver callback for pict-section-content's parseMarkdown auto-linking, and wires popover hover handlers on rendered terms. Works with any term source: filesystem, database, or API.",
 					"GitHub": "https://github.com/stevenvelozo/pict-provider-vocabulary",
 					"Documentation": "https://stevenvelozo.github.io/pict-provider-vocabulary/",
 					"RelatedModules": [
@@ -783,19 +787,6 @@
 						"pict-view",
 						"pict-meadow-connection-manager",
 						"meadow-connection-manager"
-					],
-					"Type": "library"
-				},
-				{
-					"Name": "pict-section-claudetransformer",
-					"Path": "modules/pict/pict-section-claudetransformer",
-					"Description": "Reusable Pict viewer for Claude Code /export sessions. Renders the signature time-strip, per-prompt timeline, conversation, tool-call drill-ins, and sub-agent transcripts. Drop-in for any pict-application; ships a standalone browser example under example_applications/standalone.",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-claudetransformer",
-					"Documentation": false,
-					"RelatedModules": [
-						"pict",
-						"pict-view",
-						"pict-section-modal"
 					],
 					"Type": "library"
 				},
@@ -924,7 +915,7 @@
 				{
 					"Name": "pict-section-login",
 					"Path": "modules/pict/pict-section-login",
-					"Description": "Pict login section for authentication UIs \u2014 works with orator-authentication or any custom backend",
+					"Description": "Pict login section for authentication UIs — works with orator-authentication or any custom backend",
 					"GitHub": "https://github.com/stevenvelozo/pict-section-login",
 					"Documentation": "https://stevenvelozo.github.io/pict-section-login/",
 					"RelatedModules": [],
@@ -1032,7 +1023,7 @@
 				{
 					"Name": "pict-section-usermanagement",
 					"Path": "modules/pict/pict-section-usermanagement",
-					"Description": "Pict user-management section \u2014 login, current-user badge, user list/edit, password change. Backed by orator-authentication's session routes plus the auth-beacon /Users CRUD surface.",
+					"Description": "Pict user-management section — login, current-user badge, user list/edit, password change. Backed by orator-authentication's session routes plus the auth-beacon /Users CRUD surface.",
 					"GitHub": "https://github.com/stevenvelozo/pict-section-usermanagement",
 					"Documentation": "https://stevenvelozo.github.io/pict-section-usermanagement/",
 					"RelatedModules": [
@@ -1145,15 +1136,6 @@
 					"Type": "library"
 				},
 				{
-					"Name": "choreographic",
-					"Path": "modules/utility/choreographic",
-					"Description": "Simple framework for single-run scripts.",
-					"GitHub": "https://github.com/stevenvelozo/choreographic",
-					"Documentation": "https://stevenvelozo.github.io/choreographic/",
-					"RelatedModules": [],
-					"Type": "library"
-				},
-				{
 					"Name": "cumulation",
 					"Path": "modules/utility/cumulation",
 					"Description": "Data synchronization library for managing cumulative state across distributed systems",
@@ -1171,7 +1153,9 @@
 					"GitHub": "https://github.com/stevenvelozo/elucidator",
 					"Documentation": "https://stevenvelozo.github.io/elucidator/",
 					"RelatedModules": [],
-					"Type": "library"
+					"Type": "library",
+					"Owner": "stevenvelozo",
+					"Forkable": false
 				},
 				{
 					"Name": "indoctrinate",
@@ -1276,29 +1260,9 @@
 			"Path": "modules/apps",
 			"Modules": [
 				{
-					"Name": "plansheet",
-					"Path": "modules/apps/plansheet",
-					"Description": "Multi-tenant web app that stores Claude Code /export sessions per user with OAuth + local sign-in, a month/week calendar of uploads, and Parime blob storage. Uses pict-section-claudetransformer to render any individual session.",
-					"GitHub": "https://github.com/stevenvelozo/plansheet",
-					"Documentation": false,
-					"RelatedModules": [
-						"pict-section-claudetransformer",
-						"orator-authentication",
-						"parime",
-						"meadow",
-						"meadow-endpoints"
-					],
-					"Branding": {
-						"Palette": "ocean",
-						"DisplayName": "Plansheet",
-						"Tagline": "Your sessions, organized."
-					},
-					"Type": "webapp"
-				},
-				{
 					"Name": "retold-beacon-host",
 					"Path": "modules/apps/retold-beacon-host",
-					"Description": "Generic container host for ultravisor-beacon CapabilityProvider classes published as npm packages \u2014 boots an Orator, loads one or more provider modules by name, and registers with a target Ultravisor.",
+					"Description": "Generic container host for ultravisor-beacon CapabilityProvider classes published as npm packages — boots an Orator, loads one or more provider modules by name, and registers with a target Ultravisor.",
 					"GitHub": "https://github.com/stevenvelozo/retold-beacon-host",
 					"Documentation": false,
 					"RelatedModules": [
@@ -1327,9 +1291,21 @@
 					}
 				},
 				{
+					"Name": "retold-data-mapper",
+					"Path": "modules/apps/retold-data-mapper",
+					"Description": "Cross-beacon schema mapping and data sync — discover remote databeacons on the Ultravisor mesh, define field mappings, and execute batch syncs.",
+					"GitHub": "https://github.com/stevenvelozo/retold-data-mapper",
+					"Documentation": "https://stevenvelozo.github.io/retold-data-mapper/",
+					"RelatedModules": [
+						"fable-ultravisor-client",
+						"retold-databeacon"
+					],
+					"Type": "webapp"
+				},
+				{
 					"Name": "retold-databeacon",
 					"Path": "modules/apps/retold-databeacon",
-					"Description": "Deployable data beacon service \u2014 connect to remote databases, introspect schemas, generate REST endpoints, and expose beacon capabilities to the Ultravisor mesh.",
+					"Description": "Deployable data beacon service — connect to remote databases, introspect schemas, generate REST endpoints, and expose beacon capabilities to the Ultravisor mesh.",
 					"GitHub": "https://github.com/stevenvelozo/retold-databeacon",
 					"Documentation": "https://stevenvelozo.github.io/retold-databeacon/",
 					"RelatedModules": [],
@@ -1338,18 +1314,6 @@
 						"DisplayName": "DataBeacon",
 						"Tagline": "Connect, introspect, and expose remote databases"
 					},
-					"Type": "webapp"
-				},
-				{
-					"Name": "retold-data-mapper",
-					"Path": "modules/apps/retold-data-mapper",
-					"Description": "Cross-beacon schema mapping and data sync \u2014 discover remote databeacons on the Ultravisor mesh, define field mappings, and execute batch syncs.",
-					"GitHub": "https://github.com/stevenvelozo/retold-data-mapper",
-					"Documentation": "https://stevenvelozo.github.io/retold-data-mapper/",
-					"RelatedModules": [
-						"fable-ultravisor-client",
-						"retold-databeacon"
-					],
 					"Type": "webapp"
 				},
 				{
@@ -1364,7 +1328,9 @@
 						"Palette": "forest",
 						"DisplayName": "Retold Facto",
 						"Tagline": "Data warehouse and knowledge graph storage"
-					}
+					},
+					"Owner": "stevenvelozo",
+					"Forkable": false
 				},
 				{
 					"Name": "retold-remote",
@@ -1383,7 +1349,9 @@
 						"Palette": "twilight",
 						"DisplayName": "Retold Remote",
 						"Tagline": "Browse, view, and curate media on your NAS"
-					}
+					},
+					"Owner": "stevenvelozo",
+					"Forkable": false
 				},
 				{
 					"Name": "retold-remote-desktop",
@@ -1392,7 +1360,9 @@
 					"GitHub": "https://github.com/stevenvelozo/retold-remote-desktop",
 					"Documentation": "https://stevenvelozo.github.io/retold-remote-desktop/",
 					"RelatedModules": [],
-					"Type": "webapp"
+					"Type": "webapp",
+					"Owner": "stevenvelozo",
+					"Forkable": false
 				},
 				{
 					"Name": "retold-remote-ios",
@@ -1401,6 +1371,24 @@
 					"GitHub": "https://github.com/stevenvelozo/retold-remote-ios",
 					"Documentation": "https://stevenvelozo.github.io/retold-remote-ios/",
 					"RelatedModules": [],
+					"Type": "webapp",
+					"Owner": "stevenvelozo",
+					"Forkable": false
+				},
+				{
+					"Name": "retold-synth-databeacon",
+					"Path": "modules/apps/retold-synth-databeacon",
+					"Description": "On-demand synthetic record source. Drop-in for retold-databeacon via the shared MeadowProxy capability; bundles industrial-supply-v1 (14-entity) and customers-demo-v1 (2-entity) specs.",
+					"GitHub": "https://github.com/fable-retold/retold-synth-databeacon",
+					"Documentation": "https://fable-retold.github.io/retold-synth-databeacon/",
+					"RelatedModules": [
+						"retold-databeacon"
+					],
+					"Branding": {
+						"Palette": "forest",
+						"DisplayName": "Synth DataBeacon",
+						"Tagline": "On-demand synthetic records for testing and demos"
+					},
 					"Type": "webapp"
 				},
 				{
@@ -1417,31 +1405,37 @@
 						"Palette": "desert",
 						"DisplayName": "Ultravisor",
 						"Tagline": "Process supervision and workflow automation"
-					}
+					},
+					"Owner": "stevenvelozo",
+					"Forkable": false
 				},
 				{
 					"Name": "ultravisor-auth-beacon",
 					"Path": "modules/apps/ultravisor-auth-beacon",
-					"Description": "Optional Ultravisor beacon that advertises the Authentication capability \u2014 login, session validation, beacon-join admission. Pluggable AuthProvider for custom backends (LDAP, OAuth, custom DBs).",
+					"Description": "Optional Ultravisor beacon that advertises the Authentication capability — login, session validation, beacon-join admission. Pluggable AuthProvider for custom backends (LDAP, OAuth, custom DBs).",
 					"GitHub": "https://github.com/stevenvelozo/ultravisor-auth-beacon",
 					"Documentation": "https://stevenvelozo.github.io/ultravisor-auth-beacon/",
 					"RelatedModules": [
 						"ultravisor",
 						"ultravisor-beacon"
 					],
-					"Type": "library"
+					"Type": "library",
+					"Owner": "stevenvelozo",
+					"Forkable": false
 				},
 				{
 					"Name": "ultravisor-file-stream",
 					"Path": "modules/apps/ultravisor-file-stream",
-					"Description": "File-streaming primitives for ultravisor: chunked write at offset with sha256-verified atomic finalize, buffered read, directory-tree hashing. Zero runtime dependencies \u2014 consumed by the ultravisor hub's chunked-write task type and by any beacon client that needs to ship multi-GB files across the mesh.",
+					"Description": "File-streaming primitives for ultravisor: chunked write at offset with sha256-verified atomic finalize, buffered read, directory-tree hashing. Zero runtime dependencies — consumed by the ultravisor hub's chunked-write task type and by any beacon client that needs to ship multi-GB files across the mesh.",
 					"GitHub": "https://github.com/stevenvelozo/ultravisor-file-stream",
 					"Documentation": "https://stevenvelozo.github.io/ultravisor-file-stream/",
 					"RelatedModules": [
 						"ultravisor",
 						"ultravisor-beacon"
 					],
-					"Type": "library"
+					"Type": "library",
+					"Owner": "stevenvelozo",
+					"Forkable": false
 				},
 				{
 					"Name": "ultravisor-lab",
@@ -1459,7 +1453,9 @@
 						"DisplayName": "Ultravisor Lab",
 						"Tagline": "Provision dockerized engines, beacons, and ultravisor instances"
 					},
-					"Type": "webapp"
+					"Type": "webapp",
+					"Owner": "stevenvelozo",
+					"Forkable": false
 				},
 				{
 					"Name": "ultravisor-suite-harness",
@@ -1468,7 +1464,9 @@
 					"GitHub": "https://github.com/stevenvelozo/ultravisor-suite-harness",
 					"Documentation": "https://stevenvelozo.github.io/ultravisor-suite-harness/",
 					"RelatedModules": [],
-					"Type": "webapp"
+					"Type": "webapp",
+					"Owner": "stevenvelozo",
+					"Forkable": false
 				}
 			]
 		},
@@ -1480,7 +1478,7 @@
 				{
 					"Name": "retold-manager",
 					"Path": "source",
-					"Description": "Web + CLI manager for the Retold ecosystem \u2014 runs operations across modules from a single shell.",
+					"Description": "Web + CLI manager for the Retold ecosystem — runs operations across modules from a single shell.",
 					"GitHub": null,
 					"Documentation": null,
 					"RelatedModules": [],

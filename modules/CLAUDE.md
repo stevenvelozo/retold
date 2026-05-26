@@ -6,14 +6,15 @@ This directory contains all Retold module groups. Each subfolder holds individua
 
 Shell scripts manage all modules collectively:
 
-- `Checkout.sh` — Clone all module repos from GitHub
+- `Fork.sh` — Fork every forkable module from its canonical owner to your GitHub account (no-op for already-forked or non-forkable modules). Requires the `gh` CLI.
+- `Checkout.sh` — Clone every module: forkable modules clone from `<your-user>/<module>` (with `upstream` set to the canonical owner for PR sync); non-forkable modules clone directly from their per-module Owner.
 - `Install.sh` — Run `npm install` inside every cloned module so each module is runnable on its own (tests, examples, the per-module dev workflow). Pair this with `Checkout.sh` on a fresh box; the manager's per-module action buttons (`install`, `test`, `build`, `examples`, etc.) all assume each module has its own `node_modules/`.
 - `Status.sh` — Show git status across all modules
 - `Update.sh` — Pull with rebase across all modules
-- `Include-Retold-Module-List.sh` — Central registry defining module arrays per group (sourced by the scripts above)
+- `Include-Retold-Module-List.sh` — Central registry (generated from `Retold-Modules-Manifest.json`) defining per-group parallel arrays: `repositoriesX`, `ownersX`, `forkableX`. Sourced by the scripts above.
 - `Retold-Modules.md` — Human-readable module list with hosted doc links
 
-All modules are hosted at `github.com/stevenvelozo/<module-name>`.
+Most modules are hosted at `github.com/fable-retold/<module-name>` (the canonical org). A small set lives at `github.com/stevenvelozo/<module-name>` and is marked `Forkable: false` in the manifest — these clone read-only.
 
 ## Module Groups
 
