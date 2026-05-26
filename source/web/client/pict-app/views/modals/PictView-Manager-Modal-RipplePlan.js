@@ -330,8 +330,8 @@ const _ViewConfiguration =
 		<span class="rm-flat-op-detail">
 			Strategy:
 			<select id="RM-R-FlatOp-MergeStrategy">
-				<option value="squash" selected>squash</option>
-				<option value="rebase">rebase</option>
+				<option value="rebase" selected>rebase</option>
+				<option value="squash">squash</option>
 				<option value="merge">merge commit</option>
 			</select>
 			&nbsp;<label style="font-weight:normal"><input type="checkbox" id="RM-R-FlatOp-AdminMerge" style="width:auto"> Admin override</label>

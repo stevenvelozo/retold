@@ -623,7 +623,7 @@ class RippleGraph
 		let tmpPrBody      = (typeof tmpOps.PRBody === 'string') ? tmpOps.PRBody : '';
 		let tmpDoApprovePr = !!tmpOps.ApprovePR;
 		let tmpDoMergePr   = !!tmpOps.MergePR;
-		let tmpMergeStrategy = (tmpOps.MergeStrategy === 'rebase' || tmpOps.MergeStrategy === 'merge') ? tmpOps.MergeStrategy : 'squash';
+		let tmpMergeStrategy = (tmpOps.MergeStrategy === 'squash' || tmpOps.MergeStrategy === 'merge') ? tmpOps.MergeStrategy : 'rebase';
 		let tmpAdminMerge  = !!tmpOps.AdminMerge;
 
 		if (tmpDoCommit && !tmpCommitMsg)

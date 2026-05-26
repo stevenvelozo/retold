@@ -805,7 +805,7 @@ async function runAction(pCore, pContext, pEntry, pStep, pAction, pStepIdx)
 			{
 				throw new Error('merge-pr: PR #' + tmpPr.number + ' is CLOSED (not merged); refusing to merge.');
 			}
-			let tmpStrategy = (pAction.Strategy === 'rebase' || pAction.Strategy === 'merge') ? pAction.Strategy : 'squash';
+			let tmpStrategy = (pAction.Strategy === 'squash' || pAction.Strategy === 'merge') ? pAction.Strategy : 'rebase';
 			let tmpArgs = ['pr', 'merge', String(tmpPr.number),
 				'--repo', tmpRepo,
 				'--' + tmpStrategy
