@@ -1,48 +1,69 @@
 {
-    "name": "retold",
-    "version": "4.0.11",
-    "description": "The pict and fable node ecosystem.",
-    "main": "source/retold-manager-web.js",
-    "bin": {
-        "manager": "./source/retold-manager-web.js"
-    },
-    "scripts": {
-        "start": "node source/retold-manager-web.js",
-        "build-docs": "npx quack prepare-docs ./docs -d ./modules -g fable-retold",
-        "serve-docs": "npx pict-docuserve serve ./docs -p 3456",
-        "audit": "node source/bin/manifest-audit.js",
-        "rebuild-modules": "node source/bin/manifest-rebuild-shell.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/fable-retold/retold.git"
-    },
-    "keywords": [],
-    "author": "Steven Velozo <steven@velozo.com> (http://velozo.com/)",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/fable-retold/retold/issues"
-    },
-    "homepage": "https://github.com/fable-retold/retold",
-    "devDependencies": {
-        "indoctrinate": "^1.0.12"
-    },
-    "dependencies": {
-        "fable": "^3.1.75",
-        "fable-serviceproviderbase": "^3.0.19",
-        "orator": "^6.1.2",
-        "orator-serviceserver-restify": "^2.0.11",
-        "pict": "^1.0.372",
-        "pict-application": "^1.0.34",
-        "pict-docuserve": "^1.4.4",
-        "pict-router": "^1.0.10",
-        "pict-section-content": "^1.0.7",
-        "pict-section-filebrowser": "^1.0.4",
-        "pict-section-modal": "^1.1.4",
-        "pict-section-theme": "^1.0.6",
-        "pict-view": "^1.0.68",
-        "quackage": "^1.3.0",
-        "retold-content-system": "^1.0.29",
-        "ws": "^8.21.0"
-    }
+	"name": "retold",
+	"version": "4.0.11",
+	"description": "The pict and fable node ecosystem.",
+	"main": "source/retold-manager-web.js",
+	"bin": {
+		"manager": "./source/retold-manager-web.js"
+	},
+	"scripts": {
+		"start": "node source/retold-manager-web.js",
+		"build-docs": "npx quack prepare-docs ./docs -d ./modules -g fable-retold",
+		"serve-docs": "npx pict-docuserve serve ./docs -p 3456",
+		"audit": "node source/bin/manifest-audit.js",
+		"rebuild-modules": "node source/bin/manifest-rebuild-shell.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fable-retold/retold.git"
+	},
+	"keywords": [],
+	"author": "Steven Velozo <steven@velozo.com> (http://velozo.com/)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/fable-retold/retold/issues"
+	},
+	"homepage": "https://github.com/fable-retold/retold",
+	"devDependencies": {
+		"indoctrinate": "^1.0.12",
+		"retold-sharp": "^1.0.0"
+	},
+	"dependencies": {
+		"fable": "^3.1.75",
+		"fable-serviceproviderbase": "^3.0.19",
+		"orator": "^6.1.2",
+		"orator-serviceserver-restify": "^2.0.11",
+		"pict": "^1.0.372",
+		"pict-application": "^1.0.34",
+		"pict-docuserve": "^1.4.5",
+		"pict-router": "^1.0.10",
+		"pict-section-content": "^1.0.7",
+		"pict-section-filebrowser": "^1.0.4",
+		"pict-section-modal": "^1.1.4",
+		"pict-section-theme": "^1.0.6",
+		"pict-view": "^1.0.68",
+		"quackage": "^1.3.0",
+		"retold-content-system": "^1.0.29",
+		"ws": "^8.21.0"
+	},
+	"retold": {
+		"brand": {
+			"Hash": "retold",
+			"Name": "Retold",
+			"Tagline": "What is software if not a tool to tell stories.",
+			"Palette": "cosmos",
+			"Icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 96 96\" width=\"96\" height=\"96\">\n\t\t<defs>\n\t\t\t<clipPath id=\"frame-retold-filled-light\">\n\t\t\t\t<path d=\"M 48.00 2.00 L 87.84 25.00 L 87.84 71.00 L 48.00 94.00 L 8.16 71.00 L 8.16 25.00 Z\"/>\n\t\t\t</clipPath>\n\t\t</defs>\n\t\t<path d=\"M 48.00 2.00 L 87.84 25.00 L 87.84 71.00 L 48.00 94.00 L 8.16 71.00 L 8.16 25.00 Z\" fill=\"#4e35b8\"/>\n\t\t<g clip-path=\"url(#frame-retold-filled-light)\"><rect x=\"20\" y=\"20\" width=\"56\" height=\"56\" rx=\"8\" fill=\"rgba(255,255,255,0.18)\"/>\n\t\t\t\t\t<path d=\"M 48 30 L 70 48 L 48 66 L 26 48 Z\" fill=\"#e1c936\"/></g>\n\t\t<text x=\"48\" y=\"50\" text-anchor=\"middle\" dominant-baseline=\"central\"\n\t\t\tfont-family=\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif\"\n\t\t\tfont-size=\"56\" font-weight=\"700\"\n\t\t\tfill=\"#ffffff\" letter-spacing=\"-1\">R</text>\n\t</svg>",
+			"IconType": "svg",
+			"Favicon": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 96 96\" width=\"96\" height=\"96\">\n\t\t<defs>\n\t\t\t<clipPath id=\"fav-retold-light\">\n\t\t\t\t<path d=\"M 48.00 2.00 L 87.84 25.00 L 87.84 71.00 L 48.00 94.00 L 8.16 71.00 L 8.16 25.00 Z\"/>\n\t\t\t</clipPath>\n\t\t</defs>\n\t\t<path d=\"M 48.00 2.00 L 87.84 25.00 L 87.84 71.00 L 48.00 94.00 L 8.16 71.00 L 8.16 25.00 Z\" fill=\"#4e35b8\"/>\n\t\t<g clip-path=\"url(#fav-retold-light)\"><rect x=\"16\" y=\"16\" width=\"64\" height=\"64\" rx=\"10\" fill=\"rgba(255,255,255,0.22)\"/></g>\n\t\t<text x=\"48\" y=\"50\" text-anchor=\"middle\" dominant-baseline=\"central\"\n\t\t\tfont-family=\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif\"\n\t\t\tfont-size=\"60\" font-weight=\"800\"\n\t\t\tfill=\"#ffffff\" letter-spacing=\"-1\">R</text>\n\t</svg>",
+			"FaviconDark": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 96 96\" width=\"96\" height=\"96\">\n\t\t<defs>\n\t\t\t<clipPath id=\"fav-retold-dark\">\n\t\t\t\t<path d=\"M 48.00 2.00 L 87.84 25.00 L 87.84 71.00 L 48.00 94.00 L 8.16 71.00 L 8.16 25.00 Z\"/>\n\t\t\t</clipPath>\n\t\t</defs>\n\t\t<path d=\"M 48.00 2.00 L 87.84 25.00 L 87.84 71.00 L 48.00 94.00 L 8.16 71.00 L 8.16 25.00 Z\" fill=\"#8877d1\"/>\n\t\t<g clip-path=\"url(#fav-retold-dark)\"><rect x=\"16\" y=\"16\" width=\"64\" height=\"64\" rx=\"10\" fill=\"rgba(255,255,255,0.22)\"/></g>\n\t\t<text x=\"48\" y=\"50\" text-anchor=\"middle\" dominant-baseline=\"central\"\n\t\t\tfont-family=\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif\"\n\t\t\tfont-size=\"60\" font-weight=\"800\"\n\t\t\tfill=\"#101418\" letter-spacing=\"-1\">R</text>\n\t</svg>",
+			"Colors": {
+				"Primary": "#4e35b8",
+				"Secondary": "#e1c936",
+				"PrimaryLight": "#4e35b8",
+				"PrimaryDark": "#8877d1",
+				"SecondaryLight": "#e1c936",
+				"SecondaryDark": "#e9db8a"
+			}
+		}
+	}
 }

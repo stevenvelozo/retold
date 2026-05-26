@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96">
+		<defs>
+			<clipPath id="fav-retold-dark">
+				<path d="M 48.00 2.00 L 87.84 25.00 L 87.84 71.00 L 48.00 94.00 L 8.16 71.00 L 8.16 25.00 Z"/>
+			</clipPath>
+		</defs>
+		<path d="M 48.00 2.00 L 87.84 25.00 L 87.84 71.00 L 48.00 94.00 L 8.16 71.00 L 8.16 25.00 Z" fill="#8877d1"/>
+		<g clip-path="url(#fav-retold-dark)"><rect x="16" y="16" width="64" height="64" rx="10" fill="rgba(255,255,255,0.22)"/></g>
+		<text x="48" y="50" text-anchor="middle" dominant-baseline="central"
+			font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+			font-size="60" font-weight="800"
+			fill="#101418" letter-spacing="-1">R</text>
+	</svg>
