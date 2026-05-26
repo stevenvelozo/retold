@@ -124,6 +124,15 @@ function resolveModulePrContext(pModulePath)
 // The shape includes { number, state, url, author: { login } } so callers
 // can do same-user pre-checks (e.g. approve-pr's self-PR guard).
 //
+// Implementation note: this hits the REST API directly rather than going
+// through `gh pr list --head <user:branch>` because the latter silently
+// returns [] when the head argument includes a user prefix.  `gh pr list
+// --head` only accepts a branch name, even though the underlying REST
+// endpoint documents and supports the `user:ref-name` form.  Using the
+// REST API gives us a reliable filter that also survives forks whose
+// branch name matches a branch in the canonical repo (a common case when
+// PRs are master->master / main->main).
+//
 function findExistingPr(pCtx, pModulePath)
 {
 	let tmpRepo = pCtx.Upstream.Owner + '/' + pCtx.Upstream.Repo;
@@ -131,18 +140,33 @@ function findExistingPr(pCtx, pModulePath)
 	let tmpJson;
 	try
 	{
-		tmpJson = ghCapture(['pr', 'list', '--repo', tmpRepo, '--head', tmpHead, '--state', 'all', '--json', 'number,state,url,author', '--limit', '10'], pModulePath);
+		tmpJson = ghCapture(['api', '/repos/' + tmpRepo + '/pulls?head=' + encodeURIComponent(tmpHead) + '&state=all&per_page=10'], pModulePath);
 	}
 	catch (pError) { return null; }
 	let tmpPrs;
 	try { tmpPrs = JSON.parse(tmpJson || '[]'); }
 	catch (pError) { return null; }
 	if (!Array.isArray(tmpPrs) || tmpPrs.length === 0) return null;
-	let tmpOpen = tmpPrs.find(function (pP) { return pP.state === 'OPEN'; });
+
+	// Normalise REST shape (lowercase state, html_url, user.login) to the
+	// shape callers expect (matches what `gh pr list --json` used to emit).
+	let tmpNormalised = tmpPrs.map(function (pP)
+	{
+		let tmpState = (pP.state || '').toUpperCase();
+		if (tmpState === 'CLOSED' && pP.merged_at) tmpState = 'MERGED';
+		return {
+			number: pP.number,
+			state:  tmpState,
+			url:    pP.html_url || pP.url,
+			author: pP.user ? { login: pP.user.login } : null
+		};
+	});
+
+	let tmpOpen = tmpNormalised.find(function (pP) { return pP.state === 'OPEN'; });
 	if (tmpOpen) return tmpOpen;
-	let tmpMerged = tmpPrs.find(function (pP) { return pP.state === 'MERGED'; });
+	let tmpMerged = tmpNormalised.find(function (pP) { return pP.state === 'MERGED'; });
 	if (tmpMerged) return tmpMerged;
-	return tmpPrs[0];
+	return tmpNormalised[0];
 }
 
 //
