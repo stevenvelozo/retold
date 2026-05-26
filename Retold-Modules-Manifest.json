@@ -1291,6 +1291,18 @@
 					}
 				},
 				{
+					"Name": "retold-data-mapper",
+					"Path": "modules/apps/retold-data-mapper",
+					"Description": "Cross-beacon schema mapping and data sync — discover remote databeacons on the Ultravisor mesh, define field mappings, and execute batch syncs.",
+					"GitHub": "https://github.com/stevenvelozo/retold-data-mapper",
+					"Documentation": "https://stevenvelozo.github.io/retold-data-mapper/",
+					"RelatedModules": [
+						"fable-ultravisor-client",
+						"retold-databeacon"
+					],
+					"Type": "webapp"
+				},
+				{
 					"Name": "retold-databeacon",
 					"Path": "modules/apps/retold-databeacon",
 					"Description": "Deployable data beacon service — connect to remote databases, introspect schemas, generate REST endpoints, and expose beacon capabilities to the Ultravisor mesh.",
@@ -1302,18 +1314,6 @@
 						"DisplayName": "DataBeacon",
 						"Tagline": "Connect, introspect, and expose remote databases"
 					},
-					"Type": "webapp"
-				},
-				{
-					"Name": "retold-data-mapper",
-					"Path": "modules/apps/retold-data-mapper",
-					"Description": "Cross-beacon schema mapping and data sync — discover remote databeacons on the Ultravisor mesh, define field mappings, and execute batch syncs.",
-					"GitHub": "https://github.com/stevenvelozo/retold-data-mapper",
-					"Documentation": "https://stevenvelozo.github.io/retold-data-mapper/",
-					"RelatedModules": [
-						"fable-ultravisor-client",
-						"retold-databeacon"
-					],
 					"Type": "webapp"
 				},
 				{
@@ -1374,6 +1374,22 @@
 					"Type": "webapp",
 					"Owner": "stevenvelozo",
 					"Forkable": false
+				},
+				{
+					"Name": "retold-synth-databeacon",
+					"Path": "modules/apps/retold-synth-databeacon",
+					"Description": "On-demand synthetic record source. Drop-in for retold-databeacon via the shared MeadowProxy capability; bundles industrial-supply-v1 (14-entity) and customers-demo-v1 (2-entity) specs.",
+					"GitHub": "https://github.com/fable-retold/retold-synth-databeacon",
+					"Documentation": "https://fable-retold.github.io/retold-synth-databeacon/",
+					"RelatedModules": [
+						"retold-databeacon"
+					],
+					"Branding": {
+						"Palette": "forest",
+						"DisplayName": "Synth DataBeacon",
+						"Tagline": "On-demand synthetic records for testing and demos"
+					},
+					"Type": "webapp"
 				},
 				{
 					"Name": "ultravisor",

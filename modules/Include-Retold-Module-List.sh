@@ -28,8 +28,8 @@ repositoriesUtility=("cachetrax" "cumulation" "elucidator" "indoctrinate" "manyf
 ownersUtility=("fable-retold" "fable-retold" "stevenvelozo" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold")
 forkableUtility=("1" "1" "0" "1" "1" "1" "1" "1" "1" "1" "1" "1")
 
-repositoriesApps=("retold-beacon-host" "retold-content-system" "retold-databeacon" "retold-data-mapper" "retold-facto" "retold-remote" "retold-remote-desktop" "retold-remote-ios" "ultravisor" "ultravisor-auth-beacon" "ultravisor-file-stream" "ultravisor-lab" "ultravisor-suite-harness")
-ownersApps=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo")
-forkableApps=("1" "1" "1" "1" "0" "0" "0" "0" "0" "0" "0" "0" "0")
+repositoriesApps=("retold-beacon-host" "retold-content-system" "retold-data-mapper" "retold-databeacon" "retold-facto" "retold-remote" "retold-remote-desktop" "retold-remote-ios" "retold-synth-databeacon" "ultravisor" "ultravisor-auth-beacon" "ultravisor-file-stream" "ultravisor-lab" "ultravisor-suite-harness")
+ownersApps=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "fable-retold" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo")
+forkableApps=("1" "1" "1" "1" "0" "0" "0" "0" "1" "0" "0" "0" "0" "0")
 
 echo "### ... Module lists built!"
