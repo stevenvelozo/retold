@@ -1,6 +1,6 @@
 FROM node:20-slim
 
-LABEL maintainer="Retold <https://github.com/stevenvelozo/retold>"
+LABEL maintainer="Retold <https://github.com/fable-retold/retold>"
 LABEL description="Retold Todo List Example -- API Server, Web Client, CLI, and Console TUI"
 
 WORKDIR /app

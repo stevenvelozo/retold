@@ -705,7 +705,19 @@ class ModuleIntrospector
 		let tmpPorcelain = this._execGitSync('status --porcelain -b', tmpPath);
 		if (tmpPorcelain === null) { return null; }
 
-		return parsePorcelain(tmpPorcelain);
+		let tmpStatus = parsePorcelain(tmpPorcelain);
+
+		// Resolve the origin (typically the user's fork) and upstream (the
+		// canonical org repo) remote URLs so the UI can show "your fork" +
+		// "org" links separately. Either or both may be missing — e.g. a
+		// non-forkable module's local clone has only origin pointing at its
+		// canonical owner, no upstream.
+		let tmpOrigin = this._execGitSync('remote get-url origin', tmpPath);
+		let tmpUpstream = this._execGitSync('remote get-url upstream', tmpPath);
+		tmpStatus.OriginUrl   = (tmpOrigin   || '').trim() || null;
+		tmpStatus.UpstreamUrl = (tmpUpstream || '').trim() || null;
+
+		return tmpStatus;
 	}
 
 	/**

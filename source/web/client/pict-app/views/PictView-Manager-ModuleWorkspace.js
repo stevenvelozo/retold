@@ -4,6 +4,34 @@ const libPictView = require('pict-view');
 // built-in icon registry via {~I:ChevronDown~} in the templates below.
 // No hand-rolled inline SVG, no per-record CaretIcon data binding.
 
+//
+// Convert any git remote URL into a clickable browser URL:
+//   https://github.com/owner/repo.git    -> https://github.com/owner/repo
+//   git@github.com:owner/repo.git        -> https://github.com/owner/repo
+//   git+https://github.com/owner/repo    -> https://github.com/owner/repo
+// Returns null for empty/unrecognized input so callers can chain ||.
+//
+function _gitUrlToWeb(pUrl)
+{
+	if (!pUrl) return null;
+	let tmpStr = String(pUrl).trim();
+	if (!tmpStr) return null;
+	let tmpMatch = tmpStr.match(/^(?:git\+)?(?:https?:\/\/(?:[^@/]+@)?github\.com\/|git@github\.com:)([^/]+)\/([^/]+?)(?:\.git)?$/);
+	if (!tmpMatch) return null;
+	return 'https://github.com/' + tmpMatch[1] + '/' + tmpMatch[2];
+}
+
+//
+// Extract just the owner segment from a github web URL so the canonical-link
+// chip can render its label as the org/user name (e.g. "fable-retold").
+//
+function _ownerFromUrl(pUrl)
+{
+	if (!pUrl) return null;
+	let tmpMatch = String(pUrl).match(/github\.com\/([^/]+)\//);
+	return tmpMatch ? tmpMatch[1] : null;
+}
+
 const _ViewConfiguration =
 {
 	ViewIdentifier: 'Manager-ModuleWorkspace',
@@ -47,6 +75,8 @@ const _ViewConfiguration =
 	{~TS:Manager-ModuleWorkspace-VersionBadge-Template:Record.VersionBadgeSlot~}
 	{~TS:Manager-ModuleWorkspace-BranchBadge-Template:Record.BranchBadgeSlot~}
 	<div class="workspace-header-right">
+		{~TS:Manager-ModuleWorkspace-ForkLink-Template:Record.ForkLinkSlot~}
+		{~TS:Manager-ModuleWorkspace-CanonicalLink-Template:Record.CanonicalLinkSlot~}
 		{~TS:Manager-ModuleWorkspace-GitHubLink-Template:Record.GitHubLinkSlot~}
 		{~TS:Manager-ModuleWorkspace-NpmLink-Template:Record.NpmLinkSlot~}
 		{~TS:Manager-ModuleWorkspace-DocsLink-Template:Record.DocsLinkSlot~}
@@ -84,6 +114,7 @@ const _ViewConfiguration =
 		<div class="action-group-label">publish</div>
 		<div class="action-row">
 			<button class="action success" title="Open the publish dialog (npm, npm + Docker image, or plan a ripple from here)" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('publish', null)">publish</button>
+			<button class="action" title="Open bulk ops modal with this module pre-checked; filter and check off siblings to apply the same operations across the ecosystem" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('bulk-ops', null)">bulk ops</button>
 			<button class="action action-more" aria-label="More publish actions" title="More publish actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('publish', this); event.stopPropagation();">{~I:ChevronDown~}</button>
 		</div>
 	</div>
@@ -114,6 +145,14 @@ const _ViewConfiguration =
 		{
 			Hash: 'Manager-ModuleWorkspace-GitHubLink-Template',
 			Template: /*html*/`<a href="{~D:Record.Url~}" target="_blank">GitHub</a>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-ForkLink-Template',
+			Template: /*html*/`<a href="{~D:Record.Url~}" target="_blank" title="Your fork on GitHub (origin remote)">your fork</a>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-CanonicalLink-Template',
+			Template: /*html*/`<a href="{~D:Record.Url~}" target="_blank" title="Canonical repo on GitHub (upstream remote)">{~D:Record.Owner~}</a>`
 		},
 		{
 			Hash: 'Manager-ModuleWorkspace-NpmLink-Template',
@@ -365,13 +404,35 @@ class ManagerModuleWorkspaceView extends libPictView
 		let tmpPkg  = tmpDetail.Package  || {};
 		let tmpGit  = tmpDetail.GitStatus || {};
 
+		// Resolve fork + canonical web URLs from the actual git remotes (origin
+		// = the user's fork, upstream = the canonical org repo).  Falls back to
+		// the manifest GitHub URL when remotes aren't available.  For
+		// non-forkable modules the origin already IS the canonical, so the
+		// "your fork" slot is collapsed and we render a single GitHub link.
+		let tmpForkUrl      = _gitUrlToWeb(tmpGit.OriginUrl);
+		let tmpCanonicalUrl = _gitUrlToWeb(tmpGit.UpstreamUrl) || tmpManifest.GitHub || null;
+		let tmpHasDistinctFork = !!(tmpForkUrl && tmpCanonicalUrl && tmpForkUrl !== tmpCanonicalUrl);
+
+		let tmpForkSlot      = tmpHasDistinctFork ? [{ Url: tmpForkUrl }] : [];
+		let tmpCanonicalSlot = tmpHasDistinctFork && tmpCanonicalUrl
+			? [{ Url: tmpCanonicalUrl, Owner: _ownerFromUrl(tmpCanonicalUrl) || 'canonical' }]
+			: [];
+		// Old single-link slot — used when origin == canonical (non-forkable
+		// modules) so the header still shows one "GitHub" link rather than
+		// nothing.
+		let tmpLegacyGhSlot = (!tmpHasDistinctFork && (tmpForkUrl || tmpCanonicalUrl || tmpManifest.GitHub))
+			? [{ Url: tmpForkUrl || tmpCanonicalUrl || tmpManifest.GitHub }]
+			: [];
+
 		let tmpRecord =
 		{
 			Manifest:        tmpManifest,
 
 			VersionBadgeSlot: tmpPkg.Version ? [{ Version: tmpPkg.Version }] : [],
 			BranchBadgeSlot:  tmpGit.Branch  ? [{ Branch: tmpGit.Branch }]   : [],
-			GitHubLinkSlot:   tmpManifest.GitHub        ? [{ Url: tmpManifest.GitHub }]        : [],
+			ForkLinkSlot:     tmpForkSlot,
+			CanonicalLinkSlot: tmpCanonicalSlot,
+			GitHubLinkSlot:   tmpLegacyGhSlot,
 			NpmLinkSlot:      tmpPkg.Name               ? [{ Url: 'https://www.npmjs.com/package/' + encodeURIComponent(tmpPkg.Name) }] : [],
 			DocsLinkSlot:     tmpManifest.Documentation ? [{ Url: tmpManifest.Documentation }] : [],
 			DescriptionSlot:  tmpManifest.Description   ? [{ Description: tmpManifest.Description }] : [],
@@ -395,6 +456,8 @@ class ManagerModuleWorkspaceView extends libPictView
 			Manifest:           { Name: '(none)' },
 			VersionBadgeSlot:   [],
 			BranchBadgeSlot:    [],
+			ForkLinkSlot:       [],
+			CanonicalLinkSlot:  [],
 			GitHubLinkSlot:     [],
 			NpmLinkSlot:        [],
 			DocsLinkSlot:       [],
@@ -633,7 +696,7 @@ class ManagerModuleWorkspaceView extends libPictView
 			case 'git-add-one': return pPath
 				? tmpEnqueue('git add ' + pPath, () => tmpApi.gitAddPaths(tmpName, [pPath]))
 				: null;
-			case 'pull':       return tmpEnqueue('git pull',        () => tmpApi.runModuleOperation(tmpName, 'git', ['pull'], 'git pull'));
+			case 'pull':       return tmpEnqueue('git pull --rebase', () => tmpApi.runModuleOperation(tmpName, 'git', ['pull', '--rebase'], 'git pull --rebase'));
 			case 'push':       return tmpEnqueue('git push',        () => tmpApi.runModuleOperation(tmpName, 'git', ['push'], 'git push'));
 			case 'bump-patch': return this._bumpWithGuard('patch');
 			case 'bump-minor': return this._bumpWithGuard('minor');
@@ -642,6 +705,7 @@ class ManagerModuleWorkspaceView extends libPictView
 			case 'ncu':        return this.pict.views['Manager-Modal-Ncu'].open(tmpName);
 			case 'publish':    return this.pict.views['Manager-Modal-Publish'].open(tmpName);
 			case 'ripple':     return this.pict.views['Manager-Modal-RipplePlan'].open(tmpName);
+			case 'bulk-ops':   return this.pict.views['Manager-Modal-RipplePlan'].open(tmpName, { Mode: 'flat', PreCheck: [tmpName] });
 			case 'prepare-docs': return tmpEnqueue('npx quack prepare-docs', () => tmpApi.runModuleOperation(tmpName, 'npx', ['quack', 'prepare-docs'], 'npx quack prepare-docs'));
 			case 'serve-docs':           return this._startDocserve(tmpName);
 			case 'edit-content':         return this._startContentEditor(tmpName);

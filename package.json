@@ -8,22 +8,22 @@
     },
     "scripts": {
         "start": "node source/retold-manager-web.js",
-        "build-docs": "npx quack prepare-docs ./docs -d ./modules",
+        "build-docs": "npx quack prepare-docs ./docs -d ./modules -g fable-retold",
         "serve-docs": "npx pict-docuserve serve ./docs -p 3456",
         "audit": "node source/bin/manifest-audit.js",
         "rebuild-modules": "node source/bin/manifest-rebuild-shell.js"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/stevenvelozo/retold.git"
+        "url": "https://github.com/fable-retold/retold.git"
     },
     "keywords": [],
     "author": "Steven Velozo <steven@velozo.com> (http://velozo.com/)",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/stevenvelozo/retold/issues"
+        "url": "https://github.com/fable-retold/retold/issues"
     },
-    "homepage": "https://github.com/stevenvelozo/retold",
+    "homepage": "https://github.com/fable-retold/retold",
     "devDependencies": {
         "indoctrinate": "^1.0.11"
     },

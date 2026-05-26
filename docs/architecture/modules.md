@@ -1,6 +1,6 @@
 # All Modules
 
-An exhaustive list of every repository in the Retold suite, organized by group. Each module is its own git repository hosted at `github.com/stevenvelozo/<module-name>`.
+An exhaustive list of every repository in the Retold suite, organized by group. Most modules are hosted at `github.com/fable-retold/<module-name>` (the canonical org); a small set still lives at `github.com/stevenvelozo/<module-name>` (Ultravisor, Retold-Remote, Retold-Facto, and a few sub-libraries).
 
 ## Fable -- Core Ecosystem (8 modules)
 
@@ -126,12 +126,12 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 
 ## GitHub Repositories
 
-All modules are hosted at `github.com/stevenvelozo/<module-name>`:
+Most modules are hosted at `github.com/fable-retold/<module-name>`:
 
-- [github.com/stevenvelozo/retold](https://github.com/stevenvelozo/retold) -- This meta-repository
-- [github.com/stevenvelozo/fable](https://github.com/stevenvelozo/fable) -- Core ecosystem
-- [github.com/stevenvelozo/meadow](https://github.com/stevenvelozo/meadow) -- Data access
-- [github.com/stevenvelozo/orator](https://github.com/stevenvelozo/orator) -- API server
-- [github.com/stevenvelozo/pict](https://github.com/stevenvelozo/pict) -- MVC tools
+- [github.com/fable-retold/retold](https://github.com/fable-retold/retold) -- This meta-repository
+- [github.com/fable-retold/fable](https://github.com/fable-retold/fable) -- Core ecosystem
+- [github.com/fable-retold/meadow](https://github.com/fable-retold/meadow) -- Data access
+- [github.com/fable-retold/orator](https://github.com/fable-retold/orator) -- API server
+- [github.com/fable-retold/pict](https://github.com/fable-retold/pict) -- MVC tools
 
 Each module follows the same structure: `package.json`, `source/`, `test/` (Mocha TDD), and optionally `docs/` (pict-docuserve).

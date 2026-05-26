@@ -851,7 +851,7 @@
 			case 'install':     return runGeneric(tmpModule, 'npm', ['install']);
 			case 'test':        return runGeneric(tmpModule, 'npm', ['test']);
 			case 'build':       return runGeneric(tmpModule, 'npm', ['run', 'build']);
-			case 'pull':        return runGeneric(tmpModule, 'git', ['pull']);
+			case 'pull':        return runGeneric(tmpModule, 'git', ['pull', '--rebase']);
 			case 'push':        return runGeneric(tmpModule, 'git', ['push']);
 			case 'diff':        return showInlineDiff(tmpModule);
 			case 'bump-patch':  return runVersion(tmpModule, 'patch');
