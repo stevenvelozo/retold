@@ -121,6 +121,8 @@ function resolveModulePrContext(pModulePath)
 //
 // Look up an existing PR for <fork>:<branch> -> <upstream>. Returns the most
 // relevant one (prefers OPEN, then any MERGED, then CLOSED). Null if none.
+// The shape includes { number, state, url, author: { login } } so callers
+// can do same-user pre-checks (e.g. approve-pr's self-PR guard).
 //
 function findExistingPr(pCtx, pModulePath)
 {
@@ -129,7 +131,7 @@ function findExistingPr(pCtx, pModulePath)
 	let tmpJson;
 	try
 	{
-		tmpJson = ghCapture(['pr', 'list', '--repo', tmpRepo, '--head', tmpHead, '--state', 'all', '--json', 'number,state,url', '--limit', '10'], pModulePath);
+		tmpJson = ghCapture(['pr', 'list', '--repo', tmpRepo, '--head', tmpHead, '--state', 'all', '--json', 'number,state,url,author', '--limit', '10'], pModulePath);
 	}
 	catch (pError) { return null; }
 	let tmpPrs;
@@ -141,6 +143,22 @@ function findExistingPr(pCtx, pModulePath)
 	let tmpMerged = tmpPrs.find(function (pP) { return pP.state === 'MERGED'; });
 	if (tmpMerged) return tmpMerged;
 	return tmpPrs[0];
+}
+
+//
+// Return the current gh-authenticated user's login. Cached in a module-level
+// variable because it doesn't change between actions in a single ripple.
+//
+let _cachedCurrentGhUser = null;
+function getCurrentGhUser(pCwd)
+{
+	if (_cachedCurrentGhUser) return _cachedCurrentGhUser;
+	try
+	{
+		_cachedCurrentGhUser = ghCapture(['api', 'user', '--jq', '.login'], pCwd) || null;
+	}
+	catch (pError) { _cachedCurrentGhUser = null; }
+	return _cachedCurrentGhUser;
 }
 
 function getLatestCommitMessage(pModulePath)
@@ -756,6 +774,30 @@ async function runAction(pCore, pContext, pEntry, pStep, pAction, pStepIdx)
 			{
 				throw new Error('approve-pr: no open PR found for ' + tmpCtx.Fork.Owner + ':' + tmpCtx.Branch + ' on ' + tmpRepo);
 			}
+
+			// Pre-check: GitHub blocks self-approval at the API level (it returns
+			// "Can not approve your own pull request" from the addPullRequestReview
+			// mutation).  If the PR's author is the current gh user, skip cleanly
+			// rather than letting the action throw a confusing GraphQL error in
+			// the ripple's failure banner.  Returns Skipped:true so the chip ends
+			// green and the ripple proceeds to merge-pr.
+			let tmpPrAuthor = (tmpPr.author && tmpPr.author.login) || '';
+			let tmpCurrentUser = getCurrentGhUser(pEntry.AbsolutePath) || '';
+			if (tmpPrAuthor && tmpCurrentUser && tmpPrAuthor === tmpCurrentUser)
+			{
+				if (pCore && pCore.log && typeof pCore.log.info === 'function')
+				{
+					pCore.log.info('approve-pr: skipping self-approval on ' + tmpRepo + '#' + tmpPr.number + ' (PR author == current gh user "' + tmpCurrentUser + '")');
+				}
+				return {
+					Ok:        true,
+					Skipped:   true,
+					Reason:    'self-PR (GitHub blocks self-approval; treated as no-op)',
+					PrNumber:  tmpPr.number,
+					PrAuthor:  tmpPrAuthor
+				};
+			}
+
 			try
 			{
 				await runAndAwait(tmpRunner,
