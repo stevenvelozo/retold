@@ -11,18 +11,62 @@ const _ViewConfiguration =
 	AutoRender: false,
 
 	CSS: /*css*/`
-		.ripple-plan-modal .rm-flat-module-list {
+		.ripple-plan-modal .rm-flat-filter-bar {
+			display: flex; align-items: center; gap: 8px;
+			margin: 4px 0 6px;
+		}
+		.ripple-plan-modal .rm-flat-filter-bar input[type="text"] {
+			flex: 1;
+			padding: 4px 8px;
+			background: var(--color-bg);
+			color: var(--color-text);
+			border: 1px solid var(--color-border);
+			border-radius: 3px;
+			font: inherit;
+			font-size: 12px;
+		}
+		.ripple-plan-modal .rm-flat-filter-bar .rm-flat-quick-actions {
+			display: flex; gap: 4px;
+		}
+		.ripple-plan-modal .rm-flat-filter-bar button {
+			font-size: 11px; padding: 2px 8px;
+			background: rgba(47,129,247,0.12); color: var(--color-accent);
+			border: 1px solid rgba(47,129,247,0.3); border-radius: 3px;
+			cursor: pointer;
+		}
+		.ripple-plan-modal .rm-flat-filter-bar button:hover { background: rgba(47,129,247,0.22); }
+		.ripple-plan-modal .rm-flat-list {
 			border: 1px solid var(--color-border);
 			border-radius: 4px;
 			background: var(--color-panel-alt);
-			padding: 8px 10px;
-			margin: 4px 0 12px;
-			max-height: 90px;
+			padding: 4px 8px;
+			margin: 0 0 8px;
+			max-height: 220px;
 			overflow: auto;
-			font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
-			font-size: 11px;
+		}
+		.ripple-plan-modal .rm-flat-row {
+			display: flex; align-items: center; gap: 6px;
+			padding: 1px 4px;
+			font-family: var(--font-mono); font-size: 12px;
+			cursor: pointer;
+		}
+		.ripple-plan-modal .rm-flat-row:hover { background: var(--color-panel); }
+		.ripple-plan-modal .rm-flat-row input[type="checkbox"] { width: auto; margin: 0; }
+		.ripple-plan-modal .rm-flat-row .rm-flat-row-name { flex: 1; min-width: 0; }
+		.ripple-plan-modal .rm-flat-row .rm-flat-row-group {
 			color: var(--color-muted);
-			line-height: 1.55;
+			font-size: 10px;
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+		}
+		.ripple-plan-modal .rm-flat-row.is-origin .rm-flat-row-name {
+			color: var(--color-accent); font-weight: 600;
+		}
+		.ripple-plan-modal .rm-flat-empty {
+			padding: 8px 12px;
+			color: var(--color-muted);
+			font-size: 11px;
+			font-style: italic;
 		}
 		.ripple-plan-modal .rm-flat-ops {
 			margin: 4px 0 8px;
@@ -204,15 +248,28 @@ const _ViewConfiguration =
 			Hash: 'Manager-Modal-RipplePlan-FlatMode-Template',
 			Template: /*html*/`
 <p class="subtle" style="color:var(--color-muted);font-size:12px;margin:0 0 8px">
-	Apply the same set of operations to <strong>{~D:Record.ModuleCount~}</strong> selected
-	modules, in arbitrary order (no producer/consumer dependencies). Each module runs the
-	checked operations independently.
+	Apply the same set of operations to the checked modules, in arbitrary order
+	(no producer/consumer dependencies). Each module runs the checked operations
+	independently.
 </p>
 
 <div class="selection-summary">
-	<span><span class="count">{~D:Record.ModuleCount~}</span> selected</span>
+	<span><span class="count" id="RM-R-FlatCheckedCount">{~D:Record.FlatCheckedCount~}</span> of <span class="total">{~D:Record.FlatTotalCount~}</span> selected</span>
 </div>
-<div class="rm-flat-module-list">{~D:Record.ModuleListText~}</div>
+<div class="rm-flat-filter-bar">
+	<input type="text" id="RM-R-FlatFilter" placeholder="filter by module name…"
+		value="{~D:Record.FlatFilter~}"
+		oninput="_Pict.views['Manager-Modal-RipplePlan']._applyFlatFilter(this.value)">
+	<div class="rm-flat-quick-actions">
+		<button type="button" onclick="_Pict.views['Manager-Modal-RipplePlan']._setFlatAll(true)">all (visible)</button>
+		<button type="button" onclick="_Pict.views['Manager-Modal-RipplePlan']._setFlatAll(false)">none</button>
+		<button type="button" onclick="_Pict.views['Manager-Modal-RipplePlan']._invertFlat()">invert</button>
+	</div>
+</div>
+<div class="rm-flat-list" id="RM-R-FlatList">
+	{~TS:Manager-Modal-RipplePlan-FlatEmpty-Template:Record.FlatEmptySlot~}
+	{~TS:Manager-Modal-RipplePlan-FlatRow-Template:Record.FlatRows~}
+</div>
 
 <div class="rm-flat-ops">
 	<div class="form-row compact rm-flat-op-row">
@@ -288,6 +345,20 @@ const _ViewConfiguration =
 			Template: /*html*/`<button type="button" title="Select every module sharing the originating module's hyphen prefix" onclick="_Pict.views['Manager-Modal-RipplePlan'].selectSiblings()">+ select {~D:Record.Prefix~}-* siblings</button>`
 		},
 		{
+			Hash: 'Manager-Modal-RipplePlan-FlatRow-Template',
+			Template: /*html*/`
+<label class="rm-flat-row {~D:Record.OriginClass~}" data-flat-name="{~D:Record.Name~}">
+	<input type="checkbox" data-flat-checkbox="{~D:Record.Name~}" {~D:Record.CheckedAttr~}
+		onchange="_Pict.views['Manager-Modal-RipplePlan']._toggleFlatModule('{~D:Record.Name~}', this.checked)">
+	<span class="rm-flat-row-name">{~D:Record.Name~}</span>
+	<span class="rm-flat-row-group">{~D:Record.Group~}</span>
+</label>`
+		},
+		{
+			Hash: 'Manager-Modal-RipplePlan-FlatEmpty-Template',
+			Template: /*html*/`<div class="rm-flat-empty">{~D:Record.Message~}</div>`
+		},
+		{
 			Hash: 'Manager-Modal-RipplePlan-Empty-Template',
 			Template: /*html*/`<div style="color:var(--color-muted);font-style:italic">{~D:Record.Message~}</div>`
 		},
@@ -359,27 +430,150 @@ class ManagerModalRipplePlanView extends libPictView
 		this._siblingPrefix = null;
 		this._resultState = null;   // null | 'computing' | { Error: '...' }
 		this._mode = 'graph';       // 'graph' (producer-tree planner) | 'flat' (bulk per-module ops)
-		this._flatModules = [];
+		this._flatModules = [];     // full pool of module names available to bulk-op against
+		this._flatChecked = {};     // map<name, true> for modules that are checked
+		this._flatFilter = '';      // current filter substring (lowercased); '' = no filter
 	}
 
 	// pOriginatingModule: legacy single-arg form — sets the producer-tree
 	//   modal scoped to a starting module.
 	// pOriginatingModule + pOptions.Mode = 'flat' + pOptions.Modules:
-	//   opens the modal in bulk-flat mode, applies the toggled operations
-	//   to each selected module without producer/consumer ordering.
+	//   opens the modal in bulk-flat mode.  Modules (if given) is the pool of
+	//   names available to choose from; otherwise the full forkable manifest
+	//   set from AppData.Manager.Modules is used.  PreCheck (if given) is the
+	//   array of names checked by default; otherwise every pool entry is
+	//   checked (legacy behaviour, so existing callers continue to act on the
+	//   modules they passed in).
 	open(pOriginatingModule, pOptions)
 	{
 		let tmpOpts = pOptions || {};
 		this._mode = (tmpOpts.Mode === 'flat') ? 'flat' : 'graph';
-		this._flatModules = (this._mode === 'flat' && Array.isArray(tmpOpts.Modules))
-			? tmpOpts.Modules.slice()
-			: [];
+
+		if (this._mode === 'flat')
+		{
+			let tmpPool = (Array.isArray(tmpOpts.Modules) && tmpOpts.Modules.length > 0)
+				? tmpOpts.Modules.slice()
+				: this._getAllManifestModuleNames();
+			this._flatModules = tmpPool;
+
+			this._flatChecked = {};
+			let tmpInitial = Array.isArray(tmpOpts.PreCheck) ? tmpOpts.PreCheck : tmpPool;
+			for (let i = 0; i < tmpInitial.length; i++)
+			{
+				this._flatChecked[tmpInitial[i]] = true;
+			}
+			this._flatFilter = '';
+		}
+		else
+		{
+			this._flatModules = [];
+			this._flatChecked = {};
+			this._flatFilter = '';
+		}
+
 		this._origin = pOriginatingModule;
 		this._siblingPrefix = this._computeSiblingPrefix(pOriginatingModule);
 		this._resultState = null;
 
 		this._writeRecord();
 		this.render();
+	}
+
+	// ─────────────────────────────────────────────
+	//  Flat-mode helpers
+	// ─────────────────────────────────────────────
+
+	// Pull every module name out of AppData.Manager.Modules (excluding any
+	// example/sub-path entries with a "/" in the name). Used as the default
+	// pool when a caller opens flat mode without an explicit Modules list.
+	_getAllManifestModuleNames()
+	{
+		let tmpAll = (this.pict.AppData.Manager && this.pict.AppData.Manager.Modules) || [];
+		let tmpOut = [];
+		for (let i = 0; i < tmpAll.length; i++)
+		{
+			let tmpName = tmpAll[i] && tmpAll[i].Name;
+			if (!tmpName) continue;
+			if (tmpName.indexOf('/') !== -1) continue; // skip example sub-paths
+			tmpOut.push(tmpName);
+		}
+		return tmpOut;
+	}
+
+	_countFlatChecked()
+	{
+		let tmpN = 0;
+		for (let i = 0; i < this._flatModules.length; i++)
+		{
+			if (this._flatChecked[this._flatModules[i]]) tmpN++;
+		}
+		return tmpN;
+	}
+
+	// Called from the filter input's oninput=.  Updates instance state +
+	// toggles row visibility via the DOM (no re-render — keeps focus on the
+	// input).  Filter is case-insensitive substring against the module name.
+	_applyFlatFilter(pValue)
+	{
+		this._flatFilter = (pValue || '').toLowerCase().trim();
+		let tmpRows = document.querySelectorAll('#RM-R-FlatList .rm-flat-row');
+		for (let i = 0; i < tmpRows.length; i++)
+		{
+			let tmpName = (tmpRows[i].dataset.flatName || '').toLowerCase();
+			let tmpShow = this._flatFilter === '' || tmpName.indexOf(this._flatFilter) !== -1;
+			tmpRows[i].style.display = tmpShow ? '' : 'none';
+		}
+	}
+
+	// Called from row checkboxes' onchange=. Updates instance state + count.
+	_toggleFlatModule(pName, pChecked)
+	{
+		if (pChecked) this._flatChecked[pName] = true;
+		else delete this._flatChecked[pName];
+		this._refreshFlatCount();
+	}
+
+	// Quick-action: check (or uncheck) every currently-visible row.  Hidden
+	// rows (filtered out) are left untouched, so the filter doubles as a
+	// scoped multi-select.
+	_setFlatAll(pChecked)
+	{
+		let tmpBoxes = document.querySelectorAll('#RM-R-FlatList .rm-flat-row');
+		for (let i = 0; i < tmpBoxes.length; i++)
+		{
+			if (tmpBoxes[i].style.display === 'none') continue;
+			let tmpName = tmpBoxes[i].dataset.flatName;
+			if (!tmpName) continue;
+			let tmpCb = tmpBoxes[i].querySelector('input[type="checkbox"]');
+			if (tmpCb) tmpCb.checked = pChecked;
+			if (pChecked) this._flatChecked[tmpName] = true;
+			else delete this._flatChecked[tmpName];
+		}
+		this._refreshFlatCount();
+	}
+
+	// Invert across visible rows (consistent with _setFlatAll's filter scope).
+	_invertFlat()
+	{
+		let tmpBoxes = document.querySelectorAll('#RM-R-FlatList .rm-flat-row');
+		for (let i = 0; i < tmpBoxes.length; i++)
+		{
+			if (tmpBoxes[i].style.display === 'none') continue;
+			let tmpName = tmpBoxes[i].dataset.flatName;
+			if (!tmpName) continue;
+			let tmpCb = tmpBoxes[i].querySelector('input[type="checkbox"]');
+			let tmpNew = !(tmpCb && tmpCb.checked);
+			if (tmpCb) tmpCb.checked = tmpNew;
+			if (tmpNew) this._flatChecked[tmpName] = true;
+			else delete this._flatChecked[tmpName];
+		}
+		this._refreshFlatCount();
+	}
+
+	_refreshFlatCount()
+	{
+		let tmpEl = document.getElementById('RM-R-FlatCheckedCount');
+		if (tmpEl) tmpEl.textContent = String(this._countFlatChecked());
 	}
 
 	close()
@@ -390,9 +584,20 @@ class ManagerModalRipplePlanView extends libPictView
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)
 	{
 		this.pict.CSSMap.injectCSS();
-		// Re-sync the live selection count from the actual checkbox state
-		// (graph mode only — flat mode has no producer checkboxes).
-		if (this._mode !== 'flat') { this._refreshSelectionCount(); }
+		// Re-sync the live selection count from the actual checkbox state.
+		// In graph mode this scans the producer tree; in flat mode it just
+		// reads our own _flatChecked map.
+		if (this._mode !== 'flat')
+		{
+			this._refreshSelectionCount();
+		}
+		else
+		{
+			this._refreshFlatCount();
+			// Reapply any active filter so row visibility matches state across
+			// re-renders (e.g. after a submit-validation error redraws the modal).
+			if (this._flatFilter) { this._applyFlatFilter(this._flatFilter); }
+		}
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
 	}
 
@@ -497,9 +702,15 @@ class ManagerModalRipplePlanView extends libPictView
 
 	_buildFlatOpts()
 	{
-		if (this._flatModules.length === 0)
+		// Build the actual modules list from the checked set (not the pool).
+		let tmpModulesToRun = [];
+		for (let i = 0; i < this._flatModules.length; i++)
 		{
-			this._resultState = { Error: 'No modules selected.' };
+			if (this._flatChecked[this._flatModules[i]]) tmpModulesToRun.push(this._flatModules[i]);
+		}
+		if (tmpModulesToRun.length === 0)
+		{
+			this._resultState = { Error: 'No modules checked. Check at least one module in the list.' };
 			this._writeRecord();
 			this.render();
 			return null;
@@ -536,7 +747,7 @@ class ManagerModalRipplePlanView extends libPictView
 		}
 		return {
 			Mode:    'flat',
-			Modules: this._flatModules.slice(),
+			Modules: tmpModulesToRun,
 			Operations: {
 				Ncu:           tmpNcu,
 				NcuScope:      tmpNcuScope,
@@ -683,13 +894,52 @@ class ManagerModalRipplePlanView extends libPictView
 		// populated.  The producer-tree UI lives in the graph slot;
 		// the bulk-ops UI in the flat slot.
 		let tmpIsFlat = this._mode === 'flat';
-		let tmpFlatModuleListText = '';
+		let tmpFlatRows = [];
+		let tmpFlatEmptySlot = [];
+		let tmpFlatCheckedCount = 0;
 		if (tmpIsFlat)
 		{
-			let tmpSample = this._flatModules.slice(0, 12);
-			tmpFlatModuleListText = tmpSample.join(', ')
-				+ (this._flatModules.length > tmpSample.length
-					? ' … (+' + (this._flatModules.length - tmpSample.length) + ' more)' : '');
+			// Group lookup keyed by module name (for the right-side group label on each row).
+			let tmpModuleGroups = {};
+			let tmpAllModules = (this.pict.AppData.Manager && this.pict.AppData.Manager.Modules) || [];
+			for (let i = 0; i < tmpAllModules.length; i++)
+			{
+				if (tmpAllModules[i] && tmpAllModules[i].Name)
+				{
+					tmpModuleGroups[tmpAllModules[i].Name] = tmpAllModules[i].Group || 'Other';
+				}
+			}
+
+			// Sort pool by group order then name for a stable visual layout.
+			let tmpSorted = this._flatModules.slice().sort((pA, pB) =>
+			{
+				let tmpGa = tmpModuleGroups[pA] || 'Other';
+				let tmpGb = tmpModuleGroups[pB] || 'Other';
+				let tmpIa = GROUP_ORDER.indexOf(tmpGa);
+				let tmpIb = GROUP_ORDER.indexOf(tmpGb);
+				if (tmpIa === -1) tmpIa = GROUP_ORDER.length;
+				if (tmpIb === -1) tmpIb = GROUP_ORDER.length;
+				if (tmpIa !== tmpIb) return tmpIa - tmpIb;
+				return pA.localeCompare(pB);
+			});
+
+			for (let i = 0; i < tmpSorted.length; i++)
+			{
+				let tmpName = tmpSorted[i];
+				let tmpChecked = !!this._flatChecked[tmpName];
+				if (tmpChecked) tmpFlatCheckedCount++;
+				tmpFlatRows.push({
+					Name:        tmpName,
+					Group:       tmpModuleGroups[tmpName] || 'Other',
+					CheckedAttr: tmpChecked ? 'checked' : '',
+					OriginClass: (tmpName === this._origin) ? 'is-origin' : ''
+				});
+			}
+
+			if (tmpSorted.length === 0)
+			{
+				tmpFlatEmptySlot.push({ Message: '(no modules in pool — close and reopen this dialog)' });
+			}
 		}
 
 		// GraphModeSlot is a one-element-array conditional (rendered via {~TS:~}),
@@ -709,14 +959,18 @@ class ManagerModalRipplePlanView extends libPictView
 
 		return {
 			Title:               tmpIsFlat
-				? ('Ripple ' + this._flatModules.length + ' selected module' + (this._flatModules.length === 1 ? '' : 's'))
+				? ('Bulk ops — ' + tmpFlatCheckedCount + ' of ' + this._flatModules.length + ' module' + (this._flatModules.length === 1 ? '' : 's') + ' checked')
 				: 'Plan ripple',
 			Origin:              this._origin,
 			GraphModeSlot:       tmpGraphModeSlot,
 			FlatModeSlot:        tmpIsFlat
 				? [{
 						ModuleCount:          this._flatModules.length,
-						ModuleListText:       tmpFlatModuleListText,
+						FlatTotalCount:       this._flatModules.length,
+						FlatCheckedCount:     tmpFlatCheckedCount,
+						FlatFilter:           this._flatFilter,
+						FlatRows:             tmpFlatRows,
+						FlatEmptySlot:        tmpFlatEmptySlot,
 						DefaultCommitMessage: ''
 					}]
 				: [],

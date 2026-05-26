@@ -84,6 +84,7 @@ const _ViewConfiguration =
 		<div class="action-group-label">publish</div>
 		<div class="action-row">
 			<button class="action success" title="Open the publish dialog (npm, npm + Docker image, or plan a ripple from here)" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('publish', null)">publish</button>
+			<button class="action" title="Open bulk ops modal with this module pre-checked; filter and check off siblings to apply the same operations across the ecosystem" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('bulk-ops', null)">bulk ops</button>
 			<button class="action action-more" aria-label="More publish actions" title="More publish actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('publish', this); event.stopPropagation();">{~I:ChevronDown~}</button>
 		</div>
 	</div>
@@ -642,6 +643,7 @@ class ManagerModuleWorkspaceView extends libPictView
 			case 'ncu':        return this.pict.views['Manager-Modal-Ncu'].open(tmpName);
 			case 'publish':    return this.pict.views['Manager-Modal-Publish'].open(tmpName);
 			case 'ripple':     return this.pict.views['Manager-Modal-RipplePlan'].open(tmpName);
+			case 'bulk-ops':   return this.pict.views['Manager-Modal-RipplePlan'].open(tmpName, { Mode: 'flat', PreCheck: [tmpName] });
 			case 'prepare-docs': return tmpEnqueue('npx quack prepare-docs', () => tmpApi.runModuleOperation(tmpName, 'npx', ['quack', 'prepare-docs'], 'npx quack prepare-docs'));
 			case 'serve-docs':           return this._startDocserve(tmpName);
 			case 'edit-content':         return this._startContentEditor(tmpName);
