@@ -34,6 +34,46 @@ const _ViewConfiguration =
 		.step-action.current { background: rgba(47,129,247,0.18); color: var(--color-accent); }
 		.step-action.done    { background: rgba(63,185,80,0.18);  color: var(--color-success); }
 		.step-action.failed  { background: rgba(248,81,73,0.18);  color: var(--color-danger); }
+		.step-failure {
+			margin: 8px 10px 4px;
+			border: 1px solid var(--color-danger);
+			border-radius: 4px;
+			background: rgba(248,81,73,0.08);
+			padding: 8px 10px;
+		}
+		.step-failure-headline {
+			display: flex; align-items: center; gap: 6px;
+			color: var(--color-danger);
+			font-weight: 600;
+			margin-bottom: 4px;
+		}
+		.step-failure-headline .pict-icon { font-size: 14px; }
+		.step-failure-headline code {
+			background: rgba(248,81,73,0.18);
+			padding: 1px 6px; border-radius: 3px;
+			font-family: var(--font-mono);
+			font-size: 12px;
+		}
+		.step-failure-message {
+			color: var(--color-text);
+			font-size: 12px;
+			margin: 4px 0 6px;
+			white-space: pre-wrap;
+			word-break: break-word;
+		}
+		.step-failure-output {
+			background: var(--color-bg);
+			border: 1px solid var(--color-border);
+			border-radius: 3px;
+			padding: 4px 8px;
+			max-height: 160px;
+			overflow: auto;
+			font-family: var(--font-mono);
+			font-size: 11px;
+			line-height: 1.5;
+		}
+		.step-failure-line { color: var(--color-danger); white-space: pre-wrap; }
+		.step-failure-line.meta { color: var(--color-muted); font-style: italic; }
 		.step-approve { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
 		.step-approve .hint { color: var(--color-muted); font-size: 11px; }
 		.step-output  { margin-top: 8px; border-top: 1px dashed var(--color-border); padding-top: 6px; }
@@ -172,6 +212,7 @@ const _ViewConfiguration =
 		{~TS:Manager-Ripple-ActionChip-Template:Record.Actions~}
 	</div>
 	{~TS:Manager-Ripple-Approve-Template:Record.ApproveSlot~}
+	{~TS:Manager-Ripple-Failure-Template:Record.FailureSlot~}
 	{~TS:Manager-Ripple-Output-Template:Record.OutputSlot~}
 </div>
 `
@@ -197,6 +238,29 @@ const _ViewConfiguration =
 		{
 			Hash: 'Manager-Ripple-Approve-Block-Template',
 			Template: /*html*/`<span style="color:var(--color-danger)">Pre-publish validation failed; ripple will halt.</span>`
+		},
+		{
+			Hash: 'Manager-Ripple-Failure-Template',
+			Template: /*html*/`
+<div class="step-failure">
+	<div class="step-failure-headline">
+		<span class="step-failure-icon">{~I:Error~}</span>
+		<span class="step-failure-title">Failed at <code>{~D:Record.ActionLabel~}</code></span>
+	</div>
+	<div class="step-failure-message">{~D:Record.Message~}</div>
+	<div class="step-failure-output">
+		{~TS:Manager-Ripple-Failure-NoErrorLines-Template:Record.NoErrorLines~}
+		{~TS:Manager-Ripple-Failure-Line-Template:Record.ErrorLines~}
+	</div>
+</div>`
+		},
+		{
+			Hash: 'Manager-Ripple-Failure-Line-Template',
+			Template: /*html*/`<div class="step-failure-line">{~D:Record.Text~}</div>`
+		},
+		{
+			Hash: 'Manager-Ripple-Failure-NoErrorLines-Template',
+			Template: /*html*/`<div class="step-failure-line meta">(no stderr captured — see the full output below for details)</div>`
 		},
 		{
 			Hash: 'Manager-Ripple-Output-Template',
@@ -421,10 +485,16 @@ class ManagerRippleView extends libPictView
 				tmpRipple.Status = 'failed';
 				if (typeof pFrame.StepOrder === 'number' && tmpRipple.Steps[pFrame.StepOrder])
 				{
-					tmpRipple.Steps[pFrame.StepOrder].Status = 'failed';
+					let tmpFailedStep = tmpRipple.Steps[pFrame.StepOrder];
+					tmpFailedStep.Status = 'failed';
+					// Stash the error message + which action exploded so the step
+					// row can surface a banner at the top, not just bury it in
+					// the collapsed output panel.
+					tmpFailedStep.Error = pFrame.Error || '';
 					if (typeof pFrame.ActionIndex === 'number' && pFrame.ActionIndex >= 0)
 					{
-						tmpRipple.Steps[pFrame.StepOrder].ActionStates[pFrame.ActionIndex] = 'failed';
+						tmpFailedStep.ActionStates[pFrame.ActionIndex] = 'failed';
+						tmpFailedStep.FailedActionIndex = pFrame.ActionIndex;
 					}
 				}
 				this._refresh();
@@ -781,6 +851,46 @@ class ManagerRippleView extends libPictView
 			});
 		}
 
+		// Failure block — surfaces WHY a step failed at the top of the row so
+		// the user doesn't have to expand the output panel and skim it to find
+		// the actionable line.  Pulls the most recent stderr / error / exit
+		// lines from the captured output, plus the JS-side Error string from
+		// the ripple-failed frame (often just "exit 1", but sometimes a
+		// meaningful message like "approve-pr: GitHub blocks self-approval").
+		let tmpFailureSlot = [];
+		if (pState.Status === 'failed')
+		{
+			let tmpFailedActionLabel = '(unknown action)';
+			if (typeof pState.FailedActionIndex === 'number'
+				&& pPlanStep.Actions
+				&& pPlanStep.Actions[pState.FailedActionIndex])
+			{
+				tmpFailedActionLabel = this._formatActionLabel(pPlanStep.Actions[pState.FailedActionIndex]);
+			}
+
+			let tmpErrLines = [];
+			let tmpAllLines = pState.Output || [];
+			for (let i = 0; i < tmpAllLines.length; i++)
+			{
+				let tmpLine = tmpAllLines[i];
+				if (!tmpLine) continue;
+				if (tmpLine.Kind === 'stderr' || tmpLine.Kind === 'error')
+				{
+					tmpErrLines.push({ Text: tmpLine.Text });
+				}
+			}
+			// Keep only the tail (the actionable bit is almost always at the end).
+			if (tmpErrLines.length > 8) { tmpErrLines = tmpErrLines.slice(-8); }
+
+			tmpFailureSlot.push({
+				Order:        pState.Order,
+				ActionLabel:  tmpFailedActionLabel,
+				Message:      pState.Error || '(no error message reported)',
+				ErrorLines:   tmpErrLines,
+				NoErrorLines: tmpErrLines.length === 0 ? [{}] : []
+			});
+		}
+
 		// Output block (when there's anything to show or the step is currently running).
 		let tmpOutputSlot = [];
 		if ((pState.Output && pState.Output.length > 0) || pState.Status === 'running')
@@ -821,6 +931,7 @@ class ManagerRippleView extends libPictView
 			IncludeToggleSlot:  tmpIncludeToggleSlot,
 			Actions:            tmpActionRecords,
 			ApproveSlot:        tmpApproveSlot,
+			FailureSlot:        tmpFailureSlot,
 			OutputSlot:         tmpOutputSlot,
 		};
 	}
