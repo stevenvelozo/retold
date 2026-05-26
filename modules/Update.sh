@@ -1,5 +1,15 @@
 #!/bin/bash
-echo "Checking out Retold modules into: [$(pwd)/..."
+#
+# Update.sh — pull every module in the manifest.  Defaults to --rebase so fork-flow
+# work-in-progress on local branches is preserved cleanly.  Pass a different
+# pull strategy as the first argument to override:
+#   ./Update.sh                # --rebase  (default)
+#   ./Update.sh --merge        # merge commits
+#   ./Update.sh --ff-only      # fail if non-fast-forward
+#   ./Update.sh --no-rebase    # use git's configured default
+#
+PULL_STRATEGY="${1:---rebase}"
+echo "Checking out Retold modules into: [$(pwd)/...   (pull strategy: $PULL_STRATEGY)"
 
 . ${BASH_SOURCE%/*}/Include-Retold-Module-List.sh
 
@@ -11,9 +21,9 @@ update_repository()
 	CWD=$(pwd)
 	if [ -d "$CWD/$1/$2" ]
 	then
-#		echo "       # A $2 source directory exists in $1 -- updating with rebase...."
+#		echo "       # A $2 source directory exists in $1 -- updating with $PULL_STRATEGY...."
 		cd "$CWD/$1/$2"
-		git pull --rebase
+		git pull "$PULL_STRATEGY"
 #		echo "       ..."
 		cd "../.."
 	else

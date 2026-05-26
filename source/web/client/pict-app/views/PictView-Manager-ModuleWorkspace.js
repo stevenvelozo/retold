@@ -633,7 +633,7 @@ class ManagerModuleWorkspaceView extends libPictView
 			case 'git-add-one': return pPath
 				? tmpEnqueue('git add ' + pPath, () => tmpApi.gitAddPaths(tmpName, [pPath]))
 				: null;
-			case 'pull':       return tmpEnqueue('git pull',        () => tmpApi.runModuleOperation(tmpName, 'git', ['pull'], 'git pull'));
+			case 'pull':       return tmpEnqueue('git pull --rebase', () => tmpApi.runModuleOperation(tmpName, 'git', ['pull', '--rebase'], 'git pull --rebase'));
 			case 'push':       return tmpEnqueue('git push',        () => tmpApi.runModuleOperation(tmpName, 'git', ['push'], 'git push'));
 			case 'bump-patch': return this._bumpWithGuard('patch');
 			case 'bump-minor': return this._bumpWithGuard('minor');
