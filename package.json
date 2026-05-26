@@ -8,7 +8,7 @@
     },
     "scripts": {
         "start": "node source/retold-manager-web.js",
-        "build-docs": "npx quack prepare-docs ./docs -d ./modules",
+        "build-docs": "npx quack prepare-docs ./docs -d ./modules -g fable-retold",
         "serve-docs": "npx pict-docuserve serve ./docs -p 3456",
         "audit": "node source/bin/manifest-audit.js",
         "rebuild-modules": "node source/bin/manifest-rebuild-shell.js"
