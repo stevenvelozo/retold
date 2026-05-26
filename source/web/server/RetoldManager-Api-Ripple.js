@@ -702,8 +702,25 @@ async function runAction(pCore, pContext, pEntry, pStep, pAction, pStepIdx)
 
 			let tmpDefaults = getLatestCommitMessage(pEntry.AbsolutePath);
 			let tmpTitle = (pAction.Title && pAction.Title.trim()) || tmpDefaults.Subject || ('Update ' + pEntry.Name);
-			let tmpBody  = (pAction.Body !== undefined && pAction.Body !== null) ? pAction.Body : (tmpDefaults.Body || '');
-			let tmpBase  = getUpstreamDefaultBranch(tmpCtx, pEntry.AbsolutePath);
+			// gh's flag parser rejects empty strings as "no argument provided", so
+			// the body must always be non-empty. Order of preference:
+			//   1. Explicit body from the modal (if the user typed something)
+			//   2. Latest commit body (lines after the subject)
+			//   3. The title itself, as a one-line fallback
+			let tmpBody = '';
+			if (typeof pAction.Body === 'string' && pAction.Body.trim().length > 0)
+			{
+				tmpBody = pAction.Body;
+			}
+			else if (tmpDefaults.Body && tmpDefaults.Body.trim().length > 0)
+			{
+				tmpBody = tmpDefaults.Body;
+			}
+			else
+			{
+				tmpBody = tmpTitle;
+			}
+			let tmpBase = getUpstreamDefaultBranch(tmpCtx, pEntry.AbsolutePath);
 
 			await runAndAwait(tmpRunner,
 				{
