@@ -618,14 +618,28 @@ class RippleGraph
 		let tmpCommitMsg = (tmpOps.CommitMessage || '').trim();
 		let tmpDoPush    = !!tmpOps.Push;
 		let tmpDoPublish = !!tmpOps.Publish;
+		let tmpDoCreatePr  = !!tmpOps.CreatePR;
+		let tmpPrTitle     = (tmpOps.PRTitle || '').trim();
+		let tmpPrBody      = (typeof tmpOps.PRBody === 'string') ? tmpOps.PRBody : '';
+		let tmpDoApprovePr = !!tmpOps.ApprovePR;
+		let tmpDoMergePr   = !!tmpOps.MergePR;
+		let tmpMergeStrategy = (tmpOps.MergeStrategy === 'rebase' || tmpOps.MergeStrategy === 'merge') ? tmpOps.MergeStrategy : 'squash';
+		let tmpAdminMerge  = !!tmpOps.AdminMerge;
 
 		if (tmpDoCommit && !tmpCommitMsg)
 		{
 			throw new Error('flat-mode commit requires a non-empty CommitMessage.');
 		}
-		if (!tmpDoNcu && !tmpDoBump && !tmpDoCommit && !tmpDoPush && !tmpDoPublish)
+		if (!tmpDoNcu && !tmpDoBump && !tmpDoCommit && !tmpDoPush && !tmpDoPublish && !tmpDoCreatePr && !tmpDoApprovePr && !tmpDoMergePr)
 		{
 			throw new Error('flat-mode plan needs at least one operation toggled on.');
+		}
+		// Logical ordering: approve/merge need a PR. If the user opted into
+		// approve or merge without create, they're trusting that a PR already
+		// exists for the current branch — surface that intent clearly here.
+		if ((tmpDoApprovePr || tmpDoMergePr) && !tmpDoCreatePr)
+		{
+			// Allowed, but documented: the action will fail per-module if no PR exists.
 		}
 
 		let tmpSteps = [];
@@ -657,6 +671,18 @@ class RippleGraph
 			{
 				tmpActions.push({ Op: 'publish' });
 			}
+			if (tmpDoCreatePr)
+			{
+				tmpActions.push({ Op: 'create-pr', Title: tmpPrTitle, Body: tmpPrBody });
+			}
+			if (tmpDoApprovePr)
+			{
+				tmpActions.push({ Op: 'approve-pr' });
+			}
+			if (tmpDoMergePr)
+			{
+				tmpActions.push({ Op: 'merge-pr', Strategy: tmpMergeStrategy, Admin: tmpAdminMerge });
+			}
 			tmpSteps.push({
 				Order:   i,
 				Module:  tmpName,
@@ -685,7 +711,14 @@ class RippleGraph
 							Commit:        tmpDoCommit,
 							CommitMessage: tmpCommitMsg,
 							Push:          tmpDoPush,
-							Publish:       tmpDoPublish
+							Publish:       tmpDoPublish,
+							CreatePR:      tmpDoCreatePr,
+							PRTitle:       tmpPrTitle,
+							PRBody:        tmpPrBody,
+							ApprovePR:     tmpDoApprovePr,
+							MergePR:       tmpDoMergePr,
+							MergeStrategy: tmpMergeStrategy,
+							AdminMerge:    tmpAdminMerge
 						}
 				},
 			Graph:

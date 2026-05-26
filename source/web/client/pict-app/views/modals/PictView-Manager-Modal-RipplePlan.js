@@ -252,6 +252,34 @@ const _ViewConfiguration =
 			pauses for confirmation per module
 		</span>
 	</div>
+	<div class="form-row compact rm-flat-op-row">
+		<label><input type="checkbox" id="RM-R-FlatOp-CreatePR" style="width:auto"> Create PR (fork → upstream)</label>
+		<span class="rm-flat-op-detail">requires each module to have an <code>upstream</code> remote</span>
+	</div>
+	<div class="form-row compact rm-flat-op-row" id="RM-R-FlatOp-PRTitleRow">
+		<label>PR title</label>
+		<input type="text" id="RM-R-FlatOp-PRTitle" style="flex:1" placeholder="(defaults to latest commit subject)">
+	</div>
+	<div class="form-row compact rm-flat-op-row" id="RM-R-FlatOp-PRBodyRow">
+		<label>PR body</label>
+		<textarea id="RM-R-FlatOp-PRBody" rows="3" style="flex:1" placeholder="(defaults to latest commit body)"></textarea>
+	</div>
+	<div class="form-row compact rm-flat-op-row">
+		<label><input type="checkbox" id="RM-R-FlatOp-ApprovePR" style="width:auto"> Approve PR</label>
+		<span class="rm-flat-op-detail">requires review permission; GitHub blocks self-approval</span>
+	</div>
+	<div class="form-row compact rm-flat-op-row">
+		<label><input type="checkbox" id="RM-R-FlatOp-MergePR" style="width:auto"> Merge PR</label>
+		<span class="rm-flat-op-detail">
+			Strategy:
+			<select id="RM-R-FlatOp-MergeStrategy">
+				<option value="squash" selected>squash</option>
+				<option value="rebase">rebase</option>
+				<option value="merge">merge commit</option>
+			</select>
+			&nbsp;<label style="font-weight:normal"><input type="checkbox" id="RM-R-FlatOp-AdminMerge" style="width:auto"> Admin override</label>
+		</span>
+	</div>
 </div>
 `
 		},
@@ -484,6 +512,13 @@ class ManagerModalRipplePlanView extends libPictView
 		let tmpCommitMsg = (document.getElementById('RM-R-FlatOp-CommitMessage').value || '').trim();
 		let tmpPush    = document.getElementById('RM-R-FlatOp-Push').checked;
 		let tmpPublish = document.getElementById('RM-R-FlatOp-Publish').checked;
+		let tmpCreatePR  = document.getElementById('RM-R-FlatOp-CreatePR').checked;
+		let tmpPRTitle   = (document.getElementById('RM-R-FlatOp-PRTitle').value || '').trim();
+		let tmpPRBody    = document.getElementById('RM-R-FlatOp-PRBody').value || '';
+		let tmpApprovePR = document.getElementById('RM-R-FlatOp-ApprovePR').checked;
+		let tmpMergePR   = document.getElementById('RM-R-FlatOp-MergePR').checked;
+		let tmpMergeStrategy = document.getElementById('RM-R-FlatOp-MergeStrategy').value || 'squash';
+		let tmpAdminMerge    = document.getElementById('RM-R-FlatOp-AdminMerge').checked;
 
 		if (tmpCommit && !tmpCommitMsg)
 		{
@@ -492,7 +527,7 @@ class ManagerModalRipplePlanView extends libPictView
 			this.render();
 			return null;
 		}
-		if (!tmpNcu && !tmpBump && !tmpCommit && !tmpPush && !tmpPublish)
+		if (!tmpNcu && !tmpBump && !tmpCommit && !tmpPush && !tmpPublish && !tmpCreatePR && !tmpApprovePR && !tmpMergePR)
 		{
 			this._resultState = { Error: 'Pick at least one operation to perform.' };
 			this._writeRecord();
@@ -510,7 +545,14 @@ class ManagerModalRipplePlanView extends libPictView
 				Commit:        tmpCommit,
 				CommitMessage: tmpCommitMsg,
 				Push:          tmpPush,
-				Publish:       tmpPublish
+				Publish:       tmpPublish,
+				CreatePR:      tmpCreatePR,
+				PRTitle:       tmpPRTitle,
+				PRBody:        tmpPRBody,
+				ApprovePR:     tmpApprovePR,
+				MergePR:       tmpMergePR,
+				MergeStrategy: tmpMergeStrategy,
+				AdminMerge:    tmpAdminMerge
 			}
 		};
 	}
