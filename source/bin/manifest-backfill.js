@@ -122,7 +122,7 @@ function main()
 	let tmpManifest = loadManifest();
 	let tmpDisk = loadDisk();
 
-	let tmpGitHubOrg = tmpManifest.GitHubOrg || 'stevenvelozo';
+	let tmpGitHubOrg = tmpManifest.GitHubOrg || 'fable-retold';
 
 	// Build a Map<groupName, Set<moduleName>> of what's already in the manifest
 	let tmpManifestModulesByGroup = {};

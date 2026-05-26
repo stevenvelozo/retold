@@ -12,8 +12,8 @@
 					"Name": "fable",
 					"Path": "modules/fable/fable",
 					"Description": "Service dependency injection, configuration, and logging library — the foundation of every Retold application",
-					"GitHub": "https://github.com/stevenvelozo/fable",
-					"Documentation": "https://stevenvelozo.github.io/fable/",
+					"GitHub": "https://github.com/fable-retold/fable",
+					"Documentation": "https://fable-retold.github.io/fable/",
 					"RelatedModules": [
 						"fable-serviceproviderbase",
 						"fable-settings",
@@ -26,8 +26,8 @@
 					"Name": "fable-log",
 					"Path": "modules/fable/fable-log",
 					"Description": "Flexible logging wrapper with six severity levels and extensible output streams",
-					"GitHub": "https://github.com/stevenvelozo/fable-log",
-					"Documentation": "https://stevenvelozo.github.io/fable-log/",
+					"GitHub": "https://github.com/fable-retold/fable-log",
+					"Documentation": "https://fable-retold.github.io/fable-log/",
 					"RelatedModules": [
 						"fable",
 						"fable-log-logger-bunyan"
@@ -38,8 +38,8 @@
 					"Name": "fable-log-logger-bunyan",
 					"Path": "modules/fable/fable-log-logger-bunyan",
 					"Description": "Bunyan structured logging provider for Fable-Log",
-					"GitHub": "https://github.com/stevenvelozo/fable-log-logger-bunyan",
-					"Documentation": "https://stevenvelozo.github.io/fable-log-logger-bunyan/",
+					"GitHub": "https://github.com/fable-retold/fable-log-logger-bunyan",
+					"Documentation": "https://fable-retold.github.io/fable-log-logger-bunyan/",
 					"RelatedModules": [
 						"fable",
 						"fable-log"
@@ -50,8 +50,8 @@
 					"Name": "fable-serviceproviderbase",
 					"Path": "modules/fable/fable-serviceproviderbase",
 					"Description": "Base classes for Fable services providing registration, dependency injection, and lifecycle management",
-					"GitHub": "https://github.com/stevenvelozo/fable-serviceproviderbase",
-					"Documentation": "https://stevenvelozo.github.io/fable-serviceproviderbase/",
+					"GitHub": "https://github.com/fable-retold/fable-serviceproviderbase",
+					"Documentation": "https://fable-retold.github.io/fable-serviceproviderbase/",
 					"RelatedModules": [
 						"fable",
 						"pict-serviceproviderbase"
@@ -62,8 +62,8 @@
 					"Name": "fable-settings",
 					"Path": "modules/fable/fable-settings",
 					"Description": "Tolerant configuration chain for loading and merging application settings from multiple sources",
-					"GitHub": "https://github.com/stevenvelozo/fable-settings",
-					"Documentation": "https://stevenvelozo.github.io/fable-settings/",
+					"GitHub": "https://github.com/fable-retold/fable-settings",
+					"Documentation": "https://fable-retold.github.io/fable-settings/",
 					"RelatedModules": [
 						"fable"
 					],
@@ -73,8 +73,8 @@
 					"Name": "fable-ultravisor-client",
 					"Path": "modules/fable/fable-ultravisor-client",
 					"Description": "HTTP client for the Ultravisor coordinator: authentication, work-item dispatch (JSON and binary-framed streaming), operation triggering",
-					"GitHub": "https://github.com/stevenvelozo/fable-ultravisor-client",
-					"Documentation": "https://stevenvelozo.github.io/fable-ultravisor-client/",
+					"GitHub": "https://github.com/fable-retold/fable-ultravisor-client",
+					"Documentation": "https://fable-retold.github.io/fable-ultravisor-client/",
 					"RelatedModules": [
 						"fable",
 						"ultravisor",
@@ -86,8 +86,8 @@
 					"Name": "fable-uuid",
 					"Path": "modules/fable/fable-uuid",
 					"Description": "UUID generator supporting RFC 4122 v4 and configurable random strings",
-					"GitHub": "https://github.com/stevenvelozo/fable-uuid",
-					"Documentation": "https://stevenvelozo.github.io/fable-uuid/",
+					"GitHub": "https://github.com/fable-retold/fable-uuid",
+					"Documentation": "https://fable-retold.github.io/fable-uuid/",
 					"RelatedModules": [
 						"fable"
 					],
@@ -126,8 +126,8 @@
 					"Name": "bibliograph",
 					"Path": "modules/meadow/bibliograph",
 					"Description": "Key-value record comprehension service for change tracking in data ingestion pipelines",
-					"GitHub": "https://github.com/stevenvelozo/bibliograph",
-					"Documentation": "https://stevenvelozo.github.io/bibliograph/",
+					"GitHub": "https://github.com/fable-retold/bibliograph",
+					"Documentation": "https://fable-retold.github.io/bibliograph/",
 					"RelatedModules": [
 						"fable",
 						"bibliograph-storage-meadow"
@@ -138,8 +138,8 @@
 					"Name": "bibliograph-storage-meadow",
 					"Path": "modules/meadow/bibliograph-storage-meadow",
 					"Description": "Meadow-backed storage provider for Bibliograph record comprehension with full CRUD persistence",
-					"GitHub": "https://github.com/stevenvelozo/bibliograph-storage-meadow",
-					"Documentation": "https://stevenvelozo.github.io/bibliograph-storage-meadow/",
+					"GitHub": "https://github.com/fable-retold/bibliograph-storage-meadow",
+					"Documentation": "https://fable-retold.github.io/bibliograph-storage-meadow/",
 					"RelatedModules": [
 						"bibliograph",
 						"meadow"
@@ -150,8 +150,8 @@
 					"Name": "foxhound",
 					"Path": "modules/meadow/foxhound",
 					"Description": "Fluent query DSL generating dialect-specific queries for MySQL, MSSQL, SQLite, ALASQL, and MongoDB",
-					"GitHub": "https://github.com/stevenvelozo/foxhound",
-					"Documentation": "https://stevenvelozo.github.io/foxhound/",
+					"GitHub": "https://github.com/fable-retold/foxhound",
+					"Documentation": "https://fable-retold.github.io/foxhound/",
 					"RelatedModules": [
 						"meadow",
 						"stricture",
@@ -165,8 +165,8 @@
 					"Name": "meadow",
 					"Path": "modules/meadow/meadow",
 					"Description": "Provider-agnostic data broker with CRUD operations, audit tracking, and soft deletes across 8 database engines",
-					"GitHub": "https://github.com/stevenvelozo/meadow",
-					"Documentation": "https://stevenvelozo.github.io/meadow/",
+					"GitHub": "https://github.com/fable-retold/meadow",
+					"Documentation": "https://fable-retold.github.io/meadow/",
 					"RelatedModules": [
 						"fable",
 						"stricture",
@@ -188,8 +188,8 @@
 					"Name": "meadow-connection-dgraph",
 					"Path": "modules/meadow/meadow-connection-dgraph",
 					"Description": "DGraph graph database connection provider for Meadow",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-dgraph",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-dgraph/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-dgraph",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-dgraph/",
 					"RelatedModules": [
 						"meadow"
 					],
@@ -199,8 +199,8 @@
 					"Name": "meadow-connection-manager",
 					"Path": "modules/meadow/meadow-connection-manager",
 					"Description": "Server-side meadow connection manager. Parses connection configurations and instantiates database providers with graceful fallbacks for missing drivers.",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-manager",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-manager/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-manager",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-manager/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -208,8 +208,8 @@
 					"Name": "meadow-connection-meadow-endpoints",
 					"Path": "modules/meadow/meadow-connection-meadow-endpoints",
 					"Description": "Meadow connection that fronts a remote meadow-endpoints REST API as a meadow data source. Pairs with the in-meadow Meadow-Provider-MeadowEndpoints; enables retold-databeacon and other consumers to point at the Headlight Platform API (or any meadow-endpoints server), with customer scoping enforced by the upstream session.",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-meadow-endpoints",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-meadow-endpoints/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-meadow-endpoints",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-meadow-endpoints/",
 					"RelatedModules": [
 						"meadow",
 						"meadow-endpoints",
@@ -221,8 +221,8 @@
 					"Name": "meadow-connection-mongodb",
 					"Path": "modules/meadow/meadow-connection-mongodb",
 					"Description": "MongoDB document database connection provider for Meadow",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-mongodb",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-mongodb/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-mongodb",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-mongodb/",
 					"RelatedModules": [
 						"meadow",
 						"foxhound"
@@ -233,8 +233,8 @@
 					"Name": "meadow-connection-mssql",
 					"Path": "modules/meadow/meadow-connection-mssql",
 					"Description": "Microsoft SQL Server connection provider for Meadow",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-mssql",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-mssql/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-mssql",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-mssql/",
 					"RelatedModules": [
 						"meadow",
 						"foxhound"
@@ -245,8 +245,8 @@
 					"Name": "meadow-connection-mysql",
 					"Path": "modules/meadow/meadow-connection-mysql",
 					"Description": "MySQL and MariaDB pooled connection provider for Meadow",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-mysql",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-mysql/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-mysql",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-mysql/",
 					"RelatedModules": [
 						"meadow",
 						"foxhound"
@@ -257,8 +257,8 @@
 					"Name": "meadow-connection-postgresql",
 					"Path": "modules/meadow/meadow-connection-postgresql",
 					"Description": "PostgreSQL connection provider for Meadow via pg with connection pooling",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-postgresql",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-postgresql/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-postgresql",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-postgresql/",
 					"RelatedModules": [
 						"meadow",
 						"foxhound"
@@ -269,8 +269,8 @@
 					"Name": "meadow-connection-rocksdb",
 					"Path": "modules/meadow/meadow-connection-rocksdb",
 					"Description": "RocksDB embedded key-value store connection provider for Meadow",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-rocksdb",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-rocksdb/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-rocksdb",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-rocksdb/",
 					"RelatedModules": [
 						"meadow"
 					],
@@ -280,8 +280,8 @@
 					"Name": "meadow-connection-retold-databeacon",
 					"Path": "modules/meadow/meadow-connection-retold-databeacon",
 					"Description": "Meadow connection that relays CRUD and introspection through an Ultravisor mesh to a remote retold-databeacon agent",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-retold-databeacon",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-retold-databeacon/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-retold-databeacon",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-retold-databeacon/",
 					"RelatedModules": [
 						"meadow",
 						"fable-ultravisor-client",
@@ -294,8 +294,8 @@
 					"Name": "meadow-connection-solr",
 					"Path": "modules/meadow/meadow-connection-solr",
 					"Description": "Apache Solr search platform connection provider for Meadow",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-solr",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-solr/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-solr",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-solr/",
 					"RelatedModules": [
 						"meadow"
 					],
@@ -305,8 +305,8 @@
 					"Name": "meadow-connection-sqlite",
 					"Path": "modules/meadow/meadow-connection-sqlite",
 					"Description": "SQLite connection provider for Meadow via better-sqlite3",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-sqlite",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-sqlite/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-sqlite",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-sqlite/",
 					"RelatedModules": [
 						"meadow",
 						"foxhound"
@@ -317,8 +317,8 @@
 					"Name": "meadow-connection-sqlite-browser",
 					"Path": "modules/meadow/meadow-connection-sqlite-browser",
 					"Description": "Meadow SQLite connection provider for the browser (sql.js / WASM)",
-					"GitHub": "https://github.com/stevenvelozo/meadow-connection-sqlite-browser",
-					"Documentation": "https://stevenvelozo.github.io/meadow-connection-sqlite-browser/",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-sqlite-browser",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-sqlite-browser/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -326,8 +326,8 @@
 					"Name": "meadow-endpoints",
 					"Path": "modules/meadow/meadow-endpoints",
 					"Description": "Automatic RESTful CRUD endpoint generation from Meadow entities with behavior injection hooks",
-					"GitHub": "https://github.com/stevenvelozo/meadow-endpoints",
-					"Documentation": "https://stevenvelozo.github.io/meadow-endpoints/",
+					"GitHub": "https://github.com/fable-retold/meadow-endpoints",
+					"Documentation": "https://fable-retold.github.io/meadow-endpoints/",
 					"RelatedModules": [
 						"meadow",
 						"orator",
@@ -340,7 +340,7 @@
 					"Name": "meadow-graph-client",
 					"Path": "modules/meadow/meadow-graph-client",
 					"Description": "Graph client for pulling sets of records and comprehensions from Meadow endpoints",
-					"GitHub": "https://github.com/stevenvelozo/meadow-graph-client",
+					"GitHub": "https://github.com/fable-retold/meadow-graph-client",
 					"Documentation": false,
 					"RelatedModules": [
 						"meadow",
@@ -352,8 +352,8 @@
 					"Name": "meadow-integration",
 					"Path": "modules/meadow/meadow-integration",
 					"Description": "Data integration tools for CSV import, schema mapping, and centralized format transformations",
-					"GitHub": "https://github.com/stevenvelozo/meadow-integration",
-					"Documentation": "https://stevenvelozo.github.io/meadow-integration/",
+					"GitHub": "https://github.com/fable-retold/meadow-integration",
+					"Documentation": "https://fable-retold.github.io/meadow-integration/",
 					"RelatedModules": [
 						"meadow",
 						"stricture"
@@ -364,7 +364,7 @@
 					"Name": "meadow-migrationmanager",
 					"Path": "modules/meadow/meadow-migrationmanager",
 					"Description": "CLI, Web, and Console UI tool for managing database schemas and migrations",
-					"GitHub": "https://github.com/stevenvelozo/meadow-migrationmanager",
+					"GitHub": "https://github.com/fable-retold/meadow-migrationmanager",
 					"Documentation": false,
 					"RelatedModules": [
 						"meadow",
@@ -380,8 +380,8 @@
 					"Name": "meadow-provider-offline",
 					"Path": "modules/meadow/meadow-provider-offline",
 					"Description": "Offline-capable Meadow provider with browser-side SQLite and IPC routing.",
-					"GitHub": "https://github.com/stevenvelozo/meadow-provider-offline",
-					"Documentation": "https://stevenvelozo.github.io/meadow-provider-offline/",
+					"GitHub": "https://github.com/fable-retold/meadow-provider-offline",
+					"Documentation": "https://fable-retold.github.io/meadow-provider-offline/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -389,8 +389,8 @@
 					"Name": "parime",
 					"Path": "modules/meadow/parime",
 					"Description": "Generic data lake behaviors and services for managing large-scale data ingestion",
-					"GitHub": "https://github.com/stevenvelozo/parime",
-					"Documentation": "https://stevenvelozo.github.io/parime/",
+					"GitHub": "https://github.com/fable-retold/parime",
+					"Documentation": "https://fable-retold.github.io/parime/",
 					"RelatedModules": [
 						"fable",
 						"meadow"
@@ -401,8 +401,8 @@
 					"Name": "retold-data-service",
 					"Path": "modules/meadow/retold-data-service",
 					"Description": "All-in-one Fable service assembling schema, entity, endpoints, and REST API from a single configuration",
-					"GitHub": "https://github.com/stevenvelozo/retold-data-service",
-					"Documentation": "https://stevenvelozo.github.io/retold-data-service/",
+					"GitHub": "https://github.com/fable-retold/retold-data-service",
+					"Documentation": "https://fable-retold.github.io/retold-data-service/",
 					"RelatedModules": [
 						"fable",
 						"meadow",
@@ -421,8 +421,8 @@
 					"Name": "retold-harness",
 					"Path": "modules/meadow/retold-harness",
 					"Description": "Composable REST API harness with 3 pluggable schemas, 7 database providers, and a terminal management tool",
-					"GitHub": "https://github.com/stevenvelozo/retold-harness",
-					"Documentation": "https://stevenvelozo.github.io/retold-harness/",
+					"GitHub": "https://github.com/fable-retold/retold-harness",
+					"Documentation": "https://fable-retold.github.io/retold-harness/",
 					"RelatedModules": [
 						"retold-data-service",
 						"retold-harness-consistency-proxy",
@@ -442,8 +442,8 @@
 					"Name": "retold-harness-consistency-proxy",
 					"Path": "modules/meadow/retold-harness-consistency-proxy",
 					"Description": "HTTP consistency proxy that fans requests across multiple database providers and compares responses",
-					"GitHub": "https://github.com/stevenvelozo/retold-harness-consistency-proxy",
-					"Documentation": "https://stevenvelozo.github.io/retold-harness-consistency-proxy/",
+					"GitHub": "https://github.com/fable-retold/retold-harness-consistency-proxy",
+					"Documentation": "https://fable-retold.github.io/retold-harness-consistency-proxy/",
 					"RelatedModules": [
 						"retold-harness",
 						"retold-data-service"
@@ -454,8 +454,8 @@
 					"Name": "stricture",
 					"Path": "modules/meadow/stricture",
 					"Description": "MicroDDL schema definition language generating JSON, SQL DDL, MySQL, MSSQL, and documentation from compact definitions",
-					"GitHub": "https://github.com/stevenvelozo/stricture",
-					"Documentation": "https://stevenvelozo.github.io/stricture/",
+					"GitHub": "https://github.com/fable-retold/stricture",
+					"Documentation": "https://fable-retold.github.io/stricture/",
 					"RelatedModules": [
 						"meadow",
 						"foxhound",
@@ -474,8 +474,8 @@
 					"Name": "orator",
 					"Path": "modules/orator/orator",
 					"Description": "Unopinionated HTTP server abstraction with lifecycle hooks, route management, and pluggable service servers",
-					"GitHub": "https://github.com/stevenvelozo/orator",
-					"Documentation": "https://stevenvelozo.github.io/orator/",
+					"GitHub": "https://github.com/fable-retold/orator",
+					"Documentation": "https://fable-retold.github.io/orator/",
 					"RelatedModules": [
 						"orator-serviceserver-restify",
 						"orator-serviceserver-base",
@@ -489,8 +489,8 @@
 					"Name": "orator-authentication",
 					"Path": "modules/orator/orator-authentication",
 					"Description": "Orator server-side cookie-based session authentication with pluggable authenticator and optional OAuth/OIDC support.",
-					"GitHub": "https://github.com/stevenvelozo/orator-authentication",
-					"Documentation": "https://stevenvelozo.github.io/orator-authentication/",
+					"GitHub": "https://github.com/fable-retold/orator-authentication",
+					"Documentation": "https://fable-retold.github.io/orator-authentication/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -498,8 +498,8 @@
 					"Name": "orator-conversion",
 					"Path": "modules/orator/orator-conversion",
 					"Description": "File format conversion endpoints for Orator service servers",
-					"GitHub": "https://github.com/stevenvelozo/orator-conversion",
-					"Documentation": "https://stevenvelozo.github.io/orator-conversion/",
+					"GitHub": "https://github.com/fable-retold/orator-conversion",
+					"Documentation": "https://fable-retold.github.io/orator-conversion/",
 					"RelatedModules": [
 						"orator"
 					],
@@ -509,7 +509,7 @@
 					"Name": "orator-endpoint",
 					"Path": "modules/orator/orator-endpoint",
 					"Description": "Base endpoint class for Orator providing route definition and request handling patterns",
-					"GitHub": "https://github.com/stevenvelozo/orator-endpoint",
+					"GitHub": "https://github.com/fable-retold/orator-endpoint",
 					"Documentation": false,
 					"RelatedModules": [
 						"orator",
@@ -521,8 +521,8 @@
 					"Name": "orator-http-proxy",
 					"Path": "modules/orator/orator-http-proxy",
 					"Description": "HTTP reverse proxy for forwarding requests to backend services through Orator",
-					"GitHub": "https://github.com/stevenvelozo/orator-http-proxy",
-					"Documentation": "https://stevenvelozo.github.io/orator-http-proxy/",
+					"GitHub": "https://github.com/fable-retold/orator-http-proxy",
+					"Documentation": "https://fable-retold.github.io/orator-http-proxy/",
 					"RelatedModules": [
 						"orator"
 					],
@@ -532,8 +532,8 @@
 					"Name": "orator-serviceserver-base",
 					"Path": "modules/orator/orator-serviceserver-base",
 					"Description": "Base service server class for Orator providing the server abstraction interface",
-					"GitHub": "https://github.com/stevenvelozo/orator-serviceserver-base",
-					"Documentation": "https://stevenvelozo.github.io/orator-serviceserver-base/",
+					"GitHub": "https://github.com/fable-retold/orator-serviceserver-base",
+					"Documentation": "https://fable-retold.github.io/orator-serviceserver-base/",
 					"RelatedModules": [
 						"orator",
 						"orator-serviceserver-restify"
@@ -544,8 +544,8 @@
 					"Name": "orator-serviceserver-restify",
 					"Path": "modules/orator/orator-serviceserver-restify",
 					"Description": "Production HTTP server implementation for Orator powered by Restify",
-					"GitHub": "https://github.com/stevenvelozo/orator-serviceserver-restify",
-					"Documentation": "https://stevenvelozo.github.io/orator-serviceserver-restify/",
+					"GitHub": "https://github.com/fable-retold/orator-serviceserver-restify",
+					"Documentation": "https://fable-retold.github.io/orator-serviceserver-restify/",
 					"RelatedModules": [
 						"orator",
 						"orator-serviceserver-base"
@@ -556,8 +556,8 @@
 					"Name": "orator-ssl-proxy",
 					"Path": "modules/orator/orator-ssl-proxy",
 					"Description": "SSL-terminating reverse proxy with host-based routing, local CA, and Let's Encrypt support.",
-					"GitHub": "https://github.com/stevenvelozo/orator-ssl-proxy",
-					"Documentation": "https://stevenvelozo.github.io/orator-ssl-proxy/",
+					"GitHub": "https://github.com/fable-retold/orator-ssl-proxy",
+					"Documentation": "https://fable-retold.github.io/orator-ssl-proxy/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -565,8 +565,8 @@
 					"Name": "orator-static-server",
 					"Path": "modules/orator/orator-static-server",
 					"Description": "Static file serving for Orator with MIME type detection, default file resolution, and subdomain routing",
-					"GitHub": "https://github.com/stevenvelozo/orator-static-server",
-					"Documentation": "https://stevenvelozo.github.io/orator-static-server/",
+					"GitHub": "https://github.com/fable-retold/orator-static-server",
+					"Documentation": "https://fable-retold.github.io/orator-static-server/",
 					"RelatedModules": [
 						"orator"
 					],
@@ -576,8 +576,8 @@
 					"Name": "tidings",
 					"Path": "modules/orator/tidings",
 					"Description": "Extensible reporting system for generating HTML, PDF, and other format reports",
-					"GitHub": "https://github.com/stevenvelozo/tidings",
-					"Documentation": "https://stevenvelozo.github.io/tidings/",
+					"GitHub": "https://github.com/fable-retold/tidings",
+					"Documentation": "https://fable-retold.github.io/tidings/",
 					"RelatedModules": [
 						"fable",
 						"orator",
@@ -596,8 +596,8 @@
 					"Name": "cryptbrau",
 					"Path": "modules/pict/cryptbrau",
 					"Description": "Simple in-browser symmetric encryption for client-side data protection",
-					"GitHub": "https://github.com/stevenvelozo/cryptbrau",
-					"Documentation": "https://stevenvelozo.github.io/cryptbrau/",
+					"GitHub": "https://github.com/fable-retold/cryptbrau",
+					"Documentation": "https://fable-retold.github.io/cryptbrau/",
 					"RelatedModules": [
 						"pict"
 					],
@@ -607,8 +607,8 @@
 					"Name": "informary",
 					"Path": "modules/pict/informary",
 					"Description": "Dependency-free browser form marshaling with undo/redo history and field-level change deltas",
-					"GitHub": "https://github.com/stevenvelozo/informary",
-					"Documentation": "https://stevenvelozo.github.io/informary/",
+					"GitHub": "https://github.com/fable-retold/informary",
+					"Documentation": "https://fable-retold.github.io/informary/",
 					"RelatedModules": [
 						"pict-section-form"
 					],
@@ -618,8 +618,8 @@
 					"Name": "pict",
 					"Path": "modules/pict/pict",
 					"Description": "Non-opinionated MVC module with template expression engine — treats UI as rendered text for browser, terminal, or any output",
-					"GitHub": "https://github.com/stevenvelozo/pict",
-					"Documentation": "https://stevenvelozo.github.io/pict/",
+					"GitHub": "https://github.com/fable-retold/pict",
+					"Documentation": "https://fable-retold.github.io/pict/",
 					"RelatedModules": [
 						"pict-view",
 						"pict-template",
@@ -633,8 +633,8 @@
 					"Name": "pict-application",
 					"Path": "modules/pict/pict-application",
 					"Description": "Application base class coordinating multiple views, shared state, and structured lifecycle management",
-					"GitHub": "https://github.com/stevenvelozo/pict-application",
-					"Documentation": "https://stevenvelozo.github.io/pict-application/",
+					"GitHub": "https://github.com/fable-retold/pict-application",
+					"Documentation": "https://fable-retold.github.io/pict-application/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",
@@ -646,8 +646,8 @@
 					"Name": "pict-docuserve",
 					"Path": "modules/pict/pict-docuserve",
 					"Description": "Single-page documentation viewer built on Pict with catalog navigation, search, and cross-module linking",
-					"GitHub": "https://github.com/stevenvelozo/pict-docuserve",
-					"Documentation": "https://stevenvelozo.github.io/pict-docuserve/",
+					"GitHub": "https://github.com/fable-retold/pict-docuserve",
+					"Documentation": "https://fable-retold.github.io/pict-docuserve/",
 					"RelatedModules": [
 						"pict",
 						"pict-application",
@@ -665,8 +665,8 @@
 					"Name": "pict-editor-timeline",
 					"Path": "modules/pict/pict-editor-timeline",
 					"Description": "Pict visual timeline editor for building multi-beat video storyboards. Add, reorder, and configure cuts with text prompts, durations, and optional start/end frame image slots. Exports clean JSON consumable by any downstream video generation system.",
-					"GitHub": "https://github.com/stevenvelozo/pict-editor-timeline",
-					"Documentation": "https://stevenvelozo.github.io/pict-editor-timeline/",
+					"GitHub": "https://github.com/fable-retold/pict-editor-timeline",
+					"Documentation": "https://fable-retold.github.io/pict-editor-timeline/",
 					"RelatedModules": [
 						"pict",
 						"pict-view"
@@ -677,8 +677,8 @@
 					"Name": "pict-meadow-connection-manager",
 					"Path": "modules/pict/pict-meadow-connection-manager",
 					"Description": "Browser-safe Pict provider + list/detail views for managing named meadow database connections. Delegates form rendering to pict-section-connection-form so the per-provider field schemas come from one canonical source.",
-					"GitHub": "https://github.com/stevenvelozo/pict-meadow-connection-manager",
-					"Documentation": "https://stevenvelozo.github.io/pict-meadow-connection-manager/",
+					"GitHub": "https://github.com/fable-retold/pict-meadow-connection-manager",
+					"Documentation": "https://fable-retold.github.io/pict-meadow-connection-manager/",
 					"RelatedModules": [
 						"pict",
 						"pict-provider",
@@ -692,8 +692,8 @@
 					"Name": "pict-nonlinearconfig",
 					"Path": "modules/pict/pict-nonlinearconfig",
 					"Description": "Nonlinear configuration manager built on Pict for multi-step, branching configuration workflows",
-					"GitHub": "https://github.com/stevenvelozo/pict-nonlinearconfig",
-					"Documentation": "https://stevenvelozo.github.io/pict-nonlinearconfig/",
+					"GitHub": "https://github.com/fable-retold/pict-nonlinearconfig",
+					"Documentation": "https://fable-retold.github.io/pict-nonlinearconfig/",
 					"RelatedModules": [
 						"pict",
 						"pict-application",
@@ -705,8 +705,8 @@
 					"Name": "pict-panel",
 					"Path": "modules/pict/pict-panel",
 					"Description": "Hot-loadable control panel component for browser applications",
-					"GitHub": "https://github.com/stevenvelozo/pict-panel",
-					"Documentation": "https://stevenvelozo.github.io/pict-panel/",
+					"GitHub": "https://github.com/fable-retold/pict-panel",
+					"Documentation": "https://fable-retold.github.io/pict-panel/",
 					"RelatedModules": [
 						"pict",
 						"pict-view"
@@ -717,8 +717,8 @@
 					"Name": "pict-provider",
 					"Path": "modules/pict/pict-provider",
 					"Description": "Data provider base class for fetching, transforming, and delivering data to Pict views",
-					"GitHub": "https://github.com/stevenvelozo/pict-provider",
-					"Documentation": "https://stevenvelozo.github.io/pict-provider/",
+					"GitHub": "https://github.com/fable-retold/pict-provider",
+					"Documentation": "https://fable-retold.github.io/pict-provider/",
 					"RelatedModules": [
 						"pict",
 						"pict-view"
@@ -729,8 +729,8 @@
 					"Name": "pict-provider-theme",
 					"Path": "modules/pict/pict-provider-theme",
 					"Description": "Runtime theme manager for Pict applications: register theme bundles (token maps + CSS + SVG + image assets), apply at runtime via injected CSS custom properties, support dark/light/system modes via a class on <html>, plus a quack theme-build command that compiles unrolled theme folders to single self-contained JSON bundles. Stateless — host applications own theme persistence.",
-					"GitHub": "https://github.com/stevenvelozo/pict-provider-theme",
-					"Documentation": "https://stevenvelozo.github.io/pict-provider-theme/",
+					"GitHub": "https://github.com/fable-retold/pict-provider-theme",
+					"Documentation": "https://fable-retold.github.io/pict-provider-theme/",
 					"RelatedModules": [
 						"pict",
 						"pict-provider",
@@ -743,8 +743,8 @@
 					"Name": "pict-provider-vocabulary",
 					"Path": "modules/pict/pict-provider-vocabulary",
 					"Description": "Pict provider for vocabulary/glossary term management — holds a term index, provides a resolver callback for pict-section-content's parseMarkdown auto-linking, and wires popover hover handlers on rendered terms. Works with any term source: filesystem, database, or API.",
-					"GitHub": "https://github.com/stevenvelozo/pict-provider-vocabulary",
-					"Documentation": "https://stevenvelozo.github.io/pict-provider-vocabulary/",
+					"GitHub": "https://github.com/fable-retold/pict-provider-vocabulary",
+					"Documentation": "https://fable-retold.github.io/pict-provider-vocabulary/",
 					"RelatedModules": [
 						"pict",
 						"pict-provider",
@@ -756,8 +756,8 @@
 					"Name": "pict-router",
 					"Path": "modules/pict/pict-router",
 					"Description": "Hash-based URL routing via Navigo with template string route functions for Pict applications",
-					"GitHub": "https://github.com/stevenvelozo/pict-router",
-					"Documentation": "https://stevenvelozo.github.io/pict-router/",
+					"GitHub": "https://github.com/fable-retold/pict-router",
+					"Documentation": "https://fable-retold.github.io/pict-router/",
 					"RelatedModules": [
 						"pict",
 						"pict-application"
@@ -768,8 +768,8 @@
 					"Name": "pict-section-code",
 					"Path": "modules/pict/pict-section-code",
 					"Description": "Code editor and syntax highlighter wrapping CodeJar with two-way data binding to Pict AppData",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-code",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-code/",
+					"GitHub": "https://github.com/fable-retold/pict-section-code",
+					"Documentation": "https://fable-retold.github.io/pict-section-code/",
 					"RelatedModules": [
 						"pict",
 						"pict-view"
@@ -780,8 +780,8 @@
 					"Name": "pict-section-connection-form",
 					"Path": "modules/pict/pict-section-connection-form",
 					"Description": "Schema-driven Pict view that renders a Meadow connection form. Consumes the form schemas exported by each meadow-connection-* module and aggregated server-side via meadow-connection-manager.getAllProviderFormSchemas().",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-connection-form",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-connection-form/",
+					"GitHub": "https://github.com/fable-retold/pict-section-connection-form",
+					"Documentation": "https://fable-retold.github.io/pict-section-connection-form/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",
@@ -794,8 +794,8 @@
 					"Name": "pict-section-content",
 					"Path": "modules/pict/pict-section-content",
 					"Description": "Markdown parsing and content rendering with syntax highlighting, Mermaid diagrams, and KaTeX math equations",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-content",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-content/",
+					"GitHub": "https://github.com/fable-retold/pict-section-content",
+					"Documentation": "https://fable-retold.github.io/pict-section-content/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",
@@ -807,7 +807,7 @@
 					"Name": "pict-section-entitymanagement",
 					"Path": "modules/pict/pict-section-entitymanagement",
 					"Description": "Dynamic entity management sections leveraging pict-section-form metatemplates",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-entitymanagement",
+					"GitHub": "https://github.com/fable-retold/pict-section-entitymanagement",
 					"Documentation": false,
 					"RelatedModules": [
 						"pict",
@@ -820,8 +820,8 @@
 					"Name": "pict-section-equation",
 					"Path": "modules/pict/pict-section-equation",
 					"Description": "Pict Section for Expression Parser Solve Visualization",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-equation",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-equation/",
+					"GitHub": "https://github.com/fable-retold/pict-section-equation",
+					"Documentation": "https://fable-retold.github.io/pict-section-equation/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -829,8 +829,8 @@
 					"Name": "pict-section-excalidraw",
 					"Path": "modules/pict/pict-section-excalidraw",
 					"Description": "Pict view that wraps Excalidraw as an embeddable, themable drawing control. Mirrors the full Excalidraw monorepo under vendor/excalidraw so the control survives upstream drift; supports React-mount and iframe embed modes with the same OnLoad/OnSave/OnChange callback surface.",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-excalidraw",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-excalidraw/",
+					"GitHub": "https://github.com/fable-retold/pict-section-excalidraw",
+					"Documentation": "https://fable-retold.github.io/pict-section-excalidraw/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",
@@ -843,8 +843,8 @@
 					"Name": "pict-section-filebrowser",
 					"Path": "modules/pict/pict-section-filebrowser",
 					"Description": "Web control for browsing files on the remote server.",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-filebrowser",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-filebrowser",
+					"GitHub": "https://github.com/fable-retold/pict-section-filebrowser",
+					"Documentation": "https://fable-retold.github.io/pict-section-filebrowser",
 					"RelatedModules": [
 						"pict",
 						"retold-remote",
@@ -859,8 +859,8 @@
 					"Name": "pict-section-flow",
 					"Path": "modules/pict/pict-section-flow",
 					"Description": "Flow diagram section for visual workflow and process representations",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-flow",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-flow/",
+					"GitHub": "https://github.com/fable-retold/pict-section-flow",
+					"Documentation": "https://fable-retold.github.io/pict-section-flow/",
 					"RelatedModules": [
 						"pict",
 						"pict-view"
@@ -871,8 +871,8 @@
 					"Name": "pict-section-form",
 					"Path": "modules/pict/pict-section-form",
 					"Description": "Configuration-driven dynamic forms with 13+ input types, data marshaling, and mathematical solving",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-form",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-form/",
+					"GitHub": "https://github.com/fable-retold/pict-section-form",
+					"Documentation": "https://fable-retold.github.io/pict-section-form/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",
@@ -886,7 +886,7 @@
 					"Name": "pict-section-formeditor",
 					"Path": "modules/pict/pict-section-formeditor",
 					"Description": "Visual form editor for designing pict-section-form configurations",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-formeditor",
+					"GitHub": "https://github.com/fable-retold/pict-section-formeditor",
 					"Documentation": false,
 					"RelatedModules": [
 						"pict",
@@ -898,8 +898,8 @@
 					"Name": "pict-section-histogram",
 					"Path": "modules/pict/pict-section-histogram",
 					"Description": "Pict histogram section with vertical/horizontal orientation, browser/consoleui/CLI rendering, and interactive selection",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-histogram",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-histogram/",
+					"GitHub": "https://github.com/fable-retold/pict-section-histogram",
+					"Documentation": "https://fable-retold.github.io/pict-section-histogram/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -907,8 +907,8 @@
 					"Name": "pict-section-inlinedocumentation",
 					"Path": "modules/pict/pict-section-inlinedocumentation",
 					"Description": "Pict embeddable inline documentation browser with topic support",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-inlinedocumentation",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-inlinedocumentation/",
+					"GitHub": "https://github.com/fable-retold/pict-section-inlinedocumentation",
+					"Documentation": "https://fable-retold.github.io/pict-section-inlinedocumentation/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -916,8 +916,8 @@
 					"Name": "pict-section-login",
 					"Path": "modules/pict/pict-section-login",
 					"Description": "Pict login section for authentication UIs — works with orator-authentication or any custom backend",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-login",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-login/",
+					"GitHub": "https://github.com/fable-retold/pict-section-login",
+					"Documentation": "https://fable-retold.github.io/pict-section-login/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -925,8 +925,8 @@
 					"Name": "pict-section-markdowneditor",
 					"Path": "modules/pict/pict-section-markdowneditor",
 					"Description": "Segmented markdown editor built on CodeMirror v6 with drag-and-drop reorder, formatting toolbar, image upload hooks, and live rich previews",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-markdowneditor",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-markdowneditor/",
+					"GitHub": "https://github.com/fable-retold/pict-section-markdowneditor",
+					"Documentation": "https://fable-retold.github.io/pict-section-markdowneditor/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",
@@ -939,8 +939,8 @@
 					"Name": "pict-section-modal",
 					"Path": "modules/pict/pict-section-modal",
 					"Description": "Pict modal section -- confirmations, tooltips, toast notifications, and floating modal windows",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-modal",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-modal/",
+					"GitHub": "https://github.com/fable-retold/pict-section-modal",
+					"Documentation": "https://fable-retold.github.io/pict-section-modal/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -948,8 +948,8 @@
 					"Name": "pict-section-objecteditor",
 					"Path": "modules/pict/pict-section-objecteditor",
 					"Description": "Tree-based JSON object editor section for browsing and editing nested data structures",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-objecteditor",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-objecteditor/",
+					"GitHub": "https://github.com/fable-retold/pict-section-objecteditor",
+					"Documentation": "https://fable-retold.github.io/pict-section-objecteditor/",
 					"RelatedModules": [
 						"pict",
 						"pict-view"
@@ -960,8 +960,8 @@
 					"Name": "pict-section-openseadragon",
 					"Path": "modules/pict/pict-section-openseadragon",
 					"Description": "Pict Open Sea Dragon Section",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-openseadragon",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-openseadragon/",
+					"GitHub": "https://github.com/fable-retold/pict-section-openseadragon",
+					"Documentation": "https://fable-retold.github.io/pict-section-openseadragon/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -969,8 +969,8 @@
 					"Name": "pict-renderer-graph",
 					"Path": "modules/pict/pict-renderer-graph",
 					"Description": "Headless Excalidraw rendering as a fable service. Takes JSON graph descriptions (flow / star / sequence / mindmap / data-dictionary / mermaid) and produces hand-drawn SVG (or PNG) via a pre-warmed Chromium running pict-section-excalidraw's wrapper bundle. Three invocation modes: library, CLI, HTTP.",
-					"GitHub": "https://github.com/stevenvelozo/pict-renderer-graph",
-					"Documentation": "https://stevenvelozo.github.io/pict-renderer-graph/",
+					"GitHub": "https://github.com/fable-retold/pict-renderer-graph",
+					"Documentation": "https://fable-retold.github.io/pict-renderer-graph/",
 					"RelatedModules": [
 						"pict-section-excalidraw",
 						"fable",
@@ -983,8 +983,8 @@
 					"Name": "pict-section-recordset",
 					"Path": "modules/pict/pict-section-recordset",
 					"Description": "CRUD record management views built from Meadow endpoint schemas with list, detail, and dashboard views",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-recordset",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-recordset/",
+					"GitHub": "https://github.com/fable-retold/pict-section-recordset",
+					"Documentation": "https://fable-retold.github.io/pict-section-recordset/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",
@@ -997,8 +997,8 @@
 					"Name": "pict-section-theme",
 					"Path": "modules/pict/pict-section-theme",
 					"Description": "Pict section that bundles every Retold-ecosystem theme (retold-default, retold-mono, twilight, cyberpunk, daylight, neo-tokyo, ...) and exposes reusable views -- a theme picker dropdown, a light/dark/system mode toggle, and an embeddable SVG topbar button that pops a theme submenu via pict-section-modal. Also ships the pict-section-theme-brand and pict-section-theme-favicons CLIs for precompute-time brand/favicon generation. Wraps pict-provider-theme.",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-theme",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-theme/",
+					"GitHub": "https://github.com/fable-retold/pict-section-theme",
+					"Documentation": "https://fable-retold.github.io/pict-section-theme/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",
@@ -1012,8 +1012,8 @@
 					"Name": "pict-section-tuigrid",
 					"Path": "modules/pict/pict-section-tuigrid",
 					"Description": "Toast UI Grid integration for spreadsheet-like tabular data display with sorting, filtering, and editing",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-tuigrid",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-tuigrid/",
+					"GitHub": "https://github.com/fable-retold/pict-section-tuigrid",
+					"Documentation": "https://fable-retold.github.io/pict-section-tuigrid/",
 					"RelatedModules": [
 						"pict",
 						"pict-view"
@@ -1024,8 +1024,8 @@
 					"Name": "pict-section-usermanagement",
 					"Path": "modules/pict/pict-section-usermanagement",
 					"Description": "Pict user-management section — login, current-user badge, user list/edit, password change. Backed by orator-authentication's session routes plus the auth-beacon /Users CRUD surface.",
-					"GitHub": "https://github.com/stevenvelozo/pict-section-usermanagement",
-					"Documentation": "https://stevenvelozo.github.io/pict-section-usermanagement/",
+					"GitHub": "https://github.com/fable-retold/pict-section-usermanagement",
+					"Documentation": "https://fable-retold.github.io/pict-section-usermanagement/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",
@@ -1037,8 +1037,8 @@
 					"Name": "pict-service-commandlineutility",
 					"Path": "modules/pict/pict-service-commandlineutility",
 					"Description": "CLI utility module built on Commander for Pict-based command-line tools",
-					"GitHub": "https://github.com/stevenvelozo/pict-service-commandlineutility",
-					"Documentation": "https://stevenvelozo.github.io/pict-service-commandlineutility/",
+					"GitHub": "https://github.com/fable-retold/pict-service-commandlineutility",
+					"Documentation": "https://fable-retold.github.io/pict-service-commandlineutility/",
 					"RelatedModules": [
 						"pict",
 						"fable"
@@ -1049,8 +1049,8 @@
 					"Name": "pict-serviceproviderbase",
 					"Path": "modules/pict/pict-serviceproviderbase",
 					"Description": "Base classes for Pict services with pre-initialization support and lifecycle hooks",
-					"GitHub": "https://github.com/stevenvelozo/pict-serviceproviderbase",
-					"Documentation": "https://stevenvelozo.github.io/pict-serviceproviderbase/",
+					"GitHub": "https://github.com/fable-retold/pict-serviceproviderbase",
+					"Documentation": "https://fable-retold.github.io/pict-serviceproviderbase/",
 					"RelatedModules": [
 						"pict",
 						"fable-serviceproviderbase"
@@ -1061,7 +1061,7 @@
 					"Name": "pict-sessionmanager",
 					"Path": "modules/pict/pict-sessionmanager",
 					"Description": "Session management service for Pict handling authenticated REST requests across multiple security contexts",
-					"GitHub": "https://github.com/stevenvelozo/pict-sessionmanager",
+					"GitHub": "https://github.com/fable-retold/pict-sessionmanager",
 					"Documentation": false,
 					"RelatedModules": [
 						"pict",
@@ -1073,8 +1073,8 @@
 					"Name": "pict-template",
 					"Path": "modules/pict/pict-template",
 					"Description": "Template handler base class for extending Pict with custom expression types",
-					"GitHub": "https://github.com/stevenvelozo/pict-template",
-					"Documentation": "https://stevenvelozo.github.io/pict-template/",
+					"GitHub": "https://github.com/fable-retold/pict-template",
+					"Documentation": "https://fable-retold.github.io/pict-template/",
 					"RelatedModules": [
 						"pict",
 						"pict-view"
@@ -1085,8 +1085,8 @@
 					"Name": "pict-template-preprocessor",
 					"Path": "modules/pict/pict-template-preprocessor",
 					"Description": "Pict Template Preprocessor - compiles templates into cached segment arrays and builds expression dependency graphs",
-					"GitHub": "https://github.com/stevenvelozo/pict-template-preprocessor",
-					"Documentation": "https://stevenvelozo.github.io/pict-template-preprocessor/",
+					"GitHub": "https://github.com/fable-retold/pict-template-preprocessor",
+					"Documentation": "https://fable-retold.github.io/pict-template-preprocessor/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -1094,8 +1094,8 @@
 					"Name": "pict-terminalui",
 					"Path": "modules/pict/pict-terminalui",
 					"Description": "Blessed-based terminal interface bridging Pict views to terminal widgets for TUI applications",
-					"GitHub": "https://github.com/stevenvelozo/pict-terminalui",
-					"Documentation": "https://stevenvelozo.github.io/pict-terminalui/",
+					"GitHub": "https://github.com/fable-retold/pict-terminalui",
+					"Documentation": "https://fable-retold.github.io/pict-terminalui/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",
@@ -1107,8 +1107,8 @@
 					"Name": "pict-view",
 					"Path": "modules/pict/pict-view",
 					"Description": "View base class with full lifecycle (initialize, render, solve, marshal), renderables, and CSS injection",
-					"GitHub": "https://github.com/stevenvelozo/pict-view",
-					"Documentation": "https://stevenvelozo.github.io/pict-view/",
+					"GitHub": "https://github.com/fable-retold/pict-view",
+					"Documentation": "https://fable-retold.github.io/pict-view/",
 					"RelatedModules": [
 						"pict",
 						"pict-template",
@@ -1128,8 +1128,8 @@
 					"Name": "cachetrax",
 					"Path": "modules/utility/cachetrax",
 					"Description": "Hash-indexed object cache with O(1) lookups, time and size based expiration, and custom pruning strategies",
-					"GitHub": "https://github.com/stevenvelozo/cachetrax",
-					"Documentation": "https://stevenvelozo.github.io/cachetrax/",
+					"GitHub": "https://github.com/fable-retold/cachetrax",
+					"Documentation": "https://fable-retold.github.io/cachetrax/",
 					"RelatedModules": [
 						"fable"
 					],
@@ -1139,7 +1139,7 @@
 					"Name": "cumulation",
 					"Path": "modules/utility/cumulation",
 					"Description": "Data synchronization library for managing cumulative state across distributed systems",
-					"GitHub": "https://github.com/stevenvelozo/cumulation",
+					"GitHub": "https://github.com/fable-retold/cumulation",
 					"Documentation": false,
 					"RelatedModules": [
 						"fable"
@@ -1161,8 +1161,8 @@
 					"Name": "indoctrinate",
 					"Path": "modules/utility/indoctrinate",
 					"Description": "Documentation scaffolding with content cataloging, label-based filtering, and multi-format output generation",
-					"GitHub": "https://github.com/stevenvelozo/indoctrinate",
-					"Documentation": "https://stevenvelozo.github.io/indoctrinate/",
+					"GitHub": "https://github.com/fable-retold/indoctrinate",
+					"Documentation": "https://fable-retold.github.io/indoctrinate/",
 					"RelatedModules": [
 						"pict-docuserve",
 						"quackage"
@@ -1173,8 +1173,8 @@
 					"Name": "manyfest",
 					"Path": "modules/utility/manyfest",
 					"Description": "JSON manifest for consistent data description, validation, and hash-address-based access across application layers",
-					"GitHub": "https://github.com/stevenvelozo/manyfest",
-					"Documentation": "https://stevenvelozo.github.io/manyfest/",
+					"GitHub": "https://github.com/fable-retold/manyfest",
+					"Documentation": "https://fable-retold.github.io/manyfest/",
 					"RelatedModules": [
 						"fable",
 						"pict-section-form"
@@ -1185,8 +1185,8 @@
 					"Name": "manyfest-conversion",
 					"Path": "modules/utility/manyfest-conversion",
 					"Description": "Build mapping manyfests from CSVs, then fill PDF forms and XLSX spreadsheets from platform JSON payloads.",
-					"GitHub": "https://github.com/stevenvelozo/manyfest-conversion",
-					"Documentation": "https://stevenvelozo.github.io/manyfest-conversion/",
+					"GitHub": "https://github.com/fable-retold/manyfest-conversion",
+					"Documentation": "https://fable-retold.github.io/manyfest-conversion/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -1194,8 +1194,8 @@
 					"Name": "merquerial",
 					"Path": "modules/utility/merquerial",
 					"Description": "Simple dependency-free console query library.",
-					"GitHub": "https://github.com/stevenvelozo/merquerial",
-					"Documentation": "https://stevenvelozo.github.io/merquerial/",
+					"GitHub": "https://github.com/fable-retold/merquerial",
+					"Documentation": "https://fable-retold.github.io/merquerial/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -1203,7 +1203,7 @@
 					"Name": "pict-cruisecontrol",
 					"Path": "modules/utility/pict-cruisecontrol",
 					"Description": "Automated and user-assisted web page navigation and data marshaling for browser automation",
-					"GitHub": "https://github.com/stevenvelozo/pict-cruisecontrol",
+					"GitHub": "https://github.com/fable-retold/pict-cruisecontrol",
 					"Documentation": false,
 					"RelatedModules": [
 						"pict",
@@ -1215,8 +1215,8 @@
 					"Name": "precedent",
 					"Path": "modules/utility/precedent",
 					"Description": "Meta-templating engine with pattern-based start/end markers and word tree matching for code generation",
-					"GitHub": "https://github.com/stevenvelozo/precedent",
-					"Documentation": "https://stevenvelozo.github.io/precedent/",
+					"GitHub": "https://github.com/fable-retold/precedent",
+					"Documentation": "https://fable-retold.github.io/precedent/",
 					"RelatedModules": [
 						"tidings",
 						"stricture"
@@ -1227,8 +1227,8 @@
 					"Name": "quackage",
 					"Path": "modules/utility/quackage",
 					"Description": "Standardized build tool for browser bundles, transpilation, testing, and packaging via Gulp and Browserify",
-					"GitHub": "https://github.com/stevenvelozo/quackage",
-					"Documentation": "https://stevenvelozo.github.io/quackage/",
+					"GitHub": "https://github.com/fable-retold/quackage",
+					"Documentation": "https://fable-retold.github.io/quackage/",
 					"RelatedModules": [
 						"fable"
 					],
@@ -1238,8 +1238,8 @@
 					"Name": "retold-sample-data",
 					"Path": "modules/utility/retold-sample-data",
 					"Description": "Sample data and schemas for the Retold bookstore test harness",
-					"GitHub": "https://github.com/stevenvelozo/retold-sample-data",
-					"Documentation": "https://stevenvelozo.github.io/retold-sample-data/",
+					"GitHub": "https://github.com/fable-retold/retold-sample-data",
+					"Documentation": "https://fable-retold.github.io/retold-sample-data/",
 					"RelatedModules": [],
 					"Type": "library"
 				},
@@ -1247,7 +1247,7 @@
 					"Name": "retold-sharp",
 					"Path": "modules/utility/retold-sharp",
 					"Description": "Sharp image library wrapper that bypasses sharp's global-libvips detection at install time, so machines with Homebrew or system libvips do not fall into the build-from-source path",
-					"GitHub": "https://github.com/stevenvelozo/retold-sharp",
+					"GitHub": "https://github.com/fable-retold/retold-sharp",
 					"Documentation": false,
 					"RelatedModules": [],
 					"Type": "library"
@@ -1263,7 +1263,7 @@
 					"Name": "retold-beacon-host",
 					"Path": "modules/apps/retold-beacon-host",
 					"Description": "Generic container host for ultravisor-beacon CapabilityProvider classes published as npm packages — boots an Orator, loads one or more provider modules by name, and registers with a target Ultravisor.",
-					"GitHub": "https://github.com/stevenvelozo/retold-beacon-host",
+					"GitHub": "https://github.com/fable-retold/retold-beacon-host",
 					"Documentation": false,
 					"RelatedModules": [
 						"ultravisor",
@@ -1275,7 +1275,7 @@
 					"Name": "retold-content-system",
 					"Path": "modules/apps/retold-content-system",
 					"Description": "Content management system built on the Retold ecosystem",
-					"GitHub": "https://github.com/stevenvelozo/retold-content-system",
+					"GitHub": "https://github.com/fable-retold/retold-content-system",
 					"Documentation": false,
 					"RelatedModules": [
 						"fable",
@@ -1294,8 +1294,8 @@
 					"Name": "retold-data-mapper",
 					"Path": "modules/apps/retold-data-mapper",
 					"Description": "Cross-beacon schema mapping and data sync — discover remote databeacons on the Ultravisor mesh, define field mappings, and execute batch syncs.",
-					"GitHub": "https://github.com/stevenvelozo/retold-data-mapper",
-					"Documentation": "https://stevenvelozo.github.io/retold-data-mapper/",
+					"GitHub": "https://github.com/fable-retold/retold-data-mapper",
+					"Documentation": "https://fable-retold.github.io/retold-data-mapper/",
 					"RelatedModules": [
 						"fable-ultravisor-client",
 						"retold-databeacon"
@@ -1306,8 +1306,8 @@
 					"Name": "retold-databeacon",
 					"Path": "modules/apps/retold-databeacon",
 					"Description": "Deployable data beacon service — connect to remote databases, introspect schemas, generate REST endpoints, and expose beacon capabilities to the Ultravisor mesh.",
-					"GitHub": "https://github.com/stevenvelozo/retold-databeacon",
-					"Documentation": "https://stevenvelozo.github.io/retold-databeacon/",
+					"GitHub": "https://github.com/fable-retold/retold-databeacon",
+					"Documentation": "https://fable-retold.github.io/retold-databeacon/",
 					"RelatedModules": [],
 					"Branding": {
 						"Palette": "ocean",
@@ -1320,8 +1320,8 @@
 					"Name": "retold-facto",
 					"Path": "modules/apps/retold-facto",
 					"Description": "Data warehouse and knowledge graph storage for the Retold ecosystem.",
-					"GitHub": "https://github.com/stevenvelozo/retold-facto",
-					"Documentation": "https://stevenvelozo.github.io/retold-facto/",
+					"GitHub": "https://github.com/fable-retold/retold-facto",
+					"Documentation": "https://fable-retold.io-facto/",
 					"RelatedModules": [],
 					"Type": "webapp",
 					"Branding": {
@@ -1336,7 +1336,7 @@
 					"Name": "retold-remote",
 					"Path": "modules/apps/retold-remote",
 					"Description": "Remote access application built on the Retold ecosystem",
-					"GitHub": "https://github.com/stevenvelozo/retold-remote",
+					"GitHub": "https://github.com/fable-retold/retold-remote",
 					"Documentation": false,
 					"RelatedModules": [
 						"fable",
@@ -1357,8 +1357,8 @@
 					"Name": "retold-remote-desktop",
 					"Path": "modules/apps/retold-remote-desktop",
 					"Description": "Native desktop application for retold-remote media browser (Tauri 2.0)",
-					"GitHub": "https://github.com/stevenvelozo/retold-remote-desktop",
-					"Documentation": "https://stevenvelozo.github.io/retold-remote-desktop/",
+					"GitHub": "https://github.com/fable-retold/retold-remote-desktop",
+					"Documentation": "https://fable-retold.io-remote-desktop/",
 					"RelatedModules": [],
 					"Type": "webapp",
 					"Owner": "stevenvelozo",
@@ -1368,8 +1368,8 @@
 					"Name": "retold-remote-ios",
 					"Path": "modules/apps/retold-remote-ios",
 					"Description": "Native iOS application for retold-remote media browser (Capacitor 8)",
-					"GitHub": "https://github.com/stevenvelozo/retold-remote-ios",
-					"Documentation": "https://stevenvelozo.github.io/retold-remote-ios/",
+					"GitHub": "https://github.com/fable-retold/retold-remote-ios",
+					"Documentation": "https://fable-retold.io-remote-ios/",
 					"RelatedModules": [],
 					"Type": "webapp",
 					"Owner": "stevenvelozo",

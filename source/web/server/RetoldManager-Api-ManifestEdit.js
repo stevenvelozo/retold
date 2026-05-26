@@ -202,8 +202,8 @@ module.exports = function registerManifestEditRoutes(pCore)
 					Name:          tmpBody.Name,
 					Path:          tmpBody.Path          || ('modules/' + tmpDiskName + '/' + tmpBody.Name),
 					Description:   tmpBody.Description   || '',
-					GitHub:        tmpBody.GitHub        || ('https://github.com/stevenvelozo/' + tmpBody.Name),
-					Documentation: tmpBody.Documentation || ('https://stevenvelozo.github.io/' + tmpBody.Name + '/'),
+					GitHub:        tmpBody.GitHub        || ('https://github.com/fable-retold/' + tmpBody.Name),
+					Documentation: tmpBody.Documentation || ('https://fable-retold.github.io/' + tmpBody.Name + '/'),
 					RelatedModules: Array.isArray(tmpBody.RelatedModules) ? tmpBody.RelatedModules : [],
 				};
 
