@@ -25,24 +25,24 @@
     },
     "homepage": "https://github.com/fable-retold/retold",
     "devDependencies": {
-        "indoctrinate": "^1.0.11"
+        "indoctrinate": "^1.0.12"
     },
     "dependencies": {
-        "fable": "^3.1.73",
+        "fable": "^3.1.75",
         "fable-serviceproviderbase": "^3.0.19",
         "orator": "^6.1.2",
         "orator-serviceserver-restify": "^2.0.11",
-        "pict": "^1.0.368",
+        "pict": "^1.0.372",
         "pict-application": "^1.0.34",
-        "pict-docuserve": "^1.3.0",
+        "pict-docuserve": "^1.4.4",
         "pict-router": "^1.0.10",
-        "pict-section-content": "^1.0.2",
+        "pict-section-content": "^1.0.7",
         "pict-section-filebrowser": "^1.0.4",
-        "pict-section-modal": "^1.1.1",
-        "pict-section-theme": "^1.0.2",
+        "pict-section-modal": "^1.1.4",
+        "pict-section-theme": "^1.0.6",
         "pict-view": "^1.0.68",
-        "quackage": "^1.2.3",
-        "retold-content-system": "^1.0.25",
-        "ws": "^8.20.1"
+        "quackage": "^1.3.0",
+        "retold-content-system": "^1.0.29",
+        "ws": "^8.21.0"
     }
 }

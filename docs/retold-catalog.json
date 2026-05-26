@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-05-26T18:16:33.519Z",
+	"Generated": "2026-05-26T21:03:51.629Z",
 	"Mode": "ecosystem",
 	"GitHubOrg": "fable-retold",
 	"DefaultBranch": "master",
@@ -4935,7 +4935,9 @@
 						"_sidebar.md",
 						"_topbar.md",
 						"_version.json",
-						"index.html"
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				}
 			]
@@ -5341,6 +5343,7 @@
 						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
+						"_version.json",
 						"api-reference.md",
 						"cover.md",
 						"custom-server.md",
@@ -6169,9 +6172,12 @@
 					"HasCover": false,
 					"Sidebar": [],
 					"DocFiles": [
+						".nojekyll",
 						"_brand.json",
 						"_cover.md",
 						"_playground.json",
+						"_version.json",
+						"index.html",
 						"playground/app.json",
 						"playground/appdata.json",
 						"playground/application.js",
@@ -6179,7 +6185,9 @@
 						"playground/runtime/pict-application.min.js",
 						"playground/runtime/pict-editor-timeline.min.js",
 						"playground/runtime/pict-section-modal.min.js",
-						"playground/runtime/pict.min.js"
+						"playground/runtime/pict.min.js",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -6496,8 +6504,13 @@
 					"HasCover": false,
 					"Sidebar": [],
 					"DocFiles": [
+						".nojekyll",
 						"_brand.json",
-						"_cover.md"
+						"_cover.md",
+						"_version.json",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -6775,8 +6788,16 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"_sidebar.md",
-						"examples/connection_form_demo/README.md"
+						"_version.json",
+						"examples/README.md",
+						"examples/connection_form_demo/README.md",
+						"examples/connection_form_demo/index.html",
+						"examples/connection_form_demo/pict-section-connection-form-example-connection-form-demo.compatible.min.js",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -8553,6 +8574,9 @@
 						"examples/modal_garden/README.md",
 						"examples/modal_garden/index.html",
 						"examples/modal_garden/pict-section-modal-example-modal-garden.compatible.min.js",
+						"examples/panel_garden/README.md",
+						"examples/panel_garden/index.html",
+						"examples/panel_garden/pict-section-modal-example-panel-garden.compatible.min.js",
 						"index.html",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
@@ -8878,7 +8902,10 @@
 					"HasCover": false,
 					"Sidebar": [],
 					"DocFiles": [
+						".nojekyll",
 						"_playground.json",
+						"_version.json",
+						"index.html",
 						"playground/app.json",
 						"playground/appdata.json",
 						"playground/application.js",
@@ -8886,7 +8913,9 @@
 						"playground/runtime/pict-application.min.js",
 						"playground/runtime/pict-section-modal.min.js",
 						"playground/runtime/pict-section-theme.min.js",
-						"playground/runtime/pict.min.js"
+						"playground/runtime/pict.min.js",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
@@ -10691,11 +10720,13 @@
 						}
 					],
 					"DocFiles": [
+						".nojekyll",
 						"README.md",
 						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_topbar.md",
+						"_version.json",
 						"api-reference.md",
 						"architecture.md",
 						"cli-reference.md",
@@ -10704,6 +10735,7 @@
 						"index.html",
 						"persistence-hooks.md",
 						"quickstart.md",
+						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
 				},
@@ -10716,11 +10748,16 @@
 					"HasCover": false,
 					"Sidebar": [],
 					"DocFiles": [
+						".nojekyll",
 						"Dockerized-Example-Data.md",
 						"PLAN-PHASE-2B-Operation-Types.md",
 						"PROMPT-PHASE-2B.md",
 						"_brand.json",
-						"_cover.md"
+						"_cover.md",
+						"_version.json",
+						"index.html",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				},
 				{
