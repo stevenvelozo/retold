@@ -97,6 +97,26 @@ function formatDuration(pMilliseconds)
 	return `${tmpHours}h ${tmpMinutes}m ${tmpSeconds}s`;
 }
 
+//
+// POSIX shell-quote a single argument.  Used in concert with `shell: true`
+// spawn so individual Args don't get re-parsed by /bin/sh — necessary
+// whenever any arg may contain shell metacharacters: parens, quotes, spaces,
+// backticks, $, &, |, ;, !, *, ?, [ ], { }, < >, newlines, etc.
+//
+// Algorithm: if the arg is empty, emit ''.  If it's all "safe" characters
+// (alphanumerics + a small punctuation set that never has shell meaning),
+// emit verbatim.  Otherwise wrap in single quotes and escape any embedded
+// single quote as '\'' (close-quote, escaped-quote, reopen-quote — the
+// standard POSIX trick).
+//
+function shellEscape(pArg)
+{
+	let tmpStr = String(pArg);
+	if (tmpStr === '') return "''";
+	if (/^[A-Za-z0-9_/.@:%+,=-]+$/.test(tmpStr)) return tmpStr;
+	return "'" + tmpStr.replace(/'/g, "'\\''") + "'";
+}
+
 // ─────────────────────────────────────────────
 //  Runner
 // ─────────────────────────────────────────────
@@ -433,7 +453,13 @@ class ProcessRunner extends libEventEmitter
 
 	_runOneCommand(pStep, pStepIndex, pTotalSteps, pAfter)
 	{
-		let tmpCommandString = pStep.Command + ' ' + pStep.Args.join(' ');
+		// shell:true means Node concatenates Command + Args with spaces and feeds
+		// the whole thing to `/bin/sh -c "..."` — so any shell metacharacter in an
+		// arg (parens, quotes, spaces, backticks, $, &, |, ;, etc.) gets parsed by
+		// the shell instead of being treated as a single argument.  Escape every
+		// arg up front so each is a single shell "word" regardless of content.
+		let tmpEscapedArgs = (pStep.Args || []).map(shellEscape);
+		let tmpCommandString = pStep.Command + ' ' + tmpEscapedArgs.join(' ');
 		let tmpRunnable = `cd ${pStep.Cwd} && ${tmpCommandString}`;
 		this._stepStartTime = Date.now();
 
@@ -455,7 +481,7 @@ class ProcessRunner extends libEventEmitter
 		let tmpProcess;
 		try
 		{
-			tmpProcess = libChildProcess.spawn(pStep.Command, pStep.Args,
+			tmpProcess = libChildProcess.spawn(pStep.Command, tmpEscapedArgs,
 				{
 					cwd: pStep.Cwd,
 					shell: true,
