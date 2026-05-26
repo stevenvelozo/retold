@@ -67,7 +67,13 @@ function loadForkableModules()
 function gitCheck(pCwd, pArgs)
 {
 	let tmpResult = libChildProcess.spawnSync('git', pArgs, { cwd: pCwd, encoding: 'utf8' });
-	return { Status: tmpResult.status, Stdout: (tmpResult.stdout || '').trim(), Stderr: (tmpResult.stderr || '').trim() };
+	// NOTE: we deliberately do NOT trim Stdout/Stderr here — the caller needs to
+	// see the raw bytes for parsers that rely on column positions.  In particular
+	// `git status --porcelain` lines begin with " X" (space + status code), and
+	// trimming the whole buffer eats the leading space of the *first* line,
+	// which shifts slice() offsets and silently drops the alphabetically-first
+	// dirty file (e.g. `_version.json` because `_` sorts before letters).
+	return { Status: tmpResult.status, Stdout: tmpResult.stdout || '', Stderr: tmpResult.stderr || '' };
 }
 
 //
@@ -78,7 +84,7 @@ function gitCheck(pCwd, pArgs)
 function pickStageables(pModulePath)
 {
 	let tmpStatus = gitCheck(pModulePath, ['status', '--porcelain']);
-	if (tmpStatus.Status !== 0) return { Err: tmpStatus.Stderr };
+	if (tmpStatus.Status !== 0) return { Err: (tmpStatus.Stderr || '').trim() };
 	if (!tmpStatus.Stdout) return { Files: [] };
 	let tmpFiles = [];
 	let tmpLines = tmpStatus.Stdout.split('\n');
@@ -146,20 +152,26 @@ function main()
 		}
 
 		tmpStats.Touched++;
-		console.log(tmpTag + '  ' + tmpPick.Files.length + ' file(s) ' + (tmpApply ? 'committing' : 'would commit'));
+		// Verbose: list every file we picked up, so it's obvious from the log
+		// whether _version.json + similar build-output files are being staged.
+		console.log(tmpTag + '  ' + tmpPick.Files.length + ' file(s) ' + (tmpApply ? 'committing' : 'would commit')
+			+ ': ' + tmpPick.Files.join(', '));
 		if (!tmpApply) continue;
 
-		// Verify remotes + branch.
+		// Verify remotes + branch.  Single-line stdout from git needs .trim() at
+		// the call site now that gitCheck() preserves raw output (see comment in
+		// gitCheck about why the global .trim was removed).
 		let tmpUpstream = gitCheck(tmpModule.FullPath, ['remote', 'get-url', 'upstream']);
+		let tmpUpstreamUrl = (tmpUpstream.Stdout || '').trim();
 		let tmpExpectedUpstream = 'https://github.com/fable-retold/' + tmpModule.Name + '.git';
-		if (tmpUpstream.Status !== 0 || tmpUpstream.Stdout !== tmpExpectedUpstream)
+		if (tmpUpstream.Status !== 0 || tmpUpstreamUrl !== tmpExpectedUpstream)
 		{
-			console.log('    ! upstream remote missing or wrong (' + tmpUpstream.Stdout + '), skipping');
+			console.log('    ! upstream remote missing or wrong (' + tmpUpstreamUrl + '), skipping');
 			tmpStats.Failed++;
 			continue;
 		}
 		let tmpBranchResult = gitCheck(tmpModule.FullPath, ['branch', '--show-current']);
-		let tmpBranch = tmpBranchResult.Stdout;
+		let tmpBranch = (tmpBranchResult.Stdout || '').trim();
 		if (tmpBranch !== 'master' && tmpBranch !== 'main')
 		{
 			console.log('    ! not on master/main (on ' + tmpBranch + '), skipping');
