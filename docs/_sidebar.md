@@ -1,6 +1,5 @@
 - Getting Started
 
-  - [Setting up a Development Environment](setting-up-dev-environment.md)
   - [Getting Started](getting-started.md)
 
 - Ecosystem Architecture
@@ -24,6 +23,7 @@
 - Contributing
 
   - [Contributing](contributing.md)
+  - [Getting Started Developing](setting-up-dev-environment.md)
   - [Testing](testing.md)
 
 - [Examples](examples/examples.md)
