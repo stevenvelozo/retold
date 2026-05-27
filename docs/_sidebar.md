@@ -1,5 +1,6 @@
 - Getting Started
 
+  - [Setting up a Development Environment](setting-up-dev-environment.md)
   - [Getting Started](getting-started.md)
 
 - Ecosystem Architecture
