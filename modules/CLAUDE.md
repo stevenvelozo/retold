@@ -10,6 +10,7 @@ Shell scripts manage all modules collectively:
 - `Checkout.sh` — Clone every module: forkable modules clone from `<your-user>/<module>` (with `upstream` set to the canonical owner for PR sync); non-forkable modules clone directly from their per-module Owner.
 - `Install.sh` — Run `npm install` inside every cloned module so each module is runnable on its own (tests, examples, the per-module dev workflow). Pair this with `Checkout.sh` on a fresh box; the manager's per-module action buttons (`install`, `test`, `build`, `examples`, etc.) all assume each module has its own `node_modules/`.
 - `Status.sh` — Show git status across all modules
+- `Sync.sh` — Fast-forward each forkable module's fork (`<your-user>/<module>`) from its canonical upstream on GitHub via `gh repo sync`. No local checkout required; follow with `Update.sh` to pull the synced state into local clones. Skips non-forkable modules and any forkable module the user has not yet forked.
 - `Update.sh` — Pull with rebase across all modules
 - `Include-Retold-Module-List.sh` — Central registry (generated from `Retold-Modules-Manifest.json`) defining per-group parallel arrays: `repositoriesX`, `ownersX`, `forkableX`. Sourced by the scripts above.
 - `Retold-Modules.md` — Human-readable module list with hosted doc links
