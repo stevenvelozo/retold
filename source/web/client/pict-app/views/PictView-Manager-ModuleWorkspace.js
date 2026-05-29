@@ -107,6 +107,7 @@ const _ViewConfiguration =
 			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('diff', null)">diff</button>
 			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('commit', null)">commit</button>
 			<button class="action" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('push', null)">push</button>
+			<button class="action" title="Open a pull request from your fork to the upstream (org) repo" onclick="_Pict.views['Manager-ModuleWorkspace'].runAction('create-pr', null)">PR</button>
 			<button class="action action-more" aria-label="More git actions" title="More git actions" onclick="_Pict.views['Manager-ModuleWorkspace']._openOverflow('git', this); event.stopPropagation();">{~I:ChevronDown~}</button>
 		</div>
 	</div>
@@ -176,6 +177,7 @@ const _ViewConfiguration =
 	{~TS:Manager-ModuleWorkspace-InfoBox-Version-Template:Record.InfoBox.VersionSlot~}
 	{~TS:Manager-ModuleWorkspace-InfoBox-Branch-Template:Record.InfoBox.BranchSlot~}
 	{~TS:Manager-ModuleWorkspace-InfoBox-AheadBehind-Template:Record.InfoBox.AheadBehindSlot~}
+	{~TS:Manager-ModuleWorkspace-InfoBox-Drift-Template:Record.InfoBox.DriftSlot~}
 	{~TS:Manager-ModuleWorkspace-InfoBox-Dirty-Template:Record.InfoBox.DirtySlot~}
 	<span class="ib-toggle"></span>
 </div>
@@ -193,7 +195,8 @@ const _ViewConfiguration =
 		<h4>Git status</h4>
 		<dl class="kv">
 			<dt>branch</dt><dd>{~D:Record.InfoBox.GitBranch~}</dd>
-			<dt>ahead / behind</dt><dd>{~D:Record.InfoBox.AheadBehind~}</dd>
+			<dt>vs fork ↑/↓</dt><dd title="Local commits not pushed to your fork (origin) / commits on the fork you don't have">{~D:Record.InfoBox.AheadBehind~}</dd>
+			<dt>vs org ↑/↓</dt><dd title="Commits ahead of / behind the canonical org repo (upstream); as of the last fetch">{~D:Record.InfoBox.UpstreamDriftLabel~}</dd>
 			<dt>dirty</dt><dd>{~D:Record.InfoBox.DirtyLabel~}</dd>
 		</dl>
 	</div>
@@ -211,6 +214,10 @@ const _ViewConfiguration =
 		{
 			Hash: 'Manager-ModuleWorkspace-InfoBox-AheadBehind-Template',
 			Template: /*html*/`<span class="ib-aheadbehind" title="{~D:Record.Tooltip~}"><span class="ib-ahead">{~D:Record.Ahead~}</span> / <span class="ib-behind">{~D:Record.Behind~}</span></span>`
+		},
+		{
+			Hash: 'Manager-ModuleWorkspace-InfoBox-Drift-Template',
+			Template: /*html*/`<span class="ib-drift" title="{~D:Record.Tooltip~}">org ↑<span class="ib-ahead">{~D:Record.Ahead~}</span> ↓<span class="ib-behind">{~D:Record.Behind~}</span></span>`
 		},
 		{
 			Hash: 'Manager-ModuleWorkspace-InfoBox-Dirty-Template',
@@ -462,9 +469,9 @@ class ManagerModuleWorkspaceView extends libPictView
 			NpmLinkSlot:        [],
 			DocsLinkSlot:       [],
 			DescriptionSlot:    [],
-			InfoBox:            { Manifest: { Name: '(none)' }, VersionSlot: [], BranchSlot: [], AheadBehindSlot: [], DirtySlot: [],
+			InfoBox:            { Manifest: { Name: '(none)' }, VersionSlot: [], BranchSlot: [], AheadBehindSlot: [], DriftSlot: [], DirtySlot: [],
 				PkgName: '—', PkgVersion: '—', DepsCount: 0, DevDepsCount: 0,
-				GitBranch: '—', AheadBehind: '0 / 0', DirtyLabel: 'no' },
+				GitBranch: '—', AheadBehind: '0 / 0', UpstreamDriftLabel: '—', DirtyLabel: 'no' },
 			ChangedFilesSlot:    [],
 			RetoldDepsSlot:      [],
 			ExternalDepsSlot:    [],
@@ -508,16 +515,37 @@ class ManagerModuleWorkspaceView extends libPictView
 			? [{
 				Ahead:   tmpAhead,
 				Behind:  tmpBehind,
-				Tooltip: tmpAhead + ' commit' + (tmpAhead === 1 ? '' : 's') + ' ahead, '
-					+ tmpBehind + ' commit' + (tmpBehind === 1 ? '' : 's') + ' behind upstream',
+				Tooltip: tmpAhead + ' commit' + (tmpAhead === 1 ? '' : 's') + ' ahead of, '
+					+ tmpBehind + ' commit' + (tmpBehind === 1 ? '' : 's') + ' behind your fork (origin)',
 			}]
 			: [];
+
+		// Drift vs the canonical org (upstream) — separate from the fork pill
+		// above. Counts are as of the last `git fetch upstream`; null when the
+		// upstream ref has never been fetched (or the module isn't forkable).
+		let tmpAheadUp        = pGit.AheadUpstream;
+		let tmpBehindUp       = pGit.BehindUpstream;
+		let tmpHasUpstreamRef = !!pGit.HasUpstreamRef;
+		let tmpHasDrift       = tmpHasUpstreamRef && (((tmpAheadUp || 0) > 0) || ((tmpBehindUp || 0) > 0));
+		let tmpDriftSlot      = tmpHasDrift
+			? [{
+				Ahead:   tmpAheadUp || 0,
+				Behind:  tmpBehindUp || 0,
+				Tooltip: (tmpAheadUp || 0) + ' ahead of / ' + (tmpBehindUp || 0)
+					+ ' behind the org (upstream/' + (pGit.UpstreamBranch || '?') + '), as of the last fetch',
+			}]
+			: [];
+		let tmpDriftLabel;
+		if (!tmpHasUpstreamRef && !pGit.UpstreamUrl) { tmpDriftLabel = 'n/a (no upstream remote)'; }
+		else if (!tmpHasUpstreamRef)                 { tmpDriftLabel = 'not fetched — run “fetch upstream”'; }
+		else { tmpDriftLabel = '↑ ' + (tmpAheadUp || 0) + ' / ↓ ' + (tmpBehindUp || 0) + ' (upstream/' + (pGit.UpstreamBranch || '?') + ')'; }
 
 		return {
 			Manifest:        pManifest,
 			VersionSlot:     pPkg.Version ? [{ Version: pPkg.Version }] : [],
 			BranchSlot:      pGit.Branch  ? [{ Branch: pGit.Branch }]   : [],
 			AheadBehindSlot: tmpAheadBehindSlot,
+			DriftSlot:       tmpDriftSlot,
 			DirtySlot:       tmpDirtyState ? [{ State: tmpDirtyState, Tooltip: tmpDirtyTip }] : [],
 
 			PkgName:        pPkg.Name    || '—',
@@ -526,7 +554,8 @@ class ManagerModuleWorkspaceView extends libPictView
 			DevDepsCount:   pPkg.DevDependencies ? Object.keys(pPkg.DevDependencies).length : 0,
 
 			GitBranch:   pGit.Branch || '—',
-			AheadBehind: tmpAhead + ' / ' + tmpBehind,
+			AheadBehind: '↑ ' + tmpAhead + ' / ↓ ' + tmpBehind,
+			UpstreamDriftLabel: tmpDriftLabel,
 			DirtyLabel:  pGit.Dirty ? 'yes' : 'no',
 		};
 	}
@@ -616,7 +645,9 @@ class ManagerModuleWorkspaceView extends libPictView
 			case 'git':
 				tmpItems =
 				[
-					{ Hash: 'pull', Label: 'pull' },
+					{ Hash: 'fetch-upstream', Label: 'fetch upstream' },
+					{ Hash: 'sync-upstream',  Label: 'sync from upstream (rebase + push)' },
+					{ Hash: 'pull',           Label: 'pull (origin, rebase)' },
 				];
 				break;
 			case 'publish':
@@ -698,6 +729,9 @@ class ManagerModuleWorkspaceView extends libPictView
 				: null;
 			case 'pull':       return tmpEnqueue('git pull --rebase', () => tmpApi.runModuleOperation(tmpName, 'git', ['pull', '--rebase'], 'git pull --rebase'));
 			case 'push':       return tmpEnqueue('git push',        () => tmpApi.runModuleOperation(tmpName, 'git', ['push'], 'git push'));
+			case 'fetch-upstream': return tmpEnqueue('git fetch upstream', () => tmpApi.fetchUpstream(tmpName));
+			case 'sync-upstream':  return this._syncUpstreamWithGuard(tmpName);
+			case 'create-pr':  return this.pict.views['Manager-Modal-CreatePR'].open(tmpName);
 			case 'bump-patch': return this._bumpWithGuard('patch');
 			case 'bump-minor': return this._bumpWithGuard('minor');
 			case 'bump-major': return this._bumpWithGuard('major');
@@ -903,6 +937,74 @@ class ManagerModuleWorkspaceView extends libPictView
 		{
 			this.pict.PictApplication.setStatus('examples failed: ' + (pError && pError.message ? pError.message : pError));
 		});
+	}
+
+	// ─────────────────────────────────────────────
+	//  Sync-from-upstream guard — never rebase over a dirty tree
+	// ─────────────────────────────────────────────
+
+	_syncUpstreamWithGuard(pModuleName)
+	{
+		let tmpApi    = this.pict.providers.ManagerAPI;
+		let tmpModal  = this.pict.views['Pict-Section-Modal'];
+		let tmpDetail = this.pict.AppData.Manager.SelectedModuleDetail;
+		let tmpGit    = (tmpDetail && tmpDetail.GitStatus) || {};
+
+		// Client-side mirror of the server's 409 guard: a rebase must never run
+		// over uncommitted work. Surface it before stamping a running op so we
+		// don't leave a spinner that never resolves.
+		if (tmpGit.Dirty)
+		{
+			if (tmpModal && typeof tmpModal.toast === 'function')
+			{
+				tmpModal.toast('Commit or stash changes in ' + pModuleName
+					+ ' before syncing from upstream.', { type: 'error', duration: 6000 });
+			}
+			this.pict.PictApplication.setStatus('Sync from upstream skipped — working tree is dirty.');
+			return;
+		}
+
+		let tmpLabel = 'git sync upstream (fetch + rebase + push)';
+		this.pict.providers.ManagerOperationsWS.enqueueOperation(
+			() =>
+			{
+				this.pict.AppData.Manager.ActiveOperation =
+					{
+						OperationId: null,
+						CommandTag:  null,
+						Lines:       [],
+						HeaderState: 'running',
+						HeaderText:  tmpLabel,
+						Scope:       'module',
+						ModuleName:  pModuleName,
+					};
+				let tmpLayout = this.pict.views['Manager-Layout'];
+				if (tmpLayout && typeof tmpLayout.popLogPanel === 'function') { tmpLayout.popLogPanel(); }
+
+				return tmpApi.syncUpstream(pModuleName).catch((pError) =>
+					{
+						// Server backstop (dirty-tree race, no upstream remote,
+						// runner busy). No operation launched → no WS frames will
+						// arrive, so flip the header to error here rather than
+						// leave a stuck spinner.
+						let tmpOp = this.pict.AppData.Manager.ActiveOperation;
+						if (tmpOp && tmpOp.HeaderState === 'running' && !tmpOp.OperationId)
+						{
+							tmpOp.HeaderState = 'error';
+							tmpOp.HeaderText  = tmpLabel + ' — ' + (pError && pError.message ? pError.message : 'failed');
+						}
+						if (tmpModal && typeof tmpModal.toast === 'function')
+						{
+							tmpModal.toast(pError && pError.message ? pError.message : 'sync from upstream failed',
+								{ type: 'error', duration: 6000 });
+						}
+						let tmpOutput = this.pict.views['Manager-OutputPanel'];
+						if (tmpOutput && typeof tmpOutput.render === 'function') { tmpOutput.render(); }
+						let tmpLogBar = this.pict.views['Manager-LogBar'];
+						if (tmpLogBar && typeof tmpLogBar.scheduleAppend === 'function') { tmpLogBar.scheduleAppend(); }
+					});
+			},
+			{ Label: tmpLabel, ModuleName: pModuleName });
 	}
 
 	// ─────────────────────────────────────────────

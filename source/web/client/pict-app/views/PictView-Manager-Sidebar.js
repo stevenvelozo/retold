@@ -22,10 +22,18 @@ const _ViewConfiguration =
 			vertical-align: middle;
 		}
 		/* State-coded variants — picked by the most upstream pending step:
-		     unstaged (orange) → staged (cyan) → unpushed (blue). */
+		     unstaged (orange) → staged (cyan) → unpushed (blue) →
+		     ahead-upstream (green, PR-able) → behind-upstream (purple, sync). */
 		.dirty-badge.dirty-badge--unstaged { background: var(--color-warning); }
 		.dirty-badge.dirty-badge--staged   { background: #4cc9d4; }
 		.dirty-badge.dirty-badge--unpushed { background: var(--color-accent); }
+		.dirty-badge.dirty-badge--ahead-upstream  { background: var(--color-success); }
+		.dirty-badge.dirty-badge--behind-upstream { background: #b07bd6; }
+
+		/* Hint next to the "fetch upstreams on scan" checkbox. Its own class so
+		   the examples-count DOM patch (which querySelectors .rm-examples-count)
+		   doesn't overwrite it. */
+		.rm-fetch-hint { color: var(--color-muted); font-size: 11px; margin-left: 4px; }
 
 		/* ── Sidebar tab strip ─────────────────────────────────────
 		   Three top-level surfaces in the sidebar: Modules / Files /
@@ -189,6 +197,12 @@ const _ViewConfiguration =
 			onclick="_Pict.views['Manager-Sidebar'].triggerScan()">Scan</button>
 	</div>
 	<label class="sidebar-checkbox">
+		<input type="checkbox" id="RM-FetchRemotes"
+			onchange="_Pict.views['Manager-Sidebar'].setScanFetch(this.checked)">
+		Fetch upstreams on scan
+		<span class="rm-fetch-hint" title="Slower: runs git fetch upstream per forkable module so the org drift counts are exact rather than as-of-last-fetch">(exact org drift)</span>
+	</label>
+	<label class="sidebar-checkbox">
 		<input type="checkbox" id="RM-DirtyOnly"
 			onchange="_Pict.views['Manager-Sidebar'].setDirtyOnly(this.checked)">
 		Dirty only
@@ -331,32 +345,41 @@ function _classifyVersionState(pLocal, pPublished)
 	return 'in-sync';
 }
 
-// A module is "dirty" for sidebar purposes when EITHER it has uncommitted
-// changes in the working tree OR it has commits ahead of the upstream that
-// haven't been pushed yet — both states mean "you have local work that
-// hasn't reached the remote." Returns false for missing/error entries.
+// A module is "dirty" for sidebar purposes when it has local work that hasn't
+// reached a remote OR it has drifted from the canonical org (upstream):
+//   - uncommitted working-tree changes, OR
+//   - commits ahead of its own fork (origin) that haven't been pushed, OR
+//   - commits ahead of / behind the org (upstream) — the fork has drifted and
+//     needs a PR (ahead) or a sync (behind).
+// Returns false for missing/error entries.
 function isDirty(pScanEntry)
 {
 	if (!pScanEntry) { return false; }
 	if (pScanEntry.Dirty) { return true; }
 	if ((pScanEntry.Ahead || 0) > 0) { return true; }
+	if ((pScanEntry.AheadUpstream || 0) > 0) { return true; }
+	if ((pScanEntry.BehindUpstream || 0) > 0) { return true; }
 	return false;
 }
 
 // Classify the *most upstream pending step* so the badge color reflects
-// what the user needs to do next. Priority: stage → commit → push.
-//   'unstaged' (orange) — there are working-tree changes / untracked files
-//                         that haven't been `git add`-ed yet.
-//   'staged'   (cyan)   — files are in the index but not yet committed.
-//   'unpushed' (blue)   — clean tree, but commits are ahead of upstream.
-//   null               — nothing to do.
+// what the user needs to do next. Priority: stage → commit → push to fork →
+// PR to org → sync from org.
+//   'unstaged'        (orange) — working-tree changes / untracked files not yet `git add`-ed.
+//   'staged'          (cyan)   — files in the index but not yet committed.
+//   'unpushed'        (blue)   — clean tree, but commits not pushed to the fork (origin).
+//   'ahead-upstream'  (green)  — fork has commits the org lacks → open a PR.
+//   'behind-upstream' (purple) — the org has commits the fork lacks → sync.
+//   null                       — nothing to do.
 function dirtyState(pScanEntry)
 {
 	if (!pScanEntry) { return null; }
-	if (pScanEntry.HasUnstaged)        { return 'unstaged'; }
-	if (pScanEntry.HasStaged)          { return 'staged'; }
-	if ((pScanEntry.Ahead || 0) > 0)   { return 'unpushed'; }
-	if (pScanEntry.Dirty)              { return 'unstaged'; }
+	if (pScanEntry.HasUnstaged)             { return 'unstaged'; }
+	if (pScanEntry.HasStaged)               { return 'staged'; }
+	if ((pScanEntry.Ahead || 0) > 0)        { return 'unpushed'; }
+	if (pScanEntry.Dirty)                   { return 'unstaged'; }
+	if ((pScanEntry.AheadUpstream || 0) > 0)  { return 'ahead-upstream'; }
+	if ((pScanEntry.BehindUpstream || 0) > 0) { return 'behind-upstream'; }
 	return null;
 }
 
@@ -375,6 +398,10 @@ function dirtyTooltip(pScanEntry)
 	{
 		tmpParts.push(tmpAhead + ' unpushed commit' + (tmpAhead === 1 ? '' : 's'));
 	}
+	let tmpAheadUp  = pScanEntry.AheadUpstream  || 0;
+	let tmpBehindUp = pScanEntry.BehindUpstream || 0;
+	if (tmpAheadUp > 0)  { tmpParts.push(tmpAheadUp + ' ahead of org (PR)'); }
+	if (tmpBehindUp > 0) { tmpParts.push(tmpBehindUp + ' behind org (sync)'); }
 	return tmpParts.join(' · ');
 }
 
@@ -451,6 +478,8 @@ class ManagerSidebarView extends libPictView
 		if (tmpSort)  { tmpSort.checked  = !!this.pict.AppData.Manager.Filter.SortByTime; }
 		let tmpEx    = document.getElementById('RM-IncludeExamples');
 		if (tmpEx)    { tmpEx.checked    = !!this.pict.AppData.Manager.Filter.IncludeExamples; }
+		let tmpFetchRemotes = document.getElementById('RM-FetchRemotes');
+		if (tmpFetchRemotes) { tmpFetchRemotes.checked = !!(this.pict.AppData.Manager.Scan && this.pict.AppData.Manager.Scan.FetchRemotes); }
 
 		// Defensive AppData → input sync. The template's value binding
 		// covers the initial render path, but this guarantees the input
@@ -1195,6 +1224,14 @@ class ManagerSidebarView extends libPictView
 		this._repaintModulesPane();
 	}
 
+	// Opt into a live `git fetch upstream` per forkable module on the next
+	// Scan, so the org-drift columns/badges are exact rather than as-of-last-
+	// fetch. Not persisted — it's an explicit, slower choice each session.
+	setScanFetch(pChecked)
+	{
+		this.pict.AppData.Manager.Scan.FetchRemotes = !!pChecked;
+	}
+
 	setSortByTime(pChecked)
 	{
 		let tmpChecked = !!pChecked;
@@ -1233,10 +1270,13 @@ class ManagerSidebarView extends libPictView
 		// LogBar's Scan tab will repaint silently if it's already the
 		// active tab when results arrive (see onScanResultsChanged).
 
-		this.pict.PictApplication.setStatus('Scanning all modules...');
+		let tmpFetch = !!(tmpState.Scan && tmpState.Scan.FetchRemotes);
+		this.pict.PictApplication.setStatus(tmpFetch
+			? 'Scanning all modules (fetching upstreams — this is slower)...'
+			: 'Scanning all modules...');
 
 		let tmpApi = this.pict.providers.ManagerAPI;
-		tmpApi.scanAllModules().then(
+		tmpApi.scanAllModules(tmpFetch).then(
 			(pBody) =>
 			{
 				tmpState.Scan.Results = pBody.Results || {};

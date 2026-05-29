@@ -16,7 +16,7 @@
 		"audit": "node bin/manifest-audit.js",
 		"rebuild-shell": "node bin/manifest-rebuild-shell.js",
 		"rebuild-shell-check": "node bin/manifest-rebuild-shell.js --check",
-		"test": "echo \"No tests yet\" && exit 0"
+		"test": "npx mocha -u tdd -R spec test/*_tests.js"
 	},
 	"license": "MIT",
 	"//deps": "All runtime + dev dependencies for retold-manager live in the umbrella retold/package.json. Node's module resolution walks up from source/ and finds them at retold/node_modules/, so `npm install` at the retold root is enough — no separate install inside source/.",

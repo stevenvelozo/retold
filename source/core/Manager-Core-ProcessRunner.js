@@ -210,6 +210,12 @@ class ProcessRunner extends libEventEmitter
 	 * @param {string} [pOptions.OperationId]
 	 * @param {string} pOptions.Cwd
 	 * @param {Array}  pOptions.Steps  Array of { Command, Args, Label? } (or legacy {command, args, label}).
+	 * @param {boolean} [pOptions.AbortOnError]  When true, a failed step (spawn
+	 *        error or non-zero exit) halts the rest of the chain instead of
+	 *        falling through to later steps. Required for chains where a later
+	 *        step would be destructive if an earlier one failed — e.g. a git
+	 *        rebase that conflicts must never be followed by a force-push.
+	 *        Defaults to false (legacy "always advance" behavior).
 	 * @returns {string} The OperationId.
 	 */
 	runSequence(pOptions)
@@ -217,6 +223,7 @@ class ProcessRunner extends libEventEmitter
 		let tmpOptions = pOptions || {};
 		let tmpOpId = tmpOptions.OperationId || newOpId();
 		let tmpSteps = this._normalizeSteps(tmpOptions.Steps || []);
+		let tmpAbortOnError = !!tmpOptions.AbortOnError;
 
 		this.kill();
 		this._beginOperation(tmpOpId);
@@ -250,8 +257,42 @@ class ProcessRunner extends libEventEmitter
 				},
 				tmpSelf._stepIndex,
 				tmpSteps.length,
-				function ()
+				function (pResult)
 				{
+					// Halt the chain on a failed step when the caller opted into
+					// AbortOnError (e.g. a conflicted rebase must never fall
+					// through to a force-push). A spawn error already broadcast
+					// a terminal 'error'; a non-zero exit on a *non-last* step
+					// only emitted a between-steps 'progress' frame, so synthesize
+					// a terminal 'end' (IsLastStep:true) to resolve the client.
+					if (tmpAbortOnError && pResult)
+					{
+						if (pResult.Error)
+						{
+							tmpSelf._finishOperation(tmpOpId);
+							return;
+						}
+						if (typeof pResult.ExitCode === 'number' && pResult.ExitCode !== 0)
+						{
+							if (tmpSelf._stepIndex < tmpSteps.length - 1)
+							{
+								tmpSelf.emit('end',
+									{
+										OperationId: tmpOpId,
+										StepIndex: tmpSelf._stepIndex,
+										TotalSteps: tmpSteps.length,
+										ExitCode: pResult.ExitCode,
+										ElapsedMs: pResult.ElapsedMs || 0,
+										Duration: formatDuration(pResult.ElapsedMs || 0),
+										LineCount: 0,
+										IsLastStep: true,
+										Aborted: true,
+									});
+							}
+							tmpSelf._finishOperation(tmpOpId);
+							return;
+						}
+					}
 					tmpSelf._stepIndex++;
 					fRunNext();
 				}

@@ -214,6 +214,28 @@ function parsePorcelain(pRaw)
 	return tmpResult;
 }
 
+/**
+ * Parse the output of `git rev-list --left-right --count <upstream>...HEAD`,
+ * which is a single "<left>\t<right>" line. With the upstream ref on the LEFT
+ * of the `...` range, left = commits the upstream has that HEAD doesn't
+ * (= behind), right = commits HEAD has that upstream doesn't (= ahead).
+ * Returns { Behind, Ahead } — both 0 for empty / malformed input.
+ */
+function parseLeftRightCount(pRaw)
+{
+	let tmpResult = { Behind: 0, Ahead: 0 };
+	if (!pRaw) { return tmpResult; }
+	// Counts are whitespace-separated (a tab in practice). Split on any run of
+	// whitespace and take the first two integers.
+	let tmpParts = String(pRaw).trim().split(/\s+/);
+	if (tmpParts.length < 2) { return tmpResult; }
+	let tmpBehind = parseInt(tmpParts[0], 10);
+	let tmpAhead  = parseInt(tmpParts[1], 10);
+	tmpResult.Behind = Number.isFinite(tmpBehind) ? tmpBehind : 0;
+	tmpResult.Ahead  = Number.isFinite(tmpAhead)  ? tmpAhead  : 0;
+	return tmpResult;
+}
+
 // ─────────────────────────────────────────────
 //  Introspector
 // ─────────────────────────────────────────────
@@ -717,7 +739,62 @@ class ModuleIntrospector
 		tmpStatus.OriginUrl   = (tmpOrigin   || '').trim() || null;
 		tmpStatus.UpstreamUrl = (tmpUpstream || '').trim() || null;
 
+		// Drift vs the canonical upstream (org) repo — distinct from the
+		// porcelain Ahead/Behind above (which is local-vs-origin). Local-ref
+		// only, no network.
+		let tmpDrift = this.getUpstreamDrift(tmpPath, tmpStatus.Branch);
+		tmpStatus.HasUpstreamRef = tmpDrift.HasUpstreamRef;
+		tmpStatus.UpstreamBranch = tmpDrift.UpstreamBranch;
+		tmpStatus.AheadUpstream  = tmpDrift.AheadUpstream;
+		tmpStatus.BehindUpstream = tmpDrift.BehindUpstream;
+
 		return tmpStatus;
+	}
+
+	/**
+	 * Compute how far the local branch has drifted from the *upstream* (the
+	 * canonical org repo), as opposed to its own `origin` tracking remote.
+	 * This is the fork-vs-target relationship the porcelain Ahead/Behind does
+	 * NOT capture (that one is local-vs-origin).
+	 *
+	 *   AheadUpstream  — local commits not yet on the org (what a PR contains).
+	 *   BehindUpstream — org commits not yet in the fork (what a sync brings).
+	 *
+	 * Computed from the already-fetched `refs/remotes/upstream/<branch>` ref —
+	 * NO network. When that ref is missing (no `upstream` remote, never
+	 * fetched, or the current branch doesn't exist upstream) the counts come
+	 * back null with HasUpstreamRef:false — the "n/a until you fetch" signal.
+	 * Counts are only as fresh as the last `git fetch upstream`.
+	 */
+	getUpstreamDrift(pModulePath, pBranch)
+	{
+		if (!pModulePath)
+		{
+			return { HasUpstreamRef: false, UpstreamBranch: null, AheadUpstream: null, BehindUpstream: null };
+		}
+
+		// Prefer the branch the caller already parsed from porcelain; fall back
+		// to whatever upstream/HEAD points at, then master.
+		let tmpBranch = (pBranch && String(pBranch).trim()) || null;
+		if (!tmpBranch)
+		{
+			let tmpHead = this._execGitSync('rev-parse --abbrev-ref upstream/HEAD', pModulePath);
+			tmpBranch = (tmpHead ? tmpHead.trim().replace(/^upstream\//, '') : '') || 'master';
+		}
+
+		let tmpRaw = this._execGitSync('rev-list --left-right --count refs/remotes/upstream/'
+			+ tmpBranch + '...HEAD', pModulePath);
+		if (tmpRaw === null)
+		{
+			return { HasUpstreamRef: false, UpstreamBranch: tmpBranch, AheadUpstream: null, BehindUpstream: null };
+		}
+		let tmpCounts = parseLeftRightCount(tmpRaw);
+		return {
+			HasUpstreamRef: true,
+			UpstreamBranch: tmpBranch,
+			AheadUpstream:  tmpCounts.Ahead,
+			BehindUpstream: tmpCounts.Behind,
+		};
 	}
 
 	/**
@@ -772,6 +849,11 @@ class ModuleIntrospector
 		let tmpOptions = pOptions || {};
 		let tmpConcurrency = tmpOptions.Concurrency || 12;
 		let tmpTimeout = tmpOptions.Timeout || 10000;
+		// When set, refresh each fork's upstream ref with a live `git fetch
+		// upstream` before computing drift (network — the caller raises the
+		// timeout / lowers concurrency to match). Otherwise drift is read from
+		// the already-fetched ref (instant, possibly stale).
+		let tmpFetch = !!tmpOptions.Fetch;
 
 		let tmpNames = typeof tmpSelf.manifest.getAllModuleNames === 'function'
 			? tmpSelf.manifest.getAllModuleNames()
@@ -862,6 +944,32 @@ class ModuleIntrospector
 				});
 		}
 
+		// Drift vs the canonical *upstream* (org) repo — distinct from the
+		// porcelain Ahead/Behind (which is local-vs-origin). Read from the
+		// already-fetched upstream ref (no network) unless Fetch was asked for,
+		// in which case we refresh the ref first. Missing ref → n/a.
+		function gatherUpstreamDrift(pCwd, pBranch)
+		{
+			let tmpBranch = (pBranch && String(pBranch).trim()) || 'master';
+			let tmpPre = tmpFetch
+				? execAt('git fetch upstream', pCwd)
+				: Promise.resolve({ Error: null, Stdout: '' });
+			return tmpPre.then(function ()
+				{
+					return execAt('git rev-list --left-right --count refs/remotes/upstream/'
+						+ tmpBranch + '...HEAD', pCwd);
+				})
+				.then(function (pDrift)
+				{
+					if (pDrift.Error || !pDrift.Stdout)
+					{
+						return { HasUpstreamRef: false, UpstreamBranch: tmpBranch, AheadUpstream: null, BehindUpstream: null };
+					}
+					let tmpCounts = parseLeftRightCount(pDrift.Stdout);
+					return { HasUpstreamRef: true, UpstreamBranch: tmpBranch, AheadUpstream: tmpCounts.Ahead, BehindUpstream: tmpCounts.Behind };
+				});
+		}
+
 		function runOne(pName)
 		{
 			return new Promise(function (pResolve)
@@ -894,7 +1002,15 @@ class ModuleIntrospector
 							// by the published-versions decoration pass.
 							tmpParsed.PublishedVersion = null;
 							tmpParsed.VersionState     = 'unknown';
-							gatherChanges(tmpEntry.AbsolutePath).then(function (pChanges)
+							gatherUpstreamDrift(tmpEntry.AbsolutePath, tmpParsed.Branch).then(function (pDrift)
+								{
+									tmpParsed.HasUpstreamRef = pDrift.HasUpstreamRef;
+									tmpParsed.UpstreamBranch = pDrift.UpstreamBranch;
+									tmpParsed.AheadUpstream  = pDrift.AheadUpstream;
+									tmpParsed.BehindUpstream = pDrift.BehindUpstream;
+									return gatherChanges(tmpEntry.AbsolutePath);
+								})
+								.then(function (pChanges)
 								{
 									tmpParsed.Changes = pChanges;
 									tmpResult[pName] = tmpParsed;
@@ -1073,3 +1189,4 @@ class ModuleIntrospector
 module.exports = ModuleIntrospector;
 module.exports.rangeCoversVersion = rangeCoversVersion;
 module.exports.collectDeps = collectDeps;
+module.exports.parseLeftRightCount = parseLeftRightCount;

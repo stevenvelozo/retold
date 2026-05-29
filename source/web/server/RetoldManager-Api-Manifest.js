@@ -177,7 +177,22 @@ module.exports = function registerManifestRoutes(pCore)
 		function (pReq, pRes, pNext)
 		{
 			let tmpStart = Date.now();
-			tmpIntrospector.scanAllModulesAsync({ Concurrency: 12 }).then(
+			// Restify here doesn't register queryParser, so pReq.query is
+			// unreliable — parse the raw URL (matches /published-versions).
+			let tmpFetch = false;
+			let tmpUrlQuery = (pReq.url || '').split('?')[1] || '';
+			if (tmpUrlQuery)
+			{
+				let tmpFetchParam = new URLSearchParams(tmpUrlQuery).get('fetch');
+				tmpFetch = (tmpFetchParam === '1' || tmpFetchParam === 'true');
+			}
+			// A live `git fetch upstream` per module is network-bound: drop
+			// concurrency and give each module far longer than the local-only
+			// 10s default. Without fetch, drift reads from already-fetched refs.
+			let tmpScanOptions = tmpFetch
+				? { Concurrency: 6, Timeout: 60000, Fetch: true }
+				: { Concurrency: 12 };
+			tmpIntrospector.scanAllModulesAsync(tmpScanOptions).then(
 				function (pResults)
 				{
 					// Trim Files off each result — just need the summary +
@@ -210,6 +225,10 @@ module.exports = function registerManifestRoutes(pCore)
 									Branch: tmpR.Branch,
 									Ahead: tmpR.Ahead,
 									Behind: tmpR.Behind,
+									HasUpstreamRef: !!tmpR.HasUpstreamRef,
+									UpstreamBranch: tmpR.UpstreamBranch || null,
+									AheadUpstream:  (tmpR.AheadUpstream  === undefined ? null : tmpR.AheadUpstream),
+									BehindUpstream: (tmpR.BehindUpstream === undefined ? null : tmpR.BehindUpstream),
 									LocalVersion:     tmpR.LocalVersion     || null,
 									PackageName:      tmpR.PackageName      || null,
 									PublishedVersion: tmpR.PublishedVersion || null,
@@ -224,6 +243,7 @@ module.exports = function registerManifestRoutes(pCore)
 							ScannedAt: new Date().toISOString(),
 							ElapsedMs: Date.now() - tmpStart,
 							ModuleCount: tmpNames.length,
+							FetchedRemotes: tmpFetch,
 							Results: tmpTrimmed,
 						});
 					return pNext();

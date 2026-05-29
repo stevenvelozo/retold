@@ -10,7 +10,9 @@ Shell scripts manage all modules collectively:
 - `Checkout.sh` — Clone every module: forkable modules clone from `<your-user>/<module>` (with `upstream` set to the canonical owner for PR sync); non-forkable modules clone directly from their per-module Owner.
 - `Install.sh` — Run `npm install` inside every cloned module so each module is runnable on its own (tests, examples, the per-module dev workflow). Pair this with `Checkout.sh` on a fresh box; the manager's per-module action buttons (`install`, `test`, `build`, `examples`, etc.) all assume each module has its own `node_modules/`.
 - `Status.sh` — Show git status across all modules
-- `Update.sh` — Pull with rebase across all modules
+- `Update.sh` — Pull with rebase across all modules (from each module's own `origin`). Also runs a fetch-only `git fetch upstream` on modules that have an `upstream` remote, so the manager's fork-vs-upstream drift counts refresh — without merging org commits into your tree (that stays behind `Sync-Upstream.sh`).
+- `Fetch-Upstream.sh` — Fetch the `upstream` (org) remote for every forkable module without touching working trees. Refreshes the fork-vs-upstream drift counts the manager reads from `refs/remotes/upstream/*`.
+- `Sync-Upstream.sh` — Pull upstream changes into every forkable fork: fetch upstream, rebase onto `upstream/<branch>`, then force-push (with lease) to the fork. Skips dirty modules and aborts (never force-pushes) on a rebase conflict; prints a done/skipped/failed summary.
 - `Include-Retold-Module-List.sh` — Central registry (generated from `Retold-Modules-Manifest.json`) defining per-group parallel arrays: `repositoriesX`, `ownersX`, `forkableX`. Sourced by the scripts above.
 - `Retold-Modules.md` — Human-readable module list with hosted doc links
 
