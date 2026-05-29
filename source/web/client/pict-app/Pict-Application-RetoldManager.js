@@ -39,6 +39,7 @@ const libModalEditModule  = require('./views/modals/PictView-Manager-Modal-EditM
 const libModalRipplePlan  = require('./views/modals/PictView-Manager-Modal-RipplePlan.js');
 const libModalDiff         = require('./views/modals/PictView-Manager-Modal-Diff.js');
 const libModalActionDetail = require('./views/modals/PictView-Manager-Modal-ActionDetail.js');
+const libModalCreatePR     = require('./views/modals/PictView-Manager-Modal-CreatePR.js');
 
 class RetoldManagerApplication extends libPictApplication
 {
@@ -159,6 +160,7 @@ class RetoldManagerApplication extends libPictApplication
 		this.pict.addView('Manager-Modal-RipplePlan', libModalRipplePlan.default_configuration, libModalRipplePlan);
 		this.pict.addView('Manager-Modal-Diff',          libModalDiff.default_configuration,          libModalDiff);
 		this.pict.addView('Manager-Modal-ActionDetail',  libModalActionDetail.default_configuration,  libModalActionDetail);
+		this.pict.addView('Manager-Modal-CreatePR',      libModalCreatePR.default_configuration,      libModalCreatePR);
 	}
 
 	onAfterInitializeAsync(fCallback)

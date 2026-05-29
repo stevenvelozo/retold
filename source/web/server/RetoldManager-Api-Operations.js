@@ -23,6 +23,9 @@
 
 const libPath = require('path');
 
+// Shared fork → upstream PR helpers (also used by the ripple sequencer).
+const libGitHubPr = require('../../core/Manager-Core-GitHubPr.js');
+
 // ─────────────────────────────────────────────
 //  Helpers
 // ─────────────────────────────────────────────
@@ -146,6 +149,179 @@ module.exports = function registerOperationsRoutes(pCore)
 			let tmpSince = pReq.query ? pReq.query.since : undefined;
 			let tmpCommits = tmpIntrospector.getCommitLogSince(tmpEntry.Name, tmpSince, { Limit: tmpLimit });
 			pRes.send(tmpCommits);
+			return pNext();
+		});
+
+	// ─────────────────────────────────────────────
+	//  GET /api/manager/modules/:name/git/pr-context
+	//  Resolve the fork → upstream PR context for the module: remotes, branch,
+	//  the upstream base branch, the latest commit (for prefill), and any
+	//  existing PR for this head. Read-only; backs the Create-PR modal.
+	//  Returns { Forkable:false } when there is no usable upstream remote.
+	// ─────────────────────────────────────────────
+	tmpOrator.serviceServer.doGet('/api/manager/modules/:name/git/pr-context',
+		function (pReq, pRes, pNext)
+		{
+			let tmpEntry = getModuleOr404(pCore, pReq.params.name, pRes);
+			if (!tmpEntry) { return pNext(); }
+
+			let tmpCtx;
+			try { tmpCtx = libGitHubPr.resolveModulePrContext(tmpEntry.AbsolutePath); }
+			catch (pError)
+			{
+				// No upstream remote / detached HEAD — not a forkable PR scenario.
+				pRes.send({ Forkable: false, Reason: pError.message });
+				return pNext();
+			}
+
+			let tmpBase = libGitHubPr.getUpstreamDefaultBranch(tmpCtx, tmpEntry.AbsolutePath);
+			let tmpCommit = libGitHubPr.getLatestCommitMessage(tmpEntry.AbsolutePath);
+			let tmpExisting = libGitHubPr.findExistingPr(tmpCtx, tmpEntry.AbsolutePath);
+
+			pRes.send(
+				{
+					Forkable: true,
+					Fork: tmpCtx.Fork,
+					Upstream: tmpCtx.Upstream,
+					Branch: tmpCtx.Branch,
+					BaseBranch: tmpBase,
+					LatestCommit: { Subject: tmpCommit.Subject, Body: tmpCommit.Body },
+					ExistingPr: tmpExisting
+						? { Number: tmpExisting.number, Url: tmpExisting.url, State: tmpExisting.state }
+						: null,
+				});
+			return pNext();
+		});
+
+	// ─────────────────────────────────────────────
+	//  POST /api/manager/modules/:name/git/create-pr
+	//  body: { Title?, Body? }
+	//  Pushes the current branch to the fork then opens a PR to upstream via
+	//  the gh CLI (streamed as a 2-step sequence). Idempotent: if an OPEN PR
+	//  already exists, returns it without launching an operation.
+	// ─────────────────────────────────────────────
+	tmpOrator.serviceServer.doPost('/api/manager/modules/:name/git/create-pr',
+		function (pReq, pRes, pNext)
+		{
+			let tmpEntry = getModuleOr404(pCore, pReq.params.name, pRes);
+			if (!tmpEntry) { return pNext(); }
+
+			let tmpCtx;
+			try { tmpCtx = libGitHubPr.resolveModulePrContext(tmpEntry.AbsolutePath); }
+			catch (pError)
+			{
+				respondError(pRes, 400, 'NotForkable', pError.message);
+				return pNext();
+			}
+
+			// Idempotent: surface an already-open PR rather than letting `gh`
+			// error on a duplicate.
+			let tmpExisting = libGitHubPr.findExistingPr(tmpCtx, tmpEntry.AbsolutePath);
+			if (tmpExisting && tmpExisting.state === 'OPEN')
+			{
+				pRes.send({ AlreadyExists: true, PrNumber: tmpExisting.number, PrUrl: tmpExisting.url });
+				return pNext();
+			}
+
+			if (tmpRunner.isRunning())
+			{
+				respondError(pRes, 409, 'RunnerBusy', 'Another operation is still running. Cancel it first.');
+				return pNext();
+			}
+
+			let tmpBody = pReq.body || {};
+			let tmpDefaults = libGitHubPr.getLatestCommitMessage(tmpEntry.AbsolutePath);
+			let tmpTitle = (tmpBody.Title && String(tmpBody.Title).trim()) || tmpDefaults.Subject || ('Update ' + tmpEntry.Name);
+			let tmpPrBody = (typeof tmpBody.Body === 'string' && tmpBody.Body.trim().length > 0)
+				? tmpBody.Body
+				: ((tmpDefaults.Body && tmpDefaults.Body.trim().length > 0) ? tmpDefaults.Body : tmpTitle);
+			let tmpBase = libGitHubPr.getUpstreamDefaultBranch(tmpCtx, tmpEntry.AbsolutePath);
+			let tmpRepo = tmpCtx.Upstream.Owner + '/' + tmpCtx.Upstream.Repo;
+			let tmpHead = tmpCtx.Fork.Owner + ':' + tmpCtx.Branch;
+
+			let tmpOperationId = tmpRunner.runSequence(
+				{
+					Cwd: tmpEntry.AbsolutePath,
+					AbortOnError: true,
+					Steps:
+						[
+							{
+								Command: 'git',
+								Args: ['push', 'origin', tmpCtx.Branch],
+								Label: 'git push origin ' + tmpCtx.Branch,
+							},
+							{
+								Command: 'gh',
+								Args: ['pr', 'create',
+									'--repo',  tmpRepo,
+									'--head',  tmpHead,
+									'--base',  tmpBase,
+									'--title', tmpTitle,
+									'--body',  tmpPrBody,
+								],
+								Label: 'gh pr create -> ' + tmpRepo + ' (' + tmpHead + ' -> ' + tmpBase + ')',
+							},
+						],
+				});
+
+			pRes.statusCode = 202;
+			pRes.send({ OperationId: tmpOperationId, Module: tmpEntry.Name, Repo: tmpRepo, Head: tmpHead, BaseBranch: tmpBase });
+			return pNext();
+		});
+
+	// ─────────────────────────────────────────────
+	//  POST /api/manager/modules/:name/git/sync-upstream
+	//  Pull upstream (org) changes down into the fork: fetch upstream, rebase
+	//  the current branch onto upstream/<branch>, then force-push (with lease)
+	//  to the fork so origin mirrors the rebased history. Refuses up front if
+	//  the working tree is dirty. AbortOnError guarantees a conflicted rebase
+	//  never falls through to the force-push.
+	// ─────────────────────────────────────────────
+	tmpOrator.serviceServer.doPost('/api/manager/modules/:name/git/sync-upstream',
+		function (pReq, pRes, pNext)
+		{
+			let tmpEntry = getModuleOr404(pCore, pReq.params.name, pRes);
+			if (!tmpEntry) { return pNext(); }
+
+			// Refuse on a dirty working tree — a rebase would abort or clobber
+			// uncommitted work.
+			let tmpStatus = tmpIntrospector.getGitStatus(tmpEntry.Name);
+			if (tmpStatus && tmpStatus.Dirty)
+			{
+				respondError(pRes, 409, 'WorkingTreeDirty',
+					'Working tree has uncommitted changes. Commit or stash before syncing from upstream.');
+				return pNext();
+			}
+
+			let tmpCtx;
+			try { tmpCtx = libGitHubPr.resolveModulePrContext(tmpEntry.AbsolutePath); }
+			catch (pError)
+			{
+				respondError(pRes, 400, 'NotForkable', pError.message);
+				return pNext();
+			}
+
+			if (tmpRunner.isRunning())
+			{
+				respondError(pRes, 409, 'RunnerBusy', 'Another operation is still running. Cancel it first.');
+				return pNext();
+			}
+
+			let tmpBranch = tmpCtx.Branch;
+			let tmpOperationId = tmpRunner.runSequence(
+				{
+					Cwd: tmpEntry.AbsolutePath,
+					AbortOnError: true,
+					Steps:
+						[
+							{ Command: 'git', Args: ['fetch', 'upstream'], Label: 'git fetch upstream' },
+							{ Command: 'git', Args: ['rebase', 'upstream/' + tmpBranch], Label: 'git rebase upstream/' + tmpBranch },
+							{ Command: 'git', Args: ['push', '--force-with-lease', 'origin', tmpBranch], Label: 'git push --force-with-lease origin ' + tmpBranch },
+						],
+				});
+
+			pRes.statusCode = 202;
+			pRes.send({ OperationId: tmpOperationId, Module: tmpEntry.Name, Branch: tmpBranch });
 			return pNext();
 		});
 
@@ -557,6 +733,11 @@ module.exports = function registerOperationsRoutes(pCore)
 	registerAllScript('update',   'Update.sh');
 	registerAllScript('checkout', 'Checkout.sh');
 	registerAllScript('install',  'Install.sh');
+	// Fork → upstream sync across every forkable module. fetch-upstream is
+	// fetch-only (refreshes drift counts, never touches working trees);
+	// sync-upstream fetches + rebases + force-pushes, skipping dirty repos.
+	registerAllScript('fetch-upstream', 'Fetch-Upstream.sh');
+	registerAllScript('sync-upstream',  'Sync-Upstream.sh');
 
 	// ─────────────────────────────────────────────
 	//  POST /api/manager/system/operations/npm-cache

@@ -172,10 +172,13 @@ class ManagerAPIProvider extends libPictProvider
 		return this.post('/operations/' + encodeURIComponent(pOperationId) + '/cancel');
 	}
 
-	// Scan every module for dirty/ahead/behind state.
-	scanAllModules()
+	// Scan every module for dirty/ahead/behind state. When pFetch is true the
+	// server does a live `git fetch upstream` per forkable module first so the
+	// fork-vs-upstream drift counts are guaranteed fresh (slower, network-bound);
+	// otherwise drift is read from already-fetched refs (instant, maybe stale).
+	scanAllModules(pFetch)
 	{
-		return this.get('/modules/scan');
+		return this.get('/modules/scan' + (pFetch ? '?fetch=1' : ''));
 	}
 
 	// Decoration pass after a scan: parallel `npm view` lookups with a
@@ -208,6 +211,41 @@ class ManagerAPIProvider extends libPictProvider
 	{
 		return this.post('/modules/' + encodeURIComponent(pModuleName) + '/operations/git-add',
 			{ Paths: pPaths });
+	}
+
+	// ─────────────────────────────────────────────
+	//  Fork → upstream (org) PR + sync
+	// ─────────────────────────────────────────────
+
+	// Resolve the PR context for a module (remotes, branch, base branch, latest
+	// commit for prefill, and any existing PR). Returns { Forkable:false } when
+	// there's no usable upstream remote. Backs the Create-PR modal.
+	getPrContext(pModuleName)
+	{
+		return this.get('/modules/' + encodeURIComponent(pModuleName) + '/git/pr-context');
+	}
+
+	// Open a PR from the fork's current branch to upstream. Idempotent: if an
+	// OPEN PR already exists the server returns { AlreadyExists, PrNumber, PrUrl }
+	// without launching an operation; otherwise it streams a push + gh pr create.
+	createPr(pModuleName, pTitle, pBody)
+	{
+		return this.post('/modules/' + encodeURIComponent(pModuleName) + '/git/create-pr',
+			{ Title: pTitle || null, Body: pBody || null });
+	}
+
+	// Pull upstream changes into the fork: fetch upstream, rebase, force-push to
+	// the fork. Rejects (409) if the working tree is dirty.
+	syncUpstream(pModuleName)
+	{
+		return this.post('/modules/' + encodeURIComponent(pModuleName) + '/git/sync-upstream');
+	}
+
+	// Fetch-only refresh of a single fork's upstream ref (no working-tree change).
+	// Streams through the generic operations pipeline like any other git action.
+	fetchUpstream(pModuleName)
+	{
+		return this.runModuleOperation(pModuleName, 'git', ['fetch', 'upstream'], 'git fetch upstream');
 	}
 
 	// Publish preview + publish

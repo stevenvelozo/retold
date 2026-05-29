@@ -435,6 +435,13 @@ const _ViewConfiguration =
 		{
 			border-left: 3px solid var(--color-success);
 		}
+		/* Fork has drifted from the org (upstream) — ahead (PR-able) or behind
+		   (needs sync). Only marks rows that aren't already flagged above. */
+		.rm-scan-table tbody tr.is-drifted:not(.is-docs-only):not(.is-source-heavy):not(.is-unpublished-bump) > td:first-child
+		{
+			border-left: 3px solid #b07bd6;
+		}
+		.rm-scan-table tbody td.is-numeric .rm-scan-zero { color: var(--color-muted); }
 
 		.rm-scan-module-name { font-weight: 600; }
 		a.rm-scan-module-link
@@ -724,6 +731,8 @@ const _ViewConfiguration =
 	<label><input type="checkbox" {~D:Record.DirtyOnlyChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('DirtyOnly', this.checked)"> dirty</label>
 	<label><input type="checkbox" {~D:Record.AheadOnlyChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('AheadOnly', this.checked)"> ahead</label>
 	<label><input type="checkbox" {~D:Record.BehindOnlyChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('BehindOnly', this.checked)"> behind</label>
+	<label title="Fork is ahead of the org (upstream) — a PR would ship these commits"><input type="checkbox" {~D:Record.AheadUpstreamOnlyChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('AheadUpstreamOnly', this.checked)"> ahead of org</label>
+	<label title="Fork is behind the org (upstream) — needs a sync"><input type="checkbox" {~D:Record.BehindUpstreamOnlyChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('BehindUpstreamOnly', this.checked)"> behind org</label>
 	<label><input type="checkbox" {~D:Record.DocsOnlyChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('DocsOnly', this.checked)"> docs-only</label>
 	<label><input type="checkbox" {~D:Record.UnpubBumpChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('UnpubBump', this.checked)"> unpublished bump</label>
 	<label><input type="checkbox" {~D:Record.VersionMismatchChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('VersionMismatch', this.checked)"> version mismatch</label>
@@ -760,6 +769,8 @@ const _ViewConfiguration =
 		<th onclick="_Pict.views['Manager-LogBar'].onScanSort('Branch')">Branch<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Branch~}</span></th>
 		<th class="is-numeric" onclick="_Pict.views['Manager-LogBar'].onScanSort('Ahead')">Ahead<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Ahead~}</span></th>
 		<th class="is-numeric" onclick="_Pict.views['Manager-LogBar'].onScanSort('Behind')">Behind<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Behind~}</span></th>
+		<th class="is-numeric" title="Commits ahead of the org (upstream) — PR-able" onclick="_Pict.views['Manager-LogBar'].onScanSort('AheadUpstream')">↑org<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.AheadUpstream~}</span></th>
+		<th class="is-numeric" title="Commits behind the org (upstream) — needs sync" onclick="_Pict.views['Manager-LogBar'].onScanSort('BehindUpstream')">↓org<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.BehindUpstream~}</span></th>
 		<th onclick="_Pict.views['Manager-LogBar'].onScanSort('Local')">Local<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Local~}</span></th>
 		<th onclick="_Pict.views['Manager-LogBar'].onScanSort('Published')">Published<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Published~}</span></th>
 		<th class="is-numeric" onclick="_Pict.views['Manager-LogBar'].onScanSort('Source')">Source<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Source~}</span></th>
@@ -782,6 +793,8 @@ const _ViewConfiguration =
 	<td>{~D:Record.Branch~}</td>
 	<td class="is-numeric">{~D:Record.AheadDisplay~}</td>
 	<td class="is-numeric">{~D:Record.BehindDisplay~}</td>
+	<td class="is-numeric">{~D:Record.AheadUpstreamDisplay~}</td>
+	<td class="is-numeric">{~D:Record.BehindUpstreamDisplay~}</td>
 	<td><span class="rm-scan-version">{~D:Record.LocalVersion~}</span></td>
 	<td>
 		<span class="rm-scan-version {~D:Record.PublishedClass~}">{~D:Record.PublishedVersion~}</span>
@@ -844,13 +857,15 @@ class ManagerLogBarView extends libPictView
 		// "I'm looking at X" workflow, not a saved preference.
 		this._scanFilter =
 			{
-				Query:           '',
-				DirtyOnly:       false,
-				AheadOnly:       false,
-				BehindOnly:      false,
-				DocsOnly:        false,
-				UnpubBump:       false,
-				VersionMismatch: false
+				Query:              '',
+				DirtyOnly:          false,
+				AheadOnly:          false,
+				BehindOnly:         false,
+				AheadUpstreamOnly:  false,
+				BehindUpstreamOnly: false,
+				DocsOnly:           false,
+				UnpubBump:          false,
+				VersionMismatch:    false
 			};
 		this._scanSort = { Column: 'Module', Direction: 'asc' };
 
@@ -1068,6 +1083,8 @@ class ManagerLogBarView extends libPictView
 			if (this._scanFilter.DirtyOnly  && !tmpRow._IsDirty) { continue; }
 			if (this._scanFilter.AheadOnly  && !(tmpRow._Ahead  > 0)) { continue; }
 			if (this._scanFilter.BehindOnly && !(tmpRow._Behind > 0)) { continue; }
+			if (this._scanFilter.AheadUpstreamOnly  && !(tmpRow._AheadUpstream  > 0)) { continue; }
+			if (this._scanFilter.BehindUpstreamOnly && !(tmpRow._BehindUpstream > 0)) { continue; }
 			if (this._scanFilter.DocsOnly   && !tmpRow._IsDocsOnly) { continue; }
 			if (this._scanFilter.UnpubBump  && tmpRow._VersionState !== 'unpublished-bump') { continue; }
 			if (this._scanFilter.VersionMismatch
@@ -1563,6 +1580,8 @@ class ManagerLogBarView extends libPictView
 				if (this._scanFilter.DirtyOnly  && !pRow._IsDirty)        { return false; }
 				if (this._scanFilter.AheadOnly  && !((pRow._Ahead || 0)  > 0)) { return false; }
 				if (this._scanFilter.BehindOnly && !((pRow._Behind || 0) > 0)) { return false; }
+				if (this._scanFilter.AheadUpstreamOnly  && !((pRow._AheadUpstream || 0)  > 0)) { return false; }
+				if (this._scanFilter.BehindUpstreamOnly && !((pRow._BehindUpstream || 0) > 0)) { return false; }
 				if (this._scanFilter.DocsOnly   && !pRow._IsDocsOnly)     { return false; }
 				if (this._scanFilter.UnpubBump  && pRow._VersionState !== 'unpublished-bump') { return false; }
 				// "version mismatch" — local differs from published.
@@ -1594,7 +1613,7 @@ class ManagerLogBarView extends libPictView
 			});
 
 		let tmpSortMarkers = {};
-		let tmpSortCols = ['Module','Branch','Ahead','Behind','Local','Published','Source','Tests','Docs','Tooling','Total'];
+		let tmpSortCols = ['Module','Branch','Ahead','Behind','AheadUpstream','BehindUpstream','Local','Published','Source','Tests','Docs','Tooling','Total'];
 		for (let i = 0; i < tmpSortCols.length; i++)
 		{
 			tmpSortMarkers[tmpSortCols[i]] = (tmpSortCols[i] === tmpSortCol)
@@ -1648,6 +1667,8 @@ class ManagerLogBarView extends libPictView
 			DirtyOnlyChecked:        this._scanFilter.DirtyOnly       ? 'checked' : '',
 			AheadOnlyChecked:        this._scanFilter.AheadOnly       ? 'checked' : '',
 			BehindOnlyChecked:       this._scanFilter.BehindOnly      ? 'checked' : '',
+			AheadUpstreamOnlyChecked:  this._scanFilter.AheadUpstreamOnly  ? 'checked' : '',
+			BehindUpstreamOnlyChecked: this._scanFilter.BehindUpstreamOnly ? 'checked' : '',
 			DocsOnlyChecked:         this._scanFilter.DocsOnly        ? 'checked' : '',
 			UnpubBumpChecked:        this._scanFilter.UnpubBump       ? 'checked' : '',
 			VersionMismatchChecked:  this._scanFilter.VersionMismatch ? 'checked' : '',
@@ -1677,11 +1698,13 @@ class ManagerLogBarView extends libPictView
 		let tmpIsDirty = !!pR.Dirty || (pR.Ahead || 0) > 0;
 		let tmpIsDocsOnly = (tmpDoc.Files > 0) && (tmpSrc.Files + tmpTst.Files + tmpTool.Files === 0);
 		let tmpIsSourceHeavy = (tmpSrc.Files > 0) && (tmpSrc.Added + tmpSrc.Removed) >= 100;
+		let tmpHasDrift = (pR.AheadUpstream || 0) > 0 || (pR.BehindUpstream || 0) > 0;
 
 		let tmpRowClass = [];
 		if (tmpIsDocsOnly)                            { tmpRowClass.push('is-docs-only'); }
 		else if (tmpIsSourceHeavy)                    { tmpRowClass.push('is-source-heavy'); }
 		if (pR.VersionState === 'unpublished-bump')   { tmpRowClass.push('is-unpublished-bump'); }
+		if (tmpHasDrift)                              { tmpRowClass.push('is-drifted'); }
 
 		let tmpPublishedClass = pR.VersionState ? ('is-' + pR.VersionState) : 'is-unknown';
 		let tmpPublishedText  = (pR.PublishedVersion !== null && pR.PublishedVersion !== undefined)
@@ -1690,8 +1713,10 @@ class ManagerLogBarView extends libPictView
 
 		let tmpTooltipParts = [];
 		if (tmpIsDirty)               { tmpTooltipParts.push('dirty'); }
-		if ((pR.Ahead  || 0) > 0)     { tmpTooltipParts.push(pR.Ahead  + ' ahead'); }
-		if ((pR.Behind || 0) > 0)     { tmpTooltipParts.push(pR.Behind + ' behind'); }
+		if ((pR.Ahead  || 0) > 0)     { tmpTooltipParts.push(pR.Ahead  + ' ahead (fork)'); }
+		if ((pR.Behind || 0) > 0)     { tmpTooltipParts.push(pR.Behind + ' behind (fork)'); }
+		if ((pR.AheadUpstream  || 0) > 0) { tmpTooltipParts.push(pR.AheadUpstream  + ' ahead of org'); }
+		if ((pR.BehindUpstream || 0) > 0) { tmpTooltipParts.push(pR.BehindUpstream + ' behind org'); }
 		if (pR.VersionState === 'unpublished-bump') { tmpTooltipParts.push('local ' + pR.LocalVersion + ' > published ' + pR.PublishedVersion); }
 		let tmpTooltip = tmpTooltipParts.length > 0 ? tmpTooltipParts.join(' · ') : '';
 
@@ -1725,6 +1750,8 @@ class ManagerLogBarView extends libPictView
 			Branch:             pR.Branch || '',
 			AheadDisplay:       this._renderCount(pR.Ahead),
 			BehindDisplay:      this._renderCount(pR.Behind),
+			AheadUpstreamDisplay:  this._renderCount(pR.AheadUpstream),
+			BehindUpstreamDisplay: this._renderCount(pR.BehindUpstream),
 			LocalVersion:       pR.LocalVersion || '—',
 			PublishedVersion:   tmpPublishedText,
 			PublishedClass:     tmpPublishedClass,
@@ -1747,11 +1774,15 @@ class ManagerLogBarView extends libPictView
 			_IsDocsOnly:      tmpIsDocsOnly,
 			_Ahead:           pR.Ahead  || 0,
 			_Behind:          pR.Behind || 0,
+			_AheadUpstream:   pR.AheadUpstream  || 0,
+			_BehindUpstream:  pR.BehindUpstream || 0,
 			_VersionState:    pR.VersionState,
 			_sort_Module:     pName.toLowerCase(),
 			_sort_Branch:     (pR.Branch || '').toLowerCase(),
 			_sort_Ahead:      pR.Ahead  || 0,
 			_sort_Behind:     pR.Behind || 0,
+			_sort_AheadUpstream:  pR.AheadUpstream  || 0,
+			_sort_BehindUpstream: pR.BehindUpstream || 0,
 			_sort_Local:      pR.LocalVersion     || '',
 			_sort_Published:  pR.PublishedVersion || '',
 			_sort_Source:     tmpSrc.Added + tmpSrc.Removed,

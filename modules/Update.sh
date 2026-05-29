@@ -8,6 +8,13 @@
 #   ./Update.sh --ff-only      # fail if non-fast-forward
 #   ./Update.sh --no-rebase    # use git's configured default
 #
+# The pull is always from each branch's tracking remote (origin) — for forks
+# that's your personal fork, NOT the org.  After pulling, any module that has an
+# `upstream` remote also gets a fetch-only `git fetch upstream`, so the manager's
+# fork-vs-upstream drift counts refresh.  This never merges or rebases the org's
+# commits into your working tree — pulling the org down stays behind the explicit
+# Sync-Upstream.sh action.
+#
 PULL_STRATEGY="${1:---rebase}"
 echo "Checking out Retold modules into: [$(pwd)/...   (pull strategy: $PULL_STRATEGY)"
 
@@ -24,6 +31,15 @@ update_repository()
 #		echo "       # A $2 source directory exists in $1 -- updating with $PULL_STRATEGY...."
 		cd "$CWD/$1/$2"
 		git pull "$PULL_STRATEGY"
+		# Refresh the upstream (org) remote-tracking refs too, so the manager's
+		# fork-vs-upstream drift counts are current after an Update. Fetch-only —
+		# this never merges/rebases org changes into the working tree (pulling
+		# the org down stays behind the explicit Sync-Upstream action).
+		if git remote get-url upstream >/dev/null 2>&1
+		then
+			echo "       # fetching upstream (org) refs for drift…"
+			git fetch upstream
+		fi
 #		echo "       ..."
 		cd "../.."
 	else

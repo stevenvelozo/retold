@@ -174,6 +174,7 @@
 						"meadow-endpoints",
 						"meadow-connection-mysql",
 						"meadow-connection-mssql",
+						"meadow-connection-oracle",
 						"meadow-connection-sqlite",
 						"meadow-connection-postgresql",
 						"meadow-connection-mongodb",
@@ -247,6 +248,18 @@
 					"Description": "MySQL and MariaDB pooled connection provider for Meadow",
 					"GitHub": "https://github.com/fable-retold/meadow-connection-mysql",
 					"Documentation": "https://fable-retold.github.io/meadow-connection-mysql/",
+					"RelatedModules": [
+						"meadow",
+						"foxhound"
+					],
+					"Type": "library"
+				},
+				{
+					"Name": "meadow-connection-oracle",
+					"Path": "modules/meadow/meadow-connection-oracle",
+					"Description": "Oracle Database connection provider for Meadow via oracledb (Thin mode)",
+					"GitHub": "https://github.com/fable-retold/meadow-connection-oracle",
+					"Documentation": "https://fable-retold.github.io/meadow-connection-oracle/",
 					"RelatedModules": [
 						"meadow",
 						"foxhound"
@@ -430,6 +443,7 @@
 						"meadow",
 						"meadow-connection-mysql",
 						"meadow-connection-mssql",
+						"meadow-connection-oracle",
 						"meadow-connection-sqlite",
 						"meadow-connection-postgresql",
 						"meadow-connection-mongodb",
