@@ -31,6 +31,17 @@
 			{ "module": "ultravisor-auth-beacon", "commit": "75c8979", "status": "complete", "detail": "README + quickstart/architecture/auth-provider; verified vs source/*.cjs; security caveats noted." }
 		]
 	},
+	"tier2AuthoredThisPass": {
+		"note": "Tier-2 docs authored + docuserve sites built 2026-05-30, committed to each module's own repo. Sites built via quack prepare-docs with per-repo org (ultravisor-lab + retold-remote-desktop -> stevenvelozo). Aggregate catalog regenerated.",
+		"modules": [
+			{ "module": "meadow-connection-meadow-endpoints", "commit": "eb74555", "status": "complete", "detail": "Relay to remote meadow-endpoints REST; FormSchema + customer scoping. Note: FormSchema default api.qa.headlight.com vs class default 127.0.0.1." },
+			{ "module": "merquerial", "commit": "13975fb", "status": "complete", "detail": "Replaced 5-line README; full api/examples. FLAGGED real code bug: ValidationRegex wired to the wrong property in source/Console-Query.js." },
+			{ "module": "retold-synth-databeacon", "commit": "a919cac", "status": "complete", "detail": "MeadowProxy drop-in (port 8390), deterministic synth_* engine, bundled industrial-supply-v1 + customers-demo-v1 specs." },
+			{ "module": "ultravisor-lab", "commit": "d79fdf1", "status": "complete", "detail": "11 docs pages, source-verified. FLAGGED dead code: source/web_server/routes/Lab-Api-AuthProxy.js." },
+			{ "module": "retold-beacon-host", "commit": "f60878c", "status": "authored-with-caveat", "detail": "No source/ in this checkout; reconstructed from bin/ + the ultravisor-beacon model with an Unknowns section. Verify against source." },
+			{ "module": "retold-remote-desktop", "commit": "d0a1a42", "status": "authored-with-caveat", "detail": "No app source/ in checkout; documented from src-tauri/web-app/scripts/CI. Note: package.json 1.0.0 vs tauri.conf/Cargo 0.0.1 version mismatch." }
+		]
+	},
 	"gaps": [
 		{ "group": "meadow", "module": "meadow-connection-manager", "tier": "STUB", "priority": 1, "gap": "Keystone loader that dispatches to every connector by Type; site shell exists but zero content docs and no README.", "fix": "Author README + architecture + quickstart; document Type-dispatch, graceful driver fallback, and getAllProviderFormSchemas().", "template": "meadow-connection-mysql/docs" },
 		{ "group": "meadow", "module": "meadow-endpoints", "tier": "PARTIAL", "priority": 1, "gap": "Layer-3 keystone. Excellent README but the hosted docs/ site has only a crud/ subfolder — no top-level architecture.md/quickstart.md like meadow/foxhound.", "fix": "Promote README content into docs/architecture.md + docs/quickstart.md so the hosted site reflects its importance.", "template": "meadow/docs" },
