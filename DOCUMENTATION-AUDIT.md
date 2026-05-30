@@ -96,7 +96,7 @@ The root [`docs/`](docs) already has a real ecosystem backbone:
 
 ## Prioritized gap backlog
 
-**Tier 1 — keystones / shipping & undocumented:** meadow-connection-manager, meadow-endpoints (hosted pages), orator-endpoint, ultravisor-auth-beacon, meadow-connection-oracle.
+**Tier 1 — keystones / shipping & undocumented:** meadow-connection-manager, meadow-endpoints (hosted pages), orator-endpoint, ultravisor-auth-beacon, meadow-connection-oracle. — ✅ **all 5 authored 2026-05-30** and committed to each module's own repo (`orator-endpoint` with a source-verification caveat — no `source/` in the checkout). See `tier1AuthoredThisPass` in [DOCUMENTATION-GAPS.json](DOCUMENTATION-GAPS.json). Per-module docuserve sites still need building via the normal pipeline.
 
 **Tier 2 — shipping but empty:** retold-beacon-host, ultravisor-lab, retold-remote-desktop, retold-synth-databeacon, merquerial, meadow-connection-meadow-endpoints.
 

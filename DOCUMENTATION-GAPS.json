@@ -21,6 +21,16 @@
 		"Retold-Modules-Manifest.json: added missing 'choreographic' entry under Utility.",
 		"docs/_sidebar.md: added all 35 previously-absent modules so the central nav surfaces all 115."
 	],
+	"tier1AuthoredThisPass": {
+		"note": "Tier-1 keystone docs authored 2026-05-30 and committed to each MODULE's own repo (not the umbrella). Per-module docuserve sites still need building+publishing via the normal pipeline (source/bin/regenerate-module-docs.js). The aggregate docs/retold-catalog.json should be regenerated (npm run build-docs) after those per-module sites build.",
+		"modules": [
+			{ "module": "meadow-connection-oracle", "commit": "d159552", "status": "complete", "detail": "Full docs mirroring mysql; verified vs source/ + test/." },
+			{ "module": "meadow-connection-manager", "commit": "e1ea7e4", "status": "complete", "detail": "README + architecture/quickstart/api; verified vs source/." },
+			{ "module": "meadow-endpoints", "commit": "dc9ec80", "status": "complete", "detail": "Added hosted architecture.md + quickstart.md (site previously had only crud/)." },
+			{ "module": "orator-endpoint", "commit": "7b88538", "status": "authored-with-caveat", "detail": "No source/ in this checkout; reconstructed from parime's vendored pattern twin and flagged. VERIFY against source/Orator-Endpoint-Base.js when the source is present." },
+			{ "module": "ultravisor-auth-beacon", "commit": "75c8979", "status": "complete", "detail": "README + quickstart/architecture/auth-provider; verified vs source/*.cjs; security caveats noted." }
+		]
+	},
 	"gaps": [
 		{ "group": "meadow", "module": "meadow-connection-manager", "tier": "STUB", "priority": 1, "gap": "Keystone loader that dispatches to every connector by Type; site shell exists but zero content docs and no README.", "fix": "Author README + architecture + quickstart; document Type-dispatch, graceful driver fallback, and getAllProviderFormSchemas().", "template": "meadow-connection-mysql/docs" },
 		{ "group": "meadow", "module": "meadow-endpoints", "tier": "PARTIAL", "priority": 1, "gap": "Layer-3 keystone. Excellent README but the hosted docs/ site has only a crud/ subfolder — no top-level architecture.md/quickstart.md like meadow/foxhound.", "fix": "Promote README content into docs/architecture.md + docs/quickstart.md so the hosted site reflects its importance.", "template": "meadow/docs" },
