@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-05-30T21:17:58.042Z",
+	"Generated": "2026-05-30T22:13:26.058Z",
 	"Mode": "ecosystem",
 	"GitHubOrg": "fable-retold",
 	"DefaultBranch": "master",
@@ -2058,13 +2058,101 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Hub & Spoke Design",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Connection Providers",
+							"Children": [
+								{
+									"Title": "MySQL",
+									"Path": "https://fable-retold.github.io/meadow-connection-mysql"
+								},
+								{
+									"Title": "PostgreSQL",
+									"Path": "https://fable-retold.github.io/meadow-connection-postgresql"
+								},
+								{
+									"Title": "MSSQL",
+									"Path": "https://fable-retold.github.io/meadow-connection-mssql"
+								},
+								{
+									"Title": "SQLite",
+									"Path": "https://fable-retold.github.io/meadow-connection-sqlite"
+								}
+							]
+						},
+						{
+							"Title": "Related Modules",
+							"Children": [
+								{
+									"Title": "retold-data-service",
+									"Path": "https://fable-retold.github.io/retold-data-service"
+								},
+								{
+									"Title": "pict-section-connection-form",
+									"Path": "https://fable-retold.github.io/pict-section-connection-form"
+								},
+								{
+									"Title": "pict-meadow-connection-manager",
+									"Path": "https://fable-retold.github.io/pict-meadow-connection-manager"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "https://fable-retold.github.io/meadow/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://fable-retold.github.io/fable/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
+						"_sidebar.md",
 						"_version.json",
+						"api.md",
+						"architecture.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -2528,10 +2616,139 @@
 					"Repo": "meadow-connection-oracle",
 					"Group": "meadow",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design & Data Flow",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Schema & Table Creation",
+									"Path": "schema.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api/reference.md"
+								},
+								{
+									"Title": "connectAsync()",
+									"Path": "api/connectAsync.md"
+								},
+								{
+									"Title": "connect()",
+									"Path": "api/connect.md"
+								},
+								{
+									"Title": "getConnection()",
+									"Path": "api/getConnection.md"
+								},
+								{
+									"Title": "recyclePool()",
+									"Path": "api/recyclePool.md"
+								},
+								{
+									"Title": "pool",
+									"Path": "api/pool.md"
+								},
+								{
+									"Title": "generateCreateTableStatement()",
+									"Path": "api/generateCreateTableStatement.md"
+								},
+								{
+									"Title": "createTable()",
+									"Path": "api/createTable.md"
+								},
+								{
+									"Title": "createTables()",
+									"Path": "api/createTables.md"
+								},
+								{
+									"Title": "generateDropTableStatement()",
+									"Path": "api/generateDropTableStatement.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "https://fable-retold.github.io/meadow/README.md"
+								},
+								{
+									"Title": "FoxHound",
+									"Path": "https://fable-retold.github.io/foxhound/README.md"
+								},
+								{
+									"Title": "Stricture",
+									"Path": "https://fable-retold.github.io/stricture/README.md"
+								},
+								{
+									"Title": "Meadow Endpoints",
+									"Path": "https://fable-retold.github.io/meadow-endpoints/README.md"
+								},
+								{
+									"Title": "Meadow Connection Manager",
+									"Path": "https://fable-retold.github.io/meadow-connection-manager/README.md"
+								},
+								{
+									"Title": "Meadow Connection MySQL",
+									"Path": "https://fable-retold.github.io/meadow-connection-mysql/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://fable-retold.github.io/fable/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"_version.json",
+						"api/connect.md",
+						"api/connectAsync.md",
+						"api/createTable.md",
+						"api/createTables.md",
+						"api/generateCreateTableStatement.md",
+						"api/generateDropTableStatement.md",
+						"api/getConnection.md",
+						"api/pool.md",
+						"api/recyclePool.md",
+						"api/reference.md",
+						"api.md",
+						"architecture.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"schema.md"
+					]
 				},
 				{
 					"Name": "meadow-connection-postgresql",
@@ -3311,6 +3528,10 @@
 									"Path": "README.md"
 								},
 								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
 									"Title": "Getting Started",
 									"Path": "getting-started.md"
 								},
@@ -3428,6 +3649,7 @@
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
+						"architecture.md",
 						"crud/README.md",
 						"crud/count.md",
 						"crud/create.md",
@@ -3436,6 +3658,7 @@
 						"crud/schema.md",
 						"crud/update.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -5254,13 +5477,40 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Getting Started",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
+						"_sidebar.md",
 						"_version.json",
+						"api-reference.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -11386,10 +11636,70 @@
 					"Repo": "ultravisor-auth-beacon",
 					"Group": "apps",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Providers",
+							"Children": [
+								{
+									"Title": "AuthProvider Guide",
+									"Path": "auth-provider.md"
+								}
+							]
+						},
+						{
+							"Title": "Related Modules",
+							"Children": [
+								{
+									"Title": "ultravisor",
+									"Path": "https://stevenvelozo.github.io/ultravisor"
+								},
+								{
+									"Title": "ultravisor-beacon",
+									"Path": "https://stevenvelozo.github.io/ultravisor-beacon"
+								},
+								{
+									"Title": "orator-authentication",
+									"Path": "https://fable-retold.github.io/orator-authentication"
+								},
+								{
+									"Title": "pict-section-usermanagement",
+									"Path": "https://fable-retold.github.io/pict-section-usermanagement"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_version.json",
+						"architecture.md",
+						"auth-provider.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "ultravisor-file-stream",
