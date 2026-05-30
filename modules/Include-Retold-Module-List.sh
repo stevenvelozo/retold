@@ -24,9 +24,9 @@ repositoriesPict=("cryptbrau" "informary" "pict" "pict-application" "pict-docuse
 ownersPict=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold")
 forkablePict=("1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1" "1")
 
-repositoriesUtility=("cachetrax" "cumulation" "elucidator" "indoctrinate" "manyfest" "manyfest-conversion" "merquerial" "pict-cruisecontrol" "precedent" "quackage" "retold-sample-data" "retold-sharp")
-ownersUtility=("fable-retold" "fable-retold" "stevenvelozo" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold")
-forkableUtility=("1" "1" "0" "1" "1" "1" "1" "1" "1" "1" "1" "1")
+repositoriesUtility=("cachetrax" "choreographic" "cumulation" "elucidator" "indoctrinate" "manyfest" "manyfest-conversion" "merquerial" "pict-cruisecontrol" "precedent" "quackage" "retold-sample-data" "retold-sharp")
+ownersUtility=("fable-retold" "stevenvelozo" "fable-retold" "stevenvelozo" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold")
+forkableUtility=("1" "0" "1" "0" "1" "1" "1" "1" "1" "1" "1" "1" "1")
 
 repositoriesApps=("retold-beacon-host" "retold-content-system" "retold-data-mapper" "retold-databeacon" "retold-facto" "retold-remote" "retold-remote-desktop" "retold-remote-ios" "retold-synth-databeacon" "ultravisor" "ultravisor-auth-beacon" "ultravisor-file-stream" "ultravisor-lab" "ultravisor-suite-harness")
 ownersApps=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "fable-retold" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo" "stevenvelozo")
