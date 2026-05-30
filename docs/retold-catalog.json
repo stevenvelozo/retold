@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-05-30T22:13:26.058Z",
+	"Generated": "2026-05-30T22:32:45.031Z",
 	"Mode": "ecosystem",
 	"GitHubOrg": "fable-retold",
 	"DefaultBranch": "master",
@@ -2164,12 +2164,92 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design & Data Flow",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Configuration",
+							"Children": [
+								{
+									"Title": "Configuration & Authentication",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "https://fable-retold.github.io/meadow/README.md"
+								},
+								{
+									"Title": "Meadow Endpoints",
+									"Path": "https://fable-retold.github.io/meadow-endpoints/README.md"
+								},
+								{
+									"Title": "Meadow Connection Manager",
+									"Path": "https://fable-retold.github.io/meadow-connection-manager/README.md"
+								},
+								{
+									"Title": "Retold DataBeacon",
+									"Path": "https://fable-retold.github.io/retold-databeacon/README.md"
+								},
+								{
+									"Title": "Retold Facto",
+									"Path": "https://fable-retold.github.io/retold-facto/README.md"
+								},
+								{
+									"Title": "Meadow Connection MySQL",
+									"Path": "https://fable-retold.github.io/meadow-connection-mysql/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://fable-retold.github.io/fable/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_cover.md",
+						"_sidebar.md",
 						"_version.json",
+						"api.md",
+						"architecture.md",
+						"configuration.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -10447,13 +10527,67 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Usage Patterns",
+									"Path": "examples.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Precedent",
+									"Path": "https://fable-retold.github.io/precedent/README.md"
+								},
+								{
+									"Title": "CacheTrax",
+									"Path": "https://fable-retold.github.io/cachetrax/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://fable-retold.github.io/fable/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
+						"_sidebar.md",
 						"_version.json",
+						"api.md",
+						"examples.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -10857,10 +10991,60 @@
 					"Repo": "retold-beacon-host",
 					"Group": "apps",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Related Modules",
+							"Children": [
+								{
+									"Title": "Ultravisor",
+									"Path": "https://stevenvelozo.github.io/ultravisor/README.md"
+								},
+								{
+									"Title": "Ultravisor Beacon",
+									"Path": "https://stevenvelozo.github.io/ultravisor-beacon/README.md"
+								},
+								{
+									"Title": "Ultravisor Beacon Capability",
+									"Path": "https://stevenvelozo.github.io/ultravisor-beacon-capability/README.md"
+								},
+								{
+									"Title": "Retold DataBeacon",
+									"Path": "https://fable-retold.github.io/retold-databeacon/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_version.json",
+						"architecture.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "retold-content-system",
@@ -11384,10 +11568,73 @@
 					"Repo": "retold-synth-databeacon",
 					"Group": "apps",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Specs Guide",
+									"Path": "specs.md"
+								}
+							]
+						},
+						{
+							"Title": "Related Modules",
+							"Children": [
+								{
+									"Title": "retold-databeacon",
+									"Path": "https://github.com/fable-retold/retold-databeacon"
+								},
+								{
+									"Title": "meadow",
+									"Path": "https://github.com/fable-retold/meadow"
+								},
+								{
+									"Title": "fable",
+									"Path": "https://github.com/fable-retold/fable"
+								},
+								{
+									"Title": "orator",
+									"Path": "https://github.com/fable-retold/orator"
+								},
+								{
+									"Title": "ultravisor",
+									"Path": "https://stevenvelozo.github.io/ultravisor/README.md"
+								},
+								{
+									"Title": "ultravisor-beacon",
+									"Path": "https://stevenvelozo.github.io/ultravisor-beacon/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_version.json",
+						"architecture.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"specs.md"
+					]
 				},
 				{
 					"Name": "ultravisor",
@@ -11718,11 +11965,116 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "DB Engines",
+									"Path": "db-engines.md"
+								},
+								{
+									"Title": "Ultravisor & Beacons",
+									"Path": "ultravisor-beacons.md"
+								},
+								{
+									"Title": "Stacks",
+									"Path": "stacks.md"
+								},
+								{
+									"Title": "Web UI",
+									"Path": "web-ui.md"
+								},
+								{
+									"Title": "Seed Data & Exercises",
+									"Path": "seed-data-and-exercises.md"
+								},
+								{
+									"Title": "REST API",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Ultravisor",
+									"Path": "https://stevenvelozo.github.io/ultravisor/README.md"
+								},
+								{
+									"Title": "Ultravisor Beacon",
+									"Path": "https://stevenvelozo.github.io/ultravisor-beacon/README.md"
+								},
+								{
+									"Title": "Retold Facto",
+									"Path": "https://fable-retold.github.io/retold-facto/README.md"
+								},
+								{
+									"Title": "Retold DataBeacon",
+									"Path": "https://fable-retold.github.io/retold-databeacon/README.md"
+								},
+								{
+									"Title": "Meadow",
+									"Path": "https://fable-retold.github.io/meadow/README.md"
+								},
+								{
+									"Title": "Orator",
+									"Path": "https://fable-retold.github.io/orator/README.md"
+								},
+								{
+									"Title": "Pict",
+									"Path": "https://fable-retold.github.io/pict/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://fable-retold.github.io/fable/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
+						".nojekyll",
 						"Plan-Dockerized-Beacons.md",
+						"README.md",
 						"_brand.json",
-						"_cover.md"
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"_version.json",
+						"api.md",
+						"architecture.md",
+						"configuration.md",
+						"db-engines.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"seed-data-and-exercises.md",
+						"stacks.md",
+						"ultravisor-beacons.md",
+						"web-ui.md"
 					]
 				},
 				{
