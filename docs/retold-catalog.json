@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-05-31T03:22:30.777Z",
+	"Generated": "2026-05-31T03:48:05.532Z",
 	"Mode": "ecosystem",
 	"GitHubOrg": "fable-retold",
 	"DefaultBranch": "master",
@@ -5311,6 +5311,14 @@
 									"Path": "README.md"
 								},
 								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
 									"Title": "MicroDDL Syntax",
 									"Path": "MicroDDL-Syntax.md"
 								},
@@ -5415,7 +5423,11 @@
 						"_sidebar.md",
 						"_topbar.md",
 						"_version.json",
-						"index.html"
+						"architecture.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
 					]
 				}
 			]
