@@ -35,11 +35,11 @@
 		"note": "Tier-2 docs authored + docuserve sites built 2026-05-30, committed to each module's own repo. Sites built via quack prepare-docs with per-repo org (ultravisor-lab + retold-remote-desktop -> stevenvelozo). Aggregate catalog regenerated.",
 		"modules": [
 			{ "module": "meadow-connection-meadow-endpoints", "commit": "eb74555", "status": "complete", "detail": "Relay to remote meadow-endpoints REST; FormSchema + customer scoping. Note: FormSchema default api.qa.headlight.com vs class default 127.0.0.1." },
-			{ "module": "merquerial", "commit": "13975fb", "status": "complete", "detail": "Replaced 5-line README; full api/examples. FLAGGED real code bug: ValidationRegex wired to the wrong property in source/Console-Query.js." },
+			{ "module": "merquerial", "commit": "13975fb", "status": "complete", "detail": "Replaced 5-line README; full api/examples. Code bug FIXED (commit e6474dc): ValidationRegex read this.ValidationRegex instead of this.Options and called RegExp.Match() instead of .test()." },
 			{ "module": "retold-synth-databeacon", "commit": "a919cac", "status": "complete", "detail": "MeadowProxy drop-in (port 8390), deterministic synth_* engine, bundled industrial-supply-v1 + customers-demo-v1 specs." },
-			{ "module": "ultravisor-lab", "commit": "d79fdf1", "status": "complete", "detail": "11 docs pages, source-verified. FLAGGED dead code: source/web_server/routes/Lab-Api-AuthProxy.js." },
+			{ "module": "ultravisor-lab", "commit": "d79fdf1", "status": "complete", "detail": "11 docs pages, source-verified. (An earlier 'dead code' flag for source/web_server/routes/Lab-Api-AuthProxy.js was DEBUNKED on review: no such file or AuthTarget/auth-target identifiers exist; routes/ holds 10 live Lab-Api-*.js and the 'Auth' references are live secured-mode presets/services.)" },
 			{ "module": "retold-beacon-host", "commit": "f60878c", "status": "authored-with-caveat", "detail": "No source/ in this checkout; reconstructed from bin/ + the ultravisor-beacon model with an Unknowns section. Verify against source." },
-			{ "module": "retold-remote-desktop", "commit": "d0a1a42", "status": "authored-with-caveat", "detail": "No app source/ in checkout; documented from src-tauri/web-app/scripts/CI. Note: package.json 1.0.0 vs tauri.conf/Cargo 0.0.1 version mismatch." }
+			{ "module": "retold-remote-desktop", "commit": "d0a1a42", "status": "authored-with-caveat", "detail": "No app source/ in checkout; documented from src-tauri/web-app/scripts/CI. Version mismatch FIXED (commit 0c53700): aligned src-tauri Cargo.toml/tauri.conf.json/Cargo.lock to 1.0.0." }
 		]
 	},
 	"gaps": [
