@@ -1150,6 +1150,19 @@
 					"Type": "library"
 				},
 				{
+					"Name": "choreographic",
+					"Path": "modules/utility/choreographic",
+					"Description": "Application services and behaviors for single-run scripts — settings, logging, common-format file reading (CSV/text), and execution-specific rundata output",
+					"GitHub": "https://github.com/stevenvelozo/choreographic",
+					"Documentation": "https://stevenvelozo.github.io/choreographic/",
+					"RelatedModules": [
+						"fable"
+					],
+					"Type": "library",
+					"Owner": "stevenvelozo",
+					"Forkable": false
+				},
+				{
 					"Name": "cumulation",
 					"Path": "modules/utility/cumulation",
 					"Description": "Data synchronization library for managing cumulative state across distributed systems",
@@ -1335,7 +1348,7 @@
 					"Path": "modules/apps/retold-facto",
 					"Description": "Data warehouse and knowledge graph storage for the Retold ecosystem.",
 					"GitHub": "https://github.com/fable-retold/retold-facto",
-					"Documentation": "https://fable-retold.io-facto/",
+					"Documentation": "https://fable-retold.github.io/retold-facto/",
 					"RelatedModules": [],
 					"Type": "webapp",
 					"Branding": {
@@ -1372,7 +1385,7 @@
 					"Path": "modules/apps/retold-remote-desktop",
 					"Description": "Native desktop application for retold-remote media browser (Tauri 2.0)",
 					"GitHub": "https://github.com/fable-retold/retold-remote-desktop",
-					"Documentation": "https://fable-retold.io-remote-desktop/",
+					"Documentation": "https://fable-retold.github.io/retold-remote-desktop/",
 					"RelatedModules": [],
 					"Type": "webapp",
 					"Owner": "stevenvelozo",
@@ -1383,7 +1396,7 @@
 					"Path": "modules/apps/retold-remote-ios",
 					"Description": "Native iOS application for retold-remote media browser (Capacitor 8)",
 					"GitHub": "https://github.com/fable-retold/retold-remote-ios",
-					"Documentation": "https://fable-retold.io-remote-ios/",
+					"Documentation": "https://fable-retold.github.io/retold-remote-ios/",
 					"RelatedModules": [],
 					"Type": "webapp",
 					"Owner": "stevenvelozo",
