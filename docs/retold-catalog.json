@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-05-31T03:48:05.532Z",
+	"Generated": "2026-05-31T07:10:17.445Z",
 	"Mode": "ecosystem",
 	"GitHubOrg": "fable-retold",
 	"DefaultBranch": "master",
@@ -12044,16 +12044,77 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "REST API",
+									"Path": "rest-api.md"
+								},
+								{
+									"Title": "Beacon Capabilities",
+									"Path": "beacon-capabilities.md"
+								},
+								{
+									"Title": "Mapping Configuration",
+									"Path": "mapping-configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "Related Modules",
+							"Children": [
+								{
+									"Title": "fable-ultravisor-client",
+									"Path": "https://fable-retold.github.io/fable-ultravisor-client/README.md"
+								},
+								{
+									"Title": "retold-databeacon",
+									"Path": "https://fable-retold.github.io/retold-databeacon/README.md"
+								},
+								{
+									"Title": "ultravisor",
+									"Path": "https://stevenvelozo.github.io/ultravisor/README.md"
+								},
+								{
+									"Title": "meadow-integration",
+									"Path": "https://fable-retold.github.io/meadow-integration/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
-						"Dockerized-Example-Data.md",
-						"PLAN-PHASE-2B-Operation-Types.md",
-						"PROMPT-PHASE-2B.md",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
 						"_version.json",
+						"architecture.md",
+						"beacon-capabilities.md",
 						"index.html",
+						"mapping-configuration.md",
+						"quickstart.md",
+						"rest-api.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
