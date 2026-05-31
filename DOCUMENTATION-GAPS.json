@@ -66,7 +66,7 @@
 		]
 	},
 	"codeIssuesFound": {
-		"note": "Real source defects surfaced by Tier-3 doc authoring. Documented honestly in the docs but NOT fixed (code changes were out of scope for the docs pass). Triage separately.",
+		"note": "Real source defects surfaced by Tier-3 doc authoring. ALL 8 FIXED 2026-05-31 (code/test/config fix + doc-note sync, committed in each module's own repo): choreographic 4b3caa2+697a490; cumulation 1946a0b+1e14b04; pict-cruisecontrol 70eed64+62f5426; pict-section-excalidraw 3360558+9c0977d; pict-section-theme 1afa6fe (67 tests pass); elucidator 9458cc8 (41 tests pass; makes a previously-dead branch live per its documented intent -- behavior change, no test regression); meadow-connection-retold-databeacon 20c9577+6d1efa0; retold-sharp pin bumped in orator-conversion 91be3ac.",
 		"issues": [
 			{ "module": "choreographic", "issue": "logTimeDelta() calls this.info() (no such method -> throws); enumerateObjectProperties/enumerateArrayEntries reference an undefined libAsync (ReferenceError). README also claimed CSV/text file readers that do not exist in source." },
 			{ "module": "cumulation", "issue": "deleteRecord() calls getRecordFromServer() (issues a GET, not a DELETE). Cached/CacheExpirationTime/Online settings and the constructor pScope arg are unused." },
