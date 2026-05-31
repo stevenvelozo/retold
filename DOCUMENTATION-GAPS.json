@@ -42,6 +42,42 @@
 			{ "module": "retold-remote-desktop", "commit": "d0a1a42", "status": "authored-with-caveat", "detail": "No app source/ in checkout; documented from src-tauri/web-app/scripts/CI. Version mismatch FIXED (commit 0c53700): aligned src-tauri Cargo.toml/tauri.conf.json/Cargo.lock to 1.0.0." }
 		]
 	},
+	"tier3AuthoredThisPass": {
+		"note": "Tier-3 docs authored + docuserve sites built 2026-05-30 (8 pict + 10 README-restructure/utility/meadow), committed to each module's own repo; aggregate regenerated. Several modules are scaffolds, documented honestly with Status sections.",
+		"modules": [
+			{ "module": "pict-section-usermanagement", "commit": "d2f43d4" },
+			{ "module": "pict-provider-vocabulary", "commit": "24f33f4" },
+			{ "module": "pict-section-entitymanagement", "commit": "da3c5ba", "note": "scaffold: views + data provider stubbed" },
+			{ "module": "pict-meadow-connection-manager", "commit": "bc6f769" },
+			{ "module": "pict-provider-theme", "commit": "1ab7323" },
+			{ "module": "pict-nonlinearconfig", "commit": "133daea", "note": "scaffold/shell: attemptLogin stubbed, no config engine yet" },
+			{ "module": "pict-editor-timeline", "commit": "56bbe2f" },
+			{ "module": "pict-section-excalidraw", "commit": "fa15bdf" },
+			{ "module": "pict-renderer-graph", "commit": "5986927" },
+			{ "module": "pict-section-theme", "commit": "17e71ad" },
+			{ "module": "fable-ultravisor-client", "commit": "2fa7337" },
+			{ "module": "retold-sharp", "commit": "35b14bd" },
+			{ "module": "meadow-connection-retold-databeacon", "commit": "aee66a2" },
+			{ "module": "choreographic", "commit": "0300b8e" },
+			{ "module": "cumulation", "commit": "27bec5e", "note": "repaired broken README code fence" },
+			{ "module": "pict-cruisecontrol", "commit": "e664b4d", "note": "scaffold: LocationDetection/NavigationPilot are stubs" },
+			{ "module": "elucidator", "commit": "cf6bbeb", "note": "fixed invalid example JSON + completed operation reference" },
+			{ "module": "meadow-migrationmanager", "commit": "c70aaf1", "note": "expanded; corrected docs (deploy is a stub, migrate only prints SQL)" }
+		]
+	},
+	"codeIssuesFound": {
+		"note": "Real source defects surfaced by Tier-3 doc authoring. Documented honestly in the docs but NOT fixed (code changes were out of scope for the docs pass). Triage separately.",
+		"issues": [
+			{ "module": "choreographic", "issue": "logTimeDelta() calls this.info() (no such method -> throws); enumerateObjectProperties/enumerateArrayEntries reference an undefined libAsync (ReferenceError). README also claimed CSV/text file readers that do not exist in source." },
+			{ "module": "cumulation", "issue": "deleteRecord() calls getRecordFromServer() (issues a GET, not a DELETE). Cached/CacheExpirationTime/Online settings and the constructor pScope arg are unused." },
+			{ "module": "pict-cruisecontrol", "issue": "EasyCruiser-Electron-Application.js:151 calls undefined createWindow() (function is named createBrowserWindow) -> ReferenceError on window re-activate." },
+			{ "module": "pict-section-excalidraw", "issue": "iframe exportBlob() never resolves: it posts pict-excalidraw:requestBlob but the parent _handleIframeMessage only resolves sceneReply/svgReply, so it rejects via the 30s timeout." },
+			{ "module": "pict-section-theme", "issue": "Unit test asserts the IsDefault theme is pict-default, but source _catalog.js flags retold-default as IsDefault (test would fail). A bin header comment still describes auto-installing retold-sharp, which is no longer the behavior." },
+			{ "module": "elucidator", "issue": "solveOperation references undeclared tmpOutputHashMapping/tmpInputHashMapping (always undefined -> dead branch)." },
+			{ "module": "meadow-connection-retold-databeacon", "issue": "Root README omits the required TargetConnectionHash config key (connectAsync errors without it)." },
+			{ "module": "retold-sharp", "issue": "Version drift: orator-conversion pins retold-sharp ^0.0.3 but the module is at 1.0.0." }
+		]
+	},
 	"gaps": [
 		{ "group": "meadow", "module": "meadow-connection-manager", "tier": "STUB", "priority": 1, "gap": "Keystone loader that dispatches to every connector by Type; site shell exists but zero content docs and no README.", "fix": "Author README + architecture + quickstart; document Type-dispatch, graceful driver fallback, and getAllProviderFormSchemas().", "template": "meadow-connection-mysql/docs" },
 		{ "group": "meadow", "module": "meadow-endpoints", "tier": "PARTIAL", "priority": 1, "gap": "Layer-3 keystone. Excellent README but the hosted docs/ site has only a crud/ subfolder — no top-level architecture.md/quickstart.md like meadow/foxhound.", "fix": "Promote README content into docs/architecture.md + docs/quickstart.md so the hosted site reflects its importance.", "template": "meadow/docs" },

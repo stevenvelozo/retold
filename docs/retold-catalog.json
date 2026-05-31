@@ -1,5 +1,5 @@
 {
-	"Generated": "2026-05-31T01:12:55.811Z",
+	"Generated": "2026-05-31T01:45:10.520Z",
 	"Mode": "ecosystem",
 	"GitHubOrg": "fable-retold",
 	"DefaultBranch": "master",
@@ -602,10 +602,67 @@
 					"Repo": "fable-ultravisor-client",
 					"Group": "fable",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								},
+								{
+									"Title": "Binary Frame Protocol",
+									"Path": "binary-frame-protocol.md"
+								}
+							]
+						},
+						{
+							"Title": "Related Modules",
+							"Children": [
+								{
+									"Title": "Fable",
+									"Path": "https://fable-retold.github.io/fable/README.md"
+								},
+								{
+									"Title": "Ultravisor",
+									"Path": "https://stevenvelozo.github.io/ultravisor/README.md"
+								},
+								{
+									"Title": "Ultravisor-Beacon",
+									"Path": "https://stevenvelozo.github.io/ultravisor-beacon/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_topbar.md",
+						"_version.json",
+						"api.md",
+						"binary-frame-protocol.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "fable-uuid",
@@ -2993,10 +3050,93 @@
 					"Repo": "meadow-connection-retold-databeacon",
 					"Group": "meadow",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Mesh Relay & Dispatch",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Configuration",
+							"Children": [
+								{
+									"Title": "Configuration & Routing",
+									"Path": "configuration.md"
+								}
+							]
+						},
+						{
+							"Title": "API Reference",
+							"Children": [
+								{
+									"Title": "Full Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Meadow",
+									"Path": "https://fable-retold.github.io/meadow/README.md"
+								},
+								{
+									"Title": "Fable Ultravisor Client",
+									"Path": "https://fable-retold.github.io/fable-ultravisor-client/README.md"
+								},
+								{
+									"Title": "Retold DataBeacon",
+									"Path": "https://fable-retold.github.io/retold-databeacon/README.md"
+								},
+								{
+									"Title": "Ultravisor",
+									"Path": "https://stevenvelozo.github.io/ultravisor/README.md"
+								},
+								{
+									"Title": "Meadow Connection Manager",
+									"Path": "https://fable-retold.github.io/meadow-connection-manager/README.md"
+								},
+								{
+									"Title": "Meadow Connection Meadow Endpoints",
+									"Path": "https://fable-retold.github.io/meadow-connection-meadow-endpoints/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_version.json",
+						"api.md",
+						"architecture.md",
+						"configuration.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "meadow-connection-rocksdb",
@@ -4274,6 +4414,10 @@
 									"Path": "README.md"
 								},
 								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								},
+								{
 									"Title": "Architecture",
 									"Path": "architecture.md"
 								}
@@ -4285,6 +4429,10 @@
 								{
 									"Title": "CLI Guide",
 									"Path": "cli-guide.md"
+								},
+								{
+									"Title": "Migration Authoring",
+									"Path": "migration-authoring.md"
 								},
 								{
 									"Title": "User Guide",
@@ -4300,25 +4448,41 @@
 							"Title": "Reference",
 							"Children": [
 								{
+									"Title": "CLI Reference",
+									"Path": "cli-reference.md"
+								},
+								{
 									"Title": "API Reference",
 									"Path": "api-reference.md"
 								}
 							]
 						},
 						{
-							"Title": "Retold Ecosystem",
+							"Title": "Related Modules",
 							"Children": [
 								{
-									"Title": "Stricture",
-									"Path": "https://github.com/fable-retold/stricture"
+									"Title": "meadow",
+									"Path": "https://fable-retold.github.io/meadow/README.md"
 								},
 								{
-									"Title": "Meadow",
-									"Path": "https://github.com/fable-retold/meadow"
+									"Title": "stricture",
+									"Path": "https://fable-retold.github.io/stricture/README.md"
 								},
 								{
-									"Title": "Pict",
-									"Path": "https://github.com/fable-retold/pict"
+									"Title": "meadow-connection-mysql",
+									"Path": "https://fable-retold.github.io/meadow-connection-mysql/README.md"
+								},
+								{
+									"Title": "meadow-connection-mssql",
+									"Path": "https://fable-retold.github.io/meadow-connection-mssql/README.md"
+								},
+								{
+									"Title": "meadow-connection-postgresql",
+									"Path": "https://fable-retold.github.io/meadow-connection-postgresql/README.md"
+								},
+								{
+									"Title": "meadow-connection-sqlite",
+									"Path": "https://fable-retold.github.io/meadow-connection-sqlite/README.md"
 								}
 							]
 						}
@@ -4334,7 +4498,10 @@
 						"api-reference.md",
 						"architecture.md",
 						"cli-guide.md",
+						"cli-reference.md",
 						"index.html",
+						"migration-authoring.md",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json",
 						"user-guide.md",
@@ -6508,13 +6675,61 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design Overview",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Data Model",
+									"Path": "data-model.md"
+								}
+							]
+						},
+						{
+							"Title": "Related Modules",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "https://fable-retold.github.io/pict/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "https://fable-retold.github.io/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Provider",
+									"Path": "https://fable-retold.github.io/pict-provider/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
 						"_playground.json",
+						"_sidebar.md",
 						"_version.json",
+						"architecture.md",
+						"data-model.md",
 						"index.html",
 						"playground/app.json",
 						"playground/appdata.json",
@@ -6524,6 +6739,7 @@
 						"playground/runtime/pict-editor-timeline.min.js",
 						"playground/runtime/pict-section-modal.min.js",
 						"playground/runtime/pict.min.js",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -6542,6 +6758,14 @@
 								{
 									"Title": "Overview",
 									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
 								}
 							]
 						},
@@ -6566,6 +6790,14 @@
 									"Path": "https://fable-retold.github.io/meadow-connection-manager/README.md"
 								},
 								{
+									"Title": "pict-provider",
+									"Path": "https://fable-retold.github.io/pict-provider/README.md"
+								},
+								{
+									"Title": "pict-view",
+									"Path": "https://fable-retold.github.io/pict-view/README.md"
+								},
+								{
 									"Title": "pict-section-modal",
 									"Path": "https://fable-retold.github.io/pict-section-modal/README.md"
 								},
@@ -6582,14 +6814,17 @@
 					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
+						"architecture.md",
 						"examples/README.md",
 						"examples/bookstore-connections/README.md",
 						"examples/bookstore-connections/index.html",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -6601,14 +6836,68 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "https://fable-retold.github.io/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "https://fable-retold.github.io/pict-application/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "https://fable-retold.github.io/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Router",
+									"Path": "https://fable-retold.github.io/pict-router/README.md"
+								},
+								{
+									"Title": "Pict Provider",
+									"Path": "https://fable-retold.github.io/pict-provider/README.md"
+								},
+								{
+									"Title": "Pict Section Form",
+									"Path": "https://fable-retold.github.io/pict-section-form/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://fable-retold.github.io/fable/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
 						"_brand.json",
 						"_cover.md",
+						"_sidebar.md",
 						"_version.json",
+						"architecture.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -6805,6 +7094,23 @@
 								{
 									"Title": "Overview",
 									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Theme Bundles & theme-build",
+									"Path": "theme-bundles.md"
 								}
 							]
 						},
@@ -6816,21 +7122,50 @@
 									"Path": "#/page/examples/theme-playground/README"
 								}
 							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "https://fable-retold.github.io/pict/README.md"
+								},
+								{
+									"Title": "Pict Provider",
+									"Path": "https://fable-retold.github.io/pict-provider/README.md"
+								},
+								{
+									"Title": "Pict Template",
+									"Path": "https://fable-retold.github.io/pict-template/README.md"
+								},
+								{
+									"Title": "Pict Section Theme",
+									"Path": "https://fable-retold.github.io/pict-section-theme/README.md"
+								},
+								{
+									"Title": "Quackage",
+									"Path": "https://fable-retold.github.io/quackage/README.md"
+								}
+							]
 						}
 					],
 					"DocFiles": [
 						".nojekyll",
 						"README.md",
+						"_cover.md",
 						"_sidebar.md",
 						"_version.json",
+						"architecture.md",
 						"examples/README.md",
 						"examples/theme-playground/README.md",
 						"examples/theme-playground/index.html",
 						"examples/theme-playground/pict-provider-theme-playground.min.js",
 						"examples/theme-playground/playground.css",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
-						"retold-keyword-index.json"
+						"retold-keyword-index.json",
+						"theme-bundles.md"
 					]
 				},
 				{
@@ -6840,13 +7175,61 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "https://fable-retold.github.io/pict/README.md"
+								},
+								{
+									"Title": "Pict Provider",
+									"Path": "https://fable-retold.github.io/pict-provider/README.md"
+								},
+								{
+									"Title": "Pict Section Content",
+									"Path": "https://fable-retold.github.io/pict-section-content/README.md"
+								},
+								{
+									"Title": "Pict Provider Theme",
+									"Path": "https://fable-retold.github.io/pict-provider-theme/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
+						"_sidebar.md",
 						"_version.json",
+						"api.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -6856,10 +7239,80 @@
 					"Repo": "pict-renderer-graph",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Guide",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Diagram Types",
+									"Path": "diagram-types.md"
+								},
+								{
+									"Title": "Styles",
+									"Path": "styles.md"
+								},
+								{
+									"Title": "Invocation Modes",
+									"Path": "invocation-modes.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "pict-section-excalidraw",
+									"Path": "https://fable-retold.github.io/pict-section-excalidraw/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://fable-retold.github.io/fable/README.md"
+								},
+								{
+									"Title": "fable-serviceproviderbase",
+									"Path": "https://fable-retold.github.io/fable-serviceproviderbase/README.md"
+								},
+								{
+									"Title": "Orator",
+									"Path": "https://fable-retold.github.io/orator/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_version.json",
+						"architecture.md",
+						"diagram-types.md",
+						"index.html",
+						"invocation-modes.md",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
+						"styles.md"
+					]
 				},
 				{
 					"Name": "pict-router",
@@ -7248,13 +7701,40 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
+						"_sidebar.md",
 						"_version.json",
+						"architecture.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -7323,8 +7803,76 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "Configuration",
+									"Path": "configuration.md"
+								},
+								{
+									"Title": "API Reference",
+									"Path": "api-reference.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "https://fable-retold.github.io/pict/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "https://fable-retold.github.io/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Section Theme",
+									"Path": "https://fable-retold.github.io/pict-section-theme/README.md"
+								},
+								{
+									"Title": "Pict Renderer Graph",
+									"Path": "https://fable-retold.github.io/pict-renderer-graph/README.md"
+								},
+								{
+									"Title": "Retold Content System",
+									"Path": "https://fable-retold.github.io/retold-content-system/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_version.json",
+						"api-reference.md",
+						"architecture.md",
+						"configuration.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json",
 						"@excalidraw/excalidraw/api/api-intro.mdx",
 						"@excalidraw/excalidraw/api/children-components/children-components-intro.mdx",
 						"@excalidraw/excalidraw/api/children-components/footer.mdx",
@@ -9198,11 +9746,77 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Architecture",
+							"Children": [
+								{
+									"Title": "Design Overview",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Views",
+									"Path": "views.md"
+								},
+								{
+									"Title": "CLI Reference",
+									"Path": "cli.md"
+								}
+							]
+						},
+						{
+							"Title": "Related Modules",
+							"Children": [
+								{
+									"Title": "pict",
+									"Path": "https://fable-retold.github.io/pict/README.md"
+								},
+								{
+									"Title": "pict-view",
+									"Path": "https://fable-retold.github.io/pict-view/README.md"
+								},
+								{
+									"Title": "pict-provider",
+									"Path": "https://fable-retold.github.io/pict-provider/README.md"
+								},
+								{
+									"Title": "pict-provider-theme",
+									"Path": "https://fable-retold.github.io/pict-provider-theme/README.md"
+								},
+								{
+									"Title": "pict-section-modal",
+									"Path": "https://fable-retold.github.io/pict-section-modal/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
+						"_cover.md",
 						"_playground.json",
+						"_sidebar.md",
 						"_version.json",
+						"architecture.md",
+						"cli.md",
 						"index.html",
 						"playground/app.json",
 						"playground/appdata.json",
@@ -9212,8 +9826,10 @@
 						"playground/runtime/pict-section-modal.min.js",
 						"playground/runtime/pict-section-theme.min.js",
 						"playground/runtime/pict.min.js",
+						"quickstart.md",
 						"retold-catalog.json",
-						"retold-keyword-index.json"
+						"retold-keyword-index.json",
+						"views.md"
 					]
 				},
 				{
@@ -9332,10 +9948,82 @@
 					"Repo": "pict-section-usermanagement",
 					"Group": "pict",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								},
+								{
+									"Title": "API & Usage",
+									"Path": "api-and-usage.md"
+								}
+							]
+						},
+						{
+							"Title": "Retold Ecosystem",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "https://fable-retold.github.io/pict/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "https://fable-retold.github.io/pict-view/README.md"
+								},
+								{
+									"Title": "Pict Provider",
+									"Path": "https://fable-retold.github.io/pict-provider/README.md"
+								},
+								{
+									"Title": "Pict Section Login",
+									"Path": "https://fable-retold.github.io/pict-section-login/README.md"
+								},
+								{
+									"Title": "Pict Section Modal",
+									"Path": "https://fable-retold.github.io/pict-section-modal/README.md"
+								},
+								{
+									"Title": "Orator Authentication",
+									"Path": "https://fable-retold.github.io/orator-authentication/README.md"
+								},
+								{
+									"Title": "Ultravisor Auth Beacon",
+									"Path": "https://stevenvelozo.github.io/ultravisor-auth-beacon/README.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_version.json",
+						"api-and-usage.md",
+						"architecture.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				},
 				{
 					"Name": "pict-service-commandlineutility",
@@ -10103,13 +10791,40 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
+						"_sidebar.md",
 						"_version.json",
+						"api.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -10121,13 +10836,45 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quick Start",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "API Reference",
+									"Path": "api.md"
+								},
+								{
+									"Title": "Graph Queries",
+									"Path": "graph.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
+						"_sidebar.md",
 						"_version.json",
+						"api.md",
+						"graph.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -10139,13 +10886,45 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Reference",
+							"Children": [
+								{
+									"Title": "Operations",
+									"Path": "operations.md"
+								},
+								{
+									"Title": "API",
+									"Path": "api.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
+						"_sidebar.md",
 						"_version.json",
+						"api.md",
 						"index.html",
+						"operations.md",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -10599,13 +11378,66 @@
 					"Branch": "master",
 					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Overview",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								},
+								{
+									"Title": "Architecture",
+									"Path": "architecture.md"
+								}
+							]
+						},
+						{
+							"Title": "Examples",
+							"Children": [
+								{
+									"Title": "Easy Cruiser (Electron)",
+									"Path": "example-easy-cruiser.md"
+								}
+							]
+						},
+						{
+							"Title": "Related Modules",
+							"Children": [
+								{
+									"Title": "Pict",
+									"Path": "https://fable-retold.github.io/pict/README.md"
+								},
+								{
+									"Title": "Pict Application",
+									"Path": "https://fable-retold.github.io/pict-application/README.md"
+								},
+								{
+									"Title": "Pict View",
+									"Path": "https://fable-retold.github.io/pict-view/README.md"
+								},
+								{
+									"Title": "Fable",
+									"Path": "https://fable-retold.github.io/fable/README.md"
+								}
+							]
+						}
+					],
 					"DocFiles": [
 						".nojekyll",
+						"README.md",
 						"_brand.json",
 						"_cover.md",
+						"_sidebar.md",
 						"_version.json",
+						"architecture.md",
+						"example-easy-cruiser.md",
 						"index.html",
+						"quickstart.md",
 						"retold-catalog.json",
 						"retold-keyword-index.json"
 					]
@@ -10974,10 +11806,44 @@
 					"Repo": "retold-sharp",
 					"Group": "utility",
 					"Branch": "master",
-					"HasDocs": false,
+					"HasDocs": true,
 					"HasCover": false,
-					"Sidebar": [],
-					"DocFiles": []
+					"Sidebar": [
+						{
+							"Title": "Getting Started",
+							"Children": [
+								{
+									"Title": "Introduction",
+									"Path": "README.md"
+								},
+								{
+									"Title": "Quickstart",
+									"Path": "quickstart.md"
+								}
+							]
+						},
+						{
+							"Title": "Internals",
+							"Children": [
+								{
+									"Title": "How It Works",
+									"Path": "how-it-works.md"
+								}
+							]
+						}
+					],
+					"DocFiles": [
+						".nojekyll",
+						"README.md",
+						"_cover.md",
+						"_sidebar.md",
+						"_version.json",
+						"how-it-works.md",
+						"index.html",
+						"quickstart.md",
+						"retold-catalog.json",
+						"retold-keyword-index.json"
+					]
 				}
 			]
 		},
