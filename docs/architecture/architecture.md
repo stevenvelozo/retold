@@ -6,28 +6,10 @@ Retold modules are designed to compose into layered application stacks. Each lay
 
 A fully-realized Retold application assembles five layers, from infrastructure at the bottom to your application logic at the top.
 
-```mermaid
-graph TB
-  L5["<b>Layer 5</b> -- Pict + Your Application / Mid-Tier Service<br/><i>MVC tools, authentication, business logic, custom endpoints</i>"]
-  L4["<b>Layer 4</b> -- Orator (API Server)<br/><i>HTTP lifecycle, middleware, static files, proxy</i>"]
-  L3["<b>Layer 3</b> -- Meadow-Endpoints<br/><i>Auto-generated CRUD routes, behavior hooks</i>"]
-  L2["<b>Layer 2</b> -- Meadow + FoxHound + Stricture<br/><i>Data broker, SQL generation, schema definitions</i>"]
-  L1["<b>Layer 1</b> -- Fable (Core Ecosystem)<br/><i>DI, configuration, logging, UUID, expressions</i>"]
-  Infra["<b>Infrastructure</b><br/><i>Config files, log streams, databases, filesystem</i>"]
-
-  L5 --> L4
-  L4 --> L3
-  L3 --> L2
-  L2 --> L1
-  L1 --> Infra
-
-  style L5 fill:#e8f5e9,stroke:#43a047,color:#333
-  style L4 fill:#e3f2fd,stroke:#42a5f5,color:#333
-  style L3 fill:#e3f2fd,stroke:#64b5f6,color:#333
-  style L2 fill:#fff3e0,stroke:#ffa726,color:#333
-  style L1 fill:#fce4ec,stroke:#ef5350,color:#333
-  style Infra fill:#f5f5f5,stroke:#bdbdbd,color:#333
-```
+<!-- Generated from diagrams/layer-model.mmd by pict-renderer-graph.
+     Edit the .mmd (graph) or .hints.json (emphasis), then re-run:
+       npx pict-renderer-graph build docs/architecture/diagrams -->
+![The five-layer Retold architecture, from infrastructure up to your application logic](diagrams/layer-model.svg)
 
 Not every application uses every layer. A browser app might use Fable + Pict. A CLI tool might use Fable + Meadow. A full API service uses the complete stack.
 

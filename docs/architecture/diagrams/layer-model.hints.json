@@ -1,0 +1,8 @@
+{
+	"style": "notebook",
+	"emphasis":
+	[
+		{ "node": "L1", "accent": true, "bold": true },
+		{ "node": "Infra", "dim": true }
+	]
+}

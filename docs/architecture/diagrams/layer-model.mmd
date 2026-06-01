@@ -1,0 +1,12 @@
+graph TB
+  L5["Layer 5 - Pict + Your Application<br/>MVC tools, auth, business logic, custom endpoints"]
+  L4["Layer 4 - Orator<br/>HTTP lifecycle, middleware, static files, proxy"]
+  L3["Layer 3 - Meadow-Endpoints<br/>Auto-generated CRUD routes, behavior hooks"]
+  L2["Layer 2 - Meadow + FoxHound + Stricture<br/>Data broker, SQL generation, schema definitions"]
+  L1["Layer 1 - Fable (Core Ecosystem)<br/>DI, configuration, logging, UUID, expressions"]
+  Infra["Infrastructure<br/>Config files, log streams, databases, filesystem"]
+  L5 --> L4
+  L4 --> L3
+  L3 --> L2
+  L2 --> L1
+  L1 --> Infra
