@@ -291,10 +291,10 @@ Supporting the application stack are utility modules:
 
 | Module | Purpose |
 |--------|---------|
-| **[Manyfest](/utility/manyfest/)** | JSON manifest for consistent data description across layers |
-| **[Quackage](/utility/quackage/)** | Standardized build tool for browser bundles, testing, and packaging |
-| **[Indoctrinate](/utility/indoctrinate/)** | Documentation scaffolding, catalog generation, and cross-module search |
-| **[Ultravisor](/apps/ultravisor/)** | Process supervision with scheduled tasks and LLM integration |
+| **[Manyfest](https://fable-retold.github.io/manyfest/)** | JSON manifest for consistent data description across layers |
+| **[Quackage](https://fable-retold.github.io/quackage/)** | Standardized build tool for browser bundles, testing, and packaging |
+| **[Indoctrinate](https://fable-retold.github.io/indoctrinate/)** | Documentation scaffolding, catalog generation, and cross-module search |
+| **[Ultravisor](https://stevenvelozo.github.io/ultravisor/)** | Process supervision with scheduled tasks and LLM integration |
 
 ## Design Principles
 

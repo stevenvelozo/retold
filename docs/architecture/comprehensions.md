@@ -2,7 +2,7 @@
 
 Comprehensions are the intermediate data format that Retold uses for data integration pipelines. When you need to ingest records from external systems -- CSV files, JSON feeds, other databases -- comprehensions provide a consistent structure for staging, deduplicating, merging, and cross-referencing that data before it reaches Meadow.
 
-The modules [bibliograph](/meadow/bibliograph/) and [meadow-integration](/meadow/meadow-integration/) both work with comprehensions. Bibliograph provides key-value record comprehension for change tracking. Meadow-integration provides the full transformation and integration pipeline -- mapping source data into comprehensions and pushing them into Meadow entities through the integration adapter.
+The modules [bibliograph](https://fable-retold.github.io/bibliograph/) and [meadow-integration](https://fable-retold.github.io/meadow-integration/) both work with comprehensions. Bibliograph provides key-value record comprehension for change tracking. Meadow-integration provides the full transformation and integration pipeline -- mapping source data into comprehensions and pushing them into Meadow entities through the integration adapter.
 
 ## The Object Format
 

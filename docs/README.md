@@ -88,41 +88,41 @@ All modules follow the **Fable Service Provider Pattern**: they register with a 
 
 ## Module Groups
 
-### [Fable](/fable/fable/) -- Core Ecosystem
+### [Fable](https://fable-retold.github.io/fable/) -- Core Ecosystem
 
 The foundation layer. Dependency injection, configuration, logging, UUID generation, expression parsing, REST client, and template engine.
 
-**Key modules:** [fable](/fable/fable/) - [fable-log](/fable/fable-log/) - [fable-settings](/fable/fable-settings/) - [fable-uuid](/fable/fable-uuid/) - [fable-serviceproviderbase](/fable/fable-serviceproviderbase/)
+**Key modules:** [fable](https://fable-retold.github.io/fable/) - [fable-log](https://fable-retold.github.io/fable-log/) - [fable-settings](https://fable-retold.github.io/fable-settings/) - [fable-uuid](https://fable-retold.github.io/fable-uuid/) - [fable-serviceproviderbase](https://fable-retold.github.io/fable-serviceproviderbase/)
 
-### [Meadow](/meadow/meadow/) -- Data Access Layer
+### [Meadow](https://fable-retold.github.io/meadow/) -- Data Access Layer
 
 Provider-agnostic data broker with schema management, query generation, and automatic audit tracking.
 
-**Key modules:** [meadow](/meadow/meadow/) - [foxhound](/meadow/foxhound/) - [stricture](/meadow/stricture/) - [meadow-endpoints](/meadow/meadow-endpoints/) - [retold-data-service](/meadow/retold-data-service/)
+**Key modules:** [meadow](https://fable-retold.github.io/meadow/) - [foxhound](https://fable-retold.github.io/foxhound/) - [stricture](https://fable-retold.github.io/stricture/) - [meadow-endpoints](https://fable-retold.github.io/meadow-endpoints/) - [retold-data-service](https://fable-retold.github.io/retold-data-service/)
 
-### [Orator](/orator/orator/) -- API Server
+### [Orator](https://fable-retold.github.io/orator/) -- API Server
 
 Thin HTTP server abstraction with REST and IPC support, static file serving, proxy pass-through, and WebSocket reporting.
 
-**Key modules:** [orator](/orator/orator/) - [orator-serviceserver-restify](/orator/orator-serviceserver-restify/) - [orator-static-server](/orator/orator-static-server/)
+**Key modules:** [orator](https://fable-retold.github.io/orator/) - [orator-serviceserver-restify](https://fable-retold.github.io/orator-serviceserver-restify/) - [orator-static-server](https://fable-retold.github.io/orator-static-server/)
 
-### [Pict](/pict/pict/) -- MVC Tools
+### [Pict](https://fable-retold.github.io/pict/) -- MVC Tools
 
 Non-opinionated Model-View-Controller tools for building UIs as text strings -- browser, console, or any text-based interface.
 
-**Key modules:** [pict](/pict/pict/) - [pict-view](/pict/pict-view/) - [pict-application](/pict/pict-application/) - [pict-section-form](/pict/pict-section-form/)
+**Key modules:** [pict](https://fable-retold.github.io/pict/) - [pict-view](https://fable-retold.github.io/pict-view/) - [pict-application](https://fable-retold.github.io/pict-application/) - [pict-section-form](https://fable-retold.github.io/pict-section-form/)
 
-### [Utility](/utility/indoctrinate/) -- Build & Documentation Tools
+### [Utility](https://fable-retold.github.io/indoctrinate/) -- Build & Documentation Tools
 
 Build tooling, manifest management, and documentation generation.
 
-**Key modules:** [indoctrinate](/utility/indoctrinate/) - [manyfest](/utility/manyfest/) - [quackage](/utility/quackage/)
+**Key modules:** [indoctrinate](https://fable-retold.github.io/indoctrinate/) - [manyfest](https://fable-retold.github.io/manyfest/) - [quackage](https://fable-retold.github.io/quackage/)
 
-### [Apps](/apps/retold-content-system/) -- Applications
+### [Apps](https://github.com/fable-retold/retold-content-system) -- Applications
 
 Full-stack applications built on the Retold ecosystem, combining Fable, Meadow, Orator, and Pict into complete systems.
 
-**Key modules:** [retold-content-system](/apps/retold-content-system/) - [retold-remote](/apps/retold-remote/) - [ultravisor](/apps/ultravisor/)
+**Key modules:** [retold-content-system](https://github.com/fable-retold/retold-content-system) - [retold-remote](https://github.com/stevenvelozo/retold-remote) - [ultravisor](https://stevenvelozo.github.io/ultravisor/)
 
 ## Quick Start
 

@@ -4,7 +4,7 @@ Full-stack applications built on the Retold ecosystem, combining Fable, Meadow, 
 
 ## Modules
 
-### [Retold Content System](/apps/retold-content-system/)
+### [Retold Content System](https://github.com/fable-retold/retold-content-system)
 
 Content management system built on the Retold ecosystem.
 
@@ -12,7 +12,7 @@ Content management system built on the Retold ecosystem.
 
 ---
 
-### [Retold Remote](/apps/retold-remote/)
+### [Retold Remote](https://github.com/stevenvelozo/retold-remote)
 
 Remote access application built on the Retold ecosystem.
 
@@ -20,7 +20,7 @@ Remote access application built on the Retold ecosystem.
 
 ---
 
-### [Ultravisor](/apps/ultravisor/)
+### [Ultravisor](https://stevenvelozo.github.io/ultravisor/)
 
 Process supervision tool for running commands on schedule with LLM integration. Supports distributed nodes, global state, and flexible task types (shell, browser, HTTP, database).
 
@@ -28,19 +28,19 @@ Process supervision tool for running commands on schedule with LLM integration. 
 
 ---
 
-### [Ultravisor Suite Harness](/apps/ultravisor-suite-harness/)
+### [Ultravisor Suite Harness](https://github.com/stevenvelozo/ultravisor-suite-harness)
 
 Integration test harness for the Ultravisor ecosystem. Starts multiple servers (Facto, Meadow-Integration, Ultravisor) and exercises beacon registration, capability dispatch, and operation execution end-to-end.
 
 ---
 
-### [Retold Facto](/apps/retold-facto/)
+### [Retold Facto](https://stevenvelozo.github.io/retold-facto/)
 
 Data warehouse application with record ingestion pipelines, projection stores, and Ultravisor beacon integration for distributed data processing.
 
 ---
 
-### [Retold Data Beacon](/apps/retold-databeacon/)
+### [Retold Data Beacon](https://fable-retold.github.io/retold-databeacon/)
 
 Lightweight data beacon application for connecting data sources to an Ultravisor server.
 
@@ -48,9 +48,9 @@ Lightweight data beacon application for connecting data sources to an Ultravisor
 
 | Module | Description |
 |--------|-------------|
-| [retold-content-system](/apps/retold-content-system/) | Content management system built on the Retold ecosystem |
-| [retold-remote](/apps/retold-remote/) | Remote access application built on the Retold ecosystem |
-| [ultravisor](/apps/ultravisor/) | Process supervision with scheduled tasks and LLM integration |
-| [ultravisor-suite-harness](/apps/ultravisor-suite-harness/) | Integration test harness for the Ultravisor ecosystem |
-| [retold-facto](/apps/retold-facto/) | Data warehouse with ingestion pipelines and beacon integration |
-| [retold-databeacon](/apps/retold-databeacon/) | Lightweight data beacon for connecting data sources to Ultravisor |
+| [retold-content-system](https://github.com/fable-retold/retold-content-system) | Content management system built on the Retold ecosystem |
+| [retold-remote](https://github.com/stevenvelozo/retold-remote) | Remote access application built on the Retold ecosystem |
+| [ultravisor](https://stevenvelozo.github.io/ultravisor/) | Process supervision with scheduled tasks and LLM integration |
+| [ultravisor-suite-harness](https://github.com/stevenvelozo/ultravisor-suite-harness) | Integration test harness for the Ultravisor ecosystem |
+| [retold-facto](https://stevenvelozo.github.io/retold-facto/) | Data warehouse with ingestion pipelines and beacon integration |
+| [retold-databeacon](https://fable-retold.github.io/retold-databeacon/) | Lightweight data beacon for connecting data sources to Ultravisor |

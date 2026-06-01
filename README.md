@@ -9,15 +9,15 @@ Retold is a collection of 60+ JavaScript/Node.js modules for building web applic
 | Group | Purpose |
 |-------|---------|
 | **Fable** | Core ecosystem: dependency injection, configuration, logging, UUID generation, expression parsing, REST client, template engine |
-| **Meadow** | Data access layer: provider-agnostic ORM, query generation (FoxHound), schema definitions (Stricture), database connectors (MySQL, MSSQL, PostgreSQL, SQLite, MongoDB, DGraph, Solr, RocksDB), auto-generated REST endpoints |
+| **Meadow** | Data access layer: provider-agnostic ORM, query generation ([FoxHound](https://github.com/fable-retold/foxhound)), schema definitions ([Stricture](https://github.com/fable-retold/stricture)), database connectors (MySQL, MSSQL, PostgreSQL, SQLite, MongoDB, DGraph, Solr, RocksDB), auto-generated REST endpoints |
 | **Orator** | API server: HTTP server abstraction over Restify, static file serving, reverse proxy, WebSocket reporting |
 | **Pict** | MVC tools: views, templates, providers, application lifecycle — for browser, terminal, or any text-based UI |
-| **Utility** | Build tools (Quackage), manifest management (Manyfest), documentation generation (Indoctrinate) |
-| **Apps** | Full-stack applications built on Retold: content management (retold-content-system), remote access (retold-remote), process supervision (Ultravisor) |
+| **Utility** | Build tools ([Quackage](https://github.com/fable-retold/quackage)), manifest management ([Manyfest](https://github.com/fable-retold/manyfest)), documentation generation ([Indoctrinate](https://github.com/fable-retold/indoctrinate)) |
+| **Apps** | Full-stack applications built on Retold: content management ([retold-content-system](https://github.com/fable-retold/retold-content-system)), remote access ([retold-remote](https://github.com/stevenvelozo/retold-remote)), process supervision ([Ultravisor](https://github.com/stevenvelozo/ultravisor)) |
 
 ## The Service Provider Pattern
 
-Every Retold module extends `fable-serviceproviderbase` and registers with a Fable instance. That instance provides dependency injection, logging, UUID generation, and shared configuration. Any registered service can reach any other through `this.fable`, so modules are loosely coupled — you can swap database providers, change server implementations, or add custom services without modifying existing code.
+Every Retold module extends [`fable-serviceproviderbase`](https://github.com/fable-retold/fable-serviceproviderbase) and registers with a Fable instance. That instance provides dependency injection, logging, UUID generation, and shared configuration. Any registered service can reach any other through `this.fable`, so modules are loosely coupled — you can swap database providers, change server implementations, or add custom services without modifying existing code.
 
 ```javascript
 const libFable = require('fable');

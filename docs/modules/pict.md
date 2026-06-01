@@ -41,7 +41,7 @@ graph TB
 
 ## Core Modules
 
-### [Pict](/pict/pict/)
+### [Pict](https://fable-retold.github.io/pict/)
 
 The main module. Creates the application context, manages template and view registries, provides the template expression engine, and coordinates rendering.
 
@@ -74,7 +74,7 @@ _Pict.AppData.Record = { Name: 'World' };
 
 ---
 
-### [Pict-View](/pict/pict-view/)
+### [Pict-View](https://fable-retold.github.io/pict-view/)
 
 The View base class. Views manage a complete lifecycle -- initialization, rendering, data marshaling (two-way binding), CSS injection, and teardown.
 
@@ -107,7 +107,7 @@ class MyView extends libPictView
 
 ---
 
-### [Pict-Template](/pict/pict-template/)
+### [Pict-Template](https://fable-retold.github.io/pict-template/)
 
 Base class for custom template handlers. Extend this to add new template expression types beyond the built-in set.
 
@@ -115,7 +115,7 @@ Base class for custom template handlers. Extend this to add new template express
 
 ---
 
-### [Pict-Template-Preprocessor](/pict/pict-template-preprocessor/)
+### [Pict-Template-Preprocessor](https://fable-retold.github.io/pict-template-preprocessor/)
 
 Template compiler and optimizer. Compiles template strings into cached segment arrays on first parse so the character-by-character trie walk only happens once per unique template. Builds an expression dependency graph with JSON and Graphviz DOT export, and batch-prefetches entities at TemplateSet boundaries to eliminate N+1 fetch patterns.
 
@@ -135,7 +135,7 @@ console.log(_Preprocessor.graph.toDOT());
 
 ---
 
-### [Pict-Provider](/pict/pict-provider/)
+### [Pict-Provider](https://fable-retold.github.io/pict-provider/)
 
 Base class for data providers. Providers fetch, transform, and deliver data to views.
 
@@ -143,7 +143,7 @@ Base class for data providers. Providers fetch, transform, and deliver data to v
 
 ---
 
-### [Pict-Application](/pict/pict-application/)
+### [Pict-Application](https://fable-retold.github.io/pict-application/)
 
 Application base class that coordinates multiple views, manages shared state, and provides structured lifecycle management for complete applications.
 
@@ -171,7 +171,7 @@ class MyApp extends libPictApplication
 
 Sections are pre-built view patterns for common UI needs.
 
-### [Pict-Section-Form](/pict/pict-section-form/)
+### [Pict-Section-Form](https://fable-retold.github.io/pict-section-form/)
 
 Configuration-driven dynamic forms. Define form layout, fields, validation, and data binding in JSON -- the section handles rendering, data marshaling, and mathematical solving.
 
@@ -181,7 +181,7 @@ Supports 13+ input types with custom providers for each. Used extensively for bu
 
 ---
 
-### [Pict-Section-Recordset](/pict/pict-section-recordset/)
+### [Pict-Section-Recordset](https://fable-retold.github.io/pict-section-recordset/)
 
 CRUD views (Create, Read, Update, Delete) based on Meadow endpoint schemas. Provides list views, detail views, and record management with data provider integration.
 
@@ -189,7 +189,7 @@ CRUD views (Create, Read, Update, Delete) based on Meadow endpoint schemas. Prov
 
 ---
 
-### [Pict-Section-TUIGrid](/pict/pict-section-tuigrid/)
+### [Pict-Section-TUIGrid](https://fable-retold.github.io/pict-section-tuigrid/)
 
 Toast UI Grid integration for tabular data display. Provides spreadsheet-like data grids with sorting, filtering, and editing.
 
@@ -197,7 +197,7 @@ Toast UI Grid integration for tabular data display. Provides spreadsheet-like da
 
 ---
 
-### [Pict-Section-Content](/pict/pict-section-content/)
+### [Pict-Section-Content](https://fable-retold.github.io/pict-section-content/)
 
 Markdown parsing and content rendering with Mermaid diagrams and KaTeX math equations. Provides a reusable provider for markdown-to-HTML conversion and a styled view with post-render hooks.
 
@@ -205,7 +205,7 @@ Markdown parsing and content rendering with Mermaid diagrams and KaTeX math equa
 
 ---
 
-### [Pict-Section-Code](/pict/pict-section-code/)
+### [Pict-Section-Code](https://fable-retold.github.io/pict-section-code/)
 
 Code editor and syntax highlighter wrapping CodeJar. Provides editable code editors and read-only syntax-highlighted displays with built-in support for JavaScript, JSON, HTML, CSS, and SQL. Supports custom highlighter functions and two-way data binding to Pict AppData.
 
@@ -213,7 +213,7 @@ Code editor and syntax highlighter wrapping CodeJar. Provides editable code edit
 
 ---
 
-### [Pict-Section-MarkdownEditor](/pict/pict-section-markdowneditor/)
+### [Pict-Section-MarkdownEditor](https://fable-retold.github.io/pict-section-markdowneditor/)
 
 Segmented markdown editor built on CodeMirror v6. Splits documents into independently editable segments with drag-and-drop reorder, formatting toolbar, image upload hooks, and live rich previews with Mermaid diagrams and KaTeX math. Supports read-only mode, rendered view toggle, and server-side image upload integration.
 
@@ -221,7 +221,7 @@ Segmented markdown editor built on CodeMirror v6. Splits documents into independ
 
 ---
 
-### [Pict-Section-Flow](/pict/pict-section-flow/)
+### [Pict-Section-Flow](https://fable-retold.github.io/pict-section-flow/)
 
 Flow diagram section for visual workflow and process representations.
 
@@ -231,44 +231,44 @@ Flow diagram section for visual workflow and process representations.
 
 | Module | Purpose | npm |
 |--------|---------|-----|
-| [pict-docuserve](/pict/pict-docuserve/) | Single-page documentation viewer built on Pict with catalog navigation and search | `pict-docuserve` |
-| [pict-nonlinearconfig](/pict/pict-nonlinearconfig/) | Nonlinear configuration manager | `pict-nonlinearconfig` |
+| [pict-docuserve](https://fable-retold.github.io/pict-docuserve/) | Single-page documentation viewer built on Pict with catalog navigation and search | `pict-docuserve` |
+| [pict-nonlinearconfig](https://fable-retold.github.io/pict-nonlinearconfig/) | Nonlinear configuration manager | `pict-nonlinearconfig` |
 
 ## Supporting Modules
 
 | Module | Purpose | npm |
 |--------|---------|-----|
-| [pict-router](/pict/pict-router/) | Hash-based URL routing via Navigo with template string route functions | `pict-router` |
-| [pict-panel](/pict/pict-panel/) | Control panel component, hot-loadable from CDN | `pict-panel` |
-| [informary](/pict/informary/) | Dependency-free browser form marshaling with undo/redo and field-level deltas | `informary` |
-| [cryptbrau](/pict/cryptbrau/) | Simple in-browser symmetric encryption | `cryptbrau` |
-| [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | Base classes for Pict services with pre-initialization support | `pict-serviceproviderbase` |
-| [pict-service-commandlineutility](/pict/pict-service-commandlineutility/) | CLI utility tools built on Commander | `pict-service-commandlineutility` |
-| [pict-terminalui](/pict/pict-terminalui/) | Blessed-based terminal interface for Pict views | `pict-terminalui` |
+| [pict-router](https://fable-retold.github.io/pict-router/) | Hash-based URL routing via Navigo with template string route functions | `pict-router` |
+| [pict-panel](https://fable-retold.github.io/pict-panel/) | Control panel component, hot-loadable from CDN | `pict-panel` |
+| [informary](https://fable-retold.github.io/informary/) | Dependency-free browser form marshaling with undo/redo and field-level deltas | `informary` |
+| [cryptbrau](https://fable-retold.github.io/cryptbrau/) | Simple in-browser symmetric encryption | `cryptbrau` |
+| [pict-serviceproviderbase](https://fable-retold.github.io/pict-serviceproviderbase/) | Base classes for Pict services with pre-initialization support | `pict-serviceproviderbase` |
+| [pict-service-commandlineutility](https://fable-retold.github.io/pict-service-commandlineutility/) | CLI utility tools built on Commander | `pict-service-commandlineutility` |
+| [pict-terminalui](https://fable-retold.github.io/pict-terminalui/) | Blessed-based terminal interface for Pict views | `pict-terminalui` |
 
 ## All Pict Modules
 
 | Module | Description |
 |--------|-------------|
-| [pict](/pict/pict/) | Core MVC module with template engine |
-| [pict-template](/pict/pict-template/) | Custom template handler base class |
-| [pict-template-preprocessor](/pict/pict-template-preprocessor/) | Template compiler with cached segments, dependency graphs, and entity prefetch |
-| [pict-view](/pict/pict-view/) | View base class with full lifecycle |
-| [pict-provider](/pict/pict-provider/) | Data provider base class |
-| [pict-application](/pict/pict-application/) | Application lifecycle management |
-| [pict-panel](/pict/pict-panel/) | Hot-loadable control panel |
-| [pict-nonlinearconfig](/pict/pict-nonlinearconfig/) | Nonlinear configuration manager |
-| [pict-section-flow](/pict/pict-section-flow/) | Flow diagram section |
-| [pict-docuserve](/pict/pict-docuserve/) | Single-page documentation viewer |
-| [cryptbrau](/pict/cryptbrau/) | In-browser symmetric encryption |
-| [informary](/pict/informary/) | Browser form marshaling with undo/redo |
-| [pict-service-commandlineutility](/pict/pict-service-commandlineutility/) | CLI utility tools |
-| [pict-section-recordset](/pict/pict-section-recordset/) | CRUD record management views |
-| [pict-section-content](/pict/pict-section-content/) | Markdown parsing and content rendering |
-| [pict-section-code](/pict/pict-section-code/) | Code editor and syntax highlighter wrapping CodeJar |
-| [pict-section-markdowneditor](/pict/pict-section-markdowneditor/) | Segmented markdown editor built on CodeMirror v6 |
-| [pict-section-form](/pict/pict-section-form/) | Configuration-driven dynamic forms |
-| [pict-section-tuigrid](/pict/pict-section-tuigrid/) | Toast UI Grid tabular data |
-| [pict-router](/pict/pict-router/) | Hash-based URL routing |
-| [pict-serviceproviderbase](/pict/pict-serviceproviderbase/) | Pict service base classes |
-| [pict-terminalui](/pict/pict-terminalui/) | Blessed-based terminal interface |
+| [pict](https://fable-retold.github.io/pict/) | Core MVC module with template engine |
+| [pict-template](https://fable-retold.github.io/pict-template/) | Custom template handler base class |
+| [pict-template-preprocessor](https://fable-retold.github.io/pict-template-preprocessor/) | Template compiler with cached segments, dependency graphs, and entity prefetch |
+| [pict-view](https://fable-retold.github.io/pict-view/) | View base class with full lifecycle |
+| [pict-provider](https://fable-retold.github.io/pict-provider/) | Data provider base class |
+| [pict-application](https://fable-retold.github.io/pict-application/) | Application lifecycle management |
+| [pict-panel](https://fable-retold.github.io/pict-panel/) | Hot-loadable control panel |
+| [pict-nonlinearconfig](https://fable-retold.github.io/pict-nonlinearconfig/) | Nonlinear configuration manager |
+| [pict-section-flow](https://fable-retold.github.io/pict-section-flow/) | Flow diagram section |
+| [pict-docuserve](https://fable-retold.github.io/pict-docuserve/) | Single-page documentation viewer |
+| [cryptbrau](https://fable-retold.github.io/cryptbrau/) | In-browser symmetric encryption |
+| [informary](https://fable-retold.github.io/informary/) | Browser form marshaling with undo/redo |
+| [pict-service-commandlineutility](https://fable-retold.github.io/pict-service-commandlineutility/) | CLI utility tools |
+| [pict-section-recordset](https://fable-retold.github.io/pict-section-recordset/) | CRUD record management views |
+| [pict-section-content](https://fable-retold.github.io/pict-section-content/) | Markdown parsing and content rendering |
+| [pict-section-code](https://fable-retold.github.io/pict-section-code/) | Code editor and syntax highlighter wrapping CodeJar |
+| [pict-section-markdowneditor](https://fable-retold.github.io/pict-section-markdowneditor/) | Segmented markdown editor built on CodeMirror v6 |
+| [pict-section-form](https://fable-retold.github.io/pict-section-form/) | Configuration-driven dynamic forms |
+| [pict-section-tuigrid](https://fable-retold.github.io/pict-section-tuigrid/) | Toast UI Grid tabular data |
+| [pict-router](https://fable-retold.github.io/pict-router/) | Hash-based URL routing |
+| [pict-serviceproviderbase](https://fable-retold.github.io/pict-serviceproviderbase/) | Pict service base classes |
+| [pict-terminalui](https://fable-retold.github.io/pict-terminalui/) | Blessed-based terminal interface |

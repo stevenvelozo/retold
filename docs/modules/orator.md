@@ -23,7 +23,7 @@ Your application registers routes, middleware, and lifecycle hooks with Orator. 
 
 ## Core Modules
 
-### [Orator](/orator/orator/)
+### [Orator](https://fable-retold.github.io/orator/)
 
 The main server abstraction. Manages lifecycle, route registration, and service server delegation.
 
@@ -63,7 +63,7 @@ _Orator.addPreRouteFunction(function(pRequest, pResponse, fNext) { /* ... */ ret
 
 ---
 
-### [Orator-ServiceServer-Restify](/orator/orator-serviceserver-restify/)
+### [Orator-ServiceServer-Restify](https://fable-retold.github.io/orator-serviceserver-restify/)
 
 Production HTTP server powered by Restify. Provides full HTTP support, body parsing, CORS, middleware, and configurable listen options.
 
@@ -80,7 +80,7 @@ require('orator-serviceserver-restify');
 
 ---
 
-### [Orator-Static-Server](/orator/orator-static-server/)
+### [Orator-Static-Server](https://fable-retold.github.io/orator-static-server/)
 
 Static file serving for Orator with MIME type detection, default file support, subdomain-based folder routing, and configurable route prefix stripping.
 
@@ -92,7 +92,7 @@ _Orator.addStaticRoute('/app', '/var/www/app/dist');
 
 ---
 
-### [Orator-HTTP-Proxy](/orator/orator-http-proxy/)
+### [Orator-HTTP-Proxy](https://fable-retold.github.io/orator-http-proxy/)
 
 Reverse proxy for forwarding requests to backend services. Supports multiple HTTP verbs and handles HTTP-to-HTTPS translation.
 
@@ -104,7 +104,7 @@ _Orator.addProxyRoute('/api/external', 'https://backend.example.com/api');
 
 ---
 
-### [Tidings](/orator/tidings/)
+### [Tidings](https://fable-retold.github.io/tidings/)
 
 An extensible reporting system for generating HTML, PDF, and other format reports. Provides asset collection, templating, and rasterization in a micro-service-friendly pattern.
 
@@ -150,9 +150,9 @@ This gives you a full REST API with Create, Read, Reads, Update, Delete, Undelet
 
 | Module | Description |
 |--------|-------------|
-| [orator](/orator/orator/) | HTTP server abstraction with lifecycle hooks |
-| [orator-serviceserver-restify](/orator/orator-serviceserver-restify/) | Production HTTP server via Restify |
-| [orator-static-server](/orator/orator-static-server/) | Static file serving with MIME detection |
-| [orator-http-proxy](/orator/orator-http-proxy/) | HTTP reverse proxy pass-through |
-| [tidings](/orator/tidings/) | Reporting scaffolding for HTML/PDF output |
-| [orator-conversion](/orator/orator-conversion/) | File format conversion endpoints |
+| [orator](https://fable-retold.github.io/orator/) | HTTP server abstraction with lifecycle hooks |
+| [orator-serviceserver-restify](https://fable-retold.github.io/orator-serviceserver-restify/) | Production HTTP server via Restify |
+| [orator-static-server](https://fable-retold.github.io/orator-static-server/) | Static file serving with MIME detection |
+| [orator-http-proxy](https://fable-retold.github.io/orator-http-proxy/) | HTTP reverse proxy pass-through |
+| [tidings](https://fable-retold.github.io/tidings/) | Reporting scaffolding for HTML/PDF output |
+| [orator-conversion](https://fable-retold.github.io/orator-conversion/) | File format conversion endpoints |

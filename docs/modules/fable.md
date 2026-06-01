@@ -18,7 +18,7 @@ When you create a Fable instance, you get:
 
 ## Core Service Modules
 
-### [Fable](/fable/fable/)
+### [Fable](https://fable-retold.github.io/fable/)
 
 The main module. Creates the service container and bundles all core services.
 
@@ -40,7 +40,7 @@ _Fable.log.trace(`UUID: ${_Fable.getUUID()}`);
 
 ---
 
-### [Fable-ServiceProviderBase](/fable/fable-serviceproviderbase/)
+### [Fable-ServiceProviderBase](https://fable-retold.github.io/fable-serviceproviderbase/)
 
 The base class that all Retold services extend. Provides the registration and dependency injection mechanics.
 
@@ -78,7 +78,7 @@ _Fable.addAndInstantiateServiceType('MyService', MyService);
 
 ---
 
-### [Fable-Settings](/fable/fable-settings/)
+### [Fable-Settings](https://fable-retold.github.io/fable-settings/)
 
 A tolerant configuration chain. Loads settings from files, merges with defaults, and allows runtime overrides.
 
@@ -104,7 +104,7 @@ _Fable.settings.MySQL.Server = 'production-host';
 
 ---
 
-### [Fable-Log](/fable/fable-log/)
+### [Fable-Log](https://fable-retold.github.io/fable-log/)
 
 Flexible logging with six levels and extensible output streams.
 
@@ -131,7 +131,7 @@ _Fable.log.error('Shown');
 
 ---
 
-### [Fable-UUID](/fable/fable-uuid/)
+### [Fable-UUID](https://fable-retold.github.io/fable-uuid/)
 
 UUID generation for identity and uniqueness.
 
@@ -148,13 +148,13 @@ let tmpRandom = _Fable.fable.UUID.getUUID({ length: 12 });
 
 ---
 
-### [Fable-Log-Logger-Bunyan](/fable/fable-log-logger-bunyan/)
+### [Fable-Log-Logger-Bunyan](https://fable-retold.github.io/fable-log-logger-bunyan/)
 
 A structured logging provider that routes Fable-Log output to Bunyan for production environments with JSON-formatted, machine-parseable log streams.
 
 **npm:** `fable-log-logger-bunyan` - **Version:** 1.0.x
 
-### [Ultravisor-Beacon](/fable/ultravisor-beacon/)
+### [Ultravisor-Beacon](https://github.com/stevenvelozo/ultravisor-beacon)
 
 A lightweight beacon client and Fable service for remote task execution. Turns any Node.js application into a distributed worker node that connects to an Ultravisor server, advertises capabilities, and executes work items on demand.
 
@@ -184,7 +184,7 @@ tmpBeacon.enable(function (pError) { });
 
 ---
 
-### [Ultravisor-Beacon-Capability](/fable/ultravisor-beacon-capability/)
+### [Ultravisor-Beacon-Capability](https://stevenvelozo.github.io/ultravisor-beacon-capability/)
 
 A convention-based base class for building Ultravisor beacon capabilities with minimal boilerplate. Extend the class, define action methods with the `action` prefix, and call `connect()`.
 
@@ -246,11 +246,11 @@ Services can be registered by type (`addServiceType`) or instantiated on registr
 
 | Module | Description |
 |--------|-------------|
-| [fable](/fable/fable/) | Core module with all services |
-| [fable-serviceproviderbase](/fable/fable-serviceproviderbase/) | Base class for all services |
-| [fable-settings](/fable/fable-settings/) | Configuration management |
-| [fable-log](/fable/fable-log/) | Logging library |
-| [fable-uuid](/fable/fable-uuid/) | UUID generation |
-| [fable-log-logger-bunyan](/fable/fable-log-logger-bunyan/) | Bunyan log provider |
-| [ultravisor-beacon](/fable/ultravisor-beacon/) | Beacon client for remote task execution |
-| [ultravisor-beacon-capability](/fable/ultravisor-beacon-capability/) | Convention-based base class for beacon capabilities |
+| [fable](https://fable-retold.github.io/fable/) | Core module with all services |
+| [fable-serviceproviderbase](https://fable-retold.github.io/fable-serviceproviderbase/) | Base class for all services |
+| [fable-settings](https://fable-retold.github.io/fable-settings/) | Configuration management |
+| [fable-log](https://fable-retold.github.io/fable-log/) | Logging library |
+| [fable-uuid](https://fable-retold.github.io/fable-uuid/) | UUID generation |
+| [fable-log-logger-bunyan](https://fable-retold.github.io/fable-log-logger-bunyan/) | Bunyan log provider |
+| [ultravisor-beacon](https://github.com/stevenvelozo/ultravisor-beacon) | Beacon client for remote task execution |
+| [ultravisor-beacon-capability](https://stevenvelozo.github.io/ultravisor-beacon-capability/) | Convention-based base class for beacon capabilities |

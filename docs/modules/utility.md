@@ -4,7 +4,7 @@ The utility group provides supporting tools for building, documenting, testing, 
 
 ## Modules
 
-### [CacheTrax](/utility/cachetrax/)
+### [CacheTrax](https://fable-retold.github.io/cachetrax/)
 
 Lightweight in-memory object cache combining a hash map for O(1) key lookups with a double linked list for ordered eviction. Supports automatic size-based pruning on insert, time-based expiration, touch-to-refresh, and custom pruning functions.
 
@@ -14,7 +14,7 @@ Lightweight in-memory object cache combining a hash map for O(1) key lookups wit
 
 ---
 
-### [Indoctrinate](/utility/indoctrinate/)
+### [Indoctrinate](https://fable-retold.github.io/indoctrinate/)
 
 Documentation scaffolding and generation. Scans source trees, catalogs content with automatic label-based metadata, and generates structured output in multiple formats. Powers the Retold documentation hub by generating cross-module catalogs and keyword search indexes.
 
@@ -24,7 +24,7 @@ Documentation scaffolding and generation. Scans source trees, catalogs content w
 
 ---
 
-### [Manyfest](/utility/manyfest/)
+### [Manyfest](https://fable-retold.github.io/manyfest/)
 
 JSON manifest for consistent data description and parsing across all application layers -- database, API, frontend, and UI. Provides address-based access patterns for reading and writing nested object properties with validation and type coercion.
 
@@ -34,7 +34,7 @@ JSON manifest for consistent data description and parsing across all application
 
 ---
 
-### [Precedent](/utility/precedent/)
+### [Precedent](https://fable-retold.github.io/precedent/)
 
 Meta-templating engine for processing text streams with pattern-based template expressions. Define start/end pattern markers with string or function parsers, and Precedent handles nested pattern resolution automatically using a word tree architecture.
 
@@ -44,7 +44,7 @@ Meta-templating engine for processing text streams with pattern-based template e
 
 ---
 
-### [Quackage](/utility/quackage/)
+### [Quackage](https://fable-retold.github.io/quackage/)
 
 Standardized build tool for Retold modules. Handles browser bundling (Browserify), transpilation, unit testing, file management, JSON view assembly, and documentation generation from a single CLI.
 
@@ -60,8 +60,8 @@ npx quack coverage       # Generate coverage report
 
 | Module | Description |
 |--------|-------------|
-| [cachetrax](/utility/cachetrax/) | Hash-indexed object cache with time and size based expiration |
-| [indoctrinate](/utility/indoctrinate/) | Documentation scaffolding with content cataloging and cross-module search |
-| [manyfest](/utility/manyfest/) | JSON manifest for data description, validation, and address-based access |
-| [precedent](/utility/precedent/) | Meta-templating engine with pattern-based start/end markers and word tree matching |
-| [quackage](/utility/quackage/) | Build tool for browser bundles, testing, and packaging |
+| [cachetrax](https://fable-retold.github.io/cachetrax/) | Hash-indexed object cache with time and size based expiration |
+| [indoctrinate](https://fable-retold.github.io/indoctrinate/) | Documentation scaffolding with content cataloging and cross-module search |
+| [manyfest](https://fable-retold.github.io/manyfest/) | JSON manifest for data description, validation, and address-based access |
+| [precedent](https://fable-retold.github.io/precedent/) | Meta-templating engine with pattern-based start/end markers and word tree matching |
+| [quackage](https://fable-retold.github.io/quackage/) | Build tool for browser bundles, testing, and packaging |

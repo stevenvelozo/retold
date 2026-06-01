@@ -30,7 +30,7 @@ graph LR
 
 ## Core Modules
 
-### [Meadow](/meadow/meadow/)
+### [Meadow](https://fable-retold.github.io/meadow/)
 
 The central data broker. Each Meadow instance represents one data entity (table).
 
@@ -68,7 +68,7 @@ let _BookMeadow = _Fable.instantiateServiceProvider('Meadow',
 
 ---
 
-### [FoxHound](/meadow/foxhound/)
+### [FoxHound](https://fable-retold.github.io/foxhound/)
 
 A fluent query DSL that generates dialect-specific SQL.
 
@@ -95,7 +95,7 @@ let tmpQuery = _Fable.instantiateServiceProvider('FoxHound')
 
 ---
 
-### [Stricture](/meadow/stricture/)
+### [Stricture](https://fable-retold.github.io/stricture/)
 
 A MicroDDL for rapid data model definition.
 
@@ -121,7 +121,7 @@ From this definition, Stricture generates:
 
 ---
 
-### [Meadow-Endpoints](/meadow/meadow-endpoints/)
+### [Meadow-Endpoints](https://fable-retold.github.io/meadow-endpoints/)
 
 Auto-generates a full REST API from a Meadow entity. Given a "Book" entity, you get:
 
@@ -156,7 +156,7 @@ _Endpoints.BehaviorModifications.setBehavior('Read-Authorize',
 
 ---
 
-### [Retold-Data-Service](/meadow/retold-data-service/)
+### [Retold-Data-Service](https://fable-retold.github.io/retold-data-service/)
 
 An all-in-one Fable service that assembles a Stricture schema into a complete REST API -- Meadow entity, endpoints, and connection -- in a single service instantiation.
 
@@ -176,9 +176,9 @@ let _BookService = _Fable.instantiateServiceProvider('RetoldDataService',
 
 | Module | Database | npm |
 |--------|----------|-----|
-| [meadow-connection-mysql](/meadow/meadow-connection-mysql/) | MySQL / MariaDB | `meadow-connection-mysql` |
-| [meadow-connection-mssql](/meadow/meadow-connection-mssql/) | Microsoft SQL Server | `meadow-connection-mssql` |
-| [meadow-connection-sqlite](/meadow/meadow-connection-sqlite/) | SQLite (via better-sqlite3) | `meadow-connection-sqlite` |
+| [meadow-connection-mysql](https://fable-retold.github.io/meadow-connection-mysql/) | MySQL / MariaDB | `meadow-connection-mysql` |
+| [meadow-connection-mssql](https://fable-retold.github.io/meadow-connection-mssql/) | Microsoft SQL Server | `meadow-connection-mssql` |
+| [meadow-connection-sqlite](https://fable-retold.github.io/meadow-connection-sqlite/) | SQLite (via better-sqlite3) | `meadow-connection-sqlite` |
 
 Each connection module provides a pooled database connection as a Fable service. Swap between databases by changing which connection module you install -- no application code changes needed.
 
@@ -186,24 +186,24 @@ Each connection module provides a pooled database connection as a Fable service.
 
 | Module | Purpose | npm |
 |--------|---------|-----|
-| [bibliograph](/meadow/bibliograph/) | Key-value record comprehension for change tracking in ingestion pipelines | `bibliograph` |
-| [parime](/meadow/parime/) | Generic data lake behaviors and services | `parime` |
-| [retold-harness](/meadow/retold-harness/) | Pre-built API harness with a bookstore demo (8 entities, 10,000+ records) | `retold-harness` |
-| [meadow-integration](/meadow/meadow-integration/) | Data integration tools for CSV import and schema mapping | `meadow-integration` |
+| [bibliograph](https://fable-retold.github.io/bibliograph/) | Key-value record comprehension for change tracking in ingestion pipelines | `bibliograph` |
+| [parime](https://fable-retold.github.io/parime/) | Generic data lake behaviors and services | `parime` |
+| [retold-harness](https://fable-retold.github.io/retold-harness/) | Pre-built API harness with a bookstore demo (8 entities, 10,000+ records) | `retold-harness` |
+| [meadow-integration](https://fable-retold.github.io/meadow-integration/) | Data integration tools for CSV import and schema mapping | `meadow-integration` |
 
 ## All Meadow Modules
 
 | Module | Description |
 |--------|-------------|
-| [stricture](/meadow/stricture/) | MicroDDL schema definition and code generation |
-| [foxhound](/meadow/foxhound/) | Fluent query DSL with multi-dialect SQL generation |
-| [bibliograph](/meadow/bibliograph/) | Record-level change tracking |
-| [meadow](/meadow/meadow/) | Provider-agnostic data broker and ORM |
-| [parime](/meadow/parime/) | Data lake behaviors |
-| [meadow-endpoints](/meadow/meadow-endpoints/) | Automatic RESTful CRUD endpoint generation |
-| [meadow-connection-mysql](/meadow/meadow-connection-mysql/) | MySQL connection provider |
-| [meadow-connection-mssql](/meadow/meadow-connection-mssql/) | MSSQL connection provider |
-| [meadow-connection-sqlite](/meadow/meadow-connection-sqlite/) | SQLite connection provider |
-| [retold-data-service](/meadow/retold-data-service/) | All-in-one schema-to-REST-API service |
-| [retold-harness](/meadow/retold-harness/) | Demo API harness with bookstore dataset |
-| [meadow-integration](/meadow/meadow-integration/) | Data integration and CSV import |
+| [stricture](https://fable-retold.github.io/stricture/) | MicroDDL schema definition and code generation |
+| [foxhound](https://fable-retold.github.io/foxhound/) | Fluent query DSL with multi-dialect SQL generation |
+| [bibliograph](https://fable-retold.github.io/bibliograph/) | Record-level change tracking |
+| [meadow](https://fable-retold.github.io/meadow/) | Provider-agnostic data broker and ORM |
+| [parime](https://fable-retold.github.io/parime/) | Data lake behaviors |
+| [meadow-endpoints](https://fable-retold.github.io/meadow-endpoints/) | Automatic RESTful CRUD endpoint generation |
+| [meadow-connection-mysql](https://fable-retold.github.io/meadow-connection-mysql/) | MySQL connection provider |
+| [meadow-connection-mssql](https://fable-retold.github.io/meadow-connection-mssql/) | MSSQL connection provider |
+| [meadow-connection-sqlite](https://fable-retold.github.io/meadow-connection-sqlite/) | SQLite connection provider |
+| [retold-data-service](https://fable-retold.github.io/retold-data-service/) | All-in-one schema-to-REST-API service |
+| [retold-harness](https://fable-retold.github.io/retold-harness/) | Demo API harness with bookstore dataset |
+| [meadow-integration](https://fable-retold.github.io/meadow-integration/) | Data integration and CSV import |
