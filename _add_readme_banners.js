@@ -7,12 +7,13 @@ const man = require('./Retold-Modules-Manifest.json');
 const byName = {};
 for (const g of man.Groups) for (const m of g.Modules) byName[m.Name] = m;
 
-// Verified-live docs sites (200) among the banner-less top-level modules.
+// Banner-less top-level modules whose docs sites are now live (200). Second
+// batch: the modules whose GitHub Pages were just enabled. The top-banner
+// skip-check below protects modules that already have a banner.
 const LIVE = [
-	'fable', 'fable-uuid', 'pict-editor-timeline', 'pict-meadow-connection-manager',
-	'pict-nonlinearconfig', 'pict-section-connection-form', 'pict-section-flow',
-	'pict-section-histogram', 'pict-section-modal', 'pict-section-theme', 'pict-view',
-	'ultravisor-beacon-capability'
+	'fable-ultravisor-client', 'meadow-connection-retold-databeacon', 'pict-provider-vocabulary',
+	'pict-renderer-graph', 'pict-section-excalidraw', 'retold-remote-desktop',
+	'retold-synth-databeacon', 'ultravisor-auth-beacon', 'ultravisor-beacon', 'ultravisor-lab'
 ];
 
 const APPLY = process.argv.includes('--apply');
