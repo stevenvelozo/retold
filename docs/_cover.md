@@ -11,5 +11,6 @@
 
 [Get Started](getting-started.md)
 [Architecture](architecture/architecture.md)
-[All Modules](modules/modules.md)
+[All Modules](architecture/modules.md)
+[Live Examples](examples/live-examples.md)
 [GitHub](https://github.com/fable-retold/retold)
