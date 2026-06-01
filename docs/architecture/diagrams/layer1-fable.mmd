@@ -1,0 +1,11 @@
+graph TB
+  subgraph Fable["Fable (Core Ecosystem)"]
+    direction TB
+    settings["Fable-Settings<br/>.settings"]
+    flog["Fable-Log<br/>.log"]
+    uuid["Fable-UUID<br/>.getUUID()"]
+    spb["Service Provider Base"]
+  end
+
+  settings --> configfiles["Config Files<br/>(.json, env)"]
+  flog --> logstreams["Log Streams<br/>(console, file, bunyan)"]

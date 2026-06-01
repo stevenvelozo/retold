@@ -1,0 +1,13 @@
+graph LR
+  entity["Meadow Entity<br/>Book"] --> endpoints["Meadow-Endpoints"]
+
+  endpoints --> r1["GET /Books -> Reads"]
+  endpoints --> r2["GET /Books/Count -> Count"]
+  endpoints --> r3["GET /Book/:id -> Read"]
+  endpoints --> r4["GET /Book/Schema -> Schema"]
+  endpoints --> r5["POST /Book -> Create"]
+  endpoints --> r6["PUT /Book -> Update"]
+  endpoints --> r7["DEL /Book/:id -> Delete"]
+  endpoints --> r8["DEL /Book/Undelete/:id"]
+
+  entity --> hooks["Behavior injection hooks<br/>Dynamic filtering and pagination<br/>Bulk operations"]

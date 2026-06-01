@@ -1,0 +1,19 @@
+graph TB
+  subgraph Pict["Pict (Non-Opinionated MVC)"]
+    direction TB
+    subgraph Core["Core"]
+      views["Views<br/>pict-view"]
+      templates["Templates<br/>pict-template"]
+      providers["Providers<br/>pict-provider"]
+      appfw["Application<br/>pict-application"]
+    end
+    subgraph Sections["Sections and Components"]
+      forms["Forms<br/>pict-section-form"]
+      recordset["Recordset<br/>pict-section-recordset"]
+      objecteditor["Object Editor<br/>pict-section-objecteditor"]
+      tuigrid["TUI Grid<br/>pict-section-tuigrid"]
+      content["Content<br/>pict-section-content"]
+      mdeditor["Markdown Editor<br/>pict-section-markdowneditor"]
+    end
+    Core --> Sections
+  end

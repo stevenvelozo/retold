@@ -1,0 +1,10 @@
+graph TB
+  subgraph Orator["Orator (HTTP Server Abstraction)"]
+    direction TB
+    restify["orator-serviceserver-restify<br/>(Production HTTP)"]
+    static["orator-static-server<br/>(File Serving)"]
+    restify --> core["Orator Core<br/>Lifecycle hooks, middleware,<br/>content negotiation, IPC mode"]
+    static --> core
+    proxy["orator-http-proxy<br/>(Reverse Proxy)"]
+    tidings["Tidings<br/>(Reporting)"]
+  end

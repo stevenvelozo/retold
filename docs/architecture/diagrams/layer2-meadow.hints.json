@@ -1,0 +1,4 @@
+{
+	"style": "notebook",
+	"emphasis": [ { "node": "db", "accent": true, "bold": true } ]
+}

@@ -1,0 +1,11 @@
+graph TB
+  subgraph Meadow["Meadow (Data Broker / ORM)"]
+    direction TB
+    foxhound["FoxHound<br/>(Query DSL)<br/>.addFilter() .setSort() .buildRead()"]
+    stricture["Stricture<br/>(Schema DDL)<br/>JSON schema, CREATE TABLE, docs"]
+    conn["Connections<br/>meadow-connection-mysql<br/>meadow-connection-mssql<br/>meadow-connection-sqlite"]
+  end
+
+  foxhound --> sql["SQL Queries<br/>(MySQL, MSSQL, SQLite, ALASQL)"]
+  stricture --> ddl["DDL Scripts<br/>(CREATE TABLE, indexes)"]
+  conn --> db[("Database<br/>(pooled connections)")]

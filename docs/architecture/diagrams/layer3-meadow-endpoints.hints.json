@@ -1,0 +1,4 @@
+{
+	"style": "notebook",
+	"emphasis": [ { "node": "endpoints", "accent": true, "bold": true } ]
+}

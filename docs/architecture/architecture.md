@@ -44,27 +44,8 @@ This pattern means modules are loosely coupled. You can swap database providers,
 
 Fable is the only module that every other module depends on. It provides the core services that all other modules consume.
 
-```mermaid
-graph TB
-  subgraph Fable["Fable (Core Ecosystem)"]
-    direction TB
-    settings["Fable-Settings<br/><code>.settings</code>"]
-    flog["Fable-Log<br/><code>.log</code>"]
-    uuid["Fable-UUID<br/><code>.getUUID()</code>"]
-    spb["Service<br/>Provider Base"]
-  end
-
-  settings --> configfiles["Config Files<br/>(.json, env)"]
-  flog --> logstreams["Log Streams<br/>(console, file, bunyan)"]
-
-  style Fable fill:#fce4ec,stroke:#ef5350,color:#333
-  style settings fill:#fff,stroke:#ef9a9a,color:#333
-  style flog fill:#fff,stroke:#ef9a9a,color:#333
-  style uuid fill:#fff,stroke:#ef9a9a,color:#333
-  style spb fill:#fff,stroke:#ef9a9a,color:#333
-  style configfiles fill:#f5f5f5,stroke:#bdbdbd,color:#666
-  style logstreams fill:#f5f5f5,stroke:#bdbdbd,color:#666
-```
+<!-- bespoke diagram: edit diagrams/layer1-fable.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture/diagrams -->
+![Fable's core services -- settings, log, UUID, and the service provider base -- feeding config files and log streams](diagrams/layer1-fable.svg)
 
 **Fable-Settings** loads and merges configuration from files, defaults, and runtime overrides into a single settings object.
 
@@ -80,27 +61,8 @@ Fable also bundles an expression parser, a REST client (Fable-RestClient), a tem
 
 Meadow sits on top of Fable and provides a provider-agnostic data broker. You define entities once and access them through any supported database.
 
-```mermaid
-graph TB
-  subgraph Meadow["Meadow (Data Broker / ORM)"]
-    direction TB
-    foxhound["FoxHound<br/>(Query DSL)<br/><code>.addFilter() .setSort() .buildRead()</code>"]
-    stricture["Stricture<br/>(Schema DDL)<br/>JSON schema, CREATE TABLE, docs"]
-    conn["Connections<br/>meadow-connection-mysql<br/>meadow-connection-mssql<br/>meadow-connection-sqlite"]
-  end
-
-  foxhound --> sql["SQL Queries<br/>(MySQL, MSSQL, SQLite, ALASQL)"]
-  stricture --> ddl["DDL Scripts<br/>(CREATE TABLE, indexes)"]
-  conn --> db[("Database<br/>(pooled connections)")]
-
-  style Meadow fill:#fff3e0,stroke:#ffa726,color:#333
-  style foxhound fill:#fff,stroke:#ffcc80,color:#333
-  style stricture fill:#fff,stroke:#ffcc80,color:#333
-  style conn fill:#fff,stroke:#ffcc80,color:#333
-  style sql fill:#f5f5f5,stroke:#bdbdbd,color:#666
-  style ddl fill:#f5f5f5,stroke:#bdbdbd,color:#666
-  style db fill:#ffebee,stroke:#ef5350,color:#333
-```
+<!-- bespoke diagram: edit diagrams/layer2-meadow.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture/diagrams -->
+![Meadow's data broker -- FoxHound, Stricture, and connection modules producing SQL queries, DDL scripts, and a pooled database](diagrams/layer2-meadow.svg)
 
 **Meadow** handles CRUD operations (Create, Read, Reads, Update, Delete, Count, Undelete), automatic audit columns (CreatingIDUser, UpdatingIDUser, timestamps), soft deletes, GUID uniqueness, and data marshalling.
 
@@ -114,33 +76,8 @@ graph TB
 
 Meadow-Endpoints takes a Meadow entity definition and automatically generates a full suite of RESTful routes.
 
-```mermaid
-graph LR
-  entity["Meadow Entity<br/><b>Book</b>"] --> endpoints["<b>Meadow-Endpoints</b>"]
-
-  endpoints --> r1["GET /Books -> Reads"]
-  endpoints --> r2["GET /Books/Count -> Count"]
-  endpoints --> r3["GET /Book/:id -> Read"]
-  endpoints --> r4["GET /Book/Schema -> Schema"]
-  endpoints --> r5["POST /Book -> Create"]
-  endpoints --> r6["PUT /Book -> Update"]
-  endpoints --> r7["DEL /Book/:id -> Delete"]
-  endpoints --> r8["DEL /Book/Undelete/:id"]
-
-  entity --> hooks["+ Behavior injection hooks<br/>+ Dynamic filtering & pagination<br/>+ Bulk operations"]
-
-  style entity fill:#fff3e0,stroke:#ffa726,color:#333
-  style endpoints fill:#e3f2fd,stroke:#42a5f5,color:#333
-  style hooks fill:#f3e5f5,stroke:#ab47bc,color:#333
-  style r1 fill:#fff,stroke:#90caf9,color:#333
-  style r2 fill:#fff,stroke:#90caf9,color:#333
-  style r3 fill:#fff,stroke:#90caf9,color:#333
-  style r4 fill:#fff,stroke:#90caf9,color:#333
-  style r5 fill:#fff,stroke:#90caf9,color:#333
-  style r6 fill:#fff,stroke:#90caf9,color:#333
-  style r7 fill:#fff,stroke:#90caf9,color:#333
-  style r8 fill:#fff,stroke:#90caf9,color:#333
-```
+<!-- bespoke diagram: edit diagrams/layer3-meadow-endpoints.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture/diagrams -->
+![Meadow-Endpoints auto-generating eight RESTful routes plus behavior hooks from a single Meadow entity](diagrams/layer3-meadow-endpoints.svg)
 
 Behavior hooks let you inject authentication, authorization, validation, and transformation logic at any point in the request lifecycle -- before or after each CRUD operation.
 
@@ -148,25 +85,8 @@ Behavior hooks let you inject authentication, authorization, validation, and tra
 
 Orator provides the HTTP server that hosts the endpoints from Layer 3 (and any custom routes).
 
-```mermaid
-graph TB
-  subgraph Orator["Orator (HTTP Server Abstraction)"]
-    direction TB
-    restify["orator-serviceserver-restify<br/>(Production HTTP)"]
-    static["orator-static-server<br/>(File Serving)"]
-    restify --> core["Orator Core<br/>Lifecycle hooks, middleware,<br/>content negotiation, IPC mode"]
-    static --> core
-    proxy["orator-http-proxy<br/>(Reverse Proxy)"]
-    tidings["Tidings<br/>(Reporting)"]
-  end
-
-  style Orator fill:#e3f2fd,stroke:#42a5f5,color:#333
-  style restify fill:#fff,stroke:#90caf9,color:#333
-  style static fill:#fff,stroke:#90caf9,color:#333
-  style core fill:#bbdefb,stroke:#42a5f5,color:#333
-  style proxy fill:#fff,stroke:#90caf9,color:#333
-  style tidings fill:#fff,stroke:#90caf9,color:#333
-```
+<!-- bespoke diagram: edit diagrams/layer4-orator.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture/diagrams -->
+![Orator's HTTP server abstraction -- restify and static servers over a shared core, with proxy and reporting](diagrams/layer4-orator.svg)
 
 Orator is deliberately thin. It provides a consistent interface regardless of the underlying server, so you can swap Restify for another implementation or use IPC mode for testing -- without changing your application code.
 
@@ -174,41 +94,8 @@ Orator is deliberately thin. It provides a consistent interface regardless of th
 
 Pict sits alongside the server stack, providing Model-View-Controller tools for any text-based UI: browser DOM, terminal, or rendered strings.
 
-```mermaid
-graph TB
-  subgraph Pict["Pict (Non-Opinionated MVC)"]
-    direction TB
-    subgraph Core["Core"]
-      views["Views<br/><i>pict-view</i>"]
-      templates["Templates<br/><i>pict-template</i>"]
-      providers["Providers<br/><i>pict-provider</i>"]
-      appfw["Application<br/><i>pict-application</i>"]
-    end
-    subgraph Sections["Sections & Components"]
-      forms["Forms<br/><i>pict-section-form</i>"]
-      recordset["Recordset<br/><i>pict-section-recordset</i>"]
-      objecteditor["Object Editor<br/><i>pict-section-objecteditor</i>"]
-      tuigrid["TUI Grid<br/><i>pict-section-tuigrid</i>"]
-      content["Content<br/><i>pict-section-content</i>"]
-      mdeditor["Markdown Editor<br/><i>pict-section-markdowneditor</i>"]
-    end
-    Core --> Sections
-  end
-
-  style Pict fill:#f3e5f5,stroke:#ab47bc,color:#333
-  style Core fill:#f3e5f5,stroke:#ce93d8,color:#333
-  style Sections fill:#f3e5f5,stroke:#ce93d8,color:#333
-  style views fill:#fff,stroke:#ce93d8,color:#333
-  style templates fill:#fff,stroke:#ce93d8,color:#333
-  style providers fill:#fff,stroke:#ce93d8,color:#333
-  style appfw fill:#fff,stroke:#ce93d8,color:#333
-  style forms fill:#fff,stroke:#ce93d8,color:#333
-  style recordset fill:#fff,stroke:#ce93d8,color:#333
-  style objecteditor fill:#fff,stroke:#ce93d8,color:#333
-  style tuigrid fill:#fff,stroke:#ce93d8,color:#333
-  style content fill:#fff,stroke:#ce93d8,color:#333
-  style mdeditor fill:#fff,stroke:#ce93d8,color:#333
-```
+<!-- bespoke diagram: edit diagrams/layer5-pict.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture/diagrams -->
+![Pict's MVC tools -- the Core group (views, templates, providers, application) feeding the Sections and Components group](diagrams/layer5-pict.svg)
 
 Pict's core philosophy: UI is text. Views render templates into strings. Providers fetch data. The Application class coordinates lifecycle. Sections provide pre-built patterns for common UI needs (forms, record lists, grids).
 
@@ -218,22 +105,8 @@ Pict connects to Fable for services and can use Meadow-Endpoints as its data sou
 
 A full Retold application combines these layers. Here is the typical assembly order from the whiteboard architecture diagram:
 
-```mermaid
-graph LR
-  S1["<b>Step 1</b><br/>Fable<br/><i>Config, logging, DI</i>"]
-  S2["<b>Step 2</b><br/>Meadow<br/><i>Entities, DB connection</i>"]
-  S3["<b>Step 3</b><br/>Meadow-Endpoints<br/><i>Auto-generate REST</i>"]
-  S4["<b>Step 4</b><br/>Orator<br/><i>HTTP server</i>"]
-  S5["<b>Step 5</b><br/>Your Application<br/><i>Mid-tier service</i>"]
-
-  S1 --> S2 --> S3 --> S4 --> S5
-
-  style S1 fill:#fce4ec,stroke:#ef5350,color:#333
-  style S2 fill:#fff3e0,stroke:#ffa726,color:#333
-  style S3 fill:#fff3e0,stroke:#ffcc80,color:#333
-  style S4 fill:#e3f2fd,stroke:#42a5f5,color:#333
-  style S5 fill:#e8f5e9,stroke:#43a047,color:#333
-```
+<!-- bespoke diagram: edit diagrams/putting-it-together.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture/diagrams -->
+![The five-step assembly order: Fable, then Meadow, then Meadow-Endpoints, then Orator, then your application](diagrams/putting-it-together.svg)
 
 ```javascript
 const libFable = require('fable');
