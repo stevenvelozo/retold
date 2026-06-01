@@ -266,7 +266,7 @@ Supporting the application stack are utility modules like **Manyfest** (schema-d
 
 - **[Architecture](architecture/architecture.md)** -- Understand the layer model in depth
 - **[Examples](examples/examples.md)** -- Complete runnable applications, including the [Todo List](examples/todolist/todo-list.md) full-stack example with four clients
-- **[Fable](modules/fable.md)** -- Deep dive into the core ecosystem and service provider pattern
+- **[Fable](modules/fable.md)** -- Deep look at the core ecosystem and service provider pattern
 - **[Meadow](modules/meadow.md)** -- Data access, FoxHound queries, and Stricture schemas
 - **[Orator](modules/orator.md)** -- Server configuration, lifecycle hooks, and middleware
 - **[Pict](modules/pict.md)** -- Views, templates, providers, and application lifecycle

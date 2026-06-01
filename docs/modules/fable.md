@@ -36,7 +36,7 @@ _Fable.log.info('Started');
 _Fable.log.trace(`UUID: ${_Fable.getUUID()}`);
 ```
 
-**npm:** `fable` · **Version:** 3.1.x
+**npm:** `fable` - **Version:** 3.1.x
 
 ---
 
@@ -74,7 +74,7 @@ class MyService extends libServiceProviderBase
 _Fable.addAndInstantiateServiceType('MyService', MyService);
 ```
 
-**npm:** `fable-serviceproviderbase` · **Version:** 3.0.x
+**npm:** `fable-serviceproviderbase` - **Version:** 3.0.x
 
 ---
 
@@ -100,7 +100,7 @@ let tmpServer = _Fable.settings.MySQL.Server;
 _Fable.settings.MySQL.Server = 'production-host';
 ```
 
-**npm:** `fable-settings` · **Version:** 3.0.x
+**npm:** `fable-settings` - **Version:** 3.0.x
 
 ---
 
@@ -127,7 +127,7 @@ _Fable.log.info('Shown');
 _Fable.log.error('Shown');
 ```
 
-**npm:** `fable-log` · **Version:** 3.0.x
+**npm:** `fable-log` - **Version:** 3.0.x
 
 ---
 
@@ -144,7 +144,7 @@ let tmpUUID = _Fable.getUUID();
 let tmpRandom = _Fable.fable.UUID.getUUID({ length: 12 });
 ```
 
-**npm:** `fable-uuid` · **Version:** 3.0.x
+**npm:** `fable-uuid` - **Version:** 3.0.x
 
 ---
 
@@ -152,7 +152,7 @@ let tmpRandom = _Fable.fable.UUID.getUUID({ length: 12 });
 
 A structured logging provider that routes Fable-Log output to Bunyan for production environments with JSON-formatted, machine-parseable log streams.
 
-**npm:** `fable-log-logger-bunyan` · **Version:** 1.0.x
+**npm:** `fable-log-logger-bunyan` - **Version:** 1.0.x
 
 ### [Ultravisor-Beacon](/fable/ultravisor-beacon/)
 
@@ -180,7 +180,7 @@ tmpBeacon.registerCapability({
 tmpBeacon.enable(function (pError) { });
 ```
 
-**npm:** `ultravisor-beacon` · **Version:** 0.0.x
+**npm:** `ultravisor-beacon` - **Version:** 0.0.x
 
 ---
 
@@ -206,7 +206,7 @@ class MyCapability extends libBeaconCapability
 }
 ```
 
-**npm:** `ultravisor-beacon-capability` · **Version:** 0.0.x
+**npm:** `ultravisor-beacon-capability` - **Version:** 0.0.x
 
 ---
 

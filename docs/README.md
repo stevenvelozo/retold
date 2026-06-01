@@ -92,37 +92,37 @@ All modules follow the **Fable Service Provider Pattern**: they register with a 
 
 The foundation layer. Dependency injection, configuration, logging, UUID generation, expression parsing, REST client, and template engine.
 
-**Key modules:** [fable](/fable/fable/) · [fable-log](/fable/fable-log/) · [fable-settings](/fable/fable-settings/) · [fable-uuid](/fable/fable-uuid/) · [fable-serviceproviderbase](/fable/fable-serviceproviderbase/)
+**Key modules:** [fable](/fable/fable/) - [fable-log](/fable/fable-log/) - [fable-settings](/fable/fable-settings/) - [fable-uuid](/fable/fable-uuid/) - [fable-serviceproviderbase](/fable/fable-serviceproviderbase/)
 
 ### [Meadow](/meadow/meadow/) -- Data Access Layer
 
 Provider-agnostic data broker with schema management, query generation, and automatic audit tracking.
 
-**Key modules:** [meadow](/meadow/meadow/) · [foxhound](/meadow/foxhound/) · [stricture](/meadow/stricture/) · [meadow-endpoints](/meadow/meadow-endpoints/) · [retold-data-service](/meadow/retold-data-service/)
+**Key modules:** [meadow](/meadow/meadow/) - [foxhound](/meadow/foxhound/) - [stricture](/meadow/stricture/) - [meadow-endpoints](/meadow/meadow-endpoints/) - [retold-data-service](/meadow/retold-data-service/)
 
 ### [Orator](/orator/orator/) -- API Server
 
 Thin HTTP server abstraction with REST and IPC support, static file serving, proxy pass-through, and WebSocket reporting.
 
-**Key modules:** [orator](/orator/orator/) · [orator-serviceserver-restify](/orator/orator-serviceserver-restify/) · [orator-static-server](/orator/orator-static-server/)
+**Key modules:** [orator](/orator/orator/) - [orator-serviceserver-restify](/orator/orator-serviceserver-restify/) - [orator-static-server](/orator/orator-static-server/)
 
 ### [Pict](/pict/pict/) -- MVC Tools
 
 Non-opinionated Model-View-Controller tools for building UIs as text strings -- browser, console, or any text-based interface.
 
-**Key modules:** [pict](/pict/pict/) · [pict-view](/pict/pict-view/) · [pict-application](/pict/pict-application/) · [pict-section-form](/pict/pict-section-form/)
+**Key modules:** [pict](/pict/pict/) - [pict-view](/pict/pict-view/) - [pict-application](/pict/pict-application/) - [pict-section-form](/pict/pict-section-form/)
 
 ### [Utility](/utility/indoctrinate/) -- Build & Documentation Tools
 
 Build tooling, manifest management, and documentation generation.
 
-**Key modules:** [indoctrinate](/utility/indoctrinate/) · [manyfest](/utility/manyfest/) · [quackage](/utility/quackage/)
+**Key modules:** [indoctrinate](/utility/indoctrinate/) - [manyfest](/utility/manyfest/) - [quackage](/utility/quackage/)
 
 ### [Apps](/apps/retold-content-system/) -- Applications
 
 Full-stack applications built on the Retold ecosystem, combining Fable, Meadow, Orator, and Pict into complete systems.
 
-**Key modules:** [retold-content-system](/apps/retold-content-system/) · [retold-remote](/apps/retold-remote/) · [ultravisor](/apps/ultravisor/)
+**Key modules:** [retold-content-system](/apps/retold-content-system/) - [retold-remote](/apps/retold-remote/) - [ultravisor](/apps/ultravisor/)
 
 ## Quick Start
 

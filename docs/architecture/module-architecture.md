@@ -11,7 +11,7 @@ graph TB
 		cli["CLI Tool<br/><i>CommandLineUtility</i>"]
 	end
 
-	internet(("The Internet<br/>☁"))
+	internet(("The Internet"))
 
 	subgraph Server["Server / Mid-Tier"]
 		direction TB

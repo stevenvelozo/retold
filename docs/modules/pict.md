@@ -70,7 +70,7 @@ _Pict.AppData.Record = { Name: 'World' };
 | `{~Each:Array:Template~}` | Iterate and render | `{~Each:Records:RowTemplate~}` |
 | `{~If:Condition~}` | Conditional rendering | `{~If:Record.Active~}` |
 
-**npm:** `pict` · **Version:** 1.0.x
+**npm:** `pict` - **Version:** 1.0.x
 
 ---
 
@@ -103,7 +103,7 @@ class MyView extends libPictView
 
 **View lifecycle:** Initialize -> Render -> Solve -> Marshal From View -> Marshal To View
 
-**npm:** `pict-view` · **Version:** 1.0.x
+**npm:** `pict-view` - **Version:** 1.0.x
 
 ---
 
@@ -111,7 +111,7 @@ class MyView extends libPictView
 
 Base class for custom template handlers. Extend this to add new template expression types beyond the built-in set.
 
-**npm:** `pict-template` · **Version:** 1.0.x
+**npm:** `pict-template` - **Version:** 1.0.x
 
 ---
 
@@ -131,7 +131,7 @@ let _Preprocessor = _Pict.instantiateServiceProvider('PictTemplatePreprocessor')
 console.log(_Preprocessor.graph.toDOT());
 ```
 
-**npm:** `pict-template-preprocessor` · **Version:** 0.0.x
+**npm:** `pict-template-preprocessor` - **Version:** 0.0.x
 
 ---
 
@@ -139,7 +139,7 @@ console.log(_Preprocessor.graph.toDOT());
 
 Base class for data providers. Providers fetch, transform, and deliver data to views.
 
-**npm:** `pict-provider` · **Version:** 1.0.x
+**npm:** `pict-provider` - **Version:** 1.0.x
 
 ---
 
@@ -165,7 +165,7 @@ class MyApp extends libPictApplication
 }
 ```
 
-**npm:** `pict-application` · **Version:** 1.0.x
+**npm:** `pict-application` - **Version:** 1.0.x
 
 ## Section Modules
 
@@ -177,7 +177,7 @@ Configuration-driven dynamic forms. Define form layout, fields, validation, and 
 
 Supports 13+ input types with custom providers for each. Used extensively for building data entry interfaces without writing HTML by hand.
 
-**npm:** `pict-section-form` · **Version:** 1.0.x
+**npm:** `pict-section-form` - **Version:** 1.0.x
 
 ---
 
@@ -185,7 +185,7 @@ Supports 13+ input types with custom providers for each. Used extensively for bu
 
 CRUD views (Create, Read, Update, Delete) based on Meadow endpoint schemas. Provides list views, detail views, and record management with data provider integration.
 
-**npm:** `pict-section-recordset` · **Version:** 1.0.x
+**npm:** `pict-section-recordset` - **Version:** 1.0.x
 
 ---
 
@@ -193,7 +193,7 @@ CRUD views (Create, Read, Update, Delete) based on Meadow endpoint schemas. Prov
 
 Toast UI Grid integration for tabular data display. Provides spreadsheet-like data grids with sorting, filtering, and editing.
 
-**npm:** `pict-section-tuigrid` · **Version:** 1.0.x
+**npm:** `pict-section-tuigrid` - **Version:** 1.0.x
 
 ---
 

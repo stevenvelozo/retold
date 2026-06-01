@@ -1,8 +1,8 @@
 # Setting up a Development Environment
 
-Retold is a **pseudo-monorepo** — the umbrella `retold` repository tracks module organization, while each of the 100+ modules lives in its own git repository under `modules/<group>/<module>/`. Most modules are hosted at `github.com/fable-retold/<module-name>` (the canonical org); a small set lives at `github.com/stevenvelozo/<module-name>` and is read-only.
+Retold is a **pseudo-monorepo** - the umbrella `retold` repository tracks module organization, while each of the 100+ modules lives in its own git repository under `modules/<group>/<module>/`. Most modules are hosted at `github.com/fable-retold/<module-name>` (the canonical org); a small set lives at `github.com/stevenvelozo/<module-name>` and is read-only.
 
-This guide walks through the one-time setup so you can clone everything, install dependencies, and start working with the [`retold-manager`](#the-retold-manager-web-ui) web UI. If you only want to *use* Retold (install modules from npm and build an application), jump to [Getting Started](getting-started.md) instead — this page is for contributors working inside the monorepo itself.
+This guide walks through the one-time setup so you can clone everything, install dependencies, and start working with the [`retold-manager`](#the-retold-manager-web-ui) web UI. If you only want to *use* Retold (install modules from npm and build an application), jump to [Getting Started](getting-started.md) instead - this page is for contributors working inside the monorepo itself.
 
 ## Prerequisites
 
@@ -10,7 +10,7 @@ You will need:
 
 - **Git** (any modern version)
 - **Node.js 18+** and **npm**
-- **GitHub CLI** (`gh`), authenticated to your account — install instructions at <https://cli.github.com>
+- **GitHub CLI** (`gh`), authenticated to your account - install instructions at <https://cli.github.com>
 
 Authenticate `gh` before running any setup scripts:
 
@@ -34,7 +34,7 @@ git clone https://github.com/<your-github-user>/retold.git
 cd retold
 ```
 
-The clone places you in the umbrella repo. The `modules/<group>/` subdirectories are empty at this point — the per-module repos haven't been cloned yet.
+The clone places you in the umbrella repo. The `modules/<group>/` subdirectories are empty at this point - the per-module repos haven't been cloned yet.
 
 Install the umbrella's dependencies (the `retold-manager` web app's runtime + build deps live here):
 
@@ -42,11 +42,11 @@ Install the umbrella's dependencies (the `retold-manager` web app's runtime + bu
 npm install
 ```
 
-Per-module `node_modules/` directories don't exist yet — that's [Step 4](#step-4-install-per-module-dependencies).
+Per-module `node_modules/` directories don't exist yet - that's [Step 4](#step-4-install-per-module-dependencies).
 
 ## Step 2: Fork the per-module repositories
 
-`modules/Fork.sh` reads the module manifest (`Retold-Modules-Manifest.json`) and forks every **forkable** module from its canonical owner (`fable-retold`) to your GitHub account. Modules marked `Forkable: false` are skipped — those will be cloned read-only from their canonical owner in Step 3.
+`modules/Fork.sh` reads the module manifest (`Retold-Modules-Manifest.json`) and forks every **forkable** module from its canonical owner (`fable-retold`) to your GitHub account. Modules marked `Forkable: false` are skipped - those will be cloned read-only from their canonical owner in Step 3.
 
 ```bash
 cd modules
@@ -75,7 +75,7 @@ The script is **idempotent**. If you re-run it after manually forking a few modu
 
 ## Step 3: Check out every module
 
-`modules/Checkout.sh` clones each module into its group subdirectory. Forkable modules clone from your fork (`origin`) with an `upstream` remote pointing at the canonical owner — that's the wiring the PR sync flow expects. Non-forkable modules clone directly from their canonical owner.
+`modules/Checkout.sh` clones each module into its group subdirectory. Forkable modules clone from your fork (`origin`) with an `upstream` remote pointing at the canonical owner - that's the wiring the PR sync flow expects. Non-forkable modules clone directly from their canonical owner.
 
 ```bash
 ./Checkout.sh
@@ -89,7 +89,7 @@ Cloning into './pict/pict-section-content'...
      + added upstream remote: fable-retold/pict-section-content
 ```
 
-After this completes you'll have ~100 module repos checked out under `modules/`. Each one is a normal git repo — `cd` into any of them and use ordinary git commands.
+After this completes you'll have ~100 module repos checked out under `modules/`. Each one is a normal git repo - `cd` into any of them and use ordinary git commands.
 
 ## Step 4: Install per-module dependencies
 
@@ -101,11 +101,11 @@ Each module ships with its own tests, examples, and build scripts. To run them y
 
 The script runs `npm install --no-audit --no-fund` inside every checked-out module, suppressing the audit/fund summaries so real install errors aren't drowned out.
 
-This takes a while — roughly 10–20 minutes on a fresh clone depending on network speed and CPU.
+This takes a while - roughly 10-20 minutes on a fresh clone depending on network speed and CPU.
 
 ## Daily workflow
 
-### `Status.sh` — see which modules have uncommitted changes
+### `Status.sh` - see which modules have uncommitted changes
 
 ```bash
 cd modules
@@ -119,9 +119,9 @@ Prints a per-module `git status` **only for repos that have changes**. Clean rep
 102 modules checked, 3 with changes, 99 clean
 ```
 
-If you see `N modules not checked out (run Checkout.sh)` you have entries in the manifest with no local clone — usually means a new module was added to the manifest and you haven't re-run `Checkout.sh` since.
+If you see `N modules not checked out (run Checkout.sh)` you have entries in the manifest with no local clone - usually means a new module was added to the manifest and you haven't re-run `Checkout.sh` since.
 
-### `Update.sh` — pull every module
+### `Update.sh` - pull every module
 
 ```bash
 ./Update.sh                # --rebase  (default)
@@ -134,7 +134,7 @@ The default `--rebase` preserves clean linear history on local feature branches 
 
 ## The `retold-manager` web UI
 
-The umbrella repo ships an internal web tool — **retold-manager** — that drives the pseudo-monorepo. It surfaces per-module git status, dependency graphs, PR ripple operations, ripple publishing, and more.
+The umbrella repo ships an internal web tool - **retold-manager** - that drives the pseudo-monorepo. It surfaces per-module git status, dependency graphs, PR ripple operations, ripple publishing, and more.
 
 It exposes a single command:
 
@@ -187,6 +187,6 @@ All five live in `modules/` and share a generated module list (`Include-Retold-M
 
 ## Where to go next
 
-- [Getting Started](getting-started.md) — build a Retold application layer by layer
-- [Architecture](architecture/architecture.md) — the five-layer model and how modules compose
-- [Contributing](contributing.md) — code style, PR expectations, test coverage requirements
+- [Getting Started](getting-started.md) - build a Retold application layer by layer
+- [Architecture](architecture/architecture.md) - the five-layer model and how modules compose
+- [Contributing](contributing.md) - code style, PR expectations, test coverage requirements

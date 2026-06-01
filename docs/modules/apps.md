@@ -24,7 +24,7 @@ Remote access application built on the Retold ecosystem.
 
 Process supervision tool for running commands on schedule with LLM integration. Supports distributed nodes, global state, and flexible task types (shell, browser, HTTP, database).
 
-**npm:** `ultravisor` · **Version:** 1.0.x
+**npm:** `ultravisor` - **Version:** 1.0.x
 
 ---
 

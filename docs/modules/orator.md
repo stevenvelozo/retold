@@ -59,7 +59,7 @@ _Orator.addPreStartFunction(function(fCallback) { /* ... */ return fCallback(); 
 _Orator.addPreRouteFunction(function(pRequest, pResponse, fNext) { /* ... */ return fNext(); });
 ```
 
-**npm:** `orator` · **Version:** 5.0.x
+**npm:** `orator` - **Version:** 5.0.x
 
 ---
 
@@ -76,7 +76,7 @@ require('orator-serviceserver-restify');
 // Restify server is now the active service server
 ```
 
-**npm:** `orator-serviceserver-restify` · **Version:** 2.0.x
+**npm:** `orator-serviceserver-restify` - **Version:** 2.0.x
 
 ---
 
@@ -88,7 +88,7 @@ Static file serving for Orator with MIME type detection, default file support, s
 _Orator.addStaticRoute('/app', '/var/www/app/dist');
 ```
 
-**npm:** `orator-static-server` · **Version:** 1.0.x
+**npm:** `orator-static-server` - **Version:** 1.0.x
 
 ---
 
@@ -100,7 +100,7 @@ Reverse proxy for forwarding requests to backend services. Supports multiple HTT
 _Orator.addProxyRoute('/api/external', 'https://backend.example.com/api');
 ```
 
-**npm:** `orator-http-proxy` · **Version:** 1.0.x
+**npm:** `orator-http-proxy` - **Version:** 1.0.x
 
 ---
 
@@ -108,7 +108,7 @@ _Orator.addProxyRoute('/api/external', 'https://backend.example.com/api');
 
 An extensible reporting system for generating HTML, PDF, and other format reports. Provides asset collection, templating, and rasterization in a micro-service-friendly pattern.
 
-**npm:** `tidings` · **Version:** 1.0.x
+**npm:** `tidings` - **Version:** 1.0.x
 
 ---
 

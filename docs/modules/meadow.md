@@ -64,7 +64,7 @@ let _BookMeadow = _Fable.instantiateServiceProvider('Meadow',
 
 **Automatic features:** audit columns (CreatingIDUser, UpdatingIDUser, CreateDate, UpdateDate), soft deletes (Deleted flag + DeleteDate), GUID uniqueness (GUIDBook column), and data marshalling.
 
-**npm:** `meadow` · **Version:** 2.0.x
+**npm:** `meadow` - **Version:** 2.0.x
 
 ---
 
@@ -91,7 +91,7 @@ let tmpQuery = _Fable.instantiateServiceProvider('FoxHound')
 
 **Operations:** Create, Read, Update, Delete, Count -- each generates the correct SQL for the configured dialect with parameterized queries to prevent injection.
 
-**npm:** `foxhound` · **Version:** 2.0.x
+**npm:** `foxhound` - **Version:** 2.0.x
 
 ---
 
@@ -117,7 +117,7 @@ From this definition, Stricture generates:
 - **Meadow schema** -- Column definitions for the data broker
 - **Documentation** -- Human-readable data model docs
 
-**npm:** `stricture` · **Version:** 1.0.x
+**npm:** `stricture` - **Version:** 1.0.x
 
 ---
 
@@ -152,7 +152,7 @@ _Endpoints.BehaviorModifications.setBehavior('Read-Authorize',
     });
 ```
 
-**npm:** `meadow-endpoints` · **Version:** 4.0.x
+**npm:** `meadow-endpoints` - **Version:** 4.0.x
 
 ---
 
@@ -170,7 +170,7 @@ let _BookService = _Fable.instantiateServiceProvider('RetoldDataService',
 // That's it -- full CRUD REST API is ready to be wired to Orator
 ```
 
-**npm:** `retold-data-service` · **Version:** 2.0.x
+**npm:** `retold-data-service` - **Version:** 2.0.x
 
 ## Connection Modules
 

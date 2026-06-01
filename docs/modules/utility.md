@@ -10,7 +10,7 @@ Lightweight in-memory object cache combining a hash map for O(1) key lookups wit
 
 **Key features:** O(1) hash-indexed reads, configurable `maxLength` and `maxAge`, FIFO eviction, custom prune functions, Fable service integration, browser compatible.
 
-**npm:** `cachetrax` · **Version:** 1.0.x
+**npm:** `cachetrax` - **Version:** 1.0.x
 
 ---
 
@@ -20,7 +20,7 @@ Documentation scaffolding and generation. Scans source trees, catalogs content w
 
 **Key features:** Content cataloging with label-based filtering, multi-format output (HTML, LaTeX, text), Retold catalog generation for cross-repo documentation, lunr-based keyword index for cross-module search.
 
-**npm:** `indoctrinate` · **Version:** 1.0.x
+**npm:** `indoctrinate` - **Version:** 1.0.x
 
 ---
 
@@ -30,7 +30,7 @@ JSON manifest for consistent data description and parsing across all application
 
 **Key features:** Address-based data access (dot notation and array indexing), type validation and coercion, manifest-driven form generation, schema description for data layers.
 
-**npm:** `manyfest` · **Version:** 1.0.x
+**npm:** `manyfest` - **Version:** 1.0.x
 
 ---
 
@@ -40,7 +40,7 @@ Meta-templating engine for processing text streams with pattern-based template e
 
 **Key features:** Pattern-based start/end markers, string or function parsers, nested pattern support with prefix precedence, data passing to handlers, zero external dependencies, browser compatible.
 
-**npm:** `precedent` · **Version:** 1.0.x
+**npm:** `precedent` - **Version:** 1.0.x
 
 ---
 
@@ -54,7 +54,7 @@ npx quack test           # Run Mocha tests
 npx quack coverage       # Generate coverage report
 ```
 
-**npm:** `quackage` · **Version:** 1.0.x
+**npm:** `quackage` - **Version:** 1.0.x
 
 ## All Utility Modules
 
