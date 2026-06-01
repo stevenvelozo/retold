@@ -59,7 +59,7 @@
   - [meadow-endpoints](https://fable-retold.github.io/meadow-endpoints/)
   - [meadow-connection-mysql](https://fable-retold.github.io/meadow-connection-mysql/)
   - [meadow-connection-mssql](https://fable-retold.github.io/meadow-connection-mssql/)
-  - [meadow-connection-oracle](https://github.com/fable-retold/meadow-connection-oracle)
+  - meadow-connection-oracle
   - [meadow-connection-sqlite](https://fable-retold.github.io/meadow-connection-sqlite/)
   - [meadow-connection-sqlite-browser](https://fable-retold.github.io/meadow-connection-sqlite-browser/)
   - [meadow-connection-postgresql](https://fable-retold.github.io/meadow-connection-postgresql/)
