@@ -59,7 +59,7 @@
   - [meadow-endpoints](https://fable-retold.github.io/meadow-endpoints/)
   - [meadow-connection-mysql](https://fable-retold.github.io/meadow-connection-mysql/)
   - [meadow-connection-mssql](https://fable-retold.github.io/meadow-connection-mssql/)
-  - meadow-connection-oracle
+  - [meadow-connection-oracle](https://fable-retold.github.io/meadow-connection-oracle/)
   - [meadow-connection-sqlite](https://fable-retold.github.io/meadow-connection-sqlite/)
   - [meadow-connection-sqlite-browser](https://fable-retold.github.io/meadow-connection-sqlite-browser/)
   - [meadow-connection-postgresql](https://fable-retold.github.io/meadow-connection-postgresql/)
@@ -161,7 +161,7 @@
   - [ultravisor](https://stevenvelozo.github.io/ultravisor/)
   - [ultravisor-suite-harness](https://stevenvelozo.github.io/ultravisor-suite-harness/)
   - [ultravisor-auth-beacon](https://stevenvelozo.github.io/ultravisor-auth-beacon/)
-  - [ultravisor-file-stream](https://github.com/stevenvelozo/ultravisor-file-stream)
+  - [ultravisor-file-stream](https://stevenvelozo.github.io/ultravisor-file-stream/)
   - [ultravisor-lab](https://stevenvelozo.github.io/ultravisor-lab/)
   - [retold-facto](https://stevenvelozo.github.io/retold-facto/)
   - [retold-databeacon](https://fable-retold.github.io/retold-databeacon/)
