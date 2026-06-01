@@ -154,7 +154,7 @@ A structured logging provider that routes Fable-Log output to Bunyan for product
 
 **npm:** `fable-log-logger-bunyan` - **Version:** 1.0.x
 
-### [Ultravisor-Beacon](https://github.com/stevenvelozo/ultravisor-beacon)
+### [Ultravisor-Beacon](https://stevenvelozo.github.io/ultravisor-beacon/)
 
 A lightweight beacon client and Fable service for remote task execution. Turns any Node.js application into a distributed worker node that connects to an Ultravisor server, advertises capabilities, and executes work items on demand.
 
@@ -252,5 +252,5 @@ Services can be registered by type (`addServiceType`) or instantiated on registr
 | [fable-log](https://fable-retold.github.io/fable-log/) | Logging library |
 | [fable-uuid](https://fable-retold.github.io/fable-uuid/) | UUID generation |
 | [fable-log-logger-bunyan](https://fable-retold.github.io/fable-log-logger-bunyan/) | Bunyan log provider |
-| [ultravisor-beacon](https://github.com/stevenvelozo/ultravisor-beacon) | Beacon client for remote task execution |
+| [ultravisor-beacon](https://stevenvelozo.github.io/ultravisor-beacon/) | Beacon client for remote task execution |
 | [ultravisor-beacon-capability](https://stevenvelozo.github.io/ultravisor-beacon-capability/) | Convention-based base class for beacon capabilities |

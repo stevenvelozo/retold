@@ -12,7 +12,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [fable-log](https://fable-retold.github.io/fable-log/) | `fable-log` | Flexible logging wrapper with six levels and extensible output streams |
 | [fable-uuid](https://fable-retold.github.io/fable-uuid/) | `fable-uuid` | UUID generator supporting RFC 4122 v4 and configurable random strings |
 | [fable-log-logger-bunyan](https://fable-retold.github.io/fable-log-logger-bunyan/) | `fable-log-logger-bunyan` | Bunyan structured logging provider for Fable-Log |
-| [ultravisor-beacon](https://github.com/stevenvelozo/ultravisor-beacon) | `ultravisor-beacon` | Lightweight beacon client and Fable service for remote task execution with pluggable providers |
+| [ultravisor-beacon](https://stevenvelozo.github.io/ultravisor-beacon/) | `ultravisor-beacon` | Lightweight beacon client and Fable service for remote task execution with pluggable providers |
 | [ultravisor-beacon-capability](https://stevenvelozo.github.io/ultravisor-beacon-capability/) | `ultravisor-beacon-capability` | Convention-based base class for building beacon capabilities with action method discovery |
 
 ## Meadow -- Data Access Layer (23 modules)
@@ -29,7 +29,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [meadow-connection-mysql](https://fable-retold.github.io/meadow-connection-mysql/) | `meadow-connection-mysql` | MySQL/MariaDB pooled connection provider for Meadow |
 | [meadow-connection-mssql](https://fable-retold.github.io/meadow-connection-mssql/) | `meadow-connection-mssql` | Microsoft SQL Server connection provider for Meadow |
 | [meadow-connection-sqlite](https://fable-retold.github.io/meadow-connection-sqlite/) | `meadow-connection-sqlite` | SQLite connection provider for Meadow via better-sqlite3 |
-| [meadow-connection-sqlite-browser](https://github.com/fable-retold/meadow-connection-sqlite-browser) | `meadow-connection-sqlite-browser` | Browser-compatible SQLite connection provider for Meadow |
+| [meadow-connection-sqlite-browser](https://fable-retold.github.io/meadow-connection-sqlite-browser/) | `meadow-connection-sqlite-browser` | Browser-compatible SQLite connection provider for Meadow |
 | [meadow-connection-postgresql](https://fable-retold.github.io/meadow-connection-postgresql/) | `meadow-connection-postgresql` | PostgreSQL connection provider for Meadow via pg |
 | [meadow-connection-mongodb](https://fable-retold.github.io/meadow-connection-mongodb/) | `meadow-connection-mongodb` | MongoDB document database connection provider for Meadow |
 | [meadow-connection-dgraph](https://fable-retold.github.io/meadow-connection-dgraph/) | `meadow-connection-dgraph` | DGraph graph database connection provider for Meadow |
@@ -54,7 +54,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [orator-endpoint](https://github.com/fable-retold/orator-endpoint) | `orator-endpoint` | Base endpoint class for Orator route definition and request handling |
 | [tidings](https://fable-retold.github.io/tidings/) | `tidings` | Extensible reporting system for generating HTML, PDF, and other format reports |
 | [orator-conversion](https://fable-retold.github.io/orator-conversion/) | `orator-conversion` | File format conversion endpoints for Orator service servers |
-| [orator-authentication](https://github.com/fable-retold/orator-authentication) | `orator-authentication` | Authentication middleware and session management for Orator servers |
+| [orator-authentication](https://fable-retold.github.io/orator-authentication/) | `orator-authentication` | Authentication middleware and session management for Orator servers |
 
 ## Pict -- MVC Tools (30 modules)
 
@@ -88,7 +88,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [pict-section-histogram](https://fable-retold.github.io/pict-section-histogram/) | `pict-section-histogram` | Histogram and chart visualization section for Pict views |
 | [pict-section-inlinedocumentation](https://fable-retold.github.io/pict-section-inlinedocumentation/) | `pict-section-inlinedocumentation` | Inline documentation section for contextual help in Pict applications |
 | [pict-section-modal](https://fable-retold.github.io/pict-section-modal/) | `pict-section-modal` | Modal dialog section for Pict views |
-| [pict-section-login](https://github.com/fable-retold/pict-section-login) | `pict-section-login` | Login and authentication form section for Pict applications |
+| [pict-section-login](https://fable-retold.github.io/pict-section-login/) | `pict-section-login` | Login and authentication form section for Pict applications |
 | [pict-section-openseadragon](https://fable-retold.github.io/pict-section-openseadragon/) | `pict-section-openseadragon` | Deep-zoom image viewer section wrapping OpenSeadragon |
 
 ## Utility -- Build & Documentation Tools (5 modules)
@@ -108,7 +108,7 @@ An exhaustive list of every repository in the Retold suite, organized by group. 
 | [retold-content-system](https://github.com/fable-retold/retold-content-system) | `retold-content-system` | Content management system built on the Retold ecosystem |
 | [retold-remote](https://github.com/stevenvelozo/retold-remote) | `retold-remote` | Remote access application built on the Retold ecosystem |
 | [ultravisor](https://stevenvelozo.github.io/ultravisor/) | `ultravisor` | Process supervision with scheduled tasks, distributed nodes, and LLM integration |
-| [ultravisor-suite-harness](https://github.com/stevenvelozo/ultravisor-suite-harness) | `ultravisor-suite-harness` | Integration test harness for the Ultravisor ecosystem |
+| [ultravisor-suite-harness](https://stevenvelozo.github.io/ultravisor-suite-harness/) | `ultravisor-suite-harness` | Integration test harness for the Ultravisor ecosystem |
 | [retold-facto](https://stevenvelozo.github.io/retold-facto/) | `retold-facto` | Data warehouse with ingestion pipelines and beacon integration |
 | [retold-databeacon](https://fable-retold.github.io/retold-databeacon/) | `retold-databeacon` | Lightweight data beacon for connecting data sources to Ultravisor |
 

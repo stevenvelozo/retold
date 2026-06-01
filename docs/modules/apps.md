@@ -28,7 +28,7 @@ Process supervision tool for running commands on schedule with LLM integration. 
 
 ---
 
-### [Ultravisor Suite Harness](https://github.com/stevenvelozo/ultravisor-suite-harness)
+### [Ultravisor Suite Harness](https://stevenvelozo.github.io/ultravisor-suite-harness/)
 
 Integration test harness for the Ultravisor ecosystem. Starts multiple servers (Facto, Meadow-Integration, Ultravisor) and exercises beacon registration, capability dispatch, and operation execution end-to-end.
 
@@ -51,6 +51,6 @@ Lightweight data beacon application for connecting data sources to an Ultravisor
 | [retold-content-system](https://github.com/fable-retold/retold-content-system) | Content management system built on the Retold ecosystem |
 | [retold-remote](https://github.com/stevenvelozo/retold-remote) | Remote access application built on the Retold ecosystem |
 | [ultravisor](https://stevenvelozo.github.io/ultravisor/) | Process supervision with scheduled tasks and LLM integration |
-| [ultravisor-suite-harness](https://github.com/stevenvelozo/ultravisor-suite-harness) | Integration test harness for the Ultravisor ecosystem |
+| [ultravisor-suite-harness](https://stevenvelozo.github.io/ultravisor-suite-harness/) | Integration test harness for the Ultravisor ecosystem |
 | [retold-facto](https://stevenvelozo.github.io/retold-facto/) | Data warehouse with ingestion pipelines and beacon integration |
 | [retold-databeacon](https://fable-retold.github.io/retold-databeacon/) | Lightweight data beacon for connecting data sources to Ultravisor |
