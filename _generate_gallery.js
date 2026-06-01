@@ -1,12 +1,11 @@
-// Generate the Live Examples gallery markdown from _examples_catalog.json
+// Generate the Live Examples gallery (single markdown table) from _examples_catalog.json
 const fs = require('fs');
 const cat = JSON.parse(fs.readFileSync('_examples_catalog.json', 'utf8'));
 
-// hand-enrich entries lacking ExampleApplication metadata
 for (const x of cat) {
 	if (x.module === 'pict' && x.example === 'hello_world') {
 		x.title = 'Hello World'; x.complexity = 'Basic';
-		x.summary = 'The smallest possible Pict app — a single template-bound view rendered into the page. Start here.';
+		x.summary = 'The smallest possible Pict app: a single template-bound view rendered into the page. Start here.';
 	}
 }
 
@@ -20,51 +19,29 @@ const ORDER = [
 	'pict-section-flow', 'pict-section-modal', 'pict-provider-theme',
 ];
 const cOrder = { 'Basic': 0, 'Intermediate': 1, 'Advanced': 2, '': 3 };
-const cBadge = { 'Basic': 'Basic', 'Intermediate': 'Intermediate', 'Advanced': 'Advanced', '': '' };
+// markdown table cell sanitiser: strip em/en dashes + ellipsis, escape pipes, collapse newlines
+const cell = (s) => String(s || '').replace(/[—–]/g, '-').replace(/…/g, '...').replace(/\s*\n\s*/g, ' ').replace(/\|/g, '\\|').trim();
 
-// group by module
-const byMod = {};
-for (const x of cat) (byMod[x.module] ||= []).push(x);
-const mods = Object.keys(byMod).sort((a, b) => {
-	const ia = ORDER.indexOf(a), ib = ORDER.indexOf(b);
-	if (ia === -1 && ib === -1) return a.localeCompare(b);
-	if (ia === -1) return 1; if (ib === -1) return -1;
-	return ia - ib;
+cat.sort((a, b) => {
+	const ia = ORDER.indexOf(a.module), ib = ORDER.indexOf(b.module);
+	const oa = ia === -1 ? 999 : ia, ob = ib === -1 ? 999 : ib;
+	if (oa !== ob) return oa - ob;
+	if (a.module !== b.module) return a.module.localeCompare(b.module);
+	return (cOrder[a.complexity] ?? 3) - (cOrder[b.complexity] ?? 3);
 });
 
 let out = '';
-const total = cat.length;
 out += `# Live Examples\n\n`;
-out += `> **${total} interactive, in-browser demos** of the Pict component libraries — real applications running live on GitHub Pages. Open any one and poke at it: every form, grid, editor, modal, and viewer below is the genuine component, not a screenshot. The library each one showcases is linked beside its heading, so you can jump straight from "I want that" to its documentation.\n\n`;
-out += `Each demo is tagged Basic, Intermediate, or Advanced - a rough guide to how much of the framework it exercises, not how hard the component is to use.\n\n`;
-
-// Start-here highlights
-const picks = [
-	['pict', 'hello_world'], ['pict-section-form', 'simple_table'],
-	['pict-section-flow', 'simple_cards'], ['pict-provider-theme', 'theme-playground'],
-];
-out += `### New here? Start with these\n\n`;
-for (const [m, e] of picks) {
-	const x = cat.find(z => z.module === m && z.example === e);
-	if (x) out += `- [**${x.title}**](${x.liveURL}) — ${x.summary}\n`;
+out += `> **${cat.length} interactive, in-browser demos** of the Pict component libraries - real applications running live on GitHub Pages, not screenshots. Open any one and poke at it. The library each demonstrates links to its full documentation.\n\n`;
+out += `New to Pict? Start with [Hello World](https://fable-retold.github.io/pict/examples/hello_world/dist/), [Simple Table](https://fable-retold.github.io/pict-section-form/examples/simple_table/), or the [Theme Playground](https://fable-retold.github.io/pict-provider-theme/examples/theme-playground/). Level is a rough guide to how much of the framework a demo exercises, not how hard the component is to use.\n\n`;
+out += `| Example | Level | What it shows | Library |\n`;
+out += `|---|---|---|---|\n`;
+for (const x of cat) {
+	const owner = x.owner;
+	out += `| [${cell(x.title)}](${x.liveURL}) | ${x.complexity || '-'} | ${cell(x.summary)} | [${x.module}](https://${owner}.github.io/${x.module}/) |\n`;
 }
 out += `\n---\n\n`;
-
-for (const m of mods) {
-	const items = byMod[m].sort((a, b) => (cOrder[a.complexity] ?? 3) - (cOrder[b.complexity] ?? 3) || a.title.localeCompare(b.title));
-	const owner = items[0].owner;
-	out += `## ${m}\n\n`;
-	out += `[Documentation](https://${owner}.github.io/${m}/) - [Source](https://github.com/${owner}/${m})\n\n`;
-	for (const x of items) {
-		const badge = cBadge[x.complexity] ? ` (${cBadge[x.complexity]})` : '';
-		out += `- [**${x.title}**${badge}](${x.liveURL})<br/>${x.summary}\n`;
-	}
-	out += `\n`;
-}
-
-out += `---\n\n`;
-out += `_All ${total} examples verified live (HTTP 200). Generated from each example app's \`retold.ExampleApplication\` metadata. Want to add one? See the [Example App Style Guide](../architecture/example-app-style-guide.md)._\n`;
+out += `_${cat.length} examples, all verified live. Want to add one? See the [Example App Style Guide](../architecture/example-app-style-guide.md)._\n`;
 
 fs.writeFileSync('docs/examples/live-examples.md', out);
-console.log(`Wrote docs/examples/live-examples.md — ${total} examples across ${mods.length} libraries`);
-console.log('Library order: ' + mods.join(', '));
+console.log(`Wrote docs/examples/live-examples.md as a ${cat.length}-row table`);
