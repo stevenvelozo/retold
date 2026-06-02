@@ -41,6 +41,10 @@
 
 const libPictView = require('pict-view');
 
+// Shared "dirty" classification — same source of truth the sidebar uses, so
+// the bottom "dirty" filter and the sidebar's "Dirty only" never disagree.
+const libScanState = require('../Manager-Scan-State.js');
+
 const _ViewConfiguration =
 {
 	ViewIdentifier: 'Manager-LogBar',
@@ -378,6 +382,15 @@ const _ViewConfiguration =
 			color: var(--color-muted);
 			font-size: 11px;
 		}
+		.rm-scan-filterbar .rm-scan-freshness
+		{
+			color: var(--color-muted);
+			font-size: 11px;
+			white-space: nowrap;
+		}
+		/* Stale (>1h since the oldest fork's last fetch) — the drift counts may
+		   lag a recent merge until you re-fetch upstream. */
+		.rm-scan-filterbar .rm-scan-freshness.is-stale { color: var(--color-warning); }
 		.rm-scan-table
 		{
 			width: 100%;
@@ -564,6 +577,24 @@ const _ViewConfiguration =
 		.rm-scan-version.is-unknown           { color: var(--color-muted); }
 
 		.rm-scan-zero { color: var(--color-muted); }
+		/* "Next action" chip — color-coded to match the sidebar action badge. */
+		.rm-scan-table .rm-scan-next-col { white-space: nowrap; }
+		.rm-scan-next
+		{
+			display: inline-block;
+			font-size: 10px;
+			font-weight: 600;
+			padding: 1px 6px;
+			border-radius: 8px;
+			white-space: nowrap;
+			color: var(--color-bg, #111);
+		}
+		.rm-scan-next--commit { background: var(--color-warning); }
+		.rm-scan-next--pull   { background: #4cc9d4; }
+		.rm-scan-next--push   { background: var(--color-accent); }
+		.rm-scan-next--sync   { background: #b07bd6; }
+		.rm-scan-next--pr     { background: var(--color-success); }
+		.rm-scan-next--none   { background: transparent; color: var(--color-muted); }
 		.rm-scan-delta-add    { color: var(--color-success); }
 		.rm-scan-delta-remove { color: var(--color-danger); }
 		.rm-scan-empty
@@ -728,7 +759,7 @@ const _ViewConfiguration =
 <div class="rm-scan-filterbar">
 	<input type="search" id="RM-LogBar-ScanFilter" placeholder="filter modules…" value="{~D:Record.FilterQuery~}"
 		oninput="_Pict.views['Manager-LogBar'].onScanFilterInput(this.value)">
-	<label><input type="checkbox" {~D:Record.DirtyOnlyChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('DirtyOnly', this.checked)"> dirty</label>
+	<label title="Anything with a pending next action (not in-sync)"><input type="checkbox" {~D:Record.DirtyOnlyChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('DirtyOnly', this.checked)"> needs action</label>
 	<label><input type="checkbox" {~D:Record.AheadOnlyChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('AheadOnly', this.checked)"> ahead</label>
 	<label><input type="checkbox" {~D:Record.BehindOnlyChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('BehindOnly', this.checked)"> behind</label>
 	<label title="Fork is ahead of the org (upstream) — a PR would ship these commits"><input type="checkbox" {~D:Record.AheadUpstreamOnlyChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('AheadUpstreamOnly', this.checked)"> ahead of org</label>
@@ -738,6 +769,7 @@ const _ViewConfiguration =
 	<label><input type="checkbox" {~D:Record.VersionMismatchChecked~} onchange="_Pict.views['Manager-LogBar'].onScanFlag('VersionMismatch', this.checked)"> version mismatch</label>
 	<label><input type="checkbox" {~D:Record.IncludeExamplesChecked~} onchange="_Pict.views['Manager-LogBar'].setIncludeExamples(this.checked)"> include examples</label>
 	<span class="rm-scan-status">{~D:Record.StatusText~}</span>
+	<span class="rm-scan-freshness {~D:Record.OrgFreshnessClass~}" title="The ↑org / ↓org columns are computed from each fork's last fetch of upstream. Tick &quot;fetch upstreams on scan&quot; (sidebar) or run Update to refresh.">{~D:Record.OrgFreshnessText~}</span>
 </div>
 {~TS:Manager-LogBar-ScanSelectionBar-Template:Record.SelectionBarSlot~}
 {~TS:Manager-LogBar-ScanEmpty-Template:Record.ScanEmptySlot~}
@@ -769,8 +801,9 @@ const _ViewConfiguration =
 		<th onclick="_Pict.views['Manager-LogBar'].onScanSort('Branch')">Branch<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Branch~}</span></th>
 		<th class="is-numeric" onclick="_Pict.views['Manager-LogBar'].onScanSort('Ahead')">Ahead<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Ahead~}</span></th>
 		<th class="is-numeric" onclick="_Pict.views['Manager-LogBar'].onScanSort('Behind')">Behind<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Behind~}</span></th>
-		<th class="is-numeric" title="Commits ahead of the org (upstream) — PR-able" onclick="_Pict.views['Manager-LogBar'].onScanSort('AheadUpstream')">↑org<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.AheadUpstream~}</span></th>
-		<th class="is-numeric" title="Commits behind the org (upstream) — needs sync" onclick="_Pict.views['Manager-LogBar'].onScanSort('BehindUpstream')">↓org<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.BehindUpstream~}</span></th>
+		<th class="is-numeric" title="Your fork ahead of the org (upstream) — these would go in a PR" onclick="_Pict.views['Manager-LogBar'].onScanSort('AheadUpstream')">↑org<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.AheadUpstream~}</span></th>
+		<th class="is-numeric" title="Your fork behind the org (upstream) — needs a sync" onclick="_Pict.views['Manager-LogBar'].onScanSort('BehindUpstream')">↓org<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.BehindUpstream~}</span></th>
+		<th title="The single recommended next action (commit / push / pull / sync / PR), server-derived" onclick="_Pict.views['Manager-LogBar'].onScanSort('NextAction')">Next<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.NextAction~}</span></th>
 		<th onclick="_Pict.views['Manager-LogBar'].onScanSort('Local')">Local<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Local~}</span></th>
 		<th onclick="_Pict.views['Manager-LogBar'].onScanSort('Published')">Published<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Published~}</span></th>
 		<th class="is-numeric" onclick="_Pict.views['Manager-LogBar'].onScanSort('Source')">Source<span class="rm-scan-sort-indicator">{~D:Record.SortMarkers.Source~}</span></th>
@@ -795,6 +828,7 @@ const _ViewConfiguration =
 	<td class="is-numeric">{~D:Record.BehindDisplay~}</td>
 	<td class="is-numeric">{~D:Record.AheadUpstreamDisplay~}</td>
 	<td class="is-numeric">{~D:Record.BehindUpstreamDisplay~}</td>
+	<td class="rm-scan-next-col">{~D:Record.NextActionDisplay~}</td>
 	<td><span class="rm-scan-version">{~D:Record.LocalVersion~}</span></td>
 	<td>
 		<span class="rm-scan-version {~D:Record.PublishedClass~}">{~D:Record.PublishedVersion~}</span>
@@ -1613,7 +1647,7 @@ class ManagerLogBarView extends libPictView
 			});
 
 		let tmpSortMarkers = {};
-		let tmpSortCols = ['Module','Branch','Ahead','Behind','AheadUpstream','BehindUpstream','Local','Published','Source','Tests','Docs','Tooling','Total'];
+		let tmpSortCols = ['Module','Branch','Ahead','Behind','AheadUpstream','BehindUpstream','NextAction','Local','Published','Source','Tests','Docs','Tooling','Total'];
 		for (let i = 0; i < tmpSortCols.length; i++)
 		{
 			tmpSortMarkers[tmpSortCols[i]] = (tmpSortCols[i] === tmpSortCol)
@@ -1664,6 +1698,8 @@ class ManagerLogBarView extends libPictView
 
 		return {
 			FilterQuery:             this._scanFilter.Query,
+			OrgFreshnessText:        this._orgFreshness(pResults).Text,
+			OrgFreshnessClass:       this._orgFreshness(pResults).Class,
 			DirtyOnlyChecked:        this._scanFilter.DirtyOnly       ? 'checked' : '',
 			AheadOnlyChecked:        this._scanFilter.AheadOnly       ? 'checked' : '',
 			BehindOnlyChecked:       this._scanFilter.BehindOnly      ? 'checked' : '',
@@ -1695,7 +1731,7 @@ class ManagerLogBarView extends libPictView
 		let tmpTool = tmpChanges.Tooling       || { Files: 0, Added: 0, Removed: 0 };
 		let tmpTot  = tmpChanges.Total         || { Files: 0, Added: 0, Removed: 0 };
 
-		let tmpIsDirty = !!pR.Dirty || (pR.Ahead || 0) > 0;
+		let tmpIsDirty = libScanState.needsAction(pR);
 		let tmpIsDocsOnly = (tmpDoc.Files > 0) && (tmpSrc.Files + tmpTst.Files + tmpTool.Files === 0);
 		let tmpIsSourceHeavy = (tmpSrc.Files > 0) && (tmpSrc.Added + tmpSrc.Removed) >= 100;
 		let tmpHasDrift = (pR.AheadUpstream || 0) > 0 || (pR.BehindUpstream || 0) > 0;
@@ -1750,8 +1786,9 @@ class ManagerLogBarView extends libPictView
 			Branch:             pR.Branch || '',
 			AheadDisplay:       this._renderCount(pR.Ahead),
 			BehindDisplay:      this._renderCount(pR.Behind),
-			AheadUpstreamDisplay:  this._renderCount(pR.AheadUpstream),
-			BehindUpstreamDisplay: this._renderCount(pR.BehindUpstream),
+			AheadUpstreamDisplay:  this._renderCount(pR.ForkAheadUpstream),
+			BehindUpstreamDisplay: this._renderCount(pR.ForkBehindUpstream),
+			NextActionDisplay:     this._nextActionCell(pR),
 			LocalVersion:       pR.LocalVersion || '—',
 			PublishedVersion:   tmpPublishedText,
 			PublishedClass:     tmpPublishedClass,
@@ -1774,15 +1811,17 @@ class ManagerLogBarView extends libPictView
 			_IsDocsOnly:      tmpIsDocsOnly,
 			_Ahead:           pR.Ahead  || 0,
 			_Behind:          pR.Behind || 0,
-			_AheadUpstream:   pR.AheadUpstream  || 0,
-			_BehindUpstream:  pR.BehindUpstream || 0,
+			_AheadUpstream:   pR.ForkAheadUpstream  || 0,
+			_BehindUpstream:  pR.ForkBehindUpstream || 0,
+			_NextAction:      libScanState.nextAction(pR),
 			_VersionState:    pR.VersionState,
 			_sort_Module:     pName.toLowerCase(),
 			_sort_Branch:     (pR.Branch || '').toLowerCase(),
 			_sort_Ahead:      pR.Ahead  || 0,
 			_sort_Behind:     pR.Behind || 0,
-			_sort_AheadUpstream:  pR.AheadUpstream  || 0,
-			_sort_BehindUpstream: pR.BehindUpstream || 0,
+			_sort_AheadUpstream:  pR.ForkAheadUpstream  || 0,
+			_sort_BehindUpstream: pR.ForkBehindUpstream || 0,
+			_sort_NextAction:     libScanState.actionRank(pR),
 			_sort_Local:      pR.LocalVersion     || '',
 			_sort_Published:  pR.PublishedVersion || '',
 			_sort_Source:     tmpSrc.Added + tmpSrc.Removed,
@@ -1811,6 +1850,31 @@ class ManagerLogBarView extends libPictView
 		return this._moduleIndex[pName] || null;
 	}
 
+	// Freshness of the ↑org/↓org columns: they reflect each fork's last upstream
+	// fetch, so report the oldest age across forks and flag it stale. Lets a
+	// merged-but-not-refetched module read "as of N ago" instead of silently wrong.
+	_orgFreshness(pResults)
+	{
+		let tmpTimes = [];
+		let tmpNames = Object.keys(pResults || {});
+		for (let i = 0; i < tmpNames.length; i++)
+		{
+			let tmpE = pResults[tmpNames[i]];
+			if (tmpE && tmpE.HasUpstreamRef && tmpE.UpstreamFetchedAt)
+			{
+				let tmpT = Date.parse(tmpE.UpstreamFetchedAt);
+				if (tmpT) { tmpTimes.push(tmpT); }
+			}
+		}
+		if (tmpTimes.length === 0) { return { Text: '', Class: '' }; }
+		let tmpAgeMin = Math.floor((Date.now() - Math.min.apply(null, tmpTimes)) / 60000);
+		let tmpAgeStr = tmpAgeMin < 1 ? 'moments ago'
+			: tmpAgeMin < 60 ? tmpAgeMin + 'm ago'
+			: tmpAgeMin < 1440 ? Math.floor(tmpAgeMin / 60) + 'h ago'
+			: Math.floor(tmpAgeMin / 1440) + 'd ago';
+		return { Text: '· org drift as of ' + tmpAgeStr, Class: (tmpAgeMin > 60) ? 'is-stale' : '' };
+	}
+
 	// Build a single category cell as "N (+A -R)" or "—" when empty.
 	_renderChangeCell(pBucket)
 	{
@@ -1828,6 +1892,15 @@ class ManagerLogBarView extends libPictView
 	{
 		if (!pN || pN === 0) { return '<span class="rm-scan-zero">—</span>'; }
 		return String(pN);
+	}
+
+	// "Next action" cell — a colored chip from the shared (server-driven) state
+	// map, or a muted dash when the module is in sync.
+	_nextActionCell(pR)
+	{
+		if (libScanState.nextAction(pR) === 'in-sync') { return '<span class="rm-scan-zero">—</span>'; }
+		let tmpMeta = libScanState.actionMeta(pR);
+		return '<span class="rm-scan-next rm-scan-next--' + (tmpMeta.Badge || 'none') + '">' + tmpMeta.Label + '</span>';
 	}
 
 	_friendlyTimestamp(pIso)

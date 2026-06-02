@@ -1,5 +1,10 @@
 const libPictView = require('pict-view');
 
+// Shared "dirty" classification — same source of truth the LogBar Scan table
+// uses, so the sidebar's "Dirty only" filter / badges and the bottom table's
+// "dirty" filter never disagree.
+const libScanState = require('../Manager-Scan-State.js');
+
 const _ViewConfiguration =
 {
 	ViewIdentifier: 'Manager-Sidebar',
@@ -21,14 +26,14 @@ const _ViewConfiguration =
 			margin-left: 6px;
 			vertical-align: middle;
 		}
-		/* State-coded variants — picked by the most upstream pending step:
-		     unstaged (orange) → staged (cyan) → unpushed (blue) →
-		     ahead-upstream (green, PR-able) → behind-upstream (purple, sync). */
-		.dirty-badge.dirty-badge--unstaged { background: var(--color-warning); }
-		.dirty-badge.dirty-badge--staged   { background: #4cc9d4; }
-		.dirty-badge.dirty-badge--unpushed { background: var(--color-accent); }
-		.dirty-badge.dirty-badge--ahead-upstream  { background: var(--color-success); }
-		.dirty-badge.dirty-badge--behind-upstream { background: #b07bd6; }
+		/* Action-coded: the dot color = the single recommended next action
+		   (server-derived). commit (orange) · pull-from-fork (cyan) ·
+		   push (blue) · sync-from-upstream (purple) · open-PR (green). */
+		.dirty-badge.dirty-badge--commit { background: var(--color-warning); }
+		.dirty-badge.dirty-badge--pull   { background: #4cc9d4; }
+		.dirty-badge.dirty-badge--push   { background: var(--color-accent); }
+		.dirty-badge.dirty-badge--sync   { background: #b07bd6; }
+		.dirty-badge.dirty-badge--pr     { background: var(--color-success); }
 
 		/* Hint next to the "fetch upstreams on scan" checkbox. Its own class so
 		   the examples-count DOM patch (which querySelectors .rm-examples-count)
@@ -205,7 +210,7 @@ const _ViewConfiguration =
 	<label class="sidebar-checkbox">
 		<input type="checkbox" id="RM-DirtyOnly"
 			onchange="_Pict.views['Manager-Sidebar'].setDirtyOnly(this.checked)">
-		Dirty only
+		Needs action
 	</label>
 	<label class="sidebar-checkbox">
 		<input type="checkbox" id="RM-SortByTime"
@@ -345,65 +350,9 @@ function _classifyVersionState(pLocal, pPublished)
 	return 'in-sync';
 }
 
-// A module is "dirty" for sidebar purposes when it has local work that hasn't
-// reached a remote OR it has drifted from the canonical org (upstream):
-//   - uncommitted working-tree changes, OR
-//   - commits ahead of its own fork (origin) that haven't been pushed, OR
-//   - commits ahead of / behind the org (upstream) — the fork has drifted and
-//     needs a PR (ahead) or a sync (behind).
-// Returns false for missing/error entries.
-function isDirty(pScanEntry)
-{
-	if (!pScanEntry) { return false; }
-	if (pScanEntry.Dirty) { return true; }
-	if ((pScanEntry.Ahead || 0) > 0) { return true; }
-	if ((pScanEntry.AheadUpstream || 0) > 0) { return true; }
-	if ((pScanEntry.BehindUpstream || 0) > 0) { return true; }
-	return false;
-}
-
-// Classify the *most upstream pending step* so the badge color reflects
-// what the user needs to do next. Priority: stage → commit → push to fork →
-// PR to org → sync from org.
-//   'unstaged'        (orange) — working-tree changes / untracked files not yet `git add`-ed.
-//   'staged'          (cyan)   — files in the index but not yet committed.
-//   'unpushed'        (blue)   — clean tree, but commits not pushed to the fork (origin).
-//   'ahead-upstream'  (green)  — fork has commits the org lacks → open a PR.
-//   'behind-upstream' (purple) — the org has commits the fork lacks → sync.
-//   null                       — nothing to do.
-function dirtyState(pScanEntry)
-{
-	if (!pScanEntry) { return null; }
-	if (pScanEntry.HasUnstaged)             { return 'unstaged'; }
-	if (pScanEntry.HasStaged)               { return 'staged'; }
-	if ((pScanEntry.Ahead || 0) > 0)        { return 'unpushed'; }
-	if (pScanEntry.Dirty)                   { return 'unstaged'; }
-	if ((pScanEntry.AheadUpstream || 0) > 0)  { return 'ahead-upstream'; }
-	if ((pScanEntry.BehindUpstream || 0) > 0) { return 'behind-upstream'; }
-	return null;
-}
-
-function dirtyTooltip(pScanEntry)
-{
-	if (!pScanEntry) { return ''; }
-	let tmpParts = [];
-	if (pScanEntry.HasUnstaged) { tmpParts.push('Unstaged changes'); }
-	if (pScanEntry.HasStaged)   { tmpParts.push('Staged (uncommitted)'); }
-	if (!pScanEntry.HasUnstaged && !pScanEntry.HasStaged && pScanEntry.Dirty)
-	{
-		tmpParts.push('Uncommitted changes');
-	}
-	let tmpAhead = pScanEntry.Ahead || 0;
-	if (tmpAhead > 0)
-	{
-		tmpParts.push(tmpAhead + ' unpushed commit' + (tmpAhead === 1 ? '' : 's'));
-	}
-	let tmpAheadUp  = pScanEntry.AheadUpstream  || 0;
-	let tmpBehindUp = pScanEntry.BehindUpstream || 0;
-	if (tmpAheadUp > 0)  { tmpParts.push(tmpAheadUp + ' ahead of org (PR)'); }
-	if (tmpBehindUp > 0) { tmpParts.push(tmpBehindUp + ' behind org (sync)'); }
-	return tmpParts.join(' · ');
-}
+// Action classification (needsAction / badgeState / badgeTooltip) lives in
+// ../Manager-Scan-State.js — shared with the LogBar Scan table, and ultimately
+// driven by the server's NextAction. Referenced via libScanState below.
 
 class ManagerSidebarView extends libPictView
 {
@@ -600,7 +549,7 @@ class ManagerSidebarView extends libPictView
 				if (!tmpIncludeEx && !_isRealModule(tmpMod)) { continue; }
 				if (tmpQuery && tmpMod.Name.toLowerCase().indexOf(tmpQuery) === -1) { continue; }
 				let tmpScanEntry = tmpScan[tmpMod.Name];
-				if (tmpDirtyOnly && !isDirty(tmpScanEntry)) { continue; }
+				if (tmpDirtyOnly && !libScanState.needsAction(tmpScanEntry)) { continue; }
 				tmpFiltered.push(tmpMod);
 			}
 			tmpFiltered.sort(function (pA, pB)
@@ -667,7 +616,7 @@ class ManagerSidebarView extends libPictView
 				if (!tmpIncludeEx && !_isRealModule(tmpMod)) { continue; }
 				if (tmpQuery && tmpMod.Name.toLowerCase().indexOf(tmpQuery) === -1) { continue; }
 				let tmpScanEntry = tmpScan[tmpMod.Name];
-				if (tmpDirtyOnly && !isDirty(tmpScanEntry)) { continue; }
+				if (tmpDirtyOnly && !libScanState.needsAction(tmpScanEntry)) { continue; }
 				tmpRows.push(this._buildRow(tmpMod, tmpScanEntry, tmpSelected, false));
 			}
 			if (tmpRows.length === 0) { continue; }
@@ -678,7 +627,7 @@ class ManagerSidebarView extends libPictView
 		if (tmpGroups.length === 0)
 		{
 			let tmpMessage = tmpDirtyOnly
-				? 'No dirty modules (click Scan to re-scan).'
+				? 'Nothing needs action (click Scan to re-scan).'
 				: (tmpQuery ? 'No modules match the filter.' : 'Loading modules...');
 			return {
 				Filter:           tmpState.Filter,
@@ -704,12 +653,12 @@ class ManagerSidebarView extends libPictView
 		if (pSelected === pMod.Name) { tmpRowClass += ' selected'; }
 		if (pUnvisited)              { tmpRowClass += ' unvisited'; }
 
-		let tmpState = dirtyState(pScanEntry);
+		let tmpState = libScanState.badgeState(pScanEntry);
 		return {
 			Name:           pMod.Name,
 			NameUrlEncoded: encodeURIComponent(pMod.Name || ''),
 			RowClass:       tmpRowClass,
-			DirtySlot:      tmpState ? [{ State: tmpState, Tooltip: dirtyTooltip(pScanEntry) }] : [],
+			DirtySlot:      tmpState ? [{ State: tmpState, Tooltip: libScanState.badgeTooltip(pScanEntry) }] : [],
 		};
 	}
 
@@ -719,14 +668,14 @@ class ManagerSidebarView extends libPictView
 		if (pScanState.Running) { return 'scanning…'; }
 		if (!pScanState.When)   { return ''; }
 		let tmpNames = Object.keys(pScanState.Results || {});
-		let tmpDirty = tmpNames.filter((pN) => isDirty(pScanState.Results[pN])).length;
+		let tmpDirty = tmpNames.filter((pN) => libScanState.needsAction(pScanState.Results[pN])).length;
 		let tmpWhen  = new Date(pScanState.When);
 		let tmpAge   = Math.max(0, Math.floor((Date.now() - tmpWhen.getTime()) / 1000));
 		let tmpAgeStr;
 		if      (tmpAge < 60)   { tmpAgeStr = tmpAge + 's ago'; }
 		else if (tmpAge < 3600) { tmpAgeStr = Math.floor(tmpAge / 60) + 'm ago'; }
 		else                    { tmpAgeStr = Math.floor(tmpAge / 3600) + 'h ago'; }
-		return tmpDirty + ' dirty · ' + tmpAgeStr;
+		return tmpDirty + ' need action · ' + tmpAgeStr;
 	}
 
 	_buildFilesPane()
@@ -1293,6 +1242,10 @@ class ManagerSidebarView extends libPictView
 				{
 					tmpLogBar.onScanResultsChanged();
 				}
+				// Repaint the sidebar list now so the action badges appear as
+				// soon as the git scan returns, rather than waiting on the slower
+				// published-versions decoration below.
+				this._repaintModulesPane();
 
 				// Fire-and-forget published-versions decoration: this can
 				// hang on a slow registry; we already have the local scan

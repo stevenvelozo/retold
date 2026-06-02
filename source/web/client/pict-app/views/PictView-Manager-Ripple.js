@@ -976,6 +976,8 @@ class ManagerRippleView extends libPictView
 			case 'publish':              return 'npm publish';
 			case 'commit-final':         return 'git commit (post-publish)';
 			case 'push':                 return 'git push';
+			case 'merge-upstream':       return 'pull upstream into fork (merge)';
+			case 'sync-upstream':        return 'sync from upstream (rebase + push)';
 			default:                     return pAction.Op;
 		}
 	}

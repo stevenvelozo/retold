@@ -610,6 +610,24 @@ html, body
 }
 .module-info-box .ib-drift .ib-ahead  { color: var(--color-success); }
 .module-info-box .ib-drift .ib-behind { color: #b07bd6; }
+/* Next-action chip — the single recommended action, color-coded to match the
+   sidebar/scan-table badges. Used in the InfoBox header and the body chain. */
+.ib-next
+{
+	font-size: 11px;
+	font-weight: 600;
+	white-space: nowrap;
+	flex: 0 0 auto;
+	padding: 1px 7px;
+	border-radius: 9px;
+	color: var(--color-bg, #111);
+}
+.ib-next--commit { background: var(--color-warning); }
+.ib-next--pull   { background: #4cc9d4; }
+.ib-next--push   { background: var(--color-accent); }
+.ib-next--sync   { background: #b07bd6; }
+.ib-next--pr     { background: var(--color-success); }
+.ib-next--none   { background: transparent; color: var(--color-muted); font-weight: 400; padding-left: 0; }
 .module-info-box .ib-dirty   { color: var(--color-warning); font-weight: 700; } /* legacy fallback */
 .module-info-box .ib-dirty.ib-dirty--unstaged { color: var(--color-warning); }
 .module-info-box .ib-dirty.ib-dirty--staged   { color: #4cc9d4; }

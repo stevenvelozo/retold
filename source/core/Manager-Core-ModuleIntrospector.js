@@ -26,9 +26,9 @@ const libChildProcess = require('child_process');
 const DEFAULT_NPM_TIMEOUT_MS = 15000;
 const NPM_VERSION_CACHE_TTL_MS = 60 * 1000;
 
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 //  Helpers
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 function parseJsonSafely(pContent)
 {
@@ -61,10 +61,10 @@ function collectDeps(pPkg)
 /**
  * Does the semver range `pRange` admit `pLatest` as a valid upgrade?
  * Works for the narrow set of ranges used in retold's ecosystem:
- *   ^X.Y.Z   — major-locked, allows minor/patch above
- *   ~X.Y.Z   — minor-locked, allows patch above
- *   X.Y.Z    — exact match only
- *   file:... — always considered "local link", covers everything
+ *   ^X.Y.Z   â major-locked, allows minor/patch above
+ *   ~X.Y.Z   â minor-locked, allows patch above
+ *   X.Y.Z    â exact match only
+ *   file:... â always considered "local link", covers everything
  * Not a full semver implementation; good enough for the health check.
  */
 function rangeCoversVersion(pRange, pLatest)
@@ -97,7 +97,7 @@ function rangeCoversVersion(pRange, pLatest)
 				&& (tmpLatestParts[1] === tmpRangeParts[1])
 				&& (tmpLatestParts[2] >= tmpRangeParts[2]);
 		}
-		// 0.0.x — ^ is exact match per semver rules
+		// 0.0.x â ^ is exact match per semver rules
 		return (tmpLatestParts[0] === 0) && (tmpLatestParts[1] === 0) && (tmpLatestParts[2] === tmpRangeParts[2]);
 	}
 
@@ -110,10 +110,10 @@ function rangeCoversVersion(pRange, pLatest)
 /**
  * Categorize a repo-relative path into one of the four scan categories:
  *
- *   Source         — source/**
- *   Tests          — test/**
- *   Documentation  — docs/**
- *   Tooling        — everything else (build configs, package.json, etc.)
+ *   Source         â source/**
+ *   Tests          â test/**
+ *   Documentation  â docs/**
+ *   Tooling        â everything else (build configs, package.json, etc.)
  *
  * Path-prefix only; we don't try to be clever about extensions.  This
  * is a coarse summary so the user can tell at a glance whether a
@@ -192,7 +192,7 @@ function parsePorcelain(pRaw)
 			// Two-char porcelain code: XY where X = index, Y = working tree.
 			// Untracked files come through as "??". Anything other than space
 			// (or '?') in the index slot means staged; anything other than
-			// space in the worktree slot — or the whole "??" — means unstaged.
+			// space in the worktree slot â or the whole "??" â means unstaged.
 			let tmpStatusCode = tmpLine.slice(0, 2);
 			let tmpFile = tmpLine.slice(3);
 			tmpResult.Files.push({ Status: tmpStatusCode, Path: tmpFile });
@@ -219,7 +219,7 @@ function parsePorcelain(pRaw)
  * which is a single "<left>\t<right>" line. With the upstream ref on the LEFT
  * of the `...` range, left = commits the upstream has that HEAD doesn't
  * (= behind), right = commits HEAD has that upstream doesn't (= ahead).
- * Returns { Behind, Ahead } — both 0 for empty / malformed input.
+ * Returns { Behind, Ahead } â both 0 for empty / malformed input.
  */
 function parseLeftRightCount(pRaw)
 {
@@ -236,9 +236,43 @@ function parseLeftRightCount(pRaw)
 	return tmpResult;
 }
 
-// ─────────────────────────────────────────────
+/**
+ * Map a module's three-edge state to the single recommended next action.
+ * This is the SERVER-SIDE single source of truth; the client renders the code.
+ *
+ * Edges:  Local â Fork  and  Fork â Upstream  (for a non-forkable module, "Fork"
+ * is just its single canonical remote â i.e. Local â Remote).
+ *
+ * pState (all optional, default 0/false):
+ *   Forkable           â has a real upstream/fork relationship
+ *   Dirty              â uncommitted / untracked working-tree changes
+ *   LocalAheadFork     â committed commits not on the fork (â push)
+ *   LocalBehindFork    â fork has commits local lacks (â pull-fork)
+ *   ForkAheadUpstream  â fork has commits the org lacks (â open PR)
+ *   ForkBehindUpstream â org has commits the fork lacks (â sync/rebase)
+ *   HasForkUpstream    â the ForkâUpstream comparison is known (both refs present)
+ *
+ * Priority (most-upstream pending step first; rebase + fork-mediated, per design
+ * doc Â§7): commit â pull-fork â push â sync-upstream â create-pr â in-sync.
+ * Non-forkable modules only ever see commit / pull-fork / push / in-sync.
+ */
+function deriveNextAction(pState)
+{
+	let tmpS = pState || {};
+	if (tmpS.Dirty) { return 'commit'; }
+	if ((tmpS.LocalBehindFork || 0) > 0) { return 'pull-fork'; }
+	if ((tmpS.LocalAheadFork  || 0) > 0) { return 'push'; }
+	if (tmpS.Forkable && tmpS.HasForkUpstream)
+	{
+		if ((tmpS.ForkBehindUpstream || 0) > 0) { return 'sync-upstream'; }
+		if ((tmpS.ForkAheadUpstream  || 0) > 0) { return 'create-pr'; }
+	}
+	return 'in-sync';
+}
+
+// âââââââââââââââââââââââââââââââââââââââââââââ
 //  Introspector
-// ─────────────────────────────────────────────
+// âââââââââââââââââââââââââââââââââââââââââââââ
 
 class ModuleIntrospector
 {
@@ -258,15 +292,15 @@ class ModuleIntrospector
 			throw new Error('ModuleIntrospector requires { manifest } (ModuleCatalog or ManifestLoader instance)');
 		}
 
-		// name -> { Version, FetchedAt }        — dist-tags.latest only
+		// name -> { Version, FetchedAt }        â dist-tags.latest only
 		this._npmVersionCache = new Map();
-		// name -> { Versions: string[], FetchedAt } — FULL published list
+		// name -> { Versions: string[], FetchedAt } â FULL published list
 		this._npmVersionsCache = new Map();
 	}
 
-	// ─────────────────────────────────────────────
+	// âââââââââââââââââââââââââââââââââââââââââââââ
 	//  Path resolution
-	// ─────────────────────────────────────────────
+	// âââââââââââââââââââââââââââââââââââââââââââââ
 
 	/**
 	 * Resolve a module name to its absolute path using the manifest. Returns
@@ -283,9 +317,9 @@ class ModuleIntrospector
 		return null;
 	}
 
-	// ─────────────────────────────────────────────
+	// âââââââââââââââââââââââââââââââââââââââââââââ
 	//  package.json
-	// ─────────────────────────────────────────────
+	// âââââââââââââââââââââââââââââââââââââââââââââ
 
 	readPackageJson(pName)
 	{
@@ -309,9 +343,9 @@ class ModuleIntrospector
 		catch (pError) { return null; }
 	}
 
-	// ─────────────────────────────────────────────
+	// âââââââââââââââââââââââââââââââââââââââââââââ
 	//  npm view
-	// ─────────────────────────────────────────────
+	// âââââââââââââââââââââââââââââââââââââââââââââ
 
 	/**
 	 * Synchronously fetch the currently published version on npm. Returns
@@ -468,8 +502,8 @@ class ModuleIntrospector
 	 *
 	 * Matched is the highest version that actually satisfies the range
 	 * (null if none do). HighestOverall is the highest published version
-	 * regardless of range — useful for informative messages when Matched
-	 * is null ("^4.0.15 → highest published is 4.0.14").
+	 * regardless of range â useful for informative messages when Matched
+	 * is null ("^4.0.15 â highest published is 4.0.14").
 	 */
 	pickHighestSatisfyingVersion(pRange, pVersions)
 	{
@@ -501,16 +535,16 @@ class ModuleIntrospector
 		return { Matched: tmpMatched, HighestOverall: tmpSorted[0] };
 	}
 
-	// ─────────────────────────────────────────────
+	// âââââââââââââââââââââââââââââââââââââââââââââ
 	//  Ecosystem dependency freshness
-	// ─────────────────────────────────────────────
+	// âââââââââââââââââââââââââââââââââââââââââââââ
 
 	/**
 	 * For a given module, list every dependency whose name is in the
 	 * retold ecosystem, with its local range and the currently-published
 	 * npm version, and whether the range covers latest.
 	 *
-	 * Synchronous — queries npm view serially. Preserves today's TUI
+	 * Synchronous â queries npm view serially. Preserves today's TUI
 	 * behavior. Call the async form below for parallelism.
 	 *
 	 * @returns {Array<{ Name, Range, Section, LatestOnNpm: string|null, CoversLatest: boolean, LocalLink: boolean, Error?: string }>}
@@ -561,7 +595,7 @@ class ModuleIntrospector
 
 			// Highest published version that actually satisfies the local
 			// range. Considers the FULL versions list, not just the
-			// `dist-tags.latest` entry — so parallel major lines (e.g.
+			// `dist-tags.latest` entry â so parallel major lines (e.g.
 			// meadow-endpoints has 2.0.23 on latest and 4.0.15 also
 			// published) don't block valid ranges.
 			let tmpPick = this.pickHighestSatisfyingVersion(tmpDep.Range, tmpVersions);
@@ -575,7 +609,7 @@ class ModuleIntrospector
 	}
 
 	/**
-	 * Async variant — parallelizes npm view calls. Dramatically faster for
+	 * Async variant â parallelizes npm view calls. Dramatically faster for
 	 * modules with many ecosystem deps (meadow-endpoints, etc).
 	 */
 	async getEcosystemDeps(pName, pOptions)
@@ -668,16 +702,16 @@ class ModuleIntrospector
 		return tmpSet;
 	}
 
-	// ─────────────────────────────────────────────
+	// âââââââââââââââââââââââââââââââââââââââââââââ
 	//  git helpers (all synchronous, TUI-era parity)
-	// ─────────────────────────────────────────────
+	// âââââââââââââââââââââââââââââââââââââââââââââ
 
 	_execGitSync(pArgs, pCwd, pTimeout)
 	{
 		let tmpTimeout = pTimeout || 10000;
 		try
 		{
-			// stdio: ['ignore', 'pipe', 'pipe'] — we capture stdout/stderr
+			// stdio: ['ignore', 'pipe', 'pipe'] â we capture stdout/stderr
 			// so a non-fatal git error (e.g. "unknown revision") doesn't leak
 			// stderr into the parent process (which, under blessed, would
 			// corrupt the screen, and under the web server, would dump into
@@ -706,7 +740,7 @@ class ModuleIntrospector
 					+ ' (' + pError.code + (pError.signal ? ' / ' + pError.signal : '') + '): ' + pError.message);
 			}
 			// If git partially wrote before the kill, the captured bytes are
-			// on pError.stdout — return them so the caller gets *something*.
+			// on pError.stdout â return them so the caller gets *something*.
 			if (pError && pError.stdout)
 			{
 				let tmpPartial = typeof pError.stdout === 'string' ? pError.stdout : pError.stdout.toString('utf8');
@@ -731,7 +765,7 @@ class ModuleIntrospector
 
 		// Resolve the origin (typically the user's fork) and upstream (the
 		// canonical org repo) remote URLs so the UI can show "your fork" +
-		// "org" links separately. Either or both may be missing — e.g. a
+		// "org" links separately. Either or both may be missing â e.g. a
 		// non-forkable module's local clone has only origin pointing at its
 		// canonical owner, no upstream.
 		let tmpOrigin = this._execGitSync('remote get-url origin', tmpPath);
@@ -739,7 +773,7 @@ class ModuleIntrospector
 		tmpStatus.OriginUrl   = (tmpOrigin   || '').trim() || null;
 		tmpStatus.UpstreamUrl = (tmpUpstream || '').trim() || null;
 
-		// Drift vs the canonical upstream (org) repo — distinct from the
+		// Drift vs the canonical upstream (org) repo â distinct from the
 		// porcelain Ahead/Behind above (which is local-vs-origin). Local-ref
 		// only, no network.
 		let tmpDrift = this.getUpstreamDrift(tmpPath, tmpStatus.Branch);
@@ -748,7 +782,98 @@ class ModuleIntrospector
 		tmpStatus.AheadUpstream  = tmpDrift.AheadUpstream;
 		tmpStatus.BehindUpstream = tmpDrift.BehindUpstream;
 
+		// Fork â Upstream â is the FORK (origin), independent of local edits,
+		// ahead/behind the org? Drives the PR / pull-upstream decisions.
+		let tmpFUBranch = tmpStatus.UpstreamBranch || tmpStatus.Branch || 'master';
+		let tmpForkUp = this._edgeDrift(tmpPath,
+			'refs/remotes/upstream/' + tmpFUBranch, 'refs/remotes/origin/' + tmpFUBranch);
+		tmpStatus.ForkAheadUpstream    = tmpForkUp.Ahead;
+		tmpStatus.ForkBehindUpstream   = tmpForkUp.Behind;
+		tmpStatus.HasForkUpstreamRefs  = tmpForkUp.HasBothRefs;
+
+		// Single recommended next action (server-side source of truth). LocalâFork
+		// is the porcelain Ahead/Behind (local vs its origin tracking ref).
+		tmpStatus.NextAction = deriveNextAction(
+			{
+				Forkable:           !!tmpStatus.UpstreamUrl,
+				Dirty:              tmpStatus.Dirty,
+				LocalAheadFork:     tmpStatus.Ahead,
+				LocalBehindFork:    tmpStatus.Behind,
+				ForkAheadUpstream:  tmpForkUp.Ahead,
+				ForkBehindUpstream: tmpForkUp.Behind,
+				HasForkUpstream:    tmpForkUp.HasBothRefs,
+			});
+
+		// How fresh the drift numbers are â they're only as current as the last
+		// fetch (a merge on GitHub is invisible until then). Surfaced so the UI
+		// can show "as of <age>" and nudge a refresh.
+		tmpStatus.UpstreamFetchedAt = this.getUpstreamFetchTime(tmpPath);
+
 		return tmpStatus;
+	}
+
+	/**
+	 * Best-effort "when were this clone's remotes last fetched" timestamp, used
+	 * only as a freshness hint for the drift counts (which are computed from the
+	 * already-fetched upstream ref). Reads the mtime of `.git/FETCH_HEAD`, which
+	 * git rewrites on every `git fetch`. Returns an ISO string, or null when the
+	 * repo has never been fetched or `.git` isn't a normal directory (worktrees).
+	 */
+	getUpstreamFetchTime(pModulePath)
+	{
+		if (!pModulePath) { return null; }
+		try
+		{
+			let tmpGitPath = libPath.join(pModulePath, '.git');
+			let tmpGitStat = libFs.statSync(tmpGitPath);
+			if (!tmpGitStat.isDirectory()) { return null; }
+			let tmpFetchHead = libFs.statSync(libPath.join(tmpGitPath, 'FETCH_HEAD'));
+			return tmpFetchHead.mtime.toISOString();
+		}
+		catch (pError) { return null; }
+	}
+
+	/**
+	 * Drift between two refs, robust to merge style. Answers "how does refB
+	 * relate to refA":
+	 *   Ahead  â commits on refB not on refA (what a push / PR would carry)
+	 *   Behind â commits on refA not on refB (what a pull would bring down)
+	 *
+	 * `--cherry-pick` drops commits already present on the other side under a
+	 * DIFFERENT SHA (rebase / merge-commit merges). If the two trees are
+	 * identical (squash merge, or simply content-equal) the counts are forced to
+	 * 0/0 â there is nothing to push or pull regardless of commit history. Both
+	 * refs must resolve: HasBothRefs:false (counts null) when either is missing
+	 * or never fetched. Local-ref only, no network.
+	 *
+	 * This is the shared engine behind all three tracked edges (LocalâFork,
+	 * LocalâUpstream, ForkâUpstream).
+	 */
+	_edgeDrift(pModulePath, pRefA, pRefB)
+	{
+		if (!pModulePath || !pRefA || !pRefB)
+		{
+			return { Ahead: null, Behind: null, HasBothRefs: false, ContentIdentical: false };
+		}
+		let tmpRaw = this._execGitSync('rev-list --left-right --cherry-pick --count '
+			+ pRefA + '...' + pRefB, pModulePath);
+		if (tmpRaw === null)
+		{
+			return { Ahead: null, Behind: null, HasBothRefs: false, ContentIdentical: false };
+		}
+		// parseLeftRightCount returns { Behind: refA-only (left), Ahead: refB-only (right) }.
+		let tmpCounts = parseLeftRightCount(tmpRaw);
+		let tmpAhead = tmpCounts.Ahead;
+		let tmpBehind = tmpCounts.Behind;
+		let tmpIdentical = false;
+		if (tmpAhead > 0 || tmpBehind > 0)
+		{
+			// `git diff --quiet A B` exits 0 (â '' non-null) when the trees are
+			// identical, 1 (â null) when they differ.
+			let tmpSame = this._execGitSync('diff --quiet ' + pRefA + ' ' + pRefB, pModulePath);
+			if (tmpSame !== null) { tmpIdentical = true; tmpAhead = 0; tmpBehind = 0; }
+		}
+		return { Ahead: tmpAhead, Behind: tmpBehind, HasBothRefs: true, ContentIdentical: tmpIdentical };
 	}
 
 	/**
@@ -757,14 +882,20 @@ class ModuleIntrospector
 	 * This is the fork-vs-target relationship the porcelain Ahead/Behind does
 	 * NOT capture (that one is local-vs-origin).
 	 *
-	 *   AheadUpstream  — local commits not yet on the org (what a PR contains).
-	 *   BehindUpstream — org commits not yet in the fork (what a sync brings).
+	 *   AheadUpstream  â local commits not yet on the org (what a PR contains).
+	 *   BehindUpstream â org commits not yet in the fork (what a sync brings).
 	 *
-	 * Computed from the already-fetched `refs/remotes/upstream/<branch>` ref —
+	 * Computed from the already-fetched `refs/remotes/upstream/<branch>` ref â
 	 * NO network. When that ref is missing (no `upstream` remote, never
 	 * fetched, or the current branch doesn't exist upstream) the counts come
-	 * back null with HasUpstreamRef:false — the "n/a until you fetch" signal.
+	 * back null with HasUpstreamRef:false â the "n/a until you fetch" signal.
 	 * Counts are only as fresh as the last `git fetch upstream`.
+	 *
+	 * Uses `--cherry-pick` so commits already present upstream under a DIFFERENT
+	 * SHA don't count as drift. That's the common squash/rebase-merge case: a PR
+	 * is merged into the org as a new commit ("â¦(#12)"), leaving the fork's
+	 * original commit patch-equivalent but distinct â raw counting would call
+	 * that "1 ahead / 1 behind" forever even though it's effectively in sync.
 	 */
 	getUpstreamDrift(pModulePath, pBranch)
 	{
@@ -782,18 +913,13 @@ class ModuleIntrospector
 			tmpBranch = (tmpHead ? tmpHead.trim().replace(/^upstream\//, '') : '') || 'master';
 		}
 
-		let tmpRaw = this._execGitSync('rev-list --left-right --count refs/remotes/upstream/'
-			+ tmpBranch + '...HEAD', pModulePath);
-		if (tmpRaw === null)
-		{
-			return { HasUpstreamRef: false, UpstreamBranch: tmpBranch, AheadUpstream: null, BehindUpstream: null };
-		}
-		let tmpCounts = parseLeftRightCount(tmpRaw);
+		// Local â Upstream, via the shared edge engine (cherry-pick + identical-tree).
+		let tmpEdge = this._edgeDrift(pModulePath, 'refs/remotes/upstream/' + tmpBranch, 'HEAD');
 		return {
-			HasUpstreamRef: true,
+			HasUpstreamRef: tmpEdge.HasBothRefs,
 			UpstreamBranch: tmpBranch,
-			AheadUpstream:  tmpCounts.Ahead,
-			BehindUpstream: tmpCounts.Behind,
+			AheadUpstream:  tmpEdge.Ahead,
+			BehindUpstream: tmpEdge.Behind,
 		};
 	}
 
@@ -850,7 +976,7 @@ class ModuleIntrospector
 		let tmpConcurrency = tmpOptions.Concurrency || 12;
 		let tmpTimeout = tmpOptions.Timeout || 10000;
 		// When set, refresh each fork's upstream ref with a live `git fetch
-		// upstream` before computing drift (network — the caller raises the
+		// upstream` before computing drift (network â the caller raises the
 		// timeout / lowers concurrency to match). Otherwise drift is read from
 		// the already-fetched ref (instant, possibly stale).
 		let tmpFetch = !!tmpOptions.Fetch;
@@ -893,7 +1019,7 @@ class ModuleIntrospector
 						{
 							let tmpLine = tmpLines[i];
 							if (!tmpLine) { continue; }
-							// "ADDED\tREMOVED\tPATH" — binary files use "-" for both.
+							// "ADDED\tREMOVED\tPATH" â binary files use "-" for both.
 							let tmpParts = tmpLine.split('\t');
 							if (tmpParts.length < 3) { continue; }
 							let tmpAdded   = (tmpParts[0] === '-') ? 0 : parseInt(tmpParts[0], 10) || 0;
@@ -944,10 +1070,33 @@ class ModuleIntrospector
 				});
 		}
 
-		// Drift vs the canonical *upstream* (org) repo — distinct from the
+		// Drift vs the canonical *upstream* (org) repo â distinct from the
 		// porcelain Ahead/Behind (which is local-vs-origin). Read from the
 		// already-fetched upstream ref (no network) unless Fetch was asked for,
-		// in which case we refresh the ref first. Missing ref → n/a.
+		// in which case we refresh the ref first. Missing ref â n/a.
+		// Generic async edge drift (Ahead/Behind of refB vs refA) with
+		// cherry-pick + identical-tree, mirroring _edgeDrift for the scan path.
+		function gatherEdge(pCwd, pRefA, pRefB)
+		{
+			return execAt('git rev-list --left-right --cherry-pick --count ' + pRefA + '...' + pRefB, pCwd)
+				.then(function (pEdge)
+				{
+					if (pEdge.Error || !pEdge.Stdout)
+					{
+						return { Ahead: null, Behind: null, HasBothRefs: false };
+					}
+					let tmpC = parseLeftRightCount(pEdge.Stdout);
+					if (tmpC.Ahead > 0 || tmpC.Behind > 0)
+					{
+						return execAt('git diff --quiet ' + pRefA + ' ' + pRefB, pCwd).then(function (pSame)
+							{
+								return { Ahead: pSame.Error ? tmpC.Ahead : 0, Behind: pSame.Error ? tmpC.Behind : 0, HasBothRefs: true };
+							});
+					}
+					return { Ahead: tmpC.Ahead, Behind: tmpC.Behind, HasBothRefs: true };
+				});
+		}
+
 		function gatherUpstreamDrift(pCwd, pBranch)
 		{
 			let tmpBranch = (pBranch && String(pBranch).trim()) || 'master';
@@ -956,7 +1105,10 @@ class ModuleIntrospector
 				: Promise.resolve({ Error: null, Stdout: '' });
 			return tmpPre.then(function ()
 				{
-					return execAt('git rev-list --left-right --count refs/remotes/upstream/'
+					// --cherry-pick drops commits already upstream under a
+					// different SHA (squash/rebase-merged PRs), so a merged
+					// change doesn't read as perpetual "1 ahead / 1 behind".
+					return execAt('git rev-list --left-right --cherry-pick --count refs/remotes/upstream/'
 						+ tmpBranch + '...HEAD', pCwd);
 				})
 				.then(function (pDrift)
@@ -966,6 +1118,17 @@ class ModuleIntrospector
 						return { HasUpstreamRef: false, UpstreamBranch: tmpBranch, AheadUpstream: null, BehindUpstream: null };
 					}
 					let tmpCounts = parseLeftRightCount(pDrift.Stdout);
+					// Squash/rebase merges can leave the fork "ahead" by commit count
+					// while its CONTENT already matches upstream; identical trees mean
+					// nothing to push or pull -> report in-sync.
+					if (tmpCounts.Ahead > 0 || tmpCounts.Behind > 0)
+					{
+						return execAt('git diff --quiet HEAD refs/remotes/upstream/' + tmpBranch, pCwd)
+							.then(function (pSame)
+							{
+								return { HasUpstreamRef: true, UpstreamBranch: tmpBranch, AheadUpstream: pSame.Error ? tmpCounts.Ahead : 0, BehindUpstream: pSame.Error ? tmpCounts.Behind : 0 };
+							});
+					}
 					return { HasUpstreamRef: true, UpstreamBranch: tmpBranch, AheadUpstream: tmpCounts.Ahead, BehindUpstream: tmpCounts.Behind };
 				});
 		}
@@ -983,7 +1146,7 @@ class ModuleIntrospector
 					}
 
 					// Local version: synchronous package.json read in the
-					// same worker — no extra round-trip, no network.
+					// same worker â no extra round-trip, no network.
 					let tmpPkg = tmpSelf.readPackageJsonFromPath(tmpEntry.AbsolutePath);
 					let tmpLocalVersion = tmpPkg && tmpPkg.version ? tmpPkg.version : null;
 					let tmpPackageName  = tmpPkg && tmpPkg.name    ? tmpPkg.name    : null;
@@ -1008,6 +1171,26 @@ class ModuleIntrospector
 									tmpParsed.UpstreamBranch = pDrift.UpstreamBranch;
 									tmpParsed.AheadUpstream  = pDrift.AheadUpstream;
 									tmpParsed.BehindUpstream = pDrift.BehindUpstream;
+									tmpParsed.UpstreamFetchedAt = tmpSelf.getUpstreamFetchTime(tmpEntry.AbsolutePath);
+									// Fork ↔ Upstream (the fork vs the org, independent of local edits).
+									let tmpFUBranch = tmpParsed.UpstreamBranch || tmpParsed.Branch || 'master';
+									return gatherEdge(tmpEntry.AbsolutePath, 'refs/remotes/upstream/' + tmpFUBranch, 'refs/remotes/origin/' + tmpFUBranch);
+								})
+								.then(function (pForkUp)
+								{
+									tmpParsed.ForkAheadUpstream   = pForkUp.Ahead;
+									tmpParsed.ForkBehindUpstream  = pForkUp.Behind;
+									tmpParsed.HasForkUpstreamRefs = pForkUp.HasBothRefs;
+									tmpParsed.NextAction = deriveNextAction(
+										{
+											Forkable:           (tmpEntry.Forkable !== false),
+											Dirty:              tmpParsed.Dirty,
+											LocalAheadFork:     tmpParsed.Ahead,
+											LocalBehindFork:    tmpParsed.Behind,
+											ForkAheadUpstream:  pForkUp.Ahead,
+											ForkBehindUpstream: pForkUp.Behind,
+											HasForkUpstream:    pForkUp.HasBothRefs,
+										});
 									return gatherChanges(tmpEntry.AbsolutePath);
 								})
 								.then(function (pChanges)
@@ -1190,3 +1373,4 @@ module.exports = ModuleIntrospector;
 module.exports.rangeCoversVersion = rangeCoversVersion;
 module.exports.collectDeps = collectDeps;
 module.exports.parseLeftRightCount = parseLeftRightCount;
+module.exports.deriveNextAction = deriveNextAction;

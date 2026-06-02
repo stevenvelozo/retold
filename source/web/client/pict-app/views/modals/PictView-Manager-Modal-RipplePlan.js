@@ -273,6 +273,14 @@ const _ViewConfiguration =
 
 <div class="rm-flat-ops">
 	<div class="form-row compact rm-flat-op-row">
+		<label><input type="checkbox" id="RM-R-FlatOp-MergeUpstream" style="width:auto"> Pull upstream into fork (merge, no force-push)</label>
+		<span class="rm-flat-op-detail">gentle: <code>fetch + merge</code> the org's commits, fast-forward push to the fork. Keeps your history; no rebase/force.</span>
+	</div>
+	<div class="form-row compact rm-flat-op-row">
+		<label><input type="checkbox" id="RM-R-FlatOp-SyncUpstream" style="width:auto"> Sync from upstream (rebase + force-push)</label>
+		<span class="rm-flat-op-detail">aggressive: rebases your commits onto upstream and force-pushes. Linear history; skips dirty repos &amp; non-forks</span>
+	</div>
+	<div class="form-row compact rm-flat-op-row">
 		<label><input type="checkbox" id="RM-R-FlatOp-Ncu" style="width:auto"> Run <code>ncu -u</code></label>
 		<span class="rm-flat-op-detail">
 			Scope:
@@ -715,6 +723,8 @@ class ManagerModalRipplePlanView extends libPictView
 			this.render();
 			return null;
 		}
+		let tmpMergeUpstream = document.getElementById('RM-R-FlatOp-MergeUpstream').checked;
+		let tmpSyncUpstream = document.getElementById('RM-R-FlatOp-SyncUpstream').checked;
 		let tmpNcu     = document.getElementById('RM-R-FlatOp-Ncu').checked;
 		let tmpNcuScope = document.getElementById('RM-R-FlatOp-NcuScope').value;
 		let tmpBump    = document.getElementById('RM-R-FlatOp-Bump').checked;
@@ -738,7 +748,7 @@ class ManagerModalRipplePlanView extends libPictView
 			this.render();
 			return null;
 		}
-		if (!tmpNcu && !tmpBump && !tmpCommit && !tmpPush && !tmpPublish && !tmpCreatePR && !tmpApprovePR && !tmpMergePR)
+		if (!tmpMergeUpstream && !tmpSyncUpstream && !tmpNcu && !tmpBump && !tmpCommit && !tmpPush && !tmpPublish && !tmpCreatePR && !tmpApprovePR && !tmpMergePR)
 		{
 			this._resultState = { Error: 'Pick at least one operation to perform.' };
 			this._writeRecord();
@@ -749,6 +759,8 @@ class ManagerModalRipplePlanView extends libPictView
 			Mode:    'flat',
 			Modules: tmpModulesToRun,
 			Operations: {
+				MergeUpstream: tmpMergeUpstream,
+				SyncUpstream:  tmpSyncUpstream,
 				Ncu:           tmpNcu,
 				NcuScope:      tmpNcuScope,
 				Bump:          tmpBump,

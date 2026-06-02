@@ -1,5 +1,9 @@
 const libPictView = require('pict-view');
 
+// Maps the server's NextAction code → label + badge (shared with the sidebar /
+// scan table). Single render source for the "next action" chip.
+const libScanState = require('../Manager-Scan-State.js');
+
 // Caret glyph for the action-group "more" buttons comes from pict's
 // built-in icon registry via {~I:ChevronDown~} in the templates below.
 // No hand-rolled inline SVG, no per-record CaretIcon data binding.
@@ -177,7 +181,7 @@ const _ViewConfiguration =
 	{~TS:Manager-ModuleWorkspace-InfoBox-Version-Template:Record.InfoBox.VersionSlot~}
 	{~TS:Manager-ModuleWorkspace-InfoBox-Branch-Template:Record.InfoBox.BranchSlot~}
 	{~TS:Manager-ModuleWorkspace-InfoBox-AheadBehind-Template:Record.InfoBox.AheadBehindSlot~}
-	{~TS:Manager-ModuleWorkspace-InfoBox-Drift-Template:Record.InfoBox.DriftSlot~}
+	{~TS:Manager-ModuleWorkspace-InfoBox-NextAction-Template:Record.InfoBox.NextActionSlot~}
 	{~TS:Manager-ModuleWorkspace-InfoBox-Dirty-Template:Record.InfoBox.DirtySlot~}
 	<span class="ib-toggle"></span>
 </div>
@@ -195,9 +199,9 @@ const _ViewConfiguration =
 		<h4>Git status</h4>
 		<dl class="kv">
 			<dt>branch</dt><dd>{~D:Record.InfoBox.GitBranch~}</dd>
-			<dt>vs fork ↑/↓</dt><dd title="Local commits not pushed to your fork (origin) / commits on the fork you don't have">{~D:Record.InfoBox.AheadBehind~}</dd>
-			<dt>vs org ↑/↓</dt><dd title="Commits ahead of / behind the canonical org repo (upstream); as of the last fetch">{~D:Record.InfoBox.UpstreamDriftLabel~}</dd>
-			<dt>dirty</dt><dd>{~D:Record.InfoBox.DirtyLabel~}</dd>
+			<dt>Local → Fork</dt><dd title="↑ committed but not pushed to your fork (origin) · ↓ commits on the fork your local checkout lacks">{~D:Record.InfoBox.LocalForkLabel~}</dd>
+			<dt>Fork → org</dt><dd title="your fork ↑ ahead of / ↓ behind the canonical org repo (upstream); as of the last fetch">{~D:Record.InfoBox.ForkUpstreamLabel~}</dd>
+			<dt>next</dt><dd>{~TS:Manager-ModuleWorkspace-InfoBox-NextAction-Template:Record.InfoBox.NextActionBodySlot~}</dd>
 		</dl>
 	</div>
 </div>
@@ -216,8 +220,8 @@ const _ViewConfiguration =
 			Template: /*html*/`<span class="ib-aheadbehind" title="{~D:Record.Tooltip~}"><span class="ib-ahead">{~D:Record.Ahead~}</span> / <span class="ib-behind">{~D:Record.Behind~}</span></span>`
 		},
 		{
-			Hash: 'Manager-ModuleWorkspace-InfoBox-Drift-Template',
-			Template: /*html*/`<span class="ib-drift" title="{~D:Record.Tooltip~}">org ↑<span class="ib-ahead">{~D:Record.Ahead~}</span> ↓<span class="ib-behind">{~D:Record.Behind~}</span></span>`
+			Hash: 'Manager-ModuleWorkspace-InfoBox-NextAction-Template',
+			Template: /*html*/`<span class="ib-next ib-next--{~D:Record.Badge~}" title="{~D:Record.Tooltip~}">{~D:Record.Label~}</span>`
 		},
 		{
 			Hash: 'Manager-ModuleWorkspace-InfoBox-Dirty-Template',
@@ -469,9 +473,10 @@ class ManagerModuleWorkspaceView extends libPictView
 			NpmLinkSlot:        [],
 			DocsLinkSlot:       [],
 			DescriptionSlot:    [],
-			InfoBox:            { Manifest: { Name: '(none)' }, VersionSlot: [], BranchSlot: [], AheadBehindSlot: [], DriftSlot: [], DirtySlot: [],
+			InfoBox:            { Manifest: { Name: '(none)' }, VersionSlot: [], BranchSlot: [], AheadBehindSlot: [], NextActionSlot: [], DirtySlot: [],
 				PkgName: '—', PkgVersion: '—', DepsCount: 0, DevDepsCount: 0,
-				GitBranch: '—', AheadBehind: '0 / 0', UpstreamDriftLabel: '—', DirtyLabel: 'no' },
+				GitBranch: '—', LocalForkLabel: '↑ 0 / ↓ 0', ForkUpstreamLabel: '—',
+				NextActionBodySlot: [{ Label: 'in sync', Badge: 'none', Tooltip: '' }], DirtyLabel: 'no' },
 			ChangedFilesSlot:    [],
 			RetoldDepsSlot:      [],
 			ExternalDepsSlot:    [],
@@ -538,14 +543,42 @@ class ManagerModuleWorkspaceView extends libPictView
 		let tmpDriftLabel;
 		if (!tmpHasUpstreamRef && !pGit.UpstreamUrl) { tmpDriftLabel = 'n/a (no upstream remote)'; }
 		else if (!tmpHasUpstreamRef)                 { tmpDriftLabel = 'not fetched — run “fetch upstream”'; }
-		else { tmpDriftLabel = '↑ ' + (tmpAheadUp || 0) + ' / ↓ ' + (tmpBehindUp || 0) + ' (upstream/' + (pGit.UpstreamBranch || '?') + ')'; }
+		else
+		{
+			// Append how fresh the counts are — they're only as current as the
+			// last fetch, so a merged PR can read stale until you re-fetch.
+			let tmpAge = this._relativeAge(pGit.UpstreamFetchedAt);
+			tmpDriftLabel = '↑ ' + (tmpAheadUp || 0) + ' / ↓ ' + (tmpBehindUp || 0) + ' (upstream/' + (pGit.UpstreamBranch || '?') + ')'
+				+ (tmpAge ? ' · as of ' + tmpAge : '');
+		}
+
+		// ── Three-state chain: Fork → Upstream (the fork itself vs the org,
+		// independent of any local edits — drives the PR / sync decisions).
+		let tmpFUAhead  = pGit.ForkAheadUpstream;
+		let tmpFUBehind = pGit.ForkBehindUpstream;
+		let tmpForkUpstreamLabel;
+		if (!pGit.UpstreamUrl)              { tmpForkUpstreamLabel = 'n/a (not a fork)'; }
+		else if (!pGit.HasForkUpstreamRefs) { tmpForkUpstreamLabel = 'not fetched — run “fetch upstream”'; }
+		else
+		{
+			let tmpFUAge = this._relativeAge(pGit.UpstreamFetchedAt);
+			tmpForkUpstreamLabel = '↑ ' + (tmpFUAhead || 0) + ' / ↓ ' + (tmpFUBehind || 0)
+				+ (tmpFUAge ? ' · as of ' + tmpFUAge : '');
+		}
+
+		// The single recommended next action (server is the source of truth).
+		let tmpActionCode = pGit.NextAction || 'in-sync';
+		let tmpActionMeta = libScanState.ACTION_META[tmpActionCode] || libScanState.ACTION_META['in-sync'];
+		let tmpActionRow  = { Label: tmpActionMeta.Label, Badge: tmpActionMeta.Badge || 'none', Tooltip: tmpActionMeta.Tip };
+		// Header chip only when there's actually something to do; body row always.
+		let tmpNextActionHeaderSlot = (tmpActionCode !== 'in-sync') ? [tmpActionRow] : [];
 
 		return {
 			Manifest:        pManifest,
 			VersionSlot:     pPkg.Version ? [{ Version: pPkg.Version }] : [],
 			BranchSlot:      pGit.Branch  ? [{ Branch: pGit.Branch }]   : [],
 			AheadBehindSlot: tmpAheadBehindSlot,
-			DriftSlot:       tmpDriftSlot,
+			NextActionSlot:  tmpNextActionHeaderSlot,
 			DirtySlot:       tmpDirtyState ? [{ State: tmpDirtyState, Tooltip: tmpDirtyTip }] : [],
 
 			PkgName:        pPkg.Name    || '—',
@@ -553,11 +586,27 @@ class ManagerModuleWorkspaceView extends libPictView
 			DepsCount:      pPkg.Dependencies    ? Object.keys(pPkg.Dependencies).length    : 0,
 			DevDepsCount:   pPkg.DevDependencies ? Object.keys(pPkg.DevDependencies).length : 0,
 
-			GitBranch:   pGit.Branch || '—',
-			AheadBehind: '↑ ' + tmpAhead + ' / ↓ ' + tmpBehind,
-			UpstreamDriftLabel: tmpDriftLabel,
-			DirtyLabel:  pGit.Dirty ? 'yes' : 'no',
+			GitBranch:          pGit.Branch || '—',
+			LocalForkLabel:     '↑ ' + tmpAhead + ' / ↓ ' + tmpBehind,
+			ForkUpstreamLabel:  tmpForkUpstreamLabel,
+			NextActionBodySlot: [tmpActionRow],
+			DirtyLabel:         pGit.Dirty ? 'yes' : 'no',
 		};
+	}
+
+	// Compact relative-age string for a timestamp ("3m ago" / "2h ago" / "5d ago").
+	// Returns null for missing/unparseable input.
+	_relativeAge(pIso)
+	{
+		if (!pIso) { return null; }
+		let tmpThen = Date.parse(pIso);
+		if (!tmpThen) { return null; }
+		let tmpMin = Math.floor((Date.now() - tmpThen) / 60000);
+		if (tmpMin < 1)  { return 'just now'; }
+		if (tmpMin < 60) { return tmpMin + 'm ago'; }
+		let tmpHr = Math.floor(tmpMin / 60);
+		if (tmpHr < 24)  { return tmpHr + 'h ago'; }
+		return Math.floor(tmpHr / 24) + 'd ago';
 	}
 
 	_buildChangedFilesSlot(pGit)

@@ -85,6 +85,10 @@ sync_upstream_repository()
 		return
 	fi
 
+	# Refresh our view of the fork so --force-with-lease has an accurate lease;
+	# a fork that moved out-of-band (pushed from elsewhere / a PR) would
+	# otherwise reject the push with "stale info".
+	git -C "$dir" fetch origin >/dev/null 2>&1 || true
 	if ! git -C "$dir" push --force-with-lease origin "$branch"
 	then
 		echo "     ! force-push to origin/$branch failed for $name (rebased locally, but fork not updated)."
