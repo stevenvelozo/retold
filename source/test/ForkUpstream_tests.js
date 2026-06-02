@@ -183,6 +183,60 @@ suite
 						Expect(tmpDrift.BehindUpstream).to.equal(1);
 					});
 
+				test('ignores a commit already merged upstream under a different SHA (the PR-merge case)', () =>
+					{
+						// The fork commits a change; the org ends up with the SAME
+						// patch as a DIFFERENT commit — exactly what a squash/rebase
+						// PR merge produces ("…(#1)"). Raw counting would call this
+						// 1 ahead / 1 behind forever; --cherry-pick must report 0 / 0.
+						commitFile(tmpWork, 'shared.txt', 'identical change\n');
+						git('remote add fork "' + tmpWork + '"', tmpOrg);
+						git('fetch fork', tmpOrg);
+						git('cherry-pick fork/master', tmpOrg);
+						// Rewrite the message (like a squash/rebase merge appending
+						// "…(#1)") so the SHA differs while the patch stays identical.
+						git('commit --amend -m "shared.txt (#1)"', tmpOrg);
+						git('fetch upstream', tmpWork);
+
+						// Sanity: the two tips really are different commits…
+						let tmpHead = libChildProcess.execSync('git rev-parse HEAD', { cwd: tmpWork, encoding: 'utf8' }).trim();
+						let tmpUp   = libChildProcess.execSync('git rev-parse refs/remotes/upstream/master', { cwd: tmpWork, encoding: 'utf8' }).trim();
+						Expect(tmpHead).to.not.equal(tmpUp);
+
+						// …yet drift is 0/0 because the patch is already upstream.
+						let tmpDrift = tmpIntrospector.getUpstreamDrift(tmpWork, 'master');
+						Expect(tmpDrift.HasUpstreamRef).to.equal(true);
+						Expect(tmpDrift.AheadUpstream).to.equal(0);
+						Expect(tmpDrift.BehindUpstream).to.equal(0);
+					});
+
+				test('reports in-sync when content matches upstream despite divergent history (squash-merge)', () =>
+					{
+						// Fork makes TWO commits; the org ends up with the same net
+						// content as a SINGLE squashed commit (what GitHub's "Squash
+						// and merge" does). --cherry-pick can't match 2 commits to 1,
+						// so it would still call the fork ahead — but the trees are
+						// identical, so drift must report 0/0.
+						commitFile(tmpWork, 'a.txt', 'AAA\n');
+						commitFile(tmpWork, 'b.txt', 'BBB\n');
+
+						libFs.writeFileSync(libPath.join(tmpOrg, 'a.txt'), 'AAA\n');
+						libFs.writeFileSync(libPath.join(tmpOrg, 'b.txt'), 'BBB\n');
+						git('add -A', tmpOrg);
+						git('commit -m "squashed a + b (#9)"', tmpOrg);
+						git('fetch upstream', tmpWork);
+
+						// Sanity: identical content, but different commit history.
+						let tmpIdentical = true;
+						try { libChildProcess.execSync('git diff --quiet HEAD refs/remotes/upstream/master', { cwd: tmpWork }); }
+						catch (pE) { tmpIdentical = false; }
+						Expect(tmpIdentical).to.equal(true);
+
+						let tmpDrift = tmpIntrospector.getUpstreamDrift(tmpWork, 'master');
+						Expect(tmpDrift.AheadUpstream).to.equal(0);
+						Expect(tmpDrift.BehindUpstream).to.equal(0);
+					});
+
 				test('flags HasUpstreamRef:false when there is no upstream remote', () =>
 					{
 						let tmpSolo = libPath.join(tmpRoot, 'solo');
@@ -197,4 +251,28 @@ suite
 						Expect(tmpDrift.BehindUpstream).to.equal(null);
 					});
 			});
+		suite
+		(
+			'deriveNextAction (server-side next-action source of truth)',
+			() =>
+			{
+				let NA = libIntrospector.deriveNextAction;
+				test('all-clear -> in-sync', () => { Expect(NA({ Forkable: true, HasForkUpstream: true })).to.equal('in-sync'); });
+				test('dirty beats everything -> commit', () => { Expect(NA({ Dirty: true, LocalAheadFork: 5, ForkAheadUpstream: 5, Forkable: true, HasForkUpstream: true })).to.equal('commit'); });
+				test('local ahead of fork -> push', () => { Expect(NA({ LocalAheadFork: 2, Forkable: true, HasForkUpstream: true })).to.equal('push'); });
+				test('local behind fork -> pull-fork (beats push)', () => { Expect(NA({ LocalBehindFork: 1, LocalAheadFork: 1, Forkable: true, HasForkUpstream: true })).to.equal('pull-fork'); });
+				test('fork behind upstream -> sync-upstream', () => { Expect(NA({ Forkable: true, HasForkUpstream: true, ForkBehindUpstream: 1 })).to.equal('sync-upstream'); });
+				test('fork ahead of upstream -> create-pr', () => { Expect(NA({ Forkable: true, HasForkUpstream: true, ForkAheadUpstream: 3 })).to.equal('create-pr'); });
+				test('diverged fork -> sync-upstream first (rebase, design A)', () => { Expect(NA({ Forkable: true, HasForkUpstream: true, ForkAheadUpstream: 2, ForkBehindUpstream: 1 })).to.equal('sync-upstream'); });
+				test('push beats PR (save local work first)', () => { Expect(NA({ LocalAheadFork: 1, Forkable: true, HasForkUpstream: true, ForkAheadUpstream: 1 })).to.equal('push'); });
+				test('non-forkable -> only commit/push/pull (Local<->Remote)', () =>
+					{
+						Expect(NA({ Forkable: false, ForkAheadUpstream: 9, ForkBehindUpstream: 9, HasForkUpstream: true })).to.equal('in-sync');
+						Expect(NA({ Forkable: false, LocalAheadFork: 1 })).to.equal('push');
+						Expect(NA({ Forkable: false, LocalBehindFork: 1 })).to.equal('pull-fork');
+					});
+				test('forkable but Fork<->Upstream unknown -> no sync/PR', () => { Expect(NA({ Forkable: true, HasForkUpstream: false, ForkAheadUpstream: 5 })).to.equal('in-sync'); });
+			}
+		);
+
 	});

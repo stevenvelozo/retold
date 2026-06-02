@@ -42,6 +42,7 @@ const libRippleGraph = require('../../core/Manager-Core-RippleGraph.js');
 // GitHub fork → upstream PR helpers, shared with the per-module Git-section
 // "Create PR" route. See source/core/Manager-Core-GitHubPr.js.
 const libGitHubPr = require('../../core/Manager-Core-GitHubPr.js');
+const gitCapture               = libGitHubPr.gitCapture;
 const resolveModulePrContext   = libGitHubPr.resolveModulePrContext;
 const findExistingPr           = libGitHubPr.findExistingPr;
 const getCurrentGhUser         = libGitHubPr.getCurrentGhUser;
@@ -459,6 +460,89 @@ async function runAction(pCore, pContext, pEntry, pStep, pAction, pStepIdx)
 			// `git push` is a no-op + exit 0 when there's nothing ahead.
 			await runAndAwait(tmpRunner, { Command: 'git', Args: ['push'], Cwd: pEntry.AbsolutePath, Label: 'git push' });
 			return { Ok: true };
+
+		case 'merge-upstream':
+		{
+			// Gentle pull: bring the org (upstream) into the fork via a MERGE,
+			// then a plain (fast-forward) push — no rebase, no force-push, so it
+			// sidesteps the stale-lease problem and handles squash-merged history
+			// cleanly. Skip cleanly for repos that can't be safely merged.
+			let tmpMDirty = gitCapture(['status', '--porcelain'], pEntry.AbsolutePath).Stdout;
+			if (tmpMDirty)
+			{
+				return { Ok: true, Skipped: true, Reason: 'working tree dirty — commit or stash before merging' };
+			}
+			let tmpMUpUrl = gitCapture(['remote', 'get-url', 'upstream'], pEntry.AbsolutePath).Stdout;
+			if (!tmpMUpUrl)
+			{
+				return { Ok: true, Skipped: true, Reason: 'no upstream remote (not a fork)' };
+			}
+			let tmpMBranch = gitCapture(['branch', '--show-current'], pEntry.AbsolutePath).Stdout;
+			if (!tmpMBranch)
+			{
+				return { Ok: true, Skipped: true, Reason: 'detached HEAD' };
+			}
+
+			await runAndAwait(tmpRunner, { Command: 'git', Args: ['fetch', 'upstream'], Cwd: pEntry.AbsolutePath, Label: 'git fetch upstream' });
+			try
+			{
+				await runAndAwait(tmpRunner, { Command: 'git', Args: ['merge', '--no-edit', 'upstream/' + tmpMBranch], Cwd: pEntry.AbsolutePath, Label: 'git merge upstream/' + tmpMBranch });
+			}
+			catch (pMergeError)
+			{
+				// Leave the repo clean rather than mid-merge, then halt for manual
+				// resolution.
+				gitCapture(['merge', '--abort'], pEntry.AbsolutePath);
+				throw new Error('merge of upstream/' + tmpMBranch + ' hit conflicts; aborted — resolve manually, then retry.');
+			}
+			// Plain push — the merge keeps the fork's history as an ancestor, so
+			// this is a fast-forward (no force/lease needed).
+			await runAndAwait(tmpRunner, { Command: 'git', Args: ['push', 'origin', tmpMBranch], Cwd: pEntry.AbsolutePath, Label: 'git push origin ' + tmpMBranch });
+			return { Ok: true, Branch: tmpMBranch };
+		}
+
+		case 'sync-upstream':
+		{
+			// Pull the org (upstream) into the fork: fetch → rebase → force-push
+			// (with lease). Skip cleanly — rather than halt the whole ripple —
+			// for repos that can't be safely synced: a dirty tree, no upstream
+			// remote, or detached HEAD.
+			let tmpDirty = gitCapture(['status', '--porcelain'], pEntry.AbsolutePath).Stdout;
+			if (tmpDirty)
+			{
+				return { Ok: true, Skipped: true, Reason: 'working tree dirty — commit or stash before syncing' };
+			}
+			let tmpUpUrl = gitCapture(['remote', 'get-url', 'upstream'], pEntry.AbsolutePath).Stdout;
+			if (!tmpUpUrl)
+			{
+				return { Ok: true, Skipped: true, Reason: 'no upstream remote (not a fork)' };
+			}
+			let tmpSyncBranch = gitCapture(['branch', '--show-current'], pEntry.AbsolutePath).Stdout;
+			if (!tmpSyncBranch)
+			{
+				return { Ok: true, Skipped: true, Reason: 'detached HEAD' };
+			}
+
+			await runAndAwait(tmpRunner, { Command: 'git', Args: ['fetch', 'upstream'], Cwd: pEntry.AbsolutePath, Label: 'git fetch upstream' });
+			try
+			{
+				await runAndAwait(tmpRunner, { Command: 'git', Args: ['rebase', 'upstream/' + tmpSyncBranch], Cwd: pEntry.AbsolutePath, Label: 'git rebase upstream/' + tmpSyncBranch });
+			}
+			catch (pRebaseError)
+			{
+				// Leave the repo clean rather than mid-rebase, then surface the
+				// failure so the ripple halts here (user can resolve + retry).
+				gitCapture(['rebase', '--abort'], pEntry.AbsolutePath);
+				throw new Error('rebase onto upstream/' + tmpSyncBranch + ' hit conflicts; aborted — resolve manually, then retry.');
+			}
+			// Refresh our view of the fork right before the lease-push. If the
+			// fork moved since we last fetched it (you pushed there from another
+			// clone, or a PR updated it), --force-with-lease would otherwise
+			// reject with "stale info"; fetching origin makes the lease accurate.
+			await runAndAwait(tmpRunner, { Command: 'git', Args: ['fetch', 'origin'], Cwd: pEntry.AbsolutePath, Label: 'git fetch origin (refresh lease)' });
+			await runAndAwait(tmpRunner, { Command: 'git', Args: ['push', '--force-with-lease', 'origin', tmpSyncBranch], Cwd: pEntry.AbsolutePath, Label: 'git push --force-with-lease origin ' + tmpSyncBranch });
+			return { Ok: true, Branch: tmpSyncBranch };
+		}
 
 		case 'test':
 			await runAndAwait(tmpRunner, { Command: 'npm', Args: ['test'], Cwd: pEntry.AbsolutePath, Label: 'npm test' });

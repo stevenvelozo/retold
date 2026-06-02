@@ -610,6 +610,8 @@ class RippleGraph
 			}
 		}
 
+		let tmpDoMergeUpstream = !!tmpOps.MergeUpstream;
+		let tmpDoSyncUpstream = !!tmpOps.SyncUpstream;
 		let tmpDoNcu     = !!tmpOps.Ncu;
 		let tmpNcuScope  = (tmpOps.NcuScope === 'all') ? 'all' : 'retold';
 		let tmpDoBump    = !!tmpOps.Bump;
@@ -630,7 +632,7 @@ class RippleGraph
 		{
 			throw new Error('flat-mode commit requires a non-empty CommitMessage.');
 		}
-		if (!tmpDoNcu && !tmpDoBump && !tmpDoCommit && !tmpDoPush && !tmpDoPublish && !tmpDoCreatePr && !tmpDoApprovePr && !tmpDoMergePr)
+		if (!tmpDoMergeUpstream && !tmpDoSyncUpstream && !tmpDoNcu && !tmpDoBump && !tmpDoCommit && !tmpDoPush && !tmpDoPublish && !tmpDoCreatePr && !tmpDoApprovePr && !tmpDoMergePr)
 		{
 			throw new Error('flat-mode plan needs at least one operation toggled on.');
 		}
@@ -648,6 +650,20 @@ class RippleGraph
 			let tmpName = tmpModules[i];
 			let tmpNode = tmpGraph.Nodes.get(tmpName);
 			let tmpActions = [];
+			if (tmpDoMergeUpstream)
+			{
+				// Gentle pull: fetch + merge the org's commits into the fork and
+				// fast-forward push (no rebase/force). Runs first so later ops
+				// build on an up-to-date base. Executor skips dirty / non-forks.
+				tmpActions.push({ Op: 'merge-upstream' });
+			}
+			if (tmpDoSyncUpstream)
+			{
+				// Aggressive sync: fetch + rebase onto upstream + force-push.
+				// Runs before any local-change ops so they build on an up-to-date
+				// base. The executor skips dirty / non-fork repos.
+				tmpActions.push({ Op: 'sync-upstream' });
+			}
 			if (tmpDoNcu)
 			{
 				tmpActions.push({ Op: 'ncu-retold', Scope: tmpNcuScope });

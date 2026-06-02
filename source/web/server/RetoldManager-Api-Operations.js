@@ -316,6 +316,10 @@ module.exports = function registerOperationsRoutes(pCore)
 						[
 							{ Command: 'git', Args: ['fetch', 'upstream'], Label: 'git fetch upstream' },
 							{ Command: 'git', Args: ['rebase', 'upstream/' + tmpBranch], Label: 'git rebase upstream/' + tmpBranch },
+							// Refresh our view of the fork so --force-with-lease has an
+							// accurate lease (a fork that moved out-of-band would
+							// otherwise reject the push with "stale info").
+							{ Command: 'git', Args: ['fetch', 'origin'], Label: 'git fetch origin (refresh lease)' },
 							{ Command: 'git', Args: ['push', '--force-with-lease', 'origin', tmpBranch], Label: 'git push --force-with-lease origin ' + tmpBranch },
 						],
 				});
