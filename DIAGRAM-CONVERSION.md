@@ -174,11 +174,12 @@ each as mermaid; leave trees and tables as-is.
   to eyeball.
 - **Rendering quality is automatic.** The pipeline scales text to fit its box,
   re-flows each label greedily (it repairs mermaid-to-excalidraw's broken wrap
-  that strands the first comma/hyphen token), draws connectors straight to
-  their targets instead of swooping, and collapses doubled blank lines. You do
-  not hand-tune sizing or wrapping -- just put **intended** line breaks in the
-  label with `<br/>` (the title on its own segment, say); the pipeline wraps
-  the rest to fit.
+  that strands the first comma/hyphen token), re-routes connectors so they
+  leave and land perpendicular to their boxes (a port of pict-section-flow's
+  departure/approach logic -- no more dagre swoop into a box at a steep angle),
+  and collapses doubled blank lines. You do not hand-tune sizing, wrapping, or
+  arrow angles -- just put **intended** line breaks in the label with `<br/>`
+  (the title on its own segment, say); the pipeline wraps the rest to fit.
 - **Hub / fan diagrams** (one node pointing at many) have inherent fan-out
   arrow angles -- that is the layout, not a defect. If a particular one looks
   cramped, spread it with a `spacing` hint or a `direction` change (ELK routes
