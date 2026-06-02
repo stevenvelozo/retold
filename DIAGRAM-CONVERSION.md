@@ -172,11 +172,13 @@ each as mermaid; leave trees and tables as-is.
 - **Verify** after each batch: `grep -rc '```mermaid'` trends to zero; new
   SVGs return 200 at raw GitHub; spot-render a few to PNG (`render ... .png`)
   to eyeball.
-- **Rendering quality is automatic.** The pipeline scales text to fit its box
-  (Excalifont runs larger than mermaid's font), keeps connectors clean (no
-  wobble), collapses the doubled blank lines mermaid emits around hard breaks,
-  and widens wrapping so long module names break at hyphens, not mid-word. You
-  do not hand-tune text sizing.
+- **Rendering quality is automatic.** The pipeline scales text to fit its box,
+  re-flows each label greedily (it repairs mermaid-to-excalidraw's broken wrap
+  that strands the first comma/hyphen token), draws connectors straight to
+  their targets instead of swooping, and collapses doubled blank lines. You do
+  not hand-tune sizing or wrapping -- just put **intended** line breaks in the
+  label with `<br/>` (the title on its own segment, say); the pipeline wraps
+  the rest to fit.
 - **Hub / fan diagrams** (one node pointing at many) have inherent fan-out
   arrow angles -- that is the layout, not a defect. If a particular one looks
   cramped, spread it with a `spacing` hint or a `direction` change (ELK routes
