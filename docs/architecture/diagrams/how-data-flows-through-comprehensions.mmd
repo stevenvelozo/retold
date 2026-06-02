@@ -1,0 +1,17 @@
+graph LR
+	source["Source Data<br/><i>CSV, JSON, TSV</i>"]
+	mapping["Mapping File<br/><i>GUIDTemplate,<br/>field mappings,<br/>solvers</i>"]
+	comp["Comprehension<br/><i>GUID-keyed<br/>entity records</i>"]
+	adapter["Integration<br/>Adapter<br/><i>Marshal, upsert</i>"]
+	meadow["Meadow<br/>Entities<br/><i>Database records</i>"]
+
+	source --> mapping
+	mapping --> comp
+	comp --> adapter
+	adapter --> meadow
+
+	style source fill:#f5f5f5,stroke:#bdbdbd,color:#333
+	style mapping fill:#fff3e0,stroke:#ffa726,color:#333
+	style comp fill:#fff3e0,stroke:#ffa726,color:#333
+	style adapter fill:#fff3e0,stroke:#ffa726,color:#333
+	style meadow fill:#fff3e0,stroke:#ff9800,color:#333

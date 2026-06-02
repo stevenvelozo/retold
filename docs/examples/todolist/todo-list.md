@@ -6,53 +6,8 @@ A complete full-stack example demonstrating the Retold module suite. A single RE
 
 ## Architecture
 
-```mermaid
-graph TB
-    subgraph model["Shared Data Model"]
-        mddl["Task.mddl<br/><i>Stricture MicroDDL</i>"]
-        compiled["Task-Compiled.json<br/><i>DDL for table creation</i>"]
-        schema["MeadowSchema-Task.json<br/><i>ORM schema, types, defaults</i>"]
-        csv["seeded_todo_events.csv<br/><i>1,000 sample tasks</i>"]
-        mddl --> compiled
-        mddl --> schema
-    end
-
-    subgraph server["API Server"]
-        orator["Orator<br/><i>HTTP server (Restify)</i>"]
-        endpoints["Meadow Endpoints<br/><i>Auto-generated REST CRUD</i>"]
-        dal["Meadow DAL<br/><i>Task entity ORM</i>"]
-        dbinit["DatabaseInitializationService<br/><i>Table creation + CSV seeding</i>"]
-        sqlite[("todo.sqlite")]
-        static["Static file server<br/><i>Serves web-client/dist/</i>"]
-
-        orator --- endpoints
-        endpoints --- dal
-        dal --- sqlite
-        dbinit --> dal
-        orator --- static
-    end
-
-    compiled --> dbinit
-    schema --> dal
-    csv --> dbinit
-
-    subgraph web["Web Client"]
-        wapp["Pict Application<br/><i>Views, providers, routing</i>"]
-    end
-
-    subgraph console["Console Client"]
-        capp["blessed TUI<br/><i>pict-terminalui bridge</i>"]
-    end
-
-    subgraph cli["CLI Client"]
-        cliapp["pict-service-commandlineutility<br/><i>Commander.js commands</i>"]
-    end
-
-    wapp -- "fetch()" --> orator
-    static -- "HTML + JS + CSS" --> web
-    capp -- "http.request()" --> orator
-    cliapp -- "http.request()" --> orator
-```
+<!-- bespoke diagram: edit diagrams/architecture-3.mmd or .hints.json, then: npx pict-renderer-graph build docs/examples/todolist -->
+![Architecture](diagrams/architecture-3.svg)
 
 All four components share a single [Task data model](examples/todolist/todo-list-model.md) defined in Stricture MicroDDL. The server creates the SQLite table from the compiled DDL, seeds it with sample data through the Meadow DAL, and auto-generates REST endpoints with Meadow Endpoints. Each client speaks to the server over HTTP using the same query DSL for sorting, filtering, and pagination.
 

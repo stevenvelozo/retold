@@ -6,35 +6,8 @@ This document covers the internals of the Jellyfish template engine -- how templ
 
 Jellyfish is built from three distinct layers, each responsible for a different part of template processing.
 
-```mermaid
-graph TB
-	subgraph L3["Layer 3: Pict Template Expressions"]
-		direction TB
-		expressions["44 built-in expressions<br/><i>Data, Logic, Composition, Iteration, etc.</i>"]
-		custom["Custom expressions<br/><i>Your application-specific tags</i>"]
-	end
-
-	subgraph L2["Layer 2: Fable MetaTemplate"]
-		direction TB
-		meta["Pattern registration<br/>Template parsing orchestration"]
-	end
-
-	subgraph L1["Layer 1: Precedent"]
-		direction TB
-		trie["Word-trie pattern matching<br/>Fast string scanning"]
-	end
-
-	L3 --> L2
-	L2 --> L1
-
-	style L3 fill:#f3e5f5,stroke:#ab47bc,color:#333
-	style L2 fill:#fff3e0,stroke:#ffa726,color:#333
-	style L1 fill:#fce4ec,stroke:#ef5350,color:#333
-	style expressions fill:#fff,stroke:#ce93d8,color:#333
-	style custom fill:#fff,stroke:#ce93d8,color:#333
-	style meta fill:#fff,stroke:#ffcc80,color:#333
-	style trie fill:#fff,stroke:#ef9a9a,color:#333
-```
+<!-- bespoke diagram: edit diagrams/three-layer-architecture.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture/templating -->
+![Three-Layer Architecture](diagrams/three-layer-architecture.svg)
 
 ### Layer 1: Precedent
 
@@ -76,33 +49,8 @@ class MyExpression extends libPictTemplate
 
 When you call `pict.parseTemplate(templateString, record)`, the following sequence occurs:
 
-```mermaid
-graph TD
-	input["Template String Input<br/><code>'Hello {~D:Record.Name~}!'</code>"]
-	scan["Precedent Scan<br/>Find all {~TAG:...~} matches"]
-	extract["Extract Template Hash<br/><code>Record.Name</code> with tag <code>D</code>"]
-	lookup["Handler Lookup<br/>Find registered expression for <code>{~D:</code>"]
-	render["Expression Render<br/><code>render('Record.Name', record, ...)</code>"]
-	resolve["State Resolution<br/>Resolve <code>Record.Name</code> from unified state"]
-	replace["String Replacement<br/>Replace <code>{~D:Record.Name~}</code> with result"]
-	recurse["Recursive Processing<br/>Check for remaining expressions"]
-	output["Final Output<br/><code>'Hello Alice!'</code>"]
-
-	input --> scan
-	scan --> extract
-	extract --> lookup
-	lookup --> render
-	render --> resolve
-	resolve --> replace
-	replace --> recurse
-	recurse --> output
-
-	style input fill:#e8f5e9,stroke:#43a047,color:#333
-	style output fill:#e8f5e9,stroke:#43a047,color:#333
-	style scan fill:#fce4ec,stroke:#ef5350,color:#333
-	style resolve fill:#fff3e0,stroke:#ffa726,color:#333
-	style render fill:#f3e5f5,stroke:#ab47bc,color:#333
-```
+<!-- bespoke diagram: edit diagrams/the-rendering-pipeline.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture/templating -->
+![The Rendering Pipeline](diagrams/the-rendering-pipeline.svg)
 
 The recursive step is important. Template expressions can return strings that themselves contain template expressions. For example, `{~T:SomeTemplate~}` returns the content of `SomeTemplate`, which may contain `{~D:...~}` expressions that need further resolution. The engine continues processing until no more expressions remain.
 

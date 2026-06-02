@@ -1,0 +1,25 @@
+graph TD
+	input["Template String Input<br/><code>'Hello {~D:Record.Name~}!'</code>"]
+	scan["Precedent Scan<br/>Find all {~TAG:...~} matches"]
+	extract["Extract Template Hash<br/><code>Record.Name</code> with tag <code>D</code>"]
+	lookup["Handler Lookup<br/>Find registered expression for <code>{~D:</code>"]
+	render["Expression Render<br/><code>render('Record.Name', record, ...)</code>"]
+	resolve["State Resolution<br/>Resolve <code>Record.Name</code> from unified state"]
+	replace["String Replacement<br/>Replace <code>{~D:Record.Name~}</code> with result"]
+	recurse["Recursive Processing<br/>Check for remaining expressions"]
+	output["Final Output<br/><code>'Hello Alice!'</code>"]
+
+	input --> scan
+	scan --> extract
+	extract --> lookup
+	lookup --> render
+	render --> resolve
+	resolve --> replace
+	replace --> recurse
+	recurse --> output
+
+	style input fill:#e8f5e9,stroke:#43a047,color:#333
+	style output fill:#e8f5e9,stroke:#43a047,color:#333
+	style scan fill:#fce4ec,stroke:#ef5350,color:#333
+	style resolve fill:#fff3e0,stroke:#ffa726,color:#333
+	style render fill:#f3e5f5,stroke:#ab47bc,color:#333

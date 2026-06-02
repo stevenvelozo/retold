@@ -22,22 +22,8 @@ From the `examples/todo-list/` directory, run `./docker-run.sh` to build the Doc
 
 ## How It Works
 
-```mermaid
-graph TB
-    subgraph startup["Startup Sequence"]
-        direction TB
-        s1["1. Create Fable instance<br/><i>Settings, logging, SQLite config</i>"]
-        s2["2. Register service types<br/><i>Orator, SQLite provider, DB init service</i>"]
-        s3["3. Connect database<br/><i>Open or create todo.sqlite</i>"]
-        s4["4. Create tables<br/><i>From compiled Stricture DDL</i>"]
-        s5["5. Seed data<br/><i>CSV -> Meadow doCreate (if empty)</i>"]
-        s6["6. Create Meadow DAL<br/><i>Task entity with schema</i>"]
-        s7["7. Create Meadow Endpoints<br/><i>Auto-generate REST routes</i>"]
-        s8["8. Start Orator<br/><i>HTTP server + static files</i>"]
-
-        s1 --> s2 --> s3 --> s4 --> s5 --> s6 --> s7 --> s8
-    end
-```
+<!-- bespoke diagram: edit diagrams/how-it-works.mmd or .hints.json, then: npx pict-renderer-graph build docs/examples/todolist -->
+![How It Works](diagrams/how-it-works.svg)
 
 The server file (`server.cjs`) is intentionally thin. Most of the behavior comes from Retold modules -- the server's job is to wire them together in the right order.
 

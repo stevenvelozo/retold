@@ -1,0 +1,12 @@
+graph TB
+  app["Your Application<br/>(routes, middleware, etc.)"]
+  app --> core["Orator Core<br/>Lifecycle, content types,<br/>route registration"]
+  core --> restify["Restify Server<br/>(Production)"]
+  core --> ipc["IPC Server<br/>(Testing)"]
+  core --> other["(Other servers)"]
+
+  style app fill:#e8f5e9,stroke:#43a047,color:#333
+  style core fill:#e3f2fd,stroke:#42a5f5,color:#333
+  style restify fill:#fff,stroke:#90caf9,color:#333
+  style ipc fill:#fff,stroke:#90caf9,color:#333
+  style other fill:#f5f5f5,stroke:#bdbdbd,color:#666

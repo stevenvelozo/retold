@@ -1,0 +1,22 @@
+graph TB
+    subgraph cli["TodoCLI-CLIProgram"]
+        commander["Commander.js<br/><i>Argument parsing</i>"]
+        config["Configuration<br/><i>.todo-cli.json</i>"]
+    end
+
+    subgraph service["TodoCLI-Service-API"]
+        http["http.request()<br/><i>JSON over HTTP</i>"]
+        urlbuilder["buildFilteredPath()<br/><i>Meadow query URL construction</i>"]
+    end
+
+    subgraph commands["Commands"]
+        list["list<br/><i>Tabular output</i>"]
+        add["add<br/><i>POST /1.0/Task</i>"]
+        remove["remove<br/><i>DELETE /1.0/Task/:id</i>"]
+        complete["complete<br/><i>GET then PUT</i>"]
+    end
+
+    cli --> service
+    cli --> commands
+    commands --> service
+    service --> server["API Server<br/>http://localhost:28086"]

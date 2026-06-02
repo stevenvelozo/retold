@@ -1,0 +1,54 @@
+graph TB
+	subgraph Clients["Client Applications"]
+		direction LR
+		browser["Browser App<br/><i>Pict + Pict-Application<br/>+ Pict-Views</i>"]
+		console["Console App<br/><i>Pict + Terminal UI</i>"]
+		cli["CLI Tool<br/><i>CommandLineUtility</i>"]
+	end
+
+	internet(("The Internet"))
+
+	subgraph Server["Server / Mid-Tier"]
+		direction TB
+		orator["Orator<br/><i>HTTP Server Abstraction</i>"]
+		endpoints["Meadow-Endpoints<br/><i>Auto-generated REST API</i>"]
+		meadow["Meadow<br/><i>Data Access Abstraction</i>"]
+
+		subgraph DataTools["Schema & Query Tools"]
+			direction LR
+			foxhound["FoxHound<br/><i>Query Generation</i>"]
+			stricture["Stricture<br/><i>MicroDDL -> Schema</i>"]
+		end
+
+		orator --> endpoints
+		endpoints --> meadow
+		meadow --> DataTools
+	end
+
+	subgraph Foundation["Foundation (Stateless)"]
+		direction LR
+		fable["Fable<br/><i>DI, Config, Logging</i>"]
+		manyfest["Manyfest<br/><i>Address-Based<br/>Object Access</i>"]
+	end
+
+	Clients -- "HTTP requests" --> internet
+	internet -- "HTTP requests" --> orator
+
+	browser -. "Fable services" .-> Foundation
+	Server --> Foundation
+
+	style Clients fill:#e8f5e9,stroke:#43a047,color:#333
+	style browser fill:#fff,stroke:#66bb6a,color:#333
+	style console fill:#fff,stroke:#66bb6a,color:#333
+	style cli fill:#fff,stroke:#66bb6a,color:#333
+	style internet fill:#e1f5fe,stroke:#03a9f4,color:#333,stroke-width:2px
+	style Server fill:#e3f2fd,stroke:#42a5f5,color:#333
+	style orator fill:#fff,stroke:#64b5f6,color:#333
+	style endpoints fill:#fff,stroke:#64b5f6,color:#333
+	style meadow fill:#fff3e0,stroke:#ffa726,color:#333
+	style DataTools fill:#fff8e1,stroke:#ffcc80,color:#333
+	style foxhound fill:#fff,stroke:#ffcc80,color:#333
+	style stricture fill:#fff,stroke:#ffcc80,color:#333
+	style Foundation fill:#fce4ec,stroke:#ef5350,color:#333
+	style fable fill:#fff,stroke:#ef9a9a,color:#333
+	style manyfest fill:#fff,stroke:#ef9a9a,color:#333

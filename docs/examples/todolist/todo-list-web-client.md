@@ -38,37 +38,8 @@ From the `examples/todo-list/` directory, run `./docker-run.sh` to build the Doc
 
 ## Application Structure
 
-```mermaid
-graph TB
-    subgraph app["TodoList-Application"]
-        state["AppData.TodoList<br/><i>Tasks, ListState, CalendarState</i>"]
-    end
-
-    subgraph providers["Providers"]
-        taskdata["Provider-TaskData<br/><i>API fetch, query URL builder</i>"]
-        router["PictRouter<br/><i>Hash-based SPA routing</i>"]
-    end
-
-    subgraph views["Views"]
-        layout["View-Layout<br/><i>Nav bar + content outlet</i>"]
-        list["View-TaskList<br/><i>Sortable table, search, pagination</i>"]
-        form["View-TaskForm<br/><i>Add / edit form</i>"]
-        week["View-WeekView<br/><i>Seven-day calendar grid</i>"]
-        month["View-MonthView<br/><i>Month grid with day cells</i>"]
-        year["View-YearView<br/><i>Twelve month overview</i>"]
-    end
-
-    app --- taskdata
-    app --- router
-    router --> layout
-    layout --> list
-    layout --> form
-    layout --> week
-    layout --> month
-    layout --> year
-    taskdata --> list
-    taskdata --> form
-```
+<!-- bespoke diagram: edit diagrams/application-structure.mmd or .hints.json, then: npx pict-renderer-graph build docs/examples/todolist -->
+![Application Structure](diagrams/application-structure.svg)
 
 ## Application Class
 

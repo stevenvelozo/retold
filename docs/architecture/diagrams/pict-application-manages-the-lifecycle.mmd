@@ -1,0 +1,15 @@
+graph LR
+	init["Initialize<br/><i>Register views,<br/>providers, templates</i>"]
+	data["Load Data<br/><i>Fetch from APIs,<br/>populate AppData</i>"]
+	solve["Solve<br/><i>Calculate derived<br/>values</i>"]
+	render["Render<br/><i>Transform state<br/>into output</i>"]
+	marshal["Marshal<br/><i>Collect input<br/>back into state</i>"]
+
+	init --> data --> solve --> render --> marshal
+	marshal -. "user interaction" .-> solve
+
+	style init fill:#fce4ec,stroke:#ef5350,color:#333
+	style data fill:#fff3e0,stroke:#ffa726,color:#333
+	style solve fill:#e8f5e9,stroke:#43a047,color:#333
+	style render fill:#e3f2fd,stroke:#42a5f5,color:#333
+	style marshal fill:#f3e5f5,stroke:#ab47bc,color:#333

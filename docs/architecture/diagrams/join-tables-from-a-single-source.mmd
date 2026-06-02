@@ -1,0 +1,30 @@
+graph TB
+	subgraph Comprehension["Resulting Comprehension"]
+		direction TB
+		subgraph Books["Book"]
+			b3["<b>Book_3</b><br/>Title: Good Omens"]
+		end
+		subgraph Authors["Author"]
+			a1["<b>Author_TerryPratchett</b><br/>Name: Terry Pratchett"]
+			a2["<b>Author_NeilGaiman</b><br/>Name: Neil Gaiman"]
+		end
+		subgraph Joins["BookAuthorJoin"]
+			j1["<b>BAJ_A_TerryPratchett_B_3</b>"]
+			j2["<b>BAJ_A_NeilGaiman_B_3</b>"]
+		end
+	end
+
+	j1 -. "GUIDBook" .-> b3
+	j1 -. "GUIDAuthor" .-> a1
+	j2 -. "GUIDBook" .-> b3
+	j2 -. "GUIDAuthor" .-> a2
+
+	style Comprehension fill:#fff8e1,stroke:#ffcc80,color:#333
+	style Books fill:#fff3e0,stroke:#ffa726,color:#333
+	style Authors fill:#fff3e0,stroke:#ffa726,color:#333
+	style Joins fill:#fff3e0,stroke:#ffa726,color:#333
+	style b3 fill:#fff,stroke:#ffcc80,color:#333
+	style a1 fill:#fff,stroke:#ffcc80,color:#333
+	style a2 fill:#fff,stroke:#ffcc80,color:#333
+	style j1 fill:#fff,stroke:#ffcc80,color:#333
+	style j2 fill:#fff,stroke:#ffcc80,color:#333

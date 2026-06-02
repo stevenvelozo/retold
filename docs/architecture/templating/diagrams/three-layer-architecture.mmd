@@ -1,0 +1,27 @@
+graph TB
+	subgraph L3["Layer 3: Pict Template Expressions"]
+		direction TB
+		expressions["44 built-in expressions<br/><i>Data, Logic, Composition, Iteration, etc.</i>"]
+		custom["Custom expressions<br/><i>Your application-specific tags</i>"]
+	end
+
+	subgraph L2["Layer 2: Fable MetaTemplate"]
+		direction TB
+		meta["Pattern registration<br/>Template parsing orchestration"]
+	end
+
+	subgraph L1["Layer 1: Precedent"]
+		direction TB
+		trie["Word-trie pattern matching<br/>Fast string scanning"]
+	end
+
+	L3 --> L2
+	L2 --> L1
+
+	style L3 fill:#f3e5f5,stroke:#ab47bc,color:#333
+	style L2 fill:#fff3e0,stroke:#ffa726,color:#333
+	style L1 fill:#fce4ec,stroke:#ef5350,color:#333
+	style expressions fill:#fff,stroke:#ce93d8,color:#333
+	style custom fill:#fff,stroke:#ce93d8,color:#333
+	style meta fill:#fff,stroke:#ffcc80,color:#333
+	style trie fill:#fff,stroke:#ef9a9a,color:#333

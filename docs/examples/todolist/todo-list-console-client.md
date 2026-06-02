@@ -53,28 +53,8 @@ You can press enter on any task and it will drill in.  Just like the 1980s:
 
 ## Architecture
 
-```mermaid
-graph TB
-    subgraph app["TodoListConsoleApplication"]
-        state["AppData.TodoList<br/><i>Tasks, SelectedIndex, ListState</i>"]
-        http["httpRequest()<br/><i>Node.js http module</i>"]
-        modals["Modal dialogs<br/><i>View, Edit, Sort, Search</i>"]
-    end
-
-    subgraph tui["pict-terminalui"]
-        bridge["ContentAssignment bridge<br/><i>Pict views -> blessed widgets</i>"]
-    end
-
-    subgraph blessed["blessed screen"]
-        header["TUI-Header<br/><i>Title + keybindings</i>"]
-        content["TUI-TaskList<br/><i>Scrollable task rows</i>"]
-        status["TUI-StatusBar<br/><i>Count, sort, message</i>"]
-    end
-
-    app --> tui
-    tui --> blessed
-    http -- "GET/POST/PUT/DELETE" --> server["API Server"]
-```
+<!-- bespoke diagram: edit diagrams/architecture-2.mmd or .hints.json, then: npx pict-renderer-graph build docs/examples/todolist -->
+![Architecture](diagrams/architecture-2.svg)
 
 ## How It Works
 

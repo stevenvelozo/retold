@@ -22,22 +22,8 @@ A five-step progression that builds up the Retold stack one layer at a time, fro
 
 A complete full-stack application with four separate clients that all connect to the same REST API and SQLite database. This is the most comprehensive example in the repository and demonstrates nearly every major Retold pattern.
 
-```mermaid
-graph LR
-    server["API Server<br/><i>Orator + Meadow + SQLite</i>"]
-    web["Web Client<br/><i>Pict Application</i>"]
-    console["Console Client<br/><i>blessed TUI</i>"]
-    cli["CLI Client<br/><i>pict-service-commandlineutility</i>"]
-
-    web -- "fetch()" --> server
-    console -- "http.request()" --> server
-    cli -- "http.request()" --> server
-
-    style server fill:#e3f2fd,stroke:#42a5f5,color:#333
-    style web fill:#e8f5e9,stroke:#43a047,color:#333
-    style console fill:#fff3e0,stroke:#ffa726,color:#333
-    style cli fill:#f3e5f5,stroke:#ab47bc,color:#333
-```
+<!-- bespoke diagram: edit diagrams/todo-list-application.mmd or .hints.json, then: npx pict-renderer-graph build docs/examples -->
+![Todo List Application](diagrams/todo-list-application.svg)
 
 **Detailed documentation:**
 

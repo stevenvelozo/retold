@@ -2,62 +2,8 @@
 
 Retold modules each embody a specific design philosophy. Together they form a coherent system for building applications -- from the stateless service core, through data access and API generation, up to state-driven UI rendering.  At the same time, each module is designed to be used (*and useful*) independently. You can adopt Fable's configuration and logging without using Pict. You can use Meadow for data access without Orator. These modules are decoupled by design, but also fit together in a complementary way.
 
-```mermaid
-graph TB
-	subgraph Clients["Client Applications"]
-		direction LR
-		browser["Browser App<br/><i>Pict + Pict-Application<br/>+ Pict-Views</i>"]
-		console["Console App<br/><i>Pict + Terminal UI</i>"]
-		cli["CLI Tool<br/><i>CommandLineUtility</i>"]
-	end
-
-	internet(("The Internet"))
-
-	subgraph Server["Server / Mid-Tier"]
-		direction TB
-		orator["Orator<br/><i>HTTP Server Abstraction</i>"]
-		endpoints["Meadow-Endpoints<br/><i>Auto-generated REST API</i>"]
-		meadow["Meadow<br/><i>Data Access Abstraction</i>"]
-
-		subgraph DataTools["Schema & Query Tools"]
-			direction LR
-			foxhound["FoxHound<br/><i>Query Generation</i>"]
-			stricture["Stricture<br/><i>MicroDDL -> Schema</i>"]
-		end
-
-		orator --> endpoints
-		endpoints --> meadow
-		meadow --> DataTools
-	end
-
-	subgraph Foundation["Foundation (Stateless)"]
-		direction LR
-		fable["Fable<br/><i>DI, Config, Logging</i>"]
-		manyfest["Manyfest<br/><i>Address-Based<br/>Object Access</i>"]
-	end
-
-	Clients -- "HTTP requests" --> internet
-	internet -- "HTTP requests" --> orator
-
-	browser -. "Fable services" .-> Foundation
-	Server --> Foundation
-
-	style Clients fill:#e8f5e9,stroke:#43a047,color:#333
-	style browser fill:#fff,stroke:#66bb6a,color:#333
-	style console fill:#fff,stroke:#66bb6a,color:#333
-	style cli fill:#fff,stroke:#66bb6a,color:#333
-	style internet fill:#e1f5fe,stroke:#03a9f4,color:#333,stroke-width:2px
-	style Server fill:#e3f2fd,stroke:#42a5f5,color:#333
-	style orator fill:#fff,stroke:#64b5f6,color:#333
-	style endpoints fill:#fff,stroke:#64b5f6,color:#333
-	style meadow fill:#fff3e0,stroke:#ffa726,color:#333
-	style DataTools fill:#fff8e1,stroke:#ffcc80,color:#333
-	style foxhound fill:#fff,stroke:#ffcc80,color:#333
-	style stricture fill:#fff,stroke:#ffcc80,color:#333
-	style Foundation fill:#fce4ec,stroke:#ef5350,color:#333
-	style fable fill:#fff,stroke:#ef9a9a,color:#333
-	style manyfest fill:#fff,stroke:#ef9a9a,color:#333
-```
+<!-- bespoke diagram: edit diagrams/ecosystem-architecture-module-philosophy.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture -->
+![Ecosystem Architecture - Module Philosophy](diagrams/ecosystem-architecture-module-philosophy.svg)
 
 Clients -- browsers, terminals, CLI tools -- communicate with the server over HTTP. Orator receives those requests, Meadow-Endpoints maps them to data operations, and Meadow executes them against the database. Fable provides the stateless service container that every module on both sides of the network depends on. Manyfest provides the consistent data-addressing language used everywhere.
 
@@ -105,23 +51,8 @@ Pict-Application is the orchestration layer. It coordinates the startup, data lo
 
 The lifecycle follows a defined sequence:
 
-```mermaid
-graph LR
-	init["Initialize<br/><i>Register views,<br/>providers, templates</i>"]
-	data["Load Data<br/><i>Fetch from APIs,<br/>populate AppData</i>"]
-	solve["Solve<br/><i>Calculate derived<br/>values</i>"]
-	render["Render<br/><i>Transform state<br/>into output</i>"]
-	marshal["Marshal<br/><i>Collect input<br/>back into state</i>"]
-
-	init --> data --> solve --> render --> marshal
-	marshal -. "user interaction" .-> solve
-
-	style init fill:#fce4ec,stroke:#ef5350,color:#333
-	style data fill:#fff3e0,stroke:#ffa726,color:#333
-	style solve fill:#e8f5e9,stroke:#43a047,color:#333
-	style render fill:#e3f2fd,stroke:#42a5f5,color:#333
-	style marshal fill:#f3e5f5,stroke:#ab47bc,color:#333
-```
+<!-- bespoke diagram: edit diagrams/pict-application-manages-the-lifecycle.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture -->
+![Pict-Application Manages the Lifecycle](diagrams/pict-application-manages-the-lifecycle.svg)
 
 Each view and provider within the application participates in these phases. Pict-Application ensures they execute in the correct order (controlled by configurable ordinals) and provides auto-behaviors to reduce boilerplate -- for example, automatically solving and rendering after initialization completes.
 

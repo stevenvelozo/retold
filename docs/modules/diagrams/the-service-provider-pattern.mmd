@@ -1,0 +1,23 @@
+graph LR
+  reg["Register Service"] --> fable
+
+  subgraph fable["Fable Instance"]
+    direction TB
+    core[".settings  .log  .getUUID()"]
+    subgraph registry["Service Registry"]
+      meadow["Meadow"]
+      orator["Orator"]
+      custom["MyCustomService"]
+    end
+  end
+
+  fable --> a1["_Fable.Meadow"]
+  fable --> a2["_Fable.Orator"]
+  fable --> a3["_Fable.MyCustomService"]
+
+  style fable fill:#fce4ec,stroke:#ef5350,color:#333
+  style registry fill:#fff,stroke:#ef9a9a,color:#333
+  style core fill:#fce4ec,stroke:none,color:#333
+  style a1 fill:#fff3e0,stroke:#ffa726,color:#333
+  style a2 fill:#e3f2fd,stroke:#42a5f5,color:#333
+  style a3 fill:#e8f5e9,stroke:#66bb6a,color:#333

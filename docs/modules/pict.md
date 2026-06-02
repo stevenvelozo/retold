@@ -13,31 +13,8 @@ Pict does not impose opinions about what MVC means. It provides discrete tools -
 - **Providers** fetch and manage data for views
 - **The Application class** coordinates view lifecycle and shared state
 
-```mermaid
-graph TB
-  subgraph PictApp["Pict Application"]
-    appdata["Application State (AppData)"]
-    appdata --> viewA["View A"]
-    appdata --> viewB["View B"]
-    appdata --> viewC["View C"]
-    viewA <--> viewB <--> viewC
-    viewA --> tplA["Templates"] --> outA["Rendered Output"]
-    viewB --> tplB["Templates"] --> outB["Rendered Output"]
-    viewC --> tplC["Templates"] --> outC["Rendered Output"]
-  end
-
-  style PictApp fill:#f3e5f5,stroke:#ab47bc,color:#333
-  style appdata fill:#e1bee7,stroke:#ab47bc,color:#333
-  style viewA fill:#fff,stroke:#ce93d8,color:#333
-  style viewB fill:#fff,stroke:#ce93d8,color:#333
-  style viewC fill:#fff,stroke:#ce93d8,color:#333
-  style tplA fill:#f5f5f5,stroke:#bdbdbd,color:#666
-  style tplB fill:#f5f5f5,stroke:#bdbdbd,color:#666
-  style tplC fill:#f5f5f5,stroke:#bdbdbd,color:#666
-  style outA fill:#e8f5e9,stroke:#66bb6a,color:#666
-  style outB fill:#e8f5e9,stroke:#66bb6a,color:#666
-  style outC fill:#e8f5e9,stroke:#66bb6a,color:#666
-```
+<!-- bespoke diagram: edit diagrams/design-philosophy.mmd or .hints.json, then: npx pict-renderer-graph build docs/modules -->
+![Design Philosophy](diagrams/design-philosophy.svg)
 
 ## Core Modules
 

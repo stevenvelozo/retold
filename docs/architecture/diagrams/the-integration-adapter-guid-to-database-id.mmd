@@ -1,0 +1,11 @@
+graph LR
+	ext["External GUID<br/><code>Book_1</code><br/><i>from comprehension</i>"]
+	mguid["Meadow GUID<br/><code>INTG-DEF-E-Book-Book_1</code><br/><i>prefixed, unique</i>"]
+	mid["Meadow ID<br/><code>42</code><br/><i>database primary key</i>"]
+
+	ext -- "adapter prefixing" --> mguid
+	mguid -- "upsert returns ID" --> mid
+
+	style ext fill:#f5f5f5,stroke:#bdbdbd,color:#333
+	style mguid fill:#fff3e0,stroke:#ffa726,color:#333
+	style mid fill:#fff3e0,stroke:#ff9800,color:#333

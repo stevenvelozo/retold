@@ -4,20 +4,8 @@ Orator provides an unopinionated HTTP server abstraction for Retold applications
 
 ## How It Works
 
-```mermaid
-graph TB
-  app["Your Application<br/>(routes, middleware, etc.)"]
-  app --> core["Orator Core<br/>Lifecycle, content types,<br/>route registration"]
-  core --> restify["Restify Server<br/>(Production)"]
-  core --> ipc["IPC Server<br/>(Testing)"]
-  core --> other["(Other servers)"]
-
-  style app fill:#e8f5e9,stroke:#43a047,color:#333
-  style core fill:#e3f2fd,stroke:#42a5f5,color:#333
-  style restify fill:#fff,stroke:#90caf9,color:#333
-  style ipc fill:#fff,stroke:#90caf9,color:#333
-  style other fill:#f5f5f5,stroke:#bdbdbd,color:#666
-```
+<!-- bespoke diagram: edit diagrams/how-it-works.mmd or .hints.json, then: npx pict-renderer-graph build docs/modules -->
+![How It Works](diagrams/how-it-works.svg)
 
 Your application registers routes, middleware, and lifecycle hooks with Orator. Orator delegates to whichever service server implementation is configured -- Restify for real HTTP, IPC for in-process testing.
 

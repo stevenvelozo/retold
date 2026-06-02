@@ -96,25 +96,8 @@ This is the entire data model for four related entities. No XML, no decorators, 
 
 From this single MicroDDL source, Stricture generates multiple representations:
 
-```mermaid
-graph LR
-	mddl["MicroDDL<br/><i>Source of truth</i>"]
-	meadow["Meadow Schema<br/><i>JSON column defs,<br/>defaults, validation</i>"]
-	mysql["MySQL Queries<br/><i>CREATE TABLE<br/>statements</i>"]
-	pict["Pict Config<br/><i>Form layouts,<br/>UI metadata</i>"]
-	auth["Authorization<br/><i>Role-based<br/>access rules</i>"]
-
-	mddl --> meadow
-	mddl --> mysql
-	mddl --> pict
-	mddl --> auth
-
-	style mddl fill:#f5f5f5,stroke:#bdbdbd,color:#333
-	style meadow fill:#fff3e0,stroke:#ffa726,color:#333
-	style mysql fill:#fff3e0,stroke:#ffa726,color:#333
-	style pict fill:#f3e5f5,stroke:#ab47bc,color:#333
-	style auth fill:#e3f2fd,stroke:#42a5f5,color:#333
-```
+<!-- bespoke diagram: edit diagrams/one-definition-many-shapes.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture -->
+![One Definition, Many Shapes](diagrams/one-definition-many-shapes.svg)
 
 Each output is a different shape of the same logical model:
 

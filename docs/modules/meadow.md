@@ -4,23 +4,8 @@ Meadow provides provider-agnostic data access for Retold applications. Define yo
 
 ## How the Pieces Fit
 
-```mermaid
-graph LR
-  app["Application Code"] --> meadow["Meadow<br/>(ORM)"]
-  meadow --> foxhound["FoxHound<br/>(Query DSL)"]
-  foxhound --> conn["Connection<br/>(mysql/mssql/sqlite)"]
-  conn --> db[("Database")]
-  meadow --> stricture["Stricture<br/>(Schema)"]
-  stricture --> output["JSON Schema<br/>DDL<br/>Documentation"]
-
-  style app fill:#e8f5e9,stroke:#43a047,color:#333
-  style meadow fill:#fff3e0,stroke:#ffa726,color:#333
-  style foxhound fill:#fff3e0,stroke:#ffcc80,color:#333
-  style conn fill:#fff3e0,stroke:#ffcc80,color:#333
-  style stricture fill:#fff3e0,stroke:#ffcc80,color:#333
-  style db fill:#ffebee,stroke:#ef5350,color:#333
-  style output fill:#f5f5f5,stroke:#bdbdbd,color:#666
-```
+<!-- bespoke diagram: edit diagrams/how-the-pieces-fit.mmd or .hints.json, then: npx pict-renderer-graph build docs/modules -->
+![How the Pieces Fit](diagrams/how-the-pieces-fit.svg)
 
 **Meadow** is the data broker -- it exposes CRUD methods, handles audit columns, and delegates query building and execution to FoxHound and the connection provider.
 

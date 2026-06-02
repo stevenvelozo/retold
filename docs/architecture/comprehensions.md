@@ -45,25 +45,8 @@ The array format loses the O(1) lookup performance and the automatic deduplicati
 
 Source data enters the integration pipeline through mapping files, gets staged as a comprehension, and then flows through the integration adapter into Meadow entities.
 
-```mermaid
-graph LR
-	source["Source Data<br/><i>CSV, JSON, TSV</i>"]
-	mapping["Mapping File<br/><i>GUIDTemplate,<br/>field mappings,<br/>solvers</i>"]
-	comp["Comprehension<br/><i>GUID-keyed<br/>entity records</i>"]
-	adapter["Integration<br/>Adapter<br/><i>Marshal, upsert</i>"]
-	meadow["Meadow<br/>Entities<br/><i>Database records</i>"]
-
-	source --> mapping
-	mapping --> comp
-	comp --> adapter
-	adapter --> meadow
-
-	style source fill:#f5f5f5,stroke:#bdbdbd,color:#333
-	style mapping fill:#fff3e0,stroke:#ffa726,color:#333
-	style comp fill:#fff3e0,stroke:#ffa726,color:#333
-	style adapter fill:#fff3e0,stroke:#ffa726,color:#333
-	style meadow fill:#fff3e0,stroke:#ff9800,color:#333
-```
+<!-- bespoke diagram: edit diagrams/how-data-flows-through-comprehensions.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture -->
+![How Data Flows Through Comprehensions](diagrams/how-data-flows-through-comprehensions.svg)
 
 Mapping files control the transformation from source columns to comprehension fields. They define the entity name, the GUID template, and the field-by-field mappings using Pict template expressions.
 
@@ -193,38 +176,8 @@ The `MultipleGUIDUniqueness` flag combined with a Solver expression splits the c
 
 For "Good Omens" with two authors, this produces:
 
-```mermaid
-graph TB
-	subgraph Comprehension["Resulting Comprehension"]
-		direction TB
-		subgraph Books["Book"]
-			b3["<b>Book_3</b><br/>Title: Good Omens"]
-		end
-		subgraph Authors["Author"]
-			a1["<b>Author_TerryPratchett</b><br/>Name: Terry Pratchett"]
-			a2["<b>Author_NeilGaiman</b><br/>Name: Neil Gaiman"]
-		end
-		subgraph Joins["BookAuthorJoin"]
-			j1["<b>BAJ_A_TerryPratchett_B_3</b>"]
-			j2["<b>BAJ_A_NeilGaiman_B_3</b>"]
-		end
-	end
-
-	j1 -. "GUIDBook" .-> b3
-	j1 -. "GUIDAuthor" .-> a1
-	j2 -. "GUIDBook" .-> b3
-	j2 -. "GUIDAuthor" .-> a2
-
-	style Comprehension fill:#fff8e1,stroke:#ffcc80,color:#333
-	style Books fill:#fff3e0,stroke:#ffa726,color:#333
-	style Authors fill:#fff3e0,stroke:#ffa726,color:#333
-	style Joins fill:#fff3e0,stroke:#ffa726,color:#333
-	style b3 fill:#fff,stroke:#ffcc80,color:#333
-	style a1 fill:#fff,stroke:#ffcc80,color:#333
-	style a2 fill:#fff,stroke:#ffcc80,color:#333
-	style j1 fill:#fff,stroke:#ffcc80,color:#333
-	style j2 fill:#fff,stroke:#ffcc80,color:#333
-```
+<!-- bespoke diagram: edit diagrams/join-tables-from-a-single-source.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture -->
+![Join Tables from a Single Source](diagrams/join-tables-from-a-single-source.svg)
 
 The join records contain `GUIDBook` and `GUIDAuthor` fields whose values match the GUIDs of the Book and Author entities. When the integration adapter pushes these records to Meadow, it resolves each GUID cross-reference to the corresponding numeric ID, producing proper foreign key relationships in the database.
 
@@ -261,19 +214,8 @@ This is why deterministic GUID design matters -- when two sources use the same G
 
 When comprehension records are pushed into Meadow through the integration adapter, a three-layer GUID transformation maps external identifiers to database IDs:
 
-```mermaid
-graph LR
-	ext["External GUID<br/><code>Book_1</code><br/><i>from comprehension</i>"]
-	mguid["Meadow GUID<br/><code>INTG-DEF-E-Book-Book_1</code><br/><i>prefixed, unique</i>"]
-	mid["Meadow ID<br/><code>42</code><br/><i>database primary key</i>"]
-
-	ext -- "adapter prefixing" --> mguid
-	mguid -- "upsert returns ID" --> mid
-
-	style ext fill:#f5f5f5,stroke:#bdbdbd,color:#333
-	style mguid fill:#fff3e0,stroke:#ffa726,color:#333
-	style mid fill:#fff3e0,stroke:#ff9800,color:#333
-```
+<!-- bespoke diagram: edit diagrams/the-integration-adapter-guid-to-database-id.mmd or .hints.json, then: npx pict-renderer-graph build docs/architecture -->
+![The Integration Adapter: GUID to Database ID](diagrams/the-integration-adapter-guid-to-database-id.svg)
 
 1. The external GUID from the comprehension (e.g. `Book_1`) gets a configurable prefix applied by the adapter, producing a Meadow GUID (e.g. `INTG-DEF-E-Book-Book_1`)
 2. The adapter upserts the record to the Meadow API. The server returns the numeric database ID
