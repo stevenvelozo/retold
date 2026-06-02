@@ -180,6 +180,13 @@ each as mermaid; leave trees and tables as-is.
   and collapses doubled blank lines. You do not hand-tune sizing, wrapping, or
   arrow angles -- just put **intended** line breaks in the label with `<br/>`
   (the title on its own segment, say); the pipeline wraps the rest to fit.
+- **Title hierarchy is automatic.** When a label's first `<br/>` segment is a
+  heading (a two-segment label, or a short <= 2-word name leading a longer
+  one), the pipeline promotes it to a larger line above smaller detail text --
+  e.g. **Fable-Settings** over `.settings`, or **FoxHound** over `(Query DSL)`.
+  A co-equal bullet list (a long first segment, like "Behavior injection
+  hooks / Dynamic filtering / Bulk operations") is left uniform. So lead a box
+  with its name on its own `<br/>` segment and it reads as a titled card.
 - **Hub / fan diagrams** (one node pointing at many) have inherent fan-out
   arrow angles -- that is the layout, not a defect. If a particular one looks
   cramped, spread it with a `spacing` hint or a `direction` change (ELK routes
