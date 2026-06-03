@@ -240,6 +240,9 @@ module.exports = function registerManifestRoutes(pCore)
 									VersionState:     tmpR.VersionState     || 'unknown',
 									Changes:          tmpR.Changes          || null,
 									Type:             (tmpEntryForType && tmpEntryForType.Type) || 'library',
+									// Drives fork-aware vs neutral wording on the pull/push next-action
+									// label (a non-fork clones its canonical repo directly as origin).
+									Forkable:         (tmpEntryForType ? (tmpEntryForType.Forkable !== false) : true),
 								};
 						}
 					}

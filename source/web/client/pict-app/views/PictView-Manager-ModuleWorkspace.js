@@ -199,8 +199,8 @@ const _ViewConfiguration =
 		<h4>Git status</h4>
 		<dl class="kv">
 			<dt>branch</dt><dd>{~D:Record.InfoBox.GitBranch~}</dd>
-			<dt>Local → Fork</dt><dd title="↑ committed but not pushed to your fork (origin) · ↓ commits on the fork your local checkout lacks">{~D:Record.InfoBox.LocalForkLabel~}</dd>
-			<dt>Fork → org</dt><dd title="your fork ↑ ahead of / ↓ behind the canonical org repo (upstream); as of the last fetch">{~D:Record.InfoBox.ForkUpstreamLabel~}</dd>
+			<dt>{~D:Record.InfoBox.LocalRemoteDtLabel~}</dt><dd title="{~D:Record.InfoBox.LocalRemoteTip~}">{~D:Record.InfoBox.LocalForkLabel~}</dd>
+			{~TS:Manager-ModuleWorkspace-InfoBox-ForkOrgRow-Template:Record.InfoBox.ForkOrgRowSlot~}
 			<dt>next</dt><dd>{~TS:Manager-ModuleWorkspace-InfoBox-NextAction-Template:Record.InfoBox.NextActionBodySlot~}</dd>
 		</dl>
 	</div>
@@ -222,6 +222,13 @@ const _ViewConfiguration =
 		{
 			Hash: 'Manager-ModuleWorkspace-InfoBox-NextAction-Template',
 			Template: /*html*/`<span class="ib-next ib-next--{~D:Record.Badge~}" title="{~D:Record.Tooltip~}">{~D:Record.Label~}</span>`
+		},
+		{
+			// Second drift edge (fork vs the canonical org) — only meaningful
+			// for forks, so the builder emits an empty slot for non-forkable
+			// modules and this row drops out entirely.
+			Hash: 'Manager-ModuleWorkspace-InfoBox-ForkOrgRow-Template',
+			Template: /*html*/`<dt>Fork → org</dt><dd title="your fork ↑ ahead of / ↓ behind the canonical org repo (upstream); as of the last fetch">{~D:Record.Label~}</dd>`
 		},
 		{
 			Hash: 'Manager-ModuleWorkspace-InfoBox-Dirty-Template',
@@ -497,7 +504,7 @@ class ManagerModuleWorkspaceView extends libPictView
 			DescriptionSlot:    [],
 			InfoBox:            { Manifest: { Name: '(none)' }, VersionSlot: [], BranchSlot: [], AheadBehindSlot: [], NextActionSlot: [], DirtySlot: [],
 				PkgName: '—', PkgVersion: '—', DepsCount: 0, DevDepsCount: 0,
-				GitBranch: '—', LocalForkLabel: '↑ 0 / ↓ 0', ForkUpstreamLabel: '—',
+				GitBranch: '—', LocalRemoteDtLabel: 'Local → Fork', LocalRemoteTip: '', LocalForkLabel: '↑ 0 / ↓ 0', ForkOrgRowSlot: [],
 				NextActionBodySlot: [{ Label: 'in sync', Badge: 'none', Tooltip: '' }], DirtyLabel: 'no' },
 			ChangedFilesSlot:    [],
 			RetoldDepsSlot:      [],
@@ -588,9 +595,25 @@ class ManagerModuleWorkspaceView extends libPictView
 				+ (tmpFUAge ? ' · as of ' + tmpFUAge : '');
 		}
 
+		// Forkability: a non-fork clones its canonical repo directly as origin
+		// (no upstream remote), so all "fork" wording becomes "origin" for it.
+		// Matches deriveNextAction's status signal (!!UpstreamUrl).
+		let tmpForkable = !!pGit.UpstreamUrl;
+
+		// Git-status drift rows. A fork has two edges (Local ↔ Fork, Fork ↔ org);
+		// a non-fork has only one (Local ↔ origin), so the second row is dropped
+		// rather than shown as "n/a (not a fork)".
+		let tmpLocalRemoteDtLabel = tmpForkable ? 'Local → Fork' : 'Local → origin';
+		let tmpLocalRemoteTip = tmpForkable
+			? '↑ committed but not pushed to your fork (origin) · ↓ commits on the fork your local checkout lacks'
+			: '↑ committed but not pushed to origin · ↓ commits on origin your local checkout lacks';
+		let tmpForkOrgRowSlot = tmpForkable ? [{ Label: tmpForkUpstreamLabel }] : [];
+
 		// The single recommended next action (server is the source of truth).
+		// Forkability drives fork-aware vs neutral wording so the chip can't
+		// contradict "not a fork".
 		let tmpActionCode = pGit.NextAction || 'in-sync';
-		let tmpActionMeta = libScanState.ACTION_META[tmpActionCode] || libScanState.ACTION_META['in-sync'];
+		let tmpActionMeta = libScanState.actionMeta({ NextAction: tmpActionCode, Forkable: tmpForkable });
 		let tmpActionRow  = { Label: tmpActionMeta.Label, Badge: tmpActionMeta.Badge || 'none', Tooltip: tmpActionMeta.Tip };
 		// Header chip only when there's actually something to do; body row always.
 		let tmpNextActionHeaderSlot = (tmpActionCode !== 'in-sync') ? [tmpActionRow] : [];
@@ -608,11 +631,13 @@ class ManagerModuleWorkspaceView extends libPictView
 			DepsCount:      pPkg.Dependencies    ? Object.keys(pPkg.Dependencies).length    : 0,
 			DevDepsCount:   pPkg.DevDependencies ? Object.keys(pPkg.DevDependencies).length : 0,
 
-			GitBranch:          pGit.Branch || '—',
-			LocalForkLabel:     '↑ ' + tmpAhead + ' / ↓ ' + tmpBehind,
-			ForkUpstreamLabel:  tmpForkUpstreamLabel,
-			NextActionBodySlot: [tmpActionRow],
-			DirtyLabel:         pGit.Dirty ? 'yes' : 'no',
+			GitBranch:           pGit.Branch || '—',
+			LocalRemoteDtLabel:  tmpLocalRemoteDtLabel,
+			LocalRemoteTip:      tmpLocalRemoteTip,
+			LocalForkLabel:      '↑ ' + tmpAhead + ' / ↓ ' + tmpBehind,
+			ForkOrgRowSlot:      tmpForkOrgRowSlot,
+			NextActionBodySlot:  [tmpActionRow],
+			DirtyLabel:          pGit.Dirty ? 'yes' : 'no',
 		};
 	}
 

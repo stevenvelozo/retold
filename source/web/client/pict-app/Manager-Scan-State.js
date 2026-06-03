@@ -23,6 +23,24 @@ const ACTION_META =
 	'in-sync':       { Label: 'in sync',            Badge: null,      Tip: '' },
 };
 
+// Non-forkable modules (manifest Forkable:false) clone their canonical repo
+// directly as `origin` — there is no personal fork, so the fork-centric wording
+// on pull/push reads as a contradiction ("pull from fork" next to "not a fork").
+// When the scan entry is explicitly Forkable:false we swap in neutral wording.
+// The badge color is unchanged so the at-a-glance scan view stays consistent.
+const ACTION_META_NONFORK =
+{
+	'pull-fork': { Label: 'pull', Badge: 'pull', Tip: 'The remote (origin) has commits your local checkout lacks - pull them down' },
+	'push':      { Label: 'push', Badge: 'push', Tip: 'Local commits not yet pushed to origin - push them' },
+};
+
+function isNonForkable(pScanEntry)
+{
+	// Only an explicit false flips the wording; undefined (entries that don't
+	// carry the flag) stays on the default fork-aware labels.
+	return !!pScanEntry && pScanEntry.Forkable === false;
+}
+
 // The server's NextAction, defaulting to in-sync for missing/errored/stale-cache
 // entries (a rescan repopulates it).
 function nextAction(pScanEntry)
@@ -33,7 +51,12 @@ function nextAction(pScanEntry)
 
 function actionMeta(pScanEntry)
 {
-	return ACTION_META[nextAction(pScanEntry)] || ACTION_META['in-sync'];
+	let tmpCode = nextAction(pScanEntry);
+	if (isNonForkable(pScanEntry) && ACTION_META_NONFORK[tmpCode])
+	{
+		return ACTION_META_NONFORK[tmpCode];
+	}
+	return ACTION_META[tmpCode] || ACTION_META['in-sync'];
 }
 
 // "Needs attention" — drives the sidebar/LogBar action filters.
