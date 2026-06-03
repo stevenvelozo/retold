@@ -39,39 +39,8 @@ or if your "themes" are pure color skins, stick with the standard pattern in
 
 ## The 3-axis architecture
 
-```
-┌────────────────────────────────────────────────────────────────────┐
-│                                                                    │
-│   Color Theme              Renderer                 Edge Theme     │
-│   ───────────              ────────                 ──────────     │
-│   pict-section-theme       YOUR MODULE              YOUR MODULE    │
-│   catalog                  (registry)               (registry)     │
-│                                                                    │
-│   • bg, text, border       • node body shape        • path gen     │
-│   • brand, status          • jitter / shadow        • routing      │
-│   • data palette           • font family            • arrowheads   │
-│   • cross-app reusable     • CSS overrides            (optional)   │
-│                                                                    │
-│   --theme-color-*          --your-module-* CSS       function     │
-│   (CSS vars)               (geometry / typography)   members      │
-│                                                                    │
-└────────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-                        Style Preset
-                        ────────────
-                        YOUR MODULE
-                        (curated bundles)
-
-                        Each preset names one entry
-                        from each axis above.
-                        Users pick a preset → all three
-                        axes get applied at once.
-
-                        Apps can register custom presets.
-                        Power users override per-axis
-                        post-preset.
-```
+<!-- bespoke diagram: edit diagrams/the-3-axis-architecture.mmd or .hints.json, then: npx pict-renderer-graph build modules/pict -->
+![The 3-axis architecture](diagrams/the-3-axis-architecture.svg)
 
 ### What goes in each axis
 
