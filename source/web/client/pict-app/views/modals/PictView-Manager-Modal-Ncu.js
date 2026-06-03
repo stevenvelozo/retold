@@ -1,59 +1,22 @@
 const libPictView = require('pict-view');
 
+// npm-check-updates dialog -- a pict-section-modal `.show()` prompt (scope
+// radios + Cancel / Check / Apply).  The modal section owns the overlay,
+// backdrop-click / Esc dismiss, and close button; there is no hand-rolled
+// `.modal-backdrop` template or #RM-ModalRoot mount anymore.
 const _ViewConfiguration =
 {
 	ViewIdentifier: 'Manager-Modal-Ncu',
 
-	DefaultRenderable:            'Manager-Modal-Ncu-Content',
-	DefaultDestinationAddress:    '#RM-ModalRoot',
-	DefaultTemplateRecordAddress: 'AppData.Manager.ViewRecord.NcuModal',
-
 	AutoRender: false,
 
-	Templates:
-	[
-		{
-			Hash: 'Manager-Modal-Ncu-Template',
-			Template: /*html*/`
-<div class="modal-backdrop" onclick="if(event.target===this){_Pict.views['Manager-Modal-Ncu'].close();}">
-	<div class="modal" style="min-width:520px">
-		<h3>npm-check-updates &mdash; {~D:Record.ModuleName~}</h3>
-		<p style="color:var(--color-muted);font-size:12px;margin:0 0 12px">
-			<strong>Check</strong> lists outdated packages. <strong>Apply</strong> runs
-			<code>ncu -u</code> (updates package.json) and then <code>npm install</code>.
-			<strong>Retold scope</strong> filters to ecosystem modules only; <strong>All</strong>
-			includes every dep. Output streams in the panel below.
-		</p>
-		<div class="form-row"><label>Scope</label>
-			<div>
-				<label style="font-family:var(--font-sans);color:var(--color-text)">
-					<input type="radio" name="rm-ncu-scope" value="retold" checked style="width:auto;margin-right:6px"> Retold ecosystem only
-				</label><br>
-				<label style="font-family:var(--font-sans);color:var(--color-text)">
-					<input type="radio" name="rm-ncu-scope" value="all" style="width:auto;margin-right:6px"> All dependencies
-				</label>
-			</div>
-		</div>
-		<div class="modal-actions">
-			<button class="action" onclick="_Pict.views['Manager-Modal-Ncu'].close()">Cancel</button>
-			<button class="action primary" onclick="_Pict.views['Manager-Modal-Ncu'].submit(false)">Check</button>
-			<button class="action success" onclick="_Pict.views['Manager-Modal-Ncu'].submit(true)">Apply (update + install)</button>
-		</div>
-	</div>
-</div>
-`
-		}
-	],
-
-	Renderables:
-	[
-		{
-			RenderableHash:     'Manager-Modal-Ncu-Content',
-			TemplateHash:       'Manager-Modal-Ncu-Template',
-			DestinationAddress: '#RM-ModalRoot',
-			RenderMethod:       'replace',
-		}
-	]
+	CSS: /*css*/`
+		.rm-ncu-hint { color: var(--color-muted); font-size: 12px; margin: 0 0 12px; }
+		.rm-ncu-hint code { font-family: var(--font-mono); }
+		.rm-ncu-scope { display: flex; flex-direction: column; gap: 6px; }
+		.rm-ncu-scope label { font-family: var(--font-sans); color: var(--color-text); font-size: 13px; }
+		.rm-ncu-scope input { width: auto; margin-right: 6px; }
+	`
 };
 
 class ManagerModalNcuView extends libPictView
@@ -65,28 +28,50 @@ class ManagerModalNcuView extends libPictView
 
 	open(pModuleName)
 	{
-		if (!this.pict.AppData.Manager.ViewRecord) { this.pict.AppData.Manager.ViewRecord = {}; }
-		this.pict.AppData.Manager.ViewRecord.NcuModal = { ModuleName: pModuleName };
-		this._moduleName = pModuleName;
-		this.render();
+		let tmpModal = this.pict.views['Pict-Section-Modal'];
+		if (!tmpModal || typeof tmpModal.show !== 'function')
+		{
+			this.pict.PictApplication.setStatus('Cannot open the ncu dialog; modal section unavailable.');
+			return;
+		}
+
+		this.pict.CSSMap.injectCSS();
+
+		tmpModal.show(
+			{
+				title:     'npm-check-updates - ' + pModuleName,
+				closeable: true,
+				content:
+					'<p class="rm-ncu-hint"><strong>Check</strong> lists outdated packages. <strong>Apply</strong> runs '
+					+ '<code>ncu -u</code> (updates package.json) and then <code>npm install</code>. '
+					+ '<strong>Retold scope</strong> filters to ecosystem modules only; <strong>All</strong> includes every dep. '
+					+ 'Output streams in the panel below.</p>'
+					+ '<div class="rm-ncu-scope">'
+					+ '<label><input type="radio" name="rm-ncu-scope" value="retold" checked> Retold ecosystem only</label>'
+					+ '<label><input type="radio" name="rm-ncu-scope" value="all"> All dependencies</label>'
+					+ '</div>',
+				buttons:
+				[
+					{ Hash: 'cancel', Label: 'Cancel' },
+					{ Hash: 'check',  Label: 'Check', Style: 'primary' },
+					{ Hash: 'apply',  Label: 'Apply (update + install)', Style: 'success' }
+				]
+			}).then((pChoice) =>
+			{
+				if (pChoice !== 'check' && pChoice !== 'apply') { return; }
+				// The dialog DOM is still present here (removal is deferred),
+				// so the scope radio is readable.
+				let tmpScope = 'retold';
+				let tmpChecked = document.querySelector('input[name="rm-ncu-scope"]:checked');
+				if (tmpChecked) { tmpScope = tmpChecked.value; }
+				this._runNcu(pModuleName, (pChoice === 'apply'), tmpScope);
+			});
 	}
 
-	close()
+	_runNcu(pModuleName, pApply, pScope)
 	{
-		this.pict.ContentAssignment.assignContent('#RM-ModalRoot', '');
-	}
-
-	submit(pApply)
-	{
-		let tmpScope = 'retold';
-		let tmpChecked = document.querySelector('input[name="rm-ncu-scope"]:checked');
-		if (tmpChecked) { tmpScope = tmpChecked.value; }
-
-		let tmpName = this._moduleName;
-		this.close();
-
 		let tmpLabel = pApply ? 'ncu -u + npm install' : 'ncu';
-		// Route through the operation queue — multi-step ncu apply is
+		// Route through the operation queue -- multi-step ncu apply is
 		// the canonical "I clicked something else by accident while it
 		// was running" trap; queuing the next click rather than letting
 		// it overwrite ActiveOperation is what eliminates the bug.
@@ -101,20 +86,14 @@ class ManagerModalNcuView extends libPictView
 						HeaderState: 'running',
 						HeaderText:  tmpLabel,
 						Scope:       'module',
-						ModuleName:  tmpName,
+						ModuleName:  pModuleName,
 					};
 				if (this.pict.views['Manager-OutputPanel']) { this.pict.views['Manager-OutputPanel'].render(); }
-				return this.pict.providers.ManagerAPI.runNcu(tmpName, pApply, tmpScope).then(
+				return this.pict.providers.ManagerAPI.runNcu(pModuleName, pApply, pScope).then(
 					() => { this.pict.PictApplication.setStatus('ncu ' + (pApply ? 'apply' : 'check') + ' started.'); },
 					(pError) => { this.pict.PictApplication.setStatus('NCU failed: ' + pError.message); });
 			},
-			{ Label: tmpLabel, ModuleName: tmpName });
-	}
-
-	onAfterRender(pRenderable, pAddress, pRecord, pContent)
-	{
-		this.pict.CSSMap.injectCSS();
-		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
+			{ Label: tmpLabel, ModuleName: pModuleName });
 	}
 }
 

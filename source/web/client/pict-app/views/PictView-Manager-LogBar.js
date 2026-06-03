@@ -676,7 +676,7 @@ const _ViewConfiguration =
 		title="Toggle fullscreen for this tab"
 		onclick="_Pict.views['Manager-LogBar'].toggleFullscreen();">{~D:Record.FullscreenBtnLabel~}</button>
 	<button type="button" class="rm-logbar-action" title="Hide this log bar"
-		onclick="_Pict.views['Manager-LogBar'].closePanel();">×</button>
+		onclick="_Pict.views['Manager-LogBar'].closePanel();">{~I:Close~}</button>
 </div>
 <div class="rm-logbar-body {~D:Record.BodyClass~}" id="RM-LogBar-Body">{~TS:Manager-LogBar-LogState-Template:Record.LogStateSlot~}{~TS:Manager-LogBar-LogText-Template:Record.LogTextSlot~}{~TS:Manager-LogBar-ActionsEmpty-Template:Record.ActionsEmptySlot~}{~TS:Manager-LogBar-ActionEntry-Template:Record.ActionEntries~}{~TS:Manager-LogBar-ScanShell-Template:Record.ScanShellSlot~}</div>
 `
@@ -744,7 +744,7 @@ const _ViewConfiguration =
 			<span class="rm-logbar-action-meta">{~D:Record.MetaText~}</span>
 			{~TS:Manager-LogBar-QueuedPill-Template:Record.QueuedSlot~}
 		</button>
-		<button type="button" class="rm-logbar-action-open" title="Open this action in a fullscreen review modal" onclick="_Pict.views['Manager-Modal-ActionDetail'].open('{~D:Record.OperationIdJs~}'); event.stopPropagation();">↗</button>
+		<button type="button" class="rm-logbar-action-open" title="Open this action in a fullscreen review modal" onclick="_Pict.views['Manager-Modal-ActionDetail'].open('{~D:Record.OperationIdJs~}'); event.stopPropagation();">{~I:ExternalLink~}</button>
 	</div>
 	<pre class="rm-logbar-action-body" data-action-body="{~D:Record.OperationId~}">{~TS:Manager-LogBar-EmptyLine-Template:Record.EmptyLineSlot~}{~TS:Manager-LogBar-Line-Template:Record.Lines~}</pre>
 </div>
@@ -1665,7 +1665,7 @@ class ManagerLogBarView extends libPictView
 		for (let i = 0; i < tmpSortCols.length; i++)
 		{
 			tmpSortMarkers[tmpSortCols[i]] = (tmpSortCols[i] === tmpSortCol)
-				? (this._scanSort.Direction === 'desc' ? '▼' : '▲')
+				? (this._scanSort.Direction === 'desc' ? this.pict.icon('ChevronDown') : this.pict.icon('ChevronUp'))
 				: '';
 		}
 

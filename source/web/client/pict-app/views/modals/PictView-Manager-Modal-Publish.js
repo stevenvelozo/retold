@@ -1,47 +1,50 @@
 const libPictView = require('pict-view');
 
+// Pre-publish preview + confirm dialog.  Hosted in a pict-section-modal
+// `.show()` window (overlay / Esc / close owned by the modal section); this
+// view renders its async validation report into the dialog body, drives the
+// enable/disable state of the submit buttons, and controls its own dismiss.
 const _ViewConfiguration =
 {
 	ViewIdentifier: 'Manager-Modal-Publish',
 
 	DefaultRenderable:            'Manager-Modal-Publish-Content',
-	DefaultDestinationAddress:    '#RM-ModalRoot',
+	DefaultDestinationAddress:    '#RM-Publish-Body',
 	DefaultTemplateRecordAddress: 'AppData.Manager.ViewRecord.PublishModal',
 
 	AutoRender: false,
 
+	CSS: /*css*/`
+		.rm-publish-subtitle { color: var(--color-muted); font-size: 12px; margin: 0 0 6px; }
+		.rm-modal-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+	`,
+
 	Templates:
 	[
-		// ── Modal shell ───────────────────────────────────────────
+		// -- Modal body ---------------------------------------------
 		{
 			Hash: 'Manager-Modal-Publish-Template',
 			Template: /*html*/`
-<div class="modal-backdrop" onclick="if(event.target===this){_Pict.views['Manager-Modal-Publish'].close();}">
-	<div class="modal" style="min-width:640px">
-		<h3>Publish &mdash; {~D:Record.ModuleName~}</h3>
-		<p style="color:var(--color-muted);font-size:12px;margin:0 0 6px">{~D:Record.SubTitle~}</p>
-		<div class="preview-panel" id="RM-PreviewPanel">
-			{~TS:Manager-Modal-Publish-Loading-Template:Record.LoadingSlot~}
-			{~TS:Manager-Modal-Publish-Error-Template:Record.ErrorSlot~}
-			{~TS:Manager-Modal-Publish-Preview-Template:Record.PreviewSlot~}
-		</div>
-		<div class="modal-actions">
-			<button class="action" onclick="_Pict.views['Manager-Modal-Publish'].close()">Close</button>
-			<button class="action primary"
-				onclick="_Pict.views['Manager-Modal-Publish'].planRipple()"
-				title="Plan a ripple publish starting from this module (closes this dialog and opens the ripple planner with this module pre-selected)">Plan ripple...</button>
-			<button class="action success" id="RM-PublishSubmit"
-				onclick="_Pict.views['Manager-Modal-Publish'].submit(false)" disabled>Publish to npm</button>
-			<button class="action success" id="RM-PublishSubmitDocker"
-				onclick="_Pict.views['Manager-Modal-Publish'].submit(true)" disabled
-				title="Also rebuild + push the GHCR docker image (multi-arch build, several minutes)">Publish + Docker image</button>
-		</div>
-	</div>
+<p class="rm-publish-subtitle">{~D:Record.SubTitle~}</p>
+<div class="preview-panel" id="RM-PreviewPanel">
+	{~TS:Manager-Modal-Publish-Loading-Template:Record.LoadingSlot~}
+	{~TS:Manager-Modal-Publish-Error-Template:Record.ErrorSlot~}
+	{~TS:Manager-Modal-Publish-Preview-Template:Record.PreviewSlot~}
 </div>
-`
+<div class="rm-modal-actions">
+	<button class="action" onclick="_Pict.views['Manager-Modal-Publish'].close()">Close</button>
+	<button class="action primary"
+		onclick="_Pict.views['Manager-Modal-Publish'].planRipple()"
+		title="Plan a ripple publish starting from this module (closes this dialog and opens the ripple planner with this module pre-selected)">Plan ripple...</button>
+	<button class="action success" id="RM-PublishSubmit"
+		onclick="_Pict.views['Manager-Modal-Publish'].submit(false)" disabled>Publish to npm</button>
+	<button class="action success" id="RM-PublishSubmitDocker"
+		onclick="_Pict.views['Manager-Modal-Publish'].submit(true)" disabled
+		title="Also rebuild + push the GHCR docker image (multi-arch build, several minutes)">Publish + Docker image</button>
+</div>`
 		},
 
-		// ── States ─────────────────────────────────────────────────
+		// -- States -------------------------------------------------
 		{
 			Hash: 'Manager-Modal-Publish-Loading-Template',
 			Template: /*html*/`<em>{~D:Record.Message~}</em>`
@@ -51,7 +54,7 @@ const _ViewConfiguration =
 			Template: /*html*/`<span style="color:var(--color-danger)">Preview failed: {~D:Record.Message~}</span>`
 		},
 
-		// ── Preview report (verdict + sections) ───────────────────
+		// -- Preview report (verdict + sections) --------------------
 		{
 			Hash: 'Manager-Modal-Publish-Preview-Template',
 			Template: /*html*/`
@@ -120,7 +123,7 @@ const _ViewConfiguration =
 		{
 			RenderableHash:     'Manager-Modal-Publish-Content',
 			TemplateHash:       'Manager-Modal-Publish-Template',
-			DestinationAddress: '#RM-ModalRoot',
+			DestinationAddress: '#RM-Publish-Body',
 			RenderMethod:       'replace',
 		}
 	]
@@ -132,6 +135,7 @@ class ManagerModalPublishView extends libPictView
 	{
 		super(pFable, pOptions, pServiceHash);
 		this._submitErrorMessage = null;
+		this._dialog = null;
 	}
 
 	open(pModuleName)
@@ -150,7 +154,24 @@ class ManagerModalPublishView extends libPictView
 				ErrorSlot:   [],
 				PreviewSlot: [],
 			});
-		this.render();
+
+		let tmpModal = this.pict.views['Pict-Section-Modal'];
+		if (!tmpModal || typeof tmpModal.show !== 'function')
+		{
+			this.pict.PictApplication.setStatus('Cannot open the publish dialog; modal section unavailable.');
+			return;
+		}
+
+		this.pict.CSSMap.injectCSS();
+		tmpModal.show(
+			{
+				title:     'Publish - ' + pModuleName,
+				closeable: true,
+				width:     '680px',
+				content:   '<div id="RM-Publish-Body"></div>',
+				buttons:   [],
+				onOpen: (pDialog) => { this._dialog = pDialog; this.render(); }
+			});
 
 		this.pict.providers.ManagerAPI.loadPublishPreview(pModuleName).then(
 			(pReport) =>
@@ -163,7 +184,7 @@ class ManagerModalPublishView extends libPictView
 					{
 						ModuleName: pModuleName,
 						SubTitle: pReport.OkToPublish
-							? 'All pre-publish checks passed — review below, then confirm.'
+							? 'All pre-publish checks passed - review below, then confirm.'
 							: 'Pre-publish validation blocked this publish. See below.',
 						LoadingSlot: [],
 						ErrorSlot:   [],
@@ -189,12 +210,12 @@ class ManagerModalPublishView extends libPictView
 	close()
 	{
 		this._moduleName = null;
-		this.pict.ContentAssignment.assignContent('#RM-ModalRoot', '');
+		if (this._dialog && typeof this._dialog._dismiss === 'function') { this._dialog._dismiss(null); }
+		this._dialog = null;
 	}
 
 	// Hand off to the ripple planner with this module pre-selected as the
-	// originating producer. We close ourselves first so the ripple modal
-	// owns #RM-ModalRoot — they share that single mount point.
+	// originating producer. We close ourselves first.
 	planRipple()
 	{
 		let tmpName = this._moduleName;
@@ -278,7 +299,7 @@ class ManagerModalPublishView extends libPictView
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
 	}
 
-	// ─────────────────────────────────────────────
+	// ---------------------------------------------
 
 	_writeRecord(pRecord)
 	{
@@ -321,7 +342,7 @@ class ManagerModalPublishView extends libPictView
 				else                        { tmpCls = 'stale'; tmpMark = 'stale'; }
 				let tmpSuffix = tmpD.LocalLink
 					? '(local link)'
-					: (tmpD.Error ? '(could not fetch from npm)' : ('latest: ' + (tmpD.LatestOnNpm || '—')));
+					: (tmpD.Error ? '(could not fetch from npm)' : ('latest: ' + (tmpD.LatestOnNpm || '-')));
 				tmpItems.push({
 					Cls:    tmpCls,
 					Mark:   tmpMark,

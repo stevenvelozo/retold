@@ -5,12 +5,13 @@ const _ViewConfiguration =
 	ViewIdentifier: 'Manager-Modal-RipplePlan',
 
 	DefaultRenderable:            'Manager-Modal-RipplePlan-Content',
-	DefaultDestinationAddress:    '#RM-ModalRoot',
+	DefaultDestinationAddress:    '#RM-R-Body',
 	DefaultTemplateRecordAddress: 'AppData.Manager.ViewRecord.RipplePlanModal',
 
 	AutoRender: false,
 
 	CSS: /*css*/`
+		.rm-modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
 		.ripple-plan-modal .rm-flat-filter-bar {
 			display: flex; align-items: center; gap: 8px;
 			margin: 4px 0 6px;
@@ -173,20 +174,17 @@ const _ViewConfiguration =
 		{
 			Hash: 'Manager-Modal-RipplePlan-Template',
 			Template: /*html*/`
-<div class="modal-backdrop ripple-plan-modal" onclick="if(event.target===this){_Pict.views['Manager-Modal-RipplePlan'].close();}">
-	<div class="modal" style="min-width:680px;max-width:820px">
-		<h3>{~D:Record.Title~}</h3>
-		{~TS:Manager-Modal-RipplePlan-GraphMode-Template:Record.GraphModeSlot~}
-		{~TS:Manager-Modal-RipplePlan-FlatMode-Template:Record.FlatModeSlot~}
+<div class="ripple-plan-modal">
+	{~TS:Manager-Modal-RipplePlan-GraphMode-Template:Record.GraphModeSlot~}
+	{~TS:Manager-Modal-RipplePlan-FlatMode-Template:Record.FlatModeSlot~}
 
-		<div id="RM-R-Result" style="margin-top:12px">
-			{~TS:Manager-Modal-RipplePlan-Result-Computing-Template:Record.ResultComputingSlot~}
-			{~TS:Manager-Modal-RipplePlan-Result-Error-Template:Record.ResultErrorSlot~}
-		</div>
-		<div class="modal-actions">
-			<button class="action" onclick="_Pict.views['Manager-Modal-RipplePlan'].close()">Cancel</button>
-			<button class="action primary" onclick="_Pict.views['Manager-Modal-RipplePlan'].submit()">Compute plan</button>
-		</div>
+	<div id="RM-R-Result" style="margin-top:12px">
+		{~TS:Manager-Modal-RipplePlan-Result-Computing-Template:Record.ResultComputingSlot~}
+		{~TS:Manager-Modal-RipplePlan-Result-Error-Template:Record.ResultErrorSlot~}
+	</div>
+	<div class="rm-modal-actions">
+		<button class="action" onclick="_Pict.views['Manager-Modal-RipplePlan'].close()">Cancel</button>
+		<button class="action primary" onclick="_Pict.views['Manager-Modal-RipplePlan'].submit()">Compute plan</button>
 	</div>
 </div>
 `
@@ -222,7 +220,7 @@ const _ViewConfiguration =
 <div class="form-row compact"><label>Include devDeps</label>
 	<input type="checkbox" id="RM-R-IncludeDev" style="width:auto">
 	<span style="font-family:var(--font-sans);color:var(--color-muted);font-size:11px;margin-left:4px">
-		(off by default &mdash; devDep cycles produce fallback ordering)
+		(off by default - devDep cycles produce fallback ordering)
 	</span></div>
 <div class="form-row compact"><label>Stop at apps</label>
 	<input type="checkbox" id="RM-R-StopAtApps" checked style="width:auto"></div>
@@ -411,7 +409,7 @@ const _ViewConfiguration =
 		{
 			RenderableHash:     'Manager-Modal-RipplePlan-Content',
 			TemplateHash:       'Manager-Modal-RipplePlan-Template',
-			DestinationAddress: '#RM-ModalRoot',
+			DestinationAddress: '#RM-R-Body',
 			RenderMethod:       'replace',
 		}
 	]
@@ -441,6 +439,7 @@ class ManagerModalRipplePlanView extends libPictView
 		this._flatModules = [];     // full pool of module names available to bulk-op against
 		this._flatChecked = {};     // map<name, true> for modules that are checked
 		this._flatFilter = '';      // current filter substring (lowercased); '' = no filter
+		this._dialog = null;
 	}
 
 	// pOriginatingModule: legacy single-arg form — sets the producer-tree
@@ -484,7 +483,28 @@ class ManagerModalRipplePlanView extends libPictView
 		this._resultState = null;
 
 		this._writeRecord();
-		this.render();
+
+		let tmpModal = this.pict.views['Pict-Section-Modal'];
+		if (!tmpModal || typeof tmpModal.show !== 'function')
+		{
+			this.pict.PictApplication.setStatus('Cannot open the ripple planner; modal section unavailable.');
+			return;
+		}
+
+		let tmpRec = this.pict.AppData.Manager.ViewRecord.RipplePlanModal;
+		let tmpTitle = (tmpRec && tmpRec.Title) || 'Plan ripple';
+
+		this.pict.CSSMap.injectCSS();
+		tmpModal.show(
+			{
+				title:     tmpTitle,
+				closeable: true,
+				width:     '820px',
+				content:   '<div id="RM-R-Body"></div>',
+				buttons:   [],
+				onOpen: (pDialog) => { this._dialog = pDialog; this.render(); },
+				onClose: () => { this._dialog = null; }
+			});
 	}
 
 	// ─────────────────────────────────────────────
@@ -586,7 +606,8 @@ class ManagerModalRipplePlanView extends libPictView
 
 	close()
 	{
-		this.pict.ContentAssignment.assignContent('#RM-ModalRoot', '');
+		if (this._dialog && typeof this._dialog._dismiss === 'function') { this._dialog._dismiss(null); }
+		// onClose resets the dialog handle.
 	}
 
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)
@@ -971,7 +992,7 @@ class ManagerModalRipplePlanView extends libPictView
 
 		return {
 			Title:               tmpIsFlat
-				? ('Bulk ops — ' + tmpFlatCheckedCount + ' of ' + this._flatModules.length + ' module' + (this._flatModules.length === 1 ? '' : 's') + ' checked')
+				? ('Bulk ops - ' + tmpFlatCheckedCount + ' of ' + this._flatModules.length + ' module' + (this._flatModules.length === 1 ? '' : 's') + ' checked')
 				: 'Plan ripple',
 			Origin:              this._origin,
 			GraphModeSlot:       tmpGraphModeSlot,

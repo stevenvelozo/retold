@@ -315,17 +315,17 @@ const _ViewConfiguration =
 		},
 		{
 			Hash: 'Manager-TopBar-Nav-DocserveChip-Template',
-			Template: /*html*/`<span class="rm-docserve-chip" title="Local docuserve running for {~D:Record.ModuleName~} on port {~D:Record.Port~}. Click to reopen the docs in a new tab." onclick="{~P~}.views['Manager-TopBar-Nav']._openDocserveURL()"><span class="rm-docserve-chip-dot"></span><span class="rm-docserve-chip-label">docs: {~D:Record.ModuleName~}</span><button class="rm-docserve-chip-stop" title="Stop local docuserve" aria-label="Stop local docuserve" onclick="event.stopPropagation(); {~P~}.views['Manager-TopBar-Nav']._stopDocserve();">×</button></span>`
+			Template: /*html*/`<span class="rm-docserve-chip" title="Local docuserve running for {~D:Record.ModuleName~} on port {~D:Record.Port~}. Click to reopen the docs in a new tab." onclick="{~P~}.views['Manager-TopBar-Nav']._openDocserveURL()"><span class="rm-docserve-chip-dot"></span><span class="rm-docserve-chip-label">docs: {~D:Record.ModuleName~}</span><button class="rm-docserve-chip-stop" title="Stop local docuserve" aria-label="Stop local docuserve" onclick="event.stopPropagation(); {~P~}.views['Manager-TopBar-Nav']._stopDocserve();">{~I:Close~}</button></span>`
 		},
 		{
 			Hash: 'Manager-TopBar-Nav-ContentEditorChip-Template',
-			Template: /*html*/`<span class="rm-content-editor-chip" title="Content editor running for {~D:Record.ModuleName~} on port {~D:Record.Port~}. Click to reopen the editor in a new tab." onclick="{~P~}.views['Manager-TopBar-Nav']._openContentEditorURL()"><span class="rm-content-editor-chip-dot"></span><span class="rm-content-editor-chip-label">edit: {~D:Record.ModuleName~}</span><button class="rm-content-editor-chip-stop" title="Stop content editor" aria-label="Stop content editor" onclick="event.stopPropagation(); {~P~}.views['Manager-TopBar-Nav']._stopContentEditor();">×</button></span>`
+			Template: /*html*/`<span class="rm-content-editor-chip" title="Content editor running for {~D:Record.ModuleName~} on port {~D:Record.Port~}. Click to reopen the editor in a new tab." onclick="{~P~}.views['Manager-TopBar-Nav']._openContentEditorURL()"><span class="rm-content-editor-chip-dot"></span><span class="rm-content-editor-chip-label">edit: {~D:Record.ModuleName~}</span><button class="rm-content-editor-chip-stop" title="Stop content editor" aria-label="Stop content editor" onclick="event.stopPropagation(); {~P~}.views['Manager-TopBar-Nav']._stopContentEditor();">{~I:Close~}</button></span>`
 		},
 		{
 			Hash: 'Manager-TopBar-Nav-ExamplesChip-Template',
 			// While Phase is 'installing' / 'building', the chip click is
 			// guarded — _openExamplesURL only opens if Phase is 'running'.
-			Template: /*html*/`<span class="rm-examples-chip is-{~D:Record.Phase~}" title="Examples for {~D:Record.ModuleName~} on port {~D:Record.Port~} — {~D:Record.PhaseLabel~}. Click to open in a new tab." onclick="{~P~}.views['Manager-TopBar-Nav']._openExamplesURL()"><span class="rm-examples-chip-dot"></span><span class="rm-examples-chip-label">examples: {~D:Record.ModuleName~}{~D:Record.PhaseSuffix~}</span><button class="rm-examples-chip-stop" title="Stop examples server" aria-label="Stop examples server" onclick="event.stopPropagation(); {~P~}.views['Manager-TopBar-Nav']._stopExamples();">×</button></span>`
+			Template: /*html*/`<span class="rm-examples-chip is-{~D:Record.Phase~}" title="Examples for {~D:Record.ModuleName~} on port {~D:Record.Port~} — {~D:Record.PhaseLabel~}. Click to open in a new tab." onclick="{~P~}.views['Manager-TopBar-Nav']._openExamplesURL()"><span class="rm-examples-chip-dot"></span><span class="rm-examples-chip-label">examples: {~D:Record.ModuleName~}{~D:Record.PhaseSuffix~}</span><button class="rm-examples-chip-stop" title="Stop examples server" aria-label="Stop examples server" onclick="event.stopPropagation(); {~P~}.views['Manager-TopBar-Nav']._stopExamples();">{~I:Close~}</button></span>`
 		}
 	],
 

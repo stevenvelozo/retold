@@ -124,10 +124,10 @@ const _ViewConfiguration =
 
 		<dt>Theme &amp; scale</dt>
 		<dd>
-			The ☀️ button at the top right opens a small menu with a <strong>Theme</strong>
+			The theme button at the top right opens a small menu with a <strong>Theme</strong>
 			picker (every bundled palette), a <strong>Mode</strong> toggle
 			(Light / Dark / System), and a <strong>Scale</strong> selector
-			(Tiny → Massive). Your selections are autosaved to this browser per host
+			(Tiny to Massive). Your selections are autosaved to this browser per host
 			and restored on reload — no settings page, no sync needed.
 		</dd>
 

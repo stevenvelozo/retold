@@ -1,11 +1,15 @@
 const libPictView = require('pict-view');
 
+// Create-PR dialog.  Hosted in a pict-section-modal `.show()` window (the modal
+// section owns the overlay / Esc / close); this view renders its async-resolved
+// slots (loading -> not-forkable | form) into the dialog body and controls its
+// own dismiss so an empty title keeps the dialog open.
 const _ViewConfiguration =
 {
 	ViewIdentifier: 'Manager-Modal-CreatePR',
 
 	DefaultRenderable:            'Manager-Modal-CreatePR-Content',
-	DefaultDestinationAddress:    '#RM-ModalRoot',
+	DefaultDestinationAddress:    '#RM-CreatePR-Body',
 	DefaultTemplateRecordAddress: 'AppData.Manager.ViewRecord.CreatePRModal',
 
 	AutoRender: false,
@@ -30,6 +34,7 @@ const _ViewConfiguration =
 			padding: 6px 8px;
 			margin: 0 0 10px;
 		}
+		.rm-modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
 	`,
 
 	Templates:
@@ -37,28 +42,22 @@ const _ViewConfiguration =
 		{
 			Hash: 'Manager-Modal-CreatePR-Template',
 			Template: /*html*/`
-<div class="modal-backdrop" onclick="if(event.target===this){_Pict.views['Manager-Modal-CreatePR'].close();}">
-	<div class="modal">
-		<h3>Create PR &mdash; {~D:Record.ModuleName~}</h3>
-		{~TS:Manager-Modal-CreatePR-Loading-Template:Record.LoadingSlot~}
-		{~TS:Manager-Modal-CreatePR-NotForkable-Template:Record.NotForkableSlot~}
-		{~TS:Manager-Modal-CreatePR-Form-Template:Record.FormSlot~}
-	</div>
-</div>
-`
+{~TS:Manager-Modal-CreatePR-Loading-Template:Record.LoadingSlot~}
+{~TS:Manager-Modal-CreatePR-NotForkable-Template:Record.NotForkableSlot~}
+{~TS:Manager-Modal-CreatePR-Form-Template:Record.FormSlot~}`
 		},
 		{
 			Hash: 'Manager-Modal-CreatePR-Loading-Template',
-			Template: /*html*/`<p class="loading">Resolving fork &amp; upstream&hellip;</p>`
+			Template: /*html*/`<p class="loading">Resolving fork &amp; upstream...</p>`
 		},
 		{
 			Hash: 'Manager-Modal-CreatePR-NotForkable-Template',
 			Template: /*html*/`
 <p style="color:var(--color-muted);font-size:13px">
-	This module isn't set up for a fork &rarr; upstream PR.
+	This module isn't set up for a fork -&gt; upstream PR.
 </p>
 <p class="rm-pr-summary">{~D:Record.Reason~}</p>
-<div class="modal-actions">
+<div class="rm-modal-actions">
 	<button class="action" onclick="_Pict.views['Manager-Modal-CreatePR'].close()">Close</button>
 </div>
 `
@@ -72,7 +71,7 @@ const _ViewConfiguration =
 <input type="text" id="RM-PRTitle" class="pict-input" placeholder="Pull request title">
 <label class="rm-pr-field-label" for="RM-PRBody">Description</label>
 <textarea id="RM-PRBody" placeholder="Pull request description (optional)"></textarea>
-<div class="modal-actions">
+<div class="rm-modal-actions">
 	<button class="action" onclick="_Pict.views['Manager-Modal-CreatePR'].close()">Cancel</button>
 	<button class="action primary" onclick="_Pict.views['Manager-Modal-CreatePR'].submit()">Create PR</button>
 </div>
@@ -95,7 +94,7 @@ const _ViewConfiguration =
 		{
 			RenderableHash:     'Manager-Modal-CreatePR-Content',
 			TemplateHash:       'Manager-Modal-CreatePR-Template',
-			DestinationAddress: '#RM-ModalRoot',
+			DestinationAddress: '#RM-CreatePR-Body',
 			RenderMethod:       'replace',
 		}
 	]
@@ -109,6 +108,7 @@ class ManagerModalCreatePRView extends libPictView
 		this._moduleName = null;
 		this._titlePrefill = '';
 		this._bodyPrefill = '';
+		this._dialog = null;
 	}
 
 	open(pModuleName)
@@ -126,7 +126,24 @@ class ManagerModalCreatePRView extends libPictView
 				NotForkableSlot: [],
 				FormSlot: [],
 			};
-		this.render();
+
+		let tmpModal = this.pict.views['Pict-Section-Modal'];
+		if (!tmpModal || typeof tmpModal.show !== 'function')
+		{
+			this.pict.PictApplication.setStatus('Cannot open the PR dialog; modal section unavailable.');
+			return;
+		}
+
+		this.pict.CSSMap.injectCSS();
+		tmpModal.show(
+			{
+				title:     'Create PR - ' + pModuleName,
+				closeable: true,
+				width:     '560px',
+				content:   '<div id="RM-CreatePR-Body"></div>',
+				buttons:   [],
+				onOpen: (pDialog) => { this._dialog = pDialog; this.render(); }
+			});
 
 		this.pict.providers.ManagerAPI.getPrContext(pModuleName).then(
 			(pCtx) =>
@@ -150,7 +167,7 @@ class ManagerModalCreatePRView extends libPictView
 				this._bodyPrefill = tmpCommit.Body || '';
 
 				let tmpHeadLabel = pCtx.Fork.Owner + ':' + pCtx.Branch
-					+ '  →  ' + pCtx.Upstream.Owner + '/' + pCtx.Upstream.Repo + ':' + pCtx.BaseBranch;
+					+ '  ->  ' + pCtx.Upstream.Owner + '/' + pCtx.Upstream.Repo + ':' + pCtx.BaseBranch;
 
 				this.pict.AppData.Manager.ViewRecord.CreatePRModal =
 					{
@@ -191,7 +208,8 @@ class ManagerModalCreatePRView extends libPictView
 	close()
 	{
 		this._moduleName = null;
-		this.pict.ContentAssignment.assignContent('#RM-ModalRoot', '');
+		if (this._dialog && typeof this._dialog._dismiss === 'function') { this._dialog._dismiss(null); }
+		this._dialog = null;
 	}
 
 	submit()
@@ -239,7 +257,7 @@ class ManagerModalCreatePRView extends libPictView
 							}
 							if (tmpModal && typeof tmpModal.toast === 'function')
 							{
-								tmpModal.toast('PR #' + pBody.PrNumber + ' is already open — ' + pBody.PrUrl,
+								tmpModal.toast('PR #' + pBody.PrNumber + ' is already open - ' + pBody.PrUrl,
 									{ type: 'info', duration: 8000 });
 							}
 							if (this.pict.views['Manager-OutputPanel']) { this.pict.views['Manager-OutputPanel'].render(); }
@@ -257,7 +275,7 @@ class ManagerModalCreatePRView extends libPictView
 						if (tmpOp && tmpOp.HeaderState === 'running' && !tmpOp.OperationId)
 						{
 							tmpOp.HeaderState = 'error';
-							tmpOp.HeaderText  = tmpLabel + ' — ' + (pError && pError.message ? pError.message : 'failed');
+							tmpOp.HeaderText  = tmpLabel + ' - ' + (pError && pError.message ? pError.message : 'failed');
 						}
 						if (tmpModal && typeof tmpModal.toast === 'function')
 						{
