@@ -86,9 +86,12 @@ class ManagerAPIProvider extends libPictProvider
 			});
 	}
 
-	loadModuleDetail(pName)
+	// pFetch=true does a live `git fetch upstream/origin` server-side before
+	// computing the three-state, so the focused workspace view reflects GitHub
+	// *now* rather than the last local fetch.
+	loadModuleDetail(pName, pFetch)
 	{
-		return this.get('/modules/' + encodeURIComponent(pName));
+		return this.get('/modules/' + encodeURIComponent(pName) + (pFetch ? '?fetch=1' : ''));
 	}
 
 	pollHealth()

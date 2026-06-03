@@ -153,6 +153,20 @@ const _ViewConfiguration =
 			color: var(--brand-color-primary-mode, var(--color-accent));
 			border-color: var(--brand-color-primary-mode, var(--color-accent));
 		}
+		/* "fetch upstreams" toggle beside the Rescan button — same flag the
+		   sidebar's checkbox sets, so Rescan and Scan run identical code. */
+		.rm-logbar-fetch
+		{
+			display: inline-flex;
+			align-items: center;
+			gap: 3px;
+			margin-left: 8px;
+			font-size: 11px;
+			color: var(--color-muted);
+			cursor: pointer;
+			white-space: nowrap;
+		}
+		.rm-logbar-fetch input { margin: 0; }
 
 		/* Body — common scrollable region. Per-tab class drives the
 		   inner styling. */
@@ -695,7 +709,7 @@ const _ViewConfiguration =
 		},
 		{
 			Hash: 'Manager-LogBar-RescanBtn-Template',
-			Template: /*html*/`<button type="button" class="rm-logbar-action" title="Re-scan every module — refreshes git status, version, and change stats" onclick="_Pict.views['Manager-Sidebar'].triggerScan();">Rescan</button>`
+			Template: /*html*/`<button type="button" class="rm-logbar-action" title="Re-scan every module — same scan as the sidebar (refreshes git status, version, three-state, change stats)" onclick="_Pict.views['Manager-Sidebar'].triggerScan();">Rescan</button><label class="rm-logbar-fetch" title="Live-fetch each fork's upstream + origin during the scan so the ↑org/↓org columns and Next action are current (rather than as-of-last-fetch). Slower — network per fork."><input type="checkbox" {~D:Record.FetchChecked~} onchange="_Pict.views['Manager-Sidebar'].setScanFetch(this.checked)"> fetch upstreams</label>`
 		},
 		{
 			Hash: 'Manager-LogBar-ScanBadge-Template',
@@ -1566,7 +1580,7 @@ class ManagerLogBarView extends libPictView
 			ScanBadgeSlot:       tmpScanBadge    ? [{ Text: tmpScanBadge }]    : [],
 			MetaText:            tmpMetaText,
 			RefreshBtnSlot:      tmpIsLog  ? [{}] : [],
-			RescanBtnSlot:       tmpIsScan ? [{}] : [],
+			RescanBtnSlot:       tmpIsScan ? [{ FetchChecked: (this.pict.AppData.Manager.Scan && this.pict.AppData.Manager.Scan.FetchRemotes) ? 'checked' : '' }] : [],
 			ExpandAllBtnSlot:    tmpExpandAllBtnSlot,
 			CollapseAllBtnSlot:  tmpCollapseAllBtnSlot,
 			CancelBtnSlot:       (tmpIsActions && tmpRunning) ? [{}] : [],

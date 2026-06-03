@@ -338,6 +338,10 @@ class ManagerModuleWorkspaceView extends libPictView
 				this.pict.AppData.Manager.SelectedModuleDetail = pDetail;
 				this._renderFromDetail();
 				this.pict.PictApplication.setStatus('Ready. ' + pName + '.');
+				// Background: live-fetch this one module's remotes so its
+				// three-state reflects GitHub right now. The fast local render
+				// above already painted; this refreshes the drift a moment later.
+				this._refreshWithFetch(pName);
 			},
 			(pError) =>
 			{
@@ -348,6 +352,24 @@ class ManagerModuleWorkspaceView extends libPictView
 				this.pict.ContentAssignment.assignContent('#RM-Workspace-Content', tmpErr);
 				this.pict.PictApplication.setStatus('Error loading ' + pName + '.');
 			});
+	}
+
+	// Background refresh: live-fetch the module's remotes (?fetch=1) then re-render
+	// the three-state. Silent — failures (offline, no upstream) just leave the
+	// already-rendered fast local view. Guarded so navigating away before the
+	// fetch returns never clobbers a different module's workspace.
+	_refreshWithFetch(pName)
+	{
+		this.pict.providers.ManagerAPI.loadModuleDetail(pName, true).then(
+			(pDetail) =>
+			{
+				if (this._boundName !== pName) { return; }
+				let tmpRoute = (this.pict.AppData.Manager && this.pict.AppData.Manager.CurrentRoute) || '';
+				if (tmpRoute && tmpRoute !== 'Module:' + pName) { return; }
+				this.pict.AppData.Manager.SelectedModuleDetail = pDetail;
+				this._renderFromDetail();
+			},
+			() => { /* keep the fast local view */ });
 	}
 
 	// Refresh the detail in the background and re-render the workspace.

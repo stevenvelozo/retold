@@ -355,6 +355,20 @@ module.exports = function registerManifestRoutes(pCore)
 				return pNext();
 			}
 
+			// ?fetch=1 → live-fetch this module's remotes first so the drift /
+			// three-state reflects GitHub *now* (the focused workspace uses this;
+			// the bulk scan stays local-only for speed). Restify here doesn't
+			// register queryParser, so parse the raw URL.
+			let tmpFetch = false;
+			let tmpUrlQuery = (pReq.url || '').split('?')[1] || '';
+			if (tmpUrlQuery)
+			{
+				let tmpFetchParam = new URLSearchParams(tmpUrlQuery).get('fetch');
+				tmpFetch = (tmpFetchParam === '1' || tmpFetchParam === 'true');
+			}
+
+			let fBuildAndSend = function ()
+			{
 			let tmpPkg = tmpIntrospector.readPackageJson(tmpName);
 			let tmpGitStatus = tmpIntrospector.getGitStatus(tmpName);
 
@@ -407,5 +421,15 @@ module.exports = function registerManifestRoutes(pCore)
 					CategorizedDeps: tmpCategorized,
 				});
 			return pNext();
+			};
+
+			if (tmpFetch)
+			{
+				tmpIntrospector.fetchModuleRemotesAsync(tmpName).then(fBuildAndSend, fBuildAndSend);
+			}
+			else
+			{
+				fBuildAndSend();
+			}
 		});
 };
