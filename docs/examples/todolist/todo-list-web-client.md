@@ -2,7 +2,7 @@
 
 > Part of the [Todo List Application](examples/todolist/todo-list.md) example.
 >
-> **Source:** [`examples/todo-list/web-client/`](../examples/todo-list/web-client/)
+> **Source:** [`examples/todo-list/web-client/`](https://github.com/fable-retold/retold/tree/master/examples/todo-list/web-client)
 
 The web client is a browser-based Pict Application with hash routing, data providers, and six views. It demonstrates the standard Pict patterns for building a single-page application: views render templates into DOM containers, a provider manages API communication, and the application class coordinates lifecycle and shared state.
 
@@ -26,15 +26,15 @@ From the `examples/todo-list/` directory, run `./docker-run.sh` to build the Doc
 
 #### Listing Tasks
 
-![Todo - Web - Task List](1775835143630-Todo - Web - Task List.png)
+![Todo - Web - Task List](1775835143630-Todo-Web-Task-List.png)
 
 #### Viewing a task
 
-![Todo - Web - Task](1775835181095-Todo - Web - Task.png)
+![Todo - Web - Task](1775835181095-Todo-Web-Task.png)
 
 #### Year View
 
-![Todo - Web - Year View](1775835174484-Todo - Web - Year View.png)
+![Todo - Web - Year View](1775835174484-Todo-Web-Year-View.png)
 
 ## Application Structure
 

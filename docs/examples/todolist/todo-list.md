@@ -2,7 +2,7 @@
 
 A complete full-stack example demonstrating the Retold module suite. A single REST API server backed by SQLite is consumed by three separate clients: a browser-based Pict application, a terminal UI built on blessed, and a non-interactive command-line tool.
 
-> **Source:** [`examples/todo-list/`](../examples/todo-list/)
+> **Source:** [`examples/todo-list/`](https://github.com/fable-retold/retold/tree/master/examples/todo-list)
 
 ## Architecture
 

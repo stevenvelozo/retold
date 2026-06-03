@@ -2,7 +2,7 @@
 
 > Part of the [Todo List Application](examples/todolist/todo-list.md) example.
 >
-> **Source:** [`examples/todo-list/server/`](../examples/todo-list/server/)
+> **Source:** [`examples/todo-list/server/`](https://github.com/fable-retold/retold/tree/master/examples/todo-list/server)
 
 The server demonstrates the standard Retold API assembly: Fable for dependency injection, Meadow for data access, Meadow Endpoints for automatic REST route generation, and Orator for the HTTP server. It also shows how to create a custom Fable service for database initialization and CSV seeding.
 

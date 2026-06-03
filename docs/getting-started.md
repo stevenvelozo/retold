@@ -3,14 +3,14 @@
 This guide walks through building a Retold application step by step, adding one layer at a time. See the [Architecture](architecture/architecture.md) page for a full description of the layer model.
 
 > **Working examples:** Each step below has a corresponding runnable example in
-> [`examples/quickstart/`](../examples/quickstart/). Clone the repo and follow
+> [`examples/quickstart/`](https://github.com/fable-retold/retold/tree/master/examples/quickstart). Clone the repo and follow
 > along with real code.
 
 ## Step 1: Fable -- The Foundation
 
 > **Layer 1 -- Fable (Core Ecosystem):** DI, configuration, logging, UUID, expressions
 >
-> Working example: [`examples/quickstart/layer1/`](../examples/quickstart/layer1/)
+> Working example: [`examples/quickstart/layer1/`](https://github.com/fable-retold/retold/tree/master/examples/quickstart/layer1)
 
 Every Retold application starts with a Fable instance. Fable gives you dependency injection, configuration, and logging.
 
@@ -51,7 +51,7 @@ Configuration can come from the constructor, a `.fable.config.json` file, or a c
 
 > **Layer 2 -- Meadow + FoxHound + Stricture:** Data broker, SQL generation, schema definitions
 >
-> Working example: [`examples/quickstart/layer2/`](../examples/quickstart/layer2/)
+> Working example: [`examples/quickstart/layer2/`](https://github.com/fable-retold/retold/tree/master/examples/quickstart/layer2)
 
 Add Meadow to define data entities and connect to a database.
 
@@ -142,7 +142,7 @@ This generates endpoints for: `GET /Books`, `GET /Book/:id`, `POST /Book`, `PUT 
 
 > **Layer 4 -- Orator (API Server):** HTTP lifecycle, middleware, static files, proxy
 >
-> Working example: [`examples/quickstart/layer3/`](../examples/quickstart/layer3/)
+> Working example: [`examples/quickstart/layer3/`](https://github.com/fable-retold/retold/tree/master/examples/quickstart/layer3)
 
 Add Orator to host everything over HTTP.
 
@@ -200,7 +200,7 @@ curl http://localhost:8086/Books/Count
 
 > **Pict (MVC Tools):** Views, templates, providers, application lifecycle -- sits alongside the server stack
 >
-> Working example: [`examples/quickstart/layer4/`](../examples/quickstart/layer4/)
+> Working example: [`examples/quickstart/layer4/`](https://github.com/fable-retold/retold/tree/master/examples/quickstart/layer4)
 
 If your application has a browser interface, add Pict for MVC.
 
@@ -258,7 +258,7 @@ _BookService.connectRoutes(_Orator);
 
 > **Utility Layer:** Build tools, manifest management, documentation, process supervision
 >
-> Working example: [`examples/quickstart/layer5/`](../examples/quickstart/layer5/) (Manyfest)
+> Working example: [`examples/quickstart/layer5/`](https://github.com/fable-retold/retold/tree/master/examples/quickstart/layer5) (Manyfest)
 
 Supporting the application stack are utility modules like **Manyfest** (schema-driven object navigation), **Quackage** (browser bundling), and **Indoctrinate** (documentation generation). **Ultravisor** (process supervision) lives in the Apps group as a full-stack application. These are used throughout the stack but don't live in the numbered layer model.
 
@@ -270,4 +270,4 @@ Supporting the application stack are utility modules like **Manyfest** (schema-d
 - **[Meadow](modules/meadow.md)** -- Data access, FoxHound queries, and Stricture schemas
 - **[Orator](modules/orator.md)** -- Server configuration, lifecycle hooks, and middleware
 - **[Pict](modules/pict.md)** -- Views, templates, providers, and application lifecycle
-- **[All Modules](modules/modules.md)** -- Every repository in the Retold suite
+- **[All Modules](architecture/modules.md)** -- Every repository in the Retold suite

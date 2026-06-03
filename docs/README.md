@@ -161,7 +161,7 @@ _Fable.log.info('Retold application started.');
 - **[Meadow In Depth](modules/meadow.md)** -- Data access, schemas, and query generation
 - **[Orator In Depth](modules/orator.md)** -- API servers and endpoint generation
 - **[Pict In Depth](modules/pict.md)** -- MVC tools for browser and console UIs
-- **[All Modules](modules/modules.md)** -- Exhaustive list of every Retold repository
+- **[All Modules](architecture/modules.md)** -- Exhaustive list of every Retold repository
 
 ## License
 

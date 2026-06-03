@@ -2,7 +2,7 @@
 
 > Part of the [Todo List Application](examples/todolist/todo-list.md) example.
 >
-> **Source:** [`examples/todo-list/console-client/`](../examples/todo-list/console-client/)
+> **Source:** [`examples/todo-list/console-client/`](https://github.com/fable-retold/retold/tree/master/examples/todo-list/console-client)
 
 The console client is a full-screen terminal UI built on blessed, bridged to Pict views through pict-terminalui. It demonstrates how the same Pict view/template architecture that drives the browser UI can render into a terminal -- views write templates, and the ContentAssignment bridge sends the output to blessed widgets instead of the DOM.
 
@@ -31,11 +31,11 @@ See the [main quickstart](examples/todolist/todo-list.md) for details.
 
 When launching the application, if the server is running you are greeted with a list of tasks:
 
-![Todo - Console - Task List](1775835049980-Todo - Console - Task List.png)
+![Todo - Console - Task List](1775835049980-Todo-Console-Task-List.png)
 
 You can press enter on any task and it will drill in.  Just like the 1980s:
 
-![Todo - Console - Task](1775835094541-Todo - Console - Task.png)
+![Todo - Console - Task](1775835094541-Todo-Console-Task.png)
 
 ## Keyboard Controls
 

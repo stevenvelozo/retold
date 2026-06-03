@@ -2,7 +2,7 @@
 
 > Part of the [Todo List Application](examples/todolist/todo-list.md) example.
 >
-> **Source:** [`examples/todo-list/cli-client/`](../examples/todo-list/cli-client/)
+> **Source:** [`examples/todo-list/cli-client/`](https://github.com/fable-retold/retold/tree/master/examples/todo-list/cli-client)
 
 The CLI client is a non-interactive command-line tool built on pict-service-commandlineutility. It demonstrates the command-per-folder pattern used by Quackage and other Retold CLI tools: each command lives in its own folder, shares a common API service, and registers itself with the Commander.js-based framework.
 

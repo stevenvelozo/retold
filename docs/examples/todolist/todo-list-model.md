@@ -2,7 +2,7 @@
 
 > Part of the [Todo List Application](examples/todolist/todo-list.md) example.
 >
-> **Source:** [`examples/todo-list/model/`](../examples/todo-list/model/)
+> **Source:** [`examples/todo-list/model/`](https://github.com/fable-retold/retold/tree/master/examples/todo-list/model)
 
 The Task entity is defined once and consumed by every component in the application. This is a core Retold pattern: the data model is the source of truth, and everything else -- table creation, API endpoints, query generation -- flows from it.
 
