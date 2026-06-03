@@ -817,20 +817,67 @@ class ModuleIntrospector
 	 * only as a freshness hint for the drift counts (which are computed from the
 	 * already-fetched upstream ref). Reads the mtime of `.git/FETCH_HEAD`, which
 	 * git rewrites on every `git fetch`. Returns an ISO string, or null when the
-	 * repo has never been fetched or `.git` isn't a normal directory (worktrees).
+	 * repo has never been fetched.
+	 *
+	 * Fast path: `<path>/.git` is a normal directory (every module under
+	 * `modules/` is its own repo root). Fallback: when it isn't — retold-manager's
+	 * path is `source/` but the repo root (and `.git`) is one level up, and
+	 * worktrees use a `.git` *file* pointing elsewhere — ask git where FETCH_HEAD
+	 * actually lives. The fallback costs one exec, but only for those rare repos.
 	 */
 	getUpstreamFetchTime(pModulePath)
 	{
 		if (!pModulePath) { return null; }
 		try
 		{
+			let tmpFetchHeadPath = null;
 			let tmpGitPath = libPath.join(pModulePath, '.git');
-			let tmpGitStat = libFs.statSync(tmpGitPath);
-			if (!tmpGitStat.isDirectory()) { return null; }
-			let tmpFetchHead = libFs.statSync(libPath.join(tmpGitPath, 'FETCH_HEAD'));
+			let tmpGitStat = null;
+			try { tmpGitStat = libFs.statSync(tmpGitPath); }
+			catch (pStatError) { tmpGitStat = null; }
+
+			if (tmpGitStat && tmpGitStat.isDirectory())
+			{
+				// Fast path — standard module checkout.
+				tmpFetchHeadPath = libPath.join(tmpGitPath, 'FETCH_HEAD');
+			}
+			else
+			{
+				// `<path>/.git` is absent or a gitdir-file — resolve the real one.
+				let tmpResolved = this._execGitSync('rev-parse --git-path FETCH_HEAD', pModulePath);
+				if (!tmpResolved) { return null; }
+				tmpResolved = tmpResolved.trim();
+				if (!tmpResolved) { return null; }
+				tmpFetchHeadPath = libPath.isAbsolute(tmpResolved) ? tmpResolved : libPath.join(pModulePath, tmpResolved);
+			}
+
+			let tmpFetchHead = libFs.statSync(tmpFetchHeadPath);
 			return tmpFetchHead.mtime.toISOString();
 		}
 		catch (pError) { return null; }
+	}
+
+	/**
+	 * Quietly fetch a single module's `upstream` + `origin` remotes (network) so
+	 * a follow-up getGitStatus reflects the LIVE remote state rather than the
+	 * last local fetch. Best-effort: ignores errors (missing remote, offline).
+	 * Backs the module-detail route's `?fetch=1` — the focused workspace view
+	 * auto-refreshes its drift so a server-side merge can't read stale.
+	 */
+	fetchModuleRemotesAsync(pName)
+	{
+		let tmpPath = this.getModulePath(pName);
+		if (!tmpPath) { return Promise.resolve(); }
+		let fFetch = function (pRemote)
+		{
+			return new Promise(function (pResolve)
+				{
+					libChildProcess.exec('git fetch ' + pRemote,
+						{ cwd: tmpPath, timeout: 20000, encoding: 'utf8' },
+						function () { pResolve(); }); // best-effort — ignore errors
+				});
+		};
+		return Promise.all([ fFetch('upstream'), fFetch('origin') ]);
 	}
 
 	/**
