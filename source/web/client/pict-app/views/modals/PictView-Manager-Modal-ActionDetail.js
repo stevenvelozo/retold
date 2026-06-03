@@ -1,22 +1,18 @@
 /**
  * Manager-Modal-ActionDetail
  *
- * Full-screen modal review for a single action from the LogBar's
- * Actions tab history. Visually mirrors Manager-Modal-Diff so the
- * "open + fullscreen" experience is consistent across the app.
+ * Review for a single action from the LogBar's Actions tab history.
+ * Hosted in a wide pict-section-modal `.show()` window (overlay / Esc /
+ * close owned by the modal section) with a fullscreen toggle on the
+ * dialog, so the "open + fullscreen" experience matches Manager-Modal-Diff.
  *
- * Opens via `_Pict.views['Manager-Modal-ActionDetail'].open(opId)`
- * — typically from the "↗" button on a LogBar action entry.
+ * Opens via `_Pict.views['Manager-Modal-ActionDetail'].open(opId)`.
  *
- * The modal lives at #RM-ModalRoot (shared with the other manager
- * modals). Closing wipes that root; only one of these modals is
- * mounted at a time.
- *
- * The Lines array on each history entry is a SHARED reference back
- * to ActiveOperation.Lines (see Pict-Provider-Manager-OperationsWS),
- * so if you open this modal while an op is still running, future
- * stdout frames append to the same array — a manual refresh() re-
- * shapes the view record and re-renders to surface the new lines.
+ * The Lines array on each history entry is a SHARED reference back to
+ * ActiveOperation.Lines (see Pict-Provider-Manager-OperationsWS), so if
+ * you open this modal while an op is still running, future stdout frames
+ * append to the same array — a 1s tick re-shapes the view record and
+ * re-renders to surface new lines until the op reaches a terminal state.
  */
 
 const libPictView = require('pict-view');
@@ -26,39 +22,36 @@ const _ViewConfiguration =
 	ViewIdentifier: 'Manager-Modal-ActionDetail',
 
 	DefaultRenderable:            'Manager-Modal-ActionDetail-Content',
-	DefaultDestinationAddress:    '#RM-ModalRoot',
+	DefaultDestinationAddress:    '#RM-ActionDetail-Host',
 	DefaultTemplateRecordAddress: 'AppData.Manager.ViewRecord.ActionDetailModal',
 
 	AutoRender: false,
+
+	CSS: /*css*/`
+		.rm-diff-panel { border: none; margin: 0; }
+	`,
 
 	Templates:
 	[
 		{
 			Hash: 'Manager-Modal-ActionDetail-Template',
 			Template: /*html*/`
-<div class="modal-backdrop action-modal" onclick="if(event.target===this){_Pict.views['Manager-Modal-ActionDetail'].close();}">
-	<div class="modal">
-		<div class="diff-panel diff-panel-modal action-detail-panel">
-			<div class="diff-header">
-				<span class="action-detail-header-left">
-					<span class="action-detail-state-dot is-{~D:Record.State~}" title="{~D:Record.StateLabel~}"></span>
-					<strong>{~D:Record.Title~}</strong>
-					<span class="subtle action-detail-meta" style="margin-left:8px">{~D:Record.MetaLine~}</span>
-				</span>
-				<span class="diff-header-actions">
-					{~TS:Manager-Modal-ActionDetail-RefreshBtn-Template:Record.RefreshBtnSlot~}
-					<button id="RM-ActionDetail-Fullscreen" onclick="_Pict.views['Manager-Modal-ActionDetail'].toggleFullscreen(this)">Fullscreen</button>
-					<button onclick="_Pict.views['Manager-Modal-ActionDetail'].close()">close</button>
-				</span>
-			</div>
-			<div class="diff-body" id="RM-ActionDetail-Body">
-				{~TS:Manager-Modal-ActionDetail-Empty-Template:Record.EmptySlot~}
-				{~TS:Manager-Modal-ActionDetail-Line-Template:Record.Lines~}
-			</div>
-		</div>
+<div class="diff-panel action-detail-panel rm-diff-panel">
+	<div class="diff-header">
+		<span class="action-detail-header-left">
+			<span class="action-detail-state-dot is-{~D:Record.State~}" title="{~D:Record.StateLabel~}"></span>
+			<span class="subtle action-detail-meta">{~D:Record.MetaLine~}</span>
+		</span>
+		<span class="diff-header-actions">
+			{~TS:Manager-Modal-ActionDetail-RefreshBtn-Template:Record.RefreshBtnSlot~}
+			<button id="RM-ActionDetail-Fullscreen" onclick="_Pict.views['Manager-Modal-ActionDetail'].toggleFullscreen(this)">Fullscreen</button>
+		</span>
 	</div>
-</div>
-`
+	<div class="diff-body rm-modal-scroll" id="RM-ActionDetail-Body">
+		{~TS:Manager-Modal-ActionDetail-Empty-Template:Record.EmptySlot~}
+		{~TS:Manager-Modal-ActionDetail-Line-Template:Record.Lines~}
+	</div>
+</div>`
 		},
 		{
 			Hash: 'Manager-Modal-ActionDetail-RefreshBtn-Template',
@@ -83,7 +76,7 @@ const _ViewConfiguration =
 		{
 			RenderableHash:     'Manager-Modal-ActionDetail-Content',
 			TemplateHash:       'Manager-Modal-ActionDetail-Template',
-			DestinationAddress: '#RM-ModalRoot',
+			DestinationAddress: '#RM-ActionDetail-Host',
 			RenderMethod:       'replace',
 		}
 	]
@@ -104,8 +97,8 @@ class ManagerModalActionDetailView extends libPictView
 		super(pFable, pOptions, pServiceHash);
 		this._operationId  = null;
 		this._fullscreen   = false;
-		this._keyHandler   = null;
 		this._tickTimer    = null;
+		this._dialog       = null;
 	}
 
 	open(pOperationId)
@@ -113,32 +106,51 @@ class ManagerModalActionDetailView extends libPictView
 		this._operationId = pOperationId;
 		this._fullscreen  = false;
 		this._writeRecord();
-		this.render();
 
-		// Esc closes the modal — window-level keyboard event is the
-		// documented exception per modules/pict/CLAUDE.md (no element-
-		// level inline equivalent for "Escape from anywhere").
-		this._keyHandler = (pEvent) => { if (pEvent.key === 'Escape') { this.close(); } };
-		document.addEventListener('keydown', this._keyHandler);
+		let tmpModal = this.pict.views['Pict-Section-Modal'];
+		if (!tmpModal || typeof tmpModal.show !== 'function')
+		{
+			this.pict.PictApplication.setStatus('Cannot open the action detail; modal section unavailable.');
+			return;
+		}
+
+		let tmpRec = this.pict.AppData.Manager.ViewRecord.ActionDetailModal;
+		let tmpTitle = (tmpRec && tmpRec.Title) || 'Action';
+
+		this.pict.CSSMap.injectCSS();
+		tmpModal.show(
+			{
+				title:     tmpTitle,
+				closeable: true,
+				width:     '90vw',
+				content:   '<div id="RM-ActionDetail-Host"></div>',
+				buttons:   [],
+				onOpen: (pDialog) => { this._dialog = pDialog; this.render(); },
+				onClose: () =>
+				{
+					if (this._tickTimer) { clearInterval(this._tickTimer); this._tickTimer = null; }
+					this._operationId = null;
+					this._fullscreen = false;
+					this._dialog = null;
+				}
+			});
 
 		// While the op is still running, repaint every second so the
 		// elapsed-time + line count meta stays current and any stdout
-		// frames that arrive while we're open are surfaced. Stops
-		// itself as soon as the entry transitions to a terminal state.
+		// frames that arrive while we're open are surfaced. Stops itself
+		// as soon as the entry transitions to a terminal state.
 		this._tickTimer = setInterval(() => this._tickWhileRunning(), 1000);
 	}
 
 	close()
 	{
-		if (this._keyHandler) { document.removeEventListener('keydown', this._keyHandler); this._keyHandler = null; }
-		if (this._tickTimer) { clearInterval(this._tickTimer); this._tickTimer = null; }
-		this._operationId = null;
-		this._fullscreen = false;
-		this.pict.ContentAssignment.assignContent('#RM-ModalRoot', '');
+		if (this._dialog && typeof this._dialog._dismiss === 'function') { this._dialog._dismiss(null); }
+		// onClose clears the tick timer + resets state.
 	}
 
 	refresh()
 	{
+		if (!this._dialog) { return; }
 		this._writeRecord();
 		this.render();
 	}
@@ -146,30 +158,23 @@ class ManagerModalActionDetailView extends libPictView
 	toggleFullscreen(pButton)
 	{
 		this._fullscreen = !this._fullscreen;
-		// Toggle a class on the backdrop element. We do this imperatively
-		// rather than via a re-render so the user's scroll position in
-		// the body is preserved.
-		let tmpRoot = document.querySelector('#RM-ModalRoot .modal-backdrop.action-modal');
-		if (tmpRoot) { tmpRoot.classList.toggle('action-modal-fullscreen', this._fullscreen); }
+		if (this._dialog) { this._dialog.classList.toggle('rm-modal-fullscreen', this._fullscreen); }
 		if (pButton) { pButton.textContent = this._fullscreen ? 'Exit fullscreen' : 'Fullscreen'; }
 	}
 
 	onAfterRender(pRenderable, pAddress, pRecord, pContent)
 	{
-		// Restore the fullscreen class after a render — we toggle the
-		// element class imperatively in toggleFullscreen, but a re-render
-		// (refresh tick during a running op) recreates the DOM and would
-		// otherwise drop the class.
+		// A refresh tick re-renders the header, recreating the fullscreen
+		// button with its default label; restore it (the dialog's fullscreen
+		// class lives on the dialog element and survives the body re-render).
 		if (this._fullscreen)
 		{
-			let tmpRoot = document.querySelector('#RM-ModalRoot .modal-backdrop.action-modal');
-			if (tmpRoot) { tmpRoot.classList.add('action-modal-fullscreen'); }
 			let tmpBtn = document.getElementById('RM-ActionDetail-Fullscreen');
 			if (tmpBtn) { tmpBtn.textContent = 'Exit fullscreen'; }
 		}
 
-		// Auto-scroll to the bottom on initial open so the user sees the
-		// most recent line — same behavior as the LogBar entry body.
+		// Auto-scroll to the bottom so the user sees the most recent line —
+		// same behavior as the LogBar entry body.
 		let tmpBody = document.getElementById('RM-ActionDetail-Body');
 		if (tmpBody) { tmpBody.scrollTop = tmpBody.scrollHeight; }
 
@@ -177,9 +182,9 @@ class ManagerModalActionDetailView extends libPictView
 		return super.onAfterRender(pRenderable, pAddress, pRecord, pContent);
 	}
 
-	// ─────────────────────────────────────────────
+	// ---------------------------------------------
 	//  Internals
-	// ─────────────────────────────────────────────
+	// ---------------------------------------------
 
 	_tickWhileRunning()
 	{
@@ -281,7 +286,7 @@ class ManagerModalActionDetailView extends libPictView
 		let tmpLineCount = (pEntry.Lines || []).length;
 		tmpParts.push(tmpLineCount + ' line' + (tmpLineCount === 1 ? '' : 's'));
 
-		return tmpParts.join(' · ');
+		return tmpParts.join(' / ');
 	}
 
 	_stateLabel(pEntry)

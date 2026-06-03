@@ -31,7 +31,7 @@ const libViewLogViewer       = require('./views/PictView-Manager-LogViewer.js');
 const libViewOpsRunner       = require('./views/PictView-Manager-OpsRunner.js');
 const libViewRipple          = require('./views/PictView-Manager-Ripple.js');
 
-// Modal views (render into #RM-ModalRoot)
+// Modal views (rendered via pict-section-modal .show() windows)
 const libModalCommit      = require('./views/modals/PictView-Manager-Modal-Commit.js');
 const libModalNcu         = require('./views/modals/PictView-Manager-Modal-Ncu.js');
 const libModalPublish     = require('./views/modals/PictView-Manager-Modal-Publish.js');

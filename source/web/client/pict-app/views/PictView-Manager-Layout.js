@@ -28,8 +28,8 @@
  *   │ #Theme-BottomBar  (bottom, fixed) — shared chrome          │
  *   └────────────────────────────────────────────────────────────┘
  *
- * #RM-ModalRoot is appended outside the shell so dialogs / dropdowns
- * float over everything.
+ * Modals / dropdowns use pict-section-modal, which appends its overlays to
+ * document.body so they float over the shell.
  */
 
 const libPictView = require('pict-view');
@@ -86,12 +86,12 @@ const _ViewConfiguration =
 	[
 		{
 			Hash: 'Manager-Layout-Shell-Template',
-			// The template is intentionally minimal — the shell owns the
-			// real DOM. We just provide a modal root sibling and a
-			// placeholder so the renderable has somewhere to land.
+			// The template is intentionally minimal -- the shell owns the
+			// real DOM. We just provide a placeholder so the renderable has
+			// somewhere to land. Modals now use pict-section-modal, which
+			// appends its dialogs to document.body (no modal-root needed).
 			Template: /*html*/`
 <div id="RM-Layout-Mount"></div>
-<div id="RM-ModalRoot"></div>
 `
 		}
 	],

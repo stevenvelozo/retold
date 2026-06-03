@@ -1,42 +1,44 @@
 const libPictView = require('pict-view');
 
+// Add / edit manifest-module dialog.  Hosted in a pict-section-modal `.show()`
+// window: the modal section owns the overlay, backdrop-click / Esc dismiss,
+// and close button, while this view renders its form into the dialog body and
+// keeps the dialog open on validation errors (it controls its own dismiss).
 const _ViewConfiguration =
 {
 	ViewIdentifier: 'Manager-Modal-EditModule',
 
 	DefaultRenderable:            'Manager-Modal-EditModule-Content',
-	DefaultDestinationAddress:    '#RM-ModalRoot',
+	DefaultDestinationAddress:    '#RM-EditModule-Body',
 	DefaultTemplateRecordAddress: 'AppData.Manager.ViewRecord.EditModuleModal',
 
 	AutoRender: false,
+
+	CSS: /*css*/`
+		.rm-modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+	`,
 
 	Templates:
 	[
 		{
 			Hash: 'Manager-Modal-EditModule-Template',
 			Template: /*html*/`
-<div class="modal-backdrop" onclick="if(event.target===this){_Pict.views['Manager-Modal-EditModule'].close();}">
-	<div class="modal" style="min-width:640px;max-width:760px">
-		<h3>{~D:Record.Title~}</h3>
-		<div class="form-row"><label>Name</label>
-			<input type="text" id="RM-E-Name" value="{~D:Record.Entry.Name~}"></div>
-		<div class="form-row"><label>Path</label>
-			<input type="text" id="RM-E-Path" value="{~D:Record.Entry.Path~}" placeholder="modules/&lt;group&gt;/&lt;name&gt;"></div>
-		<div class="form-row"><label>Description</label>
-			<textarea id="RM-E-Desc" rows="2">{~D:Record.Entry.Description~}</textarea></div>
-		<div class="form-row"><label>GitHub</label>
-			<input type="text" id="RM-E-GitHub" value="{~D:Record.Entry.GitHub~}" placeholder="https://github.com/..."></div>
-		<div class="form-row"><label>Documentation</label>
-			<input type="text" id="RM-E-Docs" value="{~D:Record.Entry.Documentation~}" placeholder="https://..."></div>
-		<div class="form-row"><label>Related</label>
-			<input type="text" id="RM-E-Related" value="{~D:Record.RelatedString~}" placeholder="comma-separated module names"></div>
-		<div class="modal-actions">
-			<button class="action" onclick="_Pict.views['Manager-Modal-EditModule'].close()">Cancel</button>
-			<button class="action primary" onclick="_Pict.views['Manager-Modal-EditModule'].save()">{~D:Record.SaveLabel~}</button>
-		</div>
-	</div>
-</div>
-`
+<div class="form-row"><label>Name</label>
+	<input type="text" id="RM-E-Name" value="{~D:Record.Entry.Name~}"></div>
+<div class="form-row"><label>Path</label>
+	<input type="text" id="RM-E-Path" value="{~D:Record.Entry.Path~}" placeholder="modules/&lt;group&gt;/&lt;name&gt;"></div>
+<div class="form-row"><label>Description</label>
+	<textarea id="RM-E-Desc" rows="2">{~D:Record.Entry.Description~}</textarea></div>
+<div class="form-row"><label>GitHub</label>
+	<input type="text" id="RM-E-GitHub" value="{~D:Record.Entry.GitHub~}" placeholder="https://github.com/..."></div>
+<div class="form-row"><label>Documentation</label>
+	<input type="text" id="RM-E-Docs" value="{~D:Record.Entry.Documentation~}" placeholder="https://..."></div>
+<div class="form-row"><label>Related</label>
+	<input type="text" id="RM-E-Related" value="{~D:Record.RelatedString~}" placeholder="comma-separated module names"></div>
+<div class="rm-modal-actions">
+	<button class="action" onclick="_Pict.views['Manager-Modal-EditModule'].close()">Cancel</button>
+	<button class="action primary" onclick="_Pict.views['Manager-Modal-EditModule'].save()">{~D:Record.SaveLabel~}</button>
+</div>`
 		}
 	],
 
@@ -45,7 +47,7 @@ const _ViewConfiguration =
 		{
 			RenderableHash:     'Manager-Modal-EditModule-Content',
 			TemplateHash:       'Manager-Modal-EditModule-Template',
-			DestinationAddress: '#RM-ModalRoot',
+			DestinationAddress: '#RM-EditModule-Body',
 			RenderMethod:       'replace',
 		}
 	]
@@ -56,6 +58,7 @@ class ManagerModalEditModuleView extends libPictView
 	constructor(pFable, pOptions, pServiceHash)
 	{
 		super(pFable, pOptions, pServiceHash);
+		this._dialog = null;
 	}
 
 	/**
@@ -92,12 +95,35 @@ class ManagerModalEditModuleView extends libPictView
 				RelatedString: (tmpEntry.RelatedModules || []).join(', '),
 			};
 
-		this.render();
+		let tmpModal = this.pict.views['Pict-Section-Modal'];
+		if (!tmpModal || typeof tmpModal.show !== 'function')
+		{
+			this.pict.PictApplication.setStatus('Cannot open the module editor; modal section unavailable.');
+			return;
+		}
+
+		this.pict.CSSMap.injectCSS();
+		tmpModal.show(
+			{
+				title:     this.pict.AppData.Manager.ViewRecord.EditModuleModal.Title,
+				closeable: true,
+				width:     '720px',
+				content:   '<div id="RM-EditModule-Body"></div>',
+				buttons:   [],
+				onOpen: (pDialog) =>
+				{
+					this._dialog = pDialog;
+					this.render();
+					let tmpName = document.getElementById('RM-E-Name');
+					if (tmpName) { tmpName.focus(); }
+				}
+			});
 	}
 
 	close()
 	{
-		this.pict.ContentAssignment.assignContent('#RM-ModalRoot', '');
+		if (this._dialog && typeof this._dialog._dismiss === 'function') { this._dialog._dismiss(null); }
+		this._dialog = null;
 	}
 
 	save()
@@ -117,6 +143,7 @@ class ManagerModalEditModuleView extends libPictView
 
 		if (!tmpPayload.Name)
 		{
+			// Validation failure keeps the dialog open (we control dismiss).
 			this._toast('Name is required.', 'error');
 			return;
 		}

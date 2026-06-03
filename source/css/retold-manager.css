@@ -1351,6 +1351,9 @@ body.pict-modal-root
 	--pict-modal-btn-danger-bg:      var(--color-danger);
 	--pict-modal-btn-danger-fg:      #ffffff;
 	--pict-modal-btn-danger-hover-bg:#da3633;
+	--pict-modal-btn-success-bg:     var(--color-success);
+	--pict-modal-btn-success-fg:     #ffffff;
+	--pict-modal-btn-success-hover-bg: var(--theme-color-status-successhover, #46c463);
 
 	--pict-modal-dropdown-bg:                 var(--color-panel);
 	--pict-modal-dropdown-fg:                 var(--color-text);
@@ -1367,6 +1370,38 @@ body.pict-modal-root
 	--pict-modal-tooltip-bg:         var(--color-panel-alt);
 	--pict-modal-tooltip-fg:         var(--color-text);
 }
+
+/* pict-section-modal ships only --primary / --danger button variants; the
+   manager adds a --success variant (green, for "apply / mutate" actions like
+   ncu apply) driven by the same token pattern. */
+/* Double-class for specificity: the library's base `.pict-modal-btn` block is
+   injected AFTER this stylesheet, so a single-class rule would lose the cascade
+   (same reason the token block above is scoped to body.pict-modal-root). */
+.pict-modal-btn.pict-modal-btn--success
+{
+	background: var(--pict-modal-btn-success-bg);
+	color:      var(--pict-modal-btn-success-fg);
+}
+.pict-modal-btn.pict-modal-btn--success:hover
+{
+	background: var(--pict-modal-btn-success-hover-bg);
+}
+
+/* Fullscreen toggle for the large content modals (diff / action-detail).
+   !important beats show()'s inline `style.width`. The body classes give the
+   inner scroll region the extra height once the dialog fills the viewport. */
+.pict-modal-dialog.rm-modal-fullscreen
+{
+	width: 100vw !important;
+	height: 100vh !important;
+	max-width: 100vw !important;
+	max-height: 100vh !important;
+	border-radius: 0 !important;
+}
+/* Scroll region inside the large content modals (diff body, action-detail
+   output). Capped to the viewport so the dialog never outgrows the screen. */
+.rm-modal-scroll { max-height: 70vh; overflow-y: auto; }
+.pict-modal-dialog.rm-modal-fullscreen .rm-modal-scroll { max-height: calc(100vh - 150px); }
 
 /* Manager overflow menus use the mono action font so they read as a
    continuation of the action group's buttons. */
