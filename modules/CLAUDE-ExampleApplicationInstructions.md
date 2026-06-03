@@ -23,21 +23,8 @@ Most examples should use one of the first two. Reach for "bring your own" only w
 
 ## Required structure
 
-```
-<module>/
-├── package.json                                     # add "example": "npx quack examples" to scripts
-└── example_applications/
-    └── <example_name>/                              # snake_case
-        ├── package.json
-        ├── source/
-        │   ├── Pict-Application-<Name>.js          # entry: registers views, exports default_configuration
-        │   └── views/
-        │       └── PictView-<Name>-Layout.js       # main layout view
-        ├── html/
-        │   └── index.html                          # boots the bundled app
-        └── css/
-            └── <name>.css                          # styling (see "Header chrome" below)
-```
+<!-- bespoke diagram: edit diagrams/required-structure.mmd or .hints.json, then: npx pict-renderer-graph build modules -->
+![Required structure](diagrams/required-structure.svg)
 
 Add `dist` and `node_modules` to the parent module's `.gitignore` if they aren't already (they're generated under `example_applications/*/`).
 

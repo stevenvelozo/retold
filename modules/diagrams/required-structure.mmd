@@ -1,0 +1,13 @@
+<module>/
+├── package.json                                     # add "example": "npx quack examples" to scripts
+└── example_applications/
+    └── <example_name>/                              # snake_case
+        ├── package.json
+        ├── source/
+        │   ├── Pict-Application-<Name>.js          # entry: registers views, exports default_configuration
+        │   └── views/
+        │       └── PictView-<Name>-Layout.js       # main layout view
+        ├── html/
+        │   └── index.html                          # boots the bundled app
+        └── css/
+            └── <name>.css                          # styling (see "Header chrome" below)
