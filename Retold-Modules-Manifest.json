@@ -779,6 +779,19 @@
 					"Type": "library"
 				},
 				{
+					"Name": "pict-section-clone",
+					"Path": "modules/pict/pict-section-clone",
+					"Description": "Embeddable Pict view for managing data-mapper Clone configurations: full-table-copy from one beacon to another. CRUD + Run. Used to mirror customer-installed data into a lake.",
+					"GitHub": "https://github.com/fable-retold/pict-section-clone",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"retold-data-mapper"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "pict-section-code",
 					"Path": "modules/pict/pict-section-code",
 					"Description": "Code editor and syntax highlighter wrapping CodeJar with two-way data binding to Pict AppData",
@@ -814,6 +827,19 @@
 						"pict",
 						"pict-view",
 						"pict-section-markdowneditor"
+					],
+					"Type": "library"
+				},
+				{
+					"Name": "pict-section-dashboard",
+					"Path": "modules/pict/pict-section-dashboard",
+					"Description": "Embeddable Pict view for browsing, rendering, and managing dashboards backed by the retold-data-mapper REST surface.",
+					"GitHub": "https://github.com/fable-retold/pict-section-dashboard",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"retold-data-mapper"
 					],
 					"Type": "library"
 				},
@@ -936,6 +962,19 @@
 					"Type": "library"
 				},
 				{
+					"Name": "pict-section-mapping",
+					"Path": "modules/pict/pict-section-mapping",
+					"Description": "Embeddable Pict view for managing data-mapper Mappings: list, edit, run. The Run path executes a Pull→Map→Write graph on the data-mapper beacon and reports per-record write counts.",
+					"GitHub": "https://github.com/fable-retold/pict-section-mapping",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"retold-data-mapper"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "pict-section-markdowneditor",
 					"Path": "modules/pict/pict-section-markdowneditor",
 					"Description": "Segmented markdown editor built on CodeMirror v6 with drag-and-drop reorder, formatting toolbar, image upload hooks, and live rich previews",
@@ -990,6 +1029,19 @@
 						"fable",
 						"fable-serviceproviderbase",
 						"orator"
+					],
+					"Type": "library"
+				},
+				{
+					"Name": "pict-section-operation",
+					"Path": "modules/pict/pict-section-operation",
+					"Description": "Embeddable Pict view for managing data-mapper Operations (Extraction / Aggregation / Histogram / Intersection): list, edit, run.",
+					"GitHub": "https://github.com/fable-retold/pict-section-operation",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"retold-data-mapper"
 					],
 					"Type": "library"
 				},
