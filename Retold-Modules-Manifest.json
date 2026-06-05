@@ -1344,6 +1344,21 @@
 					"Type": "webapp"
 				},
 				{
+					"Name": "retold-documentation-beacon",
+					"Path": "modules/apps/retold-documentation-beacon",
+					"Description": "Bidirectional sync between a documentation folder tree and a Retold Docs Lake. Watches a folder with chokidar and reconciles with the platform over /1.0/docs/* through a git 3-way merge; runs standalone or supervised by Ultravisor.",
+					"GitHub": "https://github.com/stevenvelozo/retold-documentation-beacon",
+					"Documentation": false,
+					"RelatedModules": [
+						"retold-databeacon",
+						"ultravisor",
+						"ultravisor-beacon"
+					],
+					"Type": "library",
+					"Owner": "stevenvelozo",
+					"Forkable": false
+				},
+				{
 					"Name": "retold-facto",
 					"Path": "modules/apps/retold-facto",
 					"Description": "Data warehouse and knowledge graph storage for the Retold ecosystem.",

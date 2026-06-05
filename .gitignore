@@ -32,6 +32,10 @@ modules/apps/ultravisor
 modules/utility/data-arithmatic
 modules/utility/pict-*
 
+# Proprietary modules: never published, never in Retold-Modules-Manifest.json.
+# Each is its own private repo; the umbrella never tracks anything under here.
+/modules/private/
+
 dist
 
 .babelrc
