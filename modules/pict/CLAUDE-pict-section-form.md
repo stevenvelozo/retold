@@ -44,7 +44,7 @@ Every input is a descriptor. Common shape:
 
 ## InputType cheat sheet
 
-The dispatch key `PictForm.InputType` selects which provider renders the cell. Each provider lives at `source/providers/inputs/Pict-Provider-Input-<Type>.js`.
+The dispatch key `PictForm.InputType` selects how a cell renders and the **default provider(s)** that give it its common behavior — e.g. an `Option` input's default provider manages its selectable item list. An input can run **multiple providers**, and `PictForm.Providers` attaches additional ones to layer behavior on top of the default — e.g. `Pict-Input-EntityBundleRequest` (fetch related records when the value changes) or `Pict-Input-AutofillTriggerGroup` (populate / solve sibling fields). Provider implementations live under `source/providers/inputs/Pict-Provider-Input-<Type>.js` — `ls` that directory to see what's available.
 
 | InputType | Use for | Notable extra properties |
 |---|---|---|
@@ -55,7 +55,7 @@ The dispatch key `PictForm.InputType` selects which provider renders the cell. E
 | `Option` | Single-select dropdown | `SelectOptions`, `SelectOptionsPickList`, `Providers` (e.g. `Pict-Input-Select`) |
 | `MultiOption` | Multi-select | `SelectOptions` |
 | `Date` / `DateTime` | Date pickers | `DateFormat` |
-| `ReadOnly` | Computed display value | `ValueSolver` (see Solvers below) |
+| `ReadOnly` | Display-only value (computed by a **solver elsewhere** that assigns to this field's hash — see Solvers below) | — |
 | `Chart` | Chart.js visualization | See "Charts" section |
 | `TabGroupSelector` / `TabSectionSelector` | UI tab switchers | `TabGroupSet`, `TabGroupNames` |
 | `EntityBundleRequest` | Triggers a bundle refresh on change | `AutofillTriggerGroup` |
@@ -151,24 +151,57 @@ If you need other helpers, grep `pict-section-form` and `manyfest` for `addExpre
 - If `window.Chart` is not loaded at init time, the provider logs a warning and does **not** retry. Make sure the script tag is present and ordered before the app's bundle.
 - Updating the chart calls `chart.update()` only when the JSON-stringified `data` differs from the previously-applied data. Mutating the data object in place won't trigger an update; replace it.
 
-## Solvers and `ValueSolver`
+## Solvers
 
-For non-chart descriptors, `ValueSolver` (on `PictForm`) computes a value from form/recordset data. Used heavily for KPI tiles and computed display fields. The solver expression evaluates against the same manyfest scope that templates render against — typically the record / row / form data.
+Authoritative reference: [`pict-section-form/docs/Solvers.md`](pict-section-form/docs/Solvers.md). A solver is a
+string `"<TargetHash> = <expression>"`; solvers run in array order against the form's data scope and **assign
+their result to a descriptor by Hash**. A `ReadOnly` field shows a computed value by being the assignment
+*target* of a solver defined at one of these attach points:
+
+| Attach point | Property | Runs |
+|---|---|---|
+| **Section** | `Section.Solvers: [ "Area = Width * Height" ]` | every solve pass, for that section |
+| **Global / metacontroller** | `pict.views.PictFormMetacontroller.sectionSolvers.push("…")` | every solve pass, all sections |
+| **Tabular group** | `Group.RecordSetSolvers` | per row of a `Layout: "Tabular"` group |
+| **Manifest validation** | `Manifest.ValidationSolvers` | the validation pass |
+| **Trigger group** | `PictForm.AutofillTriggerGroup[].PreSolvers` / `PostSolvers` | when that input's trigger group fires (input change / bundle load) |
+| **Chart** | `PictForm.ChartLabelsSolver`, `ChartDatasetsSolvers[].DataSolver` | chart render (Chart provider only) |
+
+**Two formats.** Each solver entry is either a **string** `"Target = expr"` (Ordinal defaults to `1`) or an
+**object** `{ Expression: "Target = expr", Ordinal: 2 }`. Within a single scope (a section's `Solvers`, etc.)
+entries always execute **in definition order**, ordinal or not. `Ordinal` is for sequencing **across** scopes:
+in a solve pass, solvers from every section are collected and run in ascending `Ordinal` order (entries at the
+same ordinal keep their definition order), so a low-ordinal solver in one section runs before a higher-ordinal
+one in another.
+
+A computed KPI: the `ReadOnly` field only displays; the section it belongs to carries the solver that assigns
+to its hash.
 
 ```js
 "TotalKPI":
 {
     Hash: "TotalKPI", Name: "Total", DataType: "PreciseNumber",
-    PictForm:
-    {
-        Section: "KPIs", Group: "Summary", Row: 1, Width: 3,
-        InputType: "ReadOnly",
-        ValueSolver: `sum(SomeArrayAddress, "fieldName")`
-    }
+    PictForm: { Section: "KPIs", Group: "Summary", Row: 1, Width: 3, InputType: "ReadOnly" }
+}
+```
+```json
+{
+  "Sections":
+  [
+    { "Hash": "KPIs", "Solvers": [ "TotalKPI = sum(Items[].Amount, \"1.2345\")" ] }
+  ]
 }
 ```
 
-Same caveat: verify the helper exists before relying on it.
+**Trigger-group solvers** run on an input's change event — `PreSolvers` before, `PostSolvers` after.
+`Pict-Input-EntityBundleRequest` reuses this: after its bundle fetch lands, it runs the `PostSolvers` of the
+`AutofillTriggerGroup` entry whose `TriggerGroupHash` matches the input's `EntityBundleTriggerGroup` — so you
+can derive a field from a freshly-fetched record. See `example_applications/complex_table` for a working
+bundle + trigger-group setup.
+
+Helper functions (`sum`, `JOIN`, `aggregationhistogrambyobject`, …) live in the fable ExpressionParser
+FunctionMap (`fable/source/services/Fable-Service-ExpressionParser/Fable-Service-ExpressionParser-FunctionMap.json`).
+Verify a helper is in that map before relying on it.
 
 ## Layout: Sections, Groups, Rows, Widths
 
@@ -198,5 +231,5 @@ A `Layout: "Tabular"` group renders a `RecordSetAddress` array as a table whose 
 
 1. `complex_table/Complex-Tabular-Application.js` — descriptors for charts, lookups, autofills, multi-select, computed values. **First place to look.**
 2. The HTML template emitted for any input lives in [Pict-DynamicTemplates-DefaultFormTemplates.js](pict-section-form/source/providers/dynamictemplates/Pict-DynamicTemplates-DefaultFormTemplates.js) — search for `CANVAS-FOR`, `INPUT-FOR`, etc. to see exactly what DOM gets generated for each `InputType`.
-3. The provider source under `source/providers/inputs/Pict-Provider-Input-<Type>.js` — every InputType has one. Read its `onInputInitialize` and `onDataMarshalToForm` to understand the lifecycle.
+3. The provider source under `source/providers/inputs/Pict-Provider-Input-<Type>.js` — for the richer InputTypes that have one (not the simple ones; see the cheat sheet). Read its `onInputInitialize` and `onDataMarshalToForm` to understand the lifecycle.
 4. **Don't fabricate solver helper names.** If `aggregationhistogrambyobject` isn't enough, grep manyfest's expression registrations or compose simpler helpers.
