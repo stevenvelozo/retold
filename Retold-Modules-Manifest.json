@@ -740,6 +740,20 @@
 					"Type": "library"
 				},
 				{
+					"Name": "pict-provider-keybindings",
+					"Path": "modules/pict/pict-provider-keybindings",
+					"Description": "Pict provider for centralized browser keyboard shortcuts — a registry of keystroke to function-or-route bindings, each with a name, description, and optional help link. Views register and deregister bindings in their lifecycle; a built-in cheatsheet overlay shows what the keys do. Modern keydown + event.key, a Mod (Cmd/Ctrl) abstraction, key sequences, input and IME guarding, and per-binding disable.",
+					"GitHub": "https://github.com/fable-retold/pict-provider-keybindings",
+					"Documentation": "https://fable-retold.github.io/pict-provider-keybindings/",
+					"RelatedModules": [
+						"pict",
+						"pict-provider",
+						"pict-router",
+						"pict-section-modal"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "pict-provider-theme",
 					"Path": "modules/pict/pict-provider-theme",
 					"Description": "Runtime theme manager for Pict applications: register theme bundles (token maps + CSS + SVG + image assets), apply at runtime via injected CSS custom properties, support dark/light/system modes via a class on <html>, plus a quack theme-build command that compiles unrolled theme folders to single self-contained JSON bundles. Stateless — host applications own theme persistence.",
