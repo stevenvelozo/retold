@@ -94,6 +94,19 @@
 					"Type": "library"
 				},
 				{
+					"Name": "fable-workflow",
+					"Path": "modules/fable/fable-workflow",
+					"Description": "Fable service provider for auditable work tracking and configurable state-machine workflows. An append-only event log is the source of truth; metrics and eligibility are projections folded on every event. Workflows are pure config: states, guarded multi-exit transitions, role gates, and data-derived readiness guards expressed as structured condition trees over Manyfest addresses. Model-agnostic, since the engine reaches consumer data only through a context resolver, so one engine drives any domain. Indexed agency queries answer who can act on an item and what an actor can advance.",
+					"GitHub": "https://github.com/fable-retold/fable-workflow",
+					"Documentation": "https://fable-retold.github.io/fable-workflow/",
+					"RelatedModules": [
+						"fable",
+						"fable-serviceproviderbase",
+						"manyfest"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "ultravisor-beacon",
 					"Path": "modules/fable/ultravisor-beacon",
 					"Description": "Ultravisor Beacon: lightweight beacon client and Fable service for remote task execution",

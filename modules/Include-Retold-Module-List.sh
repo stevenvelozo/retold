@@ -8,9 +8,9 @@ echo "### Building list of modules..."
 # Canonical GitHub org for forkable modules. Non-forkable modules use their per-module Owner.
 canonicalOrg="fable-retold"
 
-repositoriesFable=("fable" "fable-log" "fable-log-logger-bunyan" "fable-serviceproviderbase" "fable-settings" "fable-ultravisor-client" "fable-uuid" "ultravisor-beacon" "ultravisor-beacon-capability")
-ownersFable=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "stevenvelozo" "stevenvelozo")
-forkableFable=("1" "1" "1" "1" "1" "1" "1" "0" "0")
+repositoriesFable=("fable" "fable-log" "fable-log-logger-bunyan" "fable-serviceproviderbase" "fable-settings" "fable-ultravisor-client" "fable-uuid" "fable-workflow" "ultravisor-beacon" "ultravisor-beacon-capability")
+ownersFable=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "stevenvelozo" "stevenvelozo")
+forkableFable=("1" "1" "1" "1" "1" "1" "1" "1" "0" "0")
 
 repositoriesMeadow=("bibliograph" "bibliograph-storage-meadow" "foxhound" "meadow" "meadow-connection-dgraph" "meadow-connection-manager" "meadow-connection-meadow-endpoints" "meadow-connection-mongodb" "meadow-connection-mssql" "meadow-connection-mysql" "meadow-connection-oracle" "meadow-connection-postgresql" "meadow-connection-rocksdb" "meadow-connection-retold-databeacon" "meadow-connection-solr" "meadow-connection-sqlite" "meadow-connection-sqlite-browser" "meadow-endpoints" "meadow-graph-client" "meadow-integration" "meadow-migrationmanager" "meadow-provider-offline" "parime" "retold-data-service" "retold-harness" "retold-harness-consistency-proxy" "stricture")
 ownersMeadow=("fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold" "fable-retold")
