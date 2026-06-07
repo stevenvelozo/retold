@@ -1513,6 +1513,19 @@
 					"Type": "webapp"
 				},
 				{
+					"Name": "retold-workflow",
+					"Path": "modules/apps/retold-workflow",
+					"Description": "Reusable, product-agnostic workflow capability built on the fable-workflow engine: a stateless, persistence-backed workflow service (the event log is the source of truth; the engine is rebuilt from it per operation) and a built-in/clone type catalog with provenance and drift. It depends only on injected stores and resolvers, so a product wires it to its own schema and a different product reuses the same capability and UI. Board, timeline, metrics, and agency UI are in progress.",
+					"GitHub": "https://github.com/fable-retold/retold-workflow",
+					"Documentation": "https://fable-retold.github.io/retold-workflow/",
+					"RelatedModules": [
+						"fable-workflow",
+						"fable-serviceproviderbase",
+						"manyfest"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "ultravisor",
 					"Path": "modules/apps/ultravisor",
 					"Description": "Process supervision with scheduled tasks, distributed nodes, and LLM integration for automated workflows",
