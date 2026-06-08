@@ -275,7 +275,7 @@ const _ViewConfiguration =
 		<span class="rm-flat-op-detail">gentle: <code>fetch + merge</code> the org's commits, fast-forward push to the fork. Keeps your history; no rebase/force.</span>
 	</div>
 	<div class="form-row compact rm-flat-op-row">
-		<label><input type="checkbox" id="RM-R-FlatOp-SyncUpstream" style="width:auto"> Sync from upstream (rebase + force-push)</label>
+		<label><input type="checkbox" id="RM-R-FlatOp-SyncUpstream" checked style="width:auto"> Sync from upstream (rebase + force-push)</label>
 		<span class="rm-flat-op-detail">aggressive: rebases your commits onto upstream and force-pushes. Linear history; skips dirty repos &amp; non-forks</span>
 	</div>
 	<div class="form-row compact rm-flat-op-row">
@@ -300,7 +300,7 @@ const _ViewConfiguration =
 		</span>
 	</div>
 	<div class="form-row compact rm-flat-op-row">
-		<label><input type="checkbox" id="RM-R-FlatOp-Commit" checked style="width:auto"> Commit changes</label>
+		<label><input type="checkbox" id="RM-R-FlatOp-Commit" style="width:auto"> Commit changes</label>
 	</div>
 	<div class="form-row compact rm-flat-op-row" id="RM-R-FlatOp-CommitMessageRow">
 		<label>Commit message</label>
