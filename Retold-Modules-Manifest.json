@@ -1025,6 +1025,19 @@
 					"Type": "library"
 				},
 				{
+					"Name": "pict-section-moodboard",
+					"Path": "modules/pict/pict-section-moodboard",
+					"Description": "Free-form moodboard canvas of draggable, resizable image tiles, notes, and big-type text, built on pict-section-flow",
+					"GitHub": "https://github.com/fable-retold/pict-section-moodboard",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-section-flow"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "pict-section-objecteditor",
 					"Path": "modules/pict/pict-section-objecteditor",
 					"Description": "Tree-based JSON object editor section for browsing and editing nested data structures",
