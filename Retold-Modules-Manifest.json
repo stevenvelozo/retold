@@ -1038,6 +1038,18 @@
 					"Type": "library"
 				},
 				{
+					"Name": "pict-section-navigation",
+					"Path": "modules/pict/pict-section-navigation",
+					"Description": "Categorized, searchable application navigation: a navigation graph with swappable render types (hub, sidebar, command palette, list) and a cmd+K launcher overlay",
+					"GitHub": "https://github.com/fable-retold/pict-section-navigation",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict",
+						"pict-view"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "pict-section-objecteditor",
 					"Path": "modules/pict/pict-section-objecteditor",
 					"Description": "Tree-based JSON object editor section for browsing and editing nested data structures",
