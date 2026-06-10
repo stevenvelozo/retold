@@ -831,6 +831,21 @@
 					"Type": "library"
 				},
 				{
+					"Name": "pict-section-comments",
+					"Path": "modules/pict/pict-section-comments",
+					"Description": "Attach-to-anything comments section for Pict: threaded or flat discussions on any context, with a pluggable data provider that defaults to in-memory AppData and a content spectrum from plain text to the full markdown editor.",
+					"GitHub": "https://github.com/fable-retold/pict-section-comments",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-section-content",
+						"pict-section-modal",
+						"pict-section-markdowneditor"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "pict-section-connection-form",
 					"Path": "modules/pict/pict-section-connection-form",
 					"Description": "Schema-driven Pict view that renders a Meadow connection form. Consumes the form schemas exported by each meadow-connection-* module and aggregated server-side via meadow-connection-manager.getAllProviderFormSchemas().",
