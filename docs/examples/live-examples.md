@@ -1,6 +1,6 @@
 # Live Examples
 
-> **38 interactive, in-browser demos** of the Pict component libraries - real applications running live on GitHub Pages, not screenshots. Open any one and poke at it. The library each demonstrates links to its full documentation.
+> **40 interactive, in-browser demos** of the Pict component libraries - real applications running live on GitHub Pages, not screenshots. Open any one and poke at it. The library each demonstrates links to its full documentation.
 
 New to Pict? Start with [Hello World](https://fable-retold.github.io/pict/examples/hello_world/dist/), [Simple Table](https://fable-retold.github.io/pict-section-form/examples/simple_table/), or the [Theme Playground](https://fable-retold.github.io/pict-provider-theme/examples/theme-playground/). Level is a rough guide to how much of the framework a demo exercises, not how hard the component is to use.
 
@@ -44,7 +44,9 @@ New to Pict? Start with [Hello World](https://fable-retold.github.io/pict/exampl
 | [Acme Widgets](https://fable-retold.github.io/pict-section-modal/examples/acme/) | Advanced | A branded multi-page app demonstrating the full shell + theme integration - custom brand, custom theme, responsive sidebar, gear menu, and bottom status bar. | [pict-section-modal](https://fable-retold.github.io/pict-section-modal/) |
 | [Panel Garden](https://fable-retold.github.io/pict-section-modal/examples/panel_garden/) | Advanced | Visual test-bed for the shell()/addPanel() collapse-tab geometry - every side, multiple thicknesses, corner vs middle anchoring, with live theme switching. | [pict-section-modal](https://fable-retold.github.io/pict-section-modal/) |
 | [Theme Playground](https://fable-retold.github.io/pict-provider-theme/examples/theme-playground/) | Advanced | Interactive theme builder - live-edit tokens and CSS, upload imagery, watch a representative pict-section component gallery reflow instantly, and export a compiled JSON bundle. | [pict-provider-theme](https://fable-retold.github.io/pict-provider-theme/) |
+| [Shortcuts Playground](https://fable-retold.github.io/pict-provider-keybindings/examples/shortcuts_playground/) | Intermediate | Interactive catalog of every keybindings primitive - app-global bindings, chords, key sequences, the `?` cheatsheet, input guarding, suspend/resume, scopes, per-binding disable, and a live active-bindings list. | [pict-provider-keybindings](https://fable-retold.github.io/pict-provider-keybindings/) |
+| [Kanban Shortcuts](https://fable-retold.github.io/pict-provider-keybindings/examples/kanban_shortcuts/) | Advanced | A routed two-view app showing per-view binding lifecycle (shortcuts auto-evict on navigation), Route shortcuts that drive pict-router, and a view-local scope - the cheatsheet changes as you move between views. | [pict-provider-keybindings](https://fable-retold.github.io/pict-provider-keybindings/) |
 
 ---
 
-_38 examples, all verified live. Want to add one? See the [Example App Style Guide](../architecture/example-app-style-guide.md)._
+_40 examples, all verified live. Want to add one? See the [Example App Style Guide](../architecture/example-app-style-guide.md)._
