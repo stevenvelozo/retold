@@ -45,18 +45,25 @@ fork_repository()
 		return
 	fi
 
-	# gh repo fork prints the created repo URL on stdout; parse it to detect the rare
-	# case where GitHub appends a "-N" suffix (typically because a stale redirect
-	# blocks the desired name).  When that happens, try a rename to recover.
-	local forkUrl
-	forkUrl=$(gh repo fork "$2/$1" --clone=false 2>&1 | grep -E "^https://github.com/" | head -1)
-	if [ -z "$forkUrl" ]
+	# gh repo fork writes status to stderr ("✓ Created fork OWNER/REPO") and prints no
+	# stdout URL, and it's idempotent — so detect failure by exit code, not output text.
+	local forkOut forkRc forkName
+	forkOut=$(gh repo fork "$2/$1" --clone=false 2>&1)
+	forkRc=$?
+	if [ "$forkRc" -ne 0 ]
 	then
 		echo "     ! FAIL to fork: $2/$1"
+		printf '%s\n' "$forkOut" | sed 's/^/       /'
 		FAIL_COUNT=$((FAIL_COUNT+1))
 		return
 	fi
-	local forkName=${forkUrl##*/}
+
+	# Recover the resulting fork name from gh's output (covers the rare "-N" suffix
+	# GitHub appends on a stale redirect); default to the bare name on the happy path.
+	forkName=$(printf '%s\n' "$forkOut" | grep -oE "$ME/[A-Za-z0-9._-]+" | head -1)
+	forkName=${forkName#"$ME"/}
+	[ -z "$forkName" ] && forkName="$1"
+
 	if [ "$forkName" = "$1" ]
 	then
 		echo "     + forked: $2/$1 -> $ME/$1"
