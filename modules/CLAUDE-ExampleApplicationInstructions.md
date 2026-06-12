@@ -65,11 +65,13 @@ That's it. No other changes needed at the module level.
     "copyFilesSettings": { "whenFileExists": "overwrite" },
     "copyFiles": [
         { "from": "./html/*", "to": "./dist/" },
-        { "from": "./css/**", "to": "./dist/css/" },
-        { "from": "./node_modules/pict/dist/*", "to": "./dist/js/" }
+        { "from": "./css/*", "to": "./dist/" },
+        { "from": "./node_modules/pict/dist/*", "to": "./dist/" }
     ]
 }
 ```
+
+> **Copy pict + CSS to the dist *root*, not `./dist/js/` or `./dist/css/`.** Root paths serve fine under `quack examples` **and** let `prepare-docs` stage the example into your docs (see "Making an example stageable into docs" below). Subfolder paths silently break docs staging.
 
 `start` is **optional** — only needed for examples with a Node backend (see "Backend examples" below). Pure-browser examples don't need it.
 
@@ -93,9 +95,9 @@ The HTML loads the file by kebab-case and boots it by PascalCase — see templat
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title><Display Name> - <module></title>
-        <link rel="stylesheet" href="./css/<name>.css" />
+        <link rel="stylesheet" href="./<name>.css" />
         <style id="PICT-CSS"></style>
-        <script src="./js/pict.min.js" type="text/javascript"></script>
+        <script src="./pict.min.js" type="text/javascript"></script>
         <script type="text/javascript">
 //<![CDATA[
         Pict.safeOnDocumentReady(() => { Pict.safeLoadPictApplication(<PascalCaseName>, 2)});
@@ -119,7 +121,7 @@ The HTML loads the file by kebab-case and boots it by PascalCase — see templat
 
 Required pieces:
 - `<style id="PICT-CSS"></style>` — runtime CSS injection target
-- `./js/pict.min.js` — copied in by `quack copy`
+- `./pict.min.js` — copied in by `quack copy` (root-level path; required for docs staging — see below)
 - `Pict.safeLoadPictApplication(<PascalCase>, 2)` — boots the app
 - `<Name>-Application-Container` div — the layout view's `ContentDestinationAddress`
 
@@ -134,6 +136,29 @@ Patterns for the application class, view templates, renderables, CSS, and lifecy
 ## Header chrome CSS (steal this)
 
 The `.pict-example-header` / `.pict-example-badge` / `.pict-example-app-name` / `.pict-example-module` styles are reused across every example. Copy [`sharp-playground.css`](utility/retold-sharp/example_applications/sharp_playground/css/sharp-playground.css) (top section) or [`modal-garden.css`](pict/pict-section-modal/example_applications/modal_garden/css/modal-garden.css) and adjust colors only — the structure should match so examples feel consistent.
+
+## Making an example stageable into docs
+
+`npx quack examples` serves an example locally. `npx quack prepare-docs` (via pict-docuserve `stage-examples`) **additionally stages flagged examples into the module's `docs/` site** for GitHub Pages — they appear under `docs/examples/`, in the docs examples index, and on the landing-page splash. Two requirements:
+
+**1. Flag it.** `stage-examples` only stages examples whose `package.json` carries the flag:
+
+```json
+"retold": {
+    "ExampleApplication": {
+        "Stage": true,
+        "Title": "Modal Garden",
+        "Summary": "One-line description shown in the docs examples index + splash.",
+        "Complexity": "Basic | Intermediate | Advanced"
+    }
+}
+```
+
+`prepare-docs` then builds the example, copies its `dist/` into `docs/examples/<name>/`, and auto-maintains `docs/examples/README.md` (the index table) plus a marker-delimited region in `docs/_cover.md`. It also scaffolds a `docs/examples/<name>/README.md` writeup — only the generated launch block is rewritten, so hand-authored prose is preserved. Unflagged examples still run under `quack examples`; they just don't appear in the docs.
+
+**2. Keep pict + CSS at the dist root** (the canonical `package.json` / `index.html` above already do — keep them that way). This is the trap: `stage-examples` does **not** recurse `dist/` subdirectories, and it only rewrites **root-level** pict references to the CDN. So an example authored with `./js/pict.min.js` + `./css/<name>.css` builds and serves fine under `quack examples` but **silently 404s when staged** — the `js/` / `css/` folders are never copied into `docs/`, and pict is never externalized. With root paths (`./pict.min.js`, `./<name>.css`), `prepare-docs` rewrites the pict tag to `https://cdn.jsdelivr.net/npm/pict@1/dist/pict.min.js` and stages your CSS + bundle next to `index.html`. Reference implementations: [`complex_table`](pict/pict-panel/example_applications/complex_table/) and [`shortcuts_playground`](pict/pict-provider-keybindings/example_applications/shortcuts_playground/).
+
+After `prepare-docs`, confirm `docs/examples/<name>/index.html` loads pict from `cdn.jsdelivr.net` and the staged folder holds your `<name>.css` + `<bundle>.compatible.min.js` (and **no** `js/` / `css/` subfolders).
 
 ## Pattern: Built-in bookstore Meadow API
 
@@ -213,7 +238,7 @@ npm run example          # → npx quack examples → discovers + builds + serve
 When you finish a new example, confirm:
 
 - [ ] `dist/index.html` exists after `npx quack build && npx quack copy`
-- [ ] `dist/js/pict.min.js` exists (proves the copy ran)
+- [ ] `dist/pict.min.js` exists (proves the copy ran)
 - [ ] `dist/<package-name>.compatible.min.js` exists (proves the bundle built)
 - [ ] In the browser, the page loads with no console errors
 - [ ] The status/header chrome renders (`.pict-example-header`)
@@ -226,7 +251,8 @@ When you finish a new example, confirm:
 |---|---|
 | Module's main `package.json` has no `example` script | Add `"example": "npx quack examples"` |
 | Example's `package.json` is missing `build` | quackage skips it during discovery — must have `scripts.build` |
-| HTML loads `pict.min.js` from a CDN or relative parent path | Always `./js/pict.min.js` — `quack copy` puts it there |
+| Hardcoding a CDN URL or parent path for `pict.min.js` in the HTML | Reference `./pict.min.js` (root) — `quack copy` provides it locally and docs staging rewrites it to the CDN |
+| Loading pict or CSS from `./js/` or `./css/` subfolders | Keep pict + CSS at the dist **root** — `prepare-docs` doesn't stage `dist/` subdirs, so subfolder paths 404 on the published docs (see "Making an example stageable into docs") |
 | Bundle filename in HTML doesn't match `package.json#name` | They must match; quack derives the bundle name from `name` |
 | Boot global is wrong case | It's PascalCase of `name` (kebab → Pascal) |
 | Backend code lives at module root, not in the example | Put it under `example_applications/<name>/source/server/` so the example is self-contained |
