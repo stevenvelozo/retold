@@ -2,7 +2,7 @@
 
 Form/dashboard rendering library for Pict applications. Manifests describe descriptors; the section-form metacontroller renders inputs (text, select, chart, etc.) into sections and groups based on a `PictForm` sub-property on each descriptor.
 
-This is a working-knowledge reference for adding inputs/charts/forms in the host app. Pair it with [CLAUDE.md](CLAUDE.md) (general Pict patterns) and [CLAUDE-pict-section-recordset.md](CLAUDE-pict-section-recordset.md) (which transitively uses this library).
+This is a working-knowledge reference for adding inputs/charts/forms in the host app. Pair it with [CLAUDE.md](CLAUDE.md) (general Pict patterns) and [CLAUDE-pict-section-recordset.md](CLAUDE-pict-section-recordset.md) (which transitively uses this library). For composing both into a data dashboard (filters, dropdowns, exports), see [CLAUDE-building-dashboards.md](CLAUDE-building-dashboards.md).
 
 ## Where things live
 
@@ -222,6 +222,7 @@ A `Layout: "Tabular"` group renders a `RecordSetAddress` array as a table whose 
 | `SuppressDefaultColumnHeaderRow` | boolean | Omit the prime column-name row (pair with custom `Headers`). |
 | `RowSelection` / `ColumnSelection` | `true` or `{Enabled, DataAddress, HighlightClass, HeaderLabel}` | Checkbox row/column selection. State is a boolean array stored **in the form data** at `DataAddress` (default `<GroupHash>_RowSelection` / `_ColumnSelection`), so it round-trips with save/load. |
 | `ColumnSorting` | boolean (default off) | Injects a clickable sort-glyph `<span>` (Pict icon registry) into every prime header. Click → asc, click again → desc. Works for static and dynamic columns. |
+| `ColumnChooser` | `true` or `{Enabled, DataAddress, ButtonLabel, DefaultHiddenColumns}` | Opt-in "Columns" menu of checkboxes above the table to hide/show columns. Hidden set is an array of column hashes stored **in the form data** at `DataAddress` (default `<GroupHash>_HiddenColumns`) — round-trips with save/load; a marshal carrying a different hidden set rebuilds the table. Hiding never deletes cell data; the last visible column can't be hidden; `Headers` spans auto-shrink. Per-descriptor `PictForm.TabularDefaultHidden: true` starts a column hidden without polluting form data. |
 
 **`DynamicColumns` is non-destructive** — removing a source row removes the column but leaves the row data at its `InformaryDataAddress` untouched; re-adding restores the column with data intact. This is the key invariant: don't write a "dynamic columns" mechanism that deletes data when a column hides.
 
