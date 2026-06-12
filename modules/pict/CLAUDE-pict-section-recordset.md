@@ -2,7 +2,7 @@
 
 CRUD-and-dashboard scaffolding for record collections. Given a recordset configuration that points at a Meadow endpoint (or a custom provider), it auto-generates list, read, create, and dashboard views and registers `/PSRS/:RecordSet/...` routes.
 
-This depends on [pict-section-form](CLAUDE-pict-section-form.md) — recordset dashboards are pict-section-form manifests with `PictDashboard` decorations. Read that file first if you're building dashboards with charts.
+This depends on [pict-section-form](CLAUDE-pict-section-form.md) — recordset dashboards are pict-section-form manifests with `PictDashboard` decorations. Read that file first if you're building dashboards with charts. For the end-to-end recipe (manifest anatomy, filter dropdowns, exports, usability), see [CLAUDE-building-dashboards.md](CLAUDE-building-dashboards.md).
 
 ## Where things live
 
