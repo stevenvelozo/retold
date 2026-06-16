@@ -753,6 +753,29 @@
 					"Type": "library"
 				},
 				{
+					"Name": "pict-provider-graphgeometry",
+					"Path": "modules/pict/pict-provider-graphgeometry",
+					"Description": "Pure DOM-free shape and anchor geometry for graph canvases, extracted from pict-section-flow",
+					"GitHub": "https://github.com/fable-retold/pict-provider-graphgeometry",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict-section-flow"
+					],
+					"Type": "library"
+				},
+				{
+					"Name": "pict-provider-graphlayout",
+					"Path": "modules/pict/pict-provider-graphlayout",
+					"Description": "Pure DOM-free node placement and edge routing for graph canvases, extracted from pict-section-flow",
+					"GitHub": "https://github.com/fable-retold/pict-provider-graphlayout",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict-provider-graphgeometry",
+						"pict-section-flow"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "pict-provider-keybindings",
 					"Path": "modules/pict/pict-provider-keybindings",
 					"Description": "Pict provider for centralized browser keyboard shortcuts — a registry of keystroke to function-or-route bindings, each with a name, description, and optional help link. Views register and deregister bindings in their lifecycle; a built-in cheatsheet overlay shows what the keys do. Modern keydown + event.key, a Mod (Cmd/Ctrl) abstraction, key sequences, input and IME guarding, and per-binding disable.",
