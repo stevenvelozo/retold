@@ -144,8 +144,14 @@ removeCSS(pHash)
 generateCSS()
     Returns the full concatenated CSS string, sorted by priority.
 
-injectCSS()
-    Writes generateCSS() output to the DOM via ContentAssignment.
+injectCSS(pForceInjection)
+    Writes generateCSS() output to the DOM via ContentAssignment, but only when a
+    fragment was added/removed/changed since the last injection (a dirty flag).
+    This makes the standard "call injectCSS() in onAfterRender on every render"
+    pattern cheap: when nothing changed it is a no-op, so navigation does not
+    rewrite (and reparse) the whole <style>. addCSS()/removeCSS() set the flag;
+    a re-add of identical content does not. Pass pForceInjection = true to write
+    unconditionally (e.g. after mutating inlineCSSMap directly).
 ```
 
 The internal storage is `CSSMap.inlineCSSMap[hash] = { Hash, Content, Provider, Priority }`. Note the property is `Content`, not `CSS`.
