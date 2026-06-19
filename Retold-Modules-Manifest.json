@@ -1150,6 +1150,20 @@
 					"Type": "library"
 				},
 				{
+					"Name": "pict-dataexplorer",
+					"Path": "modules/pict/pict-dataexplorer",
+					"Description": "Config-driven hierarchical (\"folders\") data explorer -- browse a relational dataset as an expandable tree of records and their child collections (one-to-many Filter, many-to-many Join, and belongs-to Reference relationships, or a custom Resolver), with optional preview-card popouts. Resolves lists from meadow-endpoints (Lite / paginated / filtered) or any in-memory or remote source.",
+					"GitHub": "https://github.com/fable-retold/pict-dataexplorer",
+					"Documentation": "https://fable-retold.github.io/pict-dataexplorer/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-provider",
+						"pict-section-recordset"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "pict-section-prompteditor",
 					"Path": "modules/pict/pict-section-prompteditor",
 					"Description": "Prompt crafting and management section: typed prompts with segments (context, request, success criteria), curated word list matrices with weights, a {~WordListEntry:Name~} template expression for weighted-random generation, batch generation with zip download, and a pluggable data provider that defaults to in-memory AppData.",
