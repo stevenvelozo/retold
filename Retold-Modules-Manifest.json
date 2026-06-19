@@ -753,6 +753,29 @@
 					"Type": "library"
 				},
 				{
+					"Name": "pict-provider-graphgeometry",
+					"Path": "modules/pict/pict-provider-graphgeometry",
+					"Description": "Pure DOM-free shape and anchor geometry for graph canvases, extracted from pict-section-flow",
+					"GitHub": "https://github.com/fable-retold/pict-provider-graphgeometry",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict-section-flow"
+					],
+					"Type": "library"
+				},
+				{
+					"Name": "pict-provider-graphlayout",
+					"Path": "modules/pict/pict-provider-graphlayout",
+					"Description": "Pure DOM-free node placement and edge routing for graph canvases, extracted from pict-section-flow",
+					"GitHub": "https://github.com/fable-retold/pict-provider-graphlayout",
+					"Documentation": false,
+					"RelatedModules": [
+						"pict-provider-graphgeometry",
+						"pict-section-flow"
+					],
+					"Type": "library"
+				},
+				{
 					"Name": "pict-provider-keybindings",
 					"Path": "modules/pict/pict-provider-keybindings",
 					"Description": "Pict provider for centralized browser keyboard shortcuts — a registry of keystroke to function-or-route bindings, each with a name, description, and optional help link. Views register and deregister bindings in their lifecycle; a built-in cheatsheet overlay shows what the keys do. Modern keydown + event.key, a Mod (Cmd/Ctrl) abstraction, key sequences, input and IME guarding, and per-binding disable.",
@@ -1118,6 +1141,20 @@
 					"Description": "Pict-native themeable searchable select / combobox -- single & multi select, server pagination, categorized groups and creatable entries, driven by a host-agnostic async DataProvider with a built-in Meadow EntityProvider adapter. A jQuery/select2-free replacement.",
 					"GitHub": "https://github.com/fable-retold/pict-section-picker",
 					"Documentation": "https://fable-retold.github.io/pict-section-picker/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-provider",
+						"pict-section-recordset"
+					],
+					"Type": "library"
+				},
+				{
+					"Name": "pict-dataexplorer",
+					"Path": "modules/pict/pict-dataexplorer",
+					"Description": "Config-driven hierarchical (\"folders\") data explorer -- browse a relational dataset as an expandable tree of records and their child collections (one-to-many Filter, many-to-many Join, and belongs-to Reference relationships, or a custom Resolver), with optional preview-card popouts. Resolves lists from meadow-endpoints (Lite / paginated / filtered) or any in-memory or remote source.",
+					"GitHub": "https://github.com/fable-retold/pict-dataexplorer",
+					"Documentation": "https://fable-retold.github.io/pict-dataexplorer/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",

@@ -1,6 +1,6 @@
 # Live Examples
 
-> **40 interactive, in-browser demos** of the Pict component libraries - real applications running live on GitHub Pages, not screenshots. Open any one and poke at it. The library each demonstrates links to its full documentation.
+> **41 interactive, in-browser demos** of the Pict component libraries - real applications running live on GitHub Pages, not screenshots. Open any one and poke at it. The library each demonstrates links to its full documentation.
 
 New to Pict? Start with [Hello World](https://fable-retold.github.io/pict/examples/hello_world/dist/), [Simple Table](https://fable-retold.github.io/pict-section-form/examples/simple_table/), or the [Theme Playground](https://fable-retold.github.io/pict-provider-theme/examples/theme-playground/). Level is a rough guide to how much of the framework a demo exercises, not how hard the component is to use.
 
@@ -46,7 +46,8 @@ New to Pict? Start with [Hello World](https://fable-retold.github.io/pict/exampl
 | [Theme Playground](https://fable-retold.github.io/pict-provider-theme/examples/theme-playground/) | Advanced | Interactive theme builder - live-edit tokens and CSS, upload imagery, watch a representative pict-section component gallery reflow instantly, and export a compiled JSON bundle. | [pict-provider-theme](https://fable-retold.github.io/pict-provider-theme/) |
 | [Shortcuts Playground](https://fable-retold.github.io/pict-provider-keybindings/examples/shortcuts_playground/) | Intermediate | Interactive catalog of every keybindings primitive - app-global bindings, chords, key sequences, the `?` cheatsheet, input guarding, suspend/resume, scopes, per-binding disable, and a live active-bindings list. | [pict-provider-keybindings](https://fable-retold.github.io/pict-provider-keybindings/) |
 | [Kanban Shortcuts](https://fable-retold.github.io/pict-provider-keybindings/examples/kanban_shortcuts/) | Advanced | A routed two-view app showing per-view binding lifecycle (shortcuts auto-evict on navigation), Route shortcuts that drive pict-router, and a view-local scope - the cheatsheet changes as you move between views. | [pict-provider-keybindings](https://fable-retold.github.io/pict-provider-keybindings/) |
+| [Music Explorer](https://fable-retold.github.io/pict-dataexplorer/examples/music_explorer/) | Beginner | A backend-free hierarchical "folders" data explorer - Artists, Albums and Tracks resolved from an in-memory dataset via custom Resolver functions, each record with a preview-card popout. | [pict-dataexplorer](https://fable-retold.github.io/pict-dataexplorer/) |
 
 ---
 
-_40 examples, all verified live. Want to add one? See the [Example App Style Guide](../architecture/example-app-style-guide.md)._
+_41 examples, all verified live. Want to add one? See the [Example App Style Guide](../architecture/example-app-style-guide.md)._
