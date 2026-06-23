@@ -833,7 +833,7 @@
 					"Path": "modules/pict/pict-section-clone",
 					"Description": "Embeddable Pict view for managing data-mapper Clone configurations: full-table-copy from one beacon to another. CRUD + Run. Used to mirror customer-installed data into a lake.",
 					"GitHub": "https://github.com/fable-retold/pict-section-clone",
-					"Documentation": false,
+					"Documentation": "https://fable-retold.github.io/pict-section-clone/",
 					"RelatedModules": [
 						"pict",
 						"pict-view",
@@ -1827,6 +1827,18 @@
 					"Type": "example",
 					"Branding": {
 						"Palette": "carnival"
+					}
+				},
+				{
+					"Name": "pict-section-clone/clone-manager",
+					"DisplayName": "clone-manager",
+					"HostModule": "pict-section-clone",
+					"Path": "modules/pict/pict-section-clone/example_applications/clone-manager",
+					"Type": "example",
+					"Branding": {
+						"Palette": "carnival",
+						"DisplayName": "Clone Manager",
+						"Tagline": "Mock-backed CRUD + Run UI for data-mapper clone configs"
 					}
 				},
 				{
