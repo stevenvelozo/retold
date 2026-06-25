@@ -1316,6 +1316,47 @@
 						"pict-application"
 					],
 					"Type": "library"
+				},
+				{
+					"Name": "pict-section-upload",
+					"Path": "modules/pict/pict-section-upload",
+					"Description": "Themeable dropzone file-upload control -- drag-and-drop, multi-file, per-file progress, read-in-browser or stream-to-server via a host-agnostic UploadTarget seam.",
+					"GitHub": "https://github.com/fable-retold/pict-section-upload",
+					"Documentation": "https://fable-retold.github.io/pict-section-upload/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-provider"
+					],
+					"Type": "library"
+				},
+				{
+					"Name": "pict-section-accordion",
+					"Path": "modules/pict/pict-section-accordion",
+					"Description": "Multi-step container that renders as an accordion, wizard, or stepper over one shared serializable step state, with per-step CanAdvance gating.",
+					"GitHub": "https://github.com/fable-retold/pict-section-accordion",
+					"Documentation": "https://fable-retold.github.io/pict-section-accordion/",
+					"RelatedModules": [
+						"pict",
+						"pict-view",
+						"pict-provider"
+					],
+					"Type": "library"
+				},
+				{
+					"Name": "pict-section-dataimport",
+					"Path": "modules/pict/pict-section-dataimport",
+					"Description": "Embeddable, configurable data-import wizard -- upload CSV/TSV/Excel/fixed-width, map columns to a Meadow or host-config schema, generate comprehensions, and push.",
+					"GitHub": "https://github.com/fable-retold/pict-section-dataimport",
+					"Documentation": "https://fable-retold.github.io/pict-section-dataimport/",
+					"RelatedModules": [
+						"pict-section-upload",
+						"pict-section-accordion",
+						"pict-section-form",
+						"pict-section-recordset",
+						"meadow-integration"
+					],
+					"Type": "library"
 				}
 			]
 		},
